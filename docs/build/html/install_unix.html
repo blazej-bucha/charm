@@ -1,0 +1,483 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Installation on Unix-based operating systems &mdash; CHarm 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom_BB.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation on Windows 10" href="install_non_unix.html" />
+    <link rel="prev" title="Installing" href="install.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> CHarm
+          
+
+          
+            
+            <img src="_static/charm-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="install.html">Installing</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Installation on Unix-based operating systems</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installation-on-linux">Installation on Linux</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fftw-installation">FFTW installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#default-charm-installation">Default CHarm installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#customized-charm-installation">Customized CHarm installation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#installation-on-macos">Installation on macOS</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">FFTW installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#charm-installation">CHarm installation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#a-few-installation-notes">A few installation notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uninstallation">Uninstallation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="install_non_unix.html">Installation on Windows 10</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CHarm</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="install.html">Installing</a> &raquo;</li>
+        
+      <li>Installation on Unix-based operating systems</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/install_unix.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installation-on-unix-based-operating-systems">
+<span id="installation-unix"></span><h1>Installation on Unix-based operating systems<a class="headerlink" href="#installation-on-unix-based-operating-systems" title="Permalink to this headline">¶</a></h1>
+<p>This section provides an installation guide for Unix-based operating systems,
+particularly <a class="reference internal" href="#installation-linux"><span class="std std-ref">Linux</span></a> and <a class="reference internal" href="#installation-mac"><span class="std std-ref">macOS</span></a>.  The instructions that follow will compile CHarm as
+a static library and, if specifically asked for, also as a shared library.</p>
+<div class="section" id="requirements">
+<span id="id1"></span><h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>C compiler supporting C99.  <a class="reference external" href="https://gcc.gnu.org/">GCC</a> is recommended
+(available by default on most Linux distributions).  Other compilers that are
+known to successfully compile CHarm are listed in the <a class="reference internal" href="platforms.html#tested-platforms"><span class="std std-ref">Tested platforms</span></a>
+chapter.</p>
+<p><em>To compile in quadruple precision, GCC is mandatory (v4.6 or later)</em> and no
+other compiler is allowed.</p>
+</li>
+<li><p><a class="reference external" href="https://www.gnu.org/software/make/">Make</a> to build the library (available
+by default on most Linux distributions).</p></li>
+<li><p><a class="reference external" href="https://www.freedesktop.org/wiki/Software/pkg-config/">pkg-config</a> for
+managing library compile and link flags (available by default on most Linux
+distributions).</p></li>
+<li><p><a class="reference external" href="http://www.fftw.org/">FFTW</a> for discrete fast Fourier transforms.</p></li>
+</ul>
+</div>
+<div class="section" id="installation-on-linux">
+<span id="installation-linux"></span><h2>Installation on Linux<a class="headerlink" href="#installation-on-linux" title="Permalink to this headline">¶</a></h2>
+<p>At first, we will install FFTW and then we will proceed with the installation
+of CHarm.</p>
+<div class="section" id="fftw-installation">
+<span id="installation-fftw-linux"></span><h3>FFTW installation<a class="headerlink" href="#fftw-installation" title="Permalink to this headline">¶</a></h3>
+<p>FFTW can either be installed via you package manager or built from the source.</p>
+<ul>
+<li><p><em>Using your package manager</em></p>
+<ul>
+<li><p>Debian-based distributions:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt install libfftw3-dev</span>
+</pre></div>
+</div>
+</li>
+<li><p>Arch Linux: You may want to install, for instance, <a class="reference external" href="https://aur.archlinux.org/packages/fftw-mpi/">fftw-mpi</a> using your package
+manager.</p></li>
+</ul>
+<p>After the installation, make sure the following libraries were successfully
+installed, depending on whether you want to use CHarm in
+single/double/quadruple precision and with OpenMP enabled/disabled:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">libfftw3f.so</span></code> for single precision version of CHarm with OpenMP
+disabled,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libfftw3f_omp.so</span></code> for single precision version of CHarm with OpenMP
+enabled,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libfftw3.so</span></code> for double precision version of CHarm with OpenMP disabled,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libfftw3_omp.so</span></code> for double precision version of CHarm with OpenMP
+enabled,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libfftw3q.so</span></code> for quadruple precision version of CHarm with OpenMP
+disabled,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libfftw3q_omp.so</span></code> for quadruple precision version of CHarm with OpenMP
+enabled.</p></li>
+</ul>
+</li>
+<li><p><em>Compilation from source</em></p>
+<p>Please read the manual on the homepage of FFTW on how to install the library.
+Example FFTW installation could be:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --enable-openmp --enable-shared</span>
+<span class="go">make</span>
+<span class="go">make check</span>
+<span class="go">sudo make install</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Do not forget to add the <code class="docutils literal notranslate"><span class="pre">--enable-shared</span></code> flag to compile FFTW also as
+a shared library (mandatory to install CHarm).  To install CHarm in single or
+quadruple precision, add also the <code class="docutils literal notranslate"><span class="pre">--enable-single</span></code> or
+<code class="docutils literal notranslate"><span class="pre">--enable-quad-precision</span></code> flag, respectively, when calling the
+<code class="docutils literal notranslate"><span class="pre">configure</span></code> script.  If you do not want to parallelize CHarm, you may omit
+the <code class="docutils literal notranslate"><span class="pre">--enable-openmp</span></code> flag.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="default-charm-installation">
+<span id="default-installation-charm-linux"></span><h3>Default CHarm installation<a class="headerlink" href="#default-charm-installation" title="Permalink to this headline">¶</a></h3>
+<p>If you</p>
+<ul class="simple">
+<li><p>want to install CHarm to <code class="docutils literal notranslate"><span class="pre">/usr/local</span></code>,</p></li>
+<li><p>have installed FFTW (version <code class="docutils literal notranslate"><span class="pre">3.X.X</span></code>) to the default path available to the
+compiler,</p></li>
+<li><p>want a double precision version of CHarm,</p></li>
+<li><p>do not want parallelization via OpenMP, and</p></li>
+<li><p>have root privileges,</p></li>
+</ul>
+<p>you may simply execute the following commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure</span>
+<span class="go">make</span>
+<span class="go">make check</span>
+<span class="go">sudo make install</span>
+</pre></div>
+</div>
+<p>Briefly, <code class="docutils literal notranslate"><span class="pre">./configure</span></code> checks the availability of all components necessary to
+build CHarm and prepares makefiles and a few other files.  <code class="docutils literal notranslate"><span class="pre">make</span></code> compiles
+the library.  <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">check</span></code> compiles and executes a test program.  <code class="docutils literal notranslate"><span class="pre">make</span>
+<span class="pre">install</span></code> installs the library.</p>
+</div>
+<div class="section" id="customized-charm-installation">
+<span id="customized-installation-charm-linux"></span><h3>Customized CHarm installation<a class="headerlink" href="#customized-charm-installation" title="Permalink to this headline">¶</a></h3>
+<p>The installation process can be tailored by appending one or more of the
+following flags to the <code class="docutils literal notranslate"><span class="pre">./configure</span></code> call:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">--prefix=/your/custom/path</span></code> to specify a custom installation path for
+CHarm (default is <code class="docutils literal notranslate"><span class="pre">--prefix=/usr/local</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--enable-single-precision</span></code> to compile CHarm in single precision (<code class="docutils literal notranslate"><span class="pre">float</span></code>
+data type for floating point numbers), <strong>or</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">--enable-double-precision</span></code> for double precision (<code class="docutils literal notranslate"><span class="pre">double</span></code> data type),
+<strong>or</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">--enable-quad-precision</span></code> for quadruple precision (<code class="docutils literal notranslate"><span class="pre">__float128</span></code> data
+type).</p>
+<p>If not specified, double precision is used as default.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--enable-openmp</span></code> to enable parallelization via OpenMP (no parallelization
+by default).</p>
+<p>The number of threads can be set either in your code by
+<code class="docutils literal notranslate"><span class="pre">omp_set_num_threads(N)</span></code> or via the <code class="docutils literal notranslate"><span class="pre">OMP_NUM_THREADS</span></code> environment
+variable.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--enable-shared</span></code> to compile CHarm as a shared library <em>in addition</em> to the
+static library.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LDFLAGS=-L/your/path/to/FFTW/lib</span></code> to specify a custom path to your FFTW
+libs (empty by default, that is, default is to assume that FFTW is accessible
+to the compiler).</p>
+<p>You only need to specify the path to the FFTW library; the lib files
+themselves are linked automatically.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CPPFLAGS=-I/your/path/to/FFTW/include</span></code> to specify a custom path to your
+FFTW header file (empty by default, that is, default is to assume that FFTW
+is accessible to the compiler).</p></li>
+<li><p>Other useful variables (see the Autotools documentation for further options):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CC</span></code> selects other than your system’s default C compiler,
+e.g. <code class="docutils literal notranslate"><span class="pre">CC=clang</span></code> for the <code class="docutils literal notranslate"><span class="pre">Clang</span></code> compiler, and</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CFLAGS</span></code> defines user-defined compiler flags, e.g.,  <code class="docutils literal notranslate"><span class="pre">CFLAGS=&quot;-O3&quot;</span></code>
+(GCC).</p></li>
+</ul>
+</li>
+</ul>
+<p>A possible installation</p>
+<ul class="simple">
+<li><p>with a custom CHarm installation directory,</p></li>
+<li><p>with a custom FFTW installation directory,</p></li>
+<li><p>in quadruple precision,</p></li>
+<li><p>with parallelization via OpenMP enabled, and</p></li>
+<li><p>with the shared library, too,</p></li>
+</ul>
+<p>could look like</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --prefix=/opt/charm --enable-openmp --enable-shared \</span>
+<span class="go">     --enable-quad-precision LDFLAGS=-L/opt/fftwq-3.3.9/lib \</span>
+<span class="go">     CPPFLAGS=-I/opt/fftwq-3.3.9/include</span>
+<span class="go">make</span>
+<span class="go">make check</span>
+<span class="go">sudo make install</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="installation-on-macos">
+<span id="installation-mac"></span><h2>Installation on macOS<a class="headerlink" href="#installation-on-macos" title="Permalink to this headline">¶</a></h2>
+<p>At first, we will install FFTW and then we will proceed with the installation
+of CHarm.</p>
+<div class="section" id="id2">
+<h3>FFTW installation<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>FFTW can either be installed via you package manager or built from the source,
+preferably with GCC.  The latter is strongly recommended on macOS.</p>
+<ul>
+<li><p><em>Using your package manager</em></p>
+<p>You can use one of the following commands, depending on the package manager
+you use:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo port install fftw-3</span>
+<span class="go">brew install fftw</span>
+</pre></div>
+</div>
+<p>This, however, most likely does not install FFTW in quadruple precision
+and/or with OpenMP support.  You may therefore be able to compile CHarm only
+in single or double precision with OpenMP disabled.</p>
+</li>
+<li><p><em>Compilation from source</em></p>
+<p>It is recommended to compile FFTW using GCC.  If you do not have GCC
+installed yet, you may execute one of the following commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo port install gcc10</span>
+<span class="go">brew install gcc@10</span>
+</pre></div>
+</div>
+<p>Now, you should be ready to build FFTW by following the instructions in the
+<a class="reference internal" href="#installation-fftw-linux"><span class="std std-ref">FFTW installation</span></a> chapter (Linux, compilation from source).
+There is, however, one <strong>important</strong> additional remark.  When calling the
+FFTW’s <code class="docutils literal notranslate"><span class="pre">./configure</span></code> script, specify also your GCC compiler, including its
+version number, e.g.:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --enable-openmp --enable-shared CC=gcc-10</span>
+</pre></div>
+</div>
+<p>Without the <code class="docutils literal notranslate"><span class="pre">CC</span></code> flag, the <code class="docutils literal notranslate"><span class="pre">Clang</span></code> compiler will most likely be used
+which may cause an installation failure when using the <code class="docutils literal notranslate"><span class="pre">--enable-openmp</span></code>
+and/or <code class="docutils literal notranslate"><span class="pre">--enable-quad-precision</span></code> flag(s).  It may <strong>not</strong> be sufficient to
+add <code class="docutils literal notranslate"><span class="pre">CC=gcc</span></code> (GCC version number omitted), as this will still likely call
+the <code class="docutils literal notranslate"><span class="pre">Clang</span></code> compiler.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="charm-installation">
+<h3>CHarm installation<a class="headerlink" href="#charm-installation" title="Permalink to this headline">¶</a></h3>
+<p>Having installed FFTW, you may proceed with the same instructions as given in
+the <a class="reference internal" href="#default-installation-charm-linux"><span class="std std-ref">Default CHarm installation</span></a> and
+<a class="reference internal" href="#customized-installation-charm-linux"><span class="std std-ref">Customized CHarm installation</span></a> chapters for Linux.  Similarly as
+when installing FFTW, it is recommended to use the GCC compiler via the <code class="docutils literal notranslate"><span class="pre">CC</span></code>
+variable when calling the <code class="docutils literal notranslate"><span class="pre">./configure</span></code> script from the CHarm installation.</p>
+</div>
+</div>
+<div class="section" id="a-few-installation-notes">
+<h2>A few installation notes<a class="headerlink" href="#a-few-installation-notes" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>The output lib names depend on the user-defined compilation settings and
+follow the pattern:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">libcharmf</span></code> – single precision with OpenMP disabled,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libcharmf_omp</span></code> – single precision with OpenMP enabled,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libcharm</span></code> – double precision with OpenMP disabled,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libcharm_omp</span></code> –  double precision with OpenMP enabled,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libcharmq</span></code> – quadruple precision with OpenMP disabled,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libcharmq_omp</span></code> – quadruple precision with OpenMP enabled.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>You may install CHarm in single, double and quadruple precision, each with
+OpenMP enabled and disabled, to the same installation path.  You don’t have
+to worry about overwriting the header and lib files.</p></li>
+</ul>
+</div>
+<div class="section" id="uninstallation">
+<h2>Uninstallation<a class="headerlink" href="#uninstallation" title="Permalink to this headline">¶</a></h2>
+<p>Execute <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">make</span> <span class="pre">uninstall</span></code>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="install_non_unix.html" class="btn btn-neutral float-right" title="Installation on Windows 10" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="install.html" class="btn btn-neutral float-left" title="Installing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Blažej Bucha.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

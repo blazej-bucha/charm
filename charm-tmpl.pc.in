@@ -1,0 +1,12 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: @PACKAGE_NAME@
+Description: C library to work with spherical harmonics up to almost arbitrarily high degrees
+Version: @VERSION@
+URL: @PACKAGE_URL@
+Bug-report: @PACKAGE_BUGREPORT@
+Libs: -L@libdir@ @LDFLAGS@ @CHARM_LIB@ @LIBS@
+Cflags: -I@includedir@ @CPPFLAGS@

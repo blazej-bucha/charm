@@ -1,0 +1,535 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Some definitions to make things clear &mdash; CHarm 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom_BB.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Cookbook" href="cookbook.html" />
+    <link rel="prev" title="Installation on Windows 10" href="install_non_unix.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> CHarm
+          
+
+          
+            
+            <img src="_static/charm-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Some definitions to make things clear</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#notation-summary">Notation summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#evaluation-points-and-evaluation-cells">Evaluation points and evaluation cells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#surface-spherical-harmonics">Surface spherical harmonics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#spherical-harmonic-analysis">Spherical harmonic analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#spherical-harmonic-synthesis">Spherical harmonic synthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CHarm</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Some definitions to make things clear</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/definitions.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="some-definitions-to-make-things-clear">
+<h1>Some definitions to make things clear<a class="headerlink" href="#some-definitions-to-make-things-clear" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="notation-summary">
+<h2>Notation summary<a class="headerlink" href="#notation-summary" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text">Notation</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Symbol</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\varphi \in \big[-\frac{\pi}{2}, \frac{\pi}{2} \big]\)</span></p></td>
+<td><p>Spherical latitude</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\theta \in \big[0, \pi \big]\)</span></p></td>
+<td><p>Spherical co-latitude</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\lambda \in \big[0, 2\pi \big)\)</span></p></td>
+<td><p>Spherical longitude</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(r &gt; 0\)</span></p></td>
+<td><p>Spherical radius</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(n = 0, 1, 2, \dots\)</span></p></td>
+<td><p>Spherical harmonic degree</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(m = 0, 1, 2, \dots, n\)</span></p></td>
+<td><p>Spherical harmonic order</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(n_{\max} = \mathbb{N}_0\)</span></p></td>
+<td><p>Maximum spherical harmonic degree of the expansion</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(P_n\)</span></p></td>
+<td><p>Un-normalized Legendre polynomial of degree <span class="math notranslate nohighlight">\(n\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\bar{P}_{nm}\)</span></p></td>
+<td><p>Fully-normalized associated Legendre function of the first kind of
+degree <span class="math notranslate nohighlight">\(n\)</span> and order <span class="math notranslate nohighlight">\(m\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(P_{nmj}\)</span></p></td>
+<td><p>Fourier coefficient of the fully-normalized associated Legendre function
+of degree <span class="math notranslate nohighlight">\(n\)</span> and order <span class="math notranslate nohighlight">\(m\)</span>. <span class="math notranslate nohighlight">\(j\)</span> is a coefficient
+related to the wave-number <span class="math notranslate nohighlight">\(k\)</span> as <span class="math notranslate nohighlight">\(j =
+\left[\frac{k}{2}\right]_{\mathrm{floor}}\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\bar{Y}_{nm}\)</span></p></td>
+<td><p>Real-valued <span class="math notranslate nohighlight">\(4\pi\)</span>-fully-normalized surface spherical harmonic of
+degree <span class="math notranslate nohighlight">\(n\)</span> and order <span class="math notranslate nohighlight">\(m\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\{ \bar{C}_{nm},\, \bar{S}_{nm} \}\)</span></p></td>
+<td><p>Real-valued <span class="math notranslate nohighlight">\(4\pi\)</span>-fully-normalized surface spherical harmonic
+coefficients of degree <span class="math notranslate nohighlight">\(n\)</span> and order <span class="math notranslate nohighlight">\(m\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\mu\)</span></p></td>
+<td><p>Scalling parameter of spherical harmonic coefficients (for instance, the
+geocentric gravitational constant)</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(R &gt; 0\)</span></p></td>
+<td><p>Radius of the reference sphere to which spherical harmonic coefficients
+refer to.</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(f\)</span></p></td>
+<td><p>Real-valued function on the unit sphere</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\tilde{f}\)</span></p></td>
+<td><p>Mean value of a real-valued function <span class="math notranslate nohighlight">\(f\)</span> over a grid cell</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\sigma\)</span></p></td>
+<td><p>Unit sphere</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\Delta \sigma\)</span></p></td>
+<td><p>Area of a grid cell on the unit sphere</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="evaluation-points-and-evaluation-cells">
+<span id="points-cells"></span><h2>Evaluation points and evaluation cells<a class="headerlink" href="#evaluation-points-and-evaluation-cells" title="Permalink to this headline">¶</a></h2>
+<p>CHarm can work with evaluation points and evaluation cells.</p>
+<ul class="simple">
+<li><p>An evaluation <strong>point</strong> is given by the spherical latitude, <span class="math notranslate nohighlight">\(\varphi
+\in [-\frac{\pi}{2}, \frac{\pi}{2}]\)</span>, the spherical longitude, <span class="math notranslate nohighlight">\(\lambda
+\in [0, 2\pi)\)</span>, and the spherical radius, <span class="math notranslate nohighlight">\(r &gt; 0\)</span>.</p></li>
+<li><p>An evaluation <strong>cell</strong> is given the minimum and the maximum latitude,
+<span class="math notranslate nohighlight">\(\varphi^{\mathrm{min}}\)</span> and <span class="math notranslate nohighlight">\(\varphi^{\mathrm{max}}\)</span>,
+respectively, the minimum and the maximum longitude,
+<span class="math notranslate nohighlight">\(\lambda^{\mathrm{min}}\)</span> and <span class="math notranslate nohighlight">\(\lambda^{\mathrm{max}}\)</span>,
+respectively, and a <em>single</em> spherical radius <span class="math notranslate nohighlight">\(r\)</span> that is <em>constant</em>
+over the cell.</p></li>
+</ul>
+<p>Occasionally, spherical co-latitude, <span class="math notranslate nohighlight">\(\theta = \frac{\pi}{2} - \varphi\)</span>,
+<span class="math notranslate nohighlight">\(\theta \in [0, \pi]\)</span>, will be used instead of the spherical latitude.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Angular inputs/outputs (if any) must always be provided in radians in CHarm.</p>
+</div>
+<p>Evaluation points/cells can either be organized as a grid or as scattered
+points/cells.</p>
+<ul>
+<li><p><strong>Grid of points</strong> is defined by</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nlat</span></code> latitudes over a single grid meridian,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nlon</span></code> longitudes over a single grid latitude parallel, and</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nlat</span></code> spherical radii over a single grid meridian.</p></li>
+</ul>
+<p>The grid has in total <code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">*</span> <span class="pre">nlon</span></code> points.  The spherical radius <code class="docutils literal notranslate"><span class="pre">r</span></code> may
+vary with the latitude, but is implicitly consider as constant in the
+longitudinal direction (hence the <code class="docutils literal notranslate"><span class="pre">nlat</span></code> number of radii).</p>
+<p>CHarm does not store all <code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">*</span> <span class="pre">nlon</span></code> grid points, but only the grid
+boundaries to save some memory.</p>
+</li>
+<li><p><strong>Grid of cells</strong> is defined by</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">nlat</span></code> latitudes over a single grid meridian,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">nlon</span></code> longitudes over a single grid latitude parallel, and</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nlat</span></code> spherical radii over a single grid meridian.</p></li>
+</ul>
+<p>The grid has in total <code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">*</span> <span class="pre">nlon</span></code> cells.  Note, however, that there is
+<code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">nlat</span></code> latitudes and <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">nlon</span></code> longitudes, since each grid cell is
+defined by a minimum and a maximum latitude, and a minimum and a maximum
+longitude (see the definitions above).  Given that the spherical radius (1)
+is implicitly constant over a grid cell and (2) may vary only with latitude,
+there is <code class="docutils literal notranslate"><span class="pre">nlat</span></code> spherical radii.</p>
+<p>Again, CHarm stores only the grid boundaries.</p>
+</li>
+<li><p><strong>Scattered points</strong> are defined by</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">==</span> <span class="pre">nlon</span></code> latitudes,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">==</span> <span class="pre">nlon</span></code> longitudes, and</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">==</span> <span class="pre">nlon</span></code> spherical radii.</p></li>
+</ul>
+<p>The total number of scattered points is <code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">==</span> <span class="pre">nlon</span></code>.</p>
+</li>
+<li><p><strong>Scattered cells</strong> are defined by</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">nlat</span> <span class="pre">==</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">nlon</span></code> latitudes,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">nlat</span> <span class="pre">==</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">nlon</span></code> longitudes, and</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">==</span> <span class="pre">nlon</span></code> spherical radii.</p></li>
+</ul>
+<p>The total number of scattered cells is <code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">==</span> <span class="pre">nlon</span></code>.  Similarly as with
+the <em>grid of cells</em>, we have <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">nlat</span> <span class="pre">==</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">nlon</span></code> latitudes and
+longitudes, but only <code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">==</span> <span class="pre">nlon</span></code> spherical radii and cells.</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Routines implementing the definitions of evaluation points/cells are
+gathered in the <a class="reference internal" href="crd.html#charm-crd"><span class="std std-ref">charm_crd</span></a> module.</p>
+</div>
+</div>
+<div class="section" id="surface-spherical-harmonics">
+<h2>Surface spherical harmonics<a class="headerlink" href="#surface-spherical-harmonics" title="Permalink to this headline">¶</a></h2>
+<p>Real-valued surface spherical harmonics <span class="math notranslate nohighlight">\(\bar{Y}_{nm}(\varphi, \lambda)\)</span>
+of degree <span class="math notranslate nohighlight">\(n\)</span> and order <span class="math notranslate nohighlight">\(m\)</span> are defined as (e.g., Hofmann-Wellenhof
+and Moritz, 2005)</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\bar{Y}_{nm}(\varphi, \lambda) = \bar{P}_{nm}(\sin \varphi)
+\begin{cases}
+\cos(m\, \lambda)\, {,}\\
+\sin(m\, \lambda)\, {.}
+\end{cases}\end{split}\]</div>
+<p>Here,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\bar{P}_{nm}(\sin \varphi) =
+\begin{cases}
+\sqrt{(2n + 1)} \, P_n(\sin\varphi){,} &amp;m = 0 {,}\\
+\sqrt{2 (2n + 1) \dfrac{(n - m)!}{(n + m)!}} \, \left(1 -
+\sin^2\varphi\right)^{m / 2} \, \dfrac{\mathrm{d}^m
+P_n(\sin\varphi)}{\mathrm{d} (\sin\varphi)^m} {,} \quad &amp;0 &lt; m \leq n {,}
+\end{cases}\end{split}\]</div>
+<p>are the fully-normalized associated Legendre functions of the first kind and</p>
+<div class="math notranslate nohighlight">
+\[P_n(\sin\varphi) = \dfrac{1}{2^n \, n!} \, \dfrac{\mathrm{d}^n}{\mathrm{d}
+(\sin\varphi)^n} \left(\sin^2\varphi - 1 \right)^n\]</div>
+<p>are the (un-normalized) Legendre polynomials (<span class="math notranslate nohighlight">\(m = 0\)</span>, so the order is
+omitted from the notation).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Applied is the geodetic <span class="math notranslate nohighlight">\(4\pi\)</span> full normalization.  Neither other
+normalizations nor complex spherical harmonics are supported (yet?).</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The numerical evaluation of Legendre functions is performed after Fukushima
+(2012), so spherical harmonics can be safely evaluated up to high degrees
+and orders (tens of thousands and even well beyond).</p>
+</div>
+</div>
+<div class="section" id="spherical-harmonic-analysis">
+<h2>Spherical harmonic analysis<a class="headerlink" href="#spherical-harmonic-analysis" title="Permalink to this headline">¶</a></h2>
+<p>Assume a harmonic function <span class="math notranslate nohighlight">\(f(r, \varphi, \lambda)\)</span> given on a sphere
+with the radius <span class="math notranslate nohighlight">\(r\)</span>.  By surface spherical harmonic analysis,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left.\begin{aligned}
+\bar{C}_{nm} \\
+\bar{S}_{nm}
+\end{aligned}\right\}
+= \dfrac{1}{4 \pi} \, \dfrac{R}{\mu} \, \left( \dfrac{r}{R} \right)^n
+\displaystyle\iint_{\sigma} f(r, \varphi, \lambda) \,
+\bar{Y}_{nm}(\varphi,\lambda) \, \mathrm{d}\sigma {,}\end{split}\]</div>
+<p>it is possible to compute its spherical harmonic coefficients
+<span class="math notranslate nohighlight">\(\{ \bar{C}_{nm},\, \bar{S}_{nm} \}\)</span>.  The coefficients are normalized by
+the <span class="math notranslate nohighlight">\(\mu\)</span> constant and, if <span class="math notranslate nohighlight">\(r \neq R\)</span>, they are
+additionally rescaled <strong>from</strong> the data sphere with the radius <span class="math notranslate nohighlight">\(r\)</span> <strong>to</strong>
+the reference sphere with the radius <span class="math notranslate nohighlight">\(R\)</span>.</p>
+<ul class="simple">
+<li><p>If <span class="math notranslate nohighlight">\(r = R = \mu = 1\)</span>, one arrives at the surface spherical harmonic
+analysis that is well-known from the literature.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(r = R\)</span>, then <span class="math notranslate nohighlight">\(f\)</span> does not even have to be harmonic.</p></li>
+<li><p>In geosciences, <span class="math notranslate nohighlight">\(\mu\)</span> frequently represents the geocentric
+gravitational constant and <span class="math notranslate nohighlight">\(R\)</span> stands for the equatorial radius of the
+Earth.</p></li>
+</ul>
+<p>If <span class="math notranslate nohighlight">\(f\)</span> is band-limited (that is, it has a finite spherical harmonic
+expansion) and is sampled at suitable grid points, these equations can be
+computed rigorously (analytically).  Examples of such quadrature, employed in
+CHarm, are the Gauss–Legendre quadrature (Sneeuw, 1994) and the
+Driscoll–Healy quadrature (Driscoll and Healy, 1994).</p>
+<p>In CHarm, the coefficients can also be computed from mean values
+<span class="math notranslate nohighlight">\(\tilde{f}\)</span> of <span class="math notranslate nohighlight">\(f\)</span> given over grid cells.  In that case, however,
+the quadratures are no longer exact.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Routines for spherical harmonic analysis are gathered in the
+<a class="reference internal" href="sha.html#charm-sha"><span class="std std-ref">charm_sha</span></a> module.</p>
+</div>
+</div>
+<div class="section" id="spherical-harmonic-synthesis">
+<h2>Spherical harmonic synthesis<a class="headerlink" href="#spherical-harmonic-synthesis" title="Permalink to this headline">¶</a></h2>
+<p>Assume that surface spherical harmonic coefficients <span class="math notranslate nohighlight">\(\{ \bar{C}_{nm},\,
+\bar{S}_{nm} \}\)</span> of a harmonic function <span class="math notranslate nohighlight">\(f(r, \varphi,\lambda)\)</span> are
+available up to degree <span class="math notranslate nohighlight">\(n_{\mathrm{max}}\)</span> and are scaled to a constant
+<span class="math notranslate nohighlight">\(\mu\)</span> and a reference sphere with the radius <span class="math notranslate nohighlight">\(R\)</span>.  Then, it is
+possible to reconstruct a point value of <span class="math notranslate nohighlight">\(f(r, \varphi,\lambda)\)</span> for any
+<span class="math notranslate nohighlight">\((r &gt; R, \varphi,\lambda)\)</span> <em>exactly</em> by solid spherical harmonic
+synthesis,</p>
+<div class="math notranslate nohighlight">
+\[\displaystyle f(r, \varphi,\lambda) = \frac{\mu}{R} \, \sum_{n
+= 0}^{n_{\max}} \left( \frac{R}{r} \right)^{n + 1} \, \sum_{m = 0}^{n}
+\left( \bar{C}_{nm}\, \cos(m \, \lambda) + \bar{S}_{nm} \, \sin(m \,
+\lambda) \right) \, \bar{P}_{nm}(\sin\varphi){.}\]</div>
+<p>If the evaluation points <span class="math notranslate nohighlight">\((r, \varphi,\lambda)\)</span> form a grid (as defined
+in <a class="reference internal" href="#points-cells"><span class="std std-ref">Evaluation points and evaluation cells</span></a>), highly efficient FFT-based algorithms can be employed
+(e.g., Colombo, 1981; Sneeuw, 1994; Jekeli et al, 2007; Rexer and Hirt, 2015).
+CHarm takes advantage of these algorithms in order to achieve efficient
+grid-wise numerical computations.</p>
+<p>In addition to point values of <span class="math notranslate nohighlight">\(f\)</span>, CHarm computes also mean values of
+<span class="math notranslate nohighlight">\(f\)</span> over cells (as defined in <a class="reference internal" href="#points-cells"><span class="std std-ref">Evaluation points and evaluation cells</span></a>):</p>
+<div class="math notranslate nohighlight">
+\[\displaystyle \tilde{f}(r, \varphi_{\mathrm{min}},\varphi_{\mathrm{max}},
+\lambda_{\mathrm{min}},\lambda_{\mathrm{max}}) = \frac{1}{\Delta \sigma}
+\int\limits_{\varphi = \varphi_{\mathrm{min}}}^{\varphi_{\mathrm{max}}}
+\int\limits_{\lambda = \lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}} f(r,
+\varphi,\lambda) \, \mathrm{d}\lambda \, \cos\varphi \, \mathrm{d} \varphi\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\displaystyle \tilde{f}(r(\varphi, \lambda), \varphi_{\mathrm{min}},
+\varphi_{\mathrm{max}}, \lambda_{\mathrm{min}},\lambda_{\mathrm{max}}) =&amp;
+\frac{1}{\Delta \sigma} \int\limits_{\varphi
+= \varphi_{\mathrm{min}}}^{\varphi_{\mathrm{max}}} \int\limits_{\lambda
+= \lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}} f(r(\varphi,\lambda),
+\varphi,\lambda) \\
+&amp;\times \mathrm{d}\lambda \, \cos\varphi \, \mathrm{d} \varphi {.}\end{split}\]</div>
+<p>Note that in the latter equation, <span class="math notranslate nohighlight">\(f(r(\varphi,\lambda),\varphi,\lambda)\)</span>
+is defined on an irregular surface given by a spherical radius
+<span class="math notranslate nohighlight">\(r(\varphi,\lambda)\)</span> that varies with the latitude and longitude.  This
+computation is unique to CHarm and cannot be found in any other publicly
+available package or library.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Routines for spherical harmonic synthesis are gathered in the
+<a class="reference internal" href="shs.html#charm-shs"><span class="std std-ref">charm_shs</span></a> module.</p>
+</div>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Colombo OL (1981) Numerical methods for harmonic analysis on the
+sphere. Report No. 310, Department of Geodetic Science and Surveying, The
+Ohio State University, Columbus, Ohio, 140 pp</p></li>
+<li><p>Driscoll, J. R., Healy, D. M. (1994) Computing Fourier transforms and
+convolutions on the 2-sphere. Advances in Applied Mathematics 15:202-250</p></li>
+<li><p>Fukushima T (2012) Numerical computation of spherical harmonics of arbitrary
+degree and order by extending exponent of floating point numbers. Journal of
+Geodesy 86:271–285, doi: 10.1007/s00190-011-0519-2</p></li>
+<li><p>Hofmann-Wellenhof B, Moritz H (2005) Physical Geodesy. Springer, Wien, New
+York, 403 pp</p></li>
+<li><p>Jekeli C, Lee JK, Kwon JH (2007) On the computation and approximation of
+ultra-high-degree spherical harmonic series. Journal of Geodesy 81:603–615,
+doi: 10.1007/s00190-006-0123-z</p></li>
+<li><p>Rexer M, Hirt C (2015) Ultra-high-degree surface spherical harmonic analysis
+using the Gauss–Legendre and the Driscoll/Healy quadrature theorem and
+application to planetary topography models of Earth, Mars and Moon. Surveys
+in Geophysics 36:803–830, doi: 10.1007/s10712-015-9345-z</p></li>
+<li><p>Sneeuw N (1994) Global spherical harmonic analysis by least-squares and
+numerical quadrature methods in historical perspective. Geophysical Journal
+International 118:707–716</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="cookbook.html" class="btn btn-neutral float-right" title="Cookbook" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="install_non_unix.html" class="btn btn-neutral float-left" title="Installation on Windows 10" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Blažej Bucha.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

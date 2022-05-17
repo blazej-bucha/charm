@@ -1,0 +1,6 @@
+=====
+charm
+=====
+
+.. doxygenfile:: charm.h
+

@@ -1,0 +1,290 @@
+/**
+ * \file charm@P@_err.h
+ *
+ * Error handling module:
+ *
+ * * defines, initializes, frees and resets the ``charm@P@_err`` structure,
+ *
+ * * tests whether an ``charm@P@_err`` structure is empty, and
+ *
+ * * handles errors.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. note::
+ *
+ *      When CHarm detects an error (e.g., an internal memory allocation
+ *      failure), it properly frees all the internally allocated memory before
+ *      returning back to the caller. No memory leaks should therefore occur,
+ *      not even after a premature exit.
+ *
+ * \endverbatim
+ *
+ *
+ * */
+
+
+
+
+
+
+#ifndef __CHARM@PC@_ERR_H__
+#define __CHARM@PC@_ERR_H__
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+#undef CHARM_ERR_MAX_FILE
+/** Maximum number of characters that can be stored in
+ * ``charm@P@_err->file[i]``, ``i = 0, 1, ..., CHARM_MAX_ERR_LEVEL - 1``.  */
+#define CHARM_ERR_MAX_FILE 4096
+
+
+#undef CHARM_ERR_MAX_FUNC
+/** Maximum number of characters that can be stored in
+ * ``charm@P@_err->func[i]``, ``i = 0, 1, ..., CHARM_MAX_ERR_LEVEL - 1``.  */
+#define CHARM_ERR_MAX_FUNC 255
+
+
+#undef CHARM_ERR_MAX_MSG
+/**
+ * Maximum number of characters in ``charm@P@_err->msg``.
+ * */
+#define CHARM_ERR_MAX_MSG 4096
+
+
+#undef CHARM_ERR_MAX_LEVEL
+/**
+ * Maximum number of error propagations from the function in which the error 
+ * occurred to the caller.
+ * */
+#define CHARM_ERR_MAX_LEVEL 20
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+/**
+ * Errors enumeration.
+ * */
+enum
+{
+    /**
+     * Exit status returned when CHarm is explicitly asked to terminate the 
+     * program in case it encounters an error. */
+    CHARM_FAILURE = -1,
+
+
+    /**
+     * Successful execution of a CHarm function. */
+    CHARM_SUCCESS,
+
+
+    /**
+     * Memory allocation failure (malloc, calloc). */
+    CHARM_EMEM,
+
+
+    /**
+     * Error in function input/output argument(s). */
+    CHARM_EFUNCARG,
+
+
+    /**
+     * Error in file reading/writing. */
+    CHARM_EFILEIO,
+
+
+    /**
+     * Error in threads initialization by FFTW. */
+    CHARM_EFFTWINIT
+};
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+#undef  CHARM_ERR_MALLOC_FAILURE
+/**
+ * Message to be printed when ``malloc`` or ``calloc`` fails. */
+#define CHARM_ERR_MALLOC_FAILURE "Memory allocation failure."
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+/**
+ * Error structure.
+ *
+ * In most cases, it is created by functions from this module that return 
+ * a pointer to ``charm@P@_err``.  Experienced users may create the structure 
+ * on their own, provided that they assign correct values to its members, so 
+ * that CHarm can properly understood the data in it (see the rules summarized 
+ * below). */
+typedef struct
+{
+    /**
+     * Total number of error propagations from the function in which the error 
+     * was encountered back to the caller. */
+    unsigned int level;
+
+
+    /** ``file[0]`` is a pointer to a string with the name of the file in which
+     * the error was encountered; ``file[i]``, ``i = 1, 2, ...,
+     * CHARM_ERR_MAX_LEVEL - 1``, are file names through which the error was
+     * propagated to the caller. */
+    char **file;
+
+
+    /** Pointer to an array with line numbers of ``file[i]``,
+     * ``i = 0, 1, ..., CHARM_ERR_MAX_LEVEL - 1``, at which the
+     * ``charm@P@_err`` structure was modified.  */
+    unsigned int *line;
+
+
+    /**
+     * Same as ``file``, but with function names.
+     * */
+    char **func;
+
+
+    /**
+     * Error code (see the ``errors enumerations``).
+     * */
+    int code;
+
+
+    /**
+     * Pointer to an error message.
+     * */
+    char *msg;
+
+
+    /** Signalizes whether or not the levels of the error structure are
+     * saturated due to the error propagations.  If true, the structure can no
+     * longer store most recent error propagations.  This should never happen,
+     * though, since ``CHARM_ERR_MAX_LEVEL`` is chosen large enough. */
+    _Bool issaturated;
+} charm@P@_err;
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+/**
+ * Allocates and initializes an ``charm@P@_err`` structure using default empty 
+ * values.
+ *
+ * On success, returned is a pointer to the ``charm@P@_err`` structure.  On 
+ * error, ``NULL`` is returned.
+ * */
+extern charm@P@_err *charm@P@_err_init(void);
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+/**
+ * Frees the memory associated with ``err``.  No operation is performed if 
+ * ``err`` is ``NULL``. */
+extern void charm@P@_err_free(charm@P@_err *err);
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+/**
+ * Resets ``err`` to the default empty values.
+ * */
+extern void charm@P@_err_reset(charm@P@_err *err);
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+/**
+ * Error handler.
+ *
+ * * If ``err`` is not empty, prints detailed information on the error.  If
+ *   ``terminate`` is set to Boolean ``1``, the program subsequently
+ *   terminates.
+ *
+ * * If ``err`` is empty, neither an error is printed nor the program is
+ *   terminated (regardless of the ``terminate`` value).
+ *
+ * Before leaving the function, ``err`` is reset to the default empty values.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. note::
+ *
+ *      It is highly recommended to call the error handling function after 
+ *      every call of CHarm routines that take the ``charm@P@_err`` structure 
+ *      as an input.
+ *
+ * \endverbatim
+ *
+ * */
+extern void charm@P@_err_handler(charm@P@_err *err,
+                                 _Bool terminate);
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+/**
+ * Returns boolean ``1`` if ``err`` is empty or ``0`` otherwise.
+ * */
+extern _Bool charm@P@_err_isempty(const charm@P@_err *err);
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+#ifdef __cplusplus
+}
+#endif
+/* ------------------------------------------------------------------------- */
+
+
+#endif

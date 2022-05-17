@@ -1,0 +1,435 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>charm_err &mdash; CHarm 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom_BB.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="charm_glob" href="glob.html" />
+    <link rel="prev" title="charm_xnum" href="xnum.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> CHarm
+          
+
+          
+            
+            <img src="_static/charm-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="shc.html">charm_shc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crd.html">charm_crd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shs.html">charm_shs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sha.html">charm_sha</a></li>
+<li class="toctree-l2"><a class="reference internal" href="leg.html">charm_leg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integ.html">charm_integ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html">charm_misc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xnum.html">charm_xnum</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">charm_err</a></li>
+<li class="toctree-l2"><a class="reference internal" href="glob.html">charm_glob</a></li>
+<li class="toctree-l2"><a class="reference internal" href="charm.html">charm</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CHarm</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">Modules</a> &raquo;</li>
+        
+      <li>charm_err</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/err.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="charm-err">
+<h1>charm_err<a class="headerlink" href="#charm-err" title="Permalink to this headline">¶</a></h1>
+<p>Error handling module:</p>
+<p><ul class="simple">
+<li><p>defines, initializes, frees and resets the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err"><span class="std std-ref"><span class="pre">charm_err</span></span></a></code> structure,</p></li>
+<li><p>tests whether an <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err"><span class="std std-ref"><span class="pre">charm_err</span></span></a></code> structure is empty, and</p></li>
+<li><p>handles errors.</p></li>
+</ul>
+</p>
+<p><p><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When CHarm detects an error (e.g., an internal memory allocation
+failure), it properly frees all the internally allocated memory before
+returning back to the caller. No memory leaks should therefore occur,
+not even after a premature exit.</p>
+</div>
+</p>
+ </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-defines">Defines</p>
+<dl class="cpp macro">
+<dt id="c.CHARM_ERR_MAX_FILE">
+<span class="target" id="charm__err_8h_1a2206023ac94616afe5070f54161a37c8"></span><code class="sig-name descname">CHARM_ERR_MAX_FILE</code><a class="headerlink" href="#c.CHARM_ERR_MAX_FILE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Maximum number of characters that can be stored in <code class="docutils literal notranslate"><span class="pre">charm_err-&gt;file[i]</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">CHARM_MAX_ERR_LEVEL</span> <span class="pre">-</span> <span class="pre">1</span></code>. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt id="c.CHARM_ERR_MAX_FUNC">
+<span class="target" id="charm__err_8h_1a0febddc0efe42b313e0e1ba1a09a366e"></span><code class="sig-name descname">CHARM_ERR_MAX_FUNC</code><a class="headerlink" href="#c.CHARM_ERR_MAX_FUNC" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Maximum number of characters that can be stored in <code class="docutils literal notranslate"><span class="pre">charm_err-&gt;func[i]</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">CHARM_MAX_ERR_LEVEL</span> <span class="pre">-</span> <span class="pre">1</span></code>. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt id="c.CHARM_ERR_MAX_MSG">
+<span class="target" id="charm__err_8h_1a257215c6769e91568cb1393037023312"></span><code class="sig-name descname">CHARM_ERR_MAX_MSG</code><a class="headerlink" href="#c.CHARM_ERR_MAX_MSG" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Maximum number of characters in <code class="docutils literal notranslate"><span class="pre">charm_err-&gt;msg</span></code>. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt id="c.CHARM_ERR_MAX_LEVEL">
+<span class="target" id="charm__err_8h_1a49e5d96b857828ae82cccca933919b4b"></span><code class="sig-name descname">CHARM_ERR_MAX_LEVEL</code><a class="headerlink" href="#c.CHARM_ERR_MAX_LEVEL" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Maximum number of error propagations from the function in which the error occurred to the caller. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt id="c.CHARM_ERR_MALLOC_FAILURE">
+<span class="target" id="charm__err_8h_1a5730142e2e5557b7290bac75f01c4740"></span><code class="sig-name descname">CHARM_ERR_MALLOC_FAILURE</code><a class="headerlink" href="#c.CHARM_ERR_MALLOC_FAILURE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Message to be printed when <code class="docutils literal notranslate"><span class="pre">malloc</span></code> or <code class="docutils literal notranslate"><span class="pre">calloc</span></code> fails. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-enums">Enums</p>
+<dl class="cpp enum">
+<dt id="_CPPv4Ut1_1">
+<span id="_CPPv3Ut1_1"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7"></span><em class="property">enum </em><strong>[anonymous]</strong><a class="headerlink" href="#_CPPv4Ut1_1" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Errors enumeration. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt id="_CPPv4NUt1_113CHARM_FAILUREE">
+<span id="_CPPv3NUt1_113CHARM_FAILUREE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7aa184de9ef11b8d67321e8efb5a0bb882"></span><em class="property">enumerator </em><code class="sig-name descname">CHARM_FAILURE</code><a class="headerlink" href="#_CPPv4NUt1_113CHARM_FAILUREE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Exit status returned when CHarm is explicitly asked to terminate the program in case it encounters an error. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4NUt1_113CHARM_SUCCESSE">
+<span id="_CPPv3NUt1_113CHARM_SUCCESSE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7a2f5b21353cdb465cb3d173b9071e474a"></span><em class="property">enumerator </em><code class="sig-name descname">CHARM_SUCCESS</code><a class="headerlink" href="#_CPPv4NUt1_113CHARM_SUCCESSE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Successful execution of a CHarm function. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4NUt1_110CHARM_EMEME">
+<span id="_CPPv3NUt1_110CHARM_EMEME"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7a92551a2515ec22bf06eadf651d0f93e5"></span><em class="property">enumerator </em><code class="sig-name descname">CHARM_EMEM</code><a class="headerlink" href="#_CPPv4NUt1_110CHARM_EMEME" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Memory allocation failure (malloc, calloc). </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4NUt1_114CHARM_EFUNCARGE">
+<span id="_CPPv3NUt1_114CHARM_EFUNCARGE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7a9ab9c557b568ecae2d60cf5166b03c48"></span><em class="property">enumerator </em><code class="sig-name descname">CHARM_EFUNCARG</code><a class="headerlink" href="#_CPPv4NUt1_114CHARM_EFUNCARGE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Error in function input/output argument(s). </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4NUt1_113CHARM_EFILEIOE">
+<span id="_CPPv3NUt1_113CHARM_EFILEIOE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7a8bd99c831aaa3b5293d2d0f862ac2f8b"></span><em class="property">enumerator </em><code class="sig-name descname">CHARM_EFILEIO</code><a class="headerlink" href="#_CPPv4NUt1_113CHARM_EFILEIOE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Error in file reading/writing. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4NUt1_115CHARM_EFFTWINITE">
+<span id="_CPPv3NUt1_115CHARM_EFFTWINITE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7adb17096d12ede0d617451b330f59ec34"></span><em class="property">enumerator </em><code class="sig-name descname">CHARM_EFFTWINIT</code><a class="headerlink" href="#_CPPv4NUt1_115CHARM_EFFTWINITE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Error in threads initialization by FFTW. </p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv414charm_err_initv">
+<span id="_CPPv314charm_err_initv"></span><span id="_CPPv214charm_err_initv"></span><span id="charm_err_init__void"></span><span class="target" id="charm__err_8h_1aa2930ce9d6e1c992c405bcd4d38fe083"></span><a class="reference internal" href="#_CPPv49charm_err" title="charm_err">charm_err</a> *<code class="sig-name descname">charm_err_init</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414charm_err_initv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Allocates and initializes an <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err"><span class="std std-ref"><span class="pre">charm_err</span></span></a></code> structure using default empty values.</p>
+<p>On success, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err"><span class="std std-ref"><span class="pre">charm_err</span></span></a></code> structure. On error, <code class="docutils literal notranslate"><span class="pre">NULL</span></code> is returned. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv414charm_err_freeP9charm_err">
+<span id="_CPPv314charm_err_freeP9charm_err"></span><span id="_CPPv214charm_err_freeP9charm_err"></span><span id="charm_err_free__charm_errP"></span><span class="target" id="charm__err_8h_1a1801d7182e14e678190863725663045d"></span>void <code class="sig-name descname">charm_err_free</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49charm_err" title="charm_err">charm_err</a> *<em>err</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414charm_err_freeP9charm_err" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Frees the memory associated with <code class="docutils literal notranslate"><span class="pre">err</span></code>. No operation is performed if <code class="docutils literal notranslate"><span class="pre">err</span></code> is <code class="docutils literal notranslate"><span class="pre">NULL</span></code>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv415charm_err_resetP9charm_err">
+<span id="_CPPv315charm_err_resetP9charm_err"></span><span id="_CPPv215charm_err_resetP9charm_err"></span><span id="charm_err_reset__charm_errP"></span><span class="target" id="charm__err_8h_1a7dc5f3347febf8fd452e9ea9c48adbb8"></span>void <code class="sig-name descname">charm_err_reset</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49charm_err" title="charm_err">charm_err</a> *<em>err</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415charm_err_resetP9charm_err" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Resets <code class="docutils literal notranslate"><span class="pre">err</span></code> to the default empty values. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv417charm_err_handlerP9charm_err5_Bool">
+<span id="_CPPv317charm_err_handlerP9charm_err5_Bool"></span><span id="_CPPv217charm_err_handlerP9charm_err5_Bool"></span><span id="charm_err_handler__charm_errP._Bool"></span><span class="target" id="charm__err_8h_1a3b58f956ffbe19c48b626fd9b584cded"></span>void <code class="sig-name descname">charm_err_handler</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49charm_err" title="charm_err">charm_err</a> *<em>err</em>, _Bool <em>terminate</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv417charm_err_handlerP9charm_err5_Bool" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Error handler.</p>
+<p><ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">err</span></code> is not empty, prints detailed information on the error. If <code class="docutils literal notranslate"><span class="pre">terminate</span></code> is set to Boolean <code class="docutils literal notranslate"><span class="pre">1</span></code>, the program subsequently terminates.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">err</span></code> is empty, neither an error is printed nor the program is terminated (regardless of the <code class="docutils literal notranslate"><span class="pre">terminate</span></code> value).</p></li>
+</ul>
+</p>
+<p>Before leaving the function, <code class="docutils literal notranslate"><span class="pre">err</span></code> is reset to the default empty values.</p>
+<p><p></p>
+ </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is highly recommended to call the error handling function after 
+every call of CHarm routines that take the <code class="docutils literal notranslate"><span class="pre">charm_err</span></code> structure 
+as an input.</p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv417charm_err_isemptyPK9charm_err">
+<span id="_CPPv317charm_err_isemptyPK9charm_err"></span><span id="_CPPv217charm_err_isemptyPK9charm_err"></span><span id="charm_err_isempty__charm_errCP"></span><span class="target" id="charm__err_8h_1a88dac602fe7f6d15c35e27533f059535"></span>_Bool <code class="sig-name descname">charm_err_isempty</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv49charm_err" title="charm_err">charm_err</a> *<em>err</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv417charm_err_isemptyPK9charm_err" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns boolean <code class="docutils literal notranslate"><span class="pre">1</span></code> if <code class="docutils literal notranslate"><span class="pre">err</span></code> is empty or <code class="docutils literal notranslate"><span class="pre">0</span></code> otherwise. </p>
+</dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt id="_CPPv49charm_err">
+<span id="_CPPv39charm_err"></span><span id="_CPPv29charm_err"></span><span id="charm_err"></span><span class="target" id="structcharm__err"></span><em class="property">struct </em><code class="sig-name descname">charm_err</code><a class="headerlink" href="#_CPPv49charm_err" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em>#include &lt;charm_err.h&gt;</em><p>Error structure.</p>
+<p>In most cases, it is created by functions from this module that return a pointer to <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err"><span class="std std-ref"><span class="pre">charm_err</span></span></a></code>. Experienced users may create the structure on their own, provided that they assign correct values to its members, so that CHarm can properly understood the data in it (see the rules summarized below). </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt id="_CPPv4N9charm_err5levelE">
+<span id="_CPPv3N9charm_err5levelE"></span><span id="_CPPv2N9charm_err5levelE"></span><span id="charm_err::level__unsigned-i"></span><span class="target" id="structcharm__err_1af5e7693b6651c726b4d9ec2fdf562bce"></span>unsigned int <code class="sig-name descname">level</code><a class="headerlink" href="#_CPPv4N9charm_err5levelE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Total number of error propagations from the function in which the error was encountered back to the caller. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N9charm_err4fileE">
+<span id="_CPPv3N9charm_err4fileE"></span><span id="_CPPv2N9charm_err4fileE"></span><span id="charm_err::file__cPP"></span><span class="target" id="structcharm__err_1acffc24efbdee4e116c0e0657b682d7aa"></span>char **<code class="sig-name descname">file</code><a class="headerlink" href="#_CPPv4N9charm_err4fileE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">file[0]</span></code> is a pointer to a string with the name of the file in which the error was encountered; <code class="docutils literal notranslate"><span class="pre">file[i]</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">...,</span> <span class="pre">CHARM_ERR_MAX_LEVEL</span> <span class="pre">-</span> <span class="pre">1</span></code>, are file names through which the error was propagated to the caller. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N9charm_err4lineE">
+<span id="_CPPv3N9charm_err4lineE"></span><span id="_CPPv2N9charm_err4lineE"></span><span id="charm_err::line__unsigned-iP"></span><span class="target" id="structcharm__err_1a93f77fa2c860c8b62bd00e2cc89af628"></span>unsigned int *<code class="sig-name descname">line</code><a class="headerlink" href="#_CPPv4N9charm_err4lineE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Pointer to an array with line numbers of <code class="docutils literal notranslate"><span class="pre">file[i]</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">CHARM_ERR_MAX_LEVEL</span> <span class="pre">-</span> <span class="pre">1</span></code>, at which the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err"><span class="std std-ref"><span class="pre">charm_err</span></span></a></code> structure was modified. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N9charm_err4funcE">
+<span id="_CPPv3N9charm_err4funcE"></span><span id="_CPPv2N9charm_err4funcE"></span><span id="charm_err::func__cPP"></span><span class="target" id="structcharm__err_1a26b843134aa95c774c4228fb00590f7a"></span>char **<code class="sig-name descname">func</code><a class="headerlink" href="#_CPPv4N9charm_err4funcE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Same as <code class="docutils literal notranslate"><span class="pre">file</span></code>, but with function names. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N9charm_err4codeE">
+<span id="_CPPv3N9charm_err4codeE"></span><span id="_CPPv2N9charm_err4codeE"></span><span id="charm_err::code__i"></span><span class="target" id="structcharm__err_1a4e91feeeb0eef0b76ea6923f73a5c908"></span>int <code class="sig-name descname">code</code><a class="headerlink" href="#_CPPv4N9charm_err4codeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Error code (see the <code class="docutils literal notranslate"><span class="pre">errors</span> <span class="pre">enumerations</span></code>). </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N9charm_err3msgE">
+<span id="_CPPv3N9charm_err3msgE"></span><span id="_CPPv2N9charm_err3msgE"></span><span id="charm_err::msg__cP"></span><span class="target" id="structcharm__err_1ad127e3297ca08ccbfc812118d4e80478"></span>char *<code class="sig-name descname">msg</code><a class="headerlink" href="#_CPPv4N9charm_err3msgE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Pointer to an error message. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N9charm_err11issaturatedE">
+<span id="_CPPv3N9charm_err11issaturatedE"></span><span id="_CPPv2N9charm_err11issaturatedE"></span><span id="charm_err::issaturated___Bool"></span><span class="target" id="structcharm__err_1ab9e4d1322499e46fe98fbf9eec9a1bed"></span>_Bool <code class="sig-name descname">issaturated</code><a class="headerlink" href="#_CPPv4N9charm_err11issaturatedE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Signalizes whether or not the levels of the error structure are saturated due to the error propagations. If true, the structure can no longer store most recent error propagations. This should never happen, though, since <code class="docutils literal notranslate"><span class="pre">CHARM_ERR_MAX_LEVEL</span></code> is chosen large enough. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="glob.html" class="btn btn-neutral float-right" title="charm_glob" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="xnum.html" class="btn btn-neutral float-left" title="charm_xnum" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Blažej Bucha.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

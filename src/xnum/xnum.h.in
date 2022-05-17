@@ -1,0 +1,122 @@
+/**
+ * \file charm@P@_xnum.h
+ *
+ * Module to work with X-numbers after Fukushima (2012).
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. note::
+ *
+ *          This documentation is written for double precision version of 
+ *          CHarm.
+ *
+ * \endverbatim
+ *
+ * **References**:
+ *
+ * * Fukushima, T. (2012) Numerical computation of spherical harmonics of 
+ *   arbitrary degree and order by extending exponent of floating point 
+ *   numbers. Journal of Geodesy 86:271-285.
+ *
+ * ============================================================================
+ *
+ * */
+
+
+
+
+
+
+#ifndef __CHARM@PC@_XNUM_H__
+#define __CHARM@PC@_XNUM_H__
+
+
+/* ------------------------------------------------------------------------- */
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* Function prototypes */
+/* ------------------------------------------------------------------------- */
+/**
+ * Weakly normalizes an X-number.  The function is due to Fukushima (2012), 
+ * Table 7.
+ *
+ * @param[in]   x Significand of the input X-number
+ * @param[in]  ix Exponent of the input X-number
+ * @param[out]  x Significand of the output X-number
+ * @param[out] ix Exponent of the output X-number
+ *
+ * */
+extern void charm@P@_xnum_xnorm(@RDT@ *x,
+                                int *ix);
+
+
+
+
+
+
+/**
+ * Computes a two-term linear sum of X-numbers with F-number coefficients.  The 
+ * function is due to Fukushima (2012), Table 8.
+ *
+ *
+ * @param[in] f   F-number coefficient of the first linear term
+ * @param[in] x   Significand of the first X-number term
+ * @param[in] g   F-number coefficient of the second linear term
+ * @param[in] y   Significand of the second X-number term
+ * @param[in] ix  Exponent of the first X-number term
+ * @param[in] iy  Exponent of the second X-number term
+ *
+ *
+ * @param[out] z   Significand of the output X-number
+ * @param[out] iz  Exponent of the output X-number
+ *
+ * */
+extern void charm@P@_xnum_xlsum2(@RDT@ f,
+                                 @RDT@ x,
+                                 @RDT@ g,
+                                 @RDT@ y,
+                                 @RDT@ *z,
+                                 int ix,
+                                 int iy,
+                                 int *iz);
+
+
+
+
+
+
+/**
+ * Translates an X-number into an F-number.  The function is due to Fukushima 
+ * (2012), Table 6.
+ *
+ * @param[in] x  Significand of the X-number
+ * @param[in] ix Exponent of the X-number
+ *
+ * @return The F-number representation of an input X-number.
+ *
+ * */
+extern @RDT@ charm@P@_xnum_x2f(@RDT@ x,
+                               int ix);
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+#ifdef __cplusplus
+}
+#endif
+/* ------------------------------------------------------------------------- */
+
+
+#endif

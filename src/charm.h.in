@@ -1,0 +1,38 @@
+/**
+ * \file charm@P@.h
+ *
+ * ``charm@P@.h`` includes header files of all CHarm modules.  To work with the
+ * entire CHarm library, it is sufficient to include ``charm@P@.h`` only,
+ * instead of explicitely providing all the individual modules.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. note::
+ *
+ *          ``charm@P@`` is not an actual module in the sense that it does not
+ *          have its ``*.c`` source code to do some special tasks.
+ *
+ * \endverbatim
+ *
+ * */
+
+
+
+
+
+#ifndef __CHARM@PC@_H__
+#define __CHARM@PC@_H__
+
+
+#include <charm/charm@P@_err.h>
+#include <charm/charm@P@_crd.h>
+#include <charm/charm@P@_integ.h>
+#include <charm/charm@P@_leg.h>
+#include <charm/charm@P@_misc.h>
+#include <charm/charm@P@_sha.h>
+#include <charm/charm@P@_shc.h>
+#include <charm/charm@P@_shs.h>
+#include <charm/charm@P@_xnum.h>
+#include <charm/charm@P@_glob.h>
+
+
+#endif

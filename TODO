@@ -1,0 +1,16 @@
+* Add the Condon--Shortley phase factor.
+
+* Add other normalization schemes.
+
+* Add polar optimization.
+
+* Add support for AVX, AVX2, AVX-512, etc. CPU instructions.
+
+* Create a Python wrapper, probably using ctypes.
+
+* Use the "npm_even" variable also with Legendre polynomials.
+
+* Parallelize "./src/leg/charm_leg_pnmj_coeffs_dp.c" and 
+  "./src/leg/charm_leg_pnmj_coeffs_qp.c".
+
+* Alternatively build CHarm with CMake on Windows.

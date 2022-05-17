@@ -1,0 +1,78 @@
+/**
+ * \file charm@P@_glob.h
+ *
+ * Module defining global CHarm variables ``charm@P@_glob_threshold`` and 
+ * ``charm@P@_glob_threshold2``.
+ *
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. warning::
+ *
+ *      This module is for experienced users only.  Most users should not
+ *      interact with it.
+ *
+ * \endverbatim
+ *
+ *
+ * */
+
+
+
+
+
+
+#ifndef __CHARM@PC@_GLOB_H__
+#define __CHARM@PC@_GLOB_H__
+
+
+/* ------------------------------------------------------------------------- */
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+/* ------------------------------------------------------------------------- */
+
+
+/* Thresholds to compare floating point numbers */
+/* ------------------------------------------------------------------------- */
+/**
+ * Threshold to judge whether two floating point numbers are equal,
+ * ``100.0 * EPS``, where ``EPS`` is the machine epsilon of the ``@RDT@`` data 
+ * type.
+ *
+ * Experienced users may (under some very specific circumstances) need the
+ * possibility to tighten or relax the threshold after the library is
+ * compiled. To this end, simply set ``charm@P@_glob_threshold`` to whatever
+ * value you need (the variable is already declared in
+ * ``charm@P@_glob.h``). After that, whenever you call a CHarm routine, it will
+ * use your own value instead of the default one.  Use wisely!  */
+extern @RDT@ charm@P@_glob_threshold;
+
+
+/**
+ * A more relaxed threshold to judge whether two floating point numbers are 
+ * equal, ``100000.0 * EPS``.  It is used to check longitudes of *custom* 
+ * user-defined grids for a constant longitudinal step (required by the 
+ * FFT-based algorithms).  To this end, we use double differences.  For 
+ * high-resolution grids, the longitudinal step may be very small, so that two 
+ * consecutive longitudes are very similar.  Since double differences increase 
+ * numerical errors, the threshold needs to be sufficiently large in such 
+ * situations (yet narrow enough).  The current value was found to be 
+ * sufficient for quadrature grids associated with degrees as high as 
+ * ``70,000``.
+ *
+ * The same comment on modifying this value applies as for 
+ * ``charm@P@_glob_threshold``.
+ * */
+extern @RDT@ charm@P@_glob_threshold2;
+/* ------------------------------------------------------------------------- */
+
+
+/* ------------------------------------------------------------------------- */
+#ifdef __cplusplus
+}
+#endif
+/* ------------------------------------------------------------------------- */
+
+
+#endif

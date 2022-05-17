@@ -1,0 +1,327 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Introduction &mdash; CHarm 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom_BB.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installing" href="install.html" />
+    <link rel="prev" title="Welcome to CHarm" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> CHarm
+          
+
+          
+            
+            <img src="_static/charm-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#source-code">Source code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contact">Contact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#other-spherical-harmonic-based-libraries">Other spherical-harmonic-based libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CHarm</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Introduction</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/introduction.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>CHarm is a C library to work with spherical harmonics up to almost arbitrarily
+high degrees.</p>
+<div class="section" id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Supports real-valued fully-normalized surface and solid spherical harmonics
+(the geodetic norm).</p></li>
+<li><p>Performs FFT-based surface spherical harmonic analysis and solid spherical
+harmonic synthesis with minimized memory requirements.</p></li>
+<li><p>Stable up to high degrees and orders (tens of thousands and beyond).</p></li>
+<li><p>Available in single, double and quadruple precision.</p></li>
+<li><p>Supports point and mean data values (both analysis and synthesis).</p></li>
+<li><p>Supports synthesis at grids and at scattered points/cells.  Synthesis at
+grids is done by efficient FFT-based algorithms if possible.  For grids,
+where FFT cannot be used, applied are the Chebyshev recurrences along the
+latitude parallels.</p></li>
+<li><p>Supports the Gauss–Legendre and Driscoll–Healy quadratures.</p></li>
+<li><p>Integrates solid spherical harmonic expansions (e.g., of the gravitational
+potential) on band-limited irregular surfaces (e.g., on the Earth’s
+surface). <a class="footnote-reference brackets" href="#f1" id="id1">1</a></p></li>
+<li><p>Computes Fourier coefficients of fully-normalized associated Legendre
+functions of the first kind up to ultra-high harmonic degrees.</p></li>
+<li><p>Performs discrete FFT by <a class="reference external" href="http://www.fftw.org/">FFTW</a>.</p></li>
+<li><p>Supports <a class="reference external" href="https://www.openmp.org/">OpenMP</a> parallelization for
+shared-memory architectures.</p></li>
+</ul>
+<dl class="footnote brackets">
+<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>This routine is unique to CHarm.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="source-code">
+<span id="download"></span><h2>Source code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h2>
+<p>GitHub: <a class="reference external" href="https://github.com/blazej-bucha/charm">https://github.com/blazej-bucha/charm</a></p>
+<ul class="simple">
+<li><p>Releases are pushed to <code class="docutils literal notranslate"><span class="pre">master</span></code> and the development happens in
+<code class="docutils literal notranslate"><span class="pre">develop</span></code>.  If you prefer the most up-to-date version, switch to the
+<code class="docutils literal notranslate"><span class="pre">develop</span></code> branch.</p></li>
+</ul>
+<p>Tarball and zip files of releases:
+<a class="reference external" href="https://github.com/blazej-bucha/charm/tags">https://github.com/blazej-bucha/charm/tags</a></p>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>The documentation of the latest version from the <code class="docutils literal notranslate"><span class="pre">develop</span></code> branch is
+available at <a class="reference external" href="https://blazej-bucha.github.io/charm/index.html">https://blazej-bucha.github.io/charm/index.html</a>.</p>
+<p>A pre-compiled HTML documentation is also available in <code class="docutils literal notranslate"><span class="pre">docs/build/html</span></code> or
+it can be built by executing <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">docs</span></code> (requires <code class="docutils literal notranslate"><span class="pre">doxygen</span></code> and Python
+modules <code class="docutils literal notranslate"><span class="pre">sphinx</span></code>, <code class="docutils literal notranslate"><span class="pre">sphinx_rtd_theme</span></code> and <code class="docutils literal notranslate"><span class="pre">breathe</span></code>).  PDF and other
+versions of the documentation can also be built (outside the installation
+system) as <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">docs</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span> <span class="pre">-f</span> <span class="pre">Makefile-sphinx</span> <span class="pre">latexpdf</span></code>, etc.</p>
+</div>
+<div class="section" id="contact">
+<span id="id2"></span><h2>Contact<a class="headerlink" href="#contact" title="Permalink to this headline">¶</a></h2>
+<p>Should you have any comments, questions, bug report or criticism, please feel
+free to contact the author, Blažej Bucha, at <a class="reference external" href="mailto:blazej&#46;bucha&#37;&#52;&#48;stuba&#46;sk">blazej<span>&#46;</span>bucha<span>&#64;</span>stuba<span>&#46;</span>sk</a>.  Further
+products developed by the author can be found at <a class="reference external" href="https://blazejbucha.com">https://blazejbucha.com</a>.</p>
+</div>
+<div class="section" id="other-spherical-harmonic-based-libraries">
+<h2>Other spherical-harmonic-based libraries<a class="headerlink" href="#other-spherical-harmonic-based-libraries" title="Permalink to this headline">¶</a></h2>
+<p>Many other libraries for working with spherical harmonics are available, each
+having its pros and cons.  Explore!  A few examples are:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/SHTOOLS">SHTOOLS</a>: Fortran95 library with Python API,</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/nschaeff/shtns">SHTns</a>: a C library for spherical
+harmonic transforms,</p></li>
+<li><p><a class="reference external" href="https://www.gfd-dennou.org/arch/ispack/">ISPACK</a>: a Fortran library for
+spherical harmonic transforms,</p></li>
+<li><p><a class="reference external" href="https://github.com/Libsharp/libsharp">Libsharp</a>: a C99 library for
+spherical harmonic transforms,</p></li>
+<li><p><a class="reference external" href="https://healpy.readthedocs.io/en/latest/index.html">healpy</a>: a Python
+package to handle pixelated data on the sphere building on the <a class="reference external" href="https://healpix.jpl.nasa.gov/">HEALPix</a> C++ library,</p></li>
+<li><p><a class="reference external" href="https://earth-info.nga.mil/index.php?dir=wgs84&amp;action=wgs84">HARMONIC_SYNTH</a>: a Fortran
+code for spherical harmonic synthesis written by the EGM2008 development
+team.</p></li>
+<li><p><a class="reference external" href="https://github.com/NCAR/NCAR-Classic-Libraries-for-Geophysics">SPHEREPACK</a>: a Fortran
+library of spherical harmonic transforms,</p></li>
+<li><p><a class="reference external" href="https://doi.org/10.1016/j.cpc.2018.06.015">SHAVEL</a>: a program for the
+spherical harmonic analysis of a horizontal vector field sampled in an
+equiangular grid on a sphere</p></li>
+<li><p><a class="reference external" href="http://icgem.gfz-potsdam.de/home">ICGEM</a>: Online calculation service for
+working with Earth and celestial gravitational models,</p></li>
+<li><p><a class="reference external" href="https://github.com/mingli-ai/FaVeST">FaVeST</a>: Fast Vector Spherical
+Harmonic Transforms in MATLAB.</p></li>
+<li><p><a class="reference external" href="https://www.gis.uni-stuttgart.de/en/research/downloads/shbundle/">SHBundle</a>:
+Spherical harmonic analysis and synthesis in MATLAB up to high degrees and
+orders,</p></li>
+<li><p><a class="reference external" href="https://sourceforge.net/projects/hmanipulator/">Spherical Harmonics Manipulator</a>: Spherical harmonic
+synthesis in sparse points and grids (no longer maintained),</p></li>
+<li><p><a class="reference external" href="https://blazejbucha.com/#GrafLab">GrafLab</a> and <a class="reference external" href="https://blazejbucha.com/#isGrafLab">isGrafLab</a>: MATLAB-based software packages for
+spherical harmonic synthesis of gravity field functionals up to high degrees
+and orders (tens of thousands and well beyond).</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="install.html" class="btn btn-neutral float-right" title="Installing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to CHarm" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Blažej Bucha.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

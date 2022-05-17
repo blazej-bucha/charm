@@ -1,0 +1,308 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Benchmarks &mdash; CHarm 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom_BB.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tested platforms" href="platforms.html" />
+    <link rel="prev" title="charm" href="charm.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> CHarm
+          
+
+          
+            
+            <img src="_static/charm-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Benchmarks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#accuracy">Accuracy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#speed">Speed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#memory">Memory</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CHarm</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Benchmarks</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/benchmarks.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="benchmarks">
+<h1>Benchmarks<a class="headerlink" href="#benchmarks" title="Permalink to this headline">¶</a></h1>
+<p>This section demonstrates the accuracy, the computation speed and the memory
+requirements of spherical harmonic analysis and synthesis of point data values.
+Applied is the Gauss–Legendre quadrature, which offers the best performance.
+All tests were executed on a PC with the Intel(R) Core(TM) i7-6800K CPU
+&#64; 3.40GHz CPU and 128 GBs of RAM.  Both CHarm and FFTW were compiled using
+<code class="docutils literal notranslate"><span class="pre">GCC</span></code> with parallelization enabled and the <code class="docutils literal notranslate"><span class="pre">-O3</span> <span class="pre">-ffast-math</span></code> optimization
+flags.  All 6 CPU cores were employed with hyperthreading enabled.</p>
+<p>The benchmarks can be executed by <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">bench</span></code> after running <code class="docutils literal notranslate"><span class="pre">./configure</span></code>
+and <code class="docutils literal notranslate"><span class="pre">make</span></code>.  The outputs from the benchmark program (the accuracy and
+wall-clock times) can be plotted by a Python script <code class="docutils literal notranslate"><span class="pre">plot-bench.py</span></code> inside
+the <code class="docutils literal notranslate"><span class="pre">bench</span></code> folder (requires <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>).  The memory
+requirements can be plotted by the <code class="docutils literal notranslate"><span class="pre">plot-memory.py</span></code> script that can be found
+inside the same directory.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The benchmark program may require up 56 GBs of RAM!  Do not execute it if
+you do not have that much RAM available. Alternatively, modify the
+<code class="docutils literal notranslate"><span class="pre">nmax_all</span></code> array inside <code class="docutils literal notranslate"><span class="pre">./bench/bench.c</span></code>.</p>
+</div>
+<div class="section" id="accuracy">
+<span id="id1"></span><h2>Accuracy<a class="headerlink" href="#accuracy" title="Permalink to this headline">¶</a></h2>
+<p>We generated reference random spherical harmonic coefficients from the interval
+<code class="docutils literal notranslate"><span class="pre">[-1.0,</span> <span class="pre">1.0]</span></code> up to degree <code class="docutils literal notranslate"><span class="pre">N</span></code>, then synthesized the signal from these
+coefficients up to degree <code class="docutils literal notranslate"><span class="pre">N</span></code>, and finally harmonically analyzed the signal
+up to the same <code class="docutils literal notranslate"><span class="pre">N</span></code> degree.  Below are plotted the following statistics
+obtained from the difference between the recovered and the reference
+coefficients:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\varepsilon_{\max} = \max_{n,m}|\bar{Q}_{nm}
+- \bar{Q}^{(\mathrm{ref})}_{nm}|\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\varepsilon_\mathrm{rms} = \sqrt{\frac{2}{(N + 1) (N + 2)} \,
+\sum_{n,m} \left(\bar{Q}_{nm} - \bar{Q}^{(\mathrm{ref})}_{nm} \right)^2}\)</span>.</p></li>
+</ul>
+<p><strong>Single precision</strong></p>
+<p>In single precision, the tests are conducted up to <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">=</span> <span class="pre">7200</span></code> only.
+Somewhere beyond that degree, it becomes difficult to compute the nodes of the
+Gauss–Legendre quadrature without an overflow in single precision.  The
+Driscoll–Healy quadrature could be used as an alternative, but this approach
+is not followed here in order to provide homogeneous tests.</p>
+<img alt="_images/benchf-accuracy.png" src="_images/benchf-accuracy.png" />
+<p><strong>Double precision</strong></p>
+<img alt="_images/bench-accuracy.png" src="_images/bench-accuracy.png" />
+<p><strong>Quadruple precision</strong></p>
+<img alt="_images/benchq-accuracy.png" src="_images/benchq-accuracy.png" />
+</div>
+<div class="section" id="speed">
+<h2>Speed<a class="headerlink" href="#speed" title="Permalink to this headline">¶</a></h2>
+<p>The figures that follow plot the wall-clock times needed to perform spherical
+harmonic synthesis and analysis in the experiments from the <a class="reference internal" href="#accuracy"><span class="std std-ref">Accuracy</span></a>
+section.</p>
+<p><strong>Single precision</strong></p>
+<img alt="_images/benchf-time.png" src="_images/benchf-time.png" />
+<p><strong>Double precision</strong></p>
+<img alt="_images/bench-time.png" src="_images/bench-time.png" />
+<p><strong>Quadruple precision</strong></p>
+<img alt="_images/benchq-time.png" src="_images/benchq-time.png" />
+</div>
+<div class="section" id="memory">
+<h2>Memory<a class="headerlink" href="#memory" title="Permalink to this headline">¶</a></h2>
+<p>The next figure shows theoretical memory requirements for spherical harmonic
+analysis/synthesis of point data values sampled at the Gauss–Legendre grid.
+The values were computed for single, double and quadruple precision as (GBs)</p>
+<div class="math notranslate nohighlight">
+\[\left((N + 1) \, (2 \, N + 2) + (N + 1)^2 \right) \, \frac{B}{1024^3}{,}\]</div>
+<p>where</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(N\)</span> is the maximum harmonic degree, which determines the number of grid
+nodes, <span class="math notranslate nohighlight">\((N + 1) \,  (2 \, N + 2)\)</span>, and the number of spherical harmonic
+coefficients, <span class="math notranslate nohighlight">\({\sim}(N + 1)^2\)</span>, and</p></li>
+<li><p><span class="math notranslate nohighlight">\(B\)</span> is the number of bytes needed to store a single <code class="docutils literal notranslate"><span class="pre">float</span></code>,
+<code class="docutils literal notranslate"><span class="pre">double</span></code> or <code class="docutils literal notranslate"><span class="pre">__float128</span></code> floating point value (here assumed <code class="docutils literal notranslate"><span class="pre">4</span></code>, <code class="docutils literal notranslate"><span class="pre">8</span></code>
+and <code class="docutils literal notranslate"><span class="pre">16</span></code> Bytes, respectively).</p></li>
+</ul>
+<p>Although these are theoretical requirements, they model the reality very well,
+as all the remaining arrays required by CHarm are significantly smaller than
+the input data grid and spherical harmonic coefficients arrays.</p>
+<img alt="_images/bench-memory.png" src="_images/bench-memory.png" />
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="platforms.html" class="btn btn-neutral float-right" title="Tested platforms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="charm.html" class="btn btn-neutral float-left" title="charm" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Blažej Bucha.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

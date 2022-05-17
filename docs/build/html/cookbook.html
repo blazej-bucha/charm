@@ -1,0 +1,1303 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Cookbook &mdash; CHarm 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom_BB.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Modules" href="modules.html" />
+    <link rel="prev" title="Some definitions to make things clear" href="definitions.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> CHarm
+          
+
+          
+            
+            <img src="_static/charm-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Cookbook</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#charm-in-double-precision">CHarm in double precision</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#compilation-on-linux">Compilation on Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#working-with-spherical-harmonic-coefficients">Working with spherical harmonic coefficients</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spherical-harmonic-synthesis-and-analysis">Spherical harmonic synthesis and analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fourier-coefficients-of-legendre-functions">Fourier coefficients of Legendre functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#integrals">Integrals</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#charm-in-single-and-quadruple-precision">CHarm in single and quadruple precision</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#example-compilation-in-single-precision">Example compilation in single precision</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-compilation-in-quadruple-precision">Example compilation in quadruple precision</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CHarm</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Cookbook</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/cookbook.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cookbook">
+<span id="id1"></span><h1>Cookbook<a class="headerlink" href="#cookbook" title="Permalink to this headline">¶</a></h1>
+<p>This chapter offers a brief cookbook on how to perform some basic tasks with
+CHarm.  For a detailed description of the functions to be used, see the
+<a class="reference internal" href="modules.html#modules"><span class="std std-ref">Modules</span></a> chapter.  The source codes of the examples can be found in the
+<code class="docutils literal notranslate"><span class="pre">cookbook</span></code> directory.</p>
+<div class="section" id="charm-in-double-precision">
+<h2>CHarm in double precision<a class="headerlink" href="#charm-in-double-precision" title="Permalink to this headline">¶</a></h2>
+<p>In this section, we assume you have successfully installed CHarm (see
+<a class="reference internal" href="install.html#installing"><span class="std std-ref">Installing</span></a>) in double precision with OpenMP enabled into the default
+installation paths, and that you know how to compile a C code and link external
+libraries.  A brief example of the compilation under Linux with GCC is provided
+in the <a class="reference internal" href="#compilation-linux"><span class="std std-ref">Compilation on Linux</span></a> section below.</p>
+<div class="section" id="compilation-on-linux">
+<span id="compilation-linux"></span><h3>Compilation on Linux<a class="headerlink" href="#compilation-on-linux" title="Permalink to this headline">¶</a></h3>
+<p>Assuming your working directory is <code class="docutils literal notranslate"><span class="pre">cookbook</span></code>, an example compilation
+with the static library might look like this:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>gcc -fopenmp shcs.c -l:libcharm_omp.a -lfftw3 -lfftw3_omp -lm
+</pre></div>
+</div>
+<p>Compilation with the shared library:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>gcc -fopenmp -Wl,-rpath -Wl,/usr/local/lib shcs.c <span class="se">\</span>
+     -lcharm_omp -lfftw3 -lfftw3_omp -lm
+</pre></div>
+</div>
+<p>After a successful compilation, you are ready to execute the compiled binary as</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./a.out
+</pre></div>
+</div>
+<p>You should see the following output:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>C(  9,  0) = 2.7671430085300001e-08
+S(  9,  0) = 0.0000000000000000e+00
+C(  9,  4) = -9.0017922533600003e-09
+S(  9,  4) = 1.9466677947499999e-08
+C(  9,  9) = -4.7747538613200003e-08
+S(  9,  9) = 9.6641284771399995e-08
+
+
+Degree variance for harmonic degree 0 = 1.0000000000000000e+00
+Degree variance for harmonic degree 4 = 2.5183167531865940e-12
+Degree variance for harmonic degree 10 = 1.2631494966213168e-13
+
+
+Difference degree variance for harmonic degree 0 = 0.0000000000000000e+00
+Difference degree variance for harmonic degree 4 = 0.0000000000000000e+00
+Difference degree variance for harmonic degree 10 = 0.0000000000000000e+00
+
+Great, all done!
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Various approaches to compile the code with the static/shared library are
+possible.  Use whatever works best for you.</p>
+</div>
+</div>
+<div class="section" id="working-with-spherical-harmonic-coefficients">
+<h3>Working with spherical harmonic coefficients<a class="headerlink" href="#working-with-spherical-harmonic-coefficients" title="Permalink to this headline">¶</a></h3>
+<p>This example shows how to read/write spherical harmonic coefficients from/to
+files and how to compute (difference) degree variances.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;charm/charm.h&gt;</span><span class="cp"></span>
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="cm">/* INPUTS */</span>
+    <span class="cm">/* ===================================================================== */</span>
+    <span class="cm">/* Define the path to an input &quot;gfc&quot; text file with spherical harmonic</span>
+<span class="cm">     * coefficients.  For details on the structure of the &quot;gfc&quot; file, see the</span>
+<span class="cm">     * description of the &quot;charm_shc_read_gfc&quot; function in the &quot;charm_shc&quot;</span>
+<span class="cm">     * module. */</span>
+    <span class="kt">char</span> <span class="n">shcs_in_file</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;../data/input/EGM96-degree10.gfc&quot;</span><span class="p">;</span>
+
+
+    <span class="cm">/* Maximum harmonic degree to initialize, read and write spherical harmonic</span>
+<span class="cm">     * coefficients */</span>
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">nmax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+
+    <span class="cm">/* Define the path to an output binary file with spherical harmonic</span>
+<span class="cm">     * coefficients.  For details on the structure of the output binary file,</span>
+<span class="cm">     * see the description of the &quot;charm_shc_write_bin&quot; function in the</span>
+<span class="cm">     * &quot;charm_shc&quot; module. */</span>
+    <span class="kt">char</span> <span class="n">shcs_out_file</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;../data/output/EGM96-degree10-mtx.shcs&quot;</span><span class="p">;</span>
+    <span class="cm">/* ===================================================================== */</span>
+
+
+
+
+
+
+    <span class="cm">/* ===================================================================== */</span>
+    <span class="cm">/* Read the spherical harmonic coefficients */</span>
+    <span class="cm">/* --------------------------------------------------------------------- */</span>
+    <span class="cm">/* Initialize a &quot;charm_shc&quot; structure up to degree &quot;nmax&quot;.  All</span>
+<span class="cm">     * coefficients will be initialized to zero and both the scaling constant</span>
+<span class="cm">     * &quot;shcs-&gt;mu&quot; and the radius of the reference sphere &quot;shcs-&gt;r&quot; will be set</span>
+<span class="cm">     * to &quot;1.0&quot;.  These values will later be overwritten when reading the input</span>
+<span class="cm">     * file.  In case of failure, returned is &quot;NULL&quot;, so always check the</span>
+<span class="cm">     * returned pointer for the &quot;NULL&quot; value! */</span>
+    <span class="n">charm_shc</span> <span class="o">*</span><span class="n">shcs</span> <span class="o">=</span> <span class="n">charm_shc_init</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">shcs</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to initialize the </span><span class="se">\&quot;</span><span class="s">charm_shc</span><span class="se">\&quot;</span><span class="s"> structure&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="cm">/* Many CHarm functions take an &quot;charm_err&quot; structure as their last</span>
+<span class="cm">     * parameter.  This is to allow the called function to report an error (if</span>
+<span class="cm">     * encountered) back to the caller, including some useful information, such</span>
+<span class="cm">     * as the error message, error code, function name and so on.  The error</span>
+<span class="cm">     * structure is defined in the &quot;charm_err&quot; module and can be initialized</span>
+<span class="cm">     * like this: */</span>
+    <span class="n">charm_err</span> <span class="o">*</span><span class="n">err</span> <span class="o">=</span> <span class="n">charm_err_init</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">err</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to initialize the </span><span class="se">\&quot;</span><span class="s">charm_err</span><span class="se">\&quot;</span><span class="s"> structure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="cm">/* Now let&#39;s read spherical harmonic coefficients, the scaling constant and</span>
+<span class="cm">     * the radius of the reference sphere from the input &quot;gfc&quot; file.  We open</span>
+<span class="cm">     * the input file, check whether the operation was successful, then read</span>
+<span class="cm">     * the file and, finally, close the stream. */</span>
+    <span class="kt">FILE</span> <span class="o">*</span><span class="n">fptr</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">shcs_in_file</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fptr</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to open the stream for </span><span class="se">\&quot;</span><span class="s">%s</span><span class="se">\&quot;</span><span class="s">.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+                <span class="n">shcs_in_file</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">charm_shc_read_gfc</span><span class="p">(</span><span class="n">fptr</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+    <span class="n">fclose</span><span class="p">(</span><span class="n">fptr</span><span class="p">);</span>
+
+
+    <span class="cm">/* At this point, &quot;shcs&quot; should store the loaded spherical harmonic</span>
+<span class="cm">     * coefficients.  However, before we continue in our program, we should</span>
+<span class="cm">     * check whether the previous function call was successful or not.  To this</span>
+<span class="cm">     * end, we shall look into the &quot;err&quot; structure by calling an error handler.</span>
+<span class="cm">     * The first parameter of the error handler is the error structure itself,</span>
+<span class="cm">     * &quot;err&quot;.  The other parameter says that if there is indeed an error</span>
+<span class="cm">     * message in &quot;err&quot;, the program prints details on the error and</span>
+<span class="cm">     * subsequently terminates.  If you want to print the error but do not want</span>
+<span class="cm">     * to terminate your program, replace &quot;1&quot; by &quot;0&quot; (further details in the</span>
+<span class="cm">     * &quot;charm_err&quot; module).  After you call the error handler, you can reuse</span>
+<span class="cm">     * the same &quot;err&quot; structure in your program, since the function resets the</span>
+<span class="cm">     * error structure to the default empty values.</span>
+<span class="cm">     *</span>
+<span class="cm">     * It is not absolutely necessary to call the error handler, but it is</span>
+<span class="cm">     * really really really recommended to always do so. */</span>
+    <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+    <span class="cm">/* Now print some more or less randomly chosen spherical harmonic</span>
+<span class="cm">     * coefficients */</span>
+    <span class="cm">/* --------------------------------------------------------------------- */</span>
+    <span class="cm">/* Let&#39;s start with zonal coefficients */</span>
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>  <span class="cm">/* Harmonic degree */</span>
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  <span class="cm">/* Harmonic order */</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;C(%3lu,%3lu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">c</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">]);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;S(%3lu,%3lu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">]);</span>
+
+
+    <span class="cm">/* Now some tesseral coefficients */</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;C(%3lu,%3lu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">c</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">]);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;S(%3lu,%3lu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">]);</span>
+
+
+    <span class="cm">/* And finally some sectorial coefficients */</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;C(%3lu,%3lu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">c</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">]);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;S(%3lu,%3lu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">]);</span>
+    <span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+    <span class="cm">/* Now let&#39;s save the coefficients to a binary file and then read them back</span>
+<span class="cm">     * to another structure for spherical harmonic cofficients.  Just for the</span>
+<span class="cm">     * fun...  */</span>
+    <span class="cm">/* --------------------------------------------------------------------- */</span>
+    <span class="cm">/* Write the coefficients. */</span>
+    <span class="n">fptr</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">shcs_out_file</span><span class="p">,</span> <span class="s">&quot;wb&quot;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fptr</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to open the stream for </span><span class="se">\&quot;</span><span class="s">%s</span><span class="se">\&quot;</span><span class="s">.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+                <span class="n">shcs_out_file</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">charm_shc_write_bin</span><span class="p">(</span><span class="n">shcs</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">fptr</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+    <span class="n">fclose</span><span class="p">(</span><span class="n">fptr</span><span class="p">);</span>
+
+
+    <span class="cm">/* Again, we should call the error handler to see whether the previous call</span>
+<span class="cm">     * was successful or not. */</span>
+    <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+
+    <span class="cm">/* And now read back the coefficients to a new &quot;charm_shc&quot; structure called</span>
+<span class="cm">     * &quot;shcs2&quot; */</span>
+    <span class="n">charm_shc</span> <span class="o">*</span><span class="n">shcs2</span> <span class="o">=</span> <span class="n">charm_shc_init</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">shcs2</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to initialize the </span><span class="se">\&quot;</span><span class="s">charm_shc</span><span class="se">\&quot;</span><span class="s"> structure.&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">fptr</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">shcs_out_file</span><span class="p">,</span> <span class="s">&quot;rb&quot;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fptr</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to open the stream for </span><span class="se">\&quot;</span><span class="s">%s</span><span class="se">\&quot;</span><span class="s">.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+                <span class="n">shcs_out_file</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">charm_shc_read_bin</span><span class="p">(</span><span class="n">fptr</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">shcs2</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+    <span class="n">fclose</span><span class="p">(</span><span class="n">fptr</span><span class="p">);</span>
+    <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+    <span class="cm">/* Compute degree variances from the loaded coefficients */</span>
+    <span class="cm">/* --------------------------------------------------------------------- */</span>
+    <span class="cm">/* Compute degree variances of the input signal */</span>
+    <span class="kt">double</span> <span class="o">*</span><span class="n">dv</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">((</span><span class="n">nmax</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">dv</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;malloc failure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="n">charm_shc_dv</span><span class="p">(</span><span class="n">shcs</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">dv</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+
+    <span class="cm">/* Print some degree variances */</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Degree variance for harmonic degree %lu = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">dv</span><span class="p">[</span><span class="n">n</span><span class="p">]);</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Degree variance for harmonic degree %lu = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">dv</span><span class="p">[</span><span class="n">n</span><span class="p">]);</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Degree variance for harmonic degree %lu = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">dv</span><span class="p">[</span><span class="n">n</span><span class="p">]);</span>
+    <span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+    <span class="cm">/* Now check whether &quot;shcs&quot; and &quot;shcs2&quot; contain the same coefficients by</span>
+<span class="cm">     * computing difference degree variances */</span>
+    <span class="cm">/* --------------------------------------------------------------------- */</span>
+    <span class="kt">double</span> <span class="o">*</span><span class="n">ddv</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">((</span><span class="n">nmax</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ddv</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;malloc failure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">charm_shc_ddv</span><span class="p">(</span><span class="n">shcs</span><span class="p">,</span> <span class="n">shcs2</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">ddv</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+
+    <span class="cm">/* Print some difference degree variances */</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Difference degree variance for harmonic degree %lu = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span>
+                                                                       <span class="n">ddv</span><span class="p">[</span><span class="n">n</span><span class="p">]);</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Difference degree variance for harmonic degree %lu = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span>
+                                                                       <span class="n">ddv</span><span class="p">[</span><span class="n">n</span><span class="p">]);</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Difference degree variance for harmonic degree %lu = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span>
+                                                                       <span class="n">ddv</span><span class="p">[</span><span class="n">n</span><span class="p">]);</span>
+    <span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+    <span class="cm">/* --------------------------------------------------------------------- */</span>
+    <span class="cm">/* Remember: always free the memory associated with the CHarm structures</span>
+<span class="cm">     * via the special CHarm &quot;charm_*_free*&quot; functions.  Calling the usual</span>
+<span class="cm">     * &quot;free&quot; function will not deallocate the memory properly and will lead to</span>
+<span class="cm">     * memory leaks. */</span>
+    <span class="n">charm_err_free</span><span class="p">(</span><span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_shc_free</span><span class="p">(</span><span class="n">shcs</span><span class="p">);</span>
+    <span class="n">charm_shc_free</span><span class="p">(</span><span class="n">shcs2</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">dv</span><span class="p">),</span> <span class="n">free</span><span class="p">(</span><span class="n">ddv</span><span class="p">);</span>
+    <span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">Great, all done!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+
+
+    <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_SUCCESS</span><span class="p">);</span>
+    <span class="cm">/* ===================================================================== */</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="spherical-harmonic-synthesis-and-analysis">
+<h3>Spherical harmonic synthesis and analysis<a class="headerlink" href="#spherical-harmonic-synthesis-and-analysis" title="Permalink to this headline">¶</a></h3>
+<p>This section shows several examples.</p>
+<ul class="simple">
+<li><p>A closed-loop test of analysis and synthesis with point data values.  First,
+spherical harmonic coefficients are loaded from a text file.  Then, they are
+used to synthesize a signal, from which a new set of coefficients is finally
+computed by surface spherical harmonic analysis.  The two coefficients sets
+are then finally compared (should be equal, that is, the difference degree
+amplitudes should be negligibly small).</p></li>
+<li><p>A solid spherical harmonic synthesis of point values at scattered points.</p></li>
+<li><p>A solid spherical harmonic synthesis of point values at a custom grid of
+points.</p></li>
+<li><p>A solid spherical harmonic synthesis of block-mean values at scattered cells.</p></li>
+<li><p>A solid spherical harmonic synthesis of block mean values at a grid of cells.</p></li>
+<li><p>Surface spherical harmonic analysis with block-mean values in cells.</p></li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="cp">#ifdef _MSC_VER</span>
+<span class="cp">#   define _USE_MATH_DEFINES</span>
+<span class="cp">#endif</span>
+<span class="cp">#include</span> <span class="cpf">&lt;math.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;charm/charm.h&gt;</span><span class="cp"></span>
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="cm">/* INPUTS */</span>
+    <span class="cm">/* ===================================================================== */</span>
+    <span class="cm">/* Define the path to an input text file with spherical harmonic</span>
+<span class="cm">     * coefficients.  For details on the structure of the text file, see the</span>
+<span class="cm">     * description of the &quot;charm_shc_read_mtx&quot; function in the &quot;charm_shc&quot;</span>
+<span class="cm">     * module. */</span>
+    <span class="kt">char</span> <span class="n">shcs_in_file</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;../data/input/EGM96-degree10-mtx.txt&quot;</span><span class="p">;</span>
+
+
+    <span class="cm">/* Maximum harmonic coefficients to be read.  The same degree is used later</span>
+<span class="cm">     * in the harmonic synthesis and harmonic analysis. */</span>
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">nmax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="cm">/* ===================================================================== */</span>
+
+
+
+
+
+
+    <span class="cm">/* ===================================================================== */</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Closed-loop experiment -- Spherical harmonic synthesis and &quot;</span>
+           <span class="s">&quot;analysis</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;===========================</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+
+
+    <span class="cm">/* Initialize a &quot;charm_shc&quot; structure */</span>
+    <span class="n">charm_shc</span> <span class="o">*</span><span class="n">shcs</span> <span class="o">=</span> <span class="n">charm_shc_init</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">shcs</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to initialize the </span><span class="se">\&quot;</span><span class="s">charm_shc</span><span class="se">\&quot;</span><span class="s"> structure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="cm">/* Initialize a &quot;charm_err&quot; structure */</span>
+    <span class="n">charm_err</span> <span class="o">*</span><span class="n">err</span> <span class="o">=</span> <span class="n">charm_err_init</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">err</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to initialize the </span><span class="se">\&quot;</span><span class="s">charm_err</span><span class="se">\&quot;</span><span class="s"> structure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="cm">/* Read spherical harmonic coefficients from the input text file. */</span>
+    <span class="kt">FILE</span> <span class="o">*</span><span class="n">fptr</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">shcs_in_file</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fptr</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to open the stream for </span><span class="se">\&quot;</span><span class="s">%s</span><span class="se">\&quot;</span><span class="s">.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+                <span class="n">shcs_in_file</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">charm_shc_read_mtx</span><span class="p">(</span><span class="n">fptr</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">fclose</span><span class="p">(</span><span class="n">fptr</span><span class="p">);</span>
+
+
+    <span class="cm">/* Now let&#39;s say we do not want to use the zero-degree term.  This can be</span>
+<span class="cm">     * achieved simply by setting the respective &quot;C00&quot; coefficient to zero. */</span>
+    <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+
+
+    <span class="cm">/* Compute the Gauss--Legendre grid for a given &quot;nmax&quot; on a sphere that is</span>
+<span class="cm">     * &quot;1000.0&quot; metres above the reference sphere of spherical harmonic</span>
+<span class="cm">     * coefficients. */</span>
+    <span class="n">charm_crd</span> <span class="o">*</span><span class="n">grd</span> <span class="o">=</span> <span class="n">charm_crd_gl</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">+</span> <span class="mf">1000.0</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">grd</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to compute the Gauss--Legendre grid.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="cm">/* Allocate the memory for the synthesized signal */</span>
+    <span class="kt">double</span> <span class="o">*</span><span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlat</span> <span class="o">*</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">f</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;malloc failure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="cm">/* Perform the synthesis.  Since the Gauss--Legendre grid resides &quot;1000.0&quot;</span>
+<span class="cm">     * metres above the reference sphere of the coefficients, performed is</span>
+<span class="cm">     * solid spherical harmonic synthesis. */</span>
+    <span class="n">charm_shs_point</span><span class="p">(</span><span class="n">grd</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+
+    <span class="cm">/* Print some synthesized values */</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Print some synthesized values of the signal...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;f(%zu, %zu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">+</span> <span class="n">j</span><span class="p">]);</span>
+
+
+    <span class="n">i</span> <span class="o">=</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlat</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;f(%zu, %zu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">+</span> <span class="n">j</span><span class="p">]);</span>
+
+
+    <span class="cm">/* Initialize a new structure of spherical harmonic coefficients for</span>
+<span class="cm">     * coefficients to be computed by the harmonic analysis.  Used are the same</span>
+<span class="cm">     * scalling constants as in &quot;shcs&quot;. */</span>
+    <span class="n">charm_shc</span> <span class="o">*</span><span class="n">shcs2</span> <span class="o">=</span> <span class="n">charm_shc_init</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">mu</span><span class="p">,</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">shcs2</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to initialize the </span><span class="se">\&quot;</span><span class="s">charm_shc</span><span class="se">\&quot;</span><span class="s"> structure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="cm">/* Now use the synthesized signal and compute back its spherical harmonic</span>
+<span class="cm">     * coefficients by harmonic analysis.  The output coefficients in &quot;shcs2&quot;</span>
+<span class="cm">     * should be the same as the input ones &quot;shcs&quot;.  Note that the signal &quot;f&quot;</span>
+<span class="cm">     * resides on a sphere that is &quot;1000.0&quot; metres above the reference sphere.</span>
+<span class="cm">     * Therefore, the coefficients are automatically properly rescaled to the</span>
+<span class="cm">     * desired sphere defined by &quot;shcs2-&gt;r&quot;. */</span>
+    <span class="n">charm_sha_point</span><span class="p">(</span><span class="n">grd</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">shcs2</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+
+    <span class="cm">/* Now check whether &quot;shcs&quot; and &quot;shcs2&quot; are the same by computing their</span>
+<span class="cm">     * difference degree amplitudes */</span>
+    <span class="kt">double</span> <span class="o">*</span><span class="n">dda</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">((</span><span class="n">nmax</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">dda</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;malloc failure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">charm_shc_dda</span><span class="p">(</span><span class="n">shcs</span><span class="p">,</span> <span class="n">shcs2</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">dda</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+
+    <span class="cm">/* Print some difference degree amplitudes */</span>
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Now print the difference degree amplitudes. &quot;</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;These should be very small, say, at the order of 1e-18 &quot;</span>
+           <span class="s">&quot;or less...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Difference degree amplitude for harmonic degree %lu = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+            <span class="n">n</span><span class="p">,</span> <span class="n">dda</span><span class="p">[</span><span class="n">n</span><span class="p">]);</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Difference degree amplitude for harmonic degree %lu = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+            <span class="n">n</span><span class="p">,</span> <span class="n">dda</span><span class="p">[</span><span class="n">n</span><span class="p">]);</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Difference degree amplitude for harmonic degree %lu = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+            <span class="n">n</span><span class="p">,</span> <span class="n">dda</span><span class="p">[</span><span class="n">n</span><span class="p">]);</span>
+
+
+    <span class="cm">/* We will not need some of the structures and arrays anymore, so let&#39;s</span>
+<span class="cm">     * free them. */</span>
+    <span class="n">charm_crd_free</span><span class="p">(</span><span class="n">grd</span><span class="p">);</span>
+    <span class="n">charm_shc_free</span><span class="p">(</span><span class="n">shcs2</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">dda</span><span class="p">);</span>
+
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;===========================</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="cm">/* ===================================================================== */</span>
+
+
+
+
+
+
+    <span class="cm">/* ===================================================================== */</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Solid spherical harmonic synthesis at scattered points</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;===========================</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+
+
+    <span class="cm">/* Let&#39;s create a &quot;charm_crd&quot; structure to store 3 scattered points. */</span>
+    <span class="n">charm_crd</span> <span class="o">*</span><span class="n">sctr</span> <span class="o">=</span> <span class="n">charm_crd_init</span><span class="p">(</span><span class="n">CHARM_CRD_POINTS_SCATTERED</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">sctr</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to initialize the </span><span class="se">\&quot;</span><span class="s">charm_crd</span><span class="se">\&quot;</span><span class="s"> structure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="cm">/* Now let&#39;s feed &quot;sctr&quot; with some computation points (angular values must</span>
+<span class="cm">     * be provided in radians). */</span>
+    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.1</span><span class="p">;</span>
+    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.436231</span><span class="p">;</span>
+    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">-0.9651</span><span class="p">;</span>
+    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.0</span><span class="p">;</span>
+    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">1.53434</span><span class="p">;</span>
+    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">4.2316</span><span class="p">;</span>
+    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>   <span class="o">=</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">+</span> <span class="mf">1000.0</span><span class="p">;</span>
+    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>   <span class="o">=</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">+</span> <span class="mf">2000.0</span><span class="p">;</span>
+    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>   <span class="o">=</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">+</span> <span class="mf">3000.0</span><span class="p">;</span>
+
+
+    <span class="cm">/* Allocate memory to store the synthesized signal */</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">sctr</span><span class="o">-&gt;</span><span class="n">nlat</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">f</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;malloc failure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="cm">/* Do the synthesis */</span>
+    <span class="n">charm_shs_point</span><span class="p">(</span><span class="n">sctr</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+
+    <span class="cm">/* It&#39;s really this easy! */</span>
+
+
+    <span class="cm">/* Print the synthesized values */</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">nlat</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+
+
+    <span class="n">charm_crd_free</span><span class="p">(</span><span class="n">sctr</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
+
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;===========================</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="cm">/* ===================================================================== */</span>
+
+
+
+
+
+
+    <span class="cm">/* ===================================================================== */</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Solid spherical harmonic synthesis at a custom grid of points</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;===========================</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+
+
+    <span class="cm">/* Initialize a charm_crd structure to hold a &quot;5 x 10&quot; points grid. */</span>
+    <span class="n">grd</span> <span class="o">=</span> <span class="n">charm_crd_init</span><span class="p">(</span><span class="n">CHARM_CRD_POINTS_GRID</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">grd</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to initialize the </span><span class="se">\&quot;</span><span class="s">charm_crd</span><span class="se">\&quot;</span><span class="s"> structure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="cm">/* Define some grid points */</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlat</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">grd</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">M_PI_2</span> <span class="o">+</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">i</span> <span class="o">*</span> <span class="n">M_PI</span> <span class="o">/</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlat</span><span class="p">;</span>
+        <span class="n">grd</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>   <span class="o">=</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">+</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">grd</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">j</span> <span class="o">*</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">)</span> <span class="o">/</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span><span class="p">;</span>
+    <span class="p">}</span>
+
+
+    <span class="cm">/* Initialize an array to store the synthesized signal */</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlat</span> <span class="o">*</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">f</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;malloc failure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="cm">/* Do the synthesis */</span>
+    <span class="n">charm_shs_point</span><span class="p">(</span><span class="n">grd</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+
+    <span class="cm">/* Print the synthesized values */</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlat</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">+</span> <span class="n">j</span><span class="p">]);</span>
+
+
+    <span class="n">charm_crd_free</span><span class="p">(</span><span class="n">grd</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
+
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;===========================</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="cm">/* ===================================================================== */</span>
+
+
+
+
+
+
+    <span class="cm">/* ===================================================================== */</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Solid spherical harmonic synthesis at scattered cells</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;===========================</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+
+
+    <span class="cm">/* Initialize a charm_crd structure to hold 3 scattered grid cells. */</span>
+    <span class="n">sctr</span> <span class="o">=</span> <span class="n">charm_crd_init</span><span class="p">(</span><span class="n">CHARM_CRD_CELLS_SCATTERED</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">sctr</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to initialize scattered cells.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="cm">/* Define more or less randomly some scattered cells */</span>
+    <span class="cm">/* --------------------------------------------------------------------- */</span>
+    <span class="cm">/* The minimum latitude of the first cell */</span>
+    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.323413435</span><span class="p">;</span>
+
+    <span class="cm">/* The maximum latitude of the first cell */</span>
+    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span>  <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.234323</span><span class="p">;</span>
+
+    <span class="cm">/* The minimum latitude of the second cell */</span>
+    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">-0.90234320952</span><span class="p">;</span>
+
+    <span class="cm">/* The maximum latitude of the second cell */</span>
+    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span>  <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.4456</span><span class="p">;</span>
+
+    <span class="cm">/* And so on... */</span>
+    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.0</span><span class="p">;</span>
+    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span>  <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="n">M_PI_2</span><span class="p">;</span>
+
+    <span class="cm">/* And now the same, but with the longitudes... */</span>
+    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.123456789</span><span class="p">;</span>
+    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span>  <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.3235</span><span class="p">;</span>
+    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">4.3445234</span><span class="p">;</span>
+    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span>  <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.01</span><span class="p">;</span>
+    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.0</span><span class="p">;</span>
+    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span>  <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">;</span>
+
+    <span class="cm">/* Finally, we define spherical radii of the scattered cells.  Importantly,</span>
+<span class="cm">     * the spherical radius is *constants* over the cells (but may vary from</span>
+<span class="cm">     * cell to cell). */</span>
+    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>   <span class="o">=</span>  <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">;</span>
+    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>   <span class="o">=</span>  <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">+</span> <span class="mf">1000.0</span><span class="p">;</span>
+    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>   <span class="o">=</span>  <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">+</span> <span class="mf">2000.0</span><span class="p">;</span>
+    <span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+    <span class="cm">/* Initialize an array to store the synthesized signal */</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlat</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">f</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;malloc failure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="cm">/* Do the synthesis */</span>
+    <span class="n">charm_shs_cell</span><span class="p">(</span><span class="n">sctr</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+
+    <span class="cm">/* Print the synthesized values */</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">nlat</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+
+
+    <span class="n">charm_crd_free</span><span class="p">(</span><span class="n">sctr</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
+
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;===========================</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="cm">/* ===================================================================== */</span>
+
+
+
+
+
+
+    <span class="cm">/* ===================================================================== */</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Solid spherical harmonic synthesis at a grid &quot;</span>
+           <span class="s">&quot;of cells</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;===========================</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+
+
+    <span class="cm">/* Initialize a &quot;charm_crd&quot; structure to hold a grid of cells with &quot;15&quot;</span>
+<span class="cm">     * cells in the latitudinal direction and &quot;30&quot; cells in the longitudinal</span>
+<span class="cm">     * direction. */</span>
+    <span class="n">grd</span> <span class="o">=</span> <span class="n">charm_crd_init</span><span class="p">(</span><span class="n">CHARM_CRD_CELLS_GRID</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">30</span><span class="p">);</span>
+
+
+    <span class="cm">/* Define some grid cells */</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlat</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="cm">/* The minimum cell latitudes */</span>
+        <span class="n">grd</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="p">]</span>      <span class="o">=</span> <span class="o">-</span><span class="n">M_PI_2</span> <span class="o">+</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">i</span>       <span class="o">*</span> <span class="n">M_PI</span> <span class="o">/</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlat</span><span class="p">;</span>
+
+        <span class="cm">/* The maximum cell latitudes */</span>
+        <span class="n">grd</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>  <span class="o">=</span> <span class="o">-</span><span class="n">M_PI_2</span> <span class="o">+</span> <span class="p">(</span><span class="kt">double</span><span class="p">)(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">M_PI</span> <span class="o">/</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlat</span><span class="p">;</span>
+
+        <span class="cm">/* The spherical radii (may vary with the latitude, but we use</span>
+<span class="cm">         * a constant value here, because of the example that follows after</span>
+<span class="cm">         * this one). */</span>
+        <span class="n">grd</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">+</span> <span class="mf">1000.0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="cm">/* The minimum cell longitudes */</span>
+        <span class="n">grd</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">j</span><span class="p">]</span>      <span class="o">=</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">j</span>       <span class="o">*</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">)</span> <span class="o">/</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span><span class="p">;</span>
+
+        <span class="cm">/* The maximum cell longitudes */</span>
+        <span class="n">grd</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>  <span class="o">=</span> <span class="p">(</span><span class="kt">double</span><span class="p">)(</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">)</span> <span class="o">/</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span><span class="p">;</span>
+    <span class="p">}</span>
+
+
+    <span class="cm">/* Initialize an array to store the synthesized signal */</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlat</span> <span class="o">*</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">f</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;malloc failure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="cm">/* Do the synthesis */</span>
+    <span class="n">charm_shs_cell</span><span class="p">(</span><span class="n">grd</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+
+    <span class="cm">/* Print some of the synthesized values */</span>
+    <span class="cm">/* --------------------------------------------------------------------- */</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;f(%zu, %zu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">+</span> <span class="n">j</span><span class="p">]);</span>
+
+
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;f(%zu, %zu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">+</span> <span class="n">j</span><span class="p">]);</span>
+    <span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;===========================</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="cm">/* ===================================================================== */</span>
+
+
+
+
+
+
+    <span class="cm">/* ===================================================================== */</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Spherical harmonic analysis of block-mean values in cells</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;===========================</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+
+
+    <span class="cm">/* In this example, we use the &quot;grd&quot; structure and the signal &quot;f&quot; from the</span>
+<span class="cm">     * previous example. */</span>
+
+
+    <span class="cm">/* Initialize a new structure of spherical harmonic coefficients for</span>
+<span class="cm">     * coefficients to be recovered from the harmonic analysis.  Used are the</span>
+<span class="cm">     * same scalling constants as in &quot;shcs&quot;. */</span>
+    <span class="n">shcs2</span> <span class="o">=</span> <span class="n">charm_shc_init</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">mu</span><span class="p">,</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">shcs2</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to initialize the </span><span class="se">\&quot;</span><span class="s">charm_shc</span><span class="se">\&quot;</span><span class="s"> structure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="cm">/* Do the analysis using the method of the approximate quadrature */</span>
+    <span class="n">charm_sha_cell</span><span class="p">(</span><span class="n">grd</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">CHARM_SHA_CELL_AQ</span><span class="p">,</span> <span class="n">shcs2</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+
+    <span class="cm">/* Print some of the computed coefficients.  Note that the harmonic</span>
+<span class="cm">     * analysis with block-mean values in cells in *not* exact, hence the</span>
+<span class="cm">     * coefficients will not be equal to the input ones. */</span>
+    <span class="cm">/* --------------------------------------------------------------------- */</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;C(%3lu,%3lu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">shcs2</span><span class="o">-&gt;</span><span class="n">c</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">]);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;S(%3lu,%3lu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">shcs2</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">]);</span>
+
+
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;C(%3lu,%3lu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">shcs2</span><span class="o">-&gt;</span><span class="n">c</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">]);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;S(%3lu,%3lu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">shcs2</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">]);</span>
+
+
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;C(%3lu,%3lu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">shcs2</span><span class="o">-&gt;</span><span class="n">c</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">]);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;S(%3lu,%3lu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">shcs2</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">]);</span>
+
+
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;C(%3lu,%3lu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">shcs2</span><span class="o">-&gt;</span><span class="n">c</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">]);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;S(%3lu,%3lu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">shcs2</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">]);</span>
+    <span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+    <span class="n">charm_crd_free</span><span class="p">(</span><span class="n">grd</span><span class="p">);</span>
+    <span class="n">charm_shc_free</span><span class="p">(</span><span class="n">shcs2</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
+
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;===========================</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="cm">/* ===================================================================== */</span>
+
+
+
+
+
+
+    <span class="cm">/* Free the heap memory */</span>
+    <span class="cm">/* ===================================================================== */</span>
+    <span class="n">charm_err_free</span><span class="p">(</span><span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_shc_free</span><span class="p">(</span><span class="n">shcs</span><span class="p">);</span>
+
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">Great, all done!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+
+
+    <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_SUCCESS</span><span class="p">);</span>
+    <span class="cm">/* ===================================================================== */</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="fourier-coefficients-of-legendre-functions">
+<h3>Fourier coefficients of Legendre functions<a class="headerlink" href="#fourier-coefficients-of-legendre-functions" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;charm/charm.h&gt;</span><span class="cp"></span>
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="cm">/* Maximum harmonic degree to compute the Fourier coefficients of Legendre</span>
+<span class="cm">     * functions */</span>
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">nmax</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span>
+
+
+    <span class="cm">/* Initialize a structure to store the Fourier coefficients of Legendre</span>
+<span class="cm">     * functions */</span>
+    <span class="n">charm_pnmj</span> <span class="o">*</span><span class="n">pnmj</span> <span class="o">=</span> <span class="n">charm_leg_pnmj_init</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">CHARM_LEG_PNMJ_ORDER_MNJ</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">pnmj</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to initialize the </span><span class="se">\&quot;</span><span class="s">charm_pnmj</span><span class="se">\&quot;</span><span class="s"> &quot;</span>
+                        <span class="s">&quot;structure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="cm">/* Initialize an &quot;charm_err&quot; structure */</span>
+    <span class="n">charm_err</span> <span class="o">*</span><span class="n">err</span> <span class="o">=</span> <span class="n">charm_err_init</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">err</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to initialize the </span><span class="se">\&quot;</span><span class="s">charm_err</span><span class="se">\&quot;</span><span class="s"> structure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="cm">/* Compute the Fourier coefficients */</span>
+    <span class="n">charm_leg_pnmj_coeffs</span><span class="p">(</span><span class="n">pnmj</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+
+    <span class="cm">/* Print some Fourier coefficients */</span>
+    <span class="cm">/* Harmonic degree */</span>
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">123</span><span class="p">;</span>
+    <span class="cm">/* Harmonic order */</span>
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">23</span><span class="p">;</span>
+    <span class="cm">/* Wave-number-related variable */</span>
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+    <span class="cm">/* Wave-number (computed from &quot;j&quot;; for details, see the &quot;charm_leg&quot;</span>
+<span class="cm">     * module)*/</span>
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">k</span> <span class="o">=</span> <span class="n">charm_leg_pnmj_j2k</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">j</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Fourier coefficient for degree %lu, order %lu and &quot;</span>
+           <span class="s">&quot;wave-number %lu = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">pnmj</span><span class="o">-&gt;</span><span class="n">pnmj</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">][</span><span class="n">j</span><span class="p">]);</span>
+
+
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">360</span><span class="p">;</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">358</span><span class="p">;</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">101</span><span class="p">;</span> <span class="n">k</span> <span class="o">=</span> <span class="n">charm_leg_pnmj_j2k</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">j</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Fourier coefficient for degree %lu, order %lu and &quot;</span>
+           <span class="s">&quot;wave-number %lu = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">pnmj</span><span class="o">-&gt;</span><span class="n">pnmj</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">][</span><span class="n">j</span><span class="p">]);</span>
+
+
+    <span class="cm">/* Free the heap memory */</span>
+    <span class="n">charm_leg_pnmj_free</span><span class="p">(</span><span class="n">pnmj</span><span class="p">);</span>
+    <span class="n">charm_err_free</span><span class="p">(</span><span class="n">err</span><span class="p">);</span>
+
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">Great, all done!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+
+
+    <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_SUCCESS</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="integrals">
+<h3>Integrals<a class="headerlink" href="#integrals" title="Permalink to this headline">¶</a></h3>
+<p>Finally, let’s compute an integral of a product of two spherical harmonics over
+a restricted domain on the unit sphere.  Then, we do the same, but with the
+product of Legendre functions only.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;charm/charm.h&gt;</span><span class="cp"></span>
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="cm">/* Type of the first spherical harmonic function, its harmonic degree and</span>
+<span class="cm">     * order, respectively */</span>
+    <span class="kt">_Bool</span> <span class="n">i1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  <span class="cm">/* The &quot;cos&quot; spherical harmonic function */</span>
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">n1</span> <span class="o">=</span> <span class="mi">287</span><span class="p">;</span>
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">m1</span> <span class="o">=</span> <span class="mi">122</span><span class="p">;</span>
+
+
+    <span class="cm">/* Type of the second spherical harmonic function, its harmonic degree and</span>
+<span class="cm">     * order, respectively */</span>
+    <span class="kt">_Bool</span> <span class="n">i2</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>  <span class="cm">/* The &quot;sin&quot; spherical harmonic function */</span>
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">n2</span> <span class="o">=</span> <span class="mi">34</span><span class="p">;</span>
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">m2</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>
+
+
+    <span class="cm">/* Minimum and maximum co-latitudes of the integration domain */</span>
+    <span class="kt">double</span> <span class="n">cltmin</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">cltmax</span> <span class="o">=</span> <span class="mf">0.9</span><span class="p">;</span>
+
+
+    <span class="cm">/* Minimum and maximum longitudes of the integration domain */</span>
+    <span class="kt">double</span> <span class="n">lonmin</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">lonmax</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">;</span>
+
+
+    <span class="cm">/* Initialize the Fourier coefficients of Legendre functions */</span>
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">nmax</span> <span class="o">=</span> <span class="n">CHARM_MAX</span><span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">);</span>
+    <span class="n">charm_pnmj</span> <span class="o">*</span><span class="n">pnmj</span> <span class="o">=</span> <span class="n">charm_leg_pnmj_init</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">CHARM_LEG_PNMJ_ORDER_MNJ</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">pnmj</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to initialize the </span><span class="se">\&quot;</span><span class="s">charm_pnmj</span><span class="se">\&quot;</span><span class="s"> &quot;</span>
+                        <span class="s">&quot;structure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="cm">/* Initialize an &quot;charm_err&quot; structure */</span>
+    <span class="n">charm_err</span> <span class="o">*</span><span class="n">err</span> <span class="o">=</span> <span class="n">charm_err_init</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">err</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to initialize the </span><span class="se">\&quot;</span><span class="s">charm_err</span><span class="se">\&quot;</span><span class="s"> structure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="cm">/* Compute the Fourier coefficients */</span>
+    <span class="n">charm_leg_pnmj_coeffs</span><span class="p">(</span><span class="n">pnmj</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+
+    <span class="cm">/* Compute the integral of a product of two spherical harmonics */</span>
+    <span class="kt">double</span> <span class="n">iy</span> <span class="o">=</span> <span class="n">charm_integ_yi1n1m1yi2n2m2</span><span class="p">(</span><span class="n">cltmin</span><span class="p">,</span> <span class="n">cltmax</span><span class="p">,</span> <span class="n">lonmin</span><span class="p">,</span> <span class="n">lonmax</span><span class="p">,</span>
+                                           <span class="n">i1</span><span class="p">,</span> <span class="n">n1</span><span class="p">,</span> <span class="n">m1</span><span class="p">,</span>
+                                           <span class="n">i2</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">m2</span><span class="p">,</span> <span class="n">pnmj</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+
+    <span class="cm">/* Print the value of the integral */</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;The integral of the product of two spherical harmonics &quot;</span>
+           <span class="s">&quot;i1 = %d, n1 = %lu, m1 = %lu, i2 = %d, n2 = %lu, m2 = %lu &quot;</span>
+           <span class="s">&quot;is %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i1</span><span class="p">,</span> <span class="n">n1</span><span class="p">,</span> <span class="n">m1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">m2</span><span class="p">,</span> <span class="n">iy</span><span class="p">);</span>
+
+
+    <span class="cm">/* Now compute the integral of a product of two Legendre functions over a</span>
+<span class="cm">     * restricted domain */</span>
+    <span class="kt">double</span> <span class="n">ip</span> <span class="o">=</span> <span class="n">charm_integ_pn1m1pn2m2</span><span class="p">(</span><span class="n">cltmin</span><span class="p">,</span> <span class="n">cltmax</span><span class="p">,</span> <span class="n">n1</span><span class="p">,</span> <span class="n">m1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">m2</span><span class="p">,</span> <span class="n">pnmj</span><span class="p">,</span>
+                                       <span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;The integral of the product of two Legendre functions &quot;</span>
+           <span class="s">&quot;n1 = %lu, m1 = %lu, n2 = %lu, m2 = %lu &quot;</span>
+           <span class="s">&quot;is %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">n1</span><span class="p">,</span> <span class="n">m1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">m2</span><span class="p">,</span> <span class="n">ip</span><span class="p">);</span>
+
+
+    <span class="cm">/* Free the heap memory */</span>
+    <span class="n">charm_err_free</span><span class="p">(</span><span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_leg_pnmj_free</span><span class="p">(</span><span class="n">pnmj</span><span class="p">);</span>
+
+
+    <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_SUCCESS</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="charm-in-single-and-quadruple-precision">
+<span id="charm-in-single-and-quad-precision"></span><h2>CHarm in single and quadruple precision<a class="headerlink" href="#charm-in-single-and-quadruple-precision" title="Permalink to this headline">¶</a></h2>
+<p>A few simple rules need to be obeyed in single and quadruple precision.</p>
+<ul>
+<li><p>Make sure you have compiled CHarm in single or quadruple precision (see
+<a class="reference internal" href="install.html#installing"><span class="std std-ref">Installing</span></a>), whichever you need.</p></li>
+<li><p>Replace every occurrence of the <code class="docutils literal notranslate"><span class="pre">charm_*</span></code> prefix with <code class="docutils literal notranslate"><span class="pre">charmf_*</span></code> for
+single precision and <code class="docutils literal notranslate"><span class="pre">charmq_*</span></code> for quadruple precision.  This applies to
+your own code, including the header files, and the compilation of your
+program.</p>
+<p>If the prefix is written in capital letters, do <em>not</em> alter it.  The
+<code class="docutils literal notranslate"><span class="pre">CHARM_*</span></code> symbols are common across all precisions of CHarm.</p>
+</li>
+<li><p>In your code, replace every <code class="docutils literal notranslate"><span class="pre">double</span></code> variable entering CHarm functions by
+<code class="docutils literal notranslate"><span class="pre">float</span></code> for single precision or by <code class="docutils literal notranslate"><span class="pre">__float128</span></code> for quadruple precision.</p></li>
+<li><p>To compile your code in quadruple precision, link the <code class="docutils literal notranslate"><span class="pre">libquadmath</span></code>
+library, that is, add <code class="docutils literal notranslate"><span class="pre">-lquadmath</span></code> before <code class="docutils literal notranslate"><span class="pre">-lm</span></code> (see
+<a class="reference internal" href="#compilation-linux"><span class="std std-ref">Compilation on Linux</span></a>).</p></li>
+<li><p>When compiling your program, use the <code class="docutils literal notranslate"><span class="pre">fftwf*</span></code> and <code class="docutils literal notranslate"><span class="pre">fftwq*</span></code> prefixes to
+link FFTW in single and quadruple precision, respectively.</p></li>
+</ul>
+<div class="section" id="example-compilation-in-single-precision">
+<h3>Example compilation in single precision<a class="headerlink" href="#example-compilation-in-single-precision" title="Permalink to this headline">¶</a></h3>
+<p>Assuming your working directory is <code class="docutils literal notranslate"><span class="pre">cookbook</span></code>, an example compilation
+with the static library might look like this:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>gcc -fopenmp shcsf.c -l:libcharmf_omp.a -lfftw3f -lfftw3f_omp -lm
+</pre></div>
+</div>
+<p>Compilation with the shared library:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>gcc -fopenmp -Wl,-rpath -Wl,/usr/local/lib shcsf.c <span class="se">\</span>
+     -lcharmf_omp -lfftw3f -lfftw3f_omp -lm
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-compilation-in-quadruple-precision">
+<h3>Example compilation in quadruple precision<a class="headerlink" href="#example-compilation-in-quadruple-precision" title="Permalink to this headline">¶</a></h3>
+<p>Static library:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>gcc -fopenmp shcsq.c -l:libcharmq_omp.a -lfftw3q -lfftw3q_omp <span class="se">\</span>
+     -lquadmath -lm
+</pre></div>
+</div>
+<p>Shared library:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>gcc -fopenmp -Wl,-rpath -Wl,/usr/local/lib shcsq.c <span class="se">\</span>
+     -lcharmq_omp -lfftw3q -lfftw3q_omp -lquadmath -lm
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="modules.html" class="btn btn-neutral float-right" title="Modules" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="definitions.html" class="btn btn-neutral float-left" title="Some definitions to make things clear" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Blažej Bucha.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

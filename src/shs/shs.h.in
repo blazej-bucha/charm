@@ -1,0 +1,660 @@
+/** \file charm@P@_shs.h
+ *
+ * Module to perform solid spherical harmonic synthesis of point and mean 
+ * values.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. note::
+ *
+ *          This documentation is written for double precision version of 
+ *          CHarm.
+ *
+ * \endverbatim
+ *
+ * */
+
+
+
+
+
+
+#ifndef __CHARM@PC@_SHS_H__
+#define __CHARM@PC@_SHS_H__
+
+
+/* Header files required by this module */
+/* ------------------------------------------------------------------------- */
+#include <stdlib.h>
+#include <charm/charm@P@_err.h>
+#include <charm/charm@P@_crd.h>
+#include <charm/charm@P@_shc.h>
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* Function prototypes */
+/* ------------------------------------------------------------------------- */
+/**
+ * Performs the exact solid spherical harmonic synthesis of point values:
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. math::
+ *
+ *      f(\varphi,\lambda) = \dfrac{\mu}{R} \, \sum_{n = 0}^{n_{\max}} \left( 
+ *      \dfrac{R}{r} \right)^{n + 1} \, \sum_{m = 0}^{n} \left( \bar{C}_{nm}\, 
+ *      \cos(m \, \lambda) + \bar{S}_{nm} \, \sin(m \, \lambda) \right) \, 
+ *      \bar{P}_{nm}(\sin\varphi){.}
+ *
+ * \endverbatim
+ *
+ * The synthesis is done either at
+ *
+ * - a **grid** if ``pnt->type`` is set to ``CHARM_CRD_POINTS_GRID*`` (see the 
+ *   ``charm@P@_crd`` module), or
+ *
+ * - **scattered points** if ``pnt->type == CHARM_CRD_POINTS_SCATTERED``.
+ *
+ * For **grids**, efficient 1D FFT-based algorithm is applied along the 
+ * latitude parallels whenever possible.  Otherwise, the Chebyshev recurrences 
+ * (e.g., Balmino et al 2012) are employed along the parallels.  The latter 
+ * option is slower.  The following conditions must be satisfied in order for 
+ * CHarm to apply FFT:
+ *
+ * - ``(pnt->nlon - 1) / 2 >= nmax``, where the division is rounded down,
+ *
+ * - the longitudinal step ``dlon`` is constant,
+ *
+ * - ``pnt->lon[0] == 0.0`` within the numerical threshold
+ *   (``charm@P@_glob_threshold``), and
+ *
+ * - ``pnt->lon[pnt->nlon - 1] + dlon == 2.0 * PI`` within the numerical
+ *   threshold (``charm@P@_glob_threshold``).
+ *
+ * If any of these conditions is not satisfied, CHarm uses the Chebyshev 
+ * recurrences.  The algorithm is selected automatically by CHarm with the 
+ * preference being FFT.
+ *
+ * For **scattered points**, tedious point-by-point synthesis is applied.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. note::
+ *
+ *      The function does not use ``pnt->w`` at all, so no constrains are 
+ *      applied.  ``pnt->w`` can therefore be, for instance, ``NULL``.
+ *
+ * \endverbatim
+ *
+ * The synthesis is parallelized using OpenMP.
+ *
+ * **Notes on evaluation points organized in grids** (not relevant for 
+ * scattered points)
+ *
+ * * To improve the computational speed, exploited is the symmetry of Legendre 
+ *   functions with respect to the equator. This is done *automatically*, 
+ *   provided that the grid stored in ``pnt`` is recognized as symmetric with 
+ *   respect to the equator. Below are shown some examples of symmetric and 
+ *   non-symmetric grids. (While these examples use the unit degrees for a more 
+ *   intuitive understanding, note that the function inputs assume radians.)
+ *
+ * * Examples of some **symmetric** grids (shown are only latitudes 
+ *   ``pnt->lat``, the longitudes ``pnt->lon`` does not affect the grid 
+ *   symmetry):
+ *
+ *   - Equator included:
+ *
+ *          -90.0, -60.0, -30.0, 0.0, 30.0, 60.0, 90.0
+ *
+ *     or
+ *
+ *          -80.0, -60.0, -40.0, -20.0, 0.0, 20.0, 40.0, 60.0, 80.0
+ *
+ *   - Equator excluded:
+ *
+ *          -35.0, -25.0, -15.0, -5.0, 5.0, 15.0, 25.0, 35.0
+ *
+ *     or
+ *
+ *          -90.0, -85.0, -80.0, 80.0, 85.0, 90.0
+ *
+ *   - Varying spacing, equator excluded:
+ *
+ *          -90.0, -80.0, -75.0, -70.0, -69.0, 69.0, 70.0, 75.0, 80.0, 90.0
+ *
+ *
+ * */
+/**
+ *
+ * * Examples of some **non-symmetric** grids (shown are only latitudes again):
+ *
+ *   - The negative latitude of ``-90.0 deg`` does not have its positive 
+ *     counterpart
+ *
+ *          -90.0, -60.0, -30.0, 0.0, 30.0, 60.0
+ *
+ *   - The relative difference between ``fabs(-4.99)`` and ``fabs(5.0)`` is
+ *     larger than ``charm@P@_glob_threshold2`` (see ``charm@P@_glob.h``):
+ *
+ *          -35.0, -25.0, -15.0, -4.99, 5.0, 15.0, 25.0, 35.0
+ *
+ *
+ * * In other words, the grid is symmetric in the latitudinal direction, 
+ *   provided that all positive latitudes have their negative counterparts at 
+ *   the right places.  The check is done within a given threshold to suppress
+ *   numerical inaccuracies, see the ``charm@P@_glob_threshold2`` variable in
+ *   the ``charm@P@_glob`` module. The zero latitude, i.e., the equator, may be
+ *   present in the grid (again, within the specified numerical threshold
+ *   ``charm@P@_glob_threshold2``).
+ *
+ * * The longitudes of the grid must be sampled increasingly with equal 
+ *   spacing, that is, the difference between any two consecutive longitudes 
+ *   must be positive and constant. The function performs a check on this.  If 
+ *   the longitudes do not pass the test, an error message is written to 
+ *   ``err`` and the program returns to the caller.
+ *
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. note::
+ *
+ *      The synthesis always starts at degree ``nmin = 0``.  To use some other 
+ *      value of ``nmin`` (but satisfying ``1 <= nmin <= nmax``), you can set 
+ *      the respective coefficients in ``shcs`` to zero and use the newly 
+ *      modified structure ``shcs`` as the input to this function. The 
+ *      synthesis will still formally start at degree ``0``, but since the 
+ *      coefficients up to degree ``nmin - 1`` are zero, they do not contribute 
+ *      to the output signal as required.
+ *
+ * \endverbatim
+ *
+ * **References**:
+ * - Sneeuw, N. (1994) Global spherical harmonic analysis by least-squares and 
+ *   numerical quadrature methods in historical perspective. Geophysical 
+ *   Journal International 118:707-716
+ *
+ * - Heiskannen, W. A., Moritz, H. (1967) Physical Geodesy. W. H. Freeman and 
+ *   Company, San Francisco, 364 pp
+ *
+ * - Fukushima, T. (2012) Numerical computation of spherical harmonics of 
+ *   arbitrary degree and order by extending exponent of floating point 
+ *   numbers. Journal of Geodesy 86:271-285.
+ *
+ * - Balmino, Vales, Bonvalot, Briais, 2012. Spherical harmonic modelling to 
+ *   ultra-high degree of Bouguer and isostatic anomalies. Journal of Geodesy 
+ *   86:499-520, doi: 10.1007/s00190-011-0533-4
+ *
+ * */
+/**
+ * @param[in] pnt Evaluation points, organized either as a **grid** or as 
+ * **scattered points** (see the ``charm@P@_crd`` module).
+ *
+ * @param[in] shcs Spherical harmonic coefficients (see the ``charm@P@_shc`` 
+ * module).
+ *
+ * @param[in] nmax Maximum spherical harmonic degree of the synthesis.
+ *
+ * @param[out] f Pointer to an output array with the synthesized signal.  If 
+ * ``pnt`` holds a **grid**, the pointer ``f`` must have an access to 
+ * ``pnt->nlat * pnt->nlon`` array elements.   The value of ``f`` synthesized 
+ * at ``pnt->lat[i]`` and ``pnt->lon[j]`` can be found as: 
+ * ``f[i * pnt->nlon + j]`` with ``i = 0, 1, ..., pnt->nlat - 1`` and 
+ * ``j = 0, 1, ..., pnt->nlon - 1``.  In case ``pnt`` represents **scattered 
+ * points**, ``f`` must have an access to ``pnt->nlat == pnt->nlon`` elements 
+ * and ``f[i]`` stands for the value synthesized at ``pnt->lat[i]`` and 
+ * ``pnt->lon[i]`` with ``i = 0, 1, ..., pnt->nlat - 1`` .
+ *
+ * @param[out] err Error reported by the function (if any).
+ *
+ * */
+extern void charm@P@_shs_point(const charm@P@_crd *pnt,
+                               const charm@P@_shc *shcs,
+                               unsigned long nmax,
+                               @RDT@ *f,
+                               charm@P@_err *err);
+
+
+
+
+
+
+/**
+ * Performs the exact solid spherical harmonic synthesis of mean values over 
+ * computational cells:
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. math::
+ *
+ *      \tilde{f}(\varphi_{\mathrm{min}}, \varphi_{\mathrm{max}}, 
+ *      \lambda_{\mathrm{min}}, \lambda_{\mathrm{max}}) =& \dfrac{1}{\Delta 
+ *      \sigma} \, \dfrac{\mu}{R} \, \sum_{n = 0}^{n_{\max}} \left( 
+ *      \dfrac{R}{r} \right)^{n + 1} \\
+ *      &\sum_{m = 0}^{n} \left( \bar{C}_{nm}\, 
+ *      \int\limits_{\lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}} \cos(m \, 
+ *      \lambda) \, \mathrm{d}\lambda + \bar{S}_{nm} \, 
+ *      \int\limits_{\lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}} \sin(m \, 
+ *      \lambda) \, \mathrm{d}\lambda \right) \\
+ *      &\int\limits_{\varphi_{\mathrm{min}}}^{\varphi_{\mathrm{max}}}\bar{P}_{nm}(\sin\varphi) 
+ *      \, \cos\varphi \, \mathrm{d}\varphi{,}
+ *
+ * \endverbatim
+ *
+ * The synthesis is done either at
+ *
+ * - a **grid** if ``cell->type`` is set to ``CHARM_CRD_CELLS_GRID*`` (see the 
+ *   ``charm@P@_crd`` module), or
+ *
+ * - **scattered cells** if ``cell->type == CHARM_CRD_CELLS_SCATTERED``.
+ *
+ * For **grids**, efficient 1D FFT-based algorithm is applied along the 
+ * latitude parallels whenever possible.  Otherwise, the Chebyshev recurrences 
+ * are employed along the parallels.  The latter option is slower.  The 
+ * following conditions must be satisfied in order for CHarm to apply FFT:
+ *
+ * - ``(cell->nlon - 1) / 2 >= nmax``, where the division is rounded down,
+ *
+ * - the longitudinal step ``dlon`` is constant,
+ *
+ * - ``cell->lon[0] == 0.0`` within the numerical threshold
+ *   (``charm@P@_glob_threshold``),
+ *
+ * - ``cell->lon[2 * cell->nlon - 1] + dlon == 2.0 * PI`` within the numerical
+ *   threshold (``charm@P@_glob_threshold``),
+ *
+ * - there are two or more grid cells in the longitudinal direction, and
+ *
+ * - the maximum longitude of the ``j``th cell must be equal to the minimum 
+ *   longitude of the ``j + 1``th cell.
+ *
+ * If any of these conditions is not satisfied, CHarm uses the Chebyshev 
+ * recurrences.  The algorithm is selected automatically by CHarm with the 
+ * preference being FFT.
+ *
+ * For **scattered cells**, tedious cell-by-cell synthesis is applied.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. note::
+ *
+ *      The function does not use ``cell->w`` at all, so no constrains are 
+ *      applied.  ``cell->w`` can therefore be, for instance, ``NULL``.
+ *
+ * \endverbatim
+ *
+ * The synthesis is parallelized using OpenMP.
+ *
+ * **Notes on evaluation cells organized in grids** (not relevant for scattered 
+ * cells)
+ *
+ * */
+/**
+ *
+ * * To improve the computational speed, exploited is the symmetry of Legendre 
+ *   functions with respect to the equator. This is done *automatically*, 
+ *   provided that the grid stored in ``cell`` is recognized as symmetric with 
+ *   respect to the equator. Below are shown some examples of symmetric and 
+ *   non-symmetric grids. (While these examples use the unit degrees for a more 
+ *   intuitive understanding, note that the function inputs assume radians.)
+ *
+ * * *Examples of some symmetric grids* (shown are only the minimum and the 
+ *   maximum latitudes ``latmin`` and ``latmax``, respectively; the longitudes 
+ *   do not affect the grid symmetry):
+ *
+ *   \verbatim embed:rst:leading-asterisk
+ *    .. code-block:: none
+ *
+ *              latmin: -90.0, -60.0, -30.0,  0.0, 30.0, 60.0
+ *              latmax: -60.0, -30.0,   0.0, 30.0, 60.0, 90.0
+ *
+ *   \endverbatim
+ *
+ *   \verbatim embed:rst:leading-asterisk
+ *    .. code-block:: none
+ *
+ *              latmin: -35.0, -25.0, -15.0, -5.0,  5.0, 15.0, 25.0
+ *              latmax: -25.0, -15.0,  -5.0,  5.0, 15.0, 25.0, 35.0
+ *
+ *   \endverbatim
+ *
+ *   \verbatim embed:rst:leading-asterisk
+ *    .. code-block:: none
+ *
+ *              latmin: -90.0, -85.0, 80.0, 85.0
+ *              latmax: -85.0, -80.0, 85.0, 90.0
+ *
+ *   \endverbatim
+ *
+ *   \verbatim embed:rst:leading-asterisk
+ *    .. code-block:: none
+ *
+ *              latmin: -90.0, -80.0, -75.0, -70.0, 69.0, 70.0, 75.0, 80.0
+ *              latmax: -80.0, -75.0, -70.0, -69.0, 70.0, 75.0, 80.0, 90.0
+ *
+ *   \endverbatim
+ * */
+/**
+ * * *Examples of some grids that are not considered as symmetric* (shown are 
+ *   again only latitudes):
+ *
+ *   \verbatim embed:rst:leading-asterisk
+ *    .. code-block:: none
+ *
+ *              latmin: -90.0, -60.0, -30.0,  0.0, 30.0
+ *              latmax: -60.0, -30.0,   0.0, 30.0, 60.0
+ *
+ *   \endverbatim
+ *
+ *   \verbatim embed:rst:leading-asterisk
+ *    .. code-block:: none
+ *
+ *              latmin: -35.0, -25.0, -15.0,     5.0, 15.0, 25.0
+ *              latmax: -25.0, -15.0,  -4.99,   15.0, 25.0, 35.0
+ *
+ *   \endverbatim
+ *
+ * * In other words, the grid is symmetric in the latitudinal direction, 
+ *   provided that all positive latitudes have their negative counterparts at 
+ *   the right places.  The check is done within a given threshold to suppress
+ *   numerical inaccuracies, see the ``charm@P@_glob_threshold2`` variable in
+ *   the ``charm@P@_glob`` module. The zero latitude, i.e., the equator, may be
+ *   present in the grid (again, within the specified numerical threshold
+ *   ``charm@P@_glob_threshold2``).
+ *
+ * * The longitudes of the grid must be sampled increasingly with equal 
+ *   spacing, that is, the difference between any two consecutive minimum cell 
+ *   longitudes must be positive and constant and the same holds for the 
+ *   maximum cell longitudes as well; moreover, the step in minimum cell 
+ *   longitudes must be equal to the step in maximum cell longitudes.  Two 
+ *   examples of an acceptable longitudinal sampling (shown are minimum and 
+ *   maximum longitudes of grid cells):
+ *
+ *   \verbatim embed:rst:leading-asterisk
+ *    .. code-block:: none
+ *
+ *              lonmin: 0.0, 1.0, 2.0, 3.0, 4.0, 5.0
+ *              lonmax: 1.0, 2.0, 3.0, 4.0, 5.0, 6.0
+ *
+ *   \endverbatim
+ *
+ *   \verbatim embed:rst:leading-asterisk
+ *    .. code-block:: none
+ *
+ *              lonmin: 0.0, 0.5, 1.0, 1.5, 2.0, 2.5
+ *              lonmax: 1.0, 1.5, 2.0, 2.5, 3.0, 3.5
+ *
+ *   \endverbatim
+ *
+ *  * The function performs all necessary checks.  If the longitudes do not 
+ *    pass the test, an error message is written to ``err`` and program returns 
+ *    to the caller.
+ *
+ *   \verbatim embed:rst:leading-asterisk
+ *    .. note::
+ *
+ *        The synthesis automatically starts at degree ``nmin = 0``.  To use some 
+ *        other value of ``nmin``, see the tip given in 
+ *        ``charm@P@_shs_point``.
+ *
+ *   \endverbatim
+ *
+ * **References**:
+ * * Colombo, O. L. (1981) Numerical methods for harmonic analysis on the 
+ *   sphere. Reports of the Department of Geodetic Science, Report No. 310, 140 
+ *   pp
+ *
+ * * Heiskannen, W. A., Moritz, H. (1967) Physical Geodesy. W. H. Freeman and 
+ *   Company, San Francisco, 364 pp
+ *
+ * * Jekeli, C., Lee, J. K., Kwon, J. H. (2007) On the computation and 
+ *   approximation of ultra-high-degree spherical harmonic series. Journal of 
+ *   Geodesy 81:603-615
+ *
+ * * Fukushima, T. (2012) Numerical computation of spherical harmonics of 
+ *   arbitrary degree and order by extending exponent of floating point 
+ *   numbers. Journal of Geodesy 86:271-285.
+ *
+ * * Balmino, Vales, Bonvalot, Briais, 2012. Spherical harmonic modelling to 
+ *   ultra-high degree of Bouguer and isostatic anomalies. Journal of Geodesy 
+ *   86:499–520, doi: 10.1007/s00190-011-0533-4
+ *
+ * * Fukushima, T. (2014) Numerical computation of spherical harmonics of 
+ *   arbitrary degree and order by extending exponent of floating point 
+ *   numbers: III integral. Computers & Geosciences 63:17-21
+ *
+ *
+ * @param[in] cell Evaluation cells, organized either as a **grid** or as 
+ * **scattered cells** (see the ``charm@P@_crd`` module).
+ *
+ * @param[in] shcs Spherical harmonic coefficients (see the ``charm@P@_shc`` 
+ * module).
+ *
+ * @param[in] nmax Maximum spherical harmonic degree of the synthesis.
+ *
+ * @param[out] f Pointer to an output array with the synthesized mean 
+ * values. If ``cell`` holds a **grid**, the pointer ``f`` must have an access 
+ * to ``cell->nlat * cell->nlon`` array elements.   The mean value of ``f`` 
+ * synthesized at the ``i``th cell in the latitudinal direction and ``j``th 
+ * cell in the longitudinal direction can be found as:
+ * ``f[i * cell->nlon + j]`` with ``i = 0, 1, ..., cell->nlat - 1`` and
+ * ``j = 0, 1, ..., cell->nlon - 1``.  In case ``cell`` represents
+ * **scattered cells**, ``f`` must have an access to
+ * ``cell->nlat == cell->nlon`` elements and ``f[i]`` stands for the mean value 
+ * synthesized at the ``i``th cell with ``i = 0, 1, ..., cell->nlat - 1`` .
+ *
+ * @param[out] err Error reported by the function (if any).
+ *
+ * */
+extern void charm@P@_shs_cell(const charm@P@_crd *cell,
+                              const charm@P@_shc *shcs,
+                              unsigned long nmax,
+                              @RDT@ *f,
+                              charm@P@_err *err);
+
+
+
+
+
+
+/**
+ * Similarly as ``charm@P@_shs_cell``, this function computes mean values of 
+ * a function given by ``shcs1``.  The difference is that here, the mean values 
+ * are integrated not on the unit sphere, but instead on a band-limited 
+ * irregular surface \f$r(\varphi,\lambda)\f$ defined by spherical harmonic 
+ * coefficients in ``shcs2``:
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. math::
+ *
+ *      \tilde{f}(\varphi_{\mathrm{min}}, 
+ *      \varphi_{\mathrm{max}},\lambda_{\mathrm{min}},\lambda_{\mathrm{max}}) 
+ *      =& \frac{1}{\Delta \sigma} \, \frac{\mu^{(1)}}{R^{(1)}} \, 
+ *      \int\limits_{\varphi = \varphi_{\mathrm{min}}}^{\varphi_{\mathrm{max}}} 
+ *      \int\limits_{\lambda 
+ *      = \lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}}\sum_{n 
+ *      = 0}^{n_{\max_1}} \left( \frac{R^{(1)}}{r(\varphi, \lambda)}\right)^{(n 
+ *      + 1)} \\
+ *      &\times \sum_{m = 0}^{n} \left( \bar{C}_{nm}^{(1)}\, \cos(m \, \lambda) 
+ *      + \bar{S}_{nm}^{(1)} \, \sin(m \, \lambda) \right) \, 
+ *      \bar{P}_{nm}(\sin\varphi)\\
+ *      &\times \mathrm{d}\lambda \, \cos\varphi \, \mathrm{d}\varphi
+ *
+ * \endverbatim
+ *
+ * with
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. math::
+ *
+ *      r(\varphi, \lambda) = \sum_{n = 0}^{n_{\max_2}} \sum_{m = 0}^{n} \left( 
+ *      \bar{C}_{nm}^{(2)}\, \cos(m \, \lambda) + \bar{S}_{nm}^{(2)} \, \sin(m 
+ *      \, \lambda) \right) \, \bar{P}_{nm}(\sin\varphi){.}
+ *
+ * \endverbatim
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. warning::
+ *
+ *      Contrary to ``charm@P@_shs_point`` and ``charm@P@_shs_cell``, the 
+ *      computation is *not* exact, but the output accuracy can be well 
+ *      controled by the input variables.
+ *
+ *
+ * \endverbatim
+ *
+ * This function can only be used with evaluation cells organized in a grid, 
+ * that is, ``cell->type`` is set to ``CHARM_CRD_CELLS_GRID``.  Currently, only 
+ * the Chebyshev recurrences are supported for computation along the latitude 
+ * parallels.
+ *
+ * The Fourier coefficients are evaluated after Fukushima (2018).
+ *
+ * The function is parallelized using OpenMP.
+ *
+ * **Notes on evaluation cells organized in grids**
+ *
+ * * The symmetry of Legendre function is *not* employed in this 
+ *   function. Numerical experiments have shown that, in our implementation, 
+ *   the speed improvement is completely negligible if any.
+ *
+ * * The structure of the longitudes must be the same as discussed in 
+ *   ``charm@P@_shs_cell``.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. warning::
+ *
+ *      Both scaling constants of the ``shcs2`` structure that defines the 
+ *      irregular surface (``shcs2->mu`` and ``shcs2->r``) have to be equal to 
+ *      ``1.0``.  Otherwise, an error is written to ``err`` and the synthesis 
+ *      does not start.
+ *
+ * \endverbatim
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. warning::
+ *
+ *      This function is very demanding on RAM!  More than
+ *      ``4 * (nmax1 + 1)^2 * (nmax3 + 1)^2 * 8 / 1024^3`` GBs of memory are 
+ *      needed in double precision.  For instance, for ``nmax1 = 150`` and 
+ *      ``nmax3 = 150``, about 15 GBs of RAM are occupied during the 
+ *      computation.
+ *
+ * \endverbatim
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. note::
+ *
+ *      The function does not use ``cell->w`` at all, so no constrains are 
+ *      applied.  ``cell->w`` can therefore be, for instance, ``NULL``.
+ *
+ * \endverbatim
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. note::
+ *
+ *      The function does not use spherical radii ``cell->r``, since these are 
+ *      synthesized from ``shcs2``.
+ *
+ * \endverbatim
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. note::
+ *
+ *      The synthesis automatically starts at degree ``nmin = 0``.  To use some 
+ *      other value of ``nmin``, see the tip given in ``charm@P@_shs_point``.
+ *
+ * \endverbatim
+ *
+ *
+ * **References**:
+ *
+ * * Fukushima, T. (2012) Numerical computation of spherical harmonics of 
+ *   arbitrary degree and order by extending exponent of floating point 
+ *   numbers. Journal of Geodesy 86:271-285.
+ *
+ * * Fukushima, T. (2018) Fast computation of sine/cosine series coefficients 
+ *   of associated Legendre functions of arbitrary high degree and order.
+ *
+ * */
+ /**
+ *
+ * @param[in] cell Evaluation cells organized as a **grid** (see the 
+ * ``charm@P@_crd`` module).
+ *
+ * @param[in] shcs1 Spherical harmonic coefficients of the function (e.g., the 
+ * gravitational potential), the block mean values of which are synthesized 
+ * (see the ``charm@P@_shc`` module).
+ *
+ * @param[in] nmax1 Maximum harmonic degree of the function given by ``shcs1``, 
+ * the block mean values of which are synthesized.
+ *
+ * @param[in] shcs2 Spherical harmonic coefficients of the surface, on which 
+ * the block mean values are synthesized (see the ``charm@P@_shc`` 
+ * module). The surface must be defined by the spherical radii ``r``, that is, 
+ * the synthesis of ``shcs2`` yields spherical radii of the surface, on which 
+ * the mean values are sought.
+ *
+ * @param[in] nmax2 Maximum harmonic degree of the surface defined by 
+ * ``shcs2``, on which the block mean values are synthesized.
+ * 
+ * @param[in] nmax3 Maximum harmonic degree of the powers
+ * ``(shcs1->r / r)^(n + 1)`` used in the synthesis of the mean values.  The 
+ * term ``(shcs1->r / r)^(n + 1)`` is a 2D sphere-like surface and ``nmax3`` 
+ * defines the maximum harmonic degree of this surface to be used in the 
+ * synthesis.  In theory, ``nmax3`` should be infinite, since ``shcs1->r / r`` 
+ * is non-band-limited for ``r`` band-limited to ``nmax2``.
+ *
+ * @param[in] nmax4 Maximum harmonic degree, up to which the powers
+ * ``(shcs1->r / r)^(n + 1)`` are harmonically analyzed.  The higher is the 
+ * value of ``nmax4``, the smaller is the aliasing effect.  In theory, 
+ * ``nmax4`` should be infinite, since ``shcs1->r / r`` is non-band-limited for 
+ * band-limited ``r``.  Note that ``nmax4`` cannot be smaller than 
+ * ``nmax3``. In other words, the term ``(shcs1->r / r)^(n + 1)`` is 
+ * harmonically analyzed up to degree ``nmax4``, but to synthesize it later, 
+ * the ``nmax3`` maximum degree is used.
+ *
+ * @param[out] f Pointer to an output array with the synthesized mean 
+ * values. The pointer ``f`` must have an access to ``cell->nlat * cell->nlon`` 
+ * array elements.   The mean value of ``f`` synthesized at the ``i``th cell in 
+ * the latitudinal direction and ``j``th cell in the longitudinal direction can 
+ * be found as:
+ * ``f[i * cell->nlon + j]`` with ``i = 0, 1, ..., cell->nlat - 1`` and
+ * ``j = 0, 1, ..., cell->nlon - 1``.
+ *
+ * @param[out] err Error reported by the function (if any).
+ *
+ * */
+extern void charm@P@_shs_cell_isurf(const charm@P@_crd *cell,
+                                    const charm@P@_shc *shcs1,
+                                    unsigned long nmax1,
+                                    const charm@P@_shc *shcs2,
+                                    unsigned long nmax2,
+                                    unsigned long nmax3,
+                                    unsigned long nmax4,
+                                    @RDT@ *f,
+                                    charm@P@_err *err);
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+#ifdef __cplusplus
+}
+#endif
+/* ------------------------------------------------------------------------- */
+
+
+#endif

@@ -1,0 +1,210 @@
+/**
+ * \file charm@P@_integ.h
+ *
+ * Module to compute the following integrals:
+ *
+ * * a product of two fully-normalized associated Legendre functions and a sine 
+ * of a co-latitude over a restricted domain of co-latitudes,
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. math::
+ *
+ *          \int_{\theta_1}^{\theta_2} \bar{P}_{nm}(\cos\theta) \, 
+ *          \bar{P}_{nm}(\cos\theta) \, \sin(\theta) \, \mathrm{d}\theta \,,
+ *
+ * \endverbatim
+ *
+ * * a product of two \f$4 \pi\f$ fully-normalized surface spherical harmonic 
+ * functions over a rectangular cell on the unit sphere,
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. math::
+ *
+ *          \int_{\theta_1}^{\theta_2} \int_{\lambda_1}^{\lambda_2} 
+ *          \bar{Y}_{nm}(\theta, \lambda) \, \bar{Y}_{nm}(\theta, \lambda) \, 
+ *          \mathrm{d}\lambda \, \sin(\theta) \, \mathrm{d}\theta \,.
+ *
+ * \endverbatim
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. note::
+ *
+ *          This documentation is written for double precision version of 
+ *          CHarm.
+ *
+ * \endverbatim
+ *
+ * ============================================================================
+ *
+ * */
+
+
+
+
+
+
+#ifndef __CHARM@PC@_INTEG_H__
+#define __CHARM@PC@_INTEG_H__
+
+
+/* Header files required by this module */
+/* ------------------------------------------------------------------------- */
+#include <stdio.h>
+#include <charm/charm@P@_err.h>
+#include <charm/charm@P@_leg.h>
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* Function prototypes */
+/* ------------------------------------------------------------------------- */
+/**
+ * Analytically computes the integral
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. math::
+ *
+ *                  \mathrm{ip} = 
+ *                       \int_{\theta_{\mathrm{min}}}^{\theta_{\mathrm{max}}} 
+ *                       \bar{P}_{n_1, m_1}(\cos\theta) \, \bar{P}_{n_2, 
+ *                       m_2}(\cos\theta) \, \sin\theta \, \mathrm{d}\theta
+ *
+ * \endverbatim
+ *
+ * over a restricted domain of co-latitudes.
+ *
+ * The computation is based on the Fourier coefficients of the associated 
+ * Legendre functions (see Eq. 33 of Pail and Plank, 2001).
+ *
+ *
+ * **References**: 
+ *
+ * * Pail, R., Plank, G., Schuh, W.-D. (2001) Spatially restricted data 
+ *   distributions on the sphere: the method of orthonormalized functions and 
+ *   applications. Journal of Geodesy 75:44--56
+ *
+ *
+ * @param[in] cltmin Minimum co-latitude in radians.
+ * @param[in] cltmax Maximum co-latitude in radians.
+ * @param[in] n1 Harmonic degree of the first Legendre function.
+ * @param[in] m1 Harmonic order of the first Legendre function.
+ * @param[in] n2 Harmonic degree of the second Legendre function.
+ * @param[in] m2 Harmonic order of the second Legendre function.
+ * @param[in] pnmj The ``charm@P@_pnmj`` structure with the Fourier 
+ * coefficients of associated Legendre functions up to degree 
+ * ``CHARM_MAX(n1, n2)``.  It is assumed that the structure is prepared 
+ * beforehand by calling ``charm@P@_leg_pnmj_coeffs``.  Note that ``j`` is 
+ * related to wave-numbers, but is *not* a wave-number (see the 
+ * ``charm@P@_leg`` module).
+ *
+ *
+ * @param[out] err Error reported by the function (if any).
+ *
+ *
+ * @return The value ``ip`` of the integral.  In case of an error, returned is 
+ * the ``nan`` value and the error is written to ``err``.
+ *
+ * */
+extern @RDT@ charm@P@_integ_pn1m1pn2m2(@RDT@ cltmin,
+                                       @RDT@ cltmax,
+                                       unsigned long n1,
+                                       unsigned long m1,
+                                       unsigned long n2,
+                                       unsigned long m2,
+                                       const charm@P@_pnmj *pnmj,
+                                       charm@P@_err *err);
+
+
+
+
+
+
+/**
+ * Analytically computes the integral
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. math::
+ *
+ *                  \mathrm{iy} = 
+ *                       \int_{\theta_{\mathrm{min}}}^{\theta_{\mathrm{max}}} 
+ *                       \int_{\lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}} 
+ *                       \bar{Y}_{i_1,n_1,m_1}(\theta, \lambda) \, 
+ *                       \bar{Y}_{i_2,n_2,m_2}(\theta, \lambda) \, \mathrm{d} 
+ *                       \lambda \, \sin(\theta) \, \mathrm{d}\theta \, 
+ *
+ * \endverbatim
+ *
+ * over a rectangular cell on the unit sphere.
+ *
+ *
+ * @param[in] cltmin Minimum co-latitude in radians.
+ * @param[in] cltmax Maximum co-latitude in radians.
+ * @param[in] lonmin Minimum longitude in radians.
+ * @param[in] lonmax Maximum longitude in radians.
+ * @param[in] i1 ``0`` if the first spherical harmonic function is of the 
+ * ``cos`` type; ``1`` for the ``sin`` type.
+ * @param[in] n1 Harmonic degree of the first spherical harmonic function.
+ * @param[in] m1 Harmonic order of the first spherical harmonic function.
+ * @param[in] i2 ``0`` if the second spherical harmonic function the ``cos`` 
+ * term of the longitude in it; ``1`` for the ``sin`` term.
+ * @param[in] n2 Harmonic degree of the second spherical harmonic function.
+ * @param[in] m2 Harmonic order of the second spherical harmonic function.
+ * @param[in] pnmj The ``charm@P@_pnmj`` structure with the Fourier 
+ * coefficients of associated Legendre functions up to degree 
+ * ``CHARM_MAX(n1, n2)``.  It is assumed that the structure is prepared 
+ * beforehand by calling ``charm@P@_leg_pnmj_coeffs``.  Note that ``j`` is 
+ * related to wave-numbers, but is *not* a wave-number (see the 
+ * ``charm@P@_leg`` module).
+ *
+ *
+ * @param[out] err Error reported by the function (if any).
+ *
+ *
+ * @return The output value ``iy`` of the integral.  In case of an error, 
+ * returned is the ``nan`` value and the error is written to ``err``.
+ *
+ * */
+extern @RDT@ charm@P@_integ_yi1n1m1yi2n2m2(@RDT@ cltmin,
+                                           @RDT@ cltmax,
+                                           @RDT@ lonmin,
+                                           @RDT@ lonmax,
+                                           _Bool i1,
+                                           unsigned long n1,
+                                           unsigned long m1,
+                                           _Bool i2,
+                                           unsigned long n2,
+                                           unsigned long m2,
+                                           const charm@P@_pnmj *pnmj,
+                                           charm@P@_err *err);
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+#ifdef __cplusplus
+}
+#endif
+/* ------------------------------------------------------------------------- */
+
+
+#endif
+
+

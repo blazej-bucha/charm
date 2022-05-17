@@ -1,0 +1,971 @@
+/**
+ * \file charm@P@_shc.h
+ *
+ * Module to work with spherical harmonic coefficients:
+ *
+ * * defines the ``charm@P@_shc`` structure to store spherical harmonic 
+ *   coefficients,
+ *
+ * * initializes and frees the ``charm@P@_shc`` structure,
+ *
+ * * reads/writes spherical harmonic coefficients from/to text and binary 
+ *   files,
+ *
+ * * rescales spherical harmonic coefficients,
+ *
+ * * computes (difference) degree variances and degree amplitudes.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. note::
+ *
+ *          This documentation is written for double precision version of 
+ *          CHarm.
+ *
+ * \endverbatim
+ *
+ * */
+
+
+
+
+
+
+#ifndef __CHARM@PC@_SHC_H__
+#define __CHARM@PC@_SHC_H__
+
+
+/* Header files required by this module */
+/* ------------------------------------------------------------------------- */
+#include <stdio.h>
+#include <charm/charm@P@_err.h>
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+/**
+ *
+ * Ordering scheme to write spherical harmonic coefficients with
+ * ``charm@P@_shc_write_tbl``.  */
+enum
+{
+    /**
+     *
+     * Harmonic degree varies fastest. */
+    CHARM_SHC_WRITE_TBL_N,
+
+
+    /**
+     *
+     * Harmonic order varies fastest. */
+    CHARM_SHC_WRITE_TBL_M
+};
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* Structure definitions */
+/* ------------------------------------------------------------------------- */
+
+/**
+ * Structure to store spherical harmonic coefficients and some associated data.
+ *
+ * In most cases, it is created by functions from this module that return 
+ * a pointer to ``charm@P@_shc``.  Experienced users may create the structure 
+ * on their own, provided that they assign correct values to its members, so 
+ * that CHarm can properly understood the data in it (see the rules summarized 
+ * below). */
+typedef struct
+{
+    /**
+     * Maximum harmonic degree of the spherical harmonic coefficients.
+     * */
+    unsigned long nmax;
+
+
+    /**
+     * Scaling parameter \f$\mu\f$ associated with the spherical harmonic 
+     * coefficients, for instance, the geocentric gravitational constant.  In 
+     * case the coefficients are not associated with any scaling parameter (as 
+     * it is, for instance, with planetary topographies), simply set this 
+     * variable to ``1.0`` (not to ``0.0``!). */
+    @RDT@ mu;
+
+
+    /**
+     * Radius of the reference sphere \f$R\f$, to which the spherical harmonic 
+     * coefficients refer (are scaled).  The value must be greater than 
+     * zero. To get the unit sphere, as needed, for instance, when working with 
+     * planetary topographies, set this variable to ``1.0``. */
+    @RDT@ r;
+
+
+    /**
+     * Spherical harmonic coefficients \f$\bar{C}_{nm}\f$ stored as a 2D 
+     * array. The first dimension is related to harmonic orders and the second 
+     * one to harmonic degrees.  Importantly, the number of columns varies for 
+     * each row as follows:
+     *
+     * * Order ``0``: ``c[0]`` has ``nmax + 1`` columns for degrees ``0``,
+     *   ``1``, ..., ``nmax`` (respectively),
+     *
+     * * Order ``1``: ``c[1]`` has ``nmax`` columns for degrees ``1``, ``2``,
+     *   ..., ``nmax`` (respectively),
+     *
+     * * Order ``2``: ``c[2]`` has ``nmax - 1`` columns for degrees ``2``,
+     *   ``3``, ..., ``nmax`` (respectively),
+     *
+     * * ...
+     *
+     * * Order ``nmax``: ``c[nmax]`` has ``1`` column for degree ``nmax``.
+     *
+     * \verbatim embed:rst:leading-asterisk 
+     * .. warning:: 
+     *
+     *      ``c`` is *not* a 2D rectangular array.
+     *
+     * \endverbatim
+     *
+     * Assuming the ``charm@P@_shc`` structure was initialized up to some 
+     * degree ``unsigned long nmax`` as 
+     *
+     * \verbatim embed:rst:leading-asterisk
+     * .. code-block:: c
+     *
+     *      charm@P@_shc *shcs = charm@P@_shc_init(nmax, 1.0, 1.0);
+     *
+     * \endverbatim
+     * 
+     * harmonic coefficients of degree ``n <= nmax`` and order ``m <= n`` can 
+     * be accessed as:
+     *
+     *
+     * \verbatim embed:rst:leading-asterisk
+     * .. code-block:: c
+     *
+     *      shcs->c[m][n - m];
+     *
+     * \endverbatim
+     *
+     * The coefficients in ``c`` are stored in a contiguous block of
+     * memory. For fast sequential access, the loop over harmonic orders should
+     * always be the outer one, in which the degree-dependent loop is nested,
+     * such as:
+     *
+     * \verbatim embed:rst:leading-asterisk
+     * .. code-block:: c
+     *
+     *     for (unsigned long m = 0; m <= nmax; m++)
+     *         for (unsigned long n = m; n <= nmax; n++)
+     *             shcs->c[m][n - m];
+     *
+     * \endverbatim
+     * */
+    @RDT@ **c;
+
+
+    /**
+     * Spherical harmonic coefficients \f$\bar{S}_{nm}\f$.  The same comments 
+     * as for ``c`` apply to ``s``, too.
+     * */
+    @RDT@ **s;
+} charm@P@_shc;
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* Function prototypes */
+/* ------------------------------------------------------------------------- */
+
+/**
+ * Allocates and initializes a ``charm@P@_shc`` structure of spherical harmonic 
+ * coefficients up to the degree ``nmax``.  All coefficients are initialized to 
+ * zero and are associated with the scaling parameter ``mu`` and the radius of 
+ * the reference sphere ``r``.
+ *
+ * On success, returned is a pointer to the ``charm@P@_shc`` structure.  On 
+ * error, ``NULL`` is returned.
+ *
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. warning::
+ *
+ *          The ``charm@P@_shc`` structure created by this function must be 
+ *          deallocated by calling ``charm@P@_shc_free``.  The ``free`` 
+ *          function will *not* deallocate the memory and will lead to memory 
+ *          leaks.
+ *
+ * \endverbatim
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *
+ *  .. note::
+ *
+ *      ``r`` must be greater than zero.
+ *
+ * \endverbatim
+ *
+ * */
+extern charm@P@_shc *charm@P@_shc_init(unsigned long nmax,
+                                       @RDT@ mu,
+                                       @RDT@ r);
+
+
+
+
+
+
+/**
+ * Frees the memory associated with ``shcs``.  No operation is performed if 
+ * ``shcs`` is ``NULL``.
+ *
+ * */
+extern void charm@P@_shc_free(charm@P@_shc *shcs);
+
+
+
+
+
+
+/**
+ * Reads a ``charm@P@_shc`` structure to ``shcs`` from a binary file pointed to
+ * by ``stream``.  The structure is loaded up to the maximum spherical harmonic
+ * degree ``nmax``. The file is assumed to has been created by
+ * ``charm@P@_shc_write_bin`` on the same architecture.  Error reported by the
+ * function (if any) is written to ``err``.
+ *
+ * The input file is a binary representation of the ``charm@P@_shc`` structure 
+ * in the following order:
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. math::
+ *          &\mathrm{nmax2}, \, \mu, \, R, \bar{C}_{0,0}, \, 
+ *          \bar{C}_{1,0},\bar{C}_{2,0}, \, \cdots, \bar{C}_{\mathrm{nmax2},0}, 
+ *          \bar{C}_{1,1},\, \bar{C}_{2,1}, \, \cdots,\\
+ *          &\bar{C}_{\mathrm{nmax2},1}, \, \bar{C}_{2,2}, \bar{C}_{3,2},\, 
+ *          \cdots,\, \bar{C}_{\mathrm{nmax2},\mathrm{nmax2}},\, 
+ *          \bar{S}_{0,0},\, \bar{S}_{1,0},\, \bar{S}_{2,0},\, \cdots,\\
+ *          &\bar{S}_{\mathrm{nmax2},0},\, \bar{S}_{1,1},\, \bar{S}_{2,1},\, 
+ *          \cdots, \bar{S}_{\mathrm{nmax2},1},\,\bar{S}_{2,2},\, 
+ *          \bar{S}_{3,2},\, \cdots, \bar{S}_{\mathrm{nmax2},\mathrm{nmax2}},
+ *
+ * \endverbatim
+ *
+ * where ``nmax2`` is the maximum harmonic degree related to the 
+ * ``charm@P@_shc`` structure stored in the file,
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. math::
+ *          \mu, R
+ *
+ * \endverbatim
+ *
+ * are the scaling parameter of the coefficients and the associated radius of 
+ * the reference sphere and, finally,
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. math::
+ *          \bar{C}_{n,m}, \, \bar{S}_{n,m}
+ *
+ * \endverbatim
+ *
+ * are spherical harmonic coefficients of degree ``n`` and order ``m``.  It 
+ * must hold that ``nmax <= nmax2``.  That is, from all coefficients up to 
+ * degree ``nmax2`` that are stored in the file, properly loaded can be any 
+ * subset up to degree ``nmax <= nmax2``.
+ *
+ * It must hold that ``shcs->nmax >= nmax``.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. note::
+ *
+ *          The function modifies ``shcs->c``, ``shcs->s``, ``shcs->mu`` 
+ *          and ``shcs->r`` by the values from the input file, but it does not 
+ *          touch ``shcs->nmax``.  The latter value should not be
+ *          changed. Otherwise, a segmentation fault may be encountered.  The
+ *          function does not alter coefficients in ``shcs`` beyond ``nmax``
+ *          (if there are any).
+ *
+ * \endverbatim
+ *
+ * */
+extern void charm@P@_shc_read_bin(FILE *stream,
+                                  unsigned long nmax,
+                                  charm@P@_shc *shcs,
+                                  charm@P@_err *err);
+
+
+
+
+
+
+/** Reads a ``gfc`` file pointed to by ``stream`` to ``shcs``.  The
+ * coefficients are loaded up to the maximum spherical harmonic degree
+ * ``nmax``.  Error reported by the function (if any) is written to ``err``.
+ *
+ * The structure of the ``gfc`` file is defined by ICGEM at <a
+ * href="http://icgem.gfz-potsdam.de/ICGEM-Format-2011.pdf">http://icgem.gfz-potsdam.de/ICGEM-Format-2011.pdf</a>.
+ * It must hold that ``nmax <= nmax2``, where ``nmax2`` is taken from the
+ * ``max_degree`` keyword of the ``gfc`` file. From all coefficients up to
+ * degree ``nmax2`` that are stored in the file, properly loaded can be any
+ * subset up to degree ``nmax <= nmax2``. Lines specifying spherical harmonic
+ * coefficients can be sorted *arbitrarily*. The non-existing coefficients
+ * \f$\bar{S}_{n,0}\f$ of order ``0`` do not need to be present in the file.
+ *
+ * It must hold that ``shcs->nmax >= nmax``.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. note::
+ *
+ *          The function modifies ``shcs->c``, ``shcs->s``, ``shcs->mu`` 
+ *          and ``shcs->r`` by the values from the input file, but it does not 
+ *          touch ``shcs->nmax``.  The latter value should not be
+ *          changed. Otherwise, a segmentation fault may be encountered. The
+ *          function does not alter coefficients in ``shcs`` beyond ``nmax``
+ *          (if there are any).
+ *
+ * \endverbatim
+ *
+ * */
+extern void charm@P@_shc_read_gfc(FILE *stream,
+                                  unsigned long nmax,
+                                  charm@P@_shc *shcs,
+                                  charm@P@_err *err);
+
+
+
+
+
+
+/** Reads a ``charm@P@_shc`` structure to ``shcs`` from a text file pointed to
+ * by ``stream``.  The structure is loaded up to the maximum spherical harmonic
+ * degree ``nmax``. The file is assumed to has been created by
+ * ``charm@P@_shc_write_tbl``.  Error reported by the function (if any) is
+ * written to ``err``.
+ *
+ * The first line of the input file must specify the maximum harmonic degree
+ * ``nmax2`` of the coefficients stored in the file, their scaling parameter
+ * ``mu`` and the radius of the reference sphere ``r``.  Then, starting at
+ * a new line, provided must be a harmonic degree, harmonic order and the
+ * respective pair of coefficients per each line of the file.  The entire file
+ * structure can be summarized as:
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. math::
+ *
+ *          \begin{matrix}
+ *          \mathrm{nmax2} & \mu & R\\
+ *          0 & 0 & \bar{C}_{0,0} & \bar{S}_{0,0}\\
+ *          1 & 0 & \bar{C}_{1,0} & \bar{S}_{1,0}\\
+ *          1 & 1 & \bar{C}_{1,1} & \bar{S}_{1,1}\\
+ *          2 & 0 & \bar{C}_{2,0} & \bar{S}_{2,0}\\
+ *          2 & 1 & \bar{C}_{2,1} & \bar{S}_{2,1}\\
+ *          2 & 2 & \bar{C}_{2,2} & \bar{S}_{2,2}\\
+ *          \vdots & \vdots & \vdots & \vdots \\
+ *          \mathrm{nmax2} & \mathrm{nmax2}
+ *          & \bar{C}_{\mathrm{nmax2},\mathrm{nmax2}}
+ *          & \bar{S}_{\mathrm{nmax2},\mathrm{nmax2}}\\
+ *          \end{matrix}
+ *
+ * \endverbatim
+ *
+ * where
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. math::
+ *          \mu, R
+ *
+ * \endverbatim
+ *
+ * are the scaling parameter of the coefficients and the associated radius of 
+ * the reference sphere and
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. math::
+ *          \bar{C}_{n,m}, \, \bar{S}_{n,m}
+ *
+ * \endverbatim
+ *
+ * are spherical harmonic coefficients of degree ``n`` and order ``m``. It must
+ * hold that ``nmax <= nmax2``. That is, from all coefficients up to degree
+ * ``nmax2`` that are stored in the file, properly loaded can be any subset up
+ * to degree ``nmax <= nmax2``. Lines specifying spherical harmonic
+ * coefficients (all lines after the first one) can be sorted
+ * *arbitrarily*. The non-existing coefficients \f$\bar{S}_{n,0}\f$ of order
+ * ``0`` do not need to be present in the file.
+ *
+ * It must hold that ``shcs->nmax >= nmax``.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. note::
+ *
+ *          The function modifies ``shcs->c``, ``shcs->s``, ``shcs->mu`` 
+ *          and ``shcs->r`` by the values from the input file, but it does not 
+ *          touch ``shcs->nmax``.  The latter value should not be
+ *          changed. Otherwise, a segmentation fault may be encountered. The
+ *          function does not alter coefficients in ``shcs`` beyond ``nmax``
+ *          (if there are any).
+ *
+ * \endverbatim
+ *
+ * */
+extern void charm@P@_shc_read_tbl(FILE *stream,
+                                  unsigned long nmax,
+                                  charm@P@_shc *shcs,
+                                  charm@P@_err *err);
+
+
+
+
+
+
+/**
+ * Reads a ``charm@P@_shc`` structure from a text file pointed to by ``stream`` 
+ * to ``shcs``.  The structure is loaded up to the maximum spherical harmonic 
+ * degree ``nmax``. The file is assumed to has been created by 
+ * ``charm@P@_shc_write_mtx``.  Error reported by the function (if any) is 
+ * written to ``err``.
+ *
+ * The first line of the input file must specify the maximum harmonic degree 
+ * ``nmax2`` of the coefficients stored in the file, their scaling parameter 
+ * ``mu`` and the radius of the reference sphere ``r``.  Then, starting at 
+ * a new line, a matrix with a predefined structured specifying the 
+ * coefficients must follow.  The entire file structure can be summarized as:
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. math::
+ *
+ *          \begin{matrix}
+ *          \mathrm{nmax2} & \mu & R\\
+ *          \bar{C}_{00} & \bar{S}_{11} &  \bar{S}_{21} & \bar{S}_{31} &
+ *              \cdots &\bar{S}_{\mathrm{nmax2},1}\\
+ *          \bar{C}_{10} & \bar{C}_{11} &  \bar{S}_{22} & \bar{S}_{32} &
+ *          \cdots & \bar{S}_{\mathrm{nmax2},2}\\
+ *          \bar{C}_{20} & \bar{C}_{21} &  \bar{C}_{22} & \bar{S}_{33} & \cdots 
+ *          & \bar{S}_{\mathrm{nmax2},3}\\
+ *          \bar{C}_{30} & \bar{C}_{31} &  \bar{C}_{32} & \bar{C}_{33} & \cdots
+ *          & \bar{S}_{\mathrm{nmax2},4}\\
+ *          \vdots& \vdots& \vdots& \vdots& \ddots & \vdots \\
+ *          \bar{C}_{\mathrm{nmax2},0} & \bar{C}_{\mathrm{nmax2},1}
+ *          & \bar{C}_{\mathrm{nmax2},2} & \bar{C}_{\mathrm{nmax2},3} & \cdots
+ *          & \bar{C}_{\mathrm{nmax2},\mathrm{nmax2}} \end{matrix}
+ *
+ * \endverbatim
+ *
+ * where
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. math::
+ *          \mu, R
+ *
+ * \endverbatim
+ *
+ * are the scaling parameter of the coefficients and the associated radius of 
+ * the reference sphere and
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. math::
+ *          \bar{C}_{n,m}, \, \bar{S}_{n,m}
+ *
+ * \endverbatim
+ *
+ * are spherical harmonic coefficients of degree ``n`` and order ``m``.  It 
+ * must hold that ``nmax <= nmax2``.  That is, from all coefficients up to 
+ * degree ``nmax2`` that are stored in the file, properly loaded can be any 
+ * subset up to degree ``nmax <= nmax2``.
+ *
+ * It must hold that ``shcs->nmax >= nmax``.
+ *
+ * Any empty line in the file (that is, containing only the new line character 
+ * ``\n``) is ignored.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. note::
+ *
+ *          The function modifies ``shcs->c``, ``shcs->s``, ``shcs->mu`` 
+ *          and ``shcs->r`` by the values from the input file, but it does not 
+ *          touch ``shcs->nmax``.  The latter value should not be
+ *          changed. Otherwise, a segmentation fault may be encountered. The
+ *          function does not alter coefficients in ``shcs`` beyond ``nmax``
+ *          (if there are any).
+ *
+ * \endverbatim
+ *
+ * */
+extern void charm@P@_shc_read_mtx(FILE *stream,
+                                  unsigned long nmax,
+                                  charm@P@_shc *shcs,
+                                  charm@P@_err *err);
+
+
+
+
+
+
+/**
+ * Writes ``shcs`` up to degree ``nmax`` to a binary file pointed to by 
+ * ``stream``.  Error reported by the function (if any) is written to ``err``.
+ *
+ * The output file is a binary representation of ``shcs`` up to degree ``nmax`` 
+ * in the following order:
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. math::
+ *          &\mathrm{nmax}, \mu, \, R, \, \bar{C}_{0,0}, \, \bar{C}_{1,0}, \, 
+ *          \bar{C}_{2,0}, \, \cdots, \bar{C}_{\mathrm{nmax},0}, 
+ *          \bar{C}_{1,1},\, \bar{C}_{2,1}, \, \cdots,\\
+ *          &\bar{C}_{\mathrm{nmax},1}, \, \bar{C}_{2,2}, \bar{C}_{3,2},\, 
+ *          \cdots,\, \bar{C}_{\mathrm{nmax},\mathrm{nmax}},\, \bar{S}_{0,0},\, 
+ *          \bar{S}_{1,0},\, \bar{S}_{2,0},\, \cdots,\\
+ *          &\bar{S}_{\mathrm{nmax},0},\, \bar{S}_{1,1},\, \bar{S}_{2,1},\, 
+ *          \cdots, \bar{S}_{\mathrm{nmax},1},\,\bar{S}_{2,2},\, 
+ *          \bar{S}_{3,2},\, \cdots, \bar{S}_{\mathrm{nmax},\mathrm{nmax}},
+ *
+ * \endverbatim
+ *
+ * where
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. math::
+ *          \mu, R
+ *
+ * \endverbatim
+ *
+ * are the scaling parameter of the coefficients and the associated radius of 
+ * the reference sphere and
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. math::
+ *          \bar{C}_{n,m}, \, \bar{S}_{n,m}
+ *
+ * \endverbatim
+ *
+ * are spherical harmonic coefficients of degree ``n`` and order ``m``.  It 
+ * must hold that ``shcs`` stores spherical harmonic coefficients up to degree 
+ * ``nmax2 >= nmax``.  That is, from all coefficients in ``shcs`` up to degree 
+ * ``nmax2``, properly written can be any subset up to degree
+ * ``nmax <= nmax2``.
+ *
+ * */
+extern void charm@P@_shc_write_bin(const charm@P@_shc *shcs,
+                                   unsigned long nmax,
+                                   FILE *stream,
+                                   charm@P@_err *err);
+
+
+
+
+
+
+/** Writes ``shcs`` up to degree ``nmax`` to a text file pointed to by
+ * ``stream`` using the ``format`` specifier and the ``order`` scheme for
+ * ordering spherical harmonic coefficients.  Error reported by the function
+ * (if any) is written to ``err``.
+ *
+ * The ``format`` specifier is used for all *floating point* data of 
+ * ``shcs``. No extra characters before or after the format specifier are 
+ * expected, not even the space (no internal check).  Examples of valid 
+ * ``format`` specifiers in double precision are ``%0.16e``, ``%24.16e`` or 
+ * ``%0.16f``.  The ``format`` specifiers may vary with the precision of the 
+ * library (single, double or quadruple).
+ *
+ * If ``order == CHARM_SHC_WRITE_TBL_N``, the output file has the following
+ * structure:
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. math::
+ *
+ *          \begin{matrix}
+ *          \mathrm{nmax} & \mu & R\\
+ *          0 & 0 & \bar{C}_{0,0} & \bar{S}_{0,0}\\
+ *          1 & 0 & \bar{C}_{1,0} & \bar{S}_{1,0}\\
+ *          \vdots & \vdots & \vdots & \vdots \\
+ *          \mathrm{nmax} & 0 & \bar{C}_{\mathrm{nmax},0}
+ *          & \bar{S}_{\mathrm{nmax},0}\\
+ *          1 & 1 & \bar{C}_{1,1} & \bar{S}_{1,1}\\
+ *          \vdots & \vdots & \vdots & \vdots \\
+ *          \mathrm{nmax} & 1 & \bar{C}_{\mathrm{nmax},1}
+ *          & \bar{S}_{\mathrm{nmax},1}\\
+ *          2 & 2 & \bar{C}_{2,2} & \bar{S}_{2,2}\\
+ *          \vdots & \vdots & \vdots & \vdots \\
+ *          \mathrm{nmax} & \mathrm{nmax}
+ *          & \bar{C}_{\mathrm{nmax},\mathrm{nmax}}
+ *          & \bar{S}_{\mathrm{nmax},\mathrm{nmax}}\\
+ *          \end{matrix}
+ *
+ * \endverbatim
+ *
+ * If ``order == CHARM_SHC_WRITE_TBL_M``, the output file has the following
+ * structure:
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. math::
+ *
+ *          \begin{matrix}
+ *          \mathrm{nmax} & \mu & R\\
+ *          0 & 0 & \bar{C}_{0,0} & \bar{S}_{0,0}\\
+ *          1 & 0 & \bar{C}_{1,0} & \bar{S}_{1,0}\\
+ *          1 & 1 & \bar{C}_{1,1} & \bar{S}_{1,1}\\
+ *          2 & 0 & \bar{C}_{2,0} & \bar{S}_{2,0}\\
+ *          2 & 1 & \bar{C}_{2,1} & \bar{S}_{2,1}\\
+ *          2 & 2 & \bar{C}_{2,2} & \bar{S}_{2,2}\\
+ *          \vdots & \vdots & \vdots & \vdots \\
+ *          \mathrm{nmax} & \mathrm{nmax}
+ *          & \bar{C}_{\mathrm{nmax},\mathrm{nmax}}
+ *          & \bar{S}_{\mathrm{nmax},\mathrm{nmax}}\\
+ *          \end{matrix}
+ *
+ * \endverbatim
+ *
+ * In either case,
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. math::
+ *          \mu, R
+ *
+ * \endverbatim
+ *
+ * are the scaling parameter of the coefficients and the associated radius of 
+ * the reference sphere and
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. math::
+ *          \bar{C}_{n,m}, \, \bar{S}_{n,m}
+ *
+ * \endverbatim
+ *
+ * are spherical harmonic coefficients of degree ``n`` and order ``m``.  It 
+ * must hold that ``shcs`` stores spherical harmonic coefficients up to degree 
+ * ``nmax2 >= nmax``.  That is, from all coefficients in ``shcs`` up to degree 
+ * ``nmax2``, properly written can be any subset up to degree
+ * ``nmax <= nmax2``.
+ *
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. note::
+ *
+ *          In the quadruple version of CHarm (``charmq_shc_write_mtx``), add 
+ *          the ``Q`` letter to the ``format`` specifier.  Examples of valid 
+ *          ``format`` specifiers in quadruple precision are ``%0.34Qe``, 
+ *          ``%40.34Qe`` or ``%0.34Qf`` (see the documentation to 
+ *          ``libquadmath``).
+ *
+ * \endverbatim
+ *
+ * */
+extern void charm@P@_shc_write_tbl(const charm@P@_shc *shcs,
+                                   unsigned long nmax,
+                                   const char *format,
+                                   int order,
+                                   FILE *stream,
+                                   charm@P@_err *err);
+
+
+
+
+
+
+/**
+ * Writes ``shcs`` up to degree ``nmax`` to a text file pointed to by 
+ * ``stream`` using the ``format`` specifier.  Error reported by the function 
+ * (if any) is written to ``err``.
+ *
+ * The ``format`` specifier is used for all *floating point* data of 
+ * ``shcs``. No extra characters before or after the format specifier are 
+ * expected, not even the space (no internal check).  Examples of valid 
+ * ``format`` specifiers in double precision are ``%0.16e``, ``%24.16e`` or 
+ * ``%0.16f``.  The ``format`` specifiers may vary with the precision of the 
+ * library (single, double or quadruple).
+ *
+ * The output file has the following structure:
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. math::
+ *
+ *          \begin{matrix}
+ *          \mathrm{nmax} & \mu & R\\
+ *          \bar{C}_{00} & \bar{S}_{11} &  \bar{S}_{21} & \bar{S}_{31} &
+ *              \cdots &\bar{S}_{\mathrm{nmax},1}\\
+ *          \bar{C}_{10} & \bar{C}_{11} &  \bar{S}_{22} & \bar{S}_{32} &
+ *          \cdots & \bar{S}_{\mathrm{nmax},2}\\
+ *          \bar{C}_{20} & \bar{C}_{21} &  \bar{C}_{22} & \bar{S}_{33} & \cdots 
+ *          & \bar{S}_{\mathrm{nmax},3}\\
+ *          \bar{C}_{30} & \bar{C}_{31} &  \bar{C}_{32} & \bar{C}_{33} & \cdots
+ *          & \bar{S}_{\mathrm{nmax},4}\\
+ *          \vdots&\vdots &\vdots & \vdots& \ddots & \vdots \\
+ *          \bar{C}_{\mathrm{nmax},0} & \bar{C}_{\mathrm{nmax},1}
+ *          & \bar{C}_{\mathrm{nmax},2} & \bar{C}_{\mathrm{nmax},3} & \cdots
+ *          & \bar{C}_{\mathrm{nmax},\mathrm{nmax}} \end{matrix}
+ *
+ * \endverbatim
+ *
+ * where
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. math::
+ *          \mu, R
+ *
+ * \endverbatim
+ *
+ * are the scaling parameter of the coefficients and the associated radius of 
+ * the reference sphere and
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. math::
+ *          \bar{C}_{n,m}, \, \bar{S}_{n,m}
+ *
+ * \endverbatim
+ *
+ * are spherical harmonic coefficients of degree ``n`` and order ``m``.  It 
+ * must hold that ``shcs`` stores spherical harmonic coefficients up to degree 
+ * ``nmax2 >= nmax``.  That is, from all coefficients in ``shcs`` up to degree 
+ * ``nmax2``, properly written can be any subset up to degree
+ * ``nmax <= nmax2``.
+ *
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. note::
+ *
+ *          In the quadruple version of CHarm (``charmq_shc_write_mtx``), add 
+ *          the ``Q`` letter to the ``format`` specifier.  Examples of valid 
+ *          ``format`` specifiers in quadruple precision are ``%0.34Qe``, 
+ *          ``%40.34Qe`` or ``%0.34Qf`` (see the documentation to 
+ *          ``libquadmath``).
+ *
+ * \endverbatim
+ *
+ * */
+extern void charm@P@_shc_write_mtx(const charm@P@_shc *shcs,
+                                   unsigned long nmax,
+                                   const char *format,
+                                   FILE *stream,
+                                   charm@P@_err *err);
+
+
+
+
+
+
+/**
+ * Rescales spherical harmonic coefficients in ``shcs`` to a new scaling 
+ * parameter ``munew`` and a new radius of the reference sphere ``rnew``:
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. math::
+ *
+ *      \bar{C}_{nm}^{\mathrm{new}} = \frac{\mu}{\mu_{\mathrm{new}}} \, \left(
+ *                     \frac{R}{R_{\mathrm{new}}} \right)^n \,
+ *                     \bar{C}_{nm}\,,\\
+ *
+ *      \bar{S}_{nm}^{\mathrm{new}} = \frac{\mu}{\mu_{\mathrm{new}}} \, \left(
+ *                     \frac{R}{R_{\mathrm{new}}} \right)^n \, \bar{S}_{nm}\,.
+ *
+ * \endverbatim
+ *
+ * After the conversion, ``shcs->mu`` and ``shcs->r`` are updated to ``munew`` 
+ * and ``rnew``, respectively.
+ *
+ * Error reported by the function (if any) is written to ``err``.
+ *
+ * */
+extern void charm@P@_shc_rescale(charm@P@_shc *shcs,
+                                 @RDT@ munew,
+                                 @RDT@ rnew,
+                                 charm@P@_err *err);
+
+
+
+
+
+
+/**
+ * Computes degree variances (spectrum) ``dv`` up to degree ``nmax`` of a 
+ * signal given by spherical harmonic coefficients in ``shcs``. Each array 
+ * index of ``dv``, ``n = 0``, ``1``, ..., ``nmax``, corresponds to the degree 
+ * variance of the respective degree ``n``.
+ *
+ * Error reported by the function (if any) is written to ``err``.
+ *
+ * The degree variances are given as
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. math::
+ *
+ *      \mathrm{dv}_n = \sum_{m = 0}^{n}(\bar{C}_{nm}^2 + \bar{S}_{nm}^2) \,.
+ *
+ * \endverbatim
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. note::
+ *
+ *          The ``shcs->mu`` and ``shcs->r`` parameters are **not** used to 
+ *          evaluate the degree variances, since this appears to be the most 
+ *          common way in practice.
+ *
+ * \endverbatim
+ *
+ * */
+extern void charm@P@_shc_dv(const charm@P@_shc *shcs,
+                            unsigned long nmax,
+                            @RDT@ *dv,
+                            charm@P@_err *err);
+
+
+
+
+
+
+/**
+ * Computes degree amplitudes (square root of degree variances) ``da`` up to 
+ * degree ``nmax`` of a signal given by spherical harmonic coefficients in 
+ * ``shcs``. Each array index of ``da``, ``n = 0``, ``1``, ..., ``nmax``, 
+ * corresponds to the degree amplitude of the respective degree ``n``.
+ *
+ * Error reported by the function (if any) is written to ``err``.
+ *
+ * The degree amplitudes are given as
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. math::
+ *
+ *      \mathrm{da}_n = \sqrt{\sum_{m = 0}^{n}(\bar{C}_{nm}^2 
+ *      + \bar{S}_{nm}^2)} \,.
+ *
+ * \endverbatim
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. note::
+ *
+ *          The ``shcs->mu`` and ``shcs->r`` parameters are **not** used to 
+ *          evaluate the degree amplitudes, since this appears to be the most 
+ *          common way in practice.
+ *
+ * \endverbatim
+ *
+ * */
+extern void charm@P@_shc_da(const charm@P@_shc *shcs,
+                            unsigned long nmax,
+                            @RDT@ *da,
+                            charm@P@_err *err);
+
+
+
+
+
+
+/**
+ * Computes difference degree variances (difference spectrum) ``ddv`` up to 
+ * degree ``nmax`` between a signal given by spherical harmonic coefficients in 
+ * ``shcs1`` and ``shcs2``. Each array index of ``ddv``, ``n = 0``, ``1``, ..., 
+ * ``nmax``, corresponds to the difference degree variance of the respective 
+ * degree ``n``.
+ *
+ * Error reported by the function (if any) is written to ``err``.
+ *
+ * The difference degree variances are given as
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. math::
+ *
+ *      \mathrm{ddv}_n = \sum_{m = 0}^{n}\left(\left(\bar{C}_{nm}^{(1)} - 
+ *      \bar{C}_{nm}^{(2)}\right)^2 + \left(\bar{S}_{nm}^{(1)} 
+ *      - \bar{S}_{nm}^{(2)}\right)^2\right) \,.
+ *
+ * \endverbatim
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. note::
+ *
+ *          The ``shcs->mu`` and ``shcs->r`` parameters are **not** used to 
+ *          evaluate the differece degree variances, since this appears to be 
+ *          the most common way in practice.  However, the values of ``mu`` and 
+ *          ``r`` in ``shcs1`` and ``shcs2`` **must** be equal (the function 
+ *          performs a check on this).
+ *
+ * \endverbatim
+ *
+ * */
+extern void charm@P@_shc_ddv(const charm@P@_shc *shcs1,
+                             const charm@P@_shc *shcs2,
+                             unsigned long nmax,
+                             @RDT@ *ddv,
+                             charm@P@_err *err);
+
+
+
+
+
+
+/**
+ * Computes difference degree amplitudes (square root of difference degree 
+ * variances) ``dda`` up to degree ``nmax`` between a signal given by spherical 
+ * harmonic coefficients in ``shcs1`` and ``shcs2``. Each array index of 
+ * ``dda``, ``n = 0``, ``1``, ..., ``nmax``, corresponds to the difference 
+ * degree amplitude of the respective degree ``n``.
+ *
+ * Error reported by the function (if any) is written to ``err``.
+ *
+ * The difference degree amplitudes are given as
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. math::
+ *
+ *      \mathrm{dda}_n = \sqrt{\sum_{m = 0}^{n}\left(\left(\bar{C}_{nm}^{(1)} - 
+ *      \bar{C}_{nm}^{(2)}\right)^2 + \left(\bar{S}_{nm}^{(1)} 
+ *      - \bar{S}_{nm}^{(2)}\right)^2\right)} \,.
+ *
+ * \endverbatim
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. note::
+ *
+ *          The ``shcs->mu`` and ``shcs->r`` parameters are **not** used to 
+ *          evaluate the difference degree amplitudes, since this appears to be 
+ *          the most common way in practice.  However, the values of ``mu`` and 
+ *          ``r`` in ``shcs1`` and ``shcs2`` **must** be equal (the function 
+ *          performs a check on this).
+ *
+ * \endverbatim
+ *
+ * */
+extern void charm@P@_shc_dda(const charm@P@_shc *shcs1,
+                             const charm@P@_shc *shcs2,
+                             unsigned long nmax,
+                             @RDT@ *da,
+                             charm@P@_err *err);
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+#ifdef __cplusplus
+}
+#endif
+/* ------------------------------------------------------------------------- */
+
+
+#endif

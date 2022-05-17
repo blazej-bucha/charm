@@ -1,0 +1,439 @@
+/**
+ * \file charm@P@_crd.h
+ *
+ * Module to work with the coordinates of evaluation points/cells:
+ *
+ * * defines the ``charm@P@_crd`` structure,
+ *
+ * * initializes and frees the ``charm@P@_crd`` structure,
+ *
+ * * computes the ``charm@P@_crd`` structure for a few pre-defined grid types.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. note::
+ *
+ *          This documentation is written for double precision version of 
+ *          CHarm.
+ *
+ * \endverbatim
+ *
+ * **References**:
+ *
+ * * Sneeuw, N. (1994) Global spherical harmonic analysis by least-squares and 
+ *   numerical quadrature methods in historical perspective. Geophysical 
+ *   Journal International 118:707-716
+ *
+ * * Driscoll, J. R., Healy, D. M. (1994) Computing Fourier transforms and 
+ *   convolutions on the 2-sphere. Advances in Applied Mathematics 15:202-250
+ *
+ * * Wieczorek, M. A., Meschede, M. (2018) SHTools: Tools for Working with 
+ *   Spherical Harmonics.  Geochemistry, Geophysics, Geosystems 19:2574-2592
+ *
+ * */
+
+
+
+
+
+
+#ifndef __CHARM@PC@_CRD_H__
+#define __CHARM@PC@_CRD_H__
+
+
+/* Header files required by this module */
+/* ------------------------------------------------------------------------- */
+#include <stdio.h>
+#include <charm/charm@P@_err.h>
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* Supported types of the "charm@P@_crd" structure */
+/* ------------------------------------------------------------------------- */
+/**
+ * Evaluation points/cells enumeration.
+ * */
+enum
+{
+    /**
+     * Custom grid of computational cells. */
+    CHARM_CRD_CELLS_GRID = -2,
+
+
+    /**
+     * Scattered cells. */
+    CHARM_CRD_CELLS_SCATTERED,
+
+
+    /**
+     * Scattered points. */
+    CHARM_CRD_POINTS_SCATTERED = 1,
+
+
+    /**
+     * Custom grid of computation points. */
+    CHARM_CRD_POINTS_GRID,
+
+
+    /**
+     * Gauss-Legendre grid of computation points. */
+    CHARM_CRD_POINTS_GRID_GL,
+
+
+    /**
+     * Driscoll-Healy grid of computation points as defined by Driscoll and 
+     * Healy (1994) (non-equiangular). */
+    CHARM_CRD_POINTS_GRID_DH1,
+
+
+    /**
+     * A modification of the Driscoll-Healy grid of computation points 
+     * (equiangular; Wieczorek and Meschede, 2018). */
+    CHARM_CRD_POINTS_GRID_DH2
+};
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+/**
+ * Structure to store evaluation points/cells.
+ *
+ * In most cases, it is created by functions from this module that return 
+ * a pointer to ``charm@P@_crd``.  Experienced users may create the structure 
+ * on their own, provided that they assign correct values to its members, so 
+ * that CHarm can properly understood the data in it (see the rules summarized 
+ * below). */
+typedef struct
+{
+    /**
+     * Defines whether ``charm@P@_crd`` struct holds evaluation points or 
+     * evaluation cells and whether the cells/points are organized as a regular 
+     * grid or as scatter cells/points.
+     *
+     * ``type`` takes the following symbolic constants: 
+     *
+     * * ``CHARM_CRD_CELLS_GRID`` for a user-defined grid of cells,
+     *
+     * * ``CHARM_CRD_CELLS_SCATTERED`` for a user-defined set of scattered 
+     *   cells,
+     *
+     * * ``CHARM_CRD_POINTS_SCATTERED`` for a user-defined set of scattered 
+     *   points,
+     *
+     * * ``CHARM_CRD_POINTS_GRID`` for a user-defined grid of points,
+     *
+     * * ``CHARM_CRD_POINTS_GRID_GL`` for the Gauss-Legendre grid of points 
+     *   (Sneeuw, 1994) with ``nmax + 1`` latitudes and ``2 * nmax + 2`` 
+     *   longitudes (``nmax`` is maximum harmonic degree),
+     *
+     * * ``CHARM_CRD_POINTS_GRID_DH1`` for the non-equiangular Driscoll-Healy 
+     *   grid of points as defined by Driscoll and Healy (1994) with
+     *   ``2 * nmax + 2`` latitudes and ``2 * nmax + 2`` longitudes, and
+     *
+     * * ``CHARM_CRD_POINTS_GRID_DH2`` for an equiangular modification of the 
+     *   Driscoll-Healy grid of points (Wieczorek and Meschede, 2018) with
+     *   ``2 * nmax + 2`` latitudes and ``4 * nmax + 4`` longitudes.
+     * */
+    int type;
+
+
+    /**
+     * Number of latitudes.
+     *
+     * * For **scattered** computational cells/points (``type`` set to 
+     *   ``CHARM_CRD_*_SCATTERED``), ``nlat`` represents the total number of 
+     *   points/cells in the ``charm@P@_crd`` structure.
+     *
+     * * For **grids** (``type`` set to ``CHARM_CRD_*_GRID*``), ``nlat`` stands 
+     *   for the numbers of cells/points in the latitudinal direction of the 
+     *   grid.
+     * */
+    size_t nlat;
+
+
+    /**
+     * Number of longitudes.
+     *
+     * * For **scattered** computational cells/points, ``nlon`` represents the 
+     *   total number of cells/points in the ``charm@P@_crd`` 
+     *   structure. ``nlon`` must be equal to ``nlat``.  The total number of 
+     *   cells/points is equal to ``nlat == nlon``.
+     *
+     * * For **grids**, ``nlon`` stands for the numbers of cells/points in the 
+     *   longitudinal direction of the grid.  ``nlat`` and ``nlon`` may 
+     *   therefore be different.  The total number of grid cells/points is 
+     *   ``nlat * nlon``.
+     * */
+    size_t nlon;
+
+
+    /**
+     * Pointer to an array of latitudes in radians.
+     *
+     * * For **cells**, ``2 * nlat`` array elements are associated with ``lat`` 
+     *   after calling ``charm@P@_crd_init``, since each cell is defined by two 
+     *   latitudes, the minimum and the maximum one (and by two longitudes of 
+     *   course).
+     *
+     * * For **points**, ``nlat`` array elements are associated with ``lat`` 
+     *   after calling ``charm@P@_crd_init``, since each point is defined by 
+     *   a single latitude (and a longitude).
+     * */
+    @RDT@ *lat;
+
+
+    /**
+     * Pointer to an array of longitudes in radians.
+     *
+     * The same comments as to ``lat`` apply here, too, but in terms of the 
+     * longitude.
+     * */
+    @RDT@ *lon;
+
+
+    /**
+     * Pointer to an array of spherical radii in metres.
+     *
+     * ``nlat`` array elements are associated with ``r`` after calling 
+     * ``charm@P@_crd_init``, both for evaluation cells and evaluation points.
+     * */
+    @RDT@ *r;
+
+
+    /**
+     * Pointer to an array of integration weights on the *unit* sphere. The
+     * pointer is used (i.e. is not ``NULL``) only for ``charm@P@_crd``
+     * structures returned by the ``charm@P@_crd_gl``, ``charm@P@_crd_dh1`` and
+     * ``charm@P@_crd_dh2`` functions, that is, if
+     *
+     * - ``type == CHARM_CRD_POINTS_GRID_GL``, 
+     *
+     * - ``type == CHARM_CRD_POINTS_GRID_DH1``, or 
+     *
+     * - ``type == CHARM_CRD_POINTS_GRID_DH2``.
+     *
+     * ``nlat`` array elements are associated with ``w``.
+     *
+     * For all other values of ``type``, ``w`` is ``NULL`` and is never used.
+     * */
+    @RDT@ *w;
+} charm@P@_crd;
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* Function prototypes */
+/* ------------------------------------------------------------------------- */
+/**
+ * Allocates and initializes a ``charm@P@_crd`` structure of a given ``type``.
+ * Depending on ``type``, allocated are ``nlat`` and ``nlon`` points/cells in
+ * the latitudinal and longitudinal directions, respectively, that are
+ * organized as scattered points/grid. For the accepted values of ``type``, see
+ * the documentation on the ``charm@P@_crd`` structure.
+ *
+ * - For evaluation **cells** (``type`` set to one of ``CHARM_CRD_CELLS_*``), 
+ *   ``2 * nlat`` elements are allocated and initialized to store minimum and 
+ *   maximum cell latitudes in the ``lat`` member of ``charm@P@_crd``,
+ *   ``2 * nlon`` elements for minimum and maximum longitudes in ``lon`` of 
+ *   ``charm@P@_crd``, and ``nlat`` elements for spherical radii in ``r`` of 
+ *   ``charm@P@_crd``.
+ *
+ * - For evaluation **points** (``type`` set to one of ``CHARM_CRD_POINTS_*``), 
+ *   ``nlat`` elements are allocated and initialized to store the latitudes in 
+ *   the ``lat`` member of ``charm@P@_crd``, ``nlon`` elements for longitudes 
+ *   in ``lon`` of ``charm@P@_crd``, and ``nlat`` elements for spherical radii 
+ *   in ``r`` of ``charm@P@_crd``.
+ *
+ * All elements associated with the ``lat``, ``lon`` and ``r`` members of 
+ * ``charm@P@_crd`` are initialized to zero.
+ *
+ * On success, returned is a pointer to the ``charm@P@_crd`` structure.  On 
+ * error, ``NULL`` is returned.  Errors include memory allocation failures and 
+ * incorrect input arguments (e.g., ``nlat < 1``, ``nlon < 1`` or unsupported 
+ * value of ``type``).
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. note::
+ *
+ *      * For
+ *        ``charm@P@_crd *crd = charm@P@_crd_init(CHARM_CRD_CELLS_GRID, nlat, nlon)``, 
+ *        the coordinates of the ``i``-th grid cell in the latitudinal 
+ *        direction and the ``j``-th grid cell in the longitudinal direction 
+ *        have to be accessed as 
+ *
+ *        - ``crd->lat[2 * i]`` for the minimum cell latitude,
+ *
+ *        - ``crd->lat[2 * i + 1]`` for the maximum cell latitude,
+ *
+ *        - ``crd->lon[2 * j]`` for the minimum cell longitude,
+ *
+ *        - ``crd->lon[2 * j + 1]`` for the maximum cell longitude, and 
+ *
+ *        - ``crd->r[i]`` for the spherical radii of the cell
+ *
+ *        with ``i = 0, 1, ..., nlat - 1`` and ``j = 0, 1, ..., nlon - 1``.
+ *
+ *      * For
+ *        ``charm@P@_crd *crd = charm@P@_crd_init(CHARM_CRD_CELLS_SCATTERED, nlat, nlon)``,
+ *        the coordinates of the ``i``-th cell have to be accessed in the same 
+ *        way as for ``type == CHARM_CRD_CELLS_GRID``, but with ``j`` replaced 
+ *        by ``i``.
+ *
+ *      * For
+ *        ``charm@P@_crd *crd = charm@P@_crd_init(CHARM_CRD_POINTS_GRID, nlat, nlon)``,
+ *        the coordinates of the grid point on the ``i``-th latitude parallel 
+ *        and the ``j``-th meridian have to be accessed as
+ *
+ *        - ``crd->lat[i]`` for the grid latitude,
+ *
+ *        - ``crd->lon[j]`` for the grid longitude, and
+ *
+ *        - ``crd->r[i]`` for the spherical radii
+ *
+ *        with ``i = 0, 1, ..., nlat - 1`` and ``j = 0, 1, ..., nlon - 1``.
+ *
+ *      * For
+ *        ``charm@P@_crd *crd = charm@P@_crd_init(CHARM_CRD_POINTS_SCATTERED, nlat, nlon)``,
+ *        the coordinates of the ``i``-th point have to be accessed as in the
+ *        same way as for ``type == CHARM_CRD_POINTS_GRID*``, but with ``j`` 
+ *        replaced by ``i``.
+ *
+ * \endverbatim
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. warning::
+ *
+ *      The ``charm@P@_crd`` structure created by this function *must* be 
+ *      deallocated using ``charm@P@_crd_free``.  The usual deallocation with 
+ *      ``free`` will lead to memory leaks.
+ *
+ * \endverbatim
+ *
+ * */
+extern charm@P@_crd *charm@P@_crd_init(int type,
+                                       size_t nlat,
+                                       size_t nlon);
+
+
+
+
+
+
+/**
+ * Frees the memory associated with ``crd``.  No operation is performed if 
+ * ``crd`` is ``NULL``.
+ *
+ * */
+extern void charm@P@_crd_free(charm@P@_crd *crd);
+
+
+
+
+
+
+/**
+ * Prepares a ``charm@P@_crd`` structure of the Gauss-Legendre grid that is 
+ * associated with the maximum harmonic degree ``nmax`` (Sneeuw, 1994).  The 
+ * grid resides on the sphere with the radius ``r``. Computed are also the 
+ * associated integration weights on the *unit* sphere.
+ *
+ * On success, returned is a pointer to the ``charm@P@_crd`` structure.  On 
+ * error, ``NULL`` is returned.  In addition to the memory allocation failure, 
+ * the error may be due to the exceeded maximum number of iterations to compute 
+ * the latitudes or due to the overflow problem.  The latter may happen in 
+ * *single* precision if ``nmax`` is larger than ``7200`` or so.  The overflow 
+ * check is *not* performed if your ``math.h`` system header file does not
+ * define the ``isfinite`` macro or if the macro is present, but it does not
+ * work properly with the specified floating point data type (particularly
+ * ``__float128``).  You may want to inspect the output of the
+ * ``charm_misc_print_version`` function to see if CHarm utilizes the
+ * ``isfinite`` macro.
+ *
+ * Loops are parallelized using OpenMP.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. note::
+ *
+ *          The Gauss-Legendre grid is non-equiangular in terms of the 
+ *          latitude.  The longitudinal step is constant.
+ *
+ * \endverbatim
+ *
+ * */
+extern charm@P@_crd *charm@P@_crd_gl(unsigned long nmax,
+                                     @RDT@ r);
+
+
+
+
+
+
+/**
+ * Prepares a ``charm@P@_crd`` structure of the non-equiangular Driscoll-Healy 
+ * grid (as defined by Driscoll and Healy, 1994) that is associated with the 
+ * maximum spherical harmonic degree ``nmax``.  The grid resides on the sphere 
+ * with the radius ``r``.  Computed are also the associated integration weights 
+ * on the *unit* sphere.
+ *
+ * On success, returned is a pointer to the ``charm@P@_crd`` structure.  On 
+ * error, ``NULL`` is returned.
+ *
+ * Loops are parallelized using OpenMP. */
+extern charm@P@_crd *charm@P@_crd_dh1(unsigned long nmax,
+                                      @RDT@ r);
+
+
+
+
+
+
+/**
+ * Prepares a ``charm@P@_crd`` structure of an equiangular modification of the 
+ * Driscoll-Healy grid (after Wieczorek and Meschede, 2018) that is associated 
+ * with the maximum spherical harmonic degree ``nmax``.  The grid resides on 
+ * the sphere with the radius ``r``.  Computed are also the associated 
+ * integration weights on the *unit* sphere.
+ *
+ * On success, returned is a pointer to the ``charm@P@_crd`` structure.  On 
+ * error, ``NULL`` is returned.
+ *
+ * Loops are parallelized using OpenMP. */
+extern charm@P@_crd *charm@P@_crd_dh2(unsigned long nmax,
+                                      @RDT@ r);
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+#ifdef __cplusplus
+}
+#endif
+/* ------------------------------------------------------------------------- */
+
+
+#endif

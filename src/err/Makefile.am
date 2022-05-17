@@ -1,0 +1,17 @@
+noinst_LTLIBRARIES = libcharm@P@_err@OMP@.la
+
+
+AM_CPPFLAGS = -I$(top_srcdir)/charm
+
+
+libcharm@P@_err@OMP@_la_SOURCES = err_init.c \
+								  err_free.c \
+								  err_reset.c \
+								  err_set.c \
+								  err_handler.c \
+								  err_isempty.c \
+								  err_propagate.c \
+								  err_inc_level.c
+
+
+EXTRA_DIST = *.h

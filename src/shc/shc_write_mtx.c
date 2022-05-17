@@ -1,0 +1,85 @@
+/* Header files */
+/* ------------------------------------------------------------------------- */
+#include <config.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "../prec.h"
+#include "../misc/misc_fprintf_real.h"
+#include "shc_write_mtdt.h"
+#include "../err/err_set.h"
+#include "../err/err_propagate.h"
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+void CHARM(shc_write_mtx)(const CHARM(shc) *shcs, unsigned long nmax,
+                          const char *format, FILE *stream, CHARM(err) *err)
+{
+    /* Check maximum harmonic degree */
+    if (nmax > shcs->nmax)
+    {
+        CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
+                       "Not enough coefficients in \"shcs\" to write "
+                       "up to degree \"nmax\".");
+        return;
+    }
+
+
+    /* Write the metadata */
+    CHARM(shc_write_mtdt)(nmax, shcs->mu, shcs->r, format, stream, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
+    /* Write the spherical harmonic coefficients */
+    /* --------------------------------------------------------------------- */
+    /* A particular coefficient to be written to the text file, either
+     * "shcs->c" or "shcs->s" */
+    REAL coeff;
+
+
+    /* Loop over the rows of the output matrix */
+    for (unsigned long row = 0; row <= nmax; row++)
+    {
+        /* Loop over the columns of the output matrix */
+        for (unsigned long col = 0; col <= nmax; col++)
+        {
+            if (row >= col)
+                coeff = shcs->c[col][row - col];
+            else
+                coeff = shcs->s[row + 1][col - row - 1];
+
+
+            if (CHARM(misc_fprintf_real)(stream, format, coeff) < 1)
+            {
+                CHARM(err_set)(err, __FILE__, __LINE__, __func__,
+                               CHARM_EFILEIO,
+                               "Failed to write to the output file.");
+                return;
+            }
+
+
+            if (col < nmax)
+                fprintf(stream, " ");
+        }
+
+
+        if (fprintf(stream, "\n") < 1)
+        {
+            CHARM(err_set)(err, __FILE__, __LINE__, __func__,
+                           CHARM_EFILEIO,
+                           "Failed to write to the output file.");
+            return;
+        }
+    }
+    /* --------------------------------------------------------------------- */
+
+
+    return;
+}

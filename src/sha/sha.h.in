@@ -1,0 +1,326 @@
+/** \file charm@P@_sha.h
+ *
+ * Module to perform surface spherical harmonic analysis using:
+ *
+ * * point data values,
+ * * mean data values.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. note::
+ *
+ *          This documentation is written for double precision version of 
+ *          CHarm.
+ *
+ * \endverbatim
+ *
+ * */
+
+
+
+
+
+
+#ifndef __CHARM@PC@_SHA_H__
+#define __CHARM@PC@_SHA_H__
+
+
+/* Header files required by this module */
+/* ------------------------------------------------------------------------- */
+#include <stdlib.h>
+#include <charm/charm@P@_err.h>
+#include <charm/charm@P@_shc.h>
+#include <charm/charm@P@_crd.h>
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+/**
+ * Enumeration for harmonic analysis methods using evaluation cells.
+ * */
+enum
+{
+    /**
+     * Spherical harmonic analysis of cell data using the *approximate* 
+     * quadrature method. */
+    CHARM_SHA_CELL_AQ
+};
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+/* Function prototypes */
+/* ------------------------------------------------------------------------- */
+/**
+ * Performs the exact surface spherical harmonic analysis based on point data 
+ * values:
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. math::
+ *
+ *        \left.\begin{aligned}
+ *        \bar{C}_{nm} \\
+ *        \bar{S}_{nm}
+ *        \end{aligned}\right\}
+ *        = \dfrac{1}{4 \pi} \, \dfrac{R}{\mu} \, \left( \dfrac{r}{R} \right)^n 
+ *        \displaystyle\iint_{\sigma} f(r, \varphi, \lambda) \, 
+ *        \bar{Y}_{nm}(\varphi,\lambda) \, \mathrm{d}\sigma {.}
+ *
+ * \endverbatim
+ *
+ * The coefficients are automatically normalized to the constants \f$\mu\f$ and 
+ * \f$R\f$, which are taken from ``shcs->mu`` and ``shcs->r``, respectively. If 
+ * \f$r \neq R\f$ (``pnt->r[i] != shcs->r``), the coefficients are also 
+ * rescaled **from** the data sphere with the radius \f$r\f$ **to** the 
+ * reference sphere with the radius \f$R\f$ via ``charm@P@_shc_rescale``. If 
+ * \f$r = R = \mu = 1\f$ (``pnt->r[i] == shcs->r == shcs->mu == 1.0``), one 
+ * gets the well-known relation for spherical harmonic analysis on the unit 
+ * sphere (no normalization, no rescaling).
+ *
+ * The integrals are evaluated by exact quadratures, either the Gauss-Legendre 
+ * or the Driscoll-Healy one.  The type of the quadrature to be applied is 
+ * determined by ``pnt->type``.
+ *
+ * The loop over latitudes is parallelized using OpenMP.
+ *
+ * The function exploits the symmetry property of Legendre functions with 
+ * respect to the equator, thereby improving its performance.  For further 
+ * details on the grid requirements, see ``charm@P@_shs_point``.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. note::
+ *
+ *      The function modifies ``shcs->c`` and ``shcs->s``, but touches neither
+ *      ``shcs->nmax`` nor ``shcs->mu`` nor ``shcs->r``.  The latter two
+ *      parameters are, however, essential to determine the scaling and
+ *      normalization of the output coefficients.
+ *
+ * \endverbatim
+ *
+ *
+ * **References**:
+ *
+ * * Driscoll, J. R., Healy, D. M. (1994) Computing Fourier transforms and 
+ *   convolutions on the 2-sphere. Advances in Applied Mathematics 15:202-250
+ *
+ * * Sneeuw, N. (1994) Global spherical harmonic analysis by least-squares and 
+ *   numerical quadrature methods in historical perspective. Geophysical 
+ *   Journal International 118:707-716
+ *
+ * * Heiskannen, W. A., Moritz, H. (1967) Physical Geodesy. W. H. Freeman and 
+ *   Company, San Francisco, 364 pp
+ *
+ * * Fukushima, T. (2012) Numerical computation of spherical harmonics of 
+ *   arbitrary degree and order by extending exponent of floating point 
+ *   numbers. Journal of Geodesy 86:271-285
+ *
+ *
+ * @param[in] pnt Structure defining grid points and integration weights (see 
+ * the ``charm@P@_grd`` module).  The ``pnt`` structure must be prepared by 
+ * calling the ``charm@P@_crd_gl``, ``charm@P@_crd_dh1`` or 
+ * ``charm@P@_crd_dh2`` with some ``nmax_signal``.  Importantly, it is 
+ * assumed that **no** harmonics (frequencies) are present in the input signal 
+    * beyond ``nmax_signal``.  Otherwise, the output spherical harmonic 
+        * coefficients will suffer from the alliasing effect.
+ *
+ * @param[in] f Input signal with point data given at the nodes of the ``pnt`` 
+ * structure and containing harmonics up to degree ``nmax_signal`` 
+ * at most.  The pointer ``f`` must have an access to ``pnt->nlat * pnt->nlon`` 
+ * array elements.  The value of ``f`` at ``pnt->lat[i]`` and ``pnt->lon[j]`` 
+ * must be stored as ``f[i * pnt->nlon + j]`` with
+ * ``i = 0, 1, ..., pnt->nlat - 1`` and ``j = 0, 1, ..., pnt->nlon - 1``.
+ *
+ * @param[in] nmax Maximum harmonic degree of the output spherical harmonic 
+ * coefficients.  If ``f`` is properly given at the nodes of the Gauss-Legendre 
+ * or the Driscoll-Healy grid for ``nmax_signal`` and no harmonics are present 
+ * beyond ``nmax_signal`` in ``f``, than the output coefficients are computed 
+ * exactly for all ``nmax <= nmax_signal``.
+ *
+ * @param[out] shcs Output spherical harmonic coefficients (see the 
+* ``charm@P@_shc`` module).
+ *
+ * @param[out] err Error reported by the function (if any).
+ *
+ * */
+extern void charm@P@_sha_point(const charm@P@_crd *pnt,
+                               const @RDT@ *f,
+                               unsigned long nmax,
+                               charm@P@_shc *shcs,
+                               charm@P@_err *err);
+
+
+
+
+
+
+/**
+ * Performs an approximate surface spherical harmonic analysis based on mean 
+ * data values (area means, block-means) given over grid cells: 
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. math::
+ *
+ *    \left.\begin{aligned}
+ *    \bar{C}_{nm} \\
+ *    \bar{S}_{nm} 
+ *    \end{aligned}
+ *    \right\}
+ *    =& \dfrac{1}{4 \pi} \, \dfrac{R}{\mu} \, \left( \dfrac{r}{R} \right)^n \, 
+ *    \sum_{i,j} \tilde{f}(\varphi_i^{\min}, \varphi_i^{\max}, 
+ *    \lambda_j^{\min}, \lambda_j^{\max}) \\
+ *    &\times \int\limits_{\varphi_i^\mathrm{\min}}^{\varphi_i^\mathrm{\max}} 
+ *    \bar{P}_{nm}(\sin\varphi) \, \cos\varphi \, \mathrm{d}\varphi \,
+ *    \int\limits_{\lambda_j^\mathrm{\min}}^{\lambda_j^\mathrm{\max}} 
+ *    \begin{Bmatrix} \cos m\lambda \\ \sin m\lambda \end{Bmatrix} 
+ *    \mathrm{d}\lambda{.}
+ *
+ * \endverbatim
+ *
+ * See also the comments from ``charm@P@_sha_point`` on the normalization 
+ * and rescaling of the coefficients with \f$R\f$, \f$r\f$ and \f$\mu\f$.
+ *
+ * Applied is the approximate numerical quadrature due to Colombo (1981).
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. note::
+ *
+ *      The function does not use ``cell->w`` at all, so no constrains are 
+ *      applied.  ``cell->w`` can therefore be, for instance, ``NULL``.
+ *
+ * \endverbatim
+ *
+ * The loop over latitudes is parallelized using OpenMP.
+ *
+ * **A note on grid cells**
+ *
+ * Since the quadrature is approximate, the grid restrictions are more relaxed 
+ * when compared with ``charm@P@_sha_point``.  Yet, some conditions has to 
+ * be fulfilled:
+ *
+ * - at least ``nmax + 1`` data values in ``f`` are required in the latitudinal 
+ *   direction,
+ *
+ * - at least ``2 * nmax + 1`` data values in ``f`` are required in the 
+ *   longitudinal direction,
+ *
+ * - ``cell->lat[0]`` has to be equal to ``-PI / 2.0`` (within the
+ *   ``charm@P@_glob_threshold`` limit, see the ``charm@P@_glob`` module),
+ *
+ * - ``cell->lat[2 * cell->nlat - 1]`` has to be equal to ``PI / 2.0`` (again,
+ *   within the ``charm@P@_glob_threshold`` limit),
+ *
+ * - ``cell->lon[0]`` has to be equal to ``0.0`` (still within the
+ *   ``charm@P@_glob_threshold`` limit),
+ *
+ * - ``cell->lon[2 * cell->nlon - 1]`` has to be equal to ``2.0 * PI`` (still
+ *   within the ``charm@P@_glob_threshold`` limit),
+ *
+ * - the maximum latitude of one cell has to be equal to the minimum latitude 
+ *   of the next cell that follows (the same holds also for the longitudes;
+ *   both within the ``charm@P@_glob_threshold`` limit).
+ *
+ * If possible, the function exploits the symmetry property of Legendre 
+ * functions and their integrals with respect to the equator, thereby improving 
+ * its performance (see the ``charm@P@_shs`` module).
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. note::
+ *
+ *      The function modifies ``shcs->c`` and ``shcs->s``, but touches neither
+ *      ``shcs->nmax``, ``shcs->mu`` nor ``shcs->r``.  The latter two
+ *      parameters are, however, essential to determine the scaling and
+ *      normalization of the output coefficients.
+ *
+ * \endverbatim
+ *
+ *
+ * **References**: 
+ *
+ * * Colombo, O. L. (1981) Numerical methods for harmonic analysis on the 
+ *   sphere. Reports of the Department of Geodetic Science, Report No. 310, 140 
+ *   pp
+ *
+ * * Heiskannen, W. A., Moritz, H. (1967) Physical Geodesy. W. H.
+ *   Freeman and Company, San Francisco, 364 pp
+ *
+ * * Jekeli, C., Lee, J. K., Kwon, J. H. (2007) On the computation
+ *   and approximation of ultra-high-degree spherical harmonic series. Journal 
+ *   of Geodesy 81:603-615
+ *
+ * * Fukushima, T. (2012) Numerical computation of spherical harmonics of 
+ *   arbitrary degree and order by extending exponent of floating point 
+ *   numbers. Journal of Geodesy 86:271-285.
+ *
+ * * Balmino, Vales, Bonvalot, Briais, 2012. Spherical harmonic modelling to 
+ *   ultra-high degree of Bouguer and isostatic anomalies. Journal of Geodesy 
+ *   86:499-520, doi: 10.1007/s00190-011-0533-4
+ *
+ * * Fukushima, T. (2014) Numerical computation of spherical harmonics of 
+ *   arbitrary degree and order by extending exponent of floating point 
+ *   numbers: III integral. Computers & Geosciences 63:17-21
+ *
+ * */
+ /**
+ *
+ * @param[in] cell Structure defining grid cells (see the ``charm@P@_grd`` 
+ * module).
+ *
+ * @param[in] f Input signal with block mean data given at the nodes of the 
+ * ``cell`` structure.  The pointer ``f`` must have an access to 
+ * ``cell->nlat * cell->nlon`` array elements.  The value of ``f`` at 
+ * ``cell->lat[i]`` and ``cell->lon[j]`` must be stored as 
+ * ``f[i * cell->nlon + j]`` with ``i = 0, 1, ..., cell->nlat - 1`` and ``j 
+ * = 0, 1, ..., pnt->nlon - 1``.
+ *
+ * @param[in] nmax Maximum harmonic degree of the output spherical harmonic 
+ * coefficients.
+ *
+ * @param[in] method Method of spherical harmonic analysis of cell data.  The 
+ * only method currently supported is the approximate quadrature 
+ * ``CHARM_SHA_CELL_AQ`` (described above).
+ *
+ * @param[out] shcs Output spherical harmonic coefficients (see the 
+ * ``charm@P@_shc`` module).
+ *
+ * @param[out] err Error reported by the function (if any).
+ *
+ * */
+extern void charm@P@_sha_cell(const charm@P@_crd *cell,
+                              const @RDT@ *f,
+                              unsigned long nmax,
+                              int method,
+                              charm@P@_shc *shcs,
+                              charm@P@_err *err);
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+#ifdef __cplusplus
+}
+#endif
+/* ------------------------------------------------------------------------- */
+
+
+#endif
