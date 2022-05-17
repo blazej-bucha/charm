@@ -231,13 +231,13 @@ if test "$enable_openmp" = yes; then
 
 
     if test "$sp" = yes; then
-        AC_CHECK_LIB([fftw3f_omp], [fftwf_init_threads], [], [AC_MSG_WARN([libfftw3f_omp not found; CHarm will be parallelized, but not the FFTW computations in spherical harmonic analysis; compile FFTW with the OpenMP support to improve the speed of spherical harmonic analysis; this does not affect harmonic synthesis])])
+        AC_CHECK_LIB([fftw3f_omp], [fftwf_init_threads], [], [AC_MSG_WARN([libfftw3f_omp not found; CHarm will be parallelized, but not the FFTW computations; compile FFTW with the OpenMP support to improve the speed])])
     fi
     if test "$dp" = yes; then
-        AC_CHECK_LIB([fftw3_omp], [fftw_init_threads], [], [AC_MSG_WARN([libfftw3_omp not found; CHarm will be parallelized, but not the FFTW computations in spherical harmonic analysis; compile FFTW with the OpenMP support to improve the speed of spherical harmonic analysis; this does not affect harmonic synthesis])])
+        AC_CHECK_LIB([fftw3_omp], [fftw_init_threads], [], [AC_MSG_WARN([libfftw3_omp not found; CHarm will be parallelized, but not the FFTW computations; compile FFTW with the OpenMP support to improve the speed])])
     fi
     if test "$qp" = yes; then
-        AC_CHECK_LIB([fftw3q_omp], [fftwq_init_threads], [], [AC_MSG_WARN([libfftw3q_omp not found; CHarm will be parallelized, but not the FFTW computations in spherical harmonic analysis; compile FFTW with the OpenMP support to improve the speed of spherical harmonic analysis; this does not affect harmonic synthesis])])
+        AC_CHECK_LIB([fftw3q_omp], [fftwq_init_threads], [], [AC_MSG_WARN([libfftw3q_omp not found; CHarm will be parallelized, but not the FFTW computations; compile FFTW with the OpenMP support to improve the speed])])
     fi
 
 

@@ -13490,8 +13490,8 @@ _ACEOF
   LIBS="-lfftw3f_omp $LIBS"
 
 else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: libfftw3f_omp not found; CHarm will be parallelized, but not the FFTW computations in spherical harmonic analysis; compile FFTW with the OpenMP support to improve the speed of spherical harmonic analysis; this does not affect harmonic synthesis" >&5
-$as_echo "$as_me: WARNING: libfftw3f_omp not found; CHarm will be parallelized, but not the FFTW computations in spherical harmonic analysis; compile FFTW with the OpenMP support to improve the speed of spherical harmonic analysis; this does not affect harmonic synthesis" >&2;}
+  { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: libfftw3f_omp not found; CHarm will be parallelized, but not the FFTW computations; compile FFTW with the OpenMP support to improve the speed" >&5
+$as_echo "$as_me: WARNING: libfftw3f_omp not found; CHarm will be parallelized, but not the FFTW computations; compile FFTW with the OpenMP support to improve the speed" >&2;}
 fi
 
     fi
@@ -13540,8 +13540,8 @@ _ACEOF
   LIBS="-lfftw3_omp $LIBS"
 
 else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: libfftw3_omp not found; CHarm will be parallelized, but not the FFTW computations in spherical harmonic analysis; compile FFTW with the OpenMP support to improve the speed of spherical harmonic analysis; this does not affect harmonic synthesis" >&5
-$as_echo "$as_me: WARNING: libfftw3_omp not found; CHarm will be parallelized, but not the FFTW computations in spherical harmonic analysis; compile FFTW with the OpenMP support to improve the speed of spherical harmonic analysis; this does not affect harmonic synthesis" >&2;}
+  { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: libfftw3_omp not found; CHarm will be parallelized, but not the FFTW computations; compile FFTW with the OpenMP support to improve the speed" >&5
+$as_echo "$as_me: WARNING: libfftw3_omp not found; CHarm will be parallelized, but not the FFTW computations; compile FFTW with the OpenMP support to improve the speed" >&2;}
 fi
 
     fi
@@ -13590,8 +13590,8 @@ _ACEOF
   LIBS="-lfftw3q_omp $LIBS"
 
 else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: libfftw3q_omp not found; CHarm will be parallelized, but not the FFTW computations in spherical harmonic analysis; compile FFTW with the OpenMP support to improve the speed of spherical harmonic analysis; this does not affect harmonic synthesis" >&5
-$as_echo "$as_me: WARNING: libfftw3q_omp not found; CHarm will be parallelized, but not the FFTW computations in spherical harmonic analysis; compile FFTW with the OpenMP support to improve the speed of spherical harmonic analysis; this does not affect harmonic synthesis" >&2;}
+  { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: libfftw3q_omp not found; CHarm will be parallelized, but not the FFTW computations; compile FFTW with the OpenMP support to improve the speed" >&5
+$as_echo "$as_me: WARNING: libfftw3q_omp not found; CHarm will be parallelized, but not the FFTW computations; compile FFTW with the OpenMP support to improve the speed" >&2;}
 fi
 
     fi
