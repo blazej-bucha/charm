@@ -6,9 +6,9 @@ This section demonstrates the accuracy, the computation speed and the memory
 requirements of spherical harmonic analysis and synthesis of point data values.  
 Applied is the Gauss--Legendre quadrature, which offers the best performance.  
 All tests were executed on a PC with the Intel(R) Core(TM) i7-6800K CPU 
-@ 3.40GHz CPU and 128 GBs of RAM.  Both CHarm and FFTW were compiled using 
-``GCC`` with parallelization enabled and the ``-O3 -ffast-math`` optimization 
-flags.  All 6 CPU cores were employed with hyperthreading enabled.
+@ 3.40GHz and 128 GBs of RAM.  CHarm was compiled using ``GCC`` with 
+parallelization enabled and the ``-O3 -ffast-math`` optimization flags.  All 
+6 CPU cores were employed with hyperthreading enabled.
 
 The benchmarks can be executed by ``make bench`` after running ``./configure`` 
 and ``make``.  The outputs from the benchmark program (the accuracy and 
@@ -96,16 +96,15 @@ The values were computed for single, double and quadruple precision as (GBs)
 
 where
 
-* :math:`N` is the maximum harmonic degree, which determines the number of grid 
-  nodes, :math:`(N + 1) \,  (2 \, N + 2)`, and the number of spherical harmonic 
-  coefficients, :math:`{\sim}(N + 1)^2`, and
+* :math:`N` is the maximum harmonic degree, which determines the size of arrays 
+  to store the input data grid, :math:`(N + 1) \,  (2 \, N + 2)`, and the 
+  spherical harmonic coefficients, :math:`{\sim}(N + 1)^2`, and
 
 * :math:`B` is the number of bytes needed to store a single ``float``, 
   ``double`` or ``__float128`` floating point value (here assumed ``4``, ``8`` 
   and ``16`` Bytes, respectively).
 
 Although these are theoretical requirements, they model the reality very well, 
-as all the remaining arrays required by CHarm are significantly smaller than 
-the input data grid and spherical harmonic coefficients arrays.
+as all the remaining arrays are significantly smaller.
 
 .. image:: ../img/bench-memory.png
