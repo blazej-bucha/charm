@@ -572,11 +572,17 @@ FAILURE_1_parallel:
                     /* P20, P30, ..., Pnmax,0 */
                     if (nmax >= 2)
                     {
-                        for (unsigned long n = 2; n <= nmax; n++)
+                        /* Is "n + m" even?  Since we start the loop with "n
+                         * = 2" and "m = 0", then the parity of the first "n
+                         * + m" is always even.  Then, it changes with every
+                         * loop iteration. */
+                        npm_even = 1;
+                        for (unsigned long n = 2; n <= nmax;
+                             n++, npm_even = !npm_even)
                         {
                             pnm2 = anm[n] * t * pnm1 - bnm[n] * pnm0;
                             /* C20, C30, ..., Cnmax,0 */
-                            if ((n % 2) == 0)
+                            if (npm_even)
                                 shcs->c[0][n] += pnm2 * amp;
                             else
                                 shcs->c[0][n] += pnm2 * amm;

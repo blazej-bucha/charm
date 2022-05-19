@@ -909,7 +909,13 @@ FAILURE_1_parallel:
 
                     if ((nmax + 1) >= 2)
                     {
-                        for (unsigned long n = 1; n <= nmax; n++)
+                        /* Is "n + m" even?  Since we start the loop with "n
+                         * = 1" and "m = 0", then the parity of the first "n
+                         * + m" is always odd.  Then, it changes with every
+                         * loop iteration. */
+                        npm_even = 0;
+                        for (unsigned long n = 1; n <= nmax;
+                             n++, npm_even = !npm_even)
                         {
                             /* P20, P30, ..., Pnmax+1,0
                              * Since we use locally the "n" variable to compute
@@ -941,7 +947,7 @@ FAILURE_1_parallel:
                             /* Spherical harmonic coefficients */
                             /* ............................................. */
                             /* C10, C20, ..., Cnmax,0 */
-                            if ((n % 2) == 0)
+                            if (npm_even)
                                 shcs->c[0][n] += in0 * amp;
                             else
                                 shcs->c[0][n] += in0 * amm;
