@@ -1,3 +1,7 @@
+CHarm 0.0.1:
+
+* Fixed data-sharing bug in "shs_cell_isurf_coeffs.c".
+
 CHarm 0.0.0:
 
 * Initial release
