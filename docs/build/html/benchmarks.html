@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Benchmarks &mdash; CHarm 0.0.0 documentation</title>
+  <title>Benchmarks &mdash; CHarm 0.0.1 documentation</title>
   
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.0.0
+                0.0.1
               </div>
             
           
@@ -181,9 +181,9 @@
 requirements of spherical harmonic analysis and synthesis of point data values.
 Applied is the Gauss–Legendre quadrature, which offers the best performance.
 All tests were executed on a PC with the Intel(R) Core(TM) i7-6800K CPU
-&#64; 3.40GHz CPU and 128 GBs of RAM.  Both CHarm and FFTW were compiled using
-<code class="docutils literal notranslate"><span class="pre">GCC</span></code> with parallelization enabled and the <code class="docutils literal notranslate"><span class="pre">-O3</span> <span class="pre">-ffast-math</span></code> optimization
-flags.  All 6 CPU cores were employed with hyperthreading enabled.</p>
+&#64; 3.40GHz and 128 GBs of RAM.  CHarm was compiled using <code class="docutils literal notranslate"><span class="pre">GCC</span></code> with
+parallelization enabled and the <code class="docutils literal notranslate"><span class="pre">-O3</span> <span class="pre">-ffast-math</span></code> optimization flags.  All
+6 CPU cores were employed with hyperthreading enabled.</p>
 <p>The benchmarks can be executed by <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">bench</span></code> after running <code class="docutils literal notranslate"><span class="pre">./configure</span></code>
 and <code class="docutils literal notranslate"><span class="pre">make</span></code>.  The outputs from the benchmark program (the accuracy and
 wall-clock times) can be plotted by a Python script <code class="docutils literal notranslate"><span class="pre">plot-bench.py</span></code> inside
@@ -243,16 +243,15 @@ The values were computed for single, double and quadruple precision as (GBs)</p>
 \[\left((N + 1) \, (2 \, N + 2) + (N + 1)^2 \right) \, \frac{B}{1024^3}{,}\]</div>
 <p>where</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(N\)</span> is the maximum harmonic degree, which determines the number of grid
-nodes, <span class="math notranslate nohighlight">\((N + 1) \,  (2 \, N + 2)\)</span>, and the number of spherical harmonic
-coefficients, <span class="math notranslate nohighlight">\({\sim}(N + 1)^2\)</span>, and</p></li>
+<li><p><span class="math notranslate nohighlight">\(N\)</span> is the maximum harmonic degree, which determines the size of arrays
+to store the input data grid, <span class="math notranslate nohighlight">\((N + 1) \,  (2 \, N + 2)\)</span>, and the
+spherical harmonic coefficients, <span class="math notranslate nohighlight">\({\sim}(N + 1)^2\)</span>, and</p></li>
 <li><p><span class="math notranslate nohighlight">\(B\)</span> is the number of bytes needed to store a single <code class="docutils literal notranslate"><span class="pre">float</span></code>,
 <code class="docutils literal notranslate"><span class="pre">double</span></code> or <code class="docutils literal notranslate"><span class="pre">__float128</span></code> floating point value (here assumed <code class="docutils literal notranslate"><span class="pre">4</span></code>, <code class="docutils literal notranslate"><span class="pre">8</span></code>
 and <code class="docutils literal notranslate"><span class="pre">16</span></code> Bytes, respectively).</p></li>
 </ul>
 <p>Although these are theoretical requirements, they model the reality very well,
-as all the remaining arrays required by CHarm are significantly smaller than
-the input data grid and spherical harmonic coefficients arrays.</p>
+as all the remaining arrays are significantly smaller.</p>
 <img alt="_images/bench-memory.png" src="_images/bench-memory.png" />
 </div>
 </div>

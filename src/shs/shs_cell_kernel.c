@@ -98,7 +98,11 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
 
         if ((nmax + 1) >= 2)
         {
-            for (unsigned long n = 1; n <= nmax; n++)
+            /* Is "n + m" even?  Since we start the loop with "n = 1" and "m
+             * = 0", then the parity of the first "n + m" is always odd.  Then,
+             * it changes with every loop iteration. */
+            npm_even = 0;
+            for (unsigned long n = 1; n <= nmax; n++, npm_even = !npm_even)
             {
                 /* P20, P30, ..., Pnmax+1,0
                  * Since we use locally the "n" variable to compute Legendre
@@ -131,7 +135,7 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
 
                 if (symmi)
                 {
-                    if ((n % 2) == 0)
+                    if (npm_even)
                         *a2 += rpows2[n] * inm_cnm;
                     else
                         *a2 -= rpows2[n] * inm_cnm;

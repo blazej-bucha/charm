@@ -8,8 +8,6 @@
 
 * Create a Python wrapper, probably using ctypes.
 
-* Use the "npm_even" variable also with Legendre polynomials.
-
 * Parallelize "./src/leg/charm_leg_pnmj_coeffs_dp.c" and 
   "./src/leg/charm_leg_pnmj_coeffs_qp.c".
 

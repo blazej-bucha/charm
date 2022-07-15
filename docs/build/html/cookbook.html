@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Cookbook &mdash; CHarm 0.0.0 documentation</title>
+  <title>Cookbook &mdash; CHarm 0.0.1 documentation</title>
   
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.0.0
+                0.0.1
               </div>
             
           
@@ -295,7 +295,7 @@ files and how to compute (difference) degree variances.</p>
     <span class="p">}</span>
 
 
-    <span class="cm">/* Many CHarm functions take an &quot;charm_err&quot; structure as their last</span>
+    <span class="cm">/* Many CHarm functions take a &quot;charm_err&quot; structure as their last</span>
 <span class="cm">     * parameter.  This is to allow the called function to report an error (if</span>
 <span class="cm">     * encountered) back to the caller, including some useful information, such</span>
 <span class="cm">     * as the error message, error code, function name and so on.  The error</span>
@@ -804,7 +804,7 @@ points.</p></li>
     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;===========================</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
 
 
-    <span class="cm">/* Initialize a charm_crd structure to hold 3 scattered grid cells. */</span>
+    <span class="cm">/* Initialize a &quot;charm_crd&quot; structure to hold 3 scattered cells. */</span>
     <span class="n">sctr</span> <span class="o">=</span> <span class="n">charm_crd_init</span><span class="p">(</span><span class="n">CHARM_CRD_CELLS_SCATTERED</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">sctr</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="p">{</span>

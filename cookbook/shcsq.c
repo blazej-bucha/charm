@@ -49,7 +49,7 @@ int main(void)
     }
 
 
-    /* Many CHarm functions take an "charmq_err" structure as their last
+    /* Many CHarm functions take a "charmq_err" structure as their last
      * parameter.  This is to allow the called function to report an error (if
      * encountered) back to the caller, including some useful information, such
      * as the error message, error code, function name and so on.  The error

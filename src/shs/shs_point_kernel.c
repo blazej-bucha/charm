@@ -73,7 +73,11 @@ void CHARM(shs_point_kernel)(unsigned long nmax, unsigned long m,
         /* P20, P30, ..., Pnmax,0 */
         if (nmax >= 2)
         {
-            for (unsigned long n = 2; n <= nmax; n++)
+            /* Is "n + m" even?  Since we start the loop with "n = 2" and "m
+             * = 0", then the parity of the first "n + m" is always even.
+             * Then, it changes with every loop iteration. */
+            npm_even = 1;
+            for (unsigned long n = 2; n <= nmax; n++, npm_even = !npm_even)
             {
                 pnm2    = anm[n] * t * pnm1 - bnm[n] * pnm0;
                 pnm_cnm = pnm2 * shcs->c[0][n];
@@ -82,7 +86,7 @@ void CHARM(shs_point_kernel)(unsigned long nmax, unsigned long m,
 
                 if (symmi)
                 {
-                    if ((n % 2) == 0)
+                    if (npm_even)
                         *a2 += rpows2[n] * pnm_cnm;
                     else
                         *a2 -= rpows2[n] * pnm_cnm;

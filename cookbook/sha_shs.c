@@ -301,7 +301,7 @@ int main(void)
     printf("===========================\n");
 
 
-    /* Initialize a charm_crd structure to hold 3 scattered grid cells. */
+    /* Initialize a "charm_crd" structure to hold 3 scattered cells. */
     sctr = charm_crd_init(CHARM_CRD_CELLS_SCATTERED, 3, 3);
     if (sctr == NULL)
     {

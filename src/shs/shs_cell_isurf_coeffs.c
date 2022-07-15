@@ -322,9 +322,9 @@ private(pnmj_m1_j1, max_m1_j1)
         /* ................................................................. */
 #if CHARM_PARALLEL
 #pragma omp parallel for default(none) \
-shared(nmax3, nmax3_2) \
-shared(pnmj, shcs3, cnm3_m3, snm3_m3, cnm3pnmj_sum, snm3pnmj_sum)\
-private(j3pj3, max_m3_j3, idx, pnmj_m3_j3, c_sum1, c_sum2, s_sum1, s_sum2)
+shared(nmax3, nmax3_2, pnmj, shcs3, cnm3pnmj_sum, snm3pnmj_sum) \
+private(j3pj3, max_m3_j3, idx, pnmj_m3_j3, c_sum1, c_sum2, s_sum1, s_sum2) \
+private(cnm3_m3, snm3_m3)
 #endif
         for (unsigned long m3 = 0; m3 <= nmax3; m3++)
         {
