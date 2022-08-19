@@ -1,4 +1,4 @@
-Upcoming release:
+CHarm 0.1.0:
 
 * Added support for AVX, AVX2 and AVX-512 vector CPU instructions.
 

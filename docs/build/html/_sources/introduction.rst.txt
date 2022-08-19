@@ -67,8 +67,8 @@ Tarball and zip files of releases:
 Documentation
 =============
 
-The documentation of the latest version from the ``develop`` branch is 
-available at `https://blazej-bucha.github.io/charm/index.html  
+The documentation of the latest version from the ``master`` branch is available 
+at `https://blazej-bucha.github.io/charm/index.html  
 <https://blazej-bucha.github.io/charm/index.html>`_.
 
 A pre-compiled HTML documentation is also available in ``docs/build/html`` or 
