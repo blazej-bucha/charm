@@ -3,6 +3,7 @@
 #include <config.h>
 #include <stdio.h>
 #include "../prec.h"
+#include "../misc/misc_is_nearly_equal.h"
 /* ------------------------------------------------------------------------- */
 
 

@@ -10,6 +10,7 @@
 #include <math.h>
 #include "../prec.h"
 #include "integ_cs.h"
+#include "../misc/misc_is_nearly_equal.h"
 /* ------------------------------------------------------------------------- */
 
 

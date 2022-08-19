@@ -6,6 +6,8 @@
 #include "../prec.h"
 #include "../err/err_propagate.h"
 #include "../err/err_set.h"
+#include "../misc/misc_is_nearly_equal.h"
+#include "../misc/misc_arr_chck_lin_incr.h"
 /* ------------------------------------------------------------------------- */
 
 

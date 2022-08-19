@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../src/prec.h"
+#include "../src/misc/misc_is_nearly_equal.h"
 /* ------------------------------------------------------------------------- */
 
 

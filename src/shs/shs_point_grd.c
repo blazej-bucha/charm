@@ -24,6 +24,8 @@
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
 #include "../crd/crd_grd_check_symm.h"
+#include "../misc/misc_arr_chck_lin_incr.h"
+#include "../misc/misc_arr_chck_symm.h"
 #include "../simd/simd.h"
 #include "../simd/calloc_aligned.h"
 #include "../simd/free_aligned.h"

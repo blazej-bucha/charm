@@ -22,6 +22,7 @@
 #include "../simd/malloc_aligned.h"
 #include "../simd/calloc_aligned.h"
 #include "../simd/free_aligned.h"
+#include "../misc/misc_is_nearly_equal.h"
 /* ------------------------------------------------------------------------- */
 
 

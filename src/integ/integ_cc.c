@@ -8,6 +8,7 @@
 #endif
 #include <math.h>
 #include "../prec.h"
+#include "../misc/misc_is_nearly_equal.c"
 /* ------------------------------------------------------------------------- */
 
 

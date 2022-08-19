@@ -21,6 +21,7 @@
 #include "../crd/crd_grd_check_symm.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
+#include "../misc/misc_is_nearly_equal.h"
 #if CHARM_PARALLEL
 #   include <omp.h>
 #endif

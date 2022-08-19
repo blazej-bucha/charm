@@ -198,18 +198,6 @@ precision.</p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-defines">Defines</p>
 <dl class="cpp macro">
-<dt id="c.CHARM_MIN">
-<span class="target" id="charm__misc_8h_1adc01d0949eb7e16a991a3f3e1bcfb9f8"></span><code class="sig-name descname">CHARM_MIN</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#c.CHARM_MIN" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns the minimum of <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>. </p>
-</dd></dl>
-
-<dl class="cpp macro">
-<dt id="c.CHARM_MAX">
-<span class="target" id="charm__misc_8h_1ab2f2b89babc5ac3cdc71cd3eaeafe7a1"></span><code class="sig-name descname">CHARM_MAX</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#c.CHARM_MAX" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns the maximum of <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>. </p>
-</dd></dl>
-
-<dl class="cpp macro">
 <dt id="c.CHARM_VERSION_MAJOR">
 <span class="target" id="charm__misc_8h_1ac1f12ed1a4247d1d264dcf4e6fb5b680"></span><code class="sig-name descname">CHARM_VERSION_MAJOR</code><a class="headerlink" href="#c.CHARM_VERSION_MAJOR" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Major version number of CHarm. </p>
@@ -233,6 +221,18 @@ precision.</p>
 <dd><p>Version of CHarm. </p>
 </dd></dl>
 
+<dl class="cpp macro">
+<dt id="c.CHARM_MIN">
+<span class="target" id="charm__misc_8h_1adc01d0949eb7e16a991a3f3e1bcfb9f8"></span><code class="sig-name descname">CHARM_MIN</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#c.CHARM_MIN" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns the minimum of <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt id="c.CHARM_MAX">
+<span class="target" id="charm__misc_8h_1ab2f2b89babc5ac3cdc71cd3eaeafe7a1"></span><code class="sig-name descname">CHARM_MAX</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#c.CHARM_MAX" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns the maximum of <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>. </p>
+</dd></dl>
+
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
@@ -240,145 +240,6 @@ precision.</p>
 <dt id="_CPPv424charm_misc_print_versionv">
 <span id="_CPPv324charm_misc_print_versionv"></span><span id="_CPPv224charm_misc_print_versionv"></span><span id="charm_misc_print_version__void"></span><span class="target" id="charm__misc_8h_1aac665bfb6e91541c8af076432652fa6d"></span>void <code class="sig-name descname">charm_misc_print_version</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424charm_misc_print_versionv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Prints library info to <code class="docutils literal notranslate"><span class="pre">stdout</span></code> (library name, version, compilation date, precision, etc). </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv426charm_misc_is_nearly_equalddd">
-<span id="_CPPv326charm_misc_is_nearly_equalddd"></span><span id="_CPPv226charm_misc_is_nearly_equalddd"></span><span id="charm_misc_is_nearly_equal__double.double.double"></span><span class="target" id="charm__misc_8h_1add64f1759d99d8e51788bb653c12282c"></span>_Bool <code class="sig-name descname">charm_misc_is_nearly_equal</code><span class="sig-paren">(</span>double <em>a</em>, double <em>b</em>, double <em>eps</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv426charm_misc_is_nearly_equalddd" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Judges whether two double numbers, <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, are equal up to some threshold <code class="docutils literal notranslate"><span class="pre">eps</span></code>.</p>
-<p><strong>Example use</strong>:</p>
-<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">charm_misc_is_nearly_equal</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">eps</span><span class="p">))</span>
-<span class="p">{</span>
-    <span class="c1">// The two numbers are equal up to &quot;eps&quot;</span>
-<span class="p">}</span>
-<span class="k">else</span>
-<span class="p">{</span>
-    <span class="c1">// The two numbers are not equal up to &quot;eps&quot;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Boolean <code class="docutils literal notranslate"><span class="pre">1</span></code> if the two double numbers are equal up to the threshold <code class="docutils literal notranslate"><span class="pre">eps</span></code> or <code class="docutils literal notranslate"><span class="pre">0</span></code> otherwise. </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv418charm_misc_arr_minPKd6size_tP9charm_err">
-<span id="_CPPv318charm_misc_arr_minPKd6size_tP9charm_err"></span><span id="_CPPv218charm_misc_arr_minPKd6size_tP9charm_err"></span><span id="charm_misc_arr_min__doubleCP.s.charm_errP"></span><span class="target" id="charm__misc_8h_1a689b63d04a256c4d53e66b87ce3550ae"></span>double <code class="sig-name descname">charm_misc_arr_min</code><span class="sig-paren">(</span><em class="property">const</em> double *<em>a</em>, size_t <em>na</em>, <a class="reference internal" href="err.html#_CPPv49charm_err" title="charm_err">charm_err</a> *<em>err</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418charm_misc_arr_minPKd6size_tP9charm_err" title="Permalink to this definition">¶</a><br /></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>a</strong> – <strong>[in]</strong> A <code class="docutils literal notranslate"><span class="pre">double</span></code> array. </p></li>
-<li><p><strong>na</strong> – <strong>[in]</strong> Length of <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
-<li><p><strong>err</strong> – <strong>[out]</strong> Error reported by the function (if any).</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The minimum value of <code class="docutils literal notranslate"><span class="pre">a</span></code>. In case of an error, returned is the <code class="docutils literal notranslate"><span class="pre">nan</span></code> value and the error is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv418charm_misc_arr_maxPKd6size_tP9charm_err">
-<span id="_CPPv318charm_misc_arr_maxPKd6size_tP9charm_err"></span><span id="_CPPv218charm_misc_arr_maxPKd6size_tP9charm_err"></span><span id="charm_misc_arr_max__doubleCP.s.charm_errP"></span><span class="target" id="charm__misc_8h_1a4ef55284e4fed8001bee0778d7bd4080"></span>double <code class="sig-name descname">charm_misc_arr_max</code><span class="sig-paren">(</span><em class="property">const</em> double *<em>a</em>, size_t <em>na</em>, <a class="reference internal" href="err.html#_CPPv49charm_err" title="charm_err">charm_err</a> *<em>err</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418charm_misc_arr_maxPKd6size_tP9charm_err" title="Permalink to this definition">¶</a><br /></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>a</strong> – <strong>[in]</strong> A <code class="docutils literal notranslate"><span class="pre">double</span></code> array. </p></li>
-<li><p><strong>na</strong> – <strong>[in]</strong> Length of <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
-<li><p><strong>err</strong> – <strong>[out]</strong> Error reported by the function (if any).</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The maximum value of <code class="docutils literal notranslate"><span class="pre">a</span></code>. In case of an error, returned is the <code class="docutils literal notranslate"><span class="pre">nan</span></code> value and the error is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv419charm_misc_arr_meanPKd6size_tP9charm_err">
-<span id="_CPPv319charm_misc_arr_meanPKd6size_tP9charm_err"></span><span id="_CPPv219charm_misc_arr_meanPKd6size_tP9charm_err"></span><span id="charm_misc_arr_mean__doubleCP.s.charm_errP"></span><span class="target" id="charm__misc_8h_1a13ca22711ecdf568ee9eda897c9c7a88"></span>double <code class="sig-name descname">charm_misc_arr_mean</code><span class="sig-paren">(</span><em class="property">const</em> double *<em>a</em>, size_t <em>na</em>, <a class="reference internal" href="err.html#_CPPv49charm_err" title="charm_err">charm_err</a> *<em>err</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_misc_arr_meanPKd6size_tP9charm_err" title="Permalink to this definition">¶</a><br /></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>a</strong> – <strong>[in]</strong> A <code class="docutils literal notranslate"><span class="pre">double</span></code> array. </p></li>
-<li><p><strong>na</strong> – <strong>[in]</strong> Length of <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
-<li><p><strong>err</strong> – <strong>[out]</strong> Error reported by the function (if any).</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The mean value of <code class="docutils literal notranslate"><span class="pre">a</span></code>. In case of an error, returned is the <code class="docutils literal notranslate"><span class="pre">nan</span></code> value and the error is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv418charm_misc_arr_stdPKd6size_tP9charm_err">
-<span id="_CPPv318charm_misc_arr_stdPKd6size_tP9charm_err"></span><span id="_CPPv218charm_misc_arr_stdPKd6size_tP9charm_err"></span><span id="charm_misc_arr_std__doubleCP.s.charm_errP"></span><span class="target" id="charm__misc_8h_1a63510f30600d4b3061e76f87ead777b7"></span>double <code class="sig-name descname">charm_misc_arr_std</code><span class="sig-paren">(</span><em class="property">const</em> double *<em>a</em>, size_t <em>na</em>, <a class="reference internal" href="err.html#_CPPv49charm_err" title="charm_err">charm_err</a> *<em>err</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418charm_misc_arr_stdPKd6size_tP9charm_err" title="Permalink to this definition">¶</a><br /></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>a</strong> – <strong>[in]</strong> A <code class="docutils literal notranslate"><span class="pre">double</span></code> array. </p></li>
-<li><p><strong>na</strong> – <strong>[in]</strong> Length of <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
-<li><p><strong>err</strong> – <strong>[out]</strong> Error reported by the function (if any).</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The standard devation of <code class="docutils literal notranslate"><span class="pre">a</span></code> normalized by the array size <code class="docutils literal notranslate"><span class="pre">na</span></code>. In case of an error, returned is the <code class="docutils literal notranslate"><span class="pre">nan</span></code> value and the error is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv418charm_misc_arr_rmsPKd6size_tP9charm_err">
-<span id="_CPPv318charm_misc_arr_rmsPKd6size_tP9charm_err"></span><span id="_CPPv218charm_misc_arr_rmsPKd6size_tP9charm_err"></span><span id="charm_misc_arr_rms__doubleCP.s.charm_errP"></span><span class="target" id="charm__misc_8h_1a58a24429d99ba8c6c2a0609e29cdaa4d"></span>double <code class="sig-name descname">charm_misc_arr_rms</code><span class="sig-paren">(</span><em class="property">const</em> double *<em>a</em>, size_t <em>na</em>, <a class="reference internal" href="err.html#_CPPv49charm_err" title="charm_err">charm_err</a> *<em>err</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418charm_misc_arr_rmsPKd6size_tP9charm_err" title="Permalink to this definition">¶</a><br /></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>a</strong> – <strong>[in]</strong> A <code class="docutils literal notranslate"><span class="pre">double</span></code> array. </p></li>
-<li><p><strong>na</strong> – <strong>[in]</strong> Length of <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
-<li><p><strong>err</strong> – <strong>[out]</strong> Error reported by the function (if any).</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The root mean square of <code class="docutils literal notranslate"><span class="pre">a</span></code>. In case of an error, returned is the <code class="docutils literal notranslate"><span class="pre">nan</span></code> value and the error is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv428charm_misc_arr_chck_lin_incrPKd6size_t6size_t6size_tdP9charm_err">
-<span id="_CPPv328charm_misc_arr_chck_lin_incrPKd6size_t6size_t6size_tdP9charm_err"></span><span id="_CPPv228charm_misc_arr_chck_lin_incrPKd6size_t6size_t6size_tdP9charm_err"></span><span id="charm_misc_arr_chck_lin_incr__doubleCP.s.s.s.double.charm_errP"></span><span class="target" id="charm__misc_8h_1ae95184ca634caaaa5421af6da04fa699"></span>int <code class="sig-name descname">charm_misc_arr_chck_lin_incr</code><span class="sig-paren">(</span><em class="property">const</em> double *<em>a</em>, size_t <em>na</em>, size_t <em>first</em>, size_t <em>every_nth</em>, double <em>eps</em>, <a class="reference internal" href="err.html#_CPPv49charm_err" title="charm_err">charm_err</a> *<em>err</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv428charm_misc_arr_chck_lin_incrPKd6size_t6size_t6size_tdP9charm_err" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Checks whether elements of a double <code class="docutils literal notranslate"><span class="pre">a</span></code> array of <code class="docutils literal notranslate"><span class="pre">size</span></code> meet the following conditions:</p>
-<p>1) the <code class="docutils literal notranslate"><span class="pre">first</span></code> element of the array is smaller than or equal to the smallest element from the elements that follow it,</p>
-<p>2) the difference <code class="docutils literal notranslate"><span class="pre">a[i</span> <span class="pre">+</span> <span class="pre">every_nth]</span> <span class="pre">-</span> <span class="pre">a[i]</span></code> for <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">first</span></code>, <code class="docutils literal notranslate"><span class="pre">first</span> <span class="pre">+</span> <span class="pre">every_nth</span></code>, …, <code class="docutils literal notranslate"><span class="pre">size</span> <span class="pre">-</span> <span class="pre">1</span></code> is positive and constant (within some numerical threshold <code class="docutils literal notranslate"><span class="pre">eps</span></code>).</p>
-<p>For instance, if <code class="docutils literal notranslate"><span class="pre">first</span> <span class="pre">=</span> <span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">every_nth</span> <span class="pre">=</span> <span class="pre">1</span></code>, the function checks whether all elements of <code class="docutils literal notranslate"><span class="pre">a</span></code> are linearly increasing with a constant step. If <code class="docutils literal notranslate"><span class="pre">every_nth</span> <span class="pre">=</span> <span class="pre">2</span></code>, the function does the same, but for <code class="docutils literal notranslate"><span class="pre">every_nth</span></code> element starting from <code class="docutils literal notranslate"><span class="pre">first</span></code>.</p>
-<p>
-Error reported by the function (if any) is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">0</span></code> if all conditions are met; otherwise, returned is the number of the condition that is not satisfied. In case of an error, returned is the <code class="docutils literal notranslate"><span class="pre">-9999</span></code> value.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv424charm_misc_arr_chck_symmPKd6size_tddP9charm_err">
-<span id="_CPPv324charm_misc_arr_chck_symmPKd6size_tddP9charm_err"></span><span id="_CPPv224charm_misc_arr_chck_symmPKd6size_tddP9charm_err"></span><span id="charm_misc_arr_chck_symm__doubleCP.s.double.double.charm_errP"></span><span class="target" id="charm__misc_8h_1a9681d0f72c82ea2c6705b7140ffc8eb7"></span>int <code class="sig-name descname">charm_misc_arr_chck_symm</code><span class="sig-paren">(</span><em class="property">const</em> double *<em>arr</em>, size_t <em>size</em>, double <em>center</em>, double <em>eps</em>, <a class="reference internal" href="err.html#_CPPv49charm_err" title="charm_err">charm_err</a> *<em>err</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424charm_misc_arr_chck_symmPKd6size_tddP9charm_err" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Checks whether a double <code class="docutils literal notranslate"><span class="pre">arr</span></code> array of <code class="docutils literal notranslate"><span class="pre">size</span></code> is symmetric with respect to <code class="docutils literal notranslate"><span class="pre">center</span></code>, that is, meets the following criteria:</p>
-<p>1) <code class="docutils literal notranslate"><span class="pre">arr[i]</span> <span class="pre">-</span> <span class="pre">center</span> <span class="pre">==</span> <span class="pre">center</span> <span class="pre">-</span> <span class="pre">arr[size</span> <span class="pre">-</span> <span class="pre">1</span> <span class="pre">-</span> <span class="pre">i]</span></code> for <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">floor(size</span> <span class="pre">/</span> <span class="pre">2)</span></code> (up to some numerical threshold <code class="docutils literal notranslate"><span class="pre">eps</span></code>),</p>
-<p>2) if <code class="docutils literal notranslate"><span class="pre">size</span></code> is odd, the middle element of <code class="docutils literal notranslate"><span class="pre">arr</span></code> is equal to <code class="docutils literal notranslate"><span class="pre">center</span></code> (within some numerical threshold <code class="docutils literal notranslate"><span class="pre">eps</span></code>).</p>
-<p>
-Error reported by the function (if any) is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">0</span></code> if all conditions are met; otherwise, returned is the number of condition that is not satisfied. In case of an error, returned is the <code class="docutils literal notranslate"><span class="pre">-9999</span></code> value.</p>
-</dd>
-</dl>
 </dd></dl>
 
 </div>
