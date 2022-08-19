@@ -15,8 +15,8 @@ extern "C"
 #endif
 
 
-void CHARM(shs_cell_grd)(const CHARM(crd) *, const CHARM(shc) *,
-                         unsigned long, REAL *, CHARM(err) *);
+extern void CHARM(shs_cell_grd)(const CHARM(crd) *, const CHARM(shc) *,
+                                unsigned long, REAL *, CHARM(err) *);
 
 
 #ifdef __cplusplus

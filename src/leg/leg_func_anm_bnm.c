@@ -33,7 +33,7 @@ void CHARM(leg_func_anm_bnm)(unsigned long nmax, unsigned long m,
     /* Let's treat the zero/non-defined coefficients */
     /* --------------------------------------------------------------------- */
     /* "amm", "bmm" */
-    anm[0] = bnm[0] = ADDP(0.0);
+    anm[0] = bnm[0] = PREC(0.0);
 
 
     if (m == nmax)
@@ -43,7 +43,7 @@ void CHARM(leg_func_anm_bnm)(unsigned long nmax, unsigned long m,
     /* "a_{m + 1, m}", "b_{m + 1, m}" */
     unsigned long n = m + 1;
     anm[n] = r[2 * m + 3];
-    bnm[n] = ADDP(0.0);
+    bnm[n] = PREC(0.0);
     /* --------------------------------------------------------------------- */
 
 

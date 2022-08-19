@@ -45,27 +45,6 @@ extern "C"
 
 
 
-/* Macros */
-/* ------------------------------------------------------------------------- */
-/**
- * Returns the minimum of ``a`` and ``b``.
- * */
-#undef  CHARM_MIN
-#define CHARM_MIN(a, b) (((a) < (b)) ? (a) : (b))
-
-
-/**
- * Returns the maximum of ``a`` and ``b``.
- * */
-#undef  CHARM_MAX
-#define CHARM_MAX(a, b) (((a) > (b)) ? (a) : (b))
-/* ------------------------------------------------------------------------- */
-
-
-
-
-
-
 /* Symbolic constants */
 /* ------------------------------------------------------------------------- */
 /**
@@ -93,203 +72,32 @@ extern "C"
 
 
 
+/* Macros */
+/* ------------------------------------------------------------------------- */
+/**
+ * Returns the minimum of ``a`` and ``b``.
+ * */
+#undef  CHARM_MIN
+#define CHARM_MIN(a, b) (((a) < (b)) ? (a) : (b))
+
+
+/**
+ * Returns the maximum of ``a`` and ``b``.
+ * */
+#undef  CHARM_MAX
+#define CHARM_MAX(a, b) (((a) > (b)) ? (a) : (b))
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
 /* Function prototypes */
 /* ------------------------------------------------------------------------- */
 /** Prints library info to ``stdout`` (library name, version, compilation date,
  * precision, etc). */
 extern void charm@P@_misc_print_version(void);
-
-
-
-
-
-
-/**
- * Judges whether two double numbers, ``a`` and ``b``, are equal up to some 
- * threshold ``eps``.
- *
- * **Example use**:
- *
- * \verbatim embed:rst:leading-asterisk
- * .. code-block:: c
- *
- *      if (charm@P@_misc_is_nearly_equal(a, b, eps))
- *      {
- *          // The two numbers are equal up to "eps"
- *      }
- *      else
- *      {
- *          // The two numbers are not equal up to "eps"
- *      }
- *
- * \endverbatim
- *
- * @return Boolean ``1`` if the two double numbers are equal up to the 
- *         threshold ``eps`` or ``0`` otherwise.
- *
- * */
-extern _Bool charm@P@_misc_is_nearly_equal(@RDT@ a,
-                                           @RDT@ b,
-                                           @RDT@ eps);
-
-
-
-
-
-
-/**
- * @param[in] a A ``double`` array.
- * @param[in] na Length of ``a``.
- *
- * @param[out] err Error reported by the function (if any).
- *
- * @return The minimum value of ``a``.  In case of an error, returned is the 
- * ``nan`` value and the error is written to ``err``.
- *
- * */
-extern @RDT@ charm@P@_misc_arr_min(const @RDT@ *a,
-                                   size_t na,
-                                   charm@P@_err *err);
-
-
-
-
-
-
-/**
- * @param[in] a A ``double`` array.
- * @param[in] na Length of ``a``.
- *
- * @param[out] err Error reported by the function (if any).
- *
- * @return The maximum value of ``a``.  In case of an error, returned is the 
- * ``nan`` value and the error is written to ``err``.
- *
- * */
-extern @RDT@ charm@P@_misc_arr_max(const @RDT@ *a,
-                                   size_t na,
-                                   charm@P@_err *err);
-
-
-
-
-
-
-/**
- * @param[in] a A ``double`` array.
- * @param[in] na Length of ``a``.
- *
- * @param[out] err Error reported by the function (if any).
- *
- * @return The mean value of ``a``.  In case of an error, returned is the 
- * ``nan`` value and the error is written to ``err``.
- *
- * */
-extern @RDT@ charm@P@_misc_arr_mean(const @RDT@ *a,
-                                    size_t na,
-                                    charm@P@_err *err);
-
-
-
-
-
-
-/**
- * @param[in] a A ``double`` array.
- * @param[in] na Length of ``a``.
- *
- * @param[out] err Error reported by the function (if any).
- *
- * @return The standard devation of ``a`` normalized by the array size 
- * ``na``. In case of an error, returned is the ``nan`` value and the error is 
- * written to ``err``.
- *
- * */
-extern @RDT@ charm@P@_misc_arr_std(const @RDT@ *a,
-                                   size_t na,
-                                   charm@P@_err *err);
-
-
-
-
-
-
-/**
- * @param[in] a A ``double`` array.
- * @param[in] na Length of ``a``.
- *
- * @param[out] err Error reported by the function (if any).
- *
- * @return The root mean square of ``a``. In case of an error, returned is the 
- * ``nan`` value and the error is written to ``err``.
- *
- * */
-extern @RDT@ charm@P@_misc_arr_rms(const @RDT@ *a,
-                                   size_t na,
-                                   charm@P@_err *err);
-
-
-
-
-
-
-/**
- * Checks whether elements of a double ``arr`` array of ``size`` meet the 
- * following conditions:
- *
- * 1) the ``first`` element of the array is smaller or equal to the smallest 
- *    element from the elements that follow it,
- *
- * 2) the difference ``lat[i] - lat[i - every_nth]`` for ``i = first``,
- *    ``first + every_nth``, ..., ``size - 1`` is positive and constant (within 
- *    some numerical threshold ``eps``).
- *
- * For instance, if ``first = 0`` and ``every_nth = 1``, the function checks 
- * whether all elements of ``arr`` are linearly increasing with a constant 
- * step.  If ``every_nth = 2``, the function does the same, but for 
- * ``every_nth`` element starting from ``first``.
- *
- * @return ``0`` if all conditions are met; otherwise, returned is the number 
- * of the condition that is not satisfied.  In case of an error, returned is 
- * the ``-9999`` value.
- *
- * Error reported by the function (if any) is written to ``err``.
- *
- * */
-extern int charm@P@_misc_arr_chck_lin_incr(const @RDT@ *a,
-                                           size_t na,
-                                           size_t first,
-                                           size_t every_nth,
-                                           @RDT@ eps,
-                                           charm@P@_err *err);
-
-
-
-
-
-
-/**
- * Checks whether a double ``arr`` array of ``size`` is symmetric with respect 
- * to ``center``, that is, meets the following criteria:
- *
- * 1) ``arr[i] - center == center - arr[size - 1 - i]`` for ``i = 0, 1, ..., 
- * floor(size / 2)`` (up to some numerical threshold ``eps``),
- *
- * 2) if ``size`` is odd, the middle element of ``arr`` is equal to ``center`` 
- * (within some numerical threshold ``eps``).
- *
- * @return ``0`` if all conditions are met; otherwise, returned is the number 
- * of condition that is not satisfied.  In case of an error, returned is the 
- * ``-9999`` value.
- *
- * Error reported by the function (if any) is written to ``err``.
- *
- * */
-extern int charm@P@_misc_arr_chck_symm(const @RDT@ *arr,
-                                       size_t size,
-                                       @RDT@ center,
-                                       @RDT@ eps,
-                                       charm@P@_err *err);
 /* ------------------------------------------------------------------------- */
 
 

@@ -5,8 +5,7 @@ Installation on Unix-based operating systems
 
 This section provides an installation guide for Unix-based operating systems,
 particularly :ref:`Linux <installation_linux>` and :ref:`macOS
-<installation_mac>`.  The instructions that follow will compile CHarm as
-a static library and, if specifically asked for, also as a shared library.
+<installation_mac>`.
 
 
 .. _requirements:
@@ -106,7 +105,8 @@ If you
 * have installed FFTW (version ``3.X.X``) to the default path available to the
   compiler,
 * want a double precision version of CHarm,
-* do not want parallelization via OpenMP, and
+* do not want OpenMP parallelization,
+* do not want to enable SIMD CPU instructions, and
 * have root privileges,
 
 you may simply execute the following commands:
@@ -130,28 +130,36 @@ Customized CHarm installation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The installation process can be tailored by appending one or more of the
-following flags to the ``./configure`` call:
+following flags to the ``./configure`` call.
+
+* ``--enable-single-precision`` or ``--enable-double-precision`` or 
+  ``-enable-quad-precision`` to compile CHarm in single, double or quadruple 
+  precision, respectively (``float``, ``double`` and ``__float128`` data type 
+  for floating point numbers, respectively).  If not specified, double 
+  precision is used as default.
+
+* ``--enable-openmp`` to enable OpenMP parallelization (no parallelization by 
+  default).
+
+  The number of threads can be set either in your code by 
+  ``omp_set_num_threads(N)`` or by using the ``OMP_NUM_THREADS`` environment 
+  variable.
+
+* ``--enable-avx`` or ``--enable-avx2`` or ``enable-avx-512`` to enable AVX, 
+  AVX2 or AVX-512 CPU instructions, respectively (all disabled by default).
+
+  AVX, AVX2 and AVX-512 are SIMD instructions introduced by Intel in 2011, 2013 
+  and 2017, respectively.  The most critical number crunching parts of CHarm 
+  are hand-written to take advantage of these instructions in order to 
+  significantly improve the performance.  As a general rule, it is strongly 
+  recommended to enable the latest set of AVX instructions that are supported 
+  by your processor.  On many Linux distributions, you can find all the 
+  supported CPU instructions by executing ``lscpu``.  On the hardware level, 
+  SIMD instructions are not supported in quadruple precision, thus can be 
+  enabled only when compiling in single or double precision.
 
 * ``--prefix=/your/custom/path`` to specify a custom installation path for
   CHarm (default is ``--prefix=/usr/local``).
-
-* ``--enable-single-precision`` to compile CHarm in single precision (``float``
-  data type for floating point numbers), **or**
-
-  ``--enable-double-precision`` for double precision (``double`` data type),
-  **or**
-
-  ``--enable-quad-precision`` for quadruple precision (``__float128`` data
-  type).
-
-  If not specified, double precision is used as default.
-
-* ``--enable-openmp`` to enable parallelization via OpenMP (no parallelization
-  by default).
-
-  The number of threads can be set either in your code by
-  ``omp_set_num_threads(N)`` or via the ``OMP_NUM_THREADS`` environment
-  variable.
 
 * ``--enable-shared`` to compile CHarm as a shared library *in addition* to the
   static library.
@@ -167,15 +175,18 @@ following flags to the ``./configure`` call:
   FFTW header file (empty by default, that is, default is to assume that FFTW
   is accessible to the compiler).
 
-* Other useful variables (see the Autotools documentation for further options):
+* Other useful variables:
 
   * ``CC`` selects other than your system's default C compiler,
     e.g. ``CC=clang`` for the ``Clang`` compiler, and
 
-  * ``CFLAGS`` defines user-defined compiler flags, e.g.,  ``CFLAGS="-O3"``
+  * ``CFLAGS`` defines user-defined compiler flags, e.g.,  ``CFLAGS="-O3 
+    -ffast-math"``
     (GCC).
 
-A possible installation
+* To get a summary of all the supported flags, execute ``./configure --help``.
+
+An example installation
 
 * with a custom CHarm installation directory,
 
@@ -183,11 +194,13 @@ A possible installation
 
 * in quadruple precision,
 
-* with parallelization via OpenMP enabled, and
+* with OpenMP parallelization enabled,
+
+* with SIMD instructions disabled, and
 
 * with the shared library, too,
 
-could look like
+looks like:
 
 .. code-block:: console
 

@@ -1,15 +1,32 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
-/* Define to 1 to compile CHarm in single precision. */
+
+#ifndef __CONFIG_H__
+#define __CONFIG_H__
+
+
+/* Define to 1 to compile in single precision. */
 #undef CHARM_FLOAT
 
 /* Define to 1 to parallelize CHarm. */
 #undef CHARM_PARALLEL
 
-/* Define to 1 to compile CHarm in quadruple precision. */
+/* Define to 1 to compile in quadruple precision. */
 #undef CHARM_QUAD
 
-/* Define to 1 if you have the clock_gettime function */
+/* Define to 1 if you have the `aligned_alloc' function. */
+#undef HAVE_ALIGNED_ALLOC
+
+/* Define if avx2 instructions are supported */
+#undef HAVE_AVX2_INSTRUCTIONS
+
+/* Define if avx512f instructions are supported */
+#undef HAVE_AVX512F_INSTRUCTIONS
+
+/* Define if avx instructions are supported */
+#undef HAVE_AVX_INSTRUCTIONS
+
+/* Define to 1 if you have the clock_gettime function. */
 #undef HAVE_CLOCK_GETTIME
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
@@ -49,8 +66,14 @@
 /* Define to 1 if you have the <memory.h> header file. */
 #undef HAVE_MEMORY_H
 
+/* Define to 1 if you have the <mm_malloc.h> header file. */
+#undef HAVE_MM_MALLOC_H
+
 /* Define if OpenMP is enabled */
 #undef HAVE_OPENMP
+
+/* Define to 1 if you have the `posix_memalign' function. */
+#undef HAVE_POSIX_MEMALIGN
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #undef HAVE_STDINT_H
@@ -109,5 +132,15 @@
 /* Define to empty if `const' does not conform to ANSI C. */
 #undef const
 
+/* Define to `__inline__' or `__inline' if that's what the C compiler
+   calls it, or to nothing if 'inline' is not supported under any name.  */
+#ifndef __cplusplus
+#undef inline
+#endif
+
 /* Define to `unsigned int' if <sys/types.h> does not define. */
 #undef size_t
+
+
+#endif
+

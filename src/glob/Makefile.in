@@ -90,7 +90,8 @@ build_triplet = @build@
 host_triplet = @host@
 subdir = src/glob
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/ax_compiler_vendor.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/m4/ax_check_compile_flag.m4 \
+	$(top_srcdir)/m4/ax_compiler_vendor.m4 \
 	$(top_srcdir)/m4/ax_gcc_version.m4 \
 	$(top_srcdir)/m4/ax_openmp.m4 \
 	$(top_srcdir)/m4/ax_split_version.m4 \
@@ -452,14 +453,13 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-generic clean-libtool clean-local \
-	clean-noinstLTLIBRARIES mostlyclean-am
+clean-am: clean-generic clean-libtool clean-noinstLTLIBRARIES \
+	mostlyclean-am
 
 distclean: distclean-am
 		-rm -f ./$(DEPDIR)/glob.Plo
 	-rm -f Makefile
-distclean-am: clean-am distclean-compile distclean-generic \
-	distclean-local
+distclean-am: clean-am distclean-compile distclean-generic
 
 dvi: dvi-am
 
@@ -524,29 +524,20 @@ uninstall-am:
 .MAKE: install-am install-strip
 
 .PHONY: all all-am am--depfiles check check-am clean clean-generic \
-	clean-libtool clean-local clean-noinstLTLIBRARIES \
-	cscopelist-am ctags-am distclean distclean-compile \
-	distclean-generic distclean-libtool distclean-local distdir \
-	dvi dvi-am html html-am info info-am install install-am \
-	install-data install-data-am install-dvi install-dvi-am \
-	install-exec install-exec-am install-html install-html-am \
-	install-info install-info-am install-man install-pdf \
-	install-pdf-am install-ps install-ps-am install-strip \
-	installcheck installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
-	tags-am uninstall uninstall-am
+	clean-libtool clean-noinstLTLIBRARIES cscopelist-am ctags-am \
+	distclean distclean-compile distclean-generic \
+	distclean-libtool distdir dvi dvi-am html html-am info info-am \
+	install install-am install-data install-data-am install-dvi \
+	install-dvi-am install-exec install-exec-am install-html \
+	install-html-am install-info install-info-am install-man \
+	install-pdf install-pdf-am install-ps install-ps-am \
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
+	pdf pdf-am ps ps-am tags-am uninstall uninstall-am
 
 .PRECIOUS: Makefile
 
-
-remove-files:
-	rm -f charm*_glob.h
-	rm -f libcharm*_glob.la
-
-clean-local: remove-files
-
-distclean-local: remove-files
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

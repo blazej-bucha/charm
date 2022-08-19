@@ -12,12 +12,20 @@ libcharm@P@_shs@OMP@_la_SOURCES = shs_cell.c \
 								  shs_cell_isurf_offset.c \
 								  shs_cell_kernel.c \
 								  shs_cell_sctr.c \
+								  shs_cell_check_grd_lons.c \
 								  shs_point.c \
 								  shs_point_grd.c \
 								  shs_point_kernel.c \
 								  shs_point_sctr.c \
 								  shs_rpows.c \
-								  shs_check_symmi.c
+								  shs_grd_lr.c \
+								  shs_grd_lr2.c \
+								  shs_grd_fft_check.c \
+								  shs_grd_fft_lc.c \
+								  shs_grd_fft.c \
+								  shs_sctr_mulc.c \
+								  shs_check_symm.c \
+								  shs_check_symm_simd.c
 
 
 EXTRA_DIST = *.h

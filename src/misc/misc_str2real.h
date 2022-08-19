@@ -15,7 +15,7 @@ extern "C"
 #endif
 
 
-REAL CHARM(misc_str2real)(char *, char *, CHARM(err) *);
+extern REAL CHARM(misc_str2real)(char *, char *, CHARM(err) *);
 
 
 #ifdef __cplusplus

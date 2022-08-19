@@ -2,9 +2,14 @@
 check_PROGRAMS = test_run@P@@OMP@
 
 
+EXTRA_DIST = *.h
+
+
 # Source code of the test program
 test_run@P@@OMP@_SOURCES = run.c \
 						   cmp_arrays.c \
+						   validate.c \
+						   generate_crd.c \
 						   crd.c \
 						   shc.c \
 						   shs.c \

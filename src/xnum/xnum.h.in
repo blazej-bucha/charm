@@ -48,10 +48,13 @@ extern "C"
  * Weakly normalizes an X-number.  The function is due to Fukushima (2012), 
  * Table 7.
  *
- * @param[in]   x Significand of the input X-number
- * @param[in]  ix Exponent of the input X-number
- * @param[out]  x Significand of the output X-number
- * @param[out] ix Exponent of the output X-number
+ * @param[in]   x Pointer to the significand of the input X-number
+ *
+ * @param[in]  ix Pointer to the exponent of the input X-number
+ *
+ * @param[out]  x Pointer to the significand of the output X-number
+ *
+ * @param[out] ix Pointer to the exponent of the output X-number
  *
  * */
 extern void charm@P@_xnum_xnorm(@RDT@ *x,
@@ -68,15 +71,20 @@ extern void charm@P@_xnum_xnorm(@RDT@ *x,
  *
  *
  * @param[in] f   F-number coefficient of the first linear term
+ *
  * @param[in] x   Significand of the first X-number term
+ *
  * @param[in] g   F-number coefficient of the second linear term
+ *
  * @param[in] y   Significand of the second X-number term
+ *
  * @param[in] ix  Exponent of the first X-number term
+ *
  * @param[in] iy  Exponent of the second X-number term
  *
+ * @param[out] z  Pointer to the significand of the output X-number
  *
- * @param[out] z   Significand of the output X-number
- * @param[out] iz  Exponent of the output X-number
+ * @param[out] iz Pointer to the exponent of the output X-number
  *
  * */
 extern void charm@P@_xnum_xlsum2(@RDT@ f,

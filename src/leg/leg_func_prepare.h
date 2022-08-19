@@ -15,8 +15,8 @@ extern "C"
 #endif
 
 
-void CHARM(leg_func_prepare)(REAL, REAL *, int *, const REAL *,
-                             unsigned long);
+extern void CHARM(leg_func_prepare)(const REAL *, REAL *, int *, const REAL *,
+                                    unsigned long);
 
 
 #ifdef __cplusplus

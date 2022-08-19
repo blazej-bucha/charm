@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "../prec.h"
 #include "../err/err_set.h"
+#include "../misc/misc_is_nearly_equal.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -60,7 +61,7 @@ void CHARM(shc_ddv)(const CHARM(shc) *shcs1, const CHARM(shc) *shcs2,
     REAL ddvn, tmp_cnm, tmp_snm;
     for (unsigned long n = 0; n <= nmax; n++)
     {
-        ddvn = ADDP(0.0);
+        ddvn = PREC(0.0);
         for (unsigned long m = 0; m <= n; m++)
         {
             tmp_cnm = shcs1->c[m][n - m] - shcs2->c[m][n - m];

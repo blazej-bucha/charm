@@ -90,7 +90,8 @@ host_triplet = @host@
 check_PROGRAMS = test_run@P@@OMP@$(EXEEXT)
 subdir = tests
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/ax_compiler_vendor.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/m4/ax_check_compile_flag.m4 \
+	$(top_srcdir)/m4/ax_compiler_vendor.m4 \
 	$(top_srcdir)/m4/ax_gcc_version.m4 \
 	$(top_srcdir)/m4/ax_openmp.m4 \
 	$(top_srcdir)/m4/ax_split_version.m4 \
@@ -107,6 +108,8 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am_test_run@P@@OMP@_OBJECTS = test_run@P@@OMP@-run.$(OBJEXT) \
 	test_run@P@@OMP@-cmp_arrays.$(OBJEXT) \
+	test_run@P@@OMP@-validate.$(OBJEXT) \
+	test_run@P@@OMP@-generate_crd.$(OBJEXT) \
 	test_run@P@@OMP@-crd.$(OBJEXT) test_run@P@@OMP@-shc.$(OBJEXT) \
 	test_run@P@@OMP@-shs.$(OBJEXT) test_run@P@@OMP@-sha.$(OBJEXT) \
 	test_run@P@@OMP@-leg.$(OBJEXT)
@@ -137,11 +140,13 @@ depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/test_run@P@@OMP@-cmp_arrays.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-crd.Po \
+	./$(DEPDIR)/test_run@P@@OMP@-generate_crd.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-leg.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-run.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-sha.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-shc.Po \
-	./$(DEPDIR)/test_run@P@@OMP@-shs.Po
+	./$(DEPDIR)/test_run@P@@OMP@-shs.Po \
+	./$(DEPDIR)/test_run@P@@OMP@-validate.Po
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -297,10 +302,13 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+EXTRA_DIST = *.h
 
 # Source code of the test program
 test_run@P@@OMP@_SOURCES = run.c \
 						   cmp_arrays.c \
+						   validate.c \
+						   generate_crd.c \
 						   crd.c \
 						   shc.c \
 						   shs.c \
@@ -374,11 +382,13 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-cmp_arrays.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-crd.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-generate_crd.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-leg.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-run.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-sha.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-shc.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-shs.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-validate.Po@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -434,6 +444,34 @@ test_run@P@@OMP@-cmp_arrays.obj: cmp_arrays.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cmp_arrays.c' object='test_run@P@@OMP@-cmp_arrays.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-cmp_arrays.obj `if test -f 'cmp_arrays.c'; then $(CYGPATH_W) 'cmp_arrays.c'; else $(CYGPATH_W) '$(srcdir)/cmp_arrays.c'; fi`
+
+test_run@P@@OMP@-validate.o: validate.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-validate.o -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-validate.Tpo -c -o test_run@P@@OMP@-validate.o `test -f 'validate.c' || echo '$(srcdir)/'`validate.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-validate.Tpo $(DEPDIR)/test_run@P@@OMP@-validate.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='validate.c' object='test_run@P@@OMP@-validate.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-validate.o `test -f 'validate.c' || echo '$(srcdir)/'`validate.c
+
+test_run@P@@OMP@-validate.obj: validate.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-validate.obj -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-validate.Tpo -c -o test_run@P@@OMP@-validate.obj `if test -f 'validate.c'; then $(CYGPATH_W) 'validate.c'; else $(CYGPATH_W) '$(srcdir)/validate.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-validate.Tpo $(DEPDIR)/test_run@P@@OMP@-validate.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='validate.c' object='test_run@P@@OMP@-validate.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-validate.obj `if test -f 'validate.c'; then $(CYGPATH_W) 'validate.c'; else $(CYGPATH_W) '$(srcdir)/validate.c'; fi`
+
+test_run@P@@OMP@-generate_crd.o: generate_crd.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-generate_crd.o -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-generate_crd.Tpo -c -o test_run@P@@OMP@-generate_crd.o `test -f 'generate_crd.c' || echo '$(srcdir)/'`generate_crd.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-generate_crd.Tpo $(DEPDIR)/test_run@P@@OMP@-generate_crd.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='generate_crd.c' object='test_run@P@@OMP@-generate_crd.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-generate_crd.o `test -f 'generate_crd.c' || echo '$(srcdir)/'`generate_crd.c
+
+test_run@P@@OMP@-generate_crd.obj: generate_crd.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-generate_crd.obj -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-generate_crd.Tpo -c -o test_run@P@@OMP@-generate_crd.obj `if test -f 'generate_crd.c'; then $(CYGPATH_W) 'generate_crd.c'; else $(CYGPATH_W) '$(srcdir)/generate_crd.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-generate_crd.Tpo $(DEPDIR)/test_run@P@@OMP@-generate_crd.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='generate_crd.c' object='test_run@P@@OMP@-generate_crd.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-generate_crd.obj `if test -f 'generate_crd.c'; then $(CYGPATH_W) 'generate_crd.c'; else $(CYGPATH_W) '$(srcdir)/generate_crd.c'; fi`
 
 test_run@P@@OMP@-crd.o: crd.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-crd.o -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-crd.Tpo -c -o test_run@P@@OMP@-crd.o `test -f 'crd.c' || echo '$(srcdir)/'`crd.c
@@ -594,11 +632,13 @@ clean-am: clean-checkPROGRAMS clean-generic clean-libtool clean-local \
 distclean: distclean-am
 		-rm -f ./$(DEPDIR)/test_run@P@@OMP@-cmp_arrays.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-crd.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-generate_crd.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-leg.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-run.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-sha.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-shc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-shs.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-validate.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-local
@@ -646,11 +686,13 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 		-rm -f ./$(DEPDIR)/test_run@P@@OMP@-cmp_arrays.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-crd.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-generate_crd.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-leg.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-run.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-sha.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-shc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-shs.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-validate.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

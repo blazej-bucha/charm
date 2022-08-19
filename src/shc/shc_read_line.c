@@ -154,7 +154,7 @@ int CHARM(shc_read_line)(FILE *stream,
         ((format == SHC_READ_LINE_GFC) && (num_entries == 4)))
     {
         if (*m == 0)
-            *snm = ADDP(0.0);
+            *snm = PREC(0.0);
         else
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFILEIO,
                            "Wrong number of entries in the coefficients "

@@ -90,7 +90,8 @@ host_triplet = @host@
 check_PROGRAMS = bench_run@P@@OMP@$(EXEEXT)
 subdir = bench
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/ax_compiler_vendor.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/m4/ax_check_compile_flag.m4 \
+	$(top_srcdir)/m4/ax_compiler_vendor.m4 \
 	$(top_srcdir)/m4/ax_gcc_version.m4 \
 	$(top_srcdir)/m4/ax_openmp.m4 \
 	$(top_srcdir)/m4/ax_split_version.m4 \
@@ -287,6 +288,9 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+EXTRA_DIST = plot-bench.py \
+			 plot-memory.py
+
 
 # Source code of the benchmark program
 bench_run@P@@OMP@_SOURCES = bench.c

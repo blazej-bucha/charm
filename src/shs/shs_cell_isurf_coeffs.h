@@ -15,11 +15,11 @@ extern "C"
 #endif
 
 
-void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *, unsigned long,
-                                  const CHARM(shc) *, unsigned long,
-                                  unsigned long, unsigned long,
-                                  REAL *, REAL *, REAL *,
-                                  REAL *, CHARM(err) *);
+extern void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *, unsigned long,
+                                         const CHARM(shc) *, unsigned long,
+                                         unsigned long, unsigned long,
+                                         REAL *, REAL *, REAL *,
+                                         REAL *, CHARM(err) *);
 
 
 #ifdef __cplusplus

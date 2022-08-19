@@ -22,8 +22,8 @@ void CHARM(crd_dh_lats_weights)(CHARM(crd) *dh, unsigned long nmax)
     unsigned long L  = nmax + 1;
     unsigned long L2 = 2 * L;
     REAL L_fp        = (REAL)L;
-    REAL c           = ADDP(2.0) / L_fp;
-    REAL M_PI_2L     = PI / (ADDP(2.0) * L_fp);
+    REAL c           = PREC(2.0) / L_fp;
+    REAL M_PI_2L     = PI / (PREC(2.0) * L_fp);
 
 
 #if CHARM_PARALLEL
@@ -60,9 +60,9 @@ void CHARM(crd_dh_lats_weights)(CHARM(crd) *dh, unsigned long nmax)
             dh->w[i] = c * sclti;
         else
         {
-            sclti0 = ADDP(0.0);
+            sclti0 = PREC(0.0);
             sclti1 = sclti;
-            cclti2 = ADDP(2.0) * COS(clti);
+            cclti2 = PREC(2.0) * COS(clti);
 
 
             w_tmp = sclti1;

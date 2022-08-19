@@ -7,6 +7,7 @@
 #   define _USE_MATH_DEFINES
 #endif
 #include <math.h>
+#include "shs_check_symm_simd.h"
 #include "../leg/leg_func_xnum.h"
 #include "../prec.h"
 /* ------------------------------------------------------------------------- */
@@ -21,21 +22,39 @@
 void CHARM(shs_point_kernel)(unsigned long nmax, unsigned long m,
                              const CHARM(shc) *shcs,
                              const REAL *anm, const REAL *bnm,
-                             REAL t, const REAL *ps, const int *ips,
+                             REAL_SIMD t, const REAL *ps, const int *ips,
                              const REAL *rpows, const REAL *rpows2,
-                             _Bool symmi,
-                             REAL *a, REAL *b,
-                             REAL *a2, REAL *b2)
+                             REAL_SIMD symm_simd,
+                             REAL_SIMD *a, REAL_SIMD *b,
+                             REAL_SIMD *a2, REAL_SIMD *b2)
 {
-    REAL w, x,y, z;
-    int ixy, ix, iy, iz;
+    REAL_SIMD w, x, y, z;
+    RI_SIMD ixy, ix, iy, iz;
+#ifdef SIMD
+    RI_SIMD    zero_ri = SET_ZERO_RI;
+    RI_SIMD    one_ri  = SET1_RI(1);
+    RI_SIMD    mone_ri = SET1_RI(-1);
+    REAL_SIMD  zero_r  = SET_ZERO_R;
+    REAL_SIMD  BIG_r   = SET1_R(BIG);
+    REAL_SIMD  BIGI_r  = SET1_R(BIGI);
+    REAL_SIMD  BIGS_r  = SET1_R(BIGS);
+    REAL_SIMD  BIGSI_r = SET1_R(BIGSI);
+    REAL_SIMD  tmp1_r,  tmp2_r;
+    MASK_SIMD  mask1, mask2;
+    MASK2_SIMD mask3;
+    ABS_R_INIT;
+#endif
 
 
-    REAL pnm0, pnm1, pnm2;
-    REAL pnm_cnm, pnm_snm;
+    REAL_SIMD pnm0, pnm1, pnm2;
+    REAL_SIMD pnm_cnm, pnm_snm;
+    REAL_SIMD ROOT3_r = SET1_R(ROOT3);
 
 
     _Bool npm_even; /* True if "n + m" is even */
+    size_t idx;
+    unsigned long nmm; /* "n - m" */
+    _Bool symm = CHARM(shs_check_symm_simd)(symm_simd);
 
 
     /* Summations over harmonic degree "n" */
@@ -44,29 +63,29 @@ void CHARM(shs_point_kernel)(unsigned long nmax, unsigned long m,
         /* Zonal harmonics */
         /* ----------------------------------------------------- */
         /* P00 */
-        pnm0    = ADDP(1.0);
-        pnm_cnm = pnm0 * shcs->c[0][0];
-        *a      = rpows[0] * pnm_cnm;
-        *b      = ADDP(0.0);
+        pnm0    = SET1_R(PREC(1.0));
+        pnm_cnm = MUL_R(pnm0, SET1_R(shcs->c[0][0]));
+        *a      = MUL_R(LOAD_R(&rpows[0]), pnm_cnm);
+        *b      = SET_ZERO_R;
 
 
-        if (symmi)
+        if (symm)
         {
-            *a2 = rpows2[0] * pnm_cnm;
-            *b2 = ADDP(0.0);
+            *a2 = MUL_R(LOAD_R(&rpows2[0]), pnm_cnm);
+            *b2 = SET_ZERO_R;
         }
 
 
         /* P10 */
         if (nmax >= 1)
         {
-            pnm1    = ROOT3 * t;
-            pnm_cnm = pnm1 * shcs->c[0][1];
-            *a     += rpows[1] * pnm_cnm;
+            pnm1    = MUL_R(ROOT3_r, t);
+            pnm_cnm = MUL_R(pnm1, SET1_R(shcs->c[0][1]));
+            *a      = ADD_R(*a, MUL_R(LOAD_R(&rpows[SIMD_SIZE]), pnm_cnm));
 
 
-            if (symmi)
-                *a2 -= rpows2[1] * pnm_cnm;
+            if (symm)
+                *a2  = SUB_R(*a2, MUL_R(LOAD_R(&rpows2[SIMD_SIZE]), pnm_cnm));
         }
 
 
@@ -79,17 +98,19 @@ void CHARM(shs_point_kernel)(unsigned long nmax, unsigned long m,
             npm_even = 1;
             for (unsigned long n = 2; n <= nmax; n++, npm_even = !npm_even)
             {
-                pnm2    = anm[n] * t * pnm1 - bnm[n] * pnm0;
-                pnm_cnm = pnm2 * shcs->c[0][n];
-                *a     += rpows[n] * pnm_cnm;
+                idx = n * SIMD_SIZE;
+                pnm2    = SUB_R(MUL_R(SET1_R(anm[n]), MUL_R(t, pnm1)),
+                                MUL_R(SET1_R(bnm[n]), pnm0));
+                pnm_cnm = MUL_R(pnm2, SET1_R(shcs->c[0][n]));
+                *a      = ADD_R(*a, MUL_R(LOAD_R(&rpows[idx]), pnm_cnm));
 
 
-                if (symmi)
+                if (symm)
                 {
                     if (npm_even)
-                        *a2 += rpows2[n] * pnm_cnm;
+                        *a2 = ADD_R(*a2, MUL_R(LOAD_R(&rpows2[idx]), pnm_cnm));
                     else
-                        *a2 -= rpows2[n] * pnm_cnm;
+                        *a2 = SUB_R(*a2, MUL_R(LOAD_R(&rpows2[idx]), pnm_cnm));
                 }
 
 
@@ -104,21 +125,29 @@ void CHARM(shs_point_kernel)(unsigned long nmax, unsigned long m,
 
         /* Sectorial harmonics */
         /* ----------------------------------------------------- */
+        idx = (m - 1) * SIMD_SIZE;
+#ifdef SIMD
+        PNM_SECTORIAL_XNUM_SIMD(x, ix, ps[idx], ips[idx], pnm0,
+                                BIG_r, zero_r, zero_ri, mone_ri, mask1, mask2,
+                                SECTORIALS);
+#else
         PNM_SECTORIAL_XNUM(x, ix, ps[m - 1], ips[m - 1], pnm0);
+#endif
 
 
-        pnm_cnm = pnm0 * shcs->c[m][0];
-        pnm_snm = pnm0 * shcs->s[m][0];
+        pnm_cnm = MUL_R(pnm0, SET1_R(shcs->c[m][0]));
+        pnm_snm = MUL_R(pnm0, SET1_R(shcs->s[m][0]));
 
 
-        *a = rpows[m] * pnm_cnm;
-        *b = rpows[m] * pnm_snm;
+        idx = m * SIMD_SIZE;
+        *a = MUL_R(LOAD_R(&rpows[idx]), pnm_cnm);
+        *b = MUL_R(LOAD_R(&rpows[idx]), pnm_snm);
 
 
-        if (symmi)
+        if (symm)
         {
-            *a2 = rpows2[m] * pnm_cnm;
-            *b2 = rpows2[m] * pnm_snm;
+            *a2 = MUL_R(LOAD_R(&rpows2[idx]), pnm_cnm);
+            *b2 = MUL_R(LOAD_R(&rpows2[idx]), pnm_snm);
         }
         /* ----------------------------------------------------- */
 
@@ -127,21 +156,29 @@ void CHARM(shs_point_kernel)(unsigned long nmax, unsigned long m,
         /* ----------------------------------------------------- */
         if (m < nmax)
         {
+#ifdef SIMD
+            PNM_SEMISECTORIAL_XNUM_SIMD(x, y, ix, iy, w, t, anm[m + 1],
+                                        pnm1, mask1, mask2, mask3, 
+                                        zero_r, zero_ri, mone_ri, BIG_r, 
+                                        BIGS_r,  BIGI_r, SEMISECTORIALS);
+#else
             PNM_SEMISECTORIAL_XNUM(x, y, ix, iy, w, t, anm[m + 1], pnm1);
+#endif
 
 
-            pnm_cnm = pnm1 * shcs->c[m][1];
-            pnm_snm = pnm1 * shcs->s[m][1];
+            pnm_cnm = MUL_R(pnm1, SET1_R(shcs->c[m][1]));
+            pnm_snm = MUL_R(pnm1, SET1_R(shcs->s[m][1]));
 
 
-            *a += rpows[m + 1] * pnm_cnm;
-            *b += rpows[m + 1] * pnm_snm;
+            idx = (m + 1) * SIMD_SIZE;
+            *a = ADD_R(*a, MUL_R(LOAD_R(&rpows[idx]), pnm_cnm));
+            *b = ADD_R(*b, MUL_R(LOAD_R(&rpows[idx]), pnm_snm));
 
 
-            if (symmi)
+            if (symm)
             {
-                *a2 -= rpows2[m + 1] * pnm_cnm;
-                *b2 -= rpows2[m + 1] * pnm_snm;
+                *a2 = SUB_R(*a2, MUL_R(LOAD_R(&rpows2[idx]), pnm_cnm));
+                *b2 = SUB_R(*b2, MUL_R(LOAD_R(&rpows2[idx]), pnm_snm));
             }
 
 
@@ -155,30 +192,41 @@ void CHARM(shs_point_kernel)(unsigned long nmax, unsigned long m,
                  n++, npm_even = !npm_even)
             {
                 /* Compute tesseral Legendre function */
+#ifdef SIMD
+                PNM_TESSERAL_XNUM_SIMD(x, y, z, ix, iy, iz, ixy,
+                                       w, t, anm[n], bnm[n], pnm2,
+                                       tmp1_r, tmp2_r, mask1, mask2, 
+                                       mask3, zero_r, zero_ri, one_ri,
+                                       BIG_r, BIGI_r, BIGS_r, BIGSI_r,
+                                       TESSERALS1, TESSERALS2);
+#else
                 PNM_TESSERAL_XNUM(x, y, z, ix, iy, iz,
                                   ixy, w, t, anm[n], bnm[n],
                                   pnm2, continue);
+#endif
 
 
-                pnm_cnm = pnm2 * shcs->c[m][n - m];
-                pnm_snm = pnm2 * shcs->s[m][n - m];
+                nmm = n - m;
+                pnm_cnm = MUL_R(pnm2, SET1_R(shcs->c[m][nmm]));
+                pnm_snm = MUL_R(pnm2, SET1_R(shcs->s[m][nmm]));
 
 
-                *a += rpows[n] * pnm_cnm;
-                *b += rpows[n] * pnm_snm;
+                idx = n * SIMD_SIZE;
+                *a = ADD_R(*a, MUL_R(LOAD_R(&rpows[idx]), pnm_cnm));
+                *b = ADD_R(*b, MUL_R(LOAD_R(&rpows[idx]), pnm_snm));
 
 
-                if (symmi)
+                if (symm)
                 {
                     if (npm_even)
                     {
-                        *a2 += rpows2[n] * pnm_cnm;
-                        *b2 += rpows2[n] * pnm_snm;
+                        *a2 = ADD_R(*a2, MUL_R(LOAD_R(&rpows2[idx]), pnm_cnm));
+                        *b2 = ADD_R(*b2, MUL_R(LOAD_R(&rpows2[idx]), pnm_snm));
                     }
                     else
                     {
-                        *a2 -= rpows2[n] * pnm_cnm;
-                        *b2 -= rpows2[n] * pnm_snm;
+                        *a2 = SUB_R(*a2, MUL_R(LOAD_R(&rpows2[idx]), pnm_cnm));
+                        *b2 = SUB_R(*b2, MUL_R(LOAD_R(&rpows2[idx]), pnm_snm));
                     }
                 }
 
@@ -201,3 +249,4 @@ void CHARM(shs_point_kernel)(unsigned long nmax, unsigned long m,
 
     return;
 }
+

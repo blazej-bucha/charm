@@ -31,7 +31,7 @@ REAL CHARM(integ_yi1n1m1yi2n2m2)(REAL cltmin, REAL cltmax,
                        "\"cltmin\" cannot be larger than \"cltmax\".");
 
 
-        return (ADDP(0.0) / ADDP(0.0));
+        return (PREC(0.0) / PREC(0.0));
     }
 
 
@@ -41,7 +41,7 @@ REAL CHARM(integ_yi1n1m1yi2n2m2)(REAL cltmin, REAL cltmax,
                        "\"lonmin\" cannot be larger than \"lonmax\".");
 
 
-        return (ADDP(0.0) / ADDP(0.0));
+        return (PREC(0.0) / PREC(0.0));
     }
 
 
@@ -51,7 +51,7 @@ REAL CHARM(integ_yi1n1m1yi2n2m2)(REAL cltmin, REAL cltmax,
                        "\"n1\" cannot be larger than \"pnmj->nmax\".");
 
 
-        return (ADDP(0.0) / ADDP(0.0));
+        return (PREC(0.0) / PREC(0.0));
     }
 
 
@@ -61,7 +61,7 @@ REAL CHARM(integ_yi1n1m1yi2n2m2)(REAL cltmin, REAL cltmax,
                        "\"n2\" cannot be larger than \"pnmj->nmax\".");
 
 
-        return (ADDP(0.0) / ADDP(0.0));
+        return (PREC(0.0) / PREC(0.0));
     }
 
 
@@ -71,7 +71,7 @@ REAL CHARM(integ_yi1n1m1yi2n2m2)(REAL cltmin, REAL cltmax,
                        "\"m1\" cannot be larger than \"n1\".");
 
 
-        return (ADDP(0.0) / ADDP(0.0));
+        return (PREC(0.0) / PREC(0.0));
     }
 
 
@@ -81,7 +81,7 @@ REAL CHARM(integ_yi1n1m1yi2n2m2)(REAL cltmin, REAL cltmax,
                        "\"m2\" cannot be larger than \"n2\".");
 
 
-        return (ADDP(0.0) / ADDP(0.0));
+        return (PREC(0.0) / PREC(0.0));
     }
     /* --------------------------------------------------------------------- */
 
@@ -93,7 +93,7 @@ REAL CHARM(integ_yi1n1m1yi2n2m2)(REAL cltmin, REAL cltmax,
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
-        return (ADDP(0.0) / ADDP(0.0));
+        return (PREC(0.0) / PREC(0.0));
     }
     /* --------------------------------------------------------------------- */
 

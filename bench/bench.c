@@ -190,7 +190,7 @@ int main(void)
 
 
         printf("    Initializing reference harmonic coefficients...\n");
-        CHARM(shc) *shcs_ref = CHARM(shc_init)(nmax, ADDP(1.0), ADDP(1.0));
+        CHARM(shc) *shcs_ref = CHARM(shc_init)(nmax, PREC(1.0), PREC(1.0));
         if (shcs_ref == NULL)
         {
             fprintf(stderr, "Failed to initialize the shc structure.\n");
@@ -203,18 +203,18 @@ int main(void)
             {
                 /* Generate some more or less random spherical harmonic
                  * coefficients from "-1.0" to "1.0" */
-                shcs_ref->c[m][n - m] = ADDP(-1.0) + (REAL)rand() / 
-                                        ((REAL)RAND_MAX / ADDP(2.0));
+                shcs_ref->c[m][n - m] = PREC(-1.0) + (REAL)rand() / 
+                                        ((REAL)RAND_MAX / PREC(2.0));
                 if (m > 0)
-                    shcs_ref->s[m][n - m] = ADDP(-1.0) + (REAL)rand() / 
-                                            ((REAL)RAND_MAX / ADDP(2.0));
+                    shcs_ref->s[m][n - m] = PREC(-1.0) + (REAL)rand() / 
+                                            ((REAL)RAND_MAX / PREC(2.0));
             }
         }
 
 
         printf("    Initializing harmonic coefficients for harmonic "
                "analysis...\n");
-        CHARM(shc) *shcs = CHARM(shc_init)(nmax, ADDP(1.0), ADDP(1.0));
+        CHARM(shc) *shcs = CHARM(shc_init)(nmax, PREC(1.0), PREC(1.0));
         if (shcs == NULL)
         {
             fprintf(stderr, "Failed to initialize the shc structure.\n");
@@ -223,7 +223,7 @@ int main(void)
 
 
         printf("    Preparing the Gauss--Legendre grid...\n");
-        CHARM(crd) *grd = CHARM(crd_gl)(nmax, ADDP(1.0));
+        CHARM(crd) *grd = CHARM(crd_gl)(nmax, PREC(1.0));
         if (grd == NULL)
         {
             fprintf(stderr, "Failed to compute the Gauss--Legendre grid.\n");
@@ -284,8 +284,8 @@ int main(void)
         printf("    Evaluating accuracy...\n");
 
 
-        maxe = ADDP(0.0);
-        rmse = ADDP(0.0);
+        maxe = PREC(0.0);
+        rmse = PREC(0.0);
         for (unsigned long m = 0; m <= nmax;m ++)
         {
             for (unsigned long n = m; n <= nmax; n++)
@@ -304,7 +304,7 @@ int main(void)
         }
 
 
-        rmse = SQRT(ADDP(2.0) * rmse / ((REAL)((nmax + 1) * (nmax + 2))));
+        rmse = SQRT(PREC(2.0) * rmse / ((REAL)((nmax + 1) * (nmax + 2))));
         /* ----------------------------------------------------------------- */
 
 

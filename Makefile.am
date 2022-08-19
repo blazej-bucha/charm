@@ -1,4 +1,8 @@
+ACLOCAL_AMFLAGS = -I m4
+
+
 SUBDIRS = charm \
+		  src \
 		  src/crd \
 		  src/err \
 		  src/integ \
@@ -9,53 +13,13 @@ SUBDIRS = charm \
 		  src/shs \
 		  src/xnum \
 		  src/glob \
+		  src/simd \
 		  tests \
 		  bench \
-		  docs
-
-
-ACLOCAL_AMFLAGS = -I m4
-
-
-CLEANFILES = charm.pc \
-			 charm[fq].pc \
-			 charm*_omp.pc \
-			 config.h \
-			 libcharm*.la \
-			 data/output/* \
-			 charm/charm*.h
-
-
-EXTRA_DIST = data \
-			 docs/build/html \
-			 docs/img \
-			 docs/logo \
-			 docs/src/*.rst \
-			 docs/src/*.py \
-			 docs/Doxyfile \
-			 docs/Makefile-sphinx \
-			 docs/index.html \
-			 docs/.nojekyll \
-			 src/prec.h \
-			 m4 \
-			 cookbook \
-			 bench/plot-bench.py \
-			 bench/plot-memory.py \
-			 AUTHORS \
-			 INSTALL \
-			 LICENSE \
-			 NEWS \
-			 README.rst \
-			 TODO \
-			 VERSION \
-			 charm-tmpl.pc.in \
-			 config.h.in \
-			 configure.ac
-
-
-dist-hook:
-	rm -f $(top_distdir)/charm/charm*.h
-	rm -f $(top_distdir)/data/output/*
+		  docs \
+		  m4 \
+		  cookbook \
+		  data
 
 
 SUBLIBS = src/crd/libcharm@P@_crd@OMP@.la \
@@ -67,7 +31,25 @@ SUBLIBS = src/crd/libcharm@P@_crd@OMP@.la \
 		  src/shc/libcharm@P@_shc@OMP@.la \
 		  src/shs/libcharm@P@_shs@OMP@.la \
 		  src/xnum/libcharm@P@_xnum@OMP@.la \
-		  src/glob/libcharm@P@_glob@OMP@.la
+		  src/glob/libcharm@P@_glob@OMP@.la \
+		  src/simd/libcharm@P@_simd@OMP@.la
+
+
+CLEANFILES = charm.pc \
+			 charm[fq].pc \
+			 charm*_omp.pc
+
+
+EXTRA_DIST = AUTHORS \
+			 INSTALL \
+			 LICENSE \
+			 NEWS \
+			 README.rst \
+			 TODO \
+			 VERSION \
+			 charm-tmpl.pc.in \
+			 config.h.in \
+			 configure.ac
 
 
 lib_LTLIBRARIES = libcharm@P@@OMP@.la

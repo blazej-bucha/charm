@@ -9,7 +9,8 @@ libcharm@P@_crd@OMP@_la_SOURCES = crd_init.c \
 								  crd_gl.c \
 								  crd_dh1.c \
 								  crd_dh2.c \
-								  crd_dh_lats_weights.c
+								  crd_dh_lats_weights.c \
+								  crd_grd_check_symm.c
 
 
 EXTRA_DIST = *.h

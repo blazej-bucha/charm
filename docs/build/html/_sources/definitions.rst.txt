@@ -115,7 +115,7 @@ points/cells.
   vary with the latitude, but is implicitly consider as constant in the
   longitudinal direction (hence the ``nlat`` number of radii).
 
-  CHarm does not store all ``nlat * nlon`` grid points, but only the grid
+  CHarm does not store all ``nlat * nlon`` grid coordinates, but only the grid
   boundaries to save some memory.
 
 * **Grid of cells** is defined by

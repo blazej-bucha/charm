@@ -15,9 +15,9 @@ extern "C"
 #endif
 
 
-size_t CHARM(shs_cell_isurf_offset)(unsigned long, unsigned long,
-                                    unsigned long, unsigned long,
-                                    size_t, size_t, size_t);
+extern size_t CHARM(shs_cell_isurf_offset)(unsigned long, unsigned long,
+                                           unsigned long, unsigned long,
+                                           size_t, size_t, size_t);
 
 
 #ifdef __cplusplus

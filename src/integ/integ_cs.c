@@ -10,6 +10,7 @@
 #include <math.h>
 #include "../prec.h"
 #include "integ_cs.h"
+#include "../misc/misc_is_nearly_equal.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -19,20 +20,20 @@
 
 void CHARM(integ_cs)(REAL u0, REAL du, size_t nu, REAL a1, REAL a2, REAL *s)
 {
-    if (CHARM(misc_is_nearly_equal)(a2, ADDP(0.0), CHARM(glob_threshold)))
-    /* "a2 == ADDP(0.0)" within the "threshold" */
+    if (CHARM(misc_is_nearly_equal)(a2, PREC(0.0), CHARM(glob_threshold)))
+    /* "a2 == PREC(0.0)" within the "threshold" */
 
         memset(s, 0, nu * sizeof(REAL));
 
     else if (CHARM(misc_is_nearly_equal)(FABS(a1), FABS(a2), 
                                          CHARM(glob_threshold)))
-    /* "FABS(a1) == FABS(a2) != ADDP(0.0)" within the "threshold" */
+    /* "FABS(a1) == FABS(a2) != PREC(0.0)" within the "threshold" */
     {
         REAL u1   = u0 +       du;
-        REAL u2   = u0 + ADDP(2.0) * du;
-        REAL k2   = ADDP(2.0) * a2;
-        REAL k2_4 = ADDP(0.25) / a2;
-        REAL d    = ADDP(2.0) * COS(k2 * du);
+        REAL u2   = u0 + PREC(2.0) * du;
+        REAL k2   = PREC(2.0) * a2;
+        REAL k2_4 = PREC(0.25) / a2;
+        REAL d    = PREC(2.0) * COS(k2 * du);
 
 
         REAL cc0 = COS(k2 * u1) - COS(k2 * u0);
@@ -67,13 +68,13 @@ void CHARM(integ_cs)(REAL u0, REAL du, size_t nu, REAL a1, REAL a2, REAL *s)
     else
     {
         REAL u1   = u0 +       du;
-        REAL u2   = u0 + ADDP(2.0) * du;
+        REAL u2   = u0 + PREC(2.0) * du;
         REAL k1   = a2 - a1;
         REAL k2   = a2 + a1;
-        REAL k1_2 = ADDP(2.0) * k1;
-        REAL k2_2 = ADDP(2.0) * k2;
-        REAL d1   = ADDP(2.0) * COS(k1 * du);
-        REAL d2   = ADDP(2.0) * COS(k2 * du);
+        REAL k1_2 = PREC(2.0) * k1;
+        REAL k2_2 = PREC(2.0) * k2;
+        REAL d1   = PREC(2.0) * COS(k1 * du);
+        REAL d2   = PREC(2.0) * COS(k2 * du);
 
 
         REAL cc1_0 = COS(k1 * u1) - COS(k1 * u0);

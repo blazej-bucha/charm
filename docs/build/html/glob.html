@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>charm_glob &mdash; CHarm 0.0.1 documentation</title>
+  <title>charm_glob &mdash; CHarm 0.1.0 documentation</title>
   
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.0.1
+                0.1.0
               </div>
             
           
@@ -200,7 +200,7 @@ interact with it.</p>
 <dl class="cpp var">
 <dt id="_CPPv420charm_glob_threshold">
 <span id="_CPPv320charm_glob_threshold"></span><span id="_CPPv220charm_glob_threshold"></span><span id="charm_glob_threshold__double"></span><span class="target" id="charm__glob_8h_1ab38bfd45ebf0f622c892ec1d0045c601"></span>double <code class="sig-name descname">charm_glob_threshold</code><a class="headerlink" href="#_CPPv420charm_glob_threshold" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Threshold to judge whether two floating point numbers are equal, <code class="docutils literal notranslate"><span class="pre">100.0</span> <span class="pre">*</span> <span class="pre">EPS</span></code>, where <code class="docutils literal notranslate"><span class="pre">EPS</span></code> is the machine epsilon of the <code class="docutils literal notranslate"><span class="pre">double</span></code> data type.</p>
+<dd><p>Threshold to judge whether two floating point numbers are equal, <code class="docutils literal notranslate"><span class="pre">100.0</span> <span class="pre">*</span> <span class="pre">EPS</span></code>, where <code class="docutils literal notranslate"><span class="pre">EPS</span></code> is the machine epsilon of the floating point data type (<code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">double</span></code> or <code class="docutils literal notranslate"><span class="pre">__float128</span></code>).</p>
 <p>Experienced users may (under some very specific circumstances) need the possibility to tighten or relax the threshold after the library is compiled. To this end, simply set <code class="docutils literal notranslate"><span class="pre">charm_glob_threshold</span></code> to whatever value you need (the variable is already declared in <code class="docutils literal notranslate"><span class="pre">charm_glob.h</span></code>). After that, whenever you call a CHarm routine, it will use your own value instead of the default one. Use wisely! </p>
 </dd></dl>
 

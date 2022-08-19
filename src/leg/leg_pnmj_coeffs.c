@@ -26,8 +26,6 @@ void CHARM(leg_pnmj_coeffs)(CHARM(pnmj) *pnmj, unsigned long nmax,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"nmax\" cannot be larger than \"pnmj->nmax\".");
-
-
         return;
     }
     /* --------------------------------------------------------------------- */

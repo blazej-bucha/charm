@@ -24,7 +24,7 @@ REAL CHARM(misc_arr_rms)(const REAL *a, size_t na, CHARM(err) *err)
                        "The array size cannot be smaller than \"1\".");
 
 
-        return (ADDP(0.0) / ADDP(0.0));
+        return (PREC(0.0) / PREC(0.0));
     }
 
 

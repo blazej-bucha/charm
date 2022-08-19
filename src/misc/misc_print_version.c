@@ -65,6 +65,21 @@ void CHARM(misc_print_version)(void)
 
 
     "\n"
+    "SIMD parallelism: "
+#if HAVE_AVX_INSTRUCTIONS
+    "avx"
+#elif HAVE_AVX2_INSTRUCTIONS
+    "avx2"
+#elif HAVE_AVX512F_INSTRUCTIONS
+    "avx-512"
+#endif
+#if !(HAVE_AVX_INSTRUCTIONS) && !(HAVE_AVX2_INSTRUCTIONS) && \
+    !(HAVE_AVX512F_INSTRUCTIONS)
+    "none"
+#endif
+
+
+    "\n"
     "isfinite macro in math.h: "
 #if HAVE_ISFINITE
         "yes"
@@ -73,7 +88,7 @@ void CHARM(misc_print_version)(void)
 #endif
 
 
-    "\n\n"
+    "\n"
 
 
     );

@@ -63,25 +63,25 @@ void CHARM(leg_pnmj_leq4)(unsigned long n, unsigned long m, REAL *p,
 
 
     if (n == 0)
-        p[0] = ADDP(1.0);
+        p[0] = PREC(1.0);
     else if (n == 1)
-        p[0] = SQRT(ADDP(3.0));
+        p[0] = SQRT(PREC(3.0));
     else if (n == 2)
     {
         if (m == 0)
         {
-            REAL tmp = SQRT(ADDP(5.0)) / ADDP(4.0);
+            REAL tmp = SQRT(PREC(5.0)) / PREC(4.0);
             p[0] = tmp;
-            p[1] = ADDP(3.0) * tmp;
+            p[1] = PREC(3.0) * tmp;
         }
         else if (m == 1)
         {
-            p[0] = ADDP(0.0);
-            p[1] = SQRT(ADDP(15.0)) / ADDP(2.0);
+            p[0] = PREC(0.0);
+            p[1] = SQRT(PREC(15.0)) / PREC(2.0);
         }
         else if (m == 2)
         {
-            REAL tmp = SQRT(ADDP(15.0)) / ADDP(4.0);
+            REAL tmp = SQRT(PREC(15.0)) / PREC(4.0);
             p[0] =  tmp;
             p[1] = -tmp;
         }
@@ -90,26 +90,26 @@ void CHARM(leg_pnmj_leq4)(unsigned long n, unsigned long m, REAL *p,
     {
         if (m == 0)
         {
-            REAL tmp = SQRT(ADDP(7.0)) / ADDP(8.0);
-            p[0] = ADDP(3.0) * tmp;
-            p[1] = ADDP(5.0) * tmp;
+            REAL tmp = SQRT(PREC(7.0)) / PREC(8.0);
+            p[0] = PREC(3.0) * tmp;
+            p[1] = PREC(5.0) * tmp;
         }
         else if (m == 1)
         {
-            REAL tmp = SQRT(ADDP(42.0)) / ADDP(16.0);
+            REAL tmp = SQRT(PREC(42.0)) / PREC(16.0);
             p[0] =       tmp;
-            p[1] = ADDP(5.0) * tmp;
+            p[1] = PREC(5.0) * tmp;
         }
         else if (m == 2)
         {
-            REAL tmp = SQRT(ADDP(105.0)) / ADDP(8.0);
+            REAL tmp = SQRT(PREC(105.0)) / PREC(8.0);
             p[0] =  tmp;
             p[1] = -tmp;
         }
         else if (m == 3)
         {
-            REAL tmp = SQRT(ADDP(70.0)) / ADDP(16.0);
-            p[0] = ADDP(3.0) * tmp;
+            REAL tmp = SQRT(PREC(70.0)) / PREC(16.0);
+            p[0] = PREC(3.0) * tmp;
             p[1] =      -tmp;
         }
     }
@@ -117,37 +117,37 @@ void CHARM(leg_pnmj_leq4)(unsigned long n, unsigned long m, REAL *p,
     {
         if (m == 0)
         {
-            p[0] =  ADDP(27.0) / ADDP(64.0);
-            p[1] =  ADDP(15.0) / ADDP(16.0);
-            p[2] = ADDP(105.0) / ADDP(64.0);
+            p[0] =  PREC(27.0) / PREC(64.0);
+            p[1] =  PREC(15.0) / PREC(16.0);
+            p[2] = PREC(105.0) / PREC(64.0);
         }
         else if (m == 1)
         {
-            REAL tmp = SQRT(ADDP(10.0));
-            p[0] =  ADDP(0.0);
-            p[1] =  ADDP(3.0) * tmp / ADDP(16.0);
-            p[2] = ADDP(21.0) * tmp / ADDP(32.0);
+            REAL tmp = SQRT(PREC(10.0));
+            p[0] =  PREC(0.0);
+            p[1] =  PREC(3.0) * tmp / PREC(16.0);
+            p[2] = PREC(21.0) * tmp / PREC(32.0);
         }
         else if (m == 2)
         {
-            REAL tmp = SQRT(ADDP(5.0));
-            p[0] =   ADDP(9.0) * tmp / ADDP(32.0);
-            p[1] =   ADDP(3.0) * tmp / ADDP(8.0);
-            p[2] = ADDP(-21.0) * tmp / ADDP(32.0);
+            REAL tmp = SQRT(PREC(5.0));
+            p[0] =   PREC(9.0) * tmp / PREC(32.0);
+            p[1] =   PREC(3.0) * tmp / PREC(8.0);
+            p[2] = PREC(-21.0) * tmp / PREC(32.0);
         }
         else if (m == 3)
         {
-            REAL tmp = ADDP(3.0) * SQRT(ADDP(70.0));
-            p[0] =  ADDP(0.0);
-            p[1] =  tmp / ADDP(16.0);
-            p[2] = -tmp / ADDP(32.0);
+            REAL tmp = PREC(3.0) * SQRT(PREC(70.0));
+            p[0] =  PREC(0.0);
+            p[1] =  tmp / PREC(16.0);
+            p[2] = -tmp / PREC(32.0);
         }
         else if (m == 4)
         {
-            REAL tmp = SQRT(ADDP(35.0));
-            p[0] =  ADDP(9.0) * tmp / ADDP(64.0);
-            p[1] = ADDP(-3.0) * tmp / ADDP(16.0);
-            p[2] =  ADDP(3.0) * tmp / ADDP(64.0);
+            REAL tmp = SQRT(PREC(35.0));
+            p[0] =  PREC(9.0) * tmp / PREC(64.0);
+            p[1] = PREC(-3.0) * tmp / PREC(16.0);
+            p[2] =  PREC(3.0) * tmp / PREC(64.0);
         }
     }
 

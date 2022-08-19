@@ -8,6 +8,7 @@
 #endif
 #include <math.h>
 #include "../prec.h"
+#include "../misc/misc_is_nearly_equal.c"
 /* ------------------------------------------------------------------------- */
 
 
@@ -20,21 +21,21 @@ void CHARM(integ_cc)(REAL u0, REAL du, size_t nu, REAL a1, REAL a2, REAL *s)
     if (CHARM(misc_is_nearly_equal)(FABS(a1), FABS(a2), CHARM(glob_threshold)))
     /* "FABS(a1) == FABS(a2)" within the "threshold" */
     {
-        if (CHARM(misc_is_nearly_equal)(a1, ADDP(0.0), CHARM(glob_threshold)))
-        /* "FABS(a1) == FABS(a2) == ADDP(0.0)" within the "threshold" */
+        if (CHARM(misc_is_nearly_equal)(a1, PREC(0.0), CHARM(glob_threshold)))
+        /* "FABS(a1) == FABS(a2) == PREC(0.0)" within the "threshold" */
 
             for (size_t j = 0; j < nu; j++)
                 s[j] = du;
 
         else
-        /* "FABS(a1) == FABS(a2) != ADDP(0.0)" within the "threshold" */
+        /* "FABS(a1) == FABS(a2) != PREC(0.0)" within the "threshold" */
         {
             REAL u1   = u0 +       du;
-            REAL u2   = u0 + ADDP(2.0) * du;
-            REAL du2  = ADDP(0.5) * du;
-            REAL k1   = ADDP(2.0) * a1;
-            REAL a1_4 = ADDP(0.25) / a1;
-            REAL d    = ADDP(2.0) * COS(k1 * du);
+            REAL u2   = u0 + PREC(2.0) * du;
+            REAL du2  = PREC(0.5) * du;
+            REAL k1   = PREC(2.0) * a1;
+            REAL a1_4 = PREC(0.25) / a1;
+            REAL d    = PREC(2.0) * COS(k1 * du);
 
 
             REAL ss0 = SIN(k1 * u1) - SIN(k1 * u0);
@@ -70,13 +71,13 @@ void CHARM(integ_cc)(REAL u0, REAL du, size_t nu, REAL a1, REAL a2, REAL *s)
     else
     {
         REAL u1   = u0 +       du;
-        REAL u2   = u0 + ADDP(2.0) * du;
+        REAL u2   = u0 + PREC(2.0) * du;
         REAL k1   = a2 - a1;
         REAL k2   = a2 + a1;
-        REAL k1_2 = ADDP(2.0) * k1;
-        REAL k2_2 = ADDP(2.0) * k2;
-        REAL d1   = ADDP(2.0) * COS(k1 * du);
-        REAL d2   = ADDP(2.0) * COS(k2 * du);
+        REAL k1_2 = PREC(2.0) * k1;
+        REAL k2_2 = PREC(2.0) * k2;
+        REAL d1   = PREC(2.0) * COS(k1 * du);
+        REAL d2   = PREC(2.0) * COS(k2 * du);
 
 
         REAL ss1_0 = SIN(k1 * u1) - SIN(k1 * u0);

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Introduction &mdash; CHarm 0.0.1 documentation</title>
+  <title>Introduction &mdash; CHarm 0.1.0 documentation</title>
   
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.0.1
+                0.1.0
               </div>
             
           
@@ -201,9 +201,11 @@ potential) on band-limited irregular surfaces (e.g., on the Earth’s
 surface). <a class="footnote-reference brackets" href="#f1" id="id1">1</a></p></li>
 <li><p>Computes Fourier coefficients of fully-normalized associated Legendre
 functions of the first kind up to ultra-high harmonic degrees.</p></li>
-<li><p>Performs discrete FFT by <a class="reference external" href="http://www.fftw.org/">FFTW</a>.</p></li>
 <li><p>Supports <a class="reference external" href="https://www.openmp.org/">OpenMP</a> parallelization for
 shared-memory architectures.</p></li>
+<li><p>Supports AVX, AVX2 and AVX-512 SIMD CPU intructions to improve the
+performance.</p></li>
+<li><p>Performs discrete FFT by <a class="reference external" href="http://www.fftw.org/">FFTW</a>.</p></li>
 </ul>
 <dl class="footnote brackets">
 <dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
@@ -224,8 +226,8 @@ shared-memory architectures.</p></li>
 </div>
 <div class="section" id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
-<p>The documentation of the latest version from the <code class="docutils literal notranslate"><span class="pre">develop</span></code> branch is
-available at <a class="reference external" href="https://blazej-bucha.github.io/charm/index.html">https://blazej-bucha.github.io/charm/index.html</a>.</p>
+<p>The documentation of the latest version from the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch is available
+at <a class="reference external" href="https://blazej-bucha.github.io/charm/index.html">https://blazej-bucha.github.io/charm/index.html</a>.</p>
 <p>A pre-compiled HTML documentation is also available in <code class="docutils literal notranslate"><span class="pre">docs/build/html</span></code> or
 it can be built by executing <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">docs</span></code> (requires <code class="docutils literal notranslate"><span class="pre">doxygen</span></code> and Python
 modules <code class="docutils literal notranslate"><span class="pre">sphinx</span></code>, <code class="docutils literal notranslate"><span class="pre">sphinx_rtd_theme</span></code> and <code class="docutils literal notranslate"><span class="pre">breathe</span></code>).  PDF and other

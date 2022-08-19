@@ -15,8 +15,8 @@ extern "C"
 #endif
 
 
-int CHARM(shc_read_line)(FILE *, unsigned long *, unsigned long *,
-                         REAL *, REAL *, int, CHARM(err) *);
+extern int CHARM(shc_read_line)(FILE *, unsigned long *, unsigned long *,
+                                REAL *, REAL *, int, CHARM(err) *);
 
 
 /* Symbolic constant to read a line from a table of spherical harmonic

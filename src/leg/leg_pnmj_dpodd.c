@@ -80,14 +80,14 @@ void CHARM(leg_pnmj_dpodd)(unsigned long n, const REAL *xpold, REAL *xp,
 
 
     /* Eq. (19) of Fukushima (2018) */
-    REAL gamma = ADDP(0.125) * SQRT((REAL)(n2 + 1) * (REAL)(n2 - 1)
+    REAL gamma = PREC(0.125) * SQRT((REAL)(n2 + 1) * (REAL)(n2 - 1)
                                     / ((REAL)n * (REAL)(n - 1)));
 
-    REAL gamma2 = ADDP(2.0) * gamma;
+    REAL gamma2 = PREC(2.0) * gamma;
 
 
     /* Eq. (70) */
-    CHARM(xnum_xlsum2)(ADDP(3.0) * gamma, xpold[0], -gamma, xpold[1], &xp[0],
+    CHARM(xnum_xlsum2)(PREC(3.0) * gamma, xpold[0], -gamma, xpold[1], &xp[0],
                        ipold[0], ipold[1], &ip[0]);
 
 
@@ -103,7 +103,7 @@ void CHARM(leg_pnmj_dpodd)(unsigned long n, const REAL *xpold, REAL *xp,
 
         CHARM(xnum_xlsum2)(-gamma, xpold[jm1], gamma2, xpold[j], &xtemp,
                            ipold[jm1], ipold[j], &itemp);
-        CHARM(xnum_xlsum2)(ADDP(1.0), xtemp, -gamma, xpold[jp1], &xp[j],
+        CHARM(xnum_xlsum2)(PREC(1.0), xtemp, -gamma, xpold[jp1], &xp[j],
                            itemp, ipold[jp1], &ip[j]);
     }
 
@@ -119,7 +119,7 @@ void CHARM(leg_pnmj_dpodd)(unsigned long n, const REAL *xpold, REAL *xp,
 
     CHARM(xnum_xnorm)(&xp[jx], &ip[jx]);
 
-    REAL alpha = SQRT(ADDP(2.0) / (REAL)n);
+    REAL alpha = SQRT(PREC(2.0) / (REAL)n);
 
 
     /* Eq. (74) */

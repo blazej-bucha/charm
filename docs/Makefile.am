@@ -1,3 +1,13 @@
+EXTRA_DIST = build/html \
+			 img \
+			 logo \
+			 src \
+			 Doxyfile \
+			 Makefile-sphinx \
+			 index.html \
+			 .nojekyll
+
+
 # Rule to generate the HTML documentation.  Requires the "doxygen" 
 # documentation system and Python modules "sphinx", "sphinx_rtd_theme" and 
 # "breathe".

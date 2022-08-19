@@ -29,7 +29,7 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin, REAL cltmax,
                        "\"cltmin\" cannot be larger than \"cltmax\".");
 
 
-        return (ADDP(0.0) / ADDP(0.0));
+        return (PREC(0.0) / PREC(0.0));
     }
 
 
@@ -39,7 +39,7 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin, REAL cltmax,
                        "\"n1\" cannot be larger than \"pnmj->nmax\".");
 
 
-        return (ADDP(0.0) / ADDP(0.0));
+        return (PREC(0.0) / PREC(0.0));
     }
 
 
@@ -49,7 +49,7 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin, REAL cltmax,
                        "\"n2\" cannot be larger than \"pnmj->nmax\".");
 
 
-        return (ADDP(0.0) / ADDP(0.0));
+        return (PREC(0.0) / PREC(0.0));
     }
 
 
@@ -60,7 +60,7 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin, REAL cltmax,
                        "\"m1\" cannot be larger than \"n1\".");
 
 
-        return (ADDP(0.0) / ADDP(0.0));
+        return (PREC(0.0) / PREC(0.0));
     }
 
 
@@ -70,7 +70,7 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin, REAL cltmax,
                        "\"m2\" cannot be larger than \"n2\".");
 
 
-        return (ADDP(0.0) / ADDP(0.0));
+        return (PREC(0.0) / PREC(0.0));
     }
     /* --------------------------------------------------------------------- */
 
@@ -86,7 +86,7 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin, REAL cltmax,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
                        CHARM_ERR_MALLOC_FAILURE);
-        return (ADDP(0.0) / ADDP(0.0));
+        return (PREC(0.0) / PREC(0.0));
     }
 
 
@@ -182,8 +182,8 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin, REAL cltmax,
 
 
     /* Initialize the value of the integral */
-    REAL ip     = ADDP(0.0);
-    REAL ip_tmp = ADDP(0.0);
+    REAL ip     = PREC(0.0);
+    REAL ip_tmp = PREC(0.0);
 
 
     /* Loop over the Fourier coefficients of the first Legendre  function
@@ -201,7 +201,7 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin, REAL cltmax,
 
         /* Loop over the Fourier coefficients of the second Legendre function
          * inside the integral */
-        ip_tmp = ADDP(0.0);
+        ip_tmp = PREC(0.0);
         for (unsigned long k2 = 0; k2 <= n2; k2++)
         {
             if (((n2 - k2) % 2) != 0)

@@ -7,6 +7,7 @@
 
 #include <config.h>
 #include "../prec.h"
+#include "../simd/simd.h"
 
 
 #ifdef __cplusplus
@@ -15,10 +16,11 @@ extern "C"
 #endif
 
 
-void CHARM(shs_cell_isurf_lr)(REAL, REAL, size_t,
-                              REAL, REAL, REAL, REAL,
-                              unsigned long, unsigned long,
-                              REAL *);
+extern void CHARM(shs_cell_isurf_lr)(REAL, REAL, size_t,
+                                     REAL_SIMD, REAL_SIMD,
+                                     REAL_SIMD, REAL_SIMD,
+                                     unsigned long, unsigned long,
+                                     REAL *);
 
 
 #ifdef __cplusplus
