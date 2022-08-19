@@ -8,6 +8,11 @@
 
 * Create a Python wrapper, probably using SWIG or ctypes.
 
+* Check coordinates for the [-pi / 2, pi / 2] and [0, 2 * pi] intervals in sha 
+  and shs functions.
+
+* Add a global variable to control the verbosity.
+
 * Parallelize "./src/leg/charm_leg_pnmj_coeffs_dp.c" and 
   "./src/leg/charm_leg_pnmj_coeffs_qp.c".
 
