@@ -15,7 +15,7 @@ extern "C"
 #endif
 
 
-void CHARM(err_inc_level)(CHARM(err) *);
+extern void CHARM(err_inc_level)(CHARM(err) *);
 
 
 #ifdef __cplusplus

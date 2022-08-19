@@ -4,11 +4,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#ifdef _MSC_VER
-#   define _USE_MATH_DEFINES
-#endif
-#include <math.h>
 #include "../src/prec.h"
+#include "shs.h"
+#include "shc.h"
+#include "crd.h"
+#include "sha.h"
+#include "leg.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -18,12 +19,7 @@
 
 /* Function prototypes */
 /* ------------------------------------------------------------------------- */
-int shc(unsigned long, unsigned long, char *, char *, char *, char *,
-                                      char *, char *, char *);
-int crd(unsigned long);
-int shs(unsigned long, char *, unsigned long, char *);
-int sha(unsigned long, char *);
-int leg(unsigned long);
+static void print_test_outcome(int, char *);
 /* ------------------------------------------------------------------------- */
 
 
@@ -103,12 +99,23 @@ int main(void)
     /* --------------------------------------------------------------------- */
     printf("\n==================================\n");
     printf("\nStart of the validation.\n\n");
-    int err = 0;
-    int err_sum = 0;
+
+
+    /* Print version number, etc. of the compiled CHarm library */
+    printf("Printing info on CHarm...\n");
+    printf("..................................\n");
+    CHARM(misc_print_version());
+    printf("..................................\n\n");
 
 
     /* ..................................................................... */
     printf("Testing the \"shc\" module...\n");
+
+
+    int err = 0;
+    int err_sum = 0;
+
+
     err = shc(nmax_topo,
               nmax_pot,
               SHCs_in_topo_mtx_file,
@@ -118,21 +125,15 @@ int main(void)
               SHCs_out_topo_mtx_file,
               SHCs_out_pot_tbl_n_file,
               SHCs_out_pot_tbl_m_file);
-    if (err != 0)
-        printf("    The module didn't passed!\n");
-    else
-        printf("    The module passed.\n");
+    print_test_outcome(err, "shc");
     err_sum += err;
     /* ..................................................................... */
 
 
     /* ..................................................................... */
     printf("Testing the \"crd\" module...\n");
-    err = crd(nmax_topo);
-    if (err != 0)
-        printf("    The module didn't passed!\n");
-    else
-        printf("    The module passed.\n");
+    err = crd();
+    print_test_outcome(err, "crd");
     err_sum += err;
     /* ..................................................................... */
 
@@ -141,10 +142,7 @@ int main(void)
     printf("Testing the \"shs\" module...\n");
     err = shs(nmax_topo, SHCs_in_topo_mtx_file, nmax_pot,
               SHCs_in_pot_mtx_file);
-    if (err != 0)
-        printf("    The module didn't passed!\n");
-    else
-        printf("    The module passed.\n");
+    print_test_outcome(err, "shs");
     err_sum += err;
     /* ..................................................................... */
 
@@ -152,28 +150,23 @@ int main(void)
     /* ..................................................................... */
     printf("Testing the \"sha\" module...\n");
     err = sha(nmax_pot, SHCs_in_pot_mtx_file);
-    if (err != 0)
-        printf("    The module didn't passed!\n");
-    else
-        printf("    The module passed.\n");
+    print_test_outcome(err, "sha");
     err_sum += err;
     /* ..................................................................... */
 
 
     /* ..................................................................... */
     printf("Testing the \"leg\" module...\n");
-    err = leg(10);
-    if (err != 0)
-        printf("    The module didn't passed!\n");
-    else
-        printf("    The module passed.\n");
+    err = leg();
+    print_test_outcome(err, "leg");
     err_sum += err;
     /* ..................................................................... */
 
 
     printf("\n");
     if (err_sum)
-        printf("Oh, no...  %d test(s) didn't pass.\n", err_sum);
+        printf("Oh, no...  %d %s didn't pass.\n", 
+               err_sum, err_sum == 1 ? "test" : "tests");
     else
         printf("All tests seem to pass.\n");
     printf("\n");
@@ -186,4 +179,16 @@ int main(void)
     /* --------------------------------------------------------------------- */
 
 
+}
+
+
+
+
+
+static void print_test_outcome(int err, char module[])
+{
+    if (err)
+        printf("    The module \"%s\" didn't pass some tests!\n", module);
+    else
+        printf("    The module \"%s\" passed all tests.\n", module);
 }

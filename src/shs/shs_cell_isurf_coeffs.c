@@ -73,7 +73,7 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
 
     /* Prepare the Gauss--Legendre grid */
     /* --------------------------------------------------------------------- */
-    glg = CHARM(crd_gl)(nmax4, ADDP(1.0));
+    glg = CHARM(crd_gl)(nmax4, PREC(1.0));
     if (glg == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -133,7 +133,7 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
 #endif
     for (size_t i = 0; i < glg_nlat; i++)
         for (size_t j = 0; j < glg_nlon; j++)
-            r_pow[i * glg_nlon + j] = ADDP(1.0);
+            r_pow[i * glg_nlon + j] = PREC(1.0);
     /* --------------------------------------------------------------------- */
 
 
@@ -144,7 +144,7 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
     /* Initialize the spherical harmonic coefficients for the "n + 1"th power
      * */
     /* --------------------------------------------------------------------- */
-    shcs3 = CHARM(shc_init)(nmax3, ADDP(1.0), ADDP(1.0));
+    shcs3 = CHARM(shc_init)(nmax3, PREC(1.0), PREC(1.0));
     if (shcs3 == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -339,8 +339,8 @@ private(cnm3_m3, snm3_m3)
                 idx       = (m3 * (nmax3_2 + 1) + j3) * 2;
 
 
-                c_sum1 = c_sum2 = ADDP(0.0);
-                s_sum1 = s_sum2 = ADDP(0.0);
+                c_sum1 = c_sum2 = PREC(0.0);
+                s_sum1 = s_sum2 = PREC(0.0);
                 pnmj_m3_j3      = pnmj->pnmj[m3][j3];
 
 
@@ -468,12 +468,10 @@ private(idx, idxp1, idx0_lc, idx1_lc)
     /* --------------------------------------------------------------------- */
 FAILURE:
     CHARM(crd_free)(glg);
-
     free(r);
     free(r_pow);
     free(cnm3pnmj_sum);
     free(snm3pnmj_sum);
-
     CHARM(leg_pnmj_free)(pnmj);
     CHARM(leg_pnmj_free)(cnm1pnmj);
     CHARM(leg_pnmj_free)(snm1pnmj);

@@ -7,8 +7,8 @@ requirements of spherical harmonic analysis and synthesis of point data values.
 Applied is the Gauss--Legendre quadrature, which offers the best performance.  
 All tests were executed on a PC with the Intel(R) Core(TM) i7-6800K CPU 
 @ 3.40GHz and 128 GBs of RAM.  CHarm was compiled using ``GCC`` with 
-parallelization enabled and the ``-O3 -ffast-math`` optimization flags.  All 
-6 CPU cores were employed with hyperthreading enabled.
+``--enable-openmp``, ``--enable-avx`` and ``CFLAGS="-O3 -ffast-math"`` 
+installation flags.  All 6 CPU cores were employed with hyperthreading enabled.
 
 The benchmarks can be executed by ``make bench`` after running ``./configure`` 
 and ``make``.  The outputs from the benchmark program (the accuracy and 
@@ -29,10 +29,10 @@ Accuracy
 ========
 
 We generated reference random spherical harmonic coefficients from the interval
-``[-1.0, 1.0]`` up to degree ``N``, then synthesized the signal from these
-coefficients up to degree ``N``, and finally harmonically analyzed the signal
+``[-1.0, 1.0]`` up to degree ``N``, then synthesized the signal up to degree 
+``N``, and, finally, harmonically analyzed the signal
 up to the same ``N`` degree.  Below are plotted the following statistics
-obtained from the difference between the recovered and the reference
+obtained from the differences between the recovered and the reference
 coefficients:
 
 * :math:`\varepsilon_{\max} = \max_{n,m}|\bar{Q}_{nm}

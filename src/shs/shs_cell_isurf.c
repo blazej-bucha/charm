@@ -11,12 +11,17 @@
 #include "../prec.h"
 #include "shs_cell_isurf_coeffs.h"
 #include "shs_cell_isurf_lr.h"
+#include "shs_cell_check_grd_lons.h"
 #include "../integ/integ_ccs.h"
 #include "../integ/integ_css.h"
 #include "../integ/integ_scs.h"
 #include "../integ/integ_sss.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
+#include "../simd/simd.h"
+#include "../simd/malloc_aligned.h"
+#include "../simd/calloc_aligned.h"
+#include "../simd/free_aligned.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -37,8 +42,6 @@ void CHARM(shs_cell_isurf)(const CHARM(crd) *cell,
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"cell->type\" must be set to "
                        "\"CHARM_CRD_CELLS_GRID\".");
-
-
         return;
     }
 
@@ -47,8 +50,6 @@ void CHARM(shs_cell_isurf)(const CHARM(crd) *cell,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"nmax1\" cannot be larger than \"shcs1->nmax\".");
-
-
         return;
     }
 
@@ -57,8 +58,6 @@ void CHARM(shs_cell_isurf)(const CHARM(crd) *cell,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"nmax2\" cannot be larger than \"shcs2->nmax\".");
-
-
         return;
     }
 
@@ -67,22 +66,18 @@ void CHARM(shs_cell_isurf)(const CHARM(crd) *cell,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"nmax3\" cannot be larger than \"nmax4\".");
-
-
         return;
     }
 
 
-    if (!CHARM(misc_is_nearly_equal)(shcs2->mu, ADDP(1.0),
+    if (!CHARM(misc_is_nearly_equal)(shcs2->mu, PREC(1.0),
                                      CHARM(glob_threshold)) ||
-        !CHARM(misc_is_nearly_equal)(shcs2->r,  ADDP(1.0),
+        !CHARM(misc_is_nearly_equal)(shcs2->r,  PREC(1.0),
                                      CHARM(glob_threshold)))
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"shcs2->mu\" and \"shcs2->r\" have to be equal to "
                        "\"1.0\".");
-
-
         return;
     }
 
@@ -90,66 +85,13 @@ void CHARM(shs_cell_isurf)(const CHARM(crd) *cell,
     /* Check whether "cell->lon" is a linearly increasing array of cells. */
     size_t cell_nlon = cell->nlon;
     size_t cell_nlat = cell->nlat;
-    int err_tmp = CHARM(misc_arr_chck_lin_incr)(cell->lon, 2 * cell_nlon,
-                                                0, 2, CHARM(glob_threshold2),
-                                                err);
-    if (!CHARM(err_isempty)(err))
-    {
-        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
-        return;
-    }
-    if (err_tmp != 0)
-    {
-        CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
-                       "\"cell->lon\" is not a linearly increasing array "
-                       "of cells within the \"threshold2\".");
-
-
-        return;
-    }
-
-
-    err_tmp = CHARM(misc_arr_chck_lin_incr)(cell->lon, 2 * cell_nlon,
-                                            1, 2, CHARM(glob_threshold2), err);
-    if (!CHARM(err_isempty)(err))
-    {
-        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
-        return;
-    }
-    if (err_tmp != 0)
-    {
-        CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
-                       "\"cell->lon\" is not a linearly increasing array "
-                       "of cells within the \"threshold2\".");
-
-
-        return;
-    }
-
-
-    /* At this point, we know that the steps between cells in "cell->lon" are
-     * constant.  Here, we check if the steps between the minimum longitudes
-     * and the maximum longitudes are equal and, if true, store this value in
-     * a separate variable (will be necessary later for the PSLR algorithm) */
     REAL dlon;
-    if (cell_nlon > 1)
+    CHARM(shs_cell_check_grd_lons)(cell, &dlon, err);
+    if (!CHARM(err_isempty)(err))
     {
-        if (CHARM(misc_is_nearly_equal)(cell->lon[2] - cell->lon[0],
-                                        cell->lon[3] - cell->lon[1],
-                                        CHARM(glob_threshold)) == 0)
-        {
-            CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
-                           "The difference \"cell->lon[2] - cell->lon[0]\" "
-                           "has to be equal to "
-                           "\"cell->lon[3] - cell->lon[1]\".");
-
-
-            return;
-        }
-        dlon = cell->lon[2] - cell->lon[0];
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
     }
-    else
-        dlon = ADDP(0.0);
     /* --------------------------------------------------------------------- */
 
 
@@ -176,17 +118,21 @@ void CHARM(shs_cell_isurf)(const CHARM(crd) *cell,
      * irregular surface */
     /* --------------------------------------------------------------------- */
     /* Allocation of the coefficients */
-    size_t size = ((nmax3 + 1) * (nmax3 + 1) * (nmax1 + 1) * (nmax1 + 1));
-    cnm1cnm3 = (REAL *)calloc(size, sizeof(REAL));
+    size_t size = (nmax3 + 1) * (nmax3 + 1) * (nmax1 + 1) * (nmax1 + 1);
+    cnm1cnm3 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, size,
+                                             sizeof(REAL));
     if (cnm1cnm3 == NULL)
         goto FAILURE;
-    cnm1snm3 = (REAL *)calloc(size, sizeof(REAL));
+    cnm1snm3 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, size,
+                                             sizeof(REAL));
     if (cnm1snm3 == NULL)
         goto FAILURE;
-    snm1cnm3 = (REAL *)calloc(size, sizeof(REAL));
+    snm1cnm3 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, size,
+                                             sizeof(REAL));
     if (snm1cnm3 == NULL)
         goto FAILURE;
-    snm1snm3 = (REAL *)calloc(size, sizeof(REAL));
+    snm1snm3 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, size,
+                                             sizeof(REAL));
     if (snm1snm3 == NULL)
         goto FAILURE;
 
@@ -221,7 +167,7 @@ void CHARM(shs_cell_isurf)(const CHARM(crd) *cell,
 
 
     REAL mur = shcs1->mu / shcs1->r;
-    size = (nmax1 + 1) * (nmax3 + 1);
+    size = (nmax1 + 1) * (nmax3 + 1) * SIMD_SIZE;
 
 
     /* Loop over the latitude cells */
@@ -243,10 +189,14 @@ shared(FAILURE_glob, mur, size, err)
     REAL *ipt_css = NULL;
     REAL *ipt_scs = NULL;
     REAL *ipt_sss = NULL;
+    REAL   *clt1v = NULL;
+    REAL   *clt2v = NULL;
+    REAL   *dcltv = NULL;
 
 
     /* Synthesized mean values for the "i"th grid row */
-    fi  = (REAL *)malloc(cell_nlon * sizeof(REAL));
+    fi = (REAL *)CHARM(malloc_aligned)(SIMD_MEMALIGN, cell_nlon * SIMD_SIZE *
+                                       sizeof(REAL));
     if (fi == NULL)
     {
         FAILURE_priv = 1;
@@ -256,26 +206,53 @@ shared(FAILURE_glob, mur, size, err)
 
     /* Arrays to store pre-computed trigonometric integrals related to
      * integrals of associated Legendre functions */
-    ipt_ccs = (REAL *)malloc(size * sizeof(REAL));
+    ipt_ccs = (REAL *)CHARM(malloc_aligned)(SIMD_MEMALIGN,
+                                            size * sizeof(REAL));
     if (ipt_ccs == NULL)
     {
         FAILURE_priv = 1;
         goto FAILURE_1_parallel;
     }
-    ipt_css = (REAL *)malloc(size * sizeof(REAL));
+    ipt_css = (REAL *)CHARM(malloc_aligned)(SIMD_MEMALIGN,
+                                            size * sizeof(REAL));
     if (ipt_css == NULL)
     {
         FAILURE_priv = 1;
         goto FAILURE_1_parallel;
     }
-    ipt_scs = (REAL *)malloc(size * sizeof(REAL));
+    ipt_scs = (REAL *)CHARM(malloc_aligned)(SIMD_MEMALIGN,
+                                            size * sizeof(REAL));
     if (ipt_scs == NULL)
     {
         FAILURE_priv = 1;
         goto FAILURE_1_parallel;
     }
-    ipt_sss = (REAL *)malloc(size * sizeof(REAL));
+    ipt_sss = (REAL *)CHARM(malloc_aligned)(SIMD_MEMALIGN,
+                                            size * sizeof(REAL));
     if (ipt_sss == NULL)
+    {
+        FAILURE_priv = 1;
+        goto FAILURE_1_parallel;
+    }
+
+
+    clt1v = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                          sizeof(REAL));
+    if (clt1v == NULL)
+    {
+        FAILURE_priv = 1;
+        goto FAILURE_1_parallel;
+    }
+    clt2v = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                          sizeof(REAL));
+    if (clt2v == NULL)
+    {
+        FAILURE_priv = 1;
+        goto FAILURE_1_parallel;
+    }
+    dcltv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                          sizeof(REAL));
+    if (dcltv == NULL)
     {
         FAILURE_priv = 1;
         goto FAILURE_1_parallel;
@@ -310,10 +287,9 @@ FAILURE_1_parallel:
 #if CHARM_PARALLEL
 #pragma omp master
 #endif
-        {
+        if (CHARM(err_isempty)(err))
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
                            CHARM_ERR_MALLOC_FAILURE);
-        }
 
 
         /* OK, and now all threads go to the "FAILURE_2_parallel" label to
@@ -324,37 +300,46 @@ FAILURE_1_parallel:
     /* ..................................................................... */
 
 
-    /* The "i"th minimum and maximum co-latitudes of computation cells derived
-     * from the latitudes */
-    REAL clt1, clt2;
-
-
     /* Lumped coefficients */
-    REAL lc00, lc01, lc10, lc11;
+    REAL_SIMD lc00, lc01, lc10, lc11;
 
 
     /* Useful substitutions */
     unsigned int parity;
     unsigned int rem_m1_2, rem_m3_2;
-    REAL dsigma, dclt;
-    size_t row_idx;
-
-
+    REAL dsigma;
+    size_t row, ipv;
     size_t idx, idx2;
+    REAL_SIMD tmp;
 
 
 #if CHARM_PARALLEL
 #pragma omp for
 #endif
-    for (size_t i = 0; i < cell_nlat; i++)
+    for (size_t i = 0; i < SIMD_GET_MULTIPLE(cell_nlat); i += SIMD_SIZE)
     {
         /* Transformation of latitudes into co-latitudes */
-        clt2 = PI_2 - cell->lat[2 * i];
-        clt1 = PI_2 - cell->lat[2 * i + 1];
+        for (size_t v = 0; v < SIMD_SIZE; v++)
+        {
+            ipv = i + v;
+            if (ipv < cell_nlat)
+            {
+                clt2v[v] = PI_2 - cell->lat[2 * ipv];
+                clt1v[v] = PI_2 - cell->lat[2 * ipv + 1];
+            }
+            else
+            {
+                clt1v[v] = clt2v[v] = PREC(0.0);
+                continue;
+            }
+
+
+            dcltv[v] = clt2v[v] - clt1v[v];
+        }
 
 
         /* Reset "fi" to zeros */
-        memset(fi, 0, cell_nlon * sizeof(REAL));
+        memset(fi, 0, cell_nlon * SIMD_SIZE * sizeof(REAL));
 
 
         /* Reset "idx" to zero */
@@ -364,7 +349,6 @@ FAILURE_1_parallel:
         /* Pre-computation of the trigonometric integrals */
         /* ----------------------------------------------------------------- */
         idx2 = 0;
-        dclt = clt2 - clt1;
 
 
         {
@@ -377,13 +361,20 @@ FAILURE_1_parallel:
                 k3d = (REAL)k3;
 
 
-                ipt_ccs[idx2] = CHARM(integ_ccs)(clt1, dclt, k1d, k3d);
-                ipt_css[idx2] = CHARM(integ_css)(clt1, dclt, k1d, k3d);
-                ipt_scs[idx2] = CHARM(integ_scs)(clt1, dclt, k1d, k3d);
-                ipt_sss[idx2] = CHARM(integ_sss)(clt1, dclt, k1d, k3d);
+                for (size_t v = 0; v < SIMD_SIZE; v++)
+                {
+                    ipt_ccs[idx2] = CHARM(integ_ccs)(clt1v[v], dcltv[v], k1d,
+                                                     k3d);
+                    ipt_css[idx2] = CHARM(integ_css)(clt1v[v], dcltv[v], k1d,
+                                                     k3d);
+                    ipt_scs[idx2] = CHARM(integ_scs)(clt1v[v], dcltv[v], k1d,
+                                                     k3d);
+                    ipt_sss[idx2] = CHARM(integ_sss)(clt1v[v], dcltv[v], k1d,
+                                                     k3d);
 
 
-                idx2 += 1;
+                    idx2++;
+                }
             }
         }
         }
@@ -423,7 +414,7 @@ FAILURE_1_parallel:
 
 
             /* Variables to store the lumped coefficients */
-            lc00 = lc01 = lc10 = lc11 = ADDP(0.0);
+            lc00 = lc01 = lc10 = lc11 = SET1_R(PREC(0.0));
 
 
             /* Computation of the lumped coefficients */
@@ -438,16 +429,17 @@ FAILURE_1_parallel:
                 {
                 for (unsigned long k3 = 0; k3 <= nmax3; k3++)
                 {
-                    lc00 += ipt_ccs[idx2] * cnm1cnm3[idx];
-                    lc01 += ipt_ccs[idx2] * cnm1snm3[idx];
-                    lc10 += ipt_ccs[idx2] * snm1cnm3[idx];
-                    lc11 += ipt_ccs[idx2] * snm1snm3[idx];
+                    tmp = LOAD_R(&ipt_ccs[idx2]);
+                    lc00 = ADD_R(lc00, MUL_R(tmp, SET1_R(cnm1cnm3[idx])));
+                    lc01 = ADD_R(lc01, MUL_R(tmp, SET1_R(cnm1snm3[idx])));
+                    lc10 = ADD_R(lc10, MUL_R(tmp, SET1_R(snm1cnm3[idx])));
+                    lc11 = ADD_R(lc11, MUL_R(tmp, SET1_R(snm1snm3[idx])));
 
 
-                    idx  += 1;
-                    idx2 += 1;
-                } /* End of the loop over "k1" */
-                } /* End of the loop over "k3" */
+                    idx++;
+                    idx2 += SIMD_SIZE;
+                }
+                }
             }
             else if (parity == 1)
             /* (Even, Odd) */
@@ -456,16 +448,17 @@ FAILURE_1_parallel:
                 {
                 for (unsigned long k3 = 0; k3 <= nmax3; k3++)
                 {
-                    lc00 += ipt_css[idx2] * cnm1cnm3[idx];
-                    lc01 += ipt_css[idx2] * cnm1snm3[idx];
-                    lc10 += ipt_css[idx2] * snm1cnm3[idx];
-                    lc11 += ipt_css[idx2] * snm1snm3[idx];
+                    tmp = LOAD_R(&ipt_css[idx2]);
+                    lc00 = ADD_R(lc00, MUL_R(tmp, SET1_R(cnm1cnm3[idx])));
+                    lc01 = ADD_R(lc01, MUL_R(tmp, SET1_R(cnm1snm3[idx])));
+                    lc10 = ADD_R(lc10, MUL_R(tmp, SET1_R(snm1cnm3[idx])));
+                    lc11 = ADD_R(lc11, MUL_R(tmp, SET1_R(snm1snm3[idx])));
 
 
-                    idx  += 1;
-                    idx2 += 1;
-                } /* End of the loop over "k1" */
-                } /* End of the loop over "k3" */
+                    idx++;
+                    idx2 += SIMD_SIZE;
+                }
+                }
             }
             else if (parity == 2)
             /* (Odd, Even) */
@@ -474,16 +467,17 @@ FAILURE_1_parallel:
                 {
                 for (unsigned long k3 = 0; k3 <= nmax3; k3++)
                 {
-                    lc00 += ipt_scs[idx2] * cnm1cnm3[idx];
-                    lc01 += ipt_scs[idx2] * cnm1snm3[idx];
-                    lc10 += ipt_scs[idx2] * snm1cnm3[idx];
-                    lc11 += ipt_scs[idx2] * snm1snm3[idx];
+                    tmp = LOAD_R(&ipt_scs[idx2]);
+                    lc00 = ADD_R(lc00, MUL_R(tmp, SET1_R(cnm1cnm3[idx])));
+                    lc01 = ADD_R(lc01, MUL_R(tmp, SET1_R(cnm1snm3[idx])));
+                    lc10 = ADD_R(lc10, MUL_R(tmp, SET1_R(snm1cnm3[idx])));
+                    lc11 = ADD_R(lc11, MUL_R(tmp, SET1_R(snm1snm3[idx])));
 
 
-                    idx  += 1;
-                    idx2 += 1;
-                } /* End of the loop over "k1" */
-                } /* End of the loop over "k3" */
+                    idx++;
+                    idx2 += SIMD_SIZE;
+                }
+                }
             }
             else /*if (parity == 3) */
             /* (Odd, Odd) */
@@ -492,16 +486,17 @@ FAILURE_1_parallel:
                 {
                 for (unsigned long k3 = 0; k3 <= nmax3; k3++)
                 {
-                    lc00 += ipt_sss[idx2] * cnm1cnm3[idx];
-                    lc01 += ipt_sss[idx2] * cnm1snm3[idx];
-                    lc10 += ipt_sss[idx2] * snm1cnm3[idx];
-                    lc11 += ipt_sss[idx2] * snm1snm3[idx];
+                    tmp = LOAD_R(&ipt_sss[idx2]);
+                    lc00 = ADD_R(lc00, MUL_R(tmp, SET1_R(cnm1cnm3[idx])));
+                    lc01 = ADD_R(lc01, MUL_R(tmp, SET1_R(cnm1snm3[idx])));
+                    lc10 = ADD_R(lc10, MUL_R(tmp, SET1_R(snm1cnm3[idx])));
+                    lc11 = ADD_R(lc11, MUL_R(tmp, SET1_R(snm1snm3[idx])));
 
 
-                    idx  += 1;
-                    idx2 += 1;
-                } /* End of the loop over "k1" */
-                } /* End of the loop over "k3" */
+                    idx++;
+                    idx2 += SIMD_SIZE;
+                }
+                }
             }
             /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
@@ -510,21 +505,34 @@ FAILURE_1_parallel:
             CHARM(shs_cell_isurf_lr)(lon0, dlon, cell_nlon,
                                      lc00, lc01, lc10, lc11, m1, m3,
                                      fi);
-        }  /* End of the loop over "m1" */
         }  /* End of the loop over "m3" */
+        }  /* End of the loop over "m1" */
 
 
-        dclt = COS(clt1) - COS(clt2);
-        row_idx = i * cell_nlon;
-        for (size_t j = 0; j < cell_nlon; j++)
+        /* Final synthesis */
+        /* --------------------------------------------------------- */
+        for (size_t v = 0; v < SIMD_SIZE; v++)
         {
-            /* Compute the area of the cells on the unit sphere */
-            dsigma = dclt * DELTAlon[j];
+            ipv = i + v;
+            if (ipv >= cell_nlat)
+                continue;
 
 
-            /* Final synthesis */
-            f[row_idx + j] = mur / dsigma * fi[j];
+            row = ipv * cell_nlon;
+            dcltv[v] = COS(clt1v[v]) - COS(clt2v[v]);
+
+
+            for (size_t j = 0; j < cell_nlon; j++)
+            {
+                /* Compute the area of the cells on the unit sphere */
+                dsigma = dcltv[v] * DELTAlon[j];
+
+
+                /* Final synthesis */
+                f[row + j] = (mur / dsigma) * fi[j * SIMD_SIZE + v];
+            }
         }
+        /* --------------------------------------------------------- */
 
 
     }  /* End of the loop over "i" */
@@ -533,11 +541,14 @@ FAILURE_1_parallel:
     /* Free the heap memory */
     /* --------------------------------------------------------------------- */
 FAILURE_2_parallel:
-    free(fi);
-    free(ipt_ccs);
-    free(ipt_css);
-    free(ipt_scs);
-    free(ipt_sss);
+    CHARM(free_aligned)(fi);
+    CHARM(free_aligned)(ipt_ccs);
+    CHARM(free_aligned)(ipt_css);
+    CHARM(free_aligned)(ipt_scs);
+    CHARM(free_aligned)(ipt_sss);
+    CHARM(free_aligned)(clt1v);
+    CHARM(free_aligned)(clt2v);
+    CHARM(free_aligned)(dcltv);
     /* --------------------------------------------------------------------- */
 
 
@@ -552,13 +563,16 @@ FAILURE_2_parallel:
     /* Free the heap memory */
     /* --------------------------------------------------------------------- */
 FAILURE:
-    if (FAILURE_glob != 0)
+    if ((FAILURE_glob != 0) && CHARM(err_isempty)(err))
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
                        CHARM_ERR_MALLOC_FAILURE);
 
 
     free(DELTAlon);
-    free(cnm1cnm3); free(cnm1snm3); free(snm1cnm3); free(snm1snm3);
+    CHARM(free_aligned)(cnm1cnm3);
+    CHARM(free_aligned)(cnm1snm3);
+    CHARM(free_aligned)(snm1cnm3);
+    CHARM(free_aligned)(snm1snm3);
     /* --------------------------------------------------------------------- */
 
 

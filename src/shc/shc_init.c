@@ -31,7 +31,7 @@ CHARM(shc) *CHARM(shc_init)(unsigned long nmax, REAL mu, REAL r)
     shcs->nmax = nmax;
     shcs->mu   = mu;
 
-    if (r <= ADDP(0.0))
+    if (r <= PREC(0.0))
         goto FAILURE;
     shcs->r = r;
     /* --------------------------------------------------------------------- */

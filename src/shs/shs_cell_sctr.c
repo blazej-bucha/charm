@@ -9,6 +9,8 @@
 #include <math.h>
 #include "../prec.h"
 #include "shs_cell_kernel.h"
+#include "shs_rpows.h"
+#include "shs_sctr_mulc.h"
 #include "../leg/leg_func_anm_bnm.h"
 #include "../leg/leg_func_dm.h"
 #include "../leg/leg_func_gm_hm.h"
@@ -16,7 +18,9 @@
 #include "../leg/leg_func_r_ri.h"
 #include "../leg/leg_func_prepare.h"
 #include "../err/err_set.h"
-#include "shs_rpows.h"
+#include "../simd/simd.h"
+#include "../simd/calloc_aligned.h"
+#include "../simd/free_aligned.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -125,7 +129,7 @@ void CHARM(shs_cell_sctr)(const CHARM(crd) *cell, const CHARM(shc) *shcs,
     /* --------------------------------------------------------------------- */
     /* We have already checked that "cell->nlat == cell->nlon", so any of the
      * two can be used to get the number of evaluation points. */
-    size_t ncells = cell->nlat;
+    size_t ncell = cell->nlat;
     /* --------------------------------------------------------------------- */
 
 
@@ -135,13 +139,13 @@ void CHARM(shs_cell_sctr)(const CHARM(crd) *cell, const CHARM(shc) *shcs,
 
     /* Loop over grid latitudes */
     /* --------------------------------------------------------------------- */
-    REAL mur = shcs->mu / shcs->r;
+    REAL_SIMD mur = SET1_R(shcs->mu / shcs->r);
 
 
 #if CHARM_PARALLEL
 #pragma omp parallel default(none) \
 shared(f, shcs, nmax, cell, dm, en, fn, gm, hm, r, ri) \
-shared(ncells, FAILURE_glob, mur, err)
+shared(ncell, FAILURE_glob, mur, err)
 #endif
     {
         /* ................................................................. */
@@ -150,64 +154,154 @@ shared(ncells, FAILURE_glob, mur, err)
         int FAILURE_priv = 0;
 
 
-        int   *ips1   = NULL;
-        int   *ips2   = NULL;
-        REAL *ps1   = NULL;
-        REAL *ps2   = NULL;
-        REAL *anm   = NULL;
-        REAL *bnm   = NULL;
-        REAL *rpows = NULL;
+        int  *ips1    = NULL;
+        int  *ips2    = NULL;
+        REAL *ps1     = NULL;
+        REAL *ps2     = NULL;
+        REAL *t1v     = NULL;
+        REAL *u1v     = NULL;
+        REAL *t2v     = NULL;
+        REAL *u2v     = NULL;
+        REAL *latminv = NULL;
+        REAL *latmaxv = NULL;
+        REAL *lonminv = NULL;
+        REAL *lonmaxv = NULL;
+        REAL *clonv   = NULL;
+        REAL *slonv   = NULL;
+        REAL *dlonv   = NULL;
+        REAL *tmpv    = NULL;
+        REAL *anm     = NULL;
+        REAL *bnm     = NULL;
+        REAL *rpows   = NULL;
 
 
-        ips1 =    (int *)calloc(nmax, sizeof(int));
+        ips1 = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, nmax * SIMD_SIZE,
+                                            sizeof(int));
         if (ips1 == NULL)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-
-
-        ips2 =    (int *)calloc(nmax, sizeof(int));
+        ips2 = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, nmax * SIMD_SIZE,
+                                            sizeof(int));
         if (ips2 == NULL)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-
-
-        ps1  = (REAL *)calloc(nmax, sizeof(REAL));
+        ps1 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, nmax * SIMD_SIZE,
+                                             sizeof(REAL));
         if (ps1 == NULL)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-
-
-        ps2  = (REAL *)calloc(nmax, sizeof(REAL));
+        ps2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, nmax * SIMD_SIZE,
+                                             sizeof(REAL));
         if (ps2 == NULL)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-
-
-        anm  = (REAL *)calloc(nmax + 1, sizeof(REAL));
+        t1v = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                            sizeof(REAL));
+        if (t1v == NULL)
+        {
+            FAILURE_priv = 1;
+            goto FAILURE_1_parallel;
+        }
+        u1v = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                            sizeof(REAL));
+        if (u1v == NULL)
+        {
+            FAILURE_priv = 1;
+            goto FAILURE_1_parallel;
+        }
+        t2v = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                            sizeof(REAL));
+        if (t2v == NULL)
+        {
+            FAILURE_priv = 1;
+            goto FAILURE_1_parallel;
+        }
+        u2v = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                            sizeof(REAL));
+        if (u2v == NULL)
+        {
+            FAILURE_priv = 1;
+            goto FAILURE_1_parallel;
+        }
+        latminv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                                sizeof(REAL));
+        if (latminv == NULL)
+        {
+            FAILURE_priv = 1;
+            goto FAILURE_1_parallel;
+        }
+        latmaxv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                                sizeof(REAL));
+        if (latmaxv == NULL)
+        {
+            FAILURE_priv = 1;
+            goto FAILURE_1_parallel;
+        }
+        lonminv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                                sizeof(REAL));
+        if (lonminv == NULL)
+        {
+            FAILURE_priv = 1;
+            goto FAILURE_1_parallel;
+        }
+        lonmaxv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                                sizeof(REAL));
+        if (lonmaxv == NULL)
+        {
+            FAILURE_priv = 1;
+            goto FAILURE_1_parallel;
+        }
+        clonv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                              sizeof(REAL));
+        if (clonv == NULL)
+        {
+            FAILURE_priv = 1;
+            goto FAILURE_1_parallel;
+        }
+        slonv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                              sizeof(REAL));
+        if (slonv == NULL)
+        {
+            FAILURE_priv = 1;
+            goto FAILURE_1_parallel;
+        }
+        dlonv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                              sizeof(REAL));
+        if (dlonv == NULL)
+        {
+            FAILURE_priv = 1;
+            goto FAILURE_1_parallel;
+        }
+        tmpv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                             sizeof(REAL));
+        if (tmpv == NULL)
+        {
+            FAILURE_priv = 1;
+            goto FAILURE_1_parallel;
+        }
+        anm = (REAL *)calloc(nmax + 1, sizeof(REAL));
         if (anm == NULL)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-
-
-        bnm  = (REAL *)calloc(nmax + 1, sizeof(REAL));
+        bnm = (REAL *)calloc(nmax + 1, sizeof(REAL));
         if (bnm == NULL)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-
-
-        rpows = (REAL *)calloc(nmax + 1, sizeof(REAL));
+        rpows = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                              (nmax + 1) * SIMD_SIZE,
+                                              sizeof(REAL));
         if (rpows == NULL)
         {
             FAILURE_priv = 1;
@@ -225,8 +319,8 @@ FAILURE_1_parallel:
              * "FAILURE_priv" from all the threads to get the total number
              * threads on which an allocation failure occurred (the
              * "FAILURE_glob" variable).  Note that this code block is
-             * executed with one thread at a time only, so "FAILURE_glob"
-             * can safely be overwritten.   */
+             * executed with one thread at a time only, so "FAILURE_glob" can
+             * safely be overwritten. */
             FAILURE_glob += FAILURE_priv;
         }
 
@@ -244,10 +338,9 @@ FAILURE_1_parallel:
 #if CHARM_PARALLEL
 #pragma omp master
 #endif
-            {
+            if (CHARM(err_isempty)(err))
                 CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
                                CHARM_ERR_MALLOC_FAILURE);
-            }
 
 
             /* OK, and now all threads go to the "FAILURE_2_parallel" label
@@ -258,57 +351,71 @@ FAILURE_1_parallel:
         /* ................................................................. */
 
 
-        REAL latmini, latmaxi;
-        REAL lon1i, lon2i, dlon;
-        REAL t1, u1;
-        REAL t2, u2;
+        REAL_SIMD latmin, latmax, dlon, t1, u1, t2, u2;
 
-        REAL a, b, a2, b2;
-        a = b = a2 = b2 = ADDP(0.0);
-        REAL imm0, imm1, imm2;
-        REAL lontmp, m2, m2sm2dl;
-        REAL dsigma;
-        REAL fi = ADDP(0.0);
+        REAL_SIMD a, b, a2, b2;
+        a = b = a2 = b2 = SET_ZERO_R;
+        REAL_SIMD imm0, imm1, imm2;
+        REAL_SIMD m2sm2dl, fi, clon, slon;
+        REAL m2, m2i, lontmp;
+        REAL_SIMD dsigma;
+        REAL_SIMD tmp = SET_ZERO_R;
+;
+        size_t ipv;
 
 
 #if CHARM_PARALLEL
 #pragma omp for
 #endif
-        for (size_t i = 0; i < ncells; i++)
+        for (size_t i = 0; i < SIMD_GET_MULTIPLE(ncell); i += SIMD_SIZE)
         {
-            /* Pre-compute the powers of "shcs->r / pnt->r[i]" */
-            /* ------------------------------------------------------------- */
-            CHARM(shs_rpows)(shcs->r, cell->r[i], rpows, nmax);
-            /* ------------------------------------------------------------- */
+            for (size_t v = 0; v < SIMD_SIZE; v++)
+            {
+                ipv = i + v;
+                if (ipv < ncell)
+                {
+                    latminv[v] = cell->lat[2 * ipv];
+                    latmaxv[v] = cell->lat[2 * ipv + 1];
 
 
-            /* Prepare arrays for sectorial Legendre functions */
-            /* ------------------------------------------------------------- */
-            latmini = cell->lat[2 * i];
-            latmaxi = cell->lat[2 * i + 1];
+                    t1v[v] = SIN(latminv[v]);
+                    u1v[v] = COS(latminv[v]);
 
 
-            t1    = SIN(latmini);
-            u1    = COS(latmini);
-            CHARM(leg_func_prepare)(u1, ps1, ips1, dm, nmax);
+                    t2v[v] = SIN(latmaxv[v]);
+                    u2v[v] = COS(latmaxv[v]);
 
 
-            t2    = SIN(latmaxi);
-            u2    = COS(latmaxi);
-            CHARM(leg_func_prepare)(u2, ps2, ips2, dm, nmax);
-            /* ------------------------------------------------------------- */
+                    lonminv[v] = cell->lon[2 * ipv];
+                    lonmaxv[v] = cell->lon[2 * ipv + 1];
+                    dlonv[v]   = lonmaxv[v] - lonminv[v];
+                }
+                else
+                {
+                    latminv[v] = latmaxv[v] = t1v[v] = u1v[v] = 
+                        t2v[v] = u2v[v] = lonminv[v] = lonmaxv[v] = 
+                        dlonv[v] = PREC(0.0);
+                    continue;
+                }
 
 
-            /* The "fi" variable represents the synthesized quantity "f" for
-             * the "i"th latitude and longitude. Therefore, it needs to be
-             * reinitialized to zero. */
-            fi  = ADDP(0.0);
+                /* Pre-compute the powers of "shcs->r / pnt->r[ipv]" */
+                CHARM(shs_rpows)(v, shcs->r, cell->r[ipv], rpows, nmax);
+            }
 
 
-            /* Some useful substitutions */
-            lon1i = cell->lon[2 * i];
-            lon2i = cell->lon[2 * i + 1];
-            dlon  = lon2i - lon1i;
+            t1     = LOAD_R(&t1v[0]);
+            t2     = LOAD_R(&t2v[0]);
+            u1     = LOAD_R(&u1v[0]);
+            u2     = LOAD_R(&u2v[0]);
+            latmin = LOAD_R(&latminv[0]);
+            latmax = LOAD_R(&latmaxv[0]);
+            dlon   = LOAD_R(&dlonv[0]);
+            fi     = SET_ZERO_R;
+
+
+            CHARM(leg_func_prepare)(u1v, ps1, ips1, dm, nmax);
+            CHARM(leg_func_prepare)(u2v, ps2, ips2, dm, nmax);
 
 
             /* Loop over harmonic orders */
@@ -324,14 +431,14 @@ FAILURE_1_parallel:
 
                 /* Summation over harmonic degrees */
                 CHARM(shs_cell_kernel)(nmax, m, shcs, anm, bnm,
-                                       latmini, latmaxi,
+                                       latmin, latmax,
                                        t1, t2,
                                        u1, u2,
                                        ps1, ps2,
                                        ips1, ips2,
                                        &imm0, &imm1, &imm2,
                                        en, fn, gm, hm, ri, rpows, NULL,
-                                       0,
+                                       SET_ZERO_R,
                                        &a, &b, &a2, &b2);
 
 
@@ -341,18 +448,29 @@ FAILURE_1_parallel:
                     m2sm2dl = dlon;
                 else
                 {
-                    m2 = ADDP(2.0) / (REAL)m;
-                    m2sm2dl = m2 * SIN(dlon / m2);
+                    m2 = PREC(2.0) / (REAL)m;
+                    for (size_t v = 0; v < SIMD_SIZE; v++)
+                        tmpv[v] = m2 * SIN(dlonv[v] / m2);
+                    m2sm2dl = LOAD_R(&tmpv[0]);
                 }
 
-                a *= m2sm2dl;
-                b *= m2sm2dl; /* Remember that "b = 0.0" for "m == 0.0", so it
-                               * can safely be multiplied by "m2sm2dl = dlon"
-                               * */
+
+                a = MUL_R(a, m2sm2dl);
+                b = MUL_R(b, m2sm2dl); /* Remember that "b = 0.0" for "m ==
+                                        * 0.0", so it can safely be multiplied
+                                        * by "m2sm2dl = dlon" */
 
 
-                lontmp = (REAL)m * (lon1i + lon2i) / ADDP(2.0);
-                fi    += a * COS(lontmp) + b * SIN(lontmp);
+                m2i = (REAL)m / PREC(2.0);
+                for (size_t v = 0; v < SIMD_SIZE; v++)
+                {
+                    lontmp = m2i * (lonminv[v] + lonmaxv[v]);
+                    clonv[v] = COS(lontmp);
+                    slonv[v] = SIN(lontmp);
+                }
+                clon = LOAD_R(&clonv[0]);
+                slon = LOAD_R(&slonv[0]);
+                fi = ADD_R(fi, ADD_R(MUL_R(a, clon), MUL_R(b, slon)));
                 /* --------------------------------------------------------- */
 
 
@@ -360,13 +478,14 @@ FAILURE_1_parallel:
             /* ------------------------------------------------------------- */
 
 
-            /* Synthesis */
+            /* Final part of the synthesis */
             /* ------------------------------------------------------------- */
             /* Area of the cell on the unit sphere */
-            dsigma = (SIN(latmaxi) - SIN(latmini)) * dlon;
+            dsigma = MUL_R(SUB_R(t2, t1), dlon);
 
 
-            f[i] = mur * fi / dsigma;
+            CHARM(shs_sctr_mulc)(i, ncell, mur, tmp, tmpv, DIV_R(fi, dsigma),
+                                 f);
             /* ------------------------------------------------------------- */
 
 
@@ -375,10 +494,16 @@ FAILURE_1_parallel:
 
 
 FAILURE_2_parallel:
-        free(ips1); free(ps1);
-        free(ips2); free(ps2);
+        CHARM(free_aligned)(ips1);    CHARM(free_aligned)(ps1);
+        CHARM(free_aligned)(ips2);    CHARM(free_aligned)(ps2);
+        CHARM(free_aligned)(t1v);     CHARM(free_aligned)(u1v);
+        CHARM(free_aligned)(t2v);     CHARM(free_aligned)(u2v);
+        CHARM(free_aligned)(latminv); CHARM(free_aligned)(latmaxv);
+        CHARM(free_aligned)(lonminv); CHARM(free_aligned)(lonmaxv);
+        CHARM(free_aligned)(dlonv);   CHARM(free_aligned)(tmpv);
+        CHARM(free_aligned)(clonv);   CHARM(free_aligned)(slonv);
+        CHARM(free_aligned)(rpows);
         free(anm); free(bnm);
-        free(rpows);
 
 
     } /* End of "#pragma omp parallel" */
@@ -392,7 +517,7 @@ FAILURE_2_parallel:
     /* Freeing up the heap memory */
     /* --------------------------------------------------------------------- */
 FAILURE:
-    if (FAILURE_glob != 0)
+    if ((FAILURE_glob != 0) && CHARM(err_isempty)(err))
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
                        CHARM_ERR_MALLOC_FAILURE);
 

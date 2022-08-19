@@ -19,3 +19,7 @@ clean-local: remove-header-files
 
 
 distclean-local: remove-header-files
+
+
+dist-hook:
+	rm -f $(top_distdir)/charm/charm*.h

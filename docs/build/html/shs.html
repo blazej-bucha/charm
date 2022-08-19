@@ -215,6 +215,7 @@ CHarm.</p>
 </p>
 <p>For <strong>grids</strong>, efficient 1D FFT-based algorithm is applied along the latitude parallels whenever possible. Otherwise, the Chebyshev recurrences (e.g., Balmino et al 2012) are employed along the parallels. The latter option is slower. The following conditions must be satisfied in order for CHarm to apply FFT:</p>
 <p><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pnt-&gt;nlon</span> <span class="pre">&gt;</span> <span class="pre">1</span></code>,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">(pnt-&gt;nlon</span> <span class="pre">-</span> <span class="pre">1)</span> <span class="pre">/</span> <span class="pre">2</span> <span class="pre">&gt;=</span> <span class="pre">nmax</span></code>, where the division is rounded down,</p></li>
 <li><p>the longitudinal step <code class="docutils literal notranslate"><span class="pre">dlon</span></code> is constant,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">pnt-&gt;lon[0]</span> <span class="pre">==</span> <span class="pre">0.0</span></code> within the numerical threshold (<code class="docutils literal notranslate"><span class="pre">charm_glob_threshold</span></code>), and</p></li>
@@ -323,11 +324,11 @@ to the output signal as required.</p>
 </p>
 <p>For <strong>grids</strong>, efficient 1D FFT-based algorithm is applied along the latitude parallels whenever possible. Otherwise, the Chebyshev recurrences are employed along the parallels. The latter option is slower. The following conditions must be satisfied in order for CHarm to apply FFT:</p>
 <p><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;nlon</span> <span class="pre">&gt;</span> <span class="pre">1</span></code>, and</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">(cell-&gt;nlon</span> <span class="pre">-</span> <span class="pre">1)</span> <span class="pre">/</span> <span class="pre">2</span> <span class="pre">&gt;=</span> <span class="pre">nmax</span></code>, where the division is rounded down,</p></li>
 <li><p>the longitudinal step <code class="docutils literal notranslate"><span class="pre">dlon</span></code> is constant,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;lon[0]</span> <span class="pre">==</span> <span class="pre">0.0</span></code> within the numerical threshold (<code class="docutils literal notranslate"><span class="pre">charm_glob_threshold</span></code>),</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;lon[2</span> <span class="pre">*</span> <span class="pre">cell-&gt;nlon</span> <span class="pre">-</span> <span class="pre">1]</span> <span class="pre">+</span> <span class="pre">dlon</span> <span class="pre">==</span> <span class="pre">2.0</span> <span class="pre">*</span> <span class="pre">PI</span></code> within the numerical threshold (<code class="docutils literal notranslate"><span class="pre">charm_glob_threshold</span></code>),</p></li>
-<li><p>there are two or more grid cells in the longitudinal direction, and</p></li>
 <li><p>the maximum longitude of the <code class="docutils literal notranslate"><span class="pre">j</span></code>th cell must be equal to the minimum longitude of the <code class="docutils literal notranslate"><span class="pre">j</span> <span class="pre">+</span> <span class="pre">1</span></code>th cell.</p></li>
 </ul>
 </p>
@@ -474,22 +475,20 @@ controled by the input variables.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Both scaling constants of the <code class="docutils literal notranslate"><span class="pre">shcs2</span></code> structure that defines the 
-irregular surface (<code class="docutils literal notranslate"><span class="pre">shcs2-&gt;mu</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs2-&gt;r</span></code>) have to be equal to 
-<code class="docutils literal notranslate"><span class="pre">1.0</span></code>.  Otherwise, an error is written to <code class="docutils literal notranslate"><span class="pre">err</span></code> and the synthesis 
-does not start.</p>
+irregular surface (<code class="docutils literal notranslate"><span class="pre">shcs2-&gt;mu</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs2-&gt;r</span></code>) have to be equal to
+<code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>This function is very demanding on RAM!  More than
-<code class="docutils literal notranslate"><span class="pre">4</span> <span class="pre">*</span> <span class="pre">(nmax1</span> <span class="pre">+</span> <span class="pre">1)^2</span> <span class="pre">*</span> <span class="pre">(nmax3</span> <span class="pre">+</span> <span class="pre">1)^2</span> <span class="pre">*</span> <span class="pre">8</span> <span class="pre">/</span> <span class="pre">1024^3</span></code> GBs of memory are 
-needed in double precision.  For instance, for <code class="docutils literal notranslate"><span class="pre">nmax1</span> <span class="pre">=</span> <span class="pre">150</span></code> and 
-<code class="docutils literal notranslate"><span class="pre">nmax3</span> <span class="pre">=</span> <span class="pre">150</span></code>, about 15 GBs of RAM are occupied during the 
+<p>This function is very demanding on RAM.  More than
+<code class="docutils literal notranslate"><span class="pre">4</span> <span class="pre">*</span> <span class="pre">(nmax1</span> <span class="pre">+</span> <span class="pre">1)^2</span> <span class="pre">*</span> <span class="pre">(nmax3</span> <span class="pre">+</span> <span class="pre">1)^2</span> <span class="pre">*</span> <span class="pre">8</span> <span class="pre">/</span> <span class="pre">1024^3</span></code> GBs of memory are
+required in double precision.  For instance, for <code class="docutils literal notranslate"><span class="pre">nmax1</span> <span class="pre">=</span> <span class="pre">150</span></code> and
+<code class="docutils literal notranslate"><span class="pre">nmax3</span> <span class="pre">=</span> <span class="pre">150</span></code>, about 15 GBs of RAM are occupied during the
 computation.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The function does not use <code class="docutils literal notranslate"><span class="pre">cell-&gt;w</span></code> at all, so no constrains are 
-applied.  <code class="docutils literal notranslate"><span class="pre">cell-&gt;w</span></code> can therefore be, for instance, <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+<p>The function does not use <code class="docutils literal notranslate"><span class="pre">cell-&gt;w</span></code>, so no constrains are applied.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

@@ -15,7 +15,7 @@ extern "C"
 #endif
 
 
-int CHARM(misc_fprintf_real)(FILE *, const char *, REAL);
+extern int CHARM(misc_fprintf_real)(FILE *, const char *, REAL);
 
 
 #ifdef __cplusplus

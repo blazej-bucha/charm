@@ -3,10 +3,6 @@
 #include <config.h>
 #include <stdio.h>
 #include <stdlib.h>
-#ifdef _MSC_VER
-#   define _USE_MATH_DEFINES
-#endif
-#include <math.h>
 #include "../src/prec.h"
 /* ------------------------------------------------------------------------- */
 
@@ -33,8 +29,8 @@ int cmp_arrays(REAL *arr1, REAL *arr2, size_t n, REAL eps)
         {
             printf("\n");
 #if defined(CHARM_FLOAT)
-            printf("        result:    %14.7e\n", arr1[i]);
-            printf("        reference: %14.7e\n", arr2[i]);
+            printf("            result:    %14.7e\n", arr1[i]);
+            printf("            reference: %14.7e\n", arr2[i]);
 #elif defined(CHARM_QUAD)
             flt128_n = quadmath_snprintf(buf1, sizeof(buf1), "%41.34Qe", 70,
                                          arr1[i]);
@@ -54,13 +50,13 @@ int cmp_arrays(REAL *arr1, REAL *arr2, size_t n, REAL eps)
             }
 
 
-            printf("        result:    %s\n", buf1);
-            printf("        reference: %s\n", buf2);
+            printf("            result:    %s\n", buf1);
+            printf("            reference: %s\n", buf2);
 #else
-            printf("        result:    %23.16e\n", arr1[i]);
-            printf("        reference: %23.16e\n", arr2[i]);
+            printf("            result:    %23.16e\n", arr1[i]);
+            printf("            reference: %23.16e\n", arr2[i]);
 #endif
-            printf("        WARNING: Possibly too large error!\n");
+            printf("            WARNING: Possibly too large error!\n");
 
 
             ret = 1;

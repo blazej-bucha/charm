@@ -7,8 +7,10 @@
 #   define _USE_MATH_DEFINES
 #endif
 #include <math.h>
+#include "shs_check_symm_simd.h"
 #include "../leg/leg_func_xnum.h"
 #include "../prec.h"
+#include "../simd/simd.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -22,35 +24,52 @@
 void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
                             const CHARM(shc) *shcs,
                             const REAL *anm, const REAL *bnm,
-                            REAL latmini, REAL latmaxi,
-                            REAL t1, REAL t2,
-                            REAL u1, REAL u2,
+                            REAL_SIMD latmin, REAL_SIMD latmax,
+                            REAL_SIMD t1, REAL_SIMD t2,
+                            REAL_SIMD u1, REAL_SIMD u2,
                             const REAL *ps1, const REAL *ps2,
                             const int *ips1, const int *ips2,
-                            REAL *imm0, REAL *imm1, REAL *imm2,
+                            REAL_SIMD *imm0, REAL_SIMD *imm1, REAL_SIMD *imm2,
                             const REAL *en, const REAL *fn,
                             const REAL *gm, const REAL *hm,
                             const REAL *ri, const REAL *rpows,
                             const REAL *rpows2,
-                            _Bool symmi,
-                            REAL *a,  REAL *b,
-                            REAL *a2, REAL *b2)
+                            REAL_SIMD symm_simd, REAL_SIMD *a,  REAL_SIMD *b,
+                            REAL_SIMD *a2, REAL_SIMD *b2)
 {
-    REAL w;
-    REAL x1, x2, y1, y2, z1, z2;
-    int ix1, ix2, iy1, iy2, iz1, iz2, ixy1, ixy2;
+    REAL_SIMD w;
+    REAL_SIMD x1, x2, y1, y2, z1, z2;
+    RI_SIMD ix1, ix2, iy1, iy2, iz1, iz2, ixy1, ixy2;
+#ifdef SIMD
+    RI_SIMD    zero_ri = SET_ZERO_RI;
+    RI_SIMD    one_ri  = SET1_RI(1);
+    RI_SIMD    mone_ri = SET1_RI(-1);
+    REAL_SIMD  zero_r  = SET_ZERO_R;
+    REAL_SIMD  BIG_r   = SET1_R(BIG);
+    REAL_SIMD  BIGI_r  = SET1_R(BIGI);
+    REAL_SIMD  BIGS_r  = SET1_R(BIGS);
+    REAL_SIMD  BIGSI_r = SET1_R(BIGSI);
+    REAL_SIMD  tmp1_r,  tmp2_r;
+    MASK_SIMD  mask1, mask2;
+    MASK2_SIMD mask3;
+    ABS_R_INIT;
+#endif
 
 
-    REAL pnm0_latmini, pnm1_latmini, pnm2_latmini;
-    REAL pnm0_latmaxi, pnm1_latmaxi, pnm2_latmaxi;
-    REAL in0, inm0, inm1, inm2;
-    REAL inm_cnm, inm_snm;
+    REAL_SIMD pnm0_latmin, pnm1_latmin, pnm2_latmin;
+    REAL_SIMD pnm0_latmax, pnm1_latmax, pnm2_latmax;
+    REAL_SIMD in0, inm0, inm1, inm2;
+    REAL_SIMD inm_cnm, inm_snm;
+    REAL_SIMD tmp;
 
 
     _Bool npm_even; /* True if "n + m" is even */
+    unsigned long nmm; /* "n - m" */
+    size_t idx;
+    _Bool symm = CHARM(shs_check_symm_simd)(symm_simd);
 
 
-    iy1 = iy2 = iz1 = iz2 = ixy1 = ixy2 = 0;
+    iy1 = iy2 = iz1 = iz2 = ixy1 = ixy2 = SET_ZERO_RI;
 
 
     /* Computation of the lumped coefficients */
@@ -62,35 +81,35 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
         /* ----------------------------------------------------------------- */
         /* P00 */
         /* ................................................................. */
-        pnm0_latmini = ADDP(1.0);
-        pnm0_latmaxi = ADDP(1.0);
+        pnm0_latmin = SET1_R(PREC(1.0));
+        pnm0_latmax = SET1_R(PREC(1.0));
         /* ................................................................. */
 
 
         /* P10 */
         /* ................................................................. */
-        pnm1_latmini = t1;
-        pnm1_latmaxi = t2;
+        pnm1_latmin = t1;
+        pnm1_latmax = t2;
         /* ................................................................. */
 
 
         /* I00 */
         /* ................................................................. */
-        in0 = t2 - t1;
+        in0 = SUB_R(t2, t1);
         /* ................................................................. */
 
 
         /* Lumped coefficients */
         /* ................................................................. */
-        inm_cnm = in0 * shcs->c[0][0];
-        *a = rpows[0] * inm_cnm;
-        *b = ADDP(0.0);
+        inm_cnm = MUL_R(in0, SET1_R(shcs->c[0][0]));
+        *a      = MUL_R(LOAD_R(&rpows[0]), inm_cnm);
+        *b      = SET_ZERO_R;
 
 
-        if (symmi)
+        if (symm)
         {
-            *a2 = rpows2[0] * inm_cnm;
-            *b2 = ADDP(0.0);
+            *a2 = MUL_R(LOAD_R(&rpows2[0]), inm_cnm);
+            *b2 = SET_ZERO_R;
         }
         /* ................................................................. */
 
@@ -98,8 +117,8 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
 
         if ((nmax + 1) >= 2)
         {
-            /* Is "n + m" even?  Since we start the loop with "n = 1" and "m
-             * = 0", then the parity of the first "n + m" is always odd.  Then,
+            /* is "n + m" even?  since we start the loop with "n = 1" and "m
+             * = 0", then the parity of the first "n + m" is always odd.  then,
              * it changes with every loop iteration. */
             npm_even = 0;
             for (unsigned long n = 1; n <= nmax; n++, npm_even = !npm_even)
@@ -109,46 +128,50 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
                  * polynomials of degree "n + 1", the "n + 1"th elements have
                  * to be taken from the vectors "en" and "fn" below. Once
                  * again, note that when "m == 0", then "pnm0", "pnm1" and
-                 * "pnm2" for latmini and latmaxi represent un-normalized
+                 * "pnm2" for latmin and latmax represent un-normalized
                  * Legendre polynomials. These are needed to get the integrals
                  * of fully-normalized Legendre polynomials */
                 /* ......................................................... */
-                pnm2_latmini = en[n + 1] * t1 * pnm1_latmini
-                             - fn[n + 1] * pnm0_latmini;
-                pnm2_latmaxi = en[n + 1] * t2 * pnm1_latmaxi
-                             - fn[n + 1] * pnm0_latmaxi;
+                pnm2_latmin = SUB_R(MUL_R(SET1_R(en[n + 1]),
+                                          MUL_R(t1, pnm1_latmin)),
+                                    MUL_R(SET1_R(fn[n + 1]), pnm0_latmin));
+                pnm2_latmax = SUB_R(MUL_R(SET1_R(en[n + 1]),
+                                          MUL_R(t2, pnm1_latmax)),
+                                    MUL_R(SET1_R(fn[n + 1]), pnm0_latmax));
                 /* ......................................................... */
 
 
                 /* I10, I20, ..., Inmax,0
                  * Computed from Pn+1,0 and Pn-1,0 */
                 /* ......................................................... */
-                in0 = ri[2 * n + 1] * (pnm2_latmaxi - pnm0_latmaxi -
-                                       pnm2_latmini + pnm0_latmini);
+                in0 = MUL_R(SET1_R(ri[2 * n + 1]),
+                            SUB_R(SUB_R(pnm2_latmax, pnm0_latmax),
+                                  SUB_R(pnm2_latmin, pnm0_latmin)));
                 /* ......................................................... */
 
 
                 /* Lumped coefficients */
                 /* ......................................................... */
-                inm_cnm = in0 * shcs->c[0][n];
-                *a     += rpows[n] * inm_cnm;
+                idx = n * SIMD_SIZE;
+                inm_cnm = MUL_R(in0, SET1_R(shcs->c[0][n]));
+                *a      = ADD_R(*a, MUL_R(LOAD_R(&rpows[idx]), inm_cnm));
 
-                if (symmi)
+                if (symm)
                 {
                     if (npm_even)
-                        *a2 += rpows2[n] * inm_cnm;
+                        *a2 = ADD_R(*a2, MUL_R(LOAD_R(&rpows2[idx]), inm_cnm));
                     else
-                        *a2 -= rpows2[n] * inm_cnm;
+                        *a2 = SUB_R(*a2, MUL_R(LOAD_R(&rpows2[idx]), inm_cnm));
                 }
                 /* ......................................................... */
 
 
-                pnm0_latmini = pnm1_latmini;
-                pnm1_latmini = pnm2_latmini;
+                pnm0_latmin = pnm1_latmin;
+                pnm1_latmin = pnm2_latmin;
 
 
-                pnm0_latmaxi = pnm1_latmaxi;
-                pnm1_latmaxi = pnm2_latmaxi;
+                pnm0_latmax = pnm1_latmax;
+                pnm1_latmax = pnm2_latmax;
 
             }
         }
@@ -163,34 +186,53 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
         /* Sectorial Legendre functions and their integrals */
         /* ----------------------------------------------------------------- */
 
-        /* Pmm for latmini */
-        PNM_SECTORIAL_XNUM(x1, ix1, ps1[m - 1], ips1[m - 1], pnm0_latmini);
+        idx = (m - 1) * SIMD_SIZE;
+        /* Pmm for "latmin" */
+#ifdef SIMD
+        PNM_SECTORIAL_XNUM_SIMD(x1, ix1, ps1[idx], ips1[idx], pnm0_latmin,
+                                BIG_r, zero_r, zero_ri, mone_ri, mask1, mask2,
+                                SECTORIALS1);
+#else
+        PNM_SECTORIAL_XNUM(x1, ix1, ps1[m - 1], ips1[m - 1], pnm0_latmin);
+#endif
 
 
-        /* Pmm for latmaxi */
-        PNM_SECTORIAL_XNUM(x2, ix2, ps2[m - 1], ips2[m - 1], pnm0_latmaxi);
+        /* Pmm for "latmax" */
+#ifdef SIMD
+        PNM_SECTORIAL_XNUM_SIMD(x2, ix2, ps2[idx], ips2[idx], pnm0_latmax,
+                                BIG_r, zero_r, zero_ri, mone_ri, mask1, mask2,
+                                SECTORIALS2);
+#else
+        PNM_SECTORIAL_XNUM(x2, ix2, ps2[m - 1], ips2[m - 1], pnm0_latmax);
+#endif
 
 
         /* Imm */
         /* ................................................................. */
         if (m == 1) /* I11 */
         {
-            *imm0 = SQRT(ADDP(3.0)) / ADDP(2.0) *
-                         ((t2 * u2 - (PI_2 - latmaxi)) -
-                          (t1 * u1 - (PI_2 - latmini)));
+            *imm0 = MUL_R(SET1_R(ROOT3 / PREC(2.0)),
+                          SUB_R(SUB_R(MUL_R(t2, u2),
+                                      SUB_R(SET1_R(PI_2), latmax)),
+                                SUB_R(MUL_R(t1, u1),
+                                      SUB_R(SET1_R(PI_2), latmin))));
             inm0 = *imm0;
         }
         else if (m == 2) /* I22 */
         {
-            *imm1 = SQRT(ADDP(15.0)) / ADDP(6.0) *
-                         (t2 * (ADDP(3.0) - t2 * t2) -
-                          t1 * (ADDP(3.0) - t1 * t1));
+            *imm1 = MUL_R(SET1_R(SQRT(PREC(15.0)) / PREC(6.0)),
+                          SUB_R(MUL_R(t2, SUB_R(SET1_R(PREC(3.0)),
+                                                MUL_R(t2, t2))),
+                                MUL_R(t1, SUB_R(SET1_R(PREC(3.0)),
+                                                MUL_R(t1, t1)))));
             inm0 = *imm1;
         }
         else /* I33, I44, ..., Inmax,nmax */
         {
-            *imm2 = gm[m] * (*imm0) + ADDP(1.0) / (REAL)(m + 1) *
-                    (t2 * pnm0_latmaxi - t1 * pnm0_latmini);
+            *imm2 = ADD_R(MUL_R(SET1_R(gm[m]), *imm0),
+                          MUL_R(SET1_R(PREC(1.0) / (REAL)(m + 1)),
+                                SUB_R(MUL_R(t2, pnm0_latmax),
+                                      MUL_R(t1, pnm0_latmin))));
             inm0 = *imm2;
 
             *imm0 = *imm1;
@@ -201,18 +243,21 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
 
         /* Lumped coefficients */
         /* ................................................................. */
-        inm_cnm = inm0 * shcs->c[m][0];
-        inm_snm = inm0 * shcs->s[m][0];
+        inm_cnm = MUL_R(inm0, SET1_R(shcs->c[m][0]));
+        inm_snm = MUL_R(inm0, SET1_R(shcs->s[m][0]));
 
 
-        *a = rpows[m] * inm_cnm;
-        *b = rpows[m] * inm_snm;
+        idx = m * SIMD_SIZE;
+        tmp = LOAD_R(&rpows[idx]);
+        *a  = MUL_R(tmp, inm_cnm);
+        *b  = MUL_R(tmp, inm_snm);
 
 
-        if (symmi)
+        if (symm)
         {
-            *a2 = rpows2[m] * inm_cnm;
-            *b2 = rpows2[m] * inm_snm;
+            tmp = LOAD_R(&rpows2[idx]);
+            *a2 = MUL_R(tmp, inm_cnm);
+            *b2 = MUL_R(tmp, inm_snm);
         }
         /* ................................................................. */
         /* ----------------------------------------------------------------- */
@@ -227,38 +272,57 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
         if (m < nmax)
         {
 
-            /* Pm+1,m for latmini */
+            /* Pm+1,m for "latmin" */
+#ifdef SIMD
+            PNM_SEMISECTORIAL_XNUM_SIMD(x1, y1, ix1, iy1, w, t1, anm[m + 1],
+                                        pnm1_latmin, mask1, mask2, mask3, 
+                                        zero_r, zero_ri, mone_ri, BIG_r, 
+                                        BIGS_r,  BIGI_r, SEMISECTORIALS1);
+#else
             PNM_SEMISECTORIAL_XNUM(x1, y1, ix1, iy1, w, t1, anm[m + 1],
-                                   pnm1_latmini);
+                                   pnm1_latmin);
+#endif
 
 
-            /* Pm+1,m for latmaxi */
+            /* Pm+1,m for "latmax" */
+#ifdef SIMD
+            PNM_SEMISECTORIAL_XNUM_SIMD(x2, y2, ix2, iy2, w, t2, anm[m + 1],
+                                        pnm1_latmax, mask1, mask2, mask3, 
+                                        zero_r, zero_ri, mone_ri, BIG_r, 
+                                        BIGS_r,  BIGI_r, SEMISECTORIALS2);
+#else
             PNM_SEMISECTORIAL_XNUM(x2, y2, ix2, iy2, w, t2, anm[m + 1],
-                                   pnm1_latmaxi);
+                                   pnm1_latmax);
+#endif
 
 
             /* Im+1,m */
             /* ............................................................. */
             /* This is not a typo, "pnm0" are indeed required here */
-            inm1 = -(anm[m + 1] / (REAL)(m + 2)) *
-                    ((u2 * u2) * pnm0_latmaxi - (u1 * u1) * pnm0_latmini);
+            inm1 = -MUL_R(SET1_R(anm[m + 1] / (REAL)(m + 2)),
+                          SUB_R(MUL_R(MUL_R(u2, u2), pnm0_latmax),
+                                MUL_R(MUL_R(u1, u1), 
+                                      pnm0_latmin)));
             /* ............................................................. */
 
 
             /* Lumped coefficients */
             /* ............................................................. */
-            inm_cnm = inm1 * shcs->c[m][1];
-            inm_snm = inm1 * shcs->s[m][1];
+            inm_cnm = MUL_R(inm1, SET1_R(shcs->c[m][1]));
+            inm_snm = MUL_R(inm1, SET1_R(shcs->s[m][1]));
 
 
-            *a += rpows[m + 1] * inm_cnm;
-            *b += rpows[m + 1] * inm_snm;
+            idx = (m + 1) * SIMD_SIZE;
+            tmp = LOAD_R(&rpows[idx]);
+            *a = ADD_R(*a, MUL_R(tmp, inm_cnm));
+            *b = ADD_R(*b, MUL_R(tmp, inm_snm));
 
 
-            if (symmi)
+            if (symm)
             {
-                *a2 -= rpows2[m + 1] * inm_cnm;
-                *b2 -= rpows2[m + 1] * inm_snm;
+                tmp = LOAD_R(&rpows2[idx]);
+                *a2 = SUB_R(*a2, MUL_R(tmp, inm_cnm));
+                *b2 = SUB_R(*b2, MUL_R(tmp, inm_snm));
             }
             /* ............................................................. */
 
@@ -273,23 +337,46 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
                  n++, npm_even = !npm_even)
             {
 
-                /* Pm+2,m, Pm+3,m, ..., Pnmax,m for latmini */
+                /* Pm+2,m, Pm+3,m, ..., Pnmax,m for "latmin" */
+#ifdef SIMD
+                PNM_TESSERAL_XNUM_SIMD(x1, y1, z1, ix1, iy1, iz1, ixy1,
+                                       w, t1, anm[n], bnm[n], pnm2_latmin,
+                                       tmp1_r, tmp2_r, mask1, mask2, 
+                                       mask3, zero_r, zero_ri, one_ri,
+                                       BIG_r, BIGI_r, BIGS_r, BIGSI_r,
+                                       TESSERALS1, TESSERALS2);
+#else
                 PNM_TESSERAL_XNUM(x1, y1, z1, ix1, iy1, iz1,
                                   ixy1, w, t1, anm[n], bnm[n],
-                                  pnm2_latmini, pnm2_latmini = ADDP(0.0));
+                                  pnm2_latmin, pnm2_latmin = PREC(0.0));
+#endif
 
 
-                /* Pm+2,m, Pm+3,m, ..., Pnmax,m for latmaxi */
+                /* Pm+2,m, Pm+3,m, ..., Pnmax,m for "latmax" */
+#ifdef SIMD
+                PNM_TESSERAL_XNUM_SIMD(x2, y2, z2, ix2, iy2, iz2, ixy2,
+                                       w, t2, anm[n], bnm[n], pnm2_latmax,
+                                       tmp1_r, tmp2_r, mask1, mask2, 
+                                       mask3, zero_r, zero_ri, one_ri,
+                                       BIG_r, BIGI_r, BIGS_r, BIGSI_r,
+                                       TESSERALS3, TESSERALS4);
+#else
                 PNM_TESSERAL_XNUM(x2, y2, z2, ix2, iy2, iz2,
                                   ixy2, w, t2, anm[n], bnm[n],
-                                  pnm2_latmaxi, pnm2_latmaxi = ADDP(0.0));
+                                  pnm2_latmax, pnm2_latmax = PREC(0.0));
+#endif
 
 
                 /* Im+2,m, Im+3,m, ..., Inmax,m */
                 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
                 /* This is not a typo, "pnm1" are indeed required here */
-                inm2 = (hm[n] * bnm[n]) * inm0 - (anm[n] / (REAL)(n + 1)) *
-                       ((u2 * u2) * pnm1_latmaxi - (u1 * u1) * pnm1_latmini);
+                inm2 = SUB_R(MUL_R(MUL_R(SET1_R(hm[n]),
+                                         SET1_R(bnm[n])), inm0),
+                             MUL_R(SET1_R(anm[n] / (REAL)(n + 1)),
+                                   SUB_R(MUL_R(MUL_R(u2, u2),
+                                               pnm1_latmax),
+                                         MUL_R(MUL_R(u1, u1),
+                                               pnm1_latmin))));
 
                 inm0 = inm1;
                 inm1 = inm2;
@@ -298,32 +385,36 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
 
                 /* Lumped coefficients */
                 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-                inm_cnm = inm2 * shcs->c[m][n - m];
-                inm_snm = inm2 * shcs->s[m][n - m];
+                nmm = n - m;
+                inm_cnm = MUL_R(inm2, SET1_R(shcs->c[m][nmm]));
+                inm_snm = MUL_R(inm2, SET1_R(shcs->s[m][nmm]));
 
 
-                *a += rpows[n] * inm_cnm;
-                *b += rpows[n] * inm_snm;
+                idx = n * SIMD_SIZE;
+                tmp = LOAD_R(&rpows[idx]);
+                *a  = ADD_R(*a, MUL_R(tmp, inm_cnm));
+                *b  = ADD_R(*b, MUL_R(tmp, inm_snm));
 
 
-                if (symmi)
+                if (symm)
                 {
+                    tmp = LOAD_R(&rpows2[idx]);
                     if (npm_even)
                     {
-                        *a2 += rpows2[n] * inm_cnm;
-                        *b2 += rpows2[n] * inm_snm;
+                        *a2 = ADD_R(*a2, MUL_R(tmp, inm_cnm));
+                        *b2 = ADD_R(*b2, MUL_R(tmp, inm_snm));
                     }
                     else
                     {
-                        *a2 -= rpows2[n] * inm_cnm;
-                        *b2 -= rpows2[n] * inm_snm;
+                        *a2 = SUB_R(*a2, MUL_R(tmp, inm_cnm));
+                        *b2 = SUB_R(*b2, MUL_R(tmp, inm_snm));
                     }
                 }
                 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 
-                pnm1_latmini = pnm2_latmini;
-                pnm1_latmaxi = pnm2_latmaxi;
+                pnm1_latmin = pnm2_latmin;
+                pnm1_latmax = pnm2_latmax;
 
 
             } /* End of the loop over harmonic degrees */
@@ -344,3 +435,4 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
 
     return;
 }
+

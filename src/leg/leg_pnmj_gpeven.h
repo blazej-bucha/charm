@@ -15,10 +15,10 @@ extern "C"
 #endif
 
 
-void CHARM(leg_pnmj_gpeven)(unsigned long, unsigned long, unsigned long,
-                            const REAL *, const REAL *, REAL *,
-                            const int *, const int *, int *,
-                            CHARM(err) *);
+extern void CHARM(leg_pnmj_gpeven)(unsigned long, unsigned long, unsigned long,
+                                   const REAL *, const REAL *, REAL *,
+                                   const int *, const int *, int *,
+                                   CHARM(err) *);
 
 
 #ifdef __cplusplus

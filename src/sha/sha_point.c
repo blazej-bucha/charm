@@ -15,11 +15,15 @@
 #include "../leg/leg_func_r_ri.h"
 #include "../leg/leg_func_prepare.h"
 #include "../leg/leg_func_xnum.h"
+#include "../crd/crd_grd_check_symm.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
 #if CHARM_PARALLEL
 #   include <omp.h>
 #endif
+#include "../simd/simd.h"
+#include "../simd/calloc_aligned.h"
+#include "../simd/free_aligned.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -125,17 +129,17 @@ void CHARM(sha_point)(const CHARM(crd) *pnt, const REAL *f, unsigned long nmax,
     /* --------------------------------------------------------------------- */
     _Bool even;
     size_t nlatdo;
-    if ((pnt_nlat % 2) == 0)
-    {
-        even = 1; /* The number of latitudes is an even number. The grid does
-                   * not contain the zero latitude */
-        nlatdo = pnt_nlat / 2;
-    }
-    else
+    if (pnt_nlat % 2)
     {
         even = 0; /* The number of latitudes is an odd number. The grid could
                    * possibly contain the zero latitude */
         nlatdo = (pnt_nlat + 1) / 2;
+    }
+    else
+    {
+        even = 1; /* The number of latitudes is an even number. The grid does
+                   * not contain the zero latitude */
+        nlatdo = pnt_nlat / 2;
     }
     /* --------------------------------------------------------------------- */
 
@@ -146,7 +150,8 @@ void CHARM(sha_point)(const CHARM(crd) *pnt, const REAL *f, unsigned long nmax,
 
     /* Get the number of longitudes in "pnt" */
     /* --------------------------------------------------------------------- */
-    size_t pnt_nlon = pnt->nlon;
+    size_t pnt_nlon     = pnt->nlon;
+    size_t pnt_nlon_fft = pnt_nlon / 2 + 1;
     /* --------------------------------------------------------------------- */
 
 
@@ -184,7 +189,8 @@ void CHARM(sha_point)(const CHARM(crd) *pnt, const REAL *f, unsigned long nmax,
     if (ri == NULL)
     {
         FAILURE_glob = 1;
-        goto FAILURE; }
+        goto FAILURE;
+    }
     CHARM(leg_func_r_ri)(nmax, r, ri);
 
 
@@ -206,14 +212,13 @@ void CHARM(sha_point)(const CHARM(crd) *pnt, const REAL *f, unsigned long nmax,
     /* Auxiliary variable entering the computation of the lumped coefficients
      * */
     /* --------------------------------------------------------------------- */
-    REAL c = ADDP(0.0);
+    REAL c = PREC(0.0);
 
 
     /* Here, we have to use the maximum degree "nmax_grd" for which the input
      * grid in "pnt" was created. */
-    if (pnt_type == CHARM_CRD_POINTS_GRID_GL)
-        c = PI / (REAL)(nmax_grd + 1);
-    else if (pnt_type == CHARM_CRD_POINTS_GRID_DH1)
+    if ((pnt_type == CHARM_CRD_POINTS_GRID_GL) ||
+        (pnt_type == CHARM_CRD_POINTS_GRID_DH1))
         c = PI / (REAL)(nmax_grd + 1);
     else if (pnt_type == CHARM_CRD_POINTS_GRID_DH2)
         c = PI / (REAL)(2 * nmax_grd + 2);
@@ -249,14 +254,14 @@ void CHARM(sha_point)(const CHARM(crd) *pnt, const REAL *f, unsigned long nmax,
 
     FFTW(plan_with_nthreads)(omp_get_max_threads());
 #endif
-    ftmp_in  = (REAL *)FFTW(malloc)(pnt_nlon * sizeof(REAL));
+    ftmp_in = (REAL *)FFTW(malloc)(pnt_nlon * sizeof(REAL));
     if (ftmp_in == NULL)
     {
         FFTW(free)(ftmp_in);
         FAILURE_glob = 1;
         goto FAILURE;
     }
-    ftmp_out = (FFTW(complex) *)FFTW(malloc)((pnt_nlon / 2 + 1) *
+    ftmp_out = (FFTW(complex) *)FFTW(malloc)(pnt_nlon_fft *
                                              sizeof(FFTW(complex)));
     if (ftmp_out == NULL)
     {
@@ -285,37 +290,58 @@ void CHARM(sha_point)(const CHARM(crd) *pnt, const REAL *f, unsigned long nmax,
 
 
 
-    /* Loop over latitudes */
     /* --------------------------------------------------------------------- */
-    size_t imax = nlatdo + even - 1;
     {
-        REAL pnm0, pnm1, pnm2;
-        int ix, iy, iz, ixy;
-        REAL t, u, x, y, z;
+        REAL_SIMD pnm0, pnm1, pnm2;
+        REAL_SIMD x, y, z, t;
+        RI_SIMD   ix, iy, iz, ixy;
+        REAL_SIMD ROOT3_r = SET1_R(ROOT3);
+#ifdef SIMD
+        RI_SIMD    zero_ri = SET_ZERO_RI;
+        RI_SIMD    one_ri  = SET1_RI(1);
+        RI_SIMD    mone_ri = SET1_RI(-1);
+        REAL_SIMD  zero_r  = SET_ZERO_R;
+        REAL_SIMD  BIG_r   = SET1_R(BIG);
+        REAL_SIMD  BIGI_r  = SET1_R(BIGI);
+        REAL_SIMD  BIGS_r  = SET1_R(BIGS);
+        REAL_SIMD  BIGSI_r = SET1_R(BIGSI);
+        REAL_SIMD  tmp1_r,  tmp2_r;
+        MASK_SIMD  mask1, mask2;
+        MASK2_SIMD mask3;
+        ABS_R_INIT;
+#endif
+        REAL_SIMD symm, latsin;
+        REAL_SIMD am, bm, a2m, b2m;
 
 
         /* ................................................................. */
-        int   *ips  = NULL;
+        int *ips  = NULL;
         REAL *ps  = NULL;
 #if !(CHARM_PARALLEL)
         REAL *anm = NULL;
         REAL *bnm = NULL;
 #endif
-        REAL *a  = NULL;
-        REAL *b  = NULL;
-        REAL *a2 = NULL;
-        REAL *b2 = NULL;
-        REAL *ftmp_in    = NULL;
+        REAL *tv      = NULL;
+        REAL *uv      = NULL;
+        REAL *symmv   = NULL;  /* To be store only "1.0" or "0.0" */
+        REAL *latsinv = NULL;  /* To be store only "1.0" or "0.0" */
+        REAL *a       = NULL;
+        REAL *b       = NULL;
+        REAL *a2      = NULL;
+        REAL *b2      = NULL;
+        REAL *ftmp_in = NULL;
         FFTW(complex) *ftmp_out = NULL;
 
 
-        ips =    (int *)calloc(nmax + 1, sizeof(int));
+        ips = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax, 
+                                           sizeof(int));
         if (ips == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        ps  = (REAL *)calloc(nmax, sizeof(REAL));
+        ps = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax, 
+                                           sizeof(REAL));
         if (ps == NULL)
         {
             FAILURE_glob = 1;
@@ -335,25 +361,61 @@ void CHARM(sha_point)(const CHARM(crd) *pnt, const REAL *f, unsigned long nmax,
             goto FAILURE_1;
         }
 #endif
-        a  = (REAL *)calloc(pnt_nlon / 2 + 1, sizeof(REAL));
+        tv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                           sizeof(REAL));
+        if (tv == NULL)
+        {
+            FAILURE_glob = 1;
+            goto FAILURE_1;
+        }
+        uv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                           sizeof(REAL));
+        if (uv == NULL)
+        {
+            FAILURE_glob = 1;
+            goto FAILURE_1;
+        }
+        symmv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE, 
+                                              sizeof(REAL));
+        if (symmv == NULL)
+        {
+            FAILURE_glob = 1;
+            goto FAILURE_1;
+        }
+        latsinv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE, 
+                                                sizeof(REAL));
+        if (latsinv == NULL)
+        {
+            FAILURE_glob = 1;
+            goto FAILURE_1;
+        }
+        a = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, 
+                                          SIMD_SIZE * pnt_nlon_fft, 
+                                          sizeof(REAL));
         if (a == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        b  = (REAL *)calloc(pnt_nlon / 2 + 1, sizeof(REAL));
+        b = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, 
+                                          SIMD_SIZE * pnt_nlon_fft, 
+                                          sizeof(REAL));
         if (b == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        a2 = (REAL *)calloc(pnt_nlon / 2 + 1, sizeof(REAL));
+        a2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, 
+                                           SIMD_SIZE * pnt_nlon_fft, 
+                                           sizeof(REAL));
         if (a2 == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        b2 = (REAL *)calloc(pnt_nlon / 2 + 1, sizeof(REAL));
+        b2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, 
+                                           SIMD_SIZE * pnt_nlon_fft, 
+                                           sizeof(REAL));
         if (b2 == NULL)
         {
             FAILURE_glob = 1;
@@ -365,7 +427,7 @@ void CHARM(sha_point)(const CHARM(crd) *pnt, const REAL *f, unsigned long nmax,
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        ftmp_out = (FFTW(complex) *)FFTW(malloc)((pnt_nlon / 2 + 1) *
+        ftmp_out = (FFTW(complex) *)FFTW(malloc)(pnt_nlon_fft *
                                                  sizeof(FFTW(complex)));
         if (ftmp_out == NULL)
         {
@@ -376,87 +438,105 @@ void CHARM(sha_point)(const CHARM(crd) *pnt, const REAL *f, unsigned long nmax,
 
 
 
-        REAL amp, amm, bmp, bmm;
+        REAL_SIMD amp, amm, bmp, bmm;
         REAL cw;
-        REAL wlf;
-        _Bool symmi;
+        REAL_SIMD wlf;
         _Bool npm_even; /* True if "n + m" is even */
+        size_t ipv; /* "i + v" */
+        unsigned long nmm; /* "n - m" */
 
 
-        for (size_t i = 0; i < nlatdo; i++)
+        /* Loop over latitudes */
+        for (size_t i = 0; i < SIMD_GET_MULTIPLE(nlatdo); i += SIMD_SIZE)
         {
-            /* Check whether the symmetry property of LFs can be applied */
-            /* ------------------------------------------------------------- */
-            if ((pnt_type == CHARM_CRD_POINTS_GRID_DH1 ||
-                 pnt_type == CHARM_CRD_POINTS_GRID_DH2) && i == 0)
-                /* Do not apply the symmetry property at the north pole of the
-                 * Driscoll--Healy grids, as they do not have their negative
-                 * counterpart (the south pole). */
-                symmi = 0;
-            else
+            for (size_t v = 0; v < SIMD_SIZE; v++)
             {
-                if (i < imax)
-                    symmi = 1;
+                /* Check whether the symmetry property of LFs needs to be
+                 * applied */
+                /* --------------------------------------------------------- */
+                ipv = i + v;
+                CHARM(crd_grd_check_symm)(ipv, v, pnt_type, nlatdo, 0, even,
+                                          symmv, latsinv);
+                if (latsinv[v] == 1)
+                {
+                    tv[v] = SIN(pnt->lat[ipv]);
+                    uv[v] = COS(pnt->lat[ipv]);
+                }
                 else
-                    symmi = 0;
-            }
-            /* ------------------------------------------------------------- */
+                {
+                    tv[v] = uv[v] = PREC(0.0);
+                    continue;
+                }
+                /* --------------------------------------------------------- */
 
 
-            /* Lumped coefficients for the southern hemisphere (including the
-             * equator) */
-            /* ------------------------------------------------------------- */
-            memcpy(ftmp_in, f + i * pnt_nlon, pnt_nlon * sizeof(REAL));
-            FFTW(execute_dft_r2c)(plan, ftmp_in, ftmp_out);
-
-
-            cw = c * pnt->w[i];
-            for (size_t j = 0; j < (pnt_nlon / 2 + 1); j++)
-            {
-                a[j]  =  cw * ftmp_out[j][0];
-                b[j]  = -cw * ftmp_out[j][1];
-            }
-            /* ------------------------------------------------------------- */
-
-
-            /* Lumped coefficients for the northern hemisphere */
-            /* ------------------------------------------------------------- */
-            if (symmi)
-            {
-                memcpy(ftmp_in, f + (pnt_nlat - i - 1) * pnt_nlon,
-                       pnt_nlon * sizeof(REAL));
+                /* Lumped coefficients for the southern hemisphere (including
+                 * the equator) */
+                /* --------------------------------------------------------- */
+                memcpy(ftmp_in, f + ipv * pnt_nlon, pnt_nlon * sizeof(REAL));
                 FFTW(execute_dft_r2c)(plan, ftmp_in, ftmp_out);
 
 
-                cw = c * pnt->w[pnt_nlat - i - 1];
-                for (size_t j = 0; j < (pnt_nlon / 2 + 1); j++)
+                cw = c * pnt->w[ipv];
+                for (size_t j = 0; j < pnt_nlon_fft; j++)
                 {
-                    a2[j]  =  cw * ftmp_out[j][0];
-                    b2[j]  = -cw * ftmp_out[j][1];
+                    a[j * SIMD_SIZE + v]  =  cw * ftmp_out[j][0];
+                    b[j * SIMD_SIZE + v]  = -cw * ftmp_out[j][1];
                 }
+                /* --------------------------------------------------------- */
+
+
+                /* Lumped coefficients for the northern hemisphere */
+                /* --------------------------------------------------------- */
+                if (symmv[v])
+                {
+                    memcpy(ftmp_in, f + (pnt_nlat - ipv - 1) * pnt_nlon,
+                           pnt_nlon * sizeof(REAL));
+                    FFTW(execute_dft_r2c)(plan, ftmp_in, ftmp_out);
+
+
+                    cw = c * pnt->w[pnt_nlat - ipv - 1];
+                    for (size_t j = 0; j < pnt_nlon_fft; j++)
+                    {
+                        a2[j * SIMD_SIZE + v]  =  cw * ftmp_out[j][0];
+                        b2[j * SIMD_SIZE + v]  = -cw * ftmp_out[j][1];
+                    }
+                }
+                /* --------------------------------------------------------- */
             }
-            /* ------------------------------------------------------------- */
+
+
+            t      = LOAD_R(&tv[0]);
+            symm   = LOAD_R(&symmv[0]);
+            latsin = LOAD_R(&latsinv[0]);
 
 
             /* Prepare arrays for sectorial Legendre functions */
             /* ------------------------------------------------------------- */
-            t  = SIN(pnt->lat[i]);
-            u  = COS(pnt->lat[i]);
-
-
-            CHARM(leg_func_prepare)(u, ps, ips, dm, nmax);
+            CHARM(leg_func_prepare)(uv, ps, ips, dm, nmax);
             /* ------------------------------------------------------------- */
 
 
-            /* Loop over harmonic orders */
             /* ------------------------------------------------------------- */
 #if CHARM_PARALLEL
-#pragma omp parallel default(none) \
-shared(nmax, symmi, r, ri, a, b, a2, b2, shcs, t, ps, ips) \
-shared(FAILURE_glob, err) \
-private(amp, amm, bmp, bmm) \
-private(x, ix, y, iy, wlf, ixy, z, iz) \
-private(pnm0, pnm1, pnm2, npm_even)
+#   ifdef SIMD
+        #pragma omp parallel default(none) \
+            shared(nmax, symm, r, ri, a, b, a2, b2, shcs, t, ps, ips) \
+            shared(latsin, ROOT3_r, FAILURE_glob, err) \
+            private(am, bm, a2m, b2m, amp, amm, bmp, bmm) \
+            private(x, ix, y, iy, wlf, ixy, z, iz) \
+            private(pnm0, pnm1, pnm2, npm_even, nmm) \
+            shared(zero_ri, one_ri, mone_ri, zero_r) \
+            shared(BIG_r, BIGI_r, BIGS_r, BIGSI_r, ABS_R_MASK) \
+            private(tmp1_r, tmp2_r, mask1, mask2, mask3)
+#   else
+        #pragma omp parallel default(none) \
+            shared(nmax, symm, r, ri, a, b, a2, b2, shcs, t, ps, ips) \
+            shared(latsin, ROOT3_r, FAILURE_glob, err) \
+            private(am, bm, a2m, b2m, amp, amm, bmp, bmm) \
+            private(x, ix, y, iy, wlf, ixy, z, iz) \
+            private(pnm0, pnm1, pnm2, npm_even, nmm)
+#   endif
             {
             /* ............................................................. */
             /* An indicator for failed memory initializations on each thread,
@@ -507,10 +587,9 @@ FAILURE_1_parallel:
                  * the master thread write down the error to the "err"
                  * variable. */
 #pragma omp master
-                {
+                if (CHARM(err_isempty)(err))
                     CHARM(err_set)(err, __FILE__, __LINE__, __func__,
                                    CHARM_EMEM, CHARM_ERR_MALLOC_FAILURE);
-                }
 
 
                 /* OK, and now all threads go to the "FAILURE_2_parallel"
@@ -521,6 +600,7 @@ FAILURE_1_parallel:
             /* ............................................................. */
 
 
+            /* Loop over harmonic orders */
 #pragma omp for schedule(dynamic)
 #endif
             for (unsigned long m = 0; m <= nmax; m++)
@@ -533,20 +613,16 @@ FAILURE_1_parallel:
 
                 /* Some useful substitutions */
                 /* --------------------------------------------------------- */
-                if (symmi)
-                {
-                    amp = a[m] + a2[m];
-                    amm = a[m] - a2[m];
-                    bmp = b[m] + b2[m];
-                    bmm = b[m] - b2[m];
-                }
-                else
-                {
-                    amp = a[m];
-                    amm = a[m];
-                    bmp = b[m];
-                    bmm = b[m];
-                }
+                am  = LOAD_R(&a[SIMD_SIZE * m]);
+                bm  = LOAD_R(&b[SIMD_SIZE * m]);
+                a2m = LOAD_R(&a2[SIMD_SIZE * m]);
+                b2m = LOAD_R(&b2[SIMD_SIZE * m]);
+
+
+                amp = MUL_R(ADD_R(am, MUL_R(symm, a2m)), latsin);
+                amm = MUL_R(SUB_R(am, MUL_R(symm, a2m)), latsin);
+                bmp = MUL_R(ADD_R(bm, MUL_R(symm, b2m)), latsin);
+                bmm = MUL_R(SUB_R(bm, MUL_R(symm, b2m)), latsin);
                 /* --------------------------------------------------------- */
 
 
@@ -557,15 +633,17 @@ FAILURE_1_parallel:
                     /* ----------------------------------------------------- */
 
                     /* P00 */
-                    pnm0 = ADDP(1.0);
-                    shcs->c[0][0] += pnm0 * amp; /* C00 */
+                    pnm0 = SET1_R(PREC(1.0));
+                    /* C00 */
+                    shcs->c[0][0] += SUM_R(MUL_R(pnm0, amp));
 
 
                     /* P10 */
                     if (nmax >= 1)
                     {
-                        pnm1 = ROOT3 * t;
-                        shcs->c[0][1] += pnm1 * amm; /* C10 */
+                        pnm1 = MUL_R(ROOT3_r, t);
+                        /* C10 */
+                        shcs->c[0][1] += SUM_R(MUL_R(pnm1, amm));
                     }
 
 
@@ -580,12 +658,13 @@ FAILURE_1_parallel:
                         for (unsigned long n = 2; n <= nmax;
                              n++, npm_even = !npm_even)
                         {
-                            pnm2 = anm[n] * t * pnm1 - bnm[n] * pnm0;
+                            pnm2 = SUB_R(MUL_R(MUL_R(SET1_R(anm[n]), t), pnm1),
+                                         MUL_R(SET1_R(bnm[n]), pnm0));
                             /* C20, C30, ..., Cnmax,0 */
                             if (npm_even)
-                                shcs->c[0][n] += pnm2 * amp;
+                                shcs->c[0][n] += SUM_R(MUL_R(pnm2, amp));
                             else
-                                shcs->c[0][n] += pnm2 * amm;
+                                shcs->c[0][n] += SUM_R(MUL_R(pnm2, amm));
 
 
                             pnm0 = pnm1;
@@ -593,17 +672,27 @@ FAILURE_1_parallel:
                         }
                     }
                     /* ----------------------------------------------------- */
+
                 }
                 else /* Non-zonal harmonics */
                 {
 
                     /* Sectorial harmonics */
                     /* ----------------------------------------------------- */
+#ifdef SIMD
+                    PNM_SECTORIAL_XNUM_SIMD(x, ix,
+                                            ps[SIMD_SIZE * (m - 1)],
+                                            ips[SIMD_SIZE * (m - 1)],
+                                            pnm0, BIG_r, zero_r, zero_ri,
+                                            mone_ri, mask1, mask2, SECTORIALS);
+#else
                     PNM_SECTORIAL_XNUM(x, ix, ps[m - 1], ips[m - 1], pnm0);
+#endif
 
 
-                    shcs->c[m][0] += pnm0 * amp; /* Cmm */
-                    shcs->s[m][0] += pnm0 * bmp; /* Smm */
+                    /* Cm,m; Sm,m */
+                    shcs->c[m][0] += SUM_R(MUL_R(pnm0, amp));
+                    shcs->s[m][0] += SUM_R(MUL_R(pnm0, bmp));
                     /* ----------------------------------------------------- */
 
 
@@ -611,12 +700,22 @@ FAILURE_1_parallel:
                     /* ----------------------------------------------------- */
                     if (m < nmax)
                     {
+#ifdef SIMD
+                        PNM_SEMISECTORIAL_XNUM_SIMD(x, y, ix, iy, wlf, t, 
+                                                    anm[m + 1], pnm1, 
+                                                    mask1, mask2, mask3, 
+                                                    zero_r, zero_ri, mone_ri, 
+                                                    BIG_r, BIGS_r,  BIGI_r,
+                                                    SEMISECTORIALS);
+#else
                         PNM_SEMISECTORIAL_XNUM(x, y, ix, iy, wlf, t,
                                                anm[m + 1], pnm1);
+#endif
 
 
-                        shcs->c[m][1] += pnm1 * amm; /* Cm+1,m */
-                        shcs->s[m][1] += pnm1 * bmm; /* Sm+1,m */
+                        /* Cm+1,m; Sm+1,m */
+                        shcs->c[m][1] += SUM_R(MUL_R(pnm1, amm));
+                        shcs->s[m][1] += SUM_R(MUL_R(pnm1, bmm));
 
 
                         /* Loop over degrees */
@@ -630,23 +729,37 @@ FAILURE_1_parallel:
                              n++, npm_even = !npm_even)
                         {
                             /* Compute tesseral Legendre function */
+#ifdef SIMD
+                            PNM_TESSERAL_XNUM_SIMD(x, y, z, ix, iy, iz, ixy,
+                                                   wlf, t, anm[n], bnm[n], 
+                                                   pnm2,
+                                                   tmp1_r, tmp2_r,
+                                                   mask1, mask2, 
+                                                   mask3, zero_r,
+                                                   zero_ri, one_ri,
+                                                   BIG_r, BIGI_r,
+                                                   BIGS_r, BIGSI_r,
+                                                   TESSERALS1, TESSERALS2);
+#else
                             PNM_TESSERAL_XNUM(x, y, z,
                                               ix, iy, iz,
                                               ixy, wlf, t,
                                               anm[n], bnm[n], pnm2, continue);
+#endif
 
 
                             /* Cm+2,m, Cm+3,m, ..., Cnmax,m and Sm+2,m, Sm+3,m,
                              * ..., Snmax,m */
+                            nmm = n - m;
                             if (npm_even)
                             {
-                                shcs->c[m][n - m] += pnm2 * amp;
-                                shcs->s[m][n - m] += pnm2 * bmp;
+                                shcs->c[m][nmm] += SUM_R(MUL_R(pnm2, amp));
+                                shcs->s[m][nmm] += SUM_R(MUL_R(pnm2, bmp));
                             }
                             else
                             {
-                                shcs->c[m][n - m] += pnm2 * amm;
-                                shcs->s[m][n - m] += pnm2 * bmm;
+                                shcs->c[m][nmm] += SUM_R(MUL_R(pnm2, amm));
+                                shcs->s[m][nmm] += SUM_R(MUL_R(pnm2, bmm));
                             }
 
 
@@ -678,16 +791,17 @@ FAILURE_2_parallel:
 
 
 FAILURE_1:
-        if (FAILURE_glob != 0)
+        if ((FAILURE_glob != 0) && CHARM(err_isempty(err)))
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
                            CHARM_ERR_MALLOC_FAILURE);
 
 
-        FFTW(free)(ftmp_in);
-        FFTW(free)(ftmp_out);
-        free(ips); free(ps);
-        free(a); free(b);
-        free(a2); free(b2);
+        FFTW(free)(ftmp_in);        FFTW(free)(ftmp_out);
+        CHARM(free_aligned)(tv);    CHARM(free_aligned)(uv);
+        CHARM(free_aligned)(symmv); CHARM(free_aligned)(latsinv);
+        CHARM(free_aligned)(ips);   CHARM(free_aligned)(ps);
+        CHARM(free_aligned)(a);     CHARM(free_aligned)(b);
+        CHARM(free_aligned)(a2);    CHARM(free_aligned)(b2);
 #if !(CHARM_PARALLEL)
         free(anm); free(bnm);
 #endif
@@ -704,7 +818,7 @@ FAILURE_1:
     /* Freeing up the heap memory */
     /* --------------------------------------------------------------------- */
 FAILURE:
-    if (FAILURE_glob != 0)
+    if ((FAILURE_glob != 0) && CHARM(err_isempty(err)))
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
                        CHARM_ERR_MALLOC_FAILURE);
 
@@ -716,6 +830,10 @@ FAILURE:
 #else
     FFTW(cleanup)();
 #endif
+
+
+    if (FAILURE_glob != 0)
+        return;
     /* --------------------------------------------------------------------- */
 
 
@@ -728,9 +846,9 @@ FAILURE:
     /* --------------------------------------------------------------------- */
     /* Normalize the coefficients */
     /* ..................................................................... */
-    REAL c2 = ADDP(1.0) / (ADDP(4.0) * PI) * (r0 / shcs->mu);
+    REAL c2 = PREC(1.0) / (PREC(4.0) * PI) * (r0 / shcs->mu);
 #if CHARM_PARALLEL
-#pragma omp parallel for default(none) shared(shcs, nmax, c2)
+    #pragma omp parallel for default(none) shared(shcs, nmax, c2)
 #endif
     for (unsigned long m = 0; m <= nmax; m++)
     {
@@ -776,3 +894,4 @@ FAILURE:
 
     return;
 }
+

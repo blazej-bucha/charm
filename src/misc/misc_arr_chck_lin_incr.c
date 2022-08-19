@@ -81,11 +81,11 @@ int CHARM(misc_arr_chck_lin_incr)(const REAL *arr, size_t size,
         step = arr[first + every_nth] - arr[first];
 
         /* Check whether "step" is positive */
-        if (step <= ADDP(0.0))
+        if (step <= PREC(0.0))
             return 2;
     }
     else
-        step = ADDP(0.0);
+        step = PREC(0.0);
     /* --------------------------------------------------------------------- */
 
 

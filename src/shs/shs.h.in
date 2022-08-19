@@ -75,6 +75,8 @@ extern "C"
  * option is slower.  The following conditions must be satisfied in order for 
  * CHarm to apply FFT:
  *
+ * - ``pnt->nlon > 1``,
+ *
  * - ``(pnt->nlon - 1) / 2 >= nmax``, where the division is rounded down,
  *
  * - the longitudinal step ``dlon`` is constant,
@@ -263,6 +265,8 @@ extern void charm@P@_shs_point(const charm@P@_crd *pnt,
  * are employed along the parallels.  The latter option is slower.  The 
  * following conditions must be satisfied in order for CHarm to apply FFT:
  *
+ * - ``cell->nlon > 1``, and
+ *
  * - ``(cell->nlon - 1) / 2 >= nmax``, where the division is rounded down,
  *
  * - the longitudinal step ``dlon`` is constant,
@@ -272,8 +276,6 @@ extern void charm@P@_shs_point(const charm@P@_crd *pnt,
  *
  * - ``cell->lon[2 * cell->nlon - 1] + dlon == 2.0 * PI`` within the numerical
  *   threshold (``charm@P@_glob_threshold``),
- *
- * - there are two or more grid cells in the longitudinal direction, and
  *
  * - the maximum longitude of the ``j``th cell must be equal to the minimum 
  *   longitude of the ``j + 1``th cell.
@@ -534,19 +536,18 @@ extern void charm@P@_shs_cell(const charm@P@_crd *cell,
  *  .. warning::
  *
  *      Both scaling constants of the ``shcs2`` structure that defines the 
- *      irregular surface (``shcs2->mu`` and ``shcs2->r``) have to be equal to 
- *      ``1.0``.  Otherwise, an error is written to ``err`` and the synthesis 
- *      does not start.
+ *      irregular surface (``shcs2->mu`` and ``shcs2->r``) have to be equal to
+ *      ``1.0``.
  *
  * \endverbatim
  *
  * \verbatim embed:rst:leading-asterisk
  *  .. warning::
  *
- *      This function is very demanding on RAM!  More than
- *      ``4 * (nmax1 + 1)^2 * (nmax3 + 1)^2 * 8 / 1024^3`` GBs of memory are 
- *      needed in double precision.  For instance, for ``nmax1 = 150`` and 
- *      ``nmax3 = 150``, about 15 GBs of RAM are occupied during the 
+ *      This function is very demanding on RAM.  More than
+ *      ``4 * (nmax1 + 1)^2 * (nmax3 + 1)^2 * 8 / 1024^3`` GBs of memory are
+ *      required in double precision.  For instance, for ``nmax1 = 150`` and
+ *      ``nmax3 = 150``, about 15 GBs of RAM are occupied during the
  *      computation.
  *
  * \endverbatim
@@ -554,8 +555,7 @@ extern void charm@P@_shs_cell(const charm@P@_crd *cell,
  * \verbatim embed:rst:leading-asterisk
  *  .. note::
  *
- *      The function does not use ``cell->w`` at all, so no constrains are 
- *      applied.  ``cell->w`` can therefore be, for instance, ``NULL``.
+ *      The function does not use ``cell->w``, so no constrains are applied.
  *
  * \endverbatim
  *

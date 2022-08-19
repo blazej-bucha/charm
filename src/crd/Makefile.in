@@ -90,7 +90,8 @@ build_triplet = @build@
 host_triplet = @host@
 subdir = src/crd
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/ax_compiler_vendor.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/m4/ax_check_compile_flag.m4 \
+	$(top_srcdir)/m4/ax_compiler_vendor.m4 \
 	$(top_srcdir)/m4/ax_gcc_version.m4 \
 	$(top_srcdir)/m4/ax_openmp.m4 \
 	$(top_srcdir)/m4/ax_split_version.m4 \
@@ -108,7 +109,8 @@ CONFIG_CLEAN_VPATH_FILES =
 LTLIBRARIES = $(noinst_LTLIBRARIES)
 libcharm@P@_crd@OMP@_la_LIBADD =
 am_libcharm@P@_crd@OMP@_la_OBJECTS = crd_init.lo crd_free.lo crd_gl.lo \
-	crd_dh1.lo crd_dh2.lo crd_dh_lats_weights.lo
+	crd_dh1.lo crd_dh2.lo crd_dh_lats_weights.lo \
+	crd_grd_check_symm.lo
 libcharm@P@_crd@OMP@_la_OBJECTS =  \
 	$(am_libcharm@P@_crd@OMP@_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -132,7 +134,8 @@ depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/crd_dh1.Plo ./$(DEPDIR)/crd_dh2.Plo \
 	./$(DEPDIR)/crd_dh_lats_weights.Plo ./$(DEPDIR)/crd_free.Plo \
-	./$(DEPDIR)/crd_gl.Plo ./$(DEPDIR)/crd_init.Plo
+	./$(DEPDIR)/crd_gl.Plo ./$(DEPDIR)/crd_grd_check_symm.Plo \
+	./$(DEPDIR)/crd_init.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -295,7 +298,8 @@ libcharm@P@_crd@OMP@_la_SOURCES = crd_init.c \
 								  crd_gl.c \
 								  crd_dh1.c \
 								  crd_dh2.c \
-								  crd_dh_lats_weights.c
+								  crd_dh_lats_weights.c \
+								  crd_grd_check_symm.c
 
 EXTRA_DIST = *.h
 all: all-am
@@ -357,6 +361,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_dh_lats_weights.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_free.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_gl.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_grd_check_symm.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_init.Plo@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
@@ -476,6 +481,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/crd_dh_lats_weights.Plo
 	-rm -f ./$(DEPDIR)/crd_free.Plo
 	-rm -f ./$(DEPDIR)/crd_gl.Plo
+	-rm -f ./$(DEPDIR)/crd_grd_check_symm.Plo
 	-rm -f ./$(DEPDIR)/crd_init.Plo
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic
@@ -526,6 +532,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/crd_dh_lats_weights.Plo
 	-rm -f ./$(DEPDIR)/crd_free.Plo
 	-rm -f ./$(DEPDIR)/crd_gl.Plo
+	-rm -f ./$(DEPDIR)/crd_grd_check_symm.Plo
 	-rm -f ./$(DEPDIR)/crd_init.Plo
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic

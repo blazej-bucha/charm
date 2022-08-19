@@ -2,6 +2,10 @@
 check_PROGRAMS = bench_run@P@@OMP@
 
 
+EXTRA_DIST = plot-bench.py \
+			 plot-memory.py
+
+
 # Source code of the benchmark program
 bench_run@P@@OMP@_SOURCES = bench.c
 

@@ -95,12 +95,12 @@ void CHARM(leg_pnmj_gpodd)(unsigned long jmax, unsigned long n,
 
     REAL u;
     if (m == 0)
-        u = SQRT(ADDP(0.5) / ((REAL)(n) * (REAL)(n + 1)));
+        u = SQRT(PREC(0.5) / ((REAL)(n) * (REAL)(n + 1)));
     else
-        u = SQRT(ADDP(1.0) / ((REAL)(n - m) * (REAL)(n + m1)));
+        u = SQRT(PREC(1.0) / ((REAL)(n - m) * (REAL)(n + m1)));
 
 
-    REAL alpha = ADDP(2.0) * u;
+    REAL alpha = PREC(2.0) * u;
     REAL beta = SQRT((REAL)(n - m1) * (REAL)(n + m2)) * u;
 
 

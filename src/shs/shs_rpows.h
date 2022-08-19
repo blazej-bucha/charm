@@ -15,7 +15,7 @@ extern "C"
 #endif
 
 
-void CHARM(shs_rpows)(REAL, REAL, REAL *, unsigned long);
+extern void CHARM(shs_rpows)(size_t, REAL, REAL, REAL *, unsigned long);
 
 
 #ifdef __cplusplus

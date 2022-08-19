@@ -33,7 +33,7 @@ CHARM(crd) *CHARM(crd_gl)(unsigned long nmax, REAL r)
 {
     /* Some simple error checks */
     /* --------------------------------------------------------------------- */
-    if (r <= ADDP(0.0))
+    if (r <= PREC(0.0))
         return NULL;
     /* --------------------------------------------------------------------- */
 
@@ -60,7 +60,7 @@ CHARM(crd) *CHARM(crd_gl)(unsigned long nmax, REAL r)
     unsigned long m = (L + 1) / 2;
 
 
-    REAL c = L_fp + ADDP(0.5);
+    REAL c = L_fp + PREC(0.5);
     /* --------------------------------------------------------------------- */
 
 
@@ -83,14 +83,14 @@ CHARM(crd) *CHARM(crd_gl)(unsigned long nmax, REAL r)
 #endif
     for (unsigned long i = 0; i < m; i++)
     {
-        z  = COS(PI * ((REAL)(i + 1) - ADDP(0.25)) / c);
+        z  = COS(PI * ((REAL)(i + 1) - PREC(0.25)) / c);
         it = 0;
 
 
         do
         {
-            p1 = ADDP(1.0);
-            p2 = ADDP(0.0);
+            p1 = PREC(1.0);
+            p2 = PREC(0.0);
 
 
             for (unsigned long j = 1; j <= L; j++)
@@ -102,7 +102,7 @@ CHARM(crd) *CHARM(crd_gl)(unsigned long nmax, REAL r)
             }
 
 
-            pp = L_fp * (z * p1 - p2) / (z * z - ADDP(1.0));
+            pp = L_fp * (z * p1 - p2) / (z * z - PREC(1.0));
             z1 = z;
             z -= p1 / pp;
 
@@ -132,7 +132,7 @@ CHARM(crd) *CHARM(crd_gl)(unsigned long nmax, REAL r)
         glg->lat[i]         = -glg->lat[L - 1 - i];
 
 
-        glg->w[L - 1 - i] = ADDP(2.0) / ((ADDP(1.0) - z * z) * pp * pp);
+        glg->w[L - 1 - i] = PREC(2.0) / ((PREC(1.0) - z * z) * pp * pp);
         glg->w[i]         = glg->w[L - 1 - i];
     }
 

@@ -35,10 +35,13 @@ Features
 * Computes Fourier coefficients of fully-normalized associated Legendre
   functions of the first kind up to ultra-high harmonic degrees.
 
-* Performs discrete FFT by `FFTW <http://www.fftw.org/>`_.
-
 * Supports `OpenMP <https://www.openmp.org/>`_ parallelization for
   shared-memory architectures.
+
+* Supports AVX, AVX2 and AVX-512 SIMD CPU intructions to improve the 
+  performance.
+
+* Performs discrete FFT by `FFTW <http://www.fftw.org/>`_.
 
 .. [#f1] This routine is unique to CHarm.
 

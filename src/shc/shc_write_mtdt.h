@@ -15,8 +15,8 @@ extern "C"
 #endif
 
 
-void CHARM(shc_write_mtdt)(unsigned long, REAL, REAL, const char *, FILE *,
-                           CHARM(err) *);
+extern void CHARM(shc_write_mtdt)(unsigned long, REAL, REAL, const char *, FILE *,
+                                  CHARM(err) *);
 
 
 #ifdef __cplusplus

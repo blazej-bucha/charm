@@ -26,7 +26,7 @@
 
 #undef CHARM
 #undef REAL
-#undef ADDP
+#undef PREC
 #undef FFTW3_OMP
 
 
@@ -73,7 +73,7 @@
 #   define CHARM(x)  CAT(charmf_, x)
 #   define FFTW(x)   CAT(fftwf_, x)
 #   define REAL      float
-#   define ADDP(x)   CAT(x, f)
+#   define PREC(x)   CAT(x, f)
 #   if HAVE_LIBFFTW3F_OMP
 #       define FFTW3_OMP 1
 #   endif
@@ -147,7 +147,7 @@
 #   define CHARM(x)  CAT(charmq_, x)
 #   define FFTW(x)   CAT(fftwq_, x)
 #   define REAL      __float128
-#   define ADDP(x)   CAT(x, q)
+#   define PREC(x)   CAT(x, q)
 #   if HAVE_LIBFFTW3Q_OMP
 #       define FFTW3_OMP 1
 #   endif
@@ -221,7 +221,7 @@
 #   define CHARM(x)  CAT(charm_, x)
 #   define FFTW(x)   CAT(fftw_, x)
 #   define REAL      double
-#   define ADDP(x)   CAT(x,)
+#   define PREC(x)   CAT(x,)
 #   if HAVE_LIBFFTW3_OMP
 #       define FFTW3_OMP 1
 #   endif

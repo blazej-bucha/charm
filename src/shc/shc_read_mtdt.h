@@ -14,8 +14,8 @@ extern "C"
 #endif
 
 
-void CHARM(shc_read_mtdt)(FILE *, unsigned long *, REAL *, REAL *,
-                          CHARM(err) *);
+extern void CHARM(shc_read_mtdt)(FILE *, unsigned long *, REAL *, REAL *,
+                                 CHARM(err) *);
 
 
 #ifdef __cplusplus

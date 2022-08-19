@@ -15,8 +15,8 @@ extern "C"
 #endif
 
 
-void CHARM(leg_pnmj_leq4)(unsigned long, unsigned long, REAL *,
-                          CHARM(err) *);
+extern void CHARM(leg_pnmj_leq4)(unsigned long, unsigned long, REAL *,
+                                 CHARM(err) *);
 
 
 #ifdef __cplusplus

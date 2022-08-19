@@ -15,7 +15,7 @@ extern "C"
 #endif
 
 
-void CHARM(crd_dh_lats_weights)(CHARM(crd) *, unsigned long);
+extern void CHARM(crd_dh_lats_weights)(CHARM(crd) *, unsigned long);
 
 
 #ifdef __cplusplus

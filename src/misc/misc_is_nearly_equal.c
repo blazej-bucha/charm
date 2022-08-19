@@ -25,7 +25,7 @@ _Bool CHARM(misc_is_nearly_equal)(REAL a, REAL b, REAL eps)
 
     if (a == b)
         return 1;
-    else if (a == ADDP(0.0) || b == ADDP(0.0))
+    else if (a == PREC(0.0) || b == PREC(0.0))
         return (diff_abs <= eps);
     else if (sum_abs == a_abs || sum_abs == b_abs)
         return (diff_abs <= eps);

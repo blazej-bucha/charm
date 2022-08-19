@@ -113,7 +113,7 @@ void CHARM(shc_read_mtdt)(FILE *stream, unsigned long *nmax, REAL *mu,
     }
 
 
-    if (*r <= ADDP(0.0))
+    if (*r <= PREC(0.0))
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFILEIO,
                        "The radius of the reference "

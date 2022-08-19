@@ -66,11 +66,12 @@ CHARM(crd) *CHARM(crd_init)(int type, size_t nlat, size_t nlon)
         nlat_all = 2 * nlat;
         nlon_all = 2 * nlon;
     }
-    else if ((type != CHARM_CRD_POINTS_SCATTERED) ||
-             (type != CHARM_CRD_POINTS_GRID) ||
-             (type != CHARM_CRD_POINTS_GRID_GL) ||
-             (type != CHARM_CRD_POINTS_GRID_DH1) ||
-             (type != CHARM_CRD_POINTS_GRID_DH2))
+    else /* if ((type == CHARM_CRD_POINTS_SCATTERED) ||
+          *     (type == CHARM_CRD_POINTS_GRID) ||
+          *     (type == CHARM_CRD_POINTS_GRID_GL) ||
+          *     (type == CHARM_CRD_POINTS_GRID_DH1) ||
+          *     (type == CHARM_CRD_POINTS_GRID_DH2))
+          *     */
     {
         /* Points */
         nlat_all = nlat;

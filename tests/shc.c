@@ -4,22 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <float.h>
-#ifdef _MSC_VER
-#   define _USE_MATH_DEFINES
-#endif
-#include <math.h>
+#include "parameters.h"
 #include "../src/prec.h"
-/* ------------------------------------------------------------------------- */
-
-
-
-
-
-
-/* Function prototypes */
-/* ------------------------------------------------------------------------- */
-int cmp_arrays(REAL *, REAL *, size_t, REAL);
+#include "cmp_arrays.h"
+#include "validate.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -95,8 +83,8 @@ int shc(unsigned long nmax_topo,
     printf("    Reading coefficients from a \"mtx\" file...\n");
 
 
-    CHARM(shc) *shcs_topo_mtx = CHARM(shc_init)(nmax_topo, ADDP(1.0),
-                                                ADDP(1.0));
+    CHARM(shc) *shcs_topo_mtx = CHARM(shc_init)(nmax_topo, PREC(1.0),
+                                                PREC(1.0));
     if (shcs_topo_mtx == NULL)
     {
         fprintf(stderr, "Failed to initialize a \"shc\" structure.\n");
@@ -141,9 +129,9 @@ int shc(unsigned long nmax_topo,
     }
 
 
-#if defined(CHARM_FLOAT)
+#if CHARM_FLOAT
 #   define FORMAT "%0.7e"
-#elif defined(CHARM_QUAD)
+#elif CHARM_QUAD
 #   define FORMAT "%0.34Qe"
 #else
 #   define FORMAT "%0.16e"
@@ -205,8 +193,8 @@ int shc(unsigned long nmax_topo,
     printf("    Reading coefficients from a \"bin\" file...\n");
 
 
-    CHARM(shc) *shcs_topo_bin = CHARM(shc_init)(nmax_topo, ADDP(1.0),
-                                                ADDP(1.0));
+    CHARM(shc) *shcs_topo_bin = CHARM(shc_init)(nmax_topo, PREC(1.0),
+                                                PREC(1.0));
     if (shcs_topo_bin == NULL)
     {
         fprintf(stderr, "Failed to initialize a \"shc\" structure");
@@ -238,8 +226,8 @@ int shc(unsigned long nmax_topo,
     /* Read spherical harmonic coefficients from the saved text file
      * "SHCs_out_topo_mtx_file" */
     /* --------------------------------------------------------------------- */
-    CHARM(shc) *shcs_topo_mtx_out = CHARM(shc_init)(nmax_topo, ADDP(1.0),
-                                                    ADDP(1.0));
+    CHARM(shc) *shcs_topo_mtx_out = CHARM(shc_init)(nmax_topo, PREC(1.0),
+                                                    PREC(1.0));
     if (shcs_topo_mtx_out == NULL)
     {
         fprintf(stderr, "Failed to initlize a \"shc\" structure");
@@ -265,46 +253,55 @@ int shc(unsigned long nmax_topo,
 
     /* Compute degree variances and degree amplitudes */
     /* --------------------------------------------------------------------- */
-    /* ..................................................................... */
-    REAL *dv = (REAL *)malloc((nmax_topo + 1) * sizeof(REAL));
-    if (dv == NULL)
+    char file[NSTR] = "";
+
+
+    printf("    Degree variances and degree amplitudes...\n");
+    for (unsigned long nmax2 = 0; nmax2 <= NMAX; nmax2++)
     {
-        fprintf(stderr, "Failed to initialize an array of degree variances");
-        exit(CHARM_FAILURE);
+        /* ................................................................. */
+        REAL *dv = (REAL *)malloc((nmax2 + 1) * sizeof(REAL));
+        if (dv == NULL)
+        {
+            fprintf(stderr, "Failed to initialize an array of degree "
+                            "variances");
+            exit(CHARM_FAILURE);
+        }
+        CHARM(shc_dv)(shcs_topo_mtx, nmax2, dv, err);
+        CHARM(err_handler)(err, 1);
+
+
+        sprintf(file, "%s/shc_nx%lu_dv%s", FOLDER, (unsigned long)NMAX,
+                                           FTYPE);
+        errnum += validate(file, dv, nmax2 + 1,
+                           PREC(10.0) * CHARM(glob_threshold));
+
+
+        free(dv);
+        /* ................................................................. */
+
+
+        /* ................................................................. */
+        REAL *da = (REAL *)malloc((nmax2 + 1) * sizeof(REAL));
+        if (da == NULL)
+        {
+            fprintf(stderr, "Failed to initialize an array of degree "
+                            "variances");
+            exit(CHARM_FAILURE);
+        }
+        CHARM(shc_da)(shcs_topo_mtx, nmax2, da, err);
+        CHARM(err_handler)(err, 1);
+
+
+        sprintf(file, "%s/shc_nx%lu_da%s", FOLDER, (unsigned long)NMAX,
+                                           FTYPE);
+        errnum += validate(file, dv, nmax2 + 1,
+                           PREC(10.0) * CHARM(glob_threshold));
+
+
+        free(da);
+        /* ................................................................. */
     }
-    CHARM(shc_dv)(shcs_topo_mtx, nmax_topo, dv, err);
-    CHARM(err_handler)(err, 1);
-
-
-    REAL dv_ref[5] = {ADDP(1.9927527983005655376658044671430032e+06),
-                      ADDP(4.4074718636629079715739938743538085e+05),
-                      ADDP(2.7412410022031013460956037073299200e+05),
-                      ADDP(3.5743470484451434485982017020582789e+05),
-                      ADDP(3.1617980304044303020611461720992944e+05)};
-    printf("    Degree variances...\n");
-    errnum += cmp_arrays(dv, dv_ref, nmax_topo + 1, CHARM(glob_threshold));
-    /* ..................................................................... */
-
-
-    /* ..................................................................... */
-    REAL *da = (REAL *)malloc((nmax_topo + 1) * sizeof(REAL));
-    if (da == NULL)
-    {
-        fprintf(stderr, "Failed to initialize an array of degree amplitudes");
-        exit(CHARM_FAILURE);
-    }
-    CHARM(shc_da)(shcs_topo_mtx, nmax_topo, da, err);
-    CHARM(err_handler)(err, 1);
-
-
-    REAL da_ref[5] = {ADDP(1.4116489642614999409999999999999999e+03),
-                      ADDP(6.6388793208363924677456244515253868e+02),
-                      ADDP(5.2356862035487777560429627649871263e+02),
-                      ADDP(5.9785843210957085643965158429421388e+02),
-                      ADDP(5.6229867778649722715561069058541033e+02)};
-    printf("    Degree amplitudes...\n");
-    errnum += cmp_arrays(da, da_ref, nmax_topo + 1, CHARM(glob_threshold));
-    /* ..................................................................... */
     /* --------------------------------------------------------------------- */
 
 
@@ -339,7 +336,7 @@ int shc(unsigned long nmax_topo,
 
     printf("    Difference degree variances...\n");
     errnum += cmp_arrays(ddv, ddv_dda_ref, nmax_topo + 1,
-                         CHARM(glob_threshold));
+                         PREC(10.0) * CHARM(glob_threshold));
     /* ..................................................................... */
 
 
@@ -357,7 +354,7 @@ int shc(unsigned long nmax_topo,
 
     printf("    Difference degree amplitudes...\n");
     errnum += cmp_arrays(dda, ddv_dda_ref, nmax_topo + 1,
-                         CHARM(glob_threshold));
+                         PREC(10.0) * CHARM(glob_threshold));
     /* ..................................................................... */
     /* --------------------------------------------------------------------- */
 
@@ -370,8 +367,8 @@ int shc(unsigned long nmax_topo,
     /* --------------------------------------------------------------------- */
     /* ..................................................................... */
     printf("    Reading coefficients from a \"gfc\" file...\n");
-    CHARM(shc) *shcs_pot_gfc = CHARM(shc_init)(nmax_pot, ADDP(1.0),
-                                               ADDP(1.0));
+    CHARM(shc) *shcs_pot_gfc = CHARM(shc_init)(nmax_pot, PREC(1.0),
+                                               PREC(1.0));
     if (shcs_pot_gfc == NULL)
     {
         fprintf(stderr, "Failed to initlize a \"shc\" structure");
@@ -393,8 +390,8 @@ int shc(unsigned long nmax_topo,
 
     /* ..................................................................... */
     printf("    Reading coefficients from a \"tbl\" file...\n");
-    CHARM(shc) *shcs_pot_tbl = CHARM(shc_init)(nmax_pot, ADDP(1.0),
-                                               ADDP(1.0));
+    CHARM(shc) *shcs_pot_tbl = CHARM(shc_init)(nmax_pot, PREC(1.0),
+                                               PREC(1.0));
     if (shcs_pot_tbl == NULL)
     {
         fprintf(stderr, "Failed to initlize a \"shc\" structure");
@@ -439,7 +436,7 @@ int shc(unsigned long nmax_topo,
         exit(CHARM_FAILURE);
     }
     errnum += cmp_arrays(dda, ddv_dda_ref, nmax_pot + 1,
-                         CHARM(glob_threshold));
+                         PREC(10.0) * CHARM(glob_threshold));
     /* ..................................................................... */
 
 
@@ -467,8 +464,8 @@ int shc(unsigned long nmax_topo,
 
     printf("    Validating the writing to \"tbl\" using the \"N\" "
            "ordering scheme...\n");
-    CHARM(shc) *shcs_pot_tbl2 = CHARM(shc_init)(nmax_pot, ADDP(1.0),
-                                                ADDP(1.0));
+    CHARM(shc) *shcs_pot_tbl2 = CHARM(shc_init)(nmax_pot, PREC(1.0),
+                                                PREC(1.0));
     if (shcs_pot_tbl2 == NULL)
     {
         fprintf(stderr, "Failed to initlize a \"shc\" structure");
@@ -487,7 +484,7 @@ int shc(unsigned long nmax_topo,
     CHARM(shc_dda)(shcs_pot_tbl, shcs_pot_tbl2, nmax_pot, dda, err);
     CHARM(err_handler)(err, 1);
     errnum += cmp_arrays(dda, ddv_dda_ref, nmax_pot + 1,
-                         CHARM(glob_threshold));
+                         PREC(10.0) * CHARM(glob_threshold));
     /* ..................................................................... */
 
 
@@ -515,8 +512,8 @@ int shc(unsigned long nmax_topo,
 
     printf("    Validating the writing to \"tbl\" using the \"M\" "
            "ordering scheme...\n");
-    CHARM(shc) *shcs_pot_tbl3 = CHARM(shc_init)(nmax_pot, ADDP(1.0),
-                                                ADDP(1.0));
+    CHARM(shc) *shcs_pot_tbl3 = CHARM(shc_init)(nmax_pot, PREC(1.0),
+                                                PREC(1.0));
     if (shcs_pot_tbl3 == NULL)
     {
         fprintf(stderr, "Failed to initlize a \"shc\" structure");
@@ -535,7 +532,7 @@ int shc(unsigned long nmax_topo,
     CHARM(shc_dda)(shcs_pot_tbl, shcs_pot_tbl3, nmax_pot, dda, err);
     CHARM(err_handler)(err, 1);
     errnum += cmp_arrays(dda, ddv_dda_ref, nmax_pot + 1,
-                         CHARM(glob_threshold));
+                         PREC(10.0) * CHARM(glob_threshold));
     /* ..................................................................... */
     /* --------------------------------------------------------------------- */
 
@@ -554,8 +551,6 @@ int shc(unsigned long nmax_topo,
     CHARM(shc_free)(shcs_pot_tbl);
     CHARM(shc_free)(shcs_pot_tbl2);
     CHARM(shc_free)(shcs_pot_tbl3);
-    free(dv);
-    free(da);
     free(ddv);
     free(dda);
     free(ddv_dda_ref);

@@ -182,8 +182,8 @@ requirements of spherical harmonic analysis and synthesis of point data values.
 Applied is the Gauss–Legendre quadrature, which offers the best performance.
 All tests were executed on a PC with the Intel(R) Core(TM) i7-6800K CPU
 &#64; 3.40GHz and 128 GBs of RAM.  CHarm was compiled using <code class="docutils literal notranslate"><span class="pre">GCC</span></code> with
-parallelization enabled and the <code class="docutils literal notranslate"><span class="pre">-O3</span> <span class="pre">-ffast-math</span></code> optimization flags.  All
-6 CPU cores were employed with hyperthreading enabled.</p>
+<code class="docutils literal notranslate"><span class="pre">--enable-openmp</span></code>, <code class="docutils literal notranslate"><span class="pre">--enable-avx</span></code> and <code class="docutils literal notranslate"><span class="pre">CFLAGS=&quot;-O3</span> <span class="pre">-ffast-math&quot;</span></code>
+installation flags.  All 6 CPU cores were employed with hyperthreading enabled.</p>
 <p>The benchmarks can be executed by <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">bench</span></code> after running <code class="docutils literal notranslate"><span class="pre">./configure</span></code>
 and <code class="docutils literal notranslate"><span class="pre">make</span></code>.  The outputs from the benchmark program (the accuracy and
 wall-clock times) can be plotted by a Python script <code class="docutils literal notranslate"><span class="pre">plot-bench.py</span></code> inside
@@ -199,10 +199,10 @@ you do not have that much RAM available. Alternatively, modify the
 <div class="section" id="accuracy">
 <span id="id1"></span><h2>Accuracy<a class="headerlink" href="#accuracy" title="Permalink to this headline">¶</a></h2>
 <p>We generated reference random spherical harmonic coefficients from the interval
-<code class="docutils literal notranslate"><span class="pre">[-1.0,</span> <span class="pre">1.0]</span></code> up to degree <code class="docutils literal notranslate"><span class="pre">N</span></code>, then synthesized the signal from these
-coefficients up to degree <code class="docutils literal notranslate"><span class="pre">N</span></code>, and finally harmonically analyzed the signal
+<code class="docutils literal notranslate"><span class="pre">[-1.0,</span> <span class="pre">1.0]</span></code> up to degree <code class="docutils literal notranslate"><span class="pre">N</span></code>, then synthesized the signal up to degree
+<code class="docutils literal notranslate"><span class="pre">N</span></code>, and, finally, harmonically analyzed the signal
 up to the same <code class="docutils literal notranslate"><span class="pre">N</span></code> degree.  Below are plotted the following statistics
-obtained from the difference between the recovered and the reference
+obtained from the differences between the recovered and the reference
 coefficients:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\varepsilon_{\max} = \max_{n,m}|\bar{Q}_{nm}

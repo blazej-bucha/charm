@@ -7,6 +7,7 @@
 
 #include <config.h>
 #include "../prec.h"
+#include "../simd/simd.h"
 
 
 #ifdef __cplusplus
@@ -15,21 +16,21 @@ extern "C"
 #endif
 
 
-void CHARM(shs_cell_kernel)(unsigned long, unsigned long,
-                            const CHARM(shc) *,
-                            const REAL *, const REAL *,
-                            REAL, REAL,
-                            REAL, REAL,
-                            REAL, REAL,
-                            const REAL *, const REAL *,
-                            const int *, const int *,
-                            REAL *, REAL *, REAL *,
-                            const REAL *, const REAL *, const REAL *,
-                            const REAL *, const REAL *, const REAL *,
-                            const REAL *,
-                            _Bool,
-                            REAL *, REAL *,
-                            REAL *, REAL *);
+extern void CHARM(shs_cell_kernel)(unsigned long, unsigned long,
+                                   const CHARM(shc) *,
+                                   const REAL *, const REAL *,
+                                   REAL_SIMD, REAL_SIMD,
+                                   REAL_SIMD, REAL_SIMD,
+                                   REAL_SIMD, REAL_SIMD,
+                                   const REAL *, const REAL *,
+                                   const int *, const int *,
+                                   REAL_SIMD *, REAL_SIMD *, REAL_SIMD *,
+                                   const REAL *, const REAL *, const REAL *,
+                                   const REAL *, const REAL *, const REAL *,
+                                   const REAL *,
+                                   REAL_SIMD,
+                                   REAL_SIMD *, REAL_SIMD *,
+                                   REAL_SIMD *, REAL_SIMD *);
 
 
 #ifdef __cplusplus

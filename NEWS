@@ -1,3 +1,14 @@
+Upcoming release:
+
+* Added support for AVX, AVX2 and AVX-512 vector CPU instructions.
+
+* Bug fix in synthesis of point/mean values at grids having only a single 
+  point/cell in the longitudinal direction ("shs_point_grd.c", 
+  "shs_cell_grd.c").  The same bug fix applies to the analysis of area-mean 
+  values ("sha_cell.c") and the synthesis of area-mean values on irregular 
+  surfaces ("shs_cell_isurf.c").  Each of the routines returned an error before 
+  the computation could start.
+
 CHarm 0.0.1:
 
 * Fixed data-sharing bug in "shs_cell_isurf_coeffs.c".

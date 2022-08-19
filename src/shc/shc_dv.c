@@ -31,7 +31,7 @@ void CHARM(shc_dv)(const CHARM(shc) *shcs, unsigned long nmax, REAL *dv,
     REAL dvn;
     for (unsigned long n = 0; n <= nmax; n++)
     {
-        dvn = ADDP(0.0);
+        dvn = PREC(0.0);
         for (unsigned long m = 0; m <= n; m++)
             dvn += shcs->c[m][n - m] * shcs->c[m][n - m] +
                    shcs->s[m][n - m] * shcs->s[m][n - m];

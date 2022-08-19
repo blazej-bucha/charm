@@ -21,26 +21,26 @@ void CHARM(integ_ss)(REAL u0, REAL du, size_t nu, REAL a1, REAL a2, REAL *s)
     REAL abs_a1 = FABS(a1);
 
 
-    if (CHARM(misc_is_nearly_equal)(a1, ADDP(0.0), CHARM(glob_threshold))
-     || CHARM(misc_is_nearly_equal)(a2, ADDP(0.0), CHARM(glob_threshold)))
+    if (CHARM(misc_is_nearly_equal)(a1, PREC(0.0), CHARM(glob_threshold))
+     || CHARM(misc_is_nearly_equal)(a2, PREC(0.0), CHARM(glob_threshold)))
     /* "(a1 == 0) || (a2 == 0)" within the "threshold" */
 
         memset(s, 0, nu * sizeof(REAL));
 
     else if (CHARM(misc_is_nearly_equal)(abs_a1, FABS(a2),
                                          CHARM(glob_threshold)))
-    /* "FABS(a1) == FABS(a2) != ADDP(0.0)" within the "threshold" */
+    /* "FABS(a1) == FABS(a2) != PREC(0.0)" within the "threshold" */
     {
         /* We already know that "a1 != 0" and "a2 != 0", so that it is now
          * sufficient to check only whether "a1" and "a2" are positive or
          * negative. */
-        REAL sign = ((a1 * a2) > 0) ? ADDP(1.0) : ADDP(-1.0);
+        REAL sign = ((a1 * a2) > 0) ? PREC(1.0) : PREC(-1.0);
         REAL u1   = u0 +       du;
-        REAL u2   = u0 + ADDP(2.0) * du;
-        REAL du2  = ADDP(0.5) * du;
-        REAL k1   = ADDP(2.0) * abs_a1;
-        REAL a1_4 = ADDP(0.25) / abs_a1;
-        REAL d    = ADDP(2.0) * COS(k1 * du);
+        REAL u2   = u0 + PREC(2.0) * du;
+        REAL du2  = PREC(0.5) * du;
+        REAL k1   = PREC(2.0) * abs_a1;
+        REAL a1_4 = PREC(0.25) / abs_a1;
+        REAL d    = PREC(2.0) * COS(k1 * du);
 
 
         REAL ss0 = SIN(k1 * u1) - SIN(k1 * u0);
@@ -75,13 +75,13 @@ void CHARM(integ_ss)(REAL u0, REAL du, size_t nu, REAL a1, REAL a2, REAL *s)
     else
     {
         REAL u1   = u0 +       du;
-        REAL u2   = u0 + ADDP(2.0) * du;
+        REAL u2   = u0 + PREC(2.0) * du;
         REAL k1   = a2 - a1;
         REAL k2   = a2 + a1;
-        REAL k1_2 = ADDP(2.0) * k1;
-        REAL k2_2 = ADDP(2.0) * k2;
-        REAL d1   = ADDP(2.0) * COS(k1 * du);
-        REAL d2   = ADDP(2.0) * COS(k2 * du);
+        REAL k1_2 = PREC(2.0) * k1;
+        REAL k2_2 = PREC(2.0) * k2;
+        REAL d1   = PREC(2.0) * COS(k1 * du);
+        REAL d2   = PREC(2.0) * COS(k2 * du);
 
 
         REAL ss1_0 = SIN(k1 * u1) - SIN(k1 * u0);
