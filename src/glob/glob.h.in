@@ -35,10 +35,11 @@ extern "C"
 
 /* Thresholds to compare floating point numbers */
 /* ------------------------------------------------------------------------- */
+
 /**
  * Threshold to judge whether two floating point numbers are equal,
- * ``100.0 * EPS``, where ``EPS`` is the machine epsilon of the ``@RDT@`` data 
- * type.
+ * ``100.0 * EPS``, where ``EPS`` is the machine epsilon of the floating point
+ * data type (``float``, ``double`` or ``__float128``).
  *
  * Experienced users may (under some very specific circumstances) need the
  * possibility to tighten or relax the threshold after the library is

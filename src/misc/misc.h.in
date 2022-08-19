@@ -233,21 +233,20 @@ extern @RDT@ charm@P@_misc_arr_rms(const @RDT@ *a,
 
 
 
-/**
- * Checks whether elements of a double ``arr`` array of ``size`` meet the 
+/** Checks whether elements of a double ``a`` array of ``size`` meet the
  * following conditions:
  *
- * 1) the ``first`` element of the array is smaller or equal to the smallest 
- *    element from the elements that follow it,
+ * 1) the ``first`` element of the array is smaller than or equal to the
+ *    smallest element from the elements that follow it,
  *
- * 2) the difference ``lat[i] - lat[i - every_nth]`` for ``i = first``,
- *    ``first + every_nth``, ..., ``size - 1`` is positive and constant (within 
+ * 2) the difference ``a[i + every_nth] - a[i]`` for ``i = first``,
+ *    ``first + every_nth``, ..., ``size - 1`` is positive and constant (within
  *    some numerical threshold ``eps``).
  *
- * For instance, if ``first = 0`` and ``every_nth = 1``, the function checks 
- * whether all elements of ``arr`` are linearly increasing with a constant 
- * step.  If ``every_nth = 2``, the function does the same, but for 
- * ``every_nth`` element starting from ``first``.
+ * For instance, if ``first = 0`` and ``every_nth = 1``, the function checks
+ * whether all elements of ``a`` are linearly increasing with a constant step.
+ * If ``every_nth = 2``, the function does the same, but for ``every_nth``
+ * element starting from ``first``.
  *
  * @return ``0`` if all conditions are met; otherwise, returned is the number 
  * of the condition that is not satisfied.  In case of an error, returned is 

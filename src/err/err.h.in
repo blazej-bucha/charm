@@ -50,13 +50,13 @@ extern "C"
 /* ------------------------------------------------------------------------- */
 #undef CHARM_ERR_MAX_FILE
 /** Maximum number of characters that can be stored in
- * ``charm@P@_err->file[i]``, ``i = 0, 1, ..., CHARM_MAX_ERR_LEVEL - 1``.  */
+ * ``charm@P@_err->file[i]``, ``i = 0, 1, ..., CHARM_ERR_MAX_LEVEL - 1``.  */
 #define CHARM_ERR_MAX_FILE 4096
 
 
 #undef CHARM_ERR_MAX_FUNC
 /** Maximum number of characters that can be stored in
- * ``charm@P@_err->func[i]``, ``i = 0, 1, ..., CHARM_MAX_ERR_LEVEL - 1``.  */
+ * ``charm@P@_err->func[i]``, ``i = 0, 1, ..., CHARM_ERR_MAX_LEVEL - 1``.  */
 #define CHARM_ERR_MAX_FUNC 255
 
 
