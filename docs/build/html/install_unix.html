@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Installation on Unix-based operating systems &mdash; CHarm 0.1.0 documentation</title>
+  <title>Installation on Unix-based operating systems &mdash; CHarm 0.1.1 documentation</title>
   
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.1.0
+                0.1.1
               </div>
             
           
@@ -299,7 +299,7 @@ the library.  <code class="docutils literal notranslate"><span class="pre">make<
 following flags to the <code class="docutils literal notranslate"><span class="pre">./configure</span></code> call.</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">--enable-single-precision</span></code> or <code class="docutils literal notranslate"><span class="pre">--enable-double-precision</span></code> or
-<code class="docutils literal notranslate"><span class="pre">-enable-quad-precision</span></code> to compile CHarm in single, double or quadruple
+<code class="docutils literal notranslate"><span class="pre">--enable-quad-precision</span></code> to compile CHarm in single, double or quadruple
 precision, respectively (<code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">double</span></code> and <code class="docutils literal notranslate"><span class="pre">__float128</span></code> data type
 for floating point numbers, respectively).  If not specified, double
 precision is used as default.</p></li>
@@ -309,7 +309,7 @@ default).</p>
 <code class="docutils literal notranslate"><span class="pre">omp_set_num_threads(N)</span></code> or by using the <code class="docutils literal notranslate"><span class="pre">OMP_NUM_THREADS</span></code> environment
 variable.</p>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--enable-avx</span></code> or <code class="docutils literal notranslate"><span class="pre">--enable-avx2</span></code> or <code class="docutils literal notranslate"><span class="pre">enable-avx-512</span></code> to enable AVX,
+<li><p><code class="docutils literal notranslate"><span class="pre">--enable-avx</span></code> or <code class="docutils literal notranslate"><span class="pre">--enable-avx2</span></code> or <code class="docutils literal notranslate"><span class="pre">--enable-avx-512</span></code> to enable AVX,
 AVX2 or AVX-512 CPU instructions, respectively (all disabled by default).</p>
 <p>AVX, AVX2 and AVX-512 are SIMD instructions introduced by Intel in 2011, 2013
 and 2017, respectively.  The most critical number crunching parts of CHarm
@@ -336,7 +336,7 @@ FFTW header file (empty by default, that is, default is to assume that FFTW
 is accessible to the compiler).</p></li>
 <li><p>Other useful variables:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">CC</span></code> selects other than your system’s default C compiler,
+<li><p><code class="docutils literal notranslate"><span class="pre">CC</span></code> selects other than your system's default C compiler,
 e.g. <code class="docutils literal notranslate"><span class="pre">CC=clang</span></code> for the <code class="docutils literal notranslate"><span class="pre">Clang</span></code> compiler, and</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">CFLAGS</span></code> defines user-defined compiler flags, e.g.,  <code class="docutils literal notranslate"><span class="pre">CFLAGS=&quot;-O3</span>
 <span class="pre">-ffast-math&quot;</span></code>
@@ -395,7 +395,7 @@ installed yet, you may execute one of the following commands:</p>
 <p>Now, you should be ready to build FFTW by following the instructions in the
 <a class="reference internal" href="#installation-fftw-linux"><span class="std std-ref">FFTW installation</span></a> chapter (Linux, compilation from source).
 There is, however, one <strong>important</strong> additional remark.  When calling the
-FFTW’s <code class="docutils literal notranslate"><span class="pre">./configure</span></code> script, specify also your GCC compiler, including its
+FFTW's <code class="docutils literal notranslate"><span class="pre">./configure</span></code> script, specify also your GCC compiler, including its
 version number, e.g.:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --enable-openmp --enable-shared CC=gcc-10</span>
 </pre></div>
@@ -424,17 +424,17 @@ variable when calling the <code class="docutils literal notranslate"><span class
 follow the pattern:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">libcharmf</span></code> – single precision with OpenMP disabled,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">libcharmf_omp</span></code> – single precision with OpenMP enabled,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">libcharm</span></code> – double precision with OpenMP disabled,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">libcharm_omp</span></code> –  double precision with OpenMP enabled,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">libcharmq</span></code> – quadruple precision with OpenMP disabled,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">libcharmq_omp</span></code> – quadruple precision with OpenMP enabled.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libcharmf</span></code> -- single precision with OpenMP disabled,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libcharmf_omp</span></code> -- single precision with OpenMP enabled,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libcharm</span></code> -- double precision with OpenMP disabled,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libcharm_omp</span></code> --  double precision with OpenMP enabled,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libcharmq</span></code> -- quadruple precision with OpenMP disabled,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libcharmq_omp</span></code> -- quadruple precision with OpenMP enabled.</p></li>
 </ul>
 </div></blockquote>
 </li>
 <li><p>You may install CHarm in single, double and quadruple precision, each with
-OpenMP enabled and disabled, to the same installation path.  You don’t have
+OpenMP enabled and disabled, to the same installation path.  You don't have
 to worry about overwriting the header and lib files.</p></li>
 </ul>
 </div>

@@ -133,7 +133,7 @@ The installation process can be tailored by appending one or more of the
 following flags to the ``./configure`` call.
 
 * ``--enable-single-precision`` or ``--enable-double-precision`` or 
-  ``-enable-quad-precision`` to compile CHarm in single, double or quadruple 
+  ``--enable-quad-precision`` to compile CHarm in single, double or quadruple 
   precision, respectively (``float``, ``double`` and ``__float128`` data type 
   for floating point numbers, respectively).  If not specified, double 
   precision is used as default.
@@ -145,7 +145,7 @@ following flags to the ``./configure`` call.
   ``omp_set_num_threads(N)`` or by using the ``OMP_NUM_THREADS`` environment 
   variable.
 
-* ``--enable-avx`` or ``--enable-avx2`` or ``enable-avx-512`` to enable AVX, 
+* ``--enable-avx`` or ``--enable-avx2`` or ``--enable-avx-512`` to enable AVX, 
   AVX2 or AVX-512 CPU instructions, respectively (all disabled by default).
 
   AVX, AVX2 and AVX-512 are SIMD instructions introduced by Intel in 2011, 2013 
