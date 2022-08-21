@@ -1,3 +1,8 @@
+CHarm 0.1.2:
+
+* Bug fix for incorrectly included c-file instead of its respective header file 
+  in "integ_cc.c".  The bug was introduced in CHarm 0.1.0.
+
 CHarm 0.1.1:
 
 * A few typo fixes in docs on installing.

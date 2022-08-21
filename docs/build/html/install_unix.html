@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Installation on Unix-based operating systems &mdash; CHarm 0.1.1 documentation</title>
+  <title>Installation on Unix-based operating systems &mdash; CHarm 0.1.2 documentation</title>
   
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.1.1
+                0.1.2
               </div>
             
           
@@ -336,7 +336,7 @@ FFTW header file (empty by default, that is, default is to assume that FFTW
 is accessible to the compiler).</p></li>
 <li><p>Other useful variables:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">CC</span></code> selects other than your system's default C compiler,
+<li><p><code class="docutils literal notranslate"><span class="pre">CC</span></code> selects other than your system’s default C compiler,
 e.g. <code class="docutils literal notranslate"><span class="pre">CC=clang</span></code> for the <code class="docutils literal notranslate"><span class="pre">Clang</span></code> compiler, and</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">CFLAGS</span></code> defines user-defined compiler flags, e.g.,  <code class="docutils literal notranslate"><span class="pre">CFLAGS=&quot;-O3</span>
 <span class="pre">-ffast-math&quot;</span></code>
@@ -395,7 +395,7 @@ installed yet, you may execute one of the following commands:</p>
 <p>Now, you should be ready to build FFTW by following the instructions in the
 <a class="reference internal" href="#installation-fftw-linux"><span class="std std-ref">FFTW installation</span></a> chapter (Linux, compilation from source).
 There is, however, one <strong>important</strong> additional remark.  When calling the
-FFTW's <code class="docutils literal notranslate"><span class="pre">./configure</span></code> script, specify also your GCC compiler, including its
+FFTW’s <code class="docutils literal notranslate"><span class="pre">./configure</span></code> script, specify also your GCC compiler, including its
 version number, e.g.:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --enable-openmp --enable-shared CC=gcc-10</span>
 </pre></div>
@@ -424,17 +424,17 @@ variable when calling the <code class="docutils literal notranslate"><span class
 follow the pattern:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">libcharmf</span></code> -- single precision with OpenMP disabled,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">libcharmf_omp</span></code> -- single precision with OpenMP enabled,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">libcharm</span></code> -- double precision with OpenMP disabled,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">libcharm_omp</span></code> --  double precision with OpenMP enabled,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">libcharmq</span></code> -- quadruple precision with OpenMP disabled,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">libcharmq_omp</span></code> -- quadruple precision with OpenMP enabled.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libcharmf</span></code> – single precision with OpenMP disabled,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libcharmf_omp</span></code> – single precision with OpenMP enabled,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libcharm</span></code> – double precision with OpenMP disabled,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libcharm_omp</span></code> –  double precision with OpenMP enabled,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libcharmq</span></code> – quadruple precision with OpenMP disabled,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libcharmq_omp</span></code> – quadruple precision with OpenMP enabled.</p></li>
 </ul>
 </div></blockquote>
 </li>
 <li><p>You may install CHarm in single, double and quadruple precision, each with
-OpenMP enabled and disabled, to the same installation path.  You don't have
+OpenMP enabled and disabled, to the same installation path.  You don’t have
 to worry about overwriting the header and lib files.</p></li>
 </ul>
 </div>
