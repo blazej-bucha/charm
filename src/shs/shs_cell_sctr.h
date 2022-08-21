@@ -15,7 +15,7 @@ extern "C"
 #endif
 
 
-extern void CHARM(shs_cell_sctr)(const CHARM(crd) *, const CHARM(shc) *,
+extern void CHARM(shs_cell_sctr)(const CHARM(cell) *, const CHARM(shc) *,
                                  unsigned long, REAL *, CHARM(err) *);
 
 

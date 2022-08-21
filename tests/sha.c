@@ -8,7 +8,7 @@
 #include "cmp_arrays.h"
 #include "parameters.h"
 #include "validate.h"
-#include "generate_crd.h"
+#include "generate_cell.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -49,7 +49,7 @@ int sha(unsigned long nmax, char SHCs_file[])
 
     /* Read the test coefficients from a text file */
     /* --------------------------------------------------------------------- */
-    CHARM(shc) *shcs_ref = CHARM(shc_init)(nmax, PREC(1.0), PREC(1.0));
+    CHARM(shc) *shcs_ref = CHARM(shc_calloc)(nmax, PREC(1.0), PREC(1.0));
     if (shcs_ref == NULL)
     {
         fprintf(stderr, "Failed to initialize a \"shc\" structure.\n");
@@ -57,14 +57,7 @@ int sha(unsigned long nmax, char SHCs_file[])
     }
 
 
-    FILE *fptr = fopen(SHCs_file, "r");
-    if (fptr == NULL)
-    {
-        fprintf(stderr, "Failed to open the stream for \"%s\".\n", SHCs_file);
-        exit(CHARM_FAILURE);
-    }
-    CHARM(shc_read_mtx)(fptr, nmax, shcs_ref, err);
-    fclose(fptr);
+    CHARM(shc_read_mtx)(SHCs_file, nmax, shcs_ref, err);
     CHARM(err_handler)(err, 1);
 
 
@@ -84,7 +77,8 @@ int sha(unsigned long nmax, char SHCs_file[])
     /* Check spherical harmonic analysis with points values using all supported
      * quadratures */
     /* --------------------------------------------------------------------- */
-    CHARM(crd) *grd;
+    CHARM(point) *grd_pnt;
+    CHARM(cell) *grd_cell;
     REAL *f;
     CHARM(shc) *shcs_out;
     REAL *dda = (REAL *)malloc((nmax + 1) * sizeof(REAL));
@@ -131,8 +125,8 @@ int sha(unsigned long nmax, char SHCs_file[])
              * + deltar" */
             if (i == 0)
             {
-                grd = CHARM(crd_gl)(nmax_tmp, shcs_ref->r + deltar);
-                if (grd == NULL)
+                grd_pnt = CHARM(crd_point_gl)(nmax_tmp, shcs_ref->r + deltar);
+                if (grd_pnt == NULL)
                 {
                     fprintf(stderr, "Failed to initialize the Gauss--Legendre "
                                     "grid.\n");
@@ -141,8 +135,8 @@ int sha(unsigned long nmax, char SHCs_file[])
             }
             else if (i == 1)
             {
-                grd = CHARM(crd_dh1)(nmax_tmp, shcs_ref->r + deltar);
-                if (grd == NULL)
+                grd_pnt = CHARM(crd_point_dh1)(nmax_tmp, shcs_ref->r + deltar);
+                if (grd_pnt == NULL)
                 {
                     fprintf(stderr, "Failed to initialize the Driscoll--Healy "
                                     "grid (DH1).\n");
@@ -151,8 +145,8 @@ int sha(unsigned long nmax, char SHCs_file[])
             }
             else if (i == 2)
             {
-                grd = CHARM(crd_dh2)(nmax_tmp, shcs_ref->r + deltar);
-                if (grd == NULL)
+                grd_pnt = CHARM(crd_point_dh2)(nmax_tmp, shcs_ref->r + deltar);
+                if (grd_pnt == NULL)
                 {
                     fprintf(stderr, "Failed to initialize the Driscoll--Healy "
                                     "grid (DH2).\n");
@@ -161,7 +155,7 @@ int sha(unsigned long nmax, char SHCs_file[])
             }
 
 
-            shcs_out = CHARM(shc_init)(nmax_tmp, shcs_ref->mu, shcs_ref->r);
+            shcs_out = CHARM(shc_calloc)(nmax_tmp, shcs_ref->mu, shcs_ref->r);
             if (shcs_out == NULL)
             {
                 fprintf(stderr, "Failed to initialize a \"shc\" structure.\n");
@@ -169,7 +163,7 @@ int sha(unsigned long nmax, char SHCs_file[])
             }
 
 
-            f = (REAL *)malloc(grd->nlat * grd->nlon * sizeof(REAL));
+            f = (REAL *)malloc(grd_pnt->nlat * grd_pnt->nlon * sizeof(REAL));
             if (f == NULL)
             {
                 fprintf(stderr, "Failed to initialize an array to store the "
@@ -180,7 +174,7 @@ int sha(unsigned long nmax, char SHCs_file[])
 
             /* We do the synthesis on the sphere with the radius "shcs_ref->r
              * + deltar" */
-            CHARM(shs_point)(grd, shcs_ref, nmax_tmp, f, err);
+            CHARM(shs_point)(grd_pnt, shcs_ref, nmax_tmp, f, err);
             CHARM(err_handler)(err, 1);
 
 
@@ -188,7 +182,7 @@ int sha(unsigned long nmax, char SHCs_file[])
              * + deltar" and rescale the coefficients to "shcs_out->r ==
              * shcs_ref->r", so that the coefficients can be validated with
              * respect to "shcs_ref" */
-            CHARM(sha_point)(grd, f, nmax_tmp, shcs_out, err);
+            CHARM(sha_point)(grd_pnt, f, nmax_tmp, shcs_out, err);
             CHARM(err_handler)(err, 1);
 
 
@@ -201,7 +195,7 @@ int sha(unsigned long nmax, char SHCs_file[])
 
 
             CHARM(shc_free)(shcs_out);
-            CHARM(crd_free)(grd);
+            CHARM(crd_point_free)(grd_pnt);
             free(f);
         }
     }
@@ -244,9 +238,9 @@ int sha(unsigned long nmax, char SHCs_file[])
                     REAL r = shcs_ref->r + (REAL)(DELTAR) * (REAL)(dr);
 
 
-                    CHARM(crd) *grd = CHARM(crd_init)(CHARM_CRD_CELLS_GRID,
+                    grd_cell = CHARM(crd_cell_calloc)(CHARM_CRD_CELL_GRID,
                                                       nlat[i], nlon[i]);
-                    if (grd == NULL)
+                    if (grd_cell == NULL)
                     {
                         fprintf(stderr, "Failed to initialize a "
                                         "\"crd\" structure\n");
@@ -254,7 +248,7 @@ int sha(unsigned long nmax, char SHCs_file[])
                     }
 
 
-                    CHARM(generate_crd)(grd, r, PI, PREC(2.0) * PI);
+                    CHARM(generate_cell)(grd_cell, r, PI, PREC(2.0) * PI);
 
 
                     /* A constant to artificially get a non-symmetric grid from
@@ -264,7 +258,7 @@ int sha(unsigned long nmax, char SHCs_file[])
                         break_symm = (REAL)(BREAK_SYMM);
 
 
-                    REAL *f = (REAL *)malloc(grd->nlat * grd->nlon *
+                    REAL *f = (REAL *)malloc(grd_cell->nlat * grd_cell->nlon *
                                              sizeof(REAL));
                     if (f == NULL)
                     {
@@ -275,8 +269,8 @@ int sha(unsigned long nmax, char SHCs_file[])
 
                     if (nlat[i] >= (nmax + 1))
                     {
-                        shcs_out = CHARM(shc_init)(nmax, shcs_ref->mu,
-                                                         shcs_ref->r);
+                        shcs_out = CHARM(shc_calloc)(nmax, shcs_ref->mu,
+                                                     shcs_ref->r);
                         if (shcs_out == NULL)
                         {
                             fprintf(stderr, "Failed to initialize a "
@@ -291,16 +285,16 @@ int sha(unsigned long nmax, char SHCs_file[])
                                 continue;
 
 
-                            grd->lat[1] += break_symm;
-                            grd->lat[2] += break_symm;
+                            grd_cell->latmin[0] += break_symm;
+                            grd_cell->latmax[1] += break_symm;
                         }
 
 
-                        CHARM(shs_cell)(grd, shcs_ref, nmax, f, err);
+                        CHARM(shs_cell)(grd_cell, shcs_ref, nmax, f, err);
                         CHARM(err_handler)(err, 1);
 
 
-                        CHARM(sha_cell)(grd, f, nmax, CHARM_SHA_CELL_AQ,
+                        CHARM(sha_cell)(grd_cell, f, nmax, CHARM_SHA_CELL_AQ,
                                         shcs_out, err);
                         CHARM(err_handler)(err, 1);
 
@@ -330,7 +324,7 @@ int sha(unsigned long nmax, char SHCs_file[])
                     }
 
 
-                    CHARM(crd_free)(grd);
+                    CHARM(crd_cell_free)(grd_cell);
                     free(f);
                 }
             }

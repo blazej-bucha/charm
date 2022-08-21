@@ -1,0 +1,40 @@
+"""
+Defines data types that:
+
+    * users can pass to PyHarm,
+    * PyHarm passes to CHarm, and
+    * CHarm returns to PyHarm.
+"""
+
+import numpy as _np
+import ctypes as _ct
+
+# Data types that user can pass to PyHarm to represent integers
+_pyharm_ints = (int, _np.integer)
+
+# Data types that user can pass to PyHarm to represent floating point
+# numbers.  Note that "PY_FLOAT" already contains the comma, so no comma 
+# between "@PY_FLOAT@" and "_np.@NP_FLOAT@".
+_pyharm_flt_all = (@PY_FLOAT@ _np.@NP_FLOAT@,) + _pyharm_ints
+
+# Floating point data types for numpy ndarrays.  A *single* data type must be
+# defined here!  The reason is that it avoids making any internal copies of
+# data entered by the user, as this could be a problem for large arrays.
+_pyharm_flt = _np.@NP_FLOAT@
+
+# This is the data type, to which PyHarm converts the C's "double" (or "float" 
+# if in single precision) returned by CHarm
+_charm_flt = _np.@NP_FLOAT@
+
+# C's "int" entering CHarm
+_ct_int = _ct.c_int
+
+# C's "size_t" entering CHarm
+_ct_size_t = _ct.c_size_t
+
+# C's "unsigned long int" entering CHarm
+_ct_ulong = _ct.c_ulong
+
+# C's "double" (or "float" if in single precision) entering CHarm
+_ct_flt = _ct.c_@CT_FLOAT@
+

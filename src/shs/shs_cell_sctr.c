@@ -17,7 +17,9 @@
 #include "../leg/leg_pol_en_fn.h"
 #include "../leg/leg_func_r_ri.h"
 #include "../leg/leg_func_prepare.h"
+#include "../crd/crd_check_cells.h"
 #include "../err/err_set.h"
+#include "../err/err_propagate.h"
 #include "../simd/simd.h"
 #include "../simd/calloc_aligned.h"
 #include "../simd/free_aligned.h"
@@ -28,7 +30,7 @@
 
 
 
-void CHARM(shs_cell_sctr)(const CHARM(crd) *cell, const CHARM(shc) *shcs,
+void CHARM(shs_cell_sctr)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
                           unsigned long nmax, REAL *f, CHARM(err) *err)
 {
     /* --------------------------------------------------------------------- */
@@ -41,6 +43,21 @@ void CHARM(shs_cell_sctr)(const CHARM(crd) *cell, const CHARM(shc) *shcs,
     REAL *gm = NULL;
     REAL *hm = NULL;
     /* --------------------------------------------------------------------- */
+
+
+
+
+
+
+    /* Check cell boundaries */
+    /* ..................................................................... */
+    CHARM(crd_check_cells)(cell, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+    /* ..................................................................... */
 
 
 
@@ -374,8 +391,8 @@ FAILURE_1_parallel:
                 ipv = i + v;
                 if (ipv < ncell)
                 {
-                    latminv[v] = cell->lat[2 * ipv];
-                    latmaxv[v] = cell->lat[2 * ipv + 1];
+                    latmaxv[v] = cell->latmax[ipv];
+                    latminv[v] = cell->latmin[ipv];
 
 
                     t1v[v] = SIN(latminv[v]);
@@ -386,8 +403,8 @@ FAILURE_1_parallel:
                     u2v[v] = COS(latmaxv[v]);
 
 
-                    lonminv[v] = cell->lon[2 * ipv];
-                    lonmaxv[v] = cell->lon[2 * ipv + 1];
+                    lonminv[v] = cell->lonmin[ipv];
+                    lonmaxv[v] = cell->lonmax[ipv];
                     dlonv[v]   = lonmaxv[v] - lonminv[v];
                 }
                 else

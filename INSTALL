@@ -142,7 +142,7 @@ the following flags to the "./configure" call.
 * "--enable-single-precision" or "--enable-double-precision" or "--
   enable-quad-precision" to compile CHarm in single, double or
   quadruple precision, respectively ("float", "double" and
-  "__float128" data type for floating point numbers, respectively).
+  "__float128" data types for floating point numbers, respectively).
   If not specified, double precision is used as default.
 
 * "--enable-openmp" to enable OpenMP parallelization (no
@@ -186,7 +186,7 @@ the following flags to the "./configure" call.
 
 * Other useful variables:
 
-  * "CC" selects other than your system's default C compiler, e.g.
+  * "CC" selects other than your system’s default C compiler, e.g.
     "CC=clang" for the "Clang" compiler, and
 
   * "CFLAGS" defines user-defined compiler flags, e.g.,  "CFLAGS="-O3
@@ -257,7 +257,7 @@ macOS.
   Now, you should be ready to build FFTW by following the instructions
   in the FFTW installation chapter (Linux, compilation from source).
   There is, however, one **important** additional remark.  When
-  calling the FFTW's "./configure" script, specify also your GCC
+  calling the FFTW’s "./configure" script, specify also your GCC
   compiler, including its version number, e.g.:
 
      ./configure --enable-openmp --enable-shared CC=gcc-10
@@ -285,21 +285,21 @@ A few installation notes
 * The output lib names depend on the user-defined compilation settings
   and follow the pattern:
 
-     * "libcharmf" -- single precision with OpenMP disabled,
+     * "libcharmf" – single precision with OpenMP disabled,
 
-     * "libcharmf_omp" -- single precision with OpenMP enabled,
+     * "libcharmf_omp" – single precision with OpenMP enabled,
 
-     * "libcharm" -- double precision with OpenMP disabled,
+     * "libcharm" – double precision with OpenMP disabled,
 
-     * "libcharm_omp" --  double precision with OpenMP enabled,
+     * "libcharm_omp" –  double precision with OpenMP enabled,
 
-     * "libcharmq" -- quadruple precision with OpenMP disabled,
+     * "libcharmq" – quadruple precision with OpenMP disabled,
 
-     * "libcharmq_omp" -- quadruple precision with OpenMP enabled.
+     * "libcharmq_omp" – quadruple precision with OpenMP enabled.
 
 * You may install CHarm in single, double and quadruple precision,
   each with OpenMP enabled and disabled, to the same installation
-  path.  You don't have to worry about overwriting the header and lib
+  path.  You don’t have to worry about overwriting the header and lib
   files.
 
 

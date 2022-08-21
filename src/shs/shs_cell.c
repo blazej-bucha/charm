@@ -15,7 +15,7 @@
 
 
 
-void CHARM(shs_cell)(const CHARM(crd) *cell, const CHARM(shc) *shcs,
+void CHARM(shs_cell)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
                      unsigned long nmax, REAL *f, CHARM(err) *err)
 {
     /* Some trivial initial error checks */
@@ -38,7 +38,7 @@ void CHARM(shs_cell)(const CHARM(crd) *cell, const CHARM(shc) *shcs,
 
     /* Now do the synthesis */
     /* --------------------------------------------------------------------- */
-    if (cell->type == CHARM_CRD_CELLS_SCATTERED)
+    if (cell->type == CHARM_CRD_CELL_SCATTERED)
     {
         if (cell->nlat != cell->nlon)
         {
@@ -58,7 +58,7 @@ void CHARM(shs_cell)(const CHARM(crd) *cell, const CHARM(shc) *shcs,
             return;
         }
     }
-    else if (cell->type == CHARM_CRD_CELLS_GRID)
+    else if (cell->type == CHARM_CRD_CELL_GRID)
     {
         /* Grid-wise synthesis */
         CHARM(shs_cell_grd)(cell, shcs, nmax, f, err);

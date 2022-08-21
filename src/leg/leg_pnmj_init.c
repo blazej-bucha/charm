@@ -10,8 +10,17 @@
 
 
 
-CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, unsigned int nmj_order)
+CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, int ordering,
+                                  REAL *pnmj_coeffs)
 {
+    /* Check inputs */
+    /* --------------------------------------------------------------------- */
+    if ((ordering != CHARM_LEG_PNMJ_ORDER_MNJ) &&
+        (ordering != CHARM_LEG_PNMJ_ORDER_MJN))
+        return NULL;
+    /* --------------------------------------------------------------------- */
+
+
     /* Allocate memory for the "CHARM(pnmj)" data type */
     /* --------------------------------------------------------------------- */
     CHARM(pnmj) *pnmj = (CHARM(pnmj) *)malloc(sizeof(CHARM(pnmj)));
@@ -26,9 +35,9 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, unsigned int nmj_order)
     /* --------------------------------------------------------------------- */
 
 
-    /* Save the "nmj_order" value to the "CHARM(pnmj)" struct */
+    /* Save the "ordering" value to the "CHARM(pnmj)" struct */
     /* --------------------------------------------------------------------- */
-    pnmj->nmj_order = nmj_order;
+    pnmj->ordering = ordering;
     /* --------------------------------------------------------------------- */
 
 
@@ -40,7 +49,7 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, unsigned int nmj_order)
     /* --------------------------------------------------------------------- */
 
 
-    /* Allocate the "pnmj-pnmj" array to store the Fourier coefficients of
+    /* Allocate the "pnmj->pnmj" array to store the Fourier coefficients of
      * Legendre functions */
     /* --------------------------------------------------------------------- */
     pnmj->pnmj = (REAL ***)malloc((nmax + 1) * sizeof(REAL **));
@@ -48,15 +57,13 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, unsigned int nmj_order)
     {
         /* Memory allocation failed, so we have to deallocate all the memory
          * that has been allocated so far before we escape this function. */
-        free(pnmj->pnmj); free(pnmj);
-        pnmj = NULL;
-
-
-        return pnmj;
+        free(pnmj->pnmj);
+        free(pnmj);
+        return NULL;
     }
 
 
-    if (nmj_order == CHARM_LEG_PNMJ_ORDER_MNJ)
+    if (ordering == CHARM_LEG_PNMJ_ORDER_MNJ)
     {
         for (unsigned long m = 0; m <= nmax; m++)
         {
@@ -70,14 +77,11 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, unsigned int nmj_order)
                     free(pnmj->pnmj[m]);
                 free(pnmj->pnmj);
                 free(pnmj);
-                pnmj = NULL;
-
-
-                return pnmj;
+                return NULL;
             }
         }
     }
-    else if (nmj_order == CHARM_LEG_PNMJ_ORDER_MJN)
+    else if (ordering == CHARM_LEG_PNMJ_ORDER_MJN)
     {
         for (unsigned long m = 0; m <= nmax; m++)
         {
@@ -92,33 +96,18 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, unsigned int nmj_order)
                     free(pnmj->pnmj[m]);
                 free(pnmj->pnmj);
                 free(pnmj);
-                pnmj = NULL;
-
-
-                return pnmj;
+                return NULL;
             }
         }
     }
 
 
-    pnmj->pnmj[0][0] = (REAL *)calloc(npnmj, sizeof(REAL));
-    if (pnmj->pnmj[0][0] == NULL)
-    {
-        /* Memory allocation failed, so we have to deallocate all the memory
-         * that has been allocated so far before we escape this function. */
-        for (unsigned long m = 0; m <= nmax; m++)
-            free(pnmj->pnmj[m]);
-        free(pnmj->pnmj);
-        free(pnmj);
-        pnmj = NULL;
-
-
-        return pnmj;
-    }
+    /* Assign the "pnmj_coefficients" to the "charm_pnmj" structure. */
+    pnmj->pnmj[0][0] = pnmj_coeffs;
     /* --------------------------------------------------------------------- */
 
 
-    if (nmj_order == CHARM_LEG_PNMJ_ORDER_MNJ)
+    if (ordering == CHARM_LEG_PNMJ_ORDER_MNJ)
     {
         /* Now set the pointers "pnmj->pnmj[m][n - m]" to point to the right
          * elements of the numerical array "pnmj->pnmj[0][0]" */
@@ -128,13 +117,11 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, unsigned int nmj_order)
             for (unsigned long n = m; n <= nmax; n++)
             {
                 pnmj->pnmj[m][n - m] = pnmj->pnmj[0][0] + nj;
-
-
                 nj += (n / 2) + 1;
             }
         /* ----------------------------------------------------------------- */
     }
-    else if (nmj_order == CHARM_LEG_PNMJ_ORDER_MJN)
+    else if (ordering == CHARM_LEG_PNMJ_ORDER_MJN)
     {
         /* Now set the pointers "pnmj->pnmj[m][j]" to point to the right
          * elements of the numerical array "pnmj->pnmj[0][0]" */
@@ -144,8 +131,6 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, unsigned int nmj_order)
             for (unsigned long j = 0; j <= (nmax / 2); j++)
             {
                 pnmj->pnmj[m][j] = pnmj->pnmj[0][0] + jn;
-
-
                 jn += nmax - CHARM_MAX(2 * j, m) + 1;
             }
         /* ----------------------------------------------------------------- */

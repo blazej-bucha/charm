@@ -2,8 +2,8 @@
 Introduction
 ============
 
-CHarm is a C library to work with spherical harmonics up to almost arbitrarily
-high degrees.
+CHarm is a C library to work with spherical harmonics up to almost arbitrarily 
+high degrees.  The library is accompanied by a Python wrapper called PyHarm.
 
 
 Features
@@ -43,8 +43,13 @@ Features
 
 * Performs discrete FFT by `FFTW <http://www.fftw.org/>`_.
 
-.. [#f1] This routine is unique to CHarm.
+* Ships with a Python wrapper to enable comfortable high-level programming 
+  while retaining the efficiency of the C language.  The wrapper, called 
+  PyHarm, wraps CHarm using `ctypes 
+  <https://docs.python.org/3/library/ctypes.html>`_ and is fully integrated 
+  with `numpy <https://numpy.org/>`_.
 
+.. [#f1] This routine is unique to CHarm.
 
 .. _download:
 
@@ -68,14 +73,15 @@ Documentation
 =============
 
 The documentation of the latest version from the ``master`` branch is available 
-at `https://blazej-bucha.github.io/charm/index.html  
+at `https://blazej-bucha.github.io/charm/index.html 
 <https://blazej-bucha.github.io/charm/index.html>`_.
 
-A pre-compiled HTML documentation is also available in ``docs/build/html`` or 
-it can be built by executing ``make docs`` (requires ``doxygen`` and Python 
-modules ``sphinx``, ``sphinx_rtd_theme`` and ``breathe``).  PDF and other 
-versions of the documentation can also be built (outside the installation 
-system) as ``cd docs && make -f Makefile-sphinx latexpdf``, etc.
+A pre-compiled HTML documentation is also available in ``docs/build/html``.  
+Alternatively, it can be built by executing ``make html`` after the 
+``configure`` call (requires ``doxygen`` and Python modules ``sphinx``, 
+``sphinx_rtd_theme`` and ``breathe``).  Other formats of the documentation, for 
+instance, a PDF file, can be built with ``cd docs && make latexpdf``, etc.  To 
+list list all available formats, execute ``cd docs && make help``.
 
 
 .. _contact:
@@ -85,8 +91,8 @@ Contact
 
 Should you have any comments, questions, bug report or criticism, please feel
 free to contact the author, Blažej Bucha, at blazej.bucha@stuba.sk.  Further
-products developed by the author can be found at `https://blazejbucha.com
-<https://blazejbucha.com>`_.
+products developed by the author can be found at `https://www.blazejbucha.com
+<https://www.blazejbucha.com>`_.
 
 
 Other spherical-harmonic-based libraries
@@ -138,7 +144,7 @@ having its pros and cons.  Explore!  A few examples are:
   <https://sourceforge.net/projects/hmanipulator/>`_: Spherical harmonic
   synthesis in sparse points and grids (no longer maintained),
 
-* `GrafLab <https://blazejbucha.com/#GrafLab>`_ and `isGrafLab
-  <https://blazejbucha.com/#isGrafLab>`_: MATLAB-based software packages for
-  spherical harmonic synthesis of gravity field functionals up to high degrees
-  and orders (tens of thousands and well beyond).
+* `GrafLab <https://github.com/blazej-bucha/graflab>`_ and `isGrafLab 
+  <https://github.com/blazej-bucha/isgraflab>`_: MATLAB-based software packages 
+  for spherical harmonic synthesis of gravity field functionals up to high 
+  degrees and orders (tens of thousands and well beyond).

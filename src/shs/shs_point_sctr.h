@@ -15,7 +15,7 @@ extern "C"
 #endif
 
 
-extern void CHARM(shs_point_sctr)(const CHARM(crd) *, const CHARM(shc) *,
+extern void CHARM(shs_point_sctr)(const CHARM(point) *, const CHARM(shc) *,
                                   unsigned long, REAL *, CHARM(err) *);
 
 

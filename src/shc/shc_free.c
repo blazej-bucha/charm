@@ -17,8 +17,11 @@ void CHARM(shc_free)(CHARM(shc) *shcs)
         return;
 
 
-    free(shcs->c[0]);
-    free(shcs->s[0]);
+    if (shcs->owner)
+    {
+        free(shcs->c[0]);
+        free(shcs->s[0]);
+    }
     free(shcs->c);
     free(shcs->s);
     free(shcs);

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Installation on Unix-based operating systems &mdash; CHarm 0.1.1-dev documentation</title>
+  <title>Installation on Unix-based operating systems &mdash; CHarm 0.1.2-dev documentation</title>
   
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.1.1-dev
+                0.1.2-dev
               </div>
             
           
@@ -97,20 +97,20 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="install.html">Installing</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Installation on Unix-based operating systems</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#installation-on-linux">Installation on Linux</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#fftw-installation">FFTW installation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#default-charm-installation">Default CHarm installation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#customized-charm-installation">Customized CHarm installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#charm-the-c-library">CHarm (the C library)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#installation-on-linux">Installation on Linux</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#installation-on-macos">Installation on macOS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#a-few-installation-notes">A few installation notes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#uninstallation">Uninstallation</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#installation-on-macos">Installation on macOS</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id2">FFTW installation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#charm-installation">CHarm installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyharm-the-python-wrapper">PyHarm (the Python wrapper)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#building-pyharm">Building PyHarm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">Uninstallation</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#a-few-installation-notes">A few installation notes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#uninstallation">Uninstallation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="install_non_unix.html">Installation on Windows 10</a></li>
@@ -118,7 +118,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Interfaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
@@ -195,9 +195,13 @@
   <div class="section" id="installation-on-unix-based-operating-systems">
 <span id="installation-unix"></span><h1>Installation on Unix-based operating systems<a class="headerlink" href="#installation-on-unix-based-operating-systems" title="Permalink to this headline">¶</a></h1>
 <p>This section provides an installation guide for Unix-based operating systems,
-particularly <a class="reference internal" href="#installation-linux"><span class="std std-ref">Linux</span></a> and <a class="reference internal" href="#installation-mac"><span class="std std-ref">macOS</span></a>.</p>
+particularly <a class="reference internal" href="#installation-linux"><span class="std std-ref">Linux</span></a> and <a class="reference internal" href="#installation-mac"><span class="std std-ref">macOS</span></a>.  First, discussed is the installation of <a class="reference internal" href="#charm-installation"><span class="std std-ref">CHarm (the
+C library)</span></a> and then follow instructions on how to build
+<a class="reference internal" href="#pyharm-installation"><span class="std std-ref">PyHarm (the Python wrapper)</span></a>.</p>
+<div class="section" id="charm-the-c-library">
+<span id="charm-installation"></span><h2>CHarm (the C library)<a class="headerlink" href="#charm-the-c-library" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="requirements">
-<span id="id1"></span><h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<span id="charm-requirements"></span><h3>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p>C compiler supporting C99.  <a class="reference external" href="https://gcc.gnu.org/">GCC</a> is recommended
 (available by default on most Linux distributions).  Other compilers that are
@@ -215,11 +219,11 @@ distributions).</p></li>
 </ul>
 </div>
 <div class="section" id="installation-on-linux">
-<span id="installation-linux"></span><h2>Installation on Linux<a class="headerlink" href="#installation-on-linux" title="Permalink to this headline">¶</a></h2>
+<span id="installation-linux"></span><h3>Installation on Linux<a class="headerlink" href="#installation-on-linux" title="Permalink to this headline">¶</a></h3>
 <p>At first, we will install FFTW and then we will proceed with the installation
 of CHarm.</p>
 <div class="section" id="fftw-installation">
-<span id="installation-fftw-linux"></span><h3>FFTW installation<a class="headerlink" href="#fftw-installation" title="Permalink to this headline">¶</a></h3>
+<span id="installation-fftw-linux"></span><h4>FFTW installation<a class="headerlink" href="#fftw-installation" title="Permalink to this headline">¶</a></h4>
 <p>FFTW can either be installed via you package manager or built from the source.</p>
 <ul>
 <li><p><em>Using your package manager</em></p>
@@ -270,7 +274,7 @@ the <code class="docutils literal notranslate"><span class="pre">--enable-openmp
 </ul>
 </div>
 <div class="section" id="default-charm-installation">
-<span id="default-installation-charm-linux"></span><h3>Default CHarm installation<a class="headerlink" href="#default-charm-installation" title="Permalink to this headline">¶</a></h3>
+<span id="default-installation-charm-linux"></span><h4>Default CHarm installation<a class="headerlink" href="#default-charm-installation" title="Permalink to this headline">¶</a></h4>
 <p>If you</p>
 <ul class="simple">
 <li><p>want to install CHarm to <code class="docutils literal notranslate"><span class="pre">/usr/local</span></code>,</p></li>
@@ -294,13 +298,13 @@ the library.  <code class="docutils literal notranslate"><span class="pre">make<
 <span class="pre">install</span></code> installs the library.</p>
 </div>
 <div class="section" id="customized-charm-installation">
-<span id="customized-installation-charm-linux"></span><h3>Customized CHarm installation<a class="headerlink" href="#customized-charm-installation" title="Permalink to this headline">¶</a></h3>
+<span id="customized-installation-charm-linux"></span><h4>Customized CHarm installation<a class="headerlink" href="#customized-charm-installation" title="Permalink to this headline">¶</a></h4>
 <p>The installation process can be tailored by appending one or more of the
 following flags to the <code class="docutils literal notranslate"><span class="pre">./configure</span></code> call.</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">--enable-single-precision</span></code> or <code class="docutils literal notranslate"><span class="pre">--enable-double-precision</span></code> or
 <code class="docutils literal notranslate"><span class="pre">--enable-quad-precision</span></code> to compile CHarm in single, double or quadruple
-precision, respectively (<code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">double</span></code> and <code class="docutils literal notranslate"><span class="pre">__float128</span></code> data type
+precision, respectively (<code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">double</span></code> and <code class="docutils literal notranslate"><span class="pre">__float128</span></code> data types
 for floating point numbers, respectively).  If not specified, double
 precision is used as default.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--enable-openmp</span></code> to enable OpenMP parallelization (no parallelization by
@@ -323,8 +327,6 @@ enabled only when compiling in single or double precision.</p>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--prefix=/your/custom/path</span></code> to specify a custom installation path for
 CHarm (default is <code class="docutils literal notranslate"><span class="pre">--prefix=/usr/local</span></code>).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--enable-shared</span></code> to compile CHarm as a shared library <em>in addition</em> to the
-static library.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">LDFLAGS=-L/your/path/to/FFTW/lib</span></code> to specify a custom path to your FFTW
 libs (empty by default, that is, default is to assume that FFTW is accessible
 to the compiler).</p>
@@ -334,6 +336,7 @@ themselves are linked automatically.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">CPPFLAGS=-I/your/path/to/FFTW/include</span></code> to specify a custom path to your
 FFTW header file (empty by default, that is, default is to assume that FFTW
 is accessible to the compiler).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--disable-shared</span></code> to not compile CHarm as a shared library.</p></li>
 <li><p>Other useful variables:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">CC</span></code> selects other than your system’s default C compiler,
@@ -350,13 +353,12 @@ e.g. <code class="docutils literal notranslate"><span class="pre">CC=clang</span
 <li><p>with a custom CHarm installation directory,</p></li>
 <li><p>with a custom FFTW installation directory,</p></li>
 <li><p>in quadruple precision,</p></li>
-<li><p>with OpenMP parallelization enabled,</p></li>
-<li><p>with SIMD instructions disabled, and</p></li>
-<li><p>with the shared library, too,</p></li>
+<li><p>with OpenMP parallelization enabled, and</p></li>
+<li><p>with SIMD instructions disabled</p></li>
 </ul>
 <p>looks like:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --prefix=/opt/charm --enable-openmp --enable-shared \</span>
-<span class="go">     --enable-quad-precision LDFLAGS=-L/opt/fftwq-3.3.9/lib \</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --prefix=/opt/charm --enable-openmp --enable-quad-precision \</span>
+<span class="go">     LDFLAGS=-L/opt/fftwq-3.3.9/lib \</span>
 <span class="go">     CPPFLAGS=-I/opt/fftwq-3.3.9/include</span>
 <span class="go">make</span>
 <span class="go">make check</span>
@@ -366,11 +368,11 @@ e.g. <code class="docutils literal notranslate"><span class="pre">CC=clang</span
 </div>
 </div>
 <div class="section" id="installation-on-macos">
-<span id="installation-mac"></span><h2>Installation on macOS<a class="headerlink" href="#installation-on-macos" title="Permalink to this headline">¶</a></h2>
+<span id="installation-mac"></span><h3>Installation on macOS<a class="headerlink" href="#installation-on-macos" title="Permalink to this headline">¶</a></h3>
 <p>At first, we will install FFTW and then we will proceed with the installation
 of CHarm.</p>
-<div class="section" id="id2">
-<h3>FFTW installation<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id1">
+<h4>FFTW installation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
 <p>FFTW can either be installed via you package manager or built from the source,
 preferably with GCC.  The latter is strongly recommended on macOS.</p>
 <ul>
@@ -397,7 +399,7 @@ installed yet, you may execute one of the following commands:</p>
 There is, however, one <strong>important</strong> additional remark.  When calling the
 FFTW’s <code class="docutils literal notranslate"><span class="pre">./configure</span></code> script, specify also your GCC compiler, including its
 version number, e.g.:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --enable-openmp --enable-shared CC=gcc-10</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --enable-openmp CC=gcc-10</span>
 </pre></div>
 </div>
 <p>Without the <code class="docutils literal notranslate"><span class="pre">CC</span></code> flag, the <code class="docutils literal notranslate"><span class="pre">Clang</span></code> compiler will most likely be used
@@ -408,8 +410,8 @@ the <code class="docutils literal notranslate"><span class="pre">Clang</span></c
 </li>
 </ul>
 </div>
-<div class="section" id="charm-installation">
-<h3>CHarm installation<a class="headerlink" href="#charm-installation" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id2">
+<h4>CHarm installation<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
 <p>Having installed FFTW, you may proceed with the same instructions as given in
 the <a class="reference internal" href="#default-installation-charm-linux"><span class="std std-ref">Default CHarm installation</span></a> and
 <a class="reference internal" href="#customized-installation-charm-linux"><span class="std std-ref">Customized CHarm installation</span></a> chapters for Linux.  Similarly as
@@ -418,7 +420,7 @@ variable when calling the <code class="docutils literal notranslate"><span class
 </div>
 </div>
 <div class="section" id="a-few-installation-notes">
-<h2>A few installation notes<a class="headerlink" href="#a-few-installation-notes" title="Permalink to this headline">¶</a></h2>
+<h3>A few installation notes<a class="headerlink" href="#a-few-installation-notes" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p>The output lib names depend on the user-defined compilation settings and
 follow the pattern:</p>
@@ -439,8 +441,117 @@ to worry about overwriting the header and lib files.</p></li>
 </ul>
 </div>
 <div class="section" id="uninstallation">
-<h2>Uninstallation<a class="headerlink" href="#uninstallation" title="Permalink to this headline">¶</a></h2>
+<span id="charm-uninstallation"></span><h3>Uninstallation<a class="headerlink" href="#uninstallation" title="Permalink to this headline">¶</a></h3>
 <p>Execute <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">make</span> <span class="pre">uninstall</span></code>.</p>
+</div>
+</div>
+<div class="section" id="pyharm-the-python-wrapper">
+<span id="pyharm-installation"></span><h2>PyHarm (the Python wrapper)<a class="headerlink" href="#pyharm-the-python-wrapper" title="Permalink to this headline">¶</a></h2>
+<p>Before reading this chapter, make sure you know how to compile <a class="reference internal" href="#charm-installation"><span class="std std-ref">CHarm</span></a>.  Otherwise, you won’t be able to build PyHarm.</p>
+<div class="section" id="id3">
+<h3>Requirements<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p><em>Additional</em> prerequisites when compared with <a class="reference internal" href="#charm-requirements"><span class="std std-ref">requirements</span></a>:</p>
+<ul class="simple">
+<li><p>Python interpreter 3.6 or newer.</p></li>
+<li><p>Python module <a class="reference external" href="https://numpy.org/">numpy</a> (reasonably old version).</p></li>
+<li><p>Python module <a class="reference external" href="https://docs.python.org/3/library/ctypes.html">ctypes</a>
+(reasonably old version).</p></li>
+</ul>
+</div>
+<div class="section" id="building-pyharm">
+<h3>Building PyHarm<a class="headerlink" href="#building-pyharm" title="Permalink to this headline">¶</a></h3>
+<p>Installation of PyHarm is disabled by default.  To enable it, you have to add
+the <code class="docutils literal notranslate"><span class="pre">--enable-python</span></code> flag to the <code class="docutils literal notranslate"><span class="pre">configure</span></code> call <em>in addition</em> to the
+flags discussed in the <a class="reference internal" href="#charm-installation"><span class="std std-ref">CHarm (the C library)</span></a>
+chapter.</p>
+<p>The following flags may be used in addition to <code class="docutils literal notranslate"><span class="pre">--enable-python</span></code>.</p>
+<ul>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">PYTHON</span></code> variable specifies the Python interpreter you want to use.
+For instance, <code class="docutils literal notranslate"><span class="pre">PYTHON=python3.9</span></code> will ensure that the build is done
+with/for Python version 3.9.  Use the appropriate version (depends on your
+machine).</p></li>
+<li><p>By default, PyHarm is built to the <code class="docutils literal notranslate"><span class="pre">${prefix}/lib</span></code> directory.  The path in
+<code class="docutils literal notranslate"><span class="pre">${prefix}</span></code> is taken from the <code class="docutils literal notranslate"><span class="pre">--prefix</span></code> flag (see <a class="reference internal" href="#charm-installation"><span class="std std-ref">CHarm (the
+C library)</span></a>).  The default installation path can be
+replaced by a custom one using the <code class="docutils literal notranslate"><span class="pre">--with-python_prefix</span></code> flag, for
+instance, <code class="docutils literal notranslate"><span class="pre">--with-python_prefix=/home/isaac/pyharm</span></code>.</p>
+<p>Using the correct path in <code class="docutils literal notranslate"><span class="pre">--with-python_prefix</span></code> is crucial for Python to
+find PyHarm.  Otherwise, when calling</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharm</span>
+</pre></div>
+</div>
+<p>from within the Python shell or a Python script, <code class="docutils literal notranslate"><span class="pre">ModuleNotFoundError</span></code> will
+be thrown.</p>
+<p>There are several strategies to choose the installation path.</p>
+<ul>
+<li><p>If you are not really confident with all this, create and activate a Python
+virtual environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 -m venv /path/to/your/virtual/environment/
+<span class="nb">source</span> /path/to/your/virtual/enviroment/bin/activate
+</pre></div>
+</div>
+<p>Then use <code class="docutils literal notranslate"><span class="pre">--with-python_prefix=/path/to/your/virtual/environment</span></code> when
+calling the <code class="docutils literal notranslate"><span class="pre">configure</span></code> script.  After executing <code class="docutils literal notranslate"><span class="pre">make</span></code> and <code class="docutils literal notranslate"><span class="pre">make</span>
+<span class="pre">install</span></code>, you are ready to import PyHarm in a Python shell or a Python
+script:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharm</span>
+</pre></div>
+</div>
+</li>
+<li><p>If you want to install PyHarm as a user, find the lib path of your Python
+user packages, for instance,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 -m site --user-site
+</pre></div>
+</div>
+<p>The output might like <code class="docutils literal notranslate"><span class="pre">/home/isaac/.local/lib/python3.9/site-packages</span></code>,
+depending on the version of your Python and on your OS.  Based on this
+path, you can specify your installation path; in this case it is
+<code class="docutils literal notranslate"><span class="pre">--with-python_prefix=/home/isaac/.local</span></code>.  Note that the
+<code class="docutils literal notranslate"><span class="pre">lib/python3.9/site-packages</span></code> directories have to be omitted, as they are
+added to the installation path automatically.</p>
+</li>
+<li><p>If you want to install PyHarm next to your system Python packages, you must
+specify neither <code class="docutils literal notranslate"><span class="pre">--prefix</span></code> nor <code class="docutils literal notranslate"><span class="pre">--with-python_prefix</span></code>.</p></li>
+</ul>
+<p>Note that if you use custom a path in <code class="docutils literal notranslate"><span class="pre">--prefix</span></code> but do not specify
+<code class="docutils literal notranslate"><span class="pre">--with-python_prefix</span></code>, you will most likely not be able to (easily) import
+PyHarm.</p>
+</li>
+</ul>
+<div class="section" id="example-installation">
+<h4>Example installation<a class="headerlink" href="#example-installation" title="Permalink to this headline">¶</a></h4>
+<p>A typical installation of PyHarm to a Python virtual environment looks like
+this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 -m venv /tmp/python-venv
+./configure --prefix<span class="o">=</span>/tmp/charm --enable-openmp <span class="se">\</span>
+   <span class="nv">LDFLAGS</span><span class="o">=</span>-L/opt/fftw-3.3.9/lib <span class="nv">CPPFLAGS</span><span class="o">=</span>-I/opt/fftw-3.3.9/include <span class="se">\</span>
+   --enable-python <span class="nv">PYTHON</span><span class="o">=</span>python3.9 --with-python_prefix<span class="o">=</span>/tmp/python-venv
+make
+make check
+make install
+</pre></div>
+</div>
+<p>Now activate the virtual environment and open Python:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> /tmp/python-venv/bin/activate
+python3
+</pre></div>
+</div>
+<p>From within Python, you can now work with PyHarm:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ph</span><span class="o">.</span><span class="n">misc</span><span class="o">.</span><span class="n">print_version</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">quit</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Deactivate the virtual environment from the shell:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>deactivate
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>Uninstallation<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>See <a class="reference internal" href="#charm-uninstallation"><span class="std std-ref">Uninstallation</span></a>.</p>
+</div>
 </div>
 </div>
 

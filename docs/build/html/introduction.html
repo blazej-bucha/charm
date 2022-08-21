@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Introduction &mdash; CHarm 0.1.1-dev documentation</title>
+  <title>Introduction &mdash; CHarm 0.1.2-dev documentation</title>
   
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.1.1-dev
+                0.1.2-dev
               </div>
             
           
@@ -105,7 +105,7 @@
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Interfaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
@@ -180,7 +180,7 @@
   <div class="section" id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
 <p>CHarm is a C library to work with spherical harmonics up to almost arbitrarily
-high degrees.</p>
+high degrees.  The library is accompanied by a Python wrapper called PyHarm.</p>
 <div class="section" id="features">
 <h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -206,6 +206,10 @@ shared-memory architectures.</p></li>
 <li><p>Supports AVX, AVX2 and AVX-512 SIMD CPU instructions to improve the
 performance.</p></li>
 <li><p>Performs discrete FFT by <a class="reference external" href="http://www.fftw.org/">FFTW</a>.</p></li>
+<li><p>Ships with a Python wrapper to enable high-level programming while retaining
+the efficiency of the C language.  The wrapper, called PyHarm, wraps CHarm
+using <a class="reference external" href="https://docs.python.org/3/library/ctypes.html">ctypes</a> and is fully
+integrated with <a class="reference external" href="https://numpy.org/">numpy</a>.</p></li>
 </ul>
 <dl class="footnote brackets">
 <dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
@@ -228,17 +232,18 @@ performance.</p></li>
 <h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
 <p>The documentation of the latest version from the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch is available
 at <a class="reference external" href="https://blazej-bucha.github.io/charm/index.html">https://blazej-bucha.github.io/charm/index.html</a>.</p>
-<p>A pre-compiled HTML documentation is also available in <code class="docutils literal notranslate"><span class="pre">docs/build/html</span></code> or
-it can be built by executing <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">docs</span></code> (requires <code class="docutils literal notranslate"><span class="pre">doxygen</span></code> and Python
-modules <code class="docutils literal notranslate"><span class="pre">sphinx</span></code>, <code class="docutils literal notranslate"><span class="pre">sphinx_rtd_theme</span></code> and <code class="docutils literal notranslate"><span class="pre">breathe</span></code>).  PDF and other
-versions of the documentation can also be built (outside the installation
-system) as <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">docs</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span> <span class="pre">-f</span> <span class="pre">Makefile-sphinx</span> <span class="pre">latexpdf</span></code>, etc.</p>
+<p>A pre-compiled HTML documentation is also available in <code class="docutils literal notranslate"><span class="pre">docs/build/html</span></code>.
+Alternatively, it can be built by executing <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code> after the
+<code class="docutils literal notranslate"><span class="pre">configure</span></code> call (requires <code class="docutils literal notranslate"><span class="pre">doxygen</span></code> and Python modules <code class="docutils literal notranslate"><span class="pre">sphinx</span></code>,
+<code class="docutils literal notranslate"><span class="pre">sphinx_rtd_theme</span></code> and <code class="docutils literal notranslate"><span class="pre">breathe</span></code>).  Other formats of the documentation, for
+instance, a PDF file, can be built with <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">docs</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span> <span class="pre">latexpdf</span></code>, etc.  To
+list all available formats, execute <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">docs</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span> <span class="pre">help</span></code>.</p>
 </div>
 <div class="section" id="contact">
 <span id="id2"></span><h2>Contact<a class="headerlink" href="#contact" title="Permalink to this headline">¶</a></h2>
 <p>Should you have any comments, questions, bug report or criticism, please feel
 free to contact the author, Blažej Bucha, at <a class="reference external" href="mailto:blazej&#46;bucha&#37;&#52;&#48;stuba&#46;sk">blazej<span>&#46;</span>bucha<span>&#64;</span>stuba<span>&#46;</span>sk</a>.  Further
-products developed by the author can be found at <a class="reference external" href="https://blazejbucha.com">https://blazejbucha.com</a>.</p>
+products developed by the author can be found at <a class="reference external" href="https://www.blazejbucha.com">https://www.blazejbucha.com</a>.</p>
 </div>
 <div class="section" id="other-spherical-harmonic-based-libraries">
 <h2>Other spherical-harmonic-based libraries<a class="headerlink" href="#other-spherical-harmonic-based-libraries" title="Permalink to this headline">¶</a></h2>
@@ -271,9 +276,9 @@ Spherical harmonic analysis and synthesis in MATLAB up to high degrees and
 orders,</p></li>
 <li><p><a class="reference external" href="https://sourceforge.net/projects/hmanipulator/">Spherical Harmonics Manipulator</a>: Spherical harmonic
 synthesis in sparse points and grids (no longer maintained),</p></li>
-<li><p><a class="reference external" href="https://blazejbucha.com/#GrafLab">GrafLab</a> and <a class="reference external" href="https://blazejbucha.com/#isGrafLab">isGrafLab</a>: MATLAB-based software packages for
-spherical harmonic synthesis of gravity field functionals up to high degrees
-and orders (tens of thousands and well beyond).</p></li>
+<li><p><a class="reference external" href="https://github.com/blazej-bucha/graflab">GrafLab</a> and <a class="reference external" href="https://github.com/blazej-bucha/isgraflab">isGrafLab</a>: MATLAB-based software packages
+for spherical harmonic synthesis of gravity field functionals up to high
+degrees and orders (tens of thousands and well beyond).</p></li>
 </ul>
 </div>
 </div>

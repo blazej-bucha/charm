@@ -5,13 +5,8 @@
  * entire CHarm library, it is sufficient to include ``charm@P@.h`` only,
  * instead of explicitely providing all the individual modules.
  *
- * \verbatim embed:rst:leading-asterisk
- *      .. note::
- *
- *          ``charm@P@`` is not an actual module in the sense that it does not
- *          have its ``*.c`` source code to do some special tasks.
- *
- * \endverbatim
+ * @note This is not an actual module in the sense that it does not have its
+ * ``*.c`` source code to do some special tasks.
  *
  * */
 

@@ -1,0 +1,840 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>PyHarm &mdash; CHarm 0.1.2-dev documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom_BB.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Interfaces" href="api.html" />
+    <link rel="prev" title="CHarm" href="cookbook-c.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> CHarm
+          
+
+          
+            
+            <img src="_static/charm-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.2-dev
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="cookbook.html">Cookbook</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cookbook-c.html">CHarm</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">PyHarm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pyharm-in-double-precision">PyHarm in double precision</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#integration-with-numpy">Integration with NumPy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#working-with-spherical-harmonic-coefficients">Working with spherical harmonic coefficients</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spherical-harmonic-synthesis-and-analysis">Spherical harmonic synthesis and analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fourier-coefficients-of-legendre-functions">Fourier coefficients of Legendre functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#integrals">Integrals</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyharm-in-single-precision">PyHarm in single precision</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CHarm</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="cookbook.html">Cookbook</a> &raquo;</li>
+        
+      <li>PyHarm</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/cookbook-py.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pyharm">
+<span id="pyharm-cookbook"></span><h1>PyHarm<a class="headerlink" href="#pyharm" title="Permalink to this headline">¶</a></h1>
+<p>This chapter demonstrates how to perform some basic tasks with
+PyHarm.  For a detailed description of the classes, methods, functions, etc. to
+be used, see the <a class="reference internal" href="api-py.html#py-api"><span class="std std-ref">PyHarm (Python API)</span></a> chapter.  The source codes of the examples can
+be found in the <code class="docutils literal notranslate"><span class="pre">cookbook/python</span></code> directory.</p>
+<p>In your Python code, import PyHarm in double precision by:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
+</pre></div>
+</div>
+<p>To import PyHarm in single precision, execute:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharmf</span> <span class="k">as</span> <span class="nn">phf</span>
+</pre></div>
+</div>
+<p>Both precisions can be combined in a single Python file, too:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharmf</span> <span class="k">as</span> <span class="nn">phf</span>
+</pre></div>
+</div>
+<p>The chapters that follow show how to work with PyHarm in double and single
+precision, respectively.  Note that PyHarm does not support quadruple
+precision.</p>
+<div class="section" id="pyharm-in-double-precision">
+<h2>PyHarm in double precision<a class="headerlink" href="#pyharm-in-double-precision" title="Permalink to this headline">¶</a></h2>
+<p>PyHarm attempts to follow the rules of the object-oriented programming
+paradigm.  Several classes are introduced to represent spherical harmonic
+coefficients, coordinates of evaluation points/cells and Fourier coefficients
+of Legendre functions.  Most of the classes are accompanied by factory methods
+to instantiate the classes.  Whenever there is a factory method available,
+users should always create class instances with one of the factory methods.
+The factory methods are summarized within the class documentation.
+Alternatively, they can be found by searching for the <em>classmethod</em> flag that
+precedes the class method names in the documentation.</p>
+<div class="section" id="integration-with-numpy">
+<h3>Integration with NumPy<a class="headerlink" href="#integration-with-numpy" title="Permalink to this headline">¶</a></h3>
+<p>PyHarm supports NumPy arrays.  All arrays consisting of floating point data
+must</p>
+<ul class="simple">
+<li><p>be instances of the <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> class,</p></li>
+<li><p>have the <code class="docutils literal notranslate"><span class="pre">dtype</span></code> flag set to <code class="docutils literal notranslate"><span class="pre">numpy.float64</span></code> (or to <code class="docutils literal notranslate"><span class="pre">numpy.float32</span></code> if
+the library was compiled in single precision), and</p></li>
+<li><p>have the <code class="docutils literal notranslate"><span class="pre">flags.c_contiguous</span></code> set to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+</ul>
+<p>As an example, let’s create a 1D numpy array <code class="docutils literal notranslate"><span class="pre">x</span></code> that meets all of these
+conditions.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">5</span><span class="p">,))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span>
+<span class="go">dtype(&#39;float64&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">c_contiguous</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>In this code snippet, we did not specify the <code class="docutils literal notranslate"><span class="pre">dtype</span></code> and <code class="docutils literal notranslate"><span class="pre">order</span></code> flags when
+calling <code class="docutils literal notranslate"><span class="pre">numpy.zeros</span></code>.  Therefore, numpy automatically used their default
+values, namely <code class="docutils literal notranslate"><span class="pre">numpy.float64</span></code> and <code class="docutils literal notranslate"><span class="pre">'C'</span></code>.  In some cases, you might need to
+explicitly specify the two flags:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">5</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span>
+<span class="go">dtype(&#39;float64&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">c_contiguous</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>For further details, see the <a class="reference external" href="https://numpy.org/">NumPy</a> documentation.</p>
+<p>If an array passed to PyHarm does not meet all the required criteria, PyHarm
+will throw an error.</p>
+</div>
+<div class="section" id="working-with-spherical-harmonic-coefficients">
+<h3>Working with spherical harmonic coefficients<a class="headerlink" href="#working-with-spherical-harmonic-coefficients" title="Permalink to this headline">¶</a></h3>
+<p>This example shows how to read/write spherical harmonic coefficients from/to
+files and how to compute (difference) degree variances.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
+
+
+<span class="c1"># INPUTS</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># Define the path to an input &quot;gfc&quot; text file with spherical harmonic </span>
+<span class="c1"># coefficients.  For details on the structure of the &quot;gfc&quot; file, see the </span>
+<span class="c1"># documentation.</span>
+<span class="n">shcs_in_file</span> <span class="o">=</span> <span class="s1">&#39;../../data/input/EGM96-degree10.gfc&#39;</span>
+
+
+<span class="c1"># Maximum harmonic degree to read the spherical harmonic coefficients</span>
+<span class="n">nmax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+
+<span class="c1"># Define the path to an output binary file with spherical harmonic </span>
+<span class="c1"># coefficients.  For details on the structure of the output binary file, see </span>
+<span class="c1"># the documentation of the &quot;shc&quot; module of &quot;CHarm&quot;.</span>
+<span class="n">shcs_out_file</span> <span class="o">=</span> <span class="s1">&#39;../../data/output/EGM96-degree10.shcs&#39;</span>
+<span class="c1"># =============================================================================</span>
+
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># Read the spherical harmonic coefficients using the factory method </span>
+<span class="c1"># &quot;from_file_gfc&quot; of the &quot;Shc&quot; class from the &quot;ph.shc&quot; module.</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="n">shcs</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">from_file_gfc</span><span class="p">(</span><span class="n">shcs_in_file</span><span class="p">,</span> <span class="n">nmax</span><span class="p">)</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+
+<span class="c1"># Now print some more or less randomly chosen spherical harmonic coefficients</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># Let&#39;s start with zonal coefficients</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">cnm</span><span class="p">,</span> <span class="n">snm</span> <span class="o">=</span> <span class="n">shcs</span><span class="o">.</span><span class="n">get_coeffs</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;C(</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">m</span><span class="si">}</span><span class="s1">) = </span><span class="si">{</span><span class="n">cnm</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;S(</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">m</span><span class="si">}</span><span class="s1">) = </span><span class="si">{</span><span class="n">snm</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># Now some tesseral coefficients</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">cnm</span><span class="p">,</span> <span class="n">snm</span> <span class="o">=</span> <span class="n">shcs</span><span class="o">.</span><span class="n">get_coeffs</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;C(</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">m</span><span class="si">}</span><span class="s1">) = </span><span class="si">{</span><span class="n">cnm</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;S(</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">m</span><span class="si">}</span><span class="s1">) = </span><span class="si">{</span><span class="n">snm</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># And finally some sectorial coefficients</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="n">cnm</span><span class="p">,</span> <span class="n">snm</span> <span class="o">=</span> <span class="n">shcs</span><span class="o">.</span><span class="n">get_coeffs</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;C(</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">m</span><span class="si">}</span><span class="s1">) = </span><span class="si">{</span><span class="n">cnm</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;S(</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">m</span><span class="si">}</span><span class="s1">) = </span><span class="si">{</span><span class="n">snm</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+
+<span class="c1"># Now let&#39;s save the coefficients to a binary file and then read them back to </span>
+<span class="c1"># another structure for spherical harmonic coefficients.  Just for the fun...</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="n">shcs</span><span class="o">.</span><span class="n">to_file_bin</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">shcs_out_file</span><span class="p">)</span>
+
+
+<span class="c1"># Read back the coefficients to a new class instance called &quot;shcs2&quot;</span>
+<span class="n">shcs2</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">from_file_bin</span><span class="p">(</span><span class="n">shcs_out_file</span><span class="p">,</span> <span class="n">nmax</span><span class="p">)</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+
+<span class="c1"># Compute degree variances from the loaded coefficients</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="n">dv</span> <span class="o">=</span> <span class="n">shcs</span><span class="o">.</span><span class="n">dv</span><span class="p">()</span>
+
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Degree variance for harmonic degree </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1"> = </span><span class="si">{</span><span class="n">dv</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Degree variance for harmonic degree </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1"> = </span><span class="si">{</span><span class="n">dv</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Degree variance for harmonic degree </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1"> = </span><span class="si">{</span><span class="n">dv</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+
+<span class="c1"># Now check whether &quot;shcs&quot; and &quot;shcs2&quot; contain the same coefficients by </span>
+<span class="c1"># computing difference degree variances</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="n">ddv</span> <span class="o">=</span> <span class="n">shcs</span><span class="o">.</span><span class="n">ddv</span><span class="p">(</span><span class="n">shcs2</span><span class="p">)</span>
+
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Degree variance for harmonic degree </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1"> = </span><span class="si">{</span><span class="n">ddv</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Degree variance for harmonic degree </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1"> = </span><span class="si">{</span><span class="n">ddv</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Degree variance for harmonic degree </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1"> = </span><span class="si">{</span><span class="n">ddv</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Great, all done!&#39;</span><span class="p">)</span>
+<span class="c1"># =============================================================================</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="spherical-harmonic-synthesis-and-analysis">
+<h3>Spherical harmonic synthesis and analysis<a class="headerlink" href="#spherical-harmonic-synthesis-and-analysis" title="Permalink to this headline">¶</a></h3>
+<p>This section shows several examples.</p>
+<ul class="simple">
+<li><p>A closed-loop test of analysis and synthesis with point data values.  First,
+spherical harmonic coefficients are loaded from a text file.  Then, they are
+used to synthesize a signal, from which a new set of coefficients is finally
+computed by surface spherical harmonic analysis.  The two coefficients sets
+are then finally compared (should be equal, that is, the difference degree
+amplitudes should be negligibly small).</p></li>
+<li><p>A solid spherical harmonic synthesis of point values at scattered points.</p></li>
+<li><p>A solid spherical harmonic synthesis of point values at a custom grid of
+points.</p></li>
+<li><p>A solid spherical harmonic synthesis of block-mean values at scattered cells.</p></li>
+<li><p>A solid spherical harmonic synthesis of block mean values at a grid of cells.</p></li>
+<li><p>Surface spherical harmonic analysis with block-mean values in cells.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
+
+
+<span class="c1"># INPUTS</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># Define the path to an input text file with spherical harmonic coefficients.  </span>
+<span class="c1"># For details on the structure of the text file, see the documentation.</span>
+<span class="n">shcs_in_file</span> <span class="o">=</span> <span class="s1">&#39;../../data/input/EGM96-degree10-mtx.txt&#39;</span>
+
+
+<span class="c1"># Maximum harmonic degree of coefficients to read.  The same degree is used </span>
+<span class="c1"># later in the harmonic synthesis and harmonic analysis.</span>
+<span class="n">nmax</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="c1"># =============================================================================</span>
+
+
+<span class="c1"># =============================================================================</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Closed-loop experiment -- Spherical harmonic synthesis and analysis&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===========================&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># Read spherical harmonic coefficients from the input text file.</span>
+<span class="n">shcs</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">from_file_mtx</span><span class="p">(</span><span class="n">shcs_in_file</span><span class="p">,</span> <span class="n">nmax</span><span class="p">)</span>
+
+
+<span class="c1"># Now let&#39;s say we do not want to use the zero-degree term.  This can be </span>
+<span class="c1"># achieved simply by setting the respective &quot;C00&quot; coefficient to zero.</span>
+<span class="n">shcs</span><span class="o">.</span><span class="n">set_coeffs</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+
+
+<span class="c1"># Compute the Gauss--Legendre grid for a given &quot;nmax&quot; on a sphere that is </span>
+<span class="c1"># &quot;1000.0&quot; metres above the reference sphere of spherical harmonic </span>
+<span class="c1"># coefficients.  PyHarm represents the Gauss--Legendre grid via the </span>
+<span class="c1"># &quot;PointGridGL&quot; class.  For the Driscoll--Healy grids, PyHarm has the </span>
+<span class="c1"># &quot;PointGridDH1&quot; and &quot;PointGridDH2&quot; classes (see the documentation).</span>
+<span class="n">grd_pnt</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">crd</span><span class="o">.</span><span class="n">PointGridGL</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">shcs</span><span class="o">.</span><span class="n">r</span> <span class="o">+</span> <span class="mf">1000.0</span><span class="p">)</span>
+
+
+<span class="c1"># Perform the synthesis.  Since the Gauss--Legendre grid resides &quot;1000.0&quot;</span>
+<span class="c1"># metres above the reference sphere of the coefficients, performed is</span>
+<span class="c1"># solid spherical harmonic synthesis.</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shs</span><span class="o">.</span><span class="n">point</span><span class="p">(</span><span class="n">grd_pnt</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">nmax</span><span class="p">)</span>
+
+
+<span class="c1"># Note on parallelization</span>
+<span class="c1"># -----------------------</span>
+<span class="c1">#</span>
+<span class="c1"># If you compiled the library with OpenMP parallelization enabled, you can </span>
+<span class="c1"># control the number of threads being used either by an environmental variable </span>
+<span class="c1"># or in your Python code, for instance, like this:</span>
+<span class="c1">#</span>
+<span class="c1"># from threadpoolctl import threadpool_limits</span>
+<span class="c1"># with threadpool_limits(limits=2):</span>
+<span class="c1">#     f = ph.shs.point(grd_pnt, shcs, nmax)</span>
+
+
+<span class="c1"># Print some synthesized values</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Print some synthesized values of the signal...&#39;</span><span class="p">)</span>
+<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;f(</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s1">) = </span><span class="si">{</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+<span class="n">i</span> <span class="o">=</span> <span class="n">grd_pnt</span><span class="o">.</span><span class="n">lat</span><span class="o">.</span><span class="n">size</span> <span class="o">//</span> <span class="mi">2</span>
+<span class="n">j</span> <span class="o">=</span> <span class="n">grd_pnt</span><span class="o">.</span><span class="n">lat</span><span class="o">.</span><span class="n">size</span> <span class="o">//</span> <span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;f(</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s1">) = </span><span class="si">{</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># Now use the synthesized signal and compute back its spherical harmonic </span>
+<span class="c1"># coefficients by harmonic analysis.  The output coefficients in &quot;shcs2&quot; should </span>
+<span class="c1"># be the same as the input ones &quot;shcs&quot;.  Note that the signal &quot;f&quot; resides on </span>
+<span class="c1"># a sphere that is &quot;1000.0&quot; metres above the reference sphere.  Therefore, the </span>
+<span class="c1"># coefficients are automatically properly rescaled to the desired sphere </span>
+<span class="c1"># defined by &quot;shcs2.r&quot;.</span>
+<span class="n">shcs2</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">sha</span><span class="o">.</span><span class="n">point</span><span class="p">(</span><span class="n">grd_pnt</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">shcs</span><span class="o">.</span><span class="n">mu</span><span class="p">,</span> <span class="n">shcs</span><span class="o">.</span><span class="n">r</span><span class="p">)</span>
+
+
+<span class="c1"># Now check whether &quot;shcs&quot; and &quot;shcs2&quot; are the same by computing their </span>
+<span class="c1"># difference degree amplitudes</span>
+<span class="n">dda</span> <span class="o">=</span> <span class="n">shcs</span><span class="o">.</span><span class="n">dda</span><span class="p">(</span><span class="n">shcs2</span><span class="p">)</span>
+
+
+<span class="c1"># Print some difference degree amplitudes</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Now print the difference degree amplitudes.  These should be&#39;</span>
+      <span class="s1">&#39;very small, say, at the order of 1e-18 or less...&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Difference degree amplitude for harmonic degree </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1"> = </span><span class="si">{</span><span class="n">dda</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Difference degree amplitude for harmonic degree </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1"> = </span><span class="si">{</span><span class="n">dda</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Difference degree amplitude for harmonic degree </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1"> = </span><span class="si">{</span><span class="n">dda</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># We will not need some of the variables anymore, so let&#39;s free the memory by </span>
+<span class="c1"># deleting them</span>
+<span class="k">del</span> <span class="n">grd_pnt</span><span class="p">,</span> <span class="n">shcs2</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">dda</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===========================&#39;</span><span class="p">)</span>
+<span class="c1"># =============================================================================</span>
+
+
+<span class="c1"># =============================================================================</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Solid spherical harmonic synthesis at scattered points&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===========================&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># Create a &quot;PointSctr&quot; class instance to store three scattered points.  The </span>
+<span class="c1"># instance will be created from three numpy arrays that hold the coordinates of </span>
+<span class="c1"># the scattered points.</span>
+<span class="n">lat</span>      <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.436231</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9651</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+<span class="n">lon</span>      <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.53434</span><span class="p">,</span> <span class="mf">4.2316</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+<span class="n">r</span>        <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1000.0</span><span class="p">,</span> <span class="mf">2000.0</span><span class="p">,</span> <span class="mf">3000.0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span> <span class="o">+</span> <span class="n">shcs</span><span class="o">.</span><span class="n">r</span>
+<span class="n">sctr_pnt</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">crd</span><span class="o">.</span><span class="n">PointSctr</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+
+
+<span class="c1"># Do the synthesis</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shs</span><span class="o">.</span><span class="n">point</span><span class="p">(</span><span class="n">sctr_pnt</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">nmax</span><span class="p">)</span>
+
+
+<span class="c1"># It&#39;s really this easy!</span>
+
+
+<span class="c1"># Print the synthesized values</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+<span class="k">del</span> <span class="n">sctr_pnt</span><span class="p">,</span> <span class="n">f</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===========================&#39;</span><span class="p">)</span>
+<span class="c1"># =============================================================================</span>
+
+
+<span class="c1"># =============================================================================</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Solid spherical harmonic synthesis at a custom grid of points&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===========================&#39;</span><span class="p">)</span>
+
+<span class="c1"># Define some grid points as numpy arrays.  Then create a &quot;PointGrid&quot; class </span>
+<span class="c1"># that is designed to store custom point grids.</span>
+<span class="n">nlat</span>    <span class="o">=</span> <span class="mi">5</span>
+<span class="n">nlon</span>    <span class="o">=</span> <span class="mi">10</span>
+<span class="n">lat</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">nlat</span><span class="p">)</span>
+<span class="n">lon</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">nlon</span><span class="p">)</span>
+<span class="n">r</span>       <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nlat</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span> <span class="o">+</span> <span class="n">shcs</span><span class="o">.</span><span class="n">r</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">nlat</span><span class="p">)</span>
+<span class="n">grd_pnt</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">crd</span><span class="o">.</span><span class="n">PointGrid</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+
+
+<span class="c1"># Do the synthesis</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shs</span><span class="o">.</span><span class="n">point</span><span class="p">(</span><span class="n">grd_pnt</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">nmax</span><span class="p">)</span>
+
+
+<span class="c1"># Print the synthesized values</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+<span class="k">del</span> <span class="n">grd_pnt</span><span class="p">,</span> <span class="n">f</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===========================&#39;</span><span class="p">)</span>
+<span class="c1"># =============================================================================</span>
+
+
+<span class="c1"># =============================================================================</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Solid spherical harmonic synthesis at scattered cells&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===========================&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># Now we define evaluation cells to synthesize area mean values.  To this end, </span>
+<span class="c1"># we specify numpy arrays of minimum and maximum latitudes and longitudes and </span>
+<span class="c1"># an array of spherical radii.  Using these arrays, we create a &quot;CellSctr&quot; </span>
+<span class="c1"># class instance.</span>
+<span class="n">latmax</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.323413435</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.90234320952</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+<span class="n">latmin</span>    <span class="o">=</span> <span class="n">latmax</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.234323</span><span class="p">,</span> <span class="mf">0.4456</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">])</span>
+<span class="n">lonmin</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.123456789</span><span class="p">,</span> <span class="mf">4.3445234</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+<span class="n">lonmax</span>    <span class="o">=</span> <span class="n">lonmin</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.3235</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">])</span>
+<span class="n">r</span>         <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">latmin</span><span class="o">.</span><span class="n">size</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span> <span class="o">+</span> <span class="n">shcs</span><span class="o">.</span><span class="n">r</span> <span class="o">+</span> \
+            <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">latmax</span><span class="o">.</span><span class="n">size</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1000.0</span>
+<span class="n">cell_sctr</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">crd</span><span class="o">.</span><span class="n">CellSctr</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span><span class="n">latmin</span><span class="p">,</span> <span class="n">latmax</span><span class="p">,</span> <span class="n">lonmin</span><span class="p">,</span> <span class="n">lonmax</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+
+
+<span class="c1"># Do the synthesis</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shs</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">cell_sctr</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">nmax</span><span class="p">)</span>
+
+
+<span class="c1"># Print the synthesized values</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+<span class="k">del</span> <span class="n">cell_sctr</span><span class="p">,</span> <span class="n">f</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===========================&#39;</span><span class="p">)</span>
+<span class="c1"># =============================================================================</span>
+
+
+<span class="c1"># =============================================================================</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Solid spherical harmonic synthesis at a grid of cells&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===========================&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># Define the grid cells and create a &quot;CellGrid&quot; class instance from numpy </span>
+<span class="c1"># arrays.</span>
+<span class="n">nlat</span>     <span class="o">=</span> <span class="mi">15</span>
+<span class="n">nlon</span>     <span class="o">=</span> <span class="mi">30</span>
+<span class="n">latmax</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">nlat</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">latmin</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">latmax</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">nlat</span><span class="p">)</span>
+<span class="n">lonmin</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">nlon</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">lonmax</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">lonmin</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">nlon</span><span class="p">)</span>
+<span class="n">r</span>        <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nlat</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span> <span class="o">+</span> <span class="n">shcs</span><span class="o">.</span><span class="n">r</span>
+<span class="n">grd_cell</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">crd</span><span class="o">.</span><span class="n">CellGrid</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span><span class="n">latmin</span><span class="p">,</span> <span class="n">latmax</span><span class="p">,</span> <span class="n">lonmin</span><span class="p">,</span> <span class="n">lonmax</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+
+
+<span class="c1"># Do the synthesis</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shs</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">grd_cell</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">nmax</span><span class="p">)</span>
+
+
+<span class="c1"># Print some of the synthesized values</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">j</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;f(</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s1">) = </span><span class="si">{</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+<span class="n">i</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">j</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;f(</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s1">) = </span><span class="si">{</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===========================&#39;</span><span class="p">)</span>
+<span class="c1"># =============================================================================</span>
+
+
+<span class="c1"># =============================================================================</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Spherical harmonic analysis of block-mean values in cells&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===========================&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># In this example, we use the &quot;grd_cell&quot; instance and the signal &quot;f&quot; from the </span>
+<span class="c1"># previous example</span>
+
+
+<span class="c1"># Do the analysis using the approximate quadrature</span>
+<span class="n">shcs2</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">sha</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">grd_cell</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">ph</span><span class="o">.</span><span class="n">sha</span><span class="o">.</span><span class="n">CELL_AQ</span><span class="p">,</span> <span class="n">shcs</span><span class="o">.</span><span class="n">mu</span><span class="p">,</span> <span class="n">shcs</span><span class="o">.</span><span class="n">r</span><span class="p">)</span>
+
+
+<span class="c1"># Print some of the compute coefficients.  Note that the harmonic analysis with </span>
+<span class="c1"># block-mean values in cells is *not* exact, hence the coefficients will not be </span>
+<span class="c1"># equal to the input ones.</span>
+<span class="n">n</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>  <span class="c1"># List of harmonic degrees</span>
+<span class="n">m</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>  <span class="c1"># List of harmonic orders</span>
+<span class="n">cnm</span><span class="p">,</span> <span class="n">snm</span> <span class="o">=</span> <span class="n">shcs2</span><span class="o">.</span><span class="n">get_coeffs</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">m1</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;C(</span><span class="si">{</span><span class="n">n1</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">m1</span><span class="si">}</span><span class="s1">) = </span><span class="si">{</span><span class="n">cnm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;S(</span><span class="si">{</span><span class="n">n1</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">m1</span><span class="si">}</span><span class="s1">) = </span><span class="si">{</span><span class="n">snm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+<span class="k">del</span> <span class="n">grd_cell</span><span class="p">,</span> <span class="n">shcs2</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">shcs</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===========================&#39;</span><span class="p">)</span>
+<span class="c1"># =============================================================================</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="fourier-coefficients-of-legendre-functions">
+<h3>Fourier coefficients of Legendre functions<a class="headerlink" href="#fourier-coefficients-of-legendre-functions" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
+
+
+<span class="c1"># Maximum harmonic degree to compute the Fourier coefficients of Legendre </span>
+<span class="c1"># functions</span>
+<span class="n">nmax</span> <span class="o">=</span> <span class="mi">500</span>
+
+
+<span class="c1"># Create a &quot;ph.leg.Pnmj&quot; class instance using the factory method called </span>
+<span class="c1"># &quot;from_zeros&quot;</span>
+<span class="n">pnmj</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">leg</span><span class="o">.</span><span class="n">Pnmj</span><span class="o">.</span><span class="n">from_zeros</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">ph</span><span class="o">.</span><span class="n">leg</span><span class="o">.</span><span class="n">PNMJ_ORDER_MNJ</span><span class="p">)</span>
+
+
+<span class="c1"># Compute the Fourier coefficients</span>
+<span class="n">pnmj</span><span class="o">.</span><span class="n">coeffs</span><span class="p">()</span>
+
+
+<span class="c1"># Print some Fourier coefficients</span>
+<span class="c1"># Harmonic degree</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">123</span>
+<span class="c1"># Harmonic order</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mi">23</span>
+<span class="c1"># Wave-number-related variable</span>
+<span class="n">j</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">pnmj</span><span class="o">.</span><span class="n">j2k</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">pnmj</span><span class="o">.</span><span class="n">get_coeff</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Fourier coefficients for degree </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">, order </span><span class="si">{</span><span class="n">m</span><span class="si">}</span><span class="s1"> and wave-number </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1"> = &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">360</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mi">358</span>
+<span class="n">j</span> <span class="o">=</span> <span class="mi">101</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">pnmj</span><span class="o">.</span><span class="n">j2k</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Fourier coefficients for degree </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">, order </span><span class="si">{</span><span class="n">m</span><span class="si">}</span><span class="s1"> and wave-number </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1"> = &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Great, all done!&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="integrals">
+<h3>Integrals<a class="headerlink" href="#integrals" title="Permalink to this headline">¶</a></h3>
+<p>Finally, let’s compute an integral of a product of two spherical harmonics over
+a restricted domain on the unit sphere.  Then, we do the same, but with the
+product of Legendre functions only.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
+
+
+<span class="c1"># Type of the first spherical harmonic function, its harmonic degree and order, </span>
+<span class="c1"># respectively</span>
+<span class="n">i1</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">n1</span> <span class="o">=</span> <span class="mi">287</span>
+<span class="n">m1</span> <span class="o">=</span> <span class="mi">122</span>
+
+
+<span class="c1"># Type of the second spherical harmonic function, its harmonic degree and </span>
+<span class="c1"># order, respectively</span>
+<span class="n">i2</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">n2</span> <span class="o">=</span> <span class="mi">34</span>
+<span class="n">m2</span> <span class="o">=</span> <span class="mi">9</span>
+
+
+<span class="c1"># Minimum and maximum co-latitudes of the integration domain</span>
+<span class="n">cltmin</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">cltmax</span> <span class="o">=</span> <span class="mf">0.9</span>
+
+
+<span class="c1"># Minimum and maximum longitudes of the intration domain</span>
+<span class="n">lonmin</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">lonmax</span> <span class="o">=</span> <span class="mf">0.6</span>
+
+
+<span class="c1"># Compute the Fourier coefficients</span>
+<span class="n">nmax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">)</span>
+<span class="n">pnmj</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">leg</span><span class="o">.</span><span class="n">fourier_coeffs</span><span class="p">(</span><span class="n">nmax</span><span class="p">)</span>
+
+
+<span class="c1"># Compute the integral of a product of two spherical harmonics</span>
+<span class="n">iy</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">integ</span><span class="o">.</span><span class="n">yi1n1m1yi2n2m2</span><span class="p">(</span><span class="n">cltmin</span><span class="p">,</span> <span class="n">cltmax</span><span class="p">,</span> <span class="n">lonmin</span><span class="p">,</span> <span class="n">lonmax</span><span class="p">,</span>
+                                 <span class="n">i1</span><span class="p">,</span> <span class="n">n1</span><span class="p">,</span> <span class="n">m1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">m2</span><span class="p">,</span> <span class="n">pnmj</span><span class="p">)</span>
+
+
+<span class="c1"># Print the value of the integral</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The integral of the product of two spherical harmonics &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;i1 = </span><span class="si">{</span><span class="n">i1</span><span class="si">}</span><span class="s1">, n1 = </span><span class="si">{</span><span class="n">n1</span><span class="si">}</span><span class="s1">, m1 = </span><span class="si">{</span><span class="n">m1</span><span class="si">}</span><span class="s1">, i2 = </span><span class="si">{</span><span class="n">i2</span><span class="si">}</span><span class="s1">, n2 = </span><span class="si">{</span><span class="n">n2</span><span class="si">}</span><span class="s1">, m2 = </span><span class="si">{</span><span class="n">m2</span><span class="si">}</span><span class="s1"> &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;is </span><span class="si">{</span><span class="n">iy</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># Now compute the integral of a product of two Legendre functions over </span>
+<span class="c1"># a restricted domain</span>
+<span class="n">ip</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">integ</span><span class="o">.</span><span class="n">pn1m1pn2m2</span><span class="p">(</span><span class="n">cltmin</span><span class="p">,</span> <span class="n">cltmax</span><span class="p">,</span> <span class="n">n1</span><span class="p">,</span> <span class="n">m1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">m2</span><span class="p">,</span> <span class="n">pnmj</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The integral of the product of two Legendre functions &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;n1 = </span><span class="si">{</span><span class="n">n1</span><span class="si">}</span><span class="s1">, m1 = </span><span class="si">{</span><span class="n">m1</span><span class="si">}</span><span class="s1">, n2 = </span><span class="si">{</span><span class="n">n2</span><span class="si">}</span><span class="s1">, m2 = </span><span class="si">{</span><span class="n">m2</span><span class="si">}</span><span class="s1"> is </span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="pyharm-in-single-precision">
+<span id="id1"></span><h2>PyHarm in single precision<a class="headerlink" href="#pyharm-in-single-precision" title="Permalink to this headline">¶</a></h2>
+<p>A few simple rules need to be obeyed when working with PyHarm in single
+precision.</p>
+<ul>
+<li><p>Make sure you have compiled the library in single precision (see
+<a class="reference internal" href="install.html#installing"><span class="std std-ref">Installing</span></a>).</p></li>
+<li><p>In Python, import the PyHarm package as</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharmf</span> <span class="k">as</span> <span class="nn">phf</span>
+</pre></div>
+</div>
+</li>
+<li><p>All floating point constants must be of the <code class="docutils literal notranslate"><span class="pre">numpy.float32</span></code> data type.  For
+instance, while in double precision you can write this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shcs</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">from_zeros</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>in single precision, you have to write:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharmf</span> <span class="k">as</span> <span class="nn">phf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shcs</span> <span class="o">=</span> <span class="n">phf</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">from_zeros</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="mf">1.0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>
+</pre></div>
+</div>
+</li>
+<li><p>All floating point numpy arrays must be of the <code class="docutils literal notranslate"><span class="pre">numpy.float32</span></code> data type.
+So when creating a numpy array to be passed to PyHarm, you must set the
+<code class="docutils literal notranslate"><span class="pre">dtype</span></code> flag to <code class="docutils literal notranslate"><span class="pre">numpy.float32</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharmf</span> <span class="k">as</span> <span class="nn">phf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">5</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">phf</span><span class="o">.</span><span class="n">crd</span><span class="o">.</span><span class="n">PointSctr</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="api.html" class="btn btn-neutral float-right" title="Interfaces" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="cookbook-c.html" class="btn btn-neutral float-left" title="CHarm" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Blažej Bucha.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

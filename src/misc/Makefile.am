@@ -15,7 +15,8 @@ libcharm@P@_misc@OMP@_la_SOURCES = misc_arr_chck_lin_incr.c \
 								   misc_fprintf_real.c \
 								   misc_print_version.c \
 								   misc_str2ul.c \
-								   misc_str2real.c
+								   misc_str2real.c \
+								   misc_calloc.c
 
 
 EXTRA_DIST = *.h

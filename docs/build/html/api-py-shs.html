@@ -1,0 +1,334 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>pyharm.shs &mdash; CHarm 0.1.2-dev documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom_BB.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pyharm.sha" href="api-py-sha.html" />
+    <link rel="prev" title="pyharm.crd" href="api-py-crd.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> CHarm
+          
+
+          
+            
+            <img src="_static/charm-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.2-dev
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">Interfaces</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api-c.html">CHarm (C API)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="api-py-shc.html">shc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">crd</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">shs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-leg.html">leg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">integ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">misc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-xnum.html">xnum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-glob.html">glob</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CHarm</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="api.html">Interfaces</a> &raquo;</li>
+        
+          <li><a href="api-py.html">PyHarm (Python API)</a> &raquo;</li>
+        
+      <li>pyharm.shs</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/api-py-shs.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pyharm.shs">
+<span id="id1"></span><span id="pyharm-shs"></span><h1>pyharm.shs<a class="headerlink" href="#module-pyharm.shs" title="Permalink to this headline">¶</a></h1>
+<p>Module to perform solid spherical harmonic synthesis of point and mean values.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This documentation is written for double precision version of PyHarm.</p>
+</div>
+<dl class="py function">
+<dt id="pyharm.shs.point">
+<code class="sig-prename descclassname">pyharm.shs.</code><code class="sig-name descname">point</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pnt</span></em>, <em class="sig-param"><span class="n">shcs</span></em>, <em class="sig-param"><span class="n">nmax</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shs.point" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs spherical harmonic synthesis of point values from <code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs</span></code> at
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">pnt</span></code> up to maximum degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to
+<a class="reference external" href="https://blazej-bucha.github.io/charm/build/html/api-c-shs.html">https://blazej-bucha.github.io/charm/build/html/api-c-shs.html</a> for the
+full documentation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pnt</strong> (<a class="reference internal" href="api-py-crd.html#pyharm.crd.PointGrid" title="pyharm.crd.PointGrid"><em>PointGrid</em></a><em>, </em><a class="reference internal" href="api-py-crd.html#pyharm.crd.PointGridDH1" title="pyharm.crd.PointGridDH1"><em>PointGridDH1</em></a><em>, </em><a class="reference internal" href="api-py-crd.html#pyharm.crd.PointGridDH2" title="pyharm.crd.PointGridDH2"><em>PointGridDH2</em></a><em>, </em><a class="reference internal" href="api-py-crd.html#pyharm.crd.PointGridGL" title="pyharm.crd.PointGridGL"><em>PointGridGL</em></a><em> or </em><a class="reference internal" href="api-py-crd.html#pyharm.crd.PointSctr" title="pyharm.crd.PointSctr"><em>PointSctr</em></a>) – Evaluation points</p></li>
+<li><p><strong>shcs</strong> (<a class="reference internal" href="api-py-shc.html#pyharm.shc.Shc" title="pyharm.shc.Shc"><em>Shc</em></a>) – Spherical harmonic coefficients</p></li>
+<li><p><strong>nmax</strong> (<em>integer</em>) – Maximum degree of the synthesis</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Point values synthesized from <code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs</span></code> at <code class="xref py py-obj docutils literal notranslate"><span class="pre">pnt</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy array of floating points</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyharm.shs.cell">
+<code class="sig-prename descclassname">pyharm.shs.</code><code class="sig-name descname">cell</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cell</span></em>, <em class="sig-param"><span class="n">shcs</span></em>, <em class="sig-param"><span class="n">nmax</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shs.cell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs spherical harmonic synthesis of area-mean values from <code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs</span></code>
+at <a class="reference internal" href="#pyharm.shs.cell" title="pyharm.shs.cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell</span></code></a> up to maximum degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to
+<a class="reference external" href="https://blazej-bucha.github.io/charm/build/html/api-c-shs.html">https://blazej-bucha.github.io/charm/build/html/api-c-shs.html</a> for the
+full documentation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cell</strong> (<a class="reference internal" href="api-py-crd.html#pyharm.crd.CellSctr" title="pyharm.crd.CellSctr"><em>CellSctr</em></a><em>, </em><a class="reference internal" href="api-py-crd.html#pyharm.crd.CellGrid" title="pyharm.crd.CellGrid"><em>CellGrid</em></a>) – Evaluation cells</p></li>
+<li><p><strong>shcs</strong> (<a class="reference internal" href="api-py-shc.html#pyharm.shc.Shc" title="pyharm.shc.Shc"><em>Shc</em></a>) – Spherical harmonic coefficients</p></li>
+<li><p><strong>nmax</strong> (<em>integer</em>) – Maximum degree of the synthesis</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Area-mean values synthesized from <code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs</span></code> at <a class="reference internal" href="#pyharm.shs.cell" title="pyharm.shs.cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell</span></code></a></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy array of floating points</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyharm.shs.cell_isurf">
+<code class="sig-prename descclassname">pyharm.shs.</code><code class="sig-name descname">cell_isurf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cell</span></em>, <em class="sig-param"><span class="n">shcs1</span></em>, <em class="sig-param"><span class="n">nmax1</span></em>, <em class="sig-param"><span class="n">shcs2</span></em>, <em class="sig-param"><span class="n">nmax2</span></em>, <em class="sig-param"><span class="n">nmax3</span></em>, <em class="sig-param"><span class="n">nmax4</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shs.cell_isurf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs spherical harmonic synthesis of area-mean values from <code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs1</span></code>
+at <a class="reference internal" href="#pyharm.shs.cell" title="pyharm.shs.cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell</span></code></a> residing on an irregular surface defined by <code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs2</span></code>.
+The synthesis of area-mean values is done up to degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax1</span></code>
+and the irregular surface is expanded up to degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax2</span></code>.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax3</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax4</span></code> represent the maximum harmonic degrees to
+synthesize and analyze the <code class="xref py py-obj docutils literal notranslate"><span class="pre">(shcs1.r</span> <span class="pre">/</span> <span class="pre">r)^(n</span> <span class="pre">+</span> <span class="pre">1)</span></code> terms, where
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">r</span></code> stands for the spherical radius of the irregular surface defined
+by <code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs2</span></code>.  Refer to
+<a class="reference external" href="https://blazej-bucha.github.io/charm/build/html/api-c-shs.html">https://blazej-bucha.github.io/charm/build/html/api-c-shs.html</a> for the
+full documentation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cell</strong> (<a class="reference internal" href="api-py-crd.html#pyharm.crd.CellGrid" title="pyharm.crd.CellGrid"><em>CellGrid</em></a>) – Evaluation cells</p></li>
+<li><p><strong>shcs1</strong> (<a class="reference internal" href="api-py-shc.html#pyharm.shc.Shc" title="pyharm.shc.Shc"><em>Shc</em></a>) – Spherical harmonic coefficients of the function, the area-mean values
+of which are synthesized</p></li>
+<li><p><strong>nmax1</strong> (<em>integer</em>) – Maximum degree of the synthesis of the area-mean values</p></li>
+<li><p><strong>shcs2</strong> (<a class="reference internal" href="api-py-shc.html#pyharm.shc.Shc" title="pyharm.shc.Shc"><em>Shc</em></a>) – Spherical harmonic coefficients of the irregular surface, on which the
+area-mean values are synthesized</p></li>
+<li><p><strong>nmax2</strong> (<em>integer</em>) – Maximum degree of the synthesis of the irregular surface</p></li>
+<li><p><strong>nmax3</strong> (<em>integer</em>) – Maximum degree of the synthesis of <code class="xref py py-obj docutils literal notranslate"><span class="pre">(shcs1.r</span> <span class="pre">/</span> <span class="pre">r)^(n</span> <span class="pre">+</span> <span class="pre">1)</span></code></p></li>
+<li><p><strong>nmax4</strong> (<em>integer</em>) – Maximum degree of the analysis of <code class="xref py py-obj docutils literal notranslate"><span class="pre">(shcs1.r</span> <span class="pre">/</span> <span class="pre">r)^(n</span> <span class="pre">+</span> <span class="pre">1)</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Area-mean values synthesized from <code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs1</span></code> at <a class="reference internal" href="#pyharm.shs.cell" title="pyharm.shs.cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell</span></code></a> residing
+on the surface defined by <code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs2</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy array of floating points</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="api-py-sha.html" class="btn btn-neutral float-right" title="pyharm.sha" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="api-py-crd.html" class="btn btn-neutral float-left" title="pyharm.crd" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Blažej Bucha.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

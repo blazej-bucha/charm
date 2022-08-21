@@ -14,9 +14,9 @@
 
 
 void CHARM(err_propagate)(CHARM(err) *err,
-                          const char file[],
+                          const char *file,
                           unsigned int line,
-                          const char func[])
+                          const char *func)
 {
     if ((err == NULL) || err->issaturated)
         return;
