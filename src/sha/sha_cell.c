@@ -10,6 +10,7 @@
 #include <math.h>
 #include <fftw3.h>
 #include "../prec.h"
+#include "../shc/shc_reset_coeffs.h"
 #include "../shs/shs_cell_check_grd_lons.h"
 #include "../leg/leg_func_anm_bnm.h"
 #include "../leg/leg_func_dm.h"
@@ -397,12 +398,8 @@ void CHARM(sha_cell)(const CHARM(crd) *cell, const REAL *f, unsigned long nmax,
 
 
 
-    /* Initialize all elements of the output coefficients to zero */
-    /* --------------------------------------------------------------------- */
-    unsigned long nm_count = ((nmax + 2) * (nmax + 1)) / 2;
-    memset(shcs->c[0], 0, nm_count * sizeof(REAL));
-    memset(shcs->s[0], 0, nm_count * sizeof(REAL));
-    /* --------------------------------------------------------------------- */
+    /* Set all coefficients in "shcs" to zero */
+    CHARM(shc_reset_coeffs)(shcs);
 
 
 

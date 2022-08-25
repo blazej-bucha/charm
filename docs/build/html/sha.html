@@ -245,10 +245,9 @@ CHarm.</p>
 </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The function modifies <code class="docutils literal notranslate"><span class="pre">shcs-&gt;c</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;s</span></code>, but touches neither
-<code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span></code> nor <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> nor <code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code>.  The latter two
-parameters are, however, essential to determine the scaling and
-normalization of the output coefficients.</p>
+<p>The function modifies <code class="docutils literal notranslate"><span class="pre">shcs-&gt;c</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;s</span></code>, but it does not
+touch the remaining members of <code class="docutils literal notranslate"><span class="pre">shcs</span></code>.  If <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span> <span class="pre">&gt;</span> <span class="pre">nmax</span></code>, the
+coefficients beyond <code class="docutils literal notranslate"><span class="pre">nmax</span></code> are set to zero.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -315,10 +314,9 @@ applied.  <code class="docutils literal notranslate"><span class="pre">cell-&gt;
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The function modifies <code class="docutils literal notranslate"><span class="pre">shcs-&gt;c</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;s</span></code>, but touches neither
-<code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> nor <code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code>.  The latter two
-parameters are, however, essential to determine the scaling and
-normalization of the output coefficients.</p>
+<p>The function modifies <code class="docutils literal notranslate"><span class="pre">shcs-&gt;c</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;s</span></code>, but it does not
+touch the remaining members of <code class="docutils literal notranslate"><span class="pre">shcs</span></code>.  If <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span> <span class="pre">&gt;</span> <span class="pre">nmax</span></code>, the
+coefficients beyond <code class="docutils literal notranslate"><span class="pre">nmax</span></code> are set to zero.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

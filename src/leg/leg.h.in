@@ -120,10 +120,7 @@ typedef struct
     unsigned int nmj_order;
 
 
-    /**
-     * Total number of elements associated with Fourier coefficients ``pnmj`` 
-     * for a given ``nmax``.
-     * */
+    /** Total number of Fourier coefficients \f$P_{nmj}\f$.  */
     size_t npnmj;
 
 

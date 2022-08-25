@@ -20,7 +20,8 @@ libcharm@P@_shc@OMP@_la_SOURCES = shc_da.c \
 								  shc_write_mtx.c \
 								  shc_write_tbl.c \
 								  shc_write_mtdt.c \
-								  shc_rescale.c
+								  shc_rescale.c \
+								  shc_reset_coeffs.c
 
 
 EXTRA_DIST = *.h

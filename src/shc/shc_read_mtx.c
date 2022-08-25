@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../prec.h"
+#include "shc_reset_coeffs.h"
 #include "shc_read_mtdt.h"
 #include "../misc/misc_str2real.h"
 #include "../err/err_set.h"
@@ -96,6 +97,10 @@ void CHARM(shc_read_mtx)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
 
     /* Read the spherical harmonic coefficients */
     /* --------------------------------------------------------------------- */
+    /* At first, reset all coefficients in "shcs" to zero. */
+    CHARM(shc_reset_coeffs)(shcs);
+
+
     for (unsigned long row = 0; row <= nmax; row++)
     {
         /* Loop over the columns of the matrix */

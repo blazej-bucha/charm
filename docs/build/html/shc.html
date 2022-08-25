@@ -284,11 +284,10 @@ leaks.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The function modifies <code class="docutils literal notranslate"><span class="pre">shcs-&gt;c</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;s</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> 
-and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code> by the values from the input file, but it does not 
-touch <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span></code>.  The latter value should not be
-changed. Otherwise, a segmentation fault may be encountered.  The
-function does not alter coefficients in <code class="docutils literal notranslate"><span class="pre">shcs</span></code> beyond <code class="docutils literal notranslate"><span class="pre">nmax</span></code>
-(if there are any).</p>
+and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code> by the values from the input file, but it does not
+touch <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nc</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;ns</span></code>.  If
+<code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span> <span class="pre">&gt;</span> <span class="pre">nmax</span></code>, the coefficients beyond <code class="docutils literal notranslate"><span class="pre">nmax</span></code> are set to
+zero.</p>
 </div>
 </dd></dl>
 
@@ -302,12 +301,11 @@ function does not alter coefficients in <code class="docutils literal notranslat
  </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The function modifies <code class="docutils literal notranslate"><span class="pre">shcs-&gt;c</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;s</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> 
-and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code> by the values from the input file, but it does not 
-touch <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span></code>.  The latter value should not be
-changed. Otherwise, a segmentation fault may be encountered. The
-function does not alter coefficients in <code class="docutils literal notranslate"><span class="pre">shcs</span></code> beyond <code class="docutils literal notranslate"><span class="pre">nmax</span></code>
-(if there are any).</p>
+<p>The function modifies <code class="docutils literal notranslate"><span class="pre">shcs-&gt;c</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;s</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> and
+<code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code> by the values from the input file, but it does not
+touch <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nc</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;ns</span></code>.  If
+<code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span> <span class="pre">&gt;</span> <span class="pre">nmax</span></code>, the coefficients beyond <code class="docutils literal notranslate"><span class="pre">nmax</span></code> are set to
+zero.</p>
 </div>
 </dd></dl>
 
@@ -345,12 +343,11 @@ function does not alter coefficients in <code class="docutils literal notranslat
  </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The function modifies <code class="docutils literal notranslate"><span class="pre">shcs-&gt;c</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;s</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> 
-and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code> by the values from the input file, but it does not 
-touch <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span></code>.  The latter value should not be
-changed. Otherwise, a segmentation fault may be encountered. The
-function does not alter coefficients in <code class="docutils literal notranslate"><span class="pre">shcs</span></code> beyond <code class="docutils literal notranslate"><span class="pre">nmax</span></code>
-(if there are any).</p>
+<p>The function modifies <code class="docutils literal notranslate"><span class="pre">shcs-&gt;c</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;s</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> and
+<code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code> by the values from the input file, but it does not
+touch <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nc</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;ns</span></code>.  If
+<code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span> <span class="pre">&gt;</span> <span class="pre">nmax</span></code>, the coefficients beyond <code class="docutils literal notranslate"><span class="pre">nmax</span></code> are set to
+zero.</p>
 </div>
 </dd></dl>
 
@@ -390,12 +387,11 @@ function does not alter coefficients in <code class="docutils literal notranslat
  </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The function modifies <code class="docutils literal notranslate"><span class="pre">shcs-&gt;c</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;s</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> 
-and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code> by the values from the input file, but it does not 
-touch <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span></code>.  The latter value should not be
-changed. Otherwise, a segmentation fault may be encountered. The
-function does not alter coefficients in <code class="docutils literal notranslate"><span class="pre">shcs</span></code> beyond <code class="docutils literal notranslate"><span class="pre">nmax</span></code>
-(if there are any).</p>
+<p>The function modifies <code class="docutils literal notranslate"><span class="pre">shcs-&gt;c</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;s</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> and
+<code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code> by the values from the input file, but it does not
+touch <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nc</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;ns</span></code>.  If
+<code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span> <span class="pre">&gt;</span> <span class="pre">nmax</span></code>, the coefficients beyond <code class="docutils literal notranslate"><span class="pre">nmax</span></code> are set to
+zero.</p>
 </div>
 </dd></dl>
 
@@ -654,6 +650,18 @@ performs a check on this).</p>
 <dt id="_CPPv4N9charm_shc1rE">
 <span id="_CPPv3N9charm_shc1rE"></span><span id="_CPPv2N9charm_shc1rE"></span><span id="charm_shc::r__double"></span><span class="target" id="structcharm__shc_1a847dadddf26eeffc5b5060f4f745d20a"></span>double <code class="sig-name descname">r</code><a class="headerlink" href="#_CPPv4N9charm_shc1rE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Radius of the reference sphere <span class="math notranslate nohighlight">\(R\)</span>, to which the spherical harmonic coefficients refer (are scaled). The value must be greater than zero. To get the unit sphere, as needed, for instance, when working with planetary topographies, set this variable to <code class="docutils literal notranslate"><span class="pre">1.0</span></code>. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N9charm_shc2ncE">
+<span id="_CPPv3N9charm_shc2ncE"></span><span id="_CPPv2N9charm_shc2ncE"></span><span id="charm_shc::nc__s"></span><span class="target" id="structcharm__shc_1ad185b3c1c7ef5d327fb7c382f6d4f486"></span>size_t <code class="sig-name descname">nc</code><a class="headerlink" href="#_CPPv4N9charm_shc2ncE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Total number of spherical harmonic coefficients <span class="math notranslate nohighlight">\(\bar{C}_{nm}\)</span>. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N9charm_shc2nsE">
+<span id="_CPPv3N9charm_shc2nsE"></span><span id="_CPPv2N9charm_shc2nsE"></span><span id="charm_shc::ns__s"></span><span class="target" id="structcharm__shc_1a36033e975da459d60220cbb32560848a"></span>size_t <code class="sig-name descname">ns</code><a class="headerlink" href="#_CPPv4N9charm_shc2nsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Total number of spherical harmonic coefficients <span class="math notranslate nohighlight">\(\bar{S}_{nm}\)</span>. </p>
 </dd></dl>
 
 <dl class="cpp var">

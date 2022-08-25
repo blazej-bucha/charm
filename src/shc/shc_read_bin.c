@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "../prec.h"
 #include "../err/err_set.h"
+#include "shc_reset_coeffs.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -96,11 +97,16 @@ void CHARM(shc_read_bin)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
 
 
 
-    /* Save the scaling constant and the radius of the reference sphere to the
-     * "shcs" structure.  Note that we do not touch "shcs->nmax" value. */
     /* ===================================================================== */
+    /* Save the scaling constant and the radius of the reference sphere to the
+     * "shcs" structure.  Note that we do not touch "shcs->nmax", "shcs->nc"
+     * and "shcs->ns". */
     shcs->mu = mu;
     shcs->r  = r;
+
+
+    /* Reset all coefficients in "shcs" to zero */
+    CHARM(shc_reset_coeffs)(shcs);
     /* ===================================================================== */
 
 

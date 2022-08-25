@@ -108,10 +108,9 @@ enum
  * \verbatim embed:rst:leading-asterisk
  *  .. note::
  *
- *      The function modifies ``shcs->c`` and ``shcs->s``, but touches neither
- *      ``shcs->nmax`` nor ``shcs->mu`` nor ``shcs->r``.  The latter two
- *      parameters are, however, essential to determine the scaling and
- *      normalization of the output coefficients.
+ *      The function modifies ``shcs->c`` and ``shcs->s``, but it does not
+ *      touch the remaining members of ``shcs``.  If ``shcs->nmax > nmax``, the
+ *      coefficients beyond ``nmax`` are set to zero.
  *
  * \endverbatim
  *
@@ -244,10 +243,9 @@ extern void charm@P@_sha_point(const charm@P@_crd *pnt,
  * \verbatim embed:rst:leading-asterisk
  *  .. note::
  *
- *      The function modifies ``shcs->c`` and ``shcs->s``, but touches neither
- *      ``shcs->nmax``, ``shcs->mu`` nor ``shcs->r``.  The latter two
- *      parameters are, however, essential to determine the scaling and
- *      normalization of the output coefficients.
+ *      The function modifies ``shcs->c`` and ``shcs->s``, but it does not
+ *      touch the remaining members of ``shcs``.  If ``shcs->nmax > nmax``, the
+ *      coefficients beyond ``nmax`` are set to zero.
  *
  * \endverbatim
  *

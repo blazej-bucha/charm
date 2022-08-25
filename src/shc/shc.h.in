@@ -118,6 +118,14 @@ typedef struct
     @RDT@ r;
 
 
+    /** Total number of spherical harmonic coefficients \f$\bar{C}_{nm}\f$. */
+    size_t nc;
+
+
+    /** Total number of spherical harmonic coefficients \f$\bar{S}_{nm}\f$. */
+    size_t ns;
+
+
     /**
      * Spherical harmonic coefficients \f$\bar{C}_{nm}\f$ stored as a 2D 
      * array. The first dimension is related to harmonic orders and the second 
@@ -301,11 +309,10 @@ extern void charm@P@_shc_free(charm@P@_shc *shcs);
  *      .. note::
  *
  *          The function modifies ``shcs->c``, ``shcs->s``, ``shcs->mu`` 
- *          and ``shcs->r`` by the values from the input file, but it does not 
- *          touch ``shcs->nmax``.  The latter value should not be
- *          changed. Otherwise, a segmentation fault may be encountered.  The
- *          function does not alter coefficients in ``shcs`` beyond ``nmax``
- *          (if there are any).
+ *          and ``shcs->r`` by the values from the input file, but it does not
+ *          touch ``shcs->nmax``, ``shcs->nc`` and ``shcs->ns``.  If
+ *          ``shcs->nmax > nmax``, the coefficients beyond ``nmax`` are set to
+ *          zero.
  *
  * \endverbatim
  *
@@ -338,12 +345,11 @@ extern void charm@P@_shc_read_bin(FILE *stream,
  * \verbatim embed:rst:leading-asterisk
  *      .. note::
  *
- *          The function modifies ``shcs->c``, ``shcs->s``, ``shcs->mu`` 
- *          and ``shcs->r`` by the values from the input file, but it does not 
- *          touch ``shcs->nmax``.  The latter value should not be
- *          changed. Otherwise, a segmentation fault may be encountered. The
- *          function does not alter coefficients in ``shcs`` beyond ``nmax``
- *          (if there are any).
+ *          The function modifies ``shcs->c``, ``shcs->s``, ``shcs->mu`` and
+ *          ``shcs->r`` by the values from the input file, but it does not
+ *          touch ``shcs->nmax``, ``shcs->nc`` and ``shcs->ns``.  If
+ *          ``shcs->nmax > nmax``, the coefficients beyond ``nmax`` are set to
+ *          zero.
  *
  * \endverbatim
  *
@@ -420,12 +426,11 @@ extern void charm@P@_shc_read_gfc(FILE *stream,
  * \verbatim embed:rst:leading-asterisk
  *      .. note::
  *
- *          The function modifies ``shcs->c``, ``shcs->s``, ``shcs->mu`` 
- *          and ``shcs->r`` by the values from the input file, but it does not 
- *          touch ``shcs->nmax``.  The latter value should not be
- *          changed. Otherwise, a segmentation fault may be encountered. The
- *          function does not alter coefficients in ``shcs`` beyond ``nmax``
- *          (if there are any).
+ *          The function modifies ``shcs->c``, ``shcs->s``, ``shcs->mu`` and
+ *          ``shcs->r`` by the values from the input file, but it does not
+ *          touch ``shcs->nmax``, ``shcs->nc`` and ``shcs->ns``.  If
+ *          ``shcs->nmax > nmax``, the coefficients beyond ``nmax`` are set to
+ *          zero.
  *
  * \endverbatim
  *
@@ -503,12 +508,11 @@ extern void charm@P@_shc_read_tbl(FILE *stream,
  * \verbatim embed:rst:leading-asterisk
  *      .. note::
  *
- *          The function modifies ``shcs->c``, ``shcs->s``, ``shcs->mu`` 
- *          and ``shcs->r`` by the values from the input file, but it does not 
- *          touch ``shcs->nmax``.  The latter value should not be
- *          changed. Otherwise, a segmentation fault may be encountered. The
- *          function does not alter coefficients in ``shcs`` beyond ``nmax``
- *          (if there are any).
+ *          The function modifies ``shcs->c``, ``shcs->s``, ``shcs->mu`` and
+ *          ``shcs->r`` by the values from the input file, but it does not
+ *          touch ``shcs->nmax``, ``shcs->nc`` and ``shcs->ns``.  If
+ *          ``shcs->nmax > nmax``, the coefficients beyond ``nmax`` are set to
+ *          zero.
  *
  * \endverbatim
  *

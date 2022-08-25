@@ -64,6 +64,10 @@ CHARM(shc) *CHARM(shc_init)(unsigned long nmax, REAL mu, REAL r)
     size_t len = ((nmax1 + 1) * nmax1) / 2;
 
 
+    shcs->nc = len;
+    shcs->ns = len;
+
+
     cnm0_tmp = (REAL *)calloc(len, sizeof(REAL));
     if (cnm0_tmp == NULL)
         goto FAILURE;

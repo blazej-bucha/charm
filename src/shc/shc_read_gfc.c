@@ -6,6 +6,7 @@
 #include <string.h>
 #include <errno.h>
 #include "../prec.h"
+#include "shc_reset_coeffs.h"
 #include "shc_read_line.h"
 #include "shc_read_gfc.h"
 #include "../misc/misc_str2ul.h"
@@ -207,6 +208,10 @@ void CHARM(shc_read_gfc)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
 
     /* Read the table of spherical harmonic coefficients */
     /* --------------------------------------------------------------------- */
+    /* At first, reset all coefficients in "shcs" to zero. */
+    CHARM(shc_reset_coeffs)(shcs);
+
+
     unsigned long n, m;
     REAL cnm, snm;
     while (CHARM(shc_read_line)(stream, &n, &m, &cnm, &snm, SHC_READ_LINE_GFC,
