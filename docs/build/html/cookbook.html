@@ -310,18 +310,8 @@ files and how to compute (difference) degree variances.</p>
 
 
     <span class="cm">/* Now let&#39;s read spherical harmonic coefficients, the scaling constant and</span>
-<span class="cm">     * the radius of the reference sphere from the input &quot;gfc&quot; file.  We open</span>
-<span class="cm">     * the input file, check whether the operation was successful, then read</span>
-<span class="cm">     * the file and, finally, close the stream. */</span>
-    <span class="kt">FILE</span> <span class="o">*</span><span class="n">fptr</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">shcs_in_file</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">fptr</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to open the stream for </span><span class="se">\&quot;</span><span class="s">%s</span><span class="se">\&quot;</span><span class="s">.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
-                <span class="n">shcs_in_file</span><span class="p">);</span>
-        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="n">charm_shc_read_gfc</span><span class="p">(</span><span class="n">fptr</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
-    <span class="n">fclose</span><span class="p">(</span><span class="n">fptr</span><span class="p">);</span>
+<span class="cm">     * the radius of the reference sphere from the input &quot;gfc&quot; file. */</span>
+    <span class="n">charm_shc_read_gfc</span><span class="p">(</span><span class="n">shcs_in_file</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
 
 
     <span class="cm">/* At this point, &quot;shcs&quot; should store the loaded spherical harmonic</span>
@@ -373,15 +363,7 @@ files and how to compute (difference) degree variances.</p>
 <span class="cm">     * fun...  */</span>
     <span class="cm">/* --------------------------------------------------------------------- */</span>
     <span class="cm">/* Write the coefficients. */</span>
-    <span class="n">fptr</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">shcs_out_file</span><span class="p">,</span> <span class="s">&quot;wb&quot;</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">fptr</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to open the stream for </span><span class="se">\&quot;</span><span class="s">%s</span><span class="se">\&quot;</span><span class="s">.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
-                <span class="n">shcs_out_file</span><span class="p">);</span>
-        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="n">charm_shc_write_bin</span><span class="p">(</span><span class="n">shcs</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">fptr</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
-    <span class="n">fclose</span><span class="p">(</span><span class="n">fptr</span><span class="p">);</span>
+    <span class="n">charm_shc_write_bin</span><span class="p">(</span><span class="n">shcs</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">shcs_out_file</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
 
 
     <span class="cm">/* Again, we should call the error handler to see whether the previous call</span>
@@ -397,15 +379,7 @@ files and how to compute (difference) degree variances.</p>
         <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to initialize the </span><span class="se">\&quot;</span><span class="s">charm_shc</span><span class="se">\&quot;</span><span class="s"> structure.&quot;</span><span class="p">);</span>
         <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
     <span class="p">}</span>
-    <span class="n">fptr</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">shcs_out_file</span><span class="p">,</span> <span class="s">&quot;rb&quot;</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">fptr</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to open the stream for </span><span class="se">\&quot;</span><span class="s">%s</span><span class="se">\&quot;</span><span class="s">.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
-                <span class="n">shcs_out_file</span><span class="p">);</span>
-        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="n">charm_shc_read_bin</span><span class="p">(</span><span class="n">fptr</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">shcs2</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
-    <span class="n">fclose</span><span class="p">(</span><span class="n">fptr</span><span class="p">);</span>
+    <span class="n">charm_shc_read_bin</span><span class="p">(</span><span class="n">shcs_out_file</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">shcs2</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
     <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
     <span class="cm">/* --------------------------------------------------------------------- */</span>
 
@@ -556,16 +530,8 @@ points.</p></li>
 
 
     <span class="cm">/* Read spherical harmonic coefficients from the input text file. */</span>
-    <span class="kt">FILE</span> <span class="o">*</span><span class="n">fptr</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">shcs_in_file</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">fptr</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to open the stream for </span><span class="se">\&quot;</span><span class="s">%s</span><span class="se">\&quot;</span><span class="s">.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
-                <span class="n">shcs_in_file</span><span class="p">);</span>
-        <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="n">charm_shc_read_mtx</span><span class="p">(</span><span class="n">fptr</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_shc_read_mtx</span><span class="p">(</span><span class="n">shcs_in_file</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
     <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-    <span class="n">fclose</span><span class="p">(</span><span class="n">fptr</span><span class="p">);</span>
 
 
     <span class="cm">/* Now let&#39;s say we do not want to use the zero-degree term.  This can be</span>

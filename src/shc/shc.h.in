@@ -256,12 +256,11 @@ extern void charm@P@_shc_free(charm@P@_shc *shcs);
 
 
 
-/**
- * Reads a ``charm@P@_shc`` structure to ``shcs`` from a binary file pointed to
- * by ``stream``.  The structure is loaded up to the maximum spherical harmonic
- * degree ``nmax``. The file is assumed to has been created by
- * ``charm@P@_shc_write_bin`` on the same architecture.  Error reported by the
- * function (if any) is written to ``err``.
+/** Reads a ``charm@P@_shc`` structure to ``shcs`` from a binary file whose
+ *  name is the string pointed to by ``pathname``. The structure is loaded up
+ *  to the maximum spherical harmonic degree ``nmax``. The file is assumed to
+ *  has been created by ``charm@P@_shc_write_bin`` on the same architecture.
+ *  Error reported by the function (if any) is written to ``err``.
  *
  * The input file is a binary representation of the ``charm@P@_shc`` structure 
  * in the following order:
@@ -317,7 +316,7 @@ extern void charm@P@_shc_free(charm@P@_shc *shcs);
  * \endverbatim
  *
  * */
-extern void charm@P@_shc_read_bin(FILE *stream,
+extern void charm@P@_shc_read_bin(const char *pathname,
                                   unsigned long nmax,
                                   charm@P@_shc *shcs,
                                   charm@P@_err *err);
@@ -327,9 +326,10 @@ extern void charm@P@_shc_read_bin(FILE *stream,
 
 
 
-/** Reads a ``gfc`` file pointed to by ``stream`` to ``shcs``.  The
- * coefficients are loaded up to the maximum spherical harmonic degree
- * ``nmax``.  Error reported by the function (if any) is written to ``err``.
+/** Reads a ``charm@P@_shc`` structure to ``shcs`` from a gfc file whose name
+ * is the string pointed to by ``pathname``. The coefficients are loaded up to
+ * the maximum spherical harmonic degree ``nmax``.  Error reported by the
+ * function (if any) is written to ``err``.
  *
  * The structure of the ``gfc`` file is defined by ICGEM at <a
  * href="http://icgem.gfz-potsdam.de/ICGEM-Format-2011.pdf">http://icgem.gfz-potsdam.de/ICGEM-Format-2011.pdf</a>.
@@ -354,7 +354,7 @@ extern void charm@P@_shc_read_bin(FILE *stream,
  * \endverbatim
  *
  * */
-extern void charm@P@_shc_read_gfc(FILE *stream,
+extern void charm@P@_shc_read_gfc(const char *pathname,
                                   unsigned long nmax,
                                   charm@P@_shc *shcs,
                                   charm@P@_err *err);
@@ -364,11 +364,11 @@ extern void charm@P@_shc_read_gfc(FILE *stream,
 
 
 
-/** Reads a ``charm@P@_shc`` structure to ``shcs`` from a text file pointed to
- * by ``stream``.  The structure is loaded up to the maximum spherical harmonic
- * degree ``nmax``. The file is assumed to has been created by
- * ``charm@P@_shc_write_tbl``.  Error reported by the function (if any) is
- * written to ``err``.
+/** Reads a ``charm@P@_shc`` structure to ``shcs`` from a text file whose name
+ * is the string pointed to by ``pathname``.  The structure is loaded up to the
+ * maximum spherical harmonic degree ``nmax``. The file is assumed to has been
+ * created by ``charm@P@_shc_write_tbl``.  Error reported by the function (if
+ * any) is written to ``err``.
  *
  * The first line of the input file must specify the maximum harmonic degree
  * ``nmax2`` of the coefficients stored in the file, their scaling parameter
@@ -435,7 +435,7 @@ extern void charm@P@_shc_read_gfc(FILE *stream,
  * \endverbatim
  *
  * */
-extern void charm@P@_shc_read_tbl(FILE *stream,
+extern void charm@P@_shc_read_tbl(const char *pathname,
                                   unsigned long nmax,
                                   charm@P@_shc *shcs,
                                   charm@P@_err *err);
@@ -445,12 +445,11 @@ extern void charm@P@_shc_read_tbl(FILE *stream,
 
 
 
-/**
- * Reads a ``charm@P@_shc`` structure from a text file pointed to by ``stream`` 
- * to ``shcs``.  The structure is loaded up to the maximum spherical harmonic 
- * degree ``nmax``. The file is assumed to has been created by 
- * ``charm@P@_shc_write_mtx``.  Error reported by the function (if any) is 
- * written to ``err``.
+/** Reads a ``charm@P@_shc`` structure to ``shcs`` from a text file whose name
+ * is the string pointed to by ``pathname``. The structure is loaded up to the
+ * maximum spherical harmonic degree ``nmax``. The file is assumed to has been
+ * created by ``charm@P@_shc_write_mtx``.  Error reported by the function (if
+ * any) is written to ``err``.
  *
  * The first line of the input file must specify the maximum harmonic degree 
  * ``nmax2`` of the coefficients stored in the file, their scaling parameter 
@@ -517,7 +516,7 @@ extern void charm@P@_shc_read_tbl(FILE *stream,
  * \endverbatim
  *
  * */
-extern void charm@P@_shc_read_mtx(FILE *stream,
+extern void charm@P@_shc_read_mtx(const char *pathname,
                                   unsigned long nmax,
                                   charm@P@_shc *shcs,
                                   charm@P@_err *err);
@@ -527,9 +526,9 @@ extern void charm@P@_shc_read_mtx(FILE *stream,
 
 
 
-/**
- * Writes ``shcs`` up to degree ``nmax`` to a binary file pointed to by 
- * ``stream``.  Error reported by the function (if any) is written to ``err``.
+/** Writes ``shcs`` up to degree ``nmax`` to a binary file whose name is the
+ * string pointed to by ``pathname``. Error reported by the function (if any)
+ * is written to ``err``.
  *
  * The output file is a binary representation of ``shcs`` up to degree ``nmax`` 
  * in the following order:
@@ -571,10 +570,12 @@ extern void charm@P@_shc_read_mtx(FILE *stream,
  * ``nmax2``, properly written can be any subset up to degree
  * ``nmax <= nmax2``.
  *
+ * The path to the output file in ``pathname`` must already exist.
+ *
  * */
 extern void charm@P@_shc_write_bin(const charm@P@_shc *shcs,
                                    unsigned long nmax,
-                                   FILE *stream,
+                                   const char *pathname,
                                    charm@P@_err *err);
 
 
@@ -582,10 +583,10 @@ extern void charm@P@_shc_write_bin(const charm@P@_shc *shcs,
 
 
 
-/** Writes ``shcs`` up to degree ``nmax`` to a text file pointed to by
- * ``stream`` using the ``format`` specifier and the ``order`` scheme for
- * ordering spherical harmonic coefficients.  Error reported by the function
- * (if any) is written to ``err``.
+/** Writes ``shcs`` up to degree ``nmax`` to a text file whose name is the
+ * string pointed to by ``pathname`` using the ``format`` specifier and the
+ * ``order`` scheme for ordering spherical harmonic coefficients.  Error
+ * reported by the function (if any) is written to ``err``.
  *
  * The ``format`` specifier is used for all *floating point* data of 
  * ``shcs``. No extra characters before or after the format specifier are 
@@ -677,12 +678,14 @@ extern void charm@P@_shc_write_bin(const charm@P@_shc *shcs,
  *
  * \endverbatim
  *
+ * The path to the output file in ``pathname`` must already exist.
+ *
  * */
 extern void charm@P@_shc_write_tbl(const charm@P@_shc *shcs,
                                    unsigned long nmax,
                                    const char *format,
                                    int order,
-                                   FILE *stream,
+                                   const char *pathname,
                                    charm@P@_err *err);
 
 
@@ -690,10 +693,9 @@ extern void charm@P@_shc_write_tbl(const charm@P@_shc *shcs,
 
 
 
-/**
- * Writes ``shcs`` up to degree ``nmax`` to a text file pointed to by 
- * ``stream`` using the ``format`` specifier.  Error reported by the function 
- * (if any) is written to ``err``.
+/** Writes ``shcs`` up to degree ``nmax`` to a text file whose name is the
+ * string pointed to by ``pathname`` using the ``format`` specifier.  Error
+ * reported by the function (if any) is written to ``err``.
  *
  * The ``format`` specifier is used for all *floating point* data of 
  * ``shcs``. No extra characters before or after the format specifier are 
@@ -759,11 +761,13 @@ extern void charm@P@_shc_write_tbl(const charm@P@_shc *shcs,
  *
  * \endverbatim
  *
+ * The path to the output file in ``pathname`` must already exist.
+ *
  * */
 extern void charm@P@_shc_write_mtx(const charm@P@_shc *shcs,
                                    unsigned long nmax,
                                    const char *format,
-                                   FILE *stream,
+                                   const char *pathname,
                                    charm@P@_err *err);
 
 

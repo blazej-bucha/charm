@@ -13,7 +13,8 @@
 
 
 
-REAL CHARM(misc_str2real)(char str[], char *err_msg, CHARM(err) *err)
+REAL CHARM(misc_str2real)(const char *str, const char *err_msg,
+                          CHARM(err) *err)
 {
     char *end_ptr;
     errno = 0;

@@ -53,16 +53,8 @@ int main(void)
 
 
     /* Read spherical harmonic coefficients from the input text file. */
-    FILE *fptr = fopen(shcs_in_file, "r");
-    if (fptr == NULL)
-    {
-        fprintf(stderr, "Failed to open the stream for \"%s\".\n",
-                shcs_in_file);
-        exit(CHARM_FAILURE);
-    }
-    charm_shc_read_mtx(fptr, nmax, shcs, err);
+    charm_shc_read_mtx(shcs_in_file, nmax, shcs, err);
     charm_err_handler(err, 1);
-    fclose(fptr);
 
 
     /* Now let's say we do not want to use the zero-degree term.  This can be

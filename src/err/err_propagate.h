@@ -19,9 +19,9 @@ extern "C"
  * ``func`` to ``err``, respectively.  ``err->level`` is updated automatically.
  * */
 extern void CHARM(err_propagate)(CHARM(err) *err,
-                                 const char file[],
+                                 const char *file,
                                  unsigned int line,
-                                 const char func[]);
+                                 const char *func);
 
 
 #ifdef __cplusplus

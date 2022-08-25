@@ -65,18 +65,8 @@ int main(void)
 
 
     /* Now let's read spherical harmonic coefficients, the scaling constant and
-     * the radius of the reference sphere from the input text file.  We open
-     * the input file, check whether the operation was successful, then read
-     * the file and, finally, close the stream. */
-    FILE *fptr = fopen(shcs_in_file, "r");
-    if (fptr == NULL)
-    {
-        fprintf(stderr, "Failed to open the stream for \"%s\".\n",
-                shcs_in_file);
-        exit(CHARM_FAILURE);
-    }
-    charmq_shc_read_gfc(fptr, nmax, shcs, err);
-    fclose(fptr);
+     * the radius of the reference sphere from the input text file. */
+    charmq_shc_read_gfc(shcs_in_file, nmax, shcs, err);
 
 
     /* At this point, "shcs" should store the loaded spherical harmonic
@@ -128,15 +118,7 @@ int main(void)
      * fun...  */
     /* --------------------------------------------------------------------- */
     /* Write the coefficients. */
-    fptr = fopen(shcs_out_file, "wb");
-    if (fptr == NULL)
-    {
-        fprintf(stderr, "Failed to open the stream for \"%s\".\n",
-                shcs_out_file);
-        exit(CHARM_FAILURE);
-    }
-    charmq_shc_write_bin(shcs, nmax, fptr, err);
-    fclose(fptr);
+    charmq_shc_write_bin(shcs, nmax, shcs_out_file, err);
 
 
     /* Again, we should call the error handler to see whether the previous call
@@ -152,15 +134,7 @@ int main(void)
         fprintf(stderr, "Failed to initialize the \"charmq_shc\" structure.");
         exit(CHARM_FAILURE);
     }
-    fptr = fopen(shcs_out_file, "rb");
-    if (fptr == NULL)
-    {
-        fprintf(stderr, "Failed to open the stream for \"%s\".\n",
-                shcs_out_file);
-        exit(CHARM_FAILURE);
-    }
-    charmq_shc_read_bin(fptr, nmax, shcs2, err);
-    fclose(fptr);
+    charmq_shc_read_bin(shcs_out_file, nmax, shcs2, err);
     charmq_err_handler(err, 1);
     /* --------------------------------------------------------------------- */
 

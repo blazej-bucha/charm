@@ -18,11 +18,11 @@ extern "C"
 /** Sets members of ``err`` to ``file``, ``line``, ``func``, ``code`` and
  * ``msg``, respectively.  ``err->level`` is updated automatically.  */
 extern void CHARM(err_set)(CHARM(err) *err,
-                           const char file[],
+                           const char *file,
                            unsigned int line,
-                           const char func[],
+                           const char *func,
                            int code,
-                           const char msg[]);
+                           const char *msg);
 
 
 #ifdef __cplusplus

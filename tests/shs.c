@@ -63,17 +63,8 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
     }
 
 
-    FILE *fin;
-    fin = fopen(SHCs_pot_file, "r");
-    if (fin == NULL)
-    {
-        fprintf(stderr, "Failed to open the stream for \"%s\".\n",
-                        SHCs_pot_file);
-        exit(1);
-    }
-    CHARM(shc_read_mtx)(fin, nmax_pot, shcs_pot, err);
+    CHARM(shc_read_mtx)(SHCs_pot_file, nmax_pot, shcs_pot, err);
     CHARM(err_handler)(err, 1);
-    fclose(fin);
 
 
     /* Modify coefficients of degrees "0" and "1" to allow for an accurate
@@ -99,16 +90,8 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
     }
 
 
-    fin = fopen(SHCs_topo_file, "r");
-    if (fin == NULL)
-    {
-        fprintf(stderr, "Failed to open the stream for \"%s\".\n",
-                        SHCs_topo_file);
-        exit(1);
-    }
-    CHARM(shc_read_mtx)(fin, nmax_topo, shcs_topo, err);
+    CHARM(shc_read_mtx)(SHCs_topo_file, nmax_topo, shcs_topo, err);
     CHARM(err_handler)(err, 1);
-    fclose(fin);
     /* --------------------------------------------------------------------- */
 
 

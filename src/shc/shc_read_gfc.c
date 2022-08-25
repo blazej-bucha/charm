@@ -20,9 +20,27 @@
 
 
 
-void CHARM(shc_read_gfc)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
-                         CHARM(err) *err)
+void CHARM(shc_read_gfc)(const char *pathname, unsigned long nmax,
+                         CHARM(shc) *shcs, CHARM(err) *err)
 {
+    /* Open "pathname" to read */
+    /* --------------------------------------------------------------------- */
+    FILE *fptr = fopen(pathname, "r");
+    if (fptr == NULL)
+    {
+        char msg[CHARM_ERR_MAX_MSG];
+        sprintf(msg, "Couldn't open \"%s\".", pathname);
+        CHARM(err_set)(err, __FILE__, __LINE__, __func__,
+                       CHARM_EFILEIO, msg);
+        return;
+    }
+    /* --------------------------------------------------------------------- */
+
+
+
+
+
+
     /* Initial declarations */
     /* --------------------------------------------------------------------- */
     char line[SHC_READ_GFC_NLINE];
@@ -49,13 +67,13 @@ void CHARM(shc_read_gfc)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
     {
 
         /* Read a line of the file */
-        if (fgets(line, SHC_READ_GFC_NLINE, stream) == NULL)
+        if (fgets(line, SHC_READ_GFC_NLINE, fptr) == NULL)
         {
             CHARM(err_set)(err, __FILE__, __LINE__, __func__,
                            CHARM_EFILEIO, "Couldn't find the \"end_of_head\" "
                                           "keyword or couldn't read from the "
                                           "input file.");
-            return;
+            goto EXIT;
         }
 
 
@@ -68,7 +86,7 @@ void CHARM(shc_read_gfc)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
             CHARM(err_set)(err, __FILE__, __LINE__, __func__,
                            CHARM_EFILEIO, "Couldn't read with \"sscanf\" from "
                                           "a file of the \"gfc\" file.");
-            return;
+            goto EXIT;
         }
 
 
@@ -89,7 +107,7 @@ void CHARM(shc_read_gfc)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
             if (!CHARM(err_isempty)(err))
             {
                 CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
-                return;
+                goto EXIT;
             }
             nmax_found = 1;
         }
@@ -106,7 +124,7 @@ void CHARM(shc_read_gfc)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
             if (!CHARM(err_isempty)(err))
             {
                 CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
-                return;
+                goto EXIT;
             }
             mu_found = 1;
         }
@@ -121,7 +139,7 @@ void CHARM(shc_read_gfc)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
             if (!CHARM(err_isempty)(err))
             {
                 CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
-                return;
+                goto EXIT;
             }
             r_found = 1;
         }
@@ -136,7 +154,7 @@ void CHARM(shc_read_gfc)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
                 CHARM(err_set)(err, __FILE__, __LINE__, __func__,
                                CHARM_EFILEIO, "Unsupported norm of spherical "
                                "harmonics.");
-                return;
+                goto EXIT;
             }
 
 
@@ -151,7 +169,7 @@ void CHARM(shc_read_gfc)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
         CHARM(err_set)(err, __FILE__, __LINE__, __func__,
                        CHARM_EFILEIO, "Couldn't read the \"max_degree\" "
                        "keyword before reaching \"end_of_head\".");
-        return;
+        goto EXIT;
     }
 
 
@@ -161,7 +179,7 @@ void CHARM(shc_read_gfc)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
                        CHARM_EFILEIO, "Couldn't read the "
                        "\"earth_gravity_constant\" keyword before reaching "
                        "\"end_of_head\".");
-        return;
+        goto EXIT;
     }
 
 
@@ -171,7 +189,7 @@ void CHARM(shc_read_gfc)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
                        CHARM_EFILEIO, "Couldn't read the "
                        "\"radius\" keyword before reaching "
                        "\"end_of_head\".");
-        return;
+        goto EXIT;
     }
     /* --------------------------------------------------------------------- */
 
@@ -188,7 +206,7 @@ void CHARM(shc_read_gfc)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Too low maximum degree \"shcs->nmax\" to read "
                        "coefficients up to degree \"nmax\".");
-        return;
+        goto EXIT;
     }
 
 
@@ -197,7 +215,7 @@ void CHARM(shc_read_gfc)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Too low maximum degree inside the input file to read "
                        "coefficients up to degree \"nmax\".");
-        return;
+        goto EXIT;
     }
     /* --------------------------------------------------------------------- */
 
@@ -214,13 +232,13 @@ void CHARM(shc_read_gfc)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
 
     unsigned long n, m;
     REAL cnm, snm;
-    while (CHARM(shc_read_line)(stream, &n, &m, &cnm, &snm, SHC_READ_LINE_GFC,
+    while (CHARM(shc_read_line)(fptr, &n, &m, &cnm, &snm, SHC_READ_LINE_GFC,
                                 err) != -1)
     {
         if (!CHARM(err_isempty)(err))
         {
             CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
-            return;
+            goto EXIT;
         }
 
 
@@ -237,6 +255,7 @@ void CHARM(shc_read_gfc)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
 
 
 
-
+EXIT:
+    fclose(fptr);
     return;
 }

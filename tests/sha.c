@@ -57,14 +57,7 @@ int sha(unsigned long nmax, char SHCs_file[])
     }
 
 
-    FILE *fptr = fopen(SHCs_file, "r");
-    if (fptr == NULL)
-    {
-        fprintf(stderr, "Failed to open the stream for \"%s\".\n", SHCs_file);
-        exit(CHARM_FAILURE);
-    }
-    CHARM(shc_read_mtx)(fptr, nmax, shcs_ref, err);
-    fclose(fptr);
+    CHARM(shc_read_mtx)(SHCs_file, nmax, shcs_ref, err);
     CHARM(err_handler)(err, 1);
 
 

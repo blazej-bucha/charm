@@ -27,9 +27,27 @@
 
 
 
-void CHARM(shc_read_mtx)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
-                         CHARM(err) *err)
+void CHARM(shc_read_mtx)(const char *pathname, unsigned long nmax,
+                         CHARM(shc) *shcs, CHARM(err) *err)
 {
+    /* Open "pathname" to read */
+    /* ===================================================================== */
+    FILE *fptr = fopen(pathname, "r");
+    if (fptr == NULL)
+    {
+        char msg[CHARM_ERR_MAX_MSG];
+        sprintf(msg, "Couldn't open \"%s\".", pathname);
+        CHARM(err_set)(err, __FILE__, __LINE__, __func__,
+                       CHARM_EFILEIO, msg);
+        return;
+    }
+    /* ===================================================================== */
+
+
+
+
+
+
     /* Read file */
     /* ===================================================================== */
     /* A string to be loaded from the input file */
@@ -45,7 +63,7 @@ void CHARM(shc_read_mtx)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
     int num_entries;
 
 
-    /* An entry of REAL data type from "stream" */
+    /* An entry of REAL data type from "fptr" */
     REAL entry_d;
 
 
@@ -56,11 +74,11 @@ void CHARM(shc_read_mtx)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
     /* Read the metadata of spherical harmonic coefficients */
     /* --------------------------------------------------------------------- */
     unsigned long nmax_file;
-    CHARM(shc_read_mtdt)(stream, &nmax_file, &(shcs->mu), &(shcs->r), err);
+    CHARM(shc_read_mtdt)(fptr, &nmax_file, &(shcs->mu), &(shcs->r), err);
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
-        return;
+        goto EXIT;
     }
     /* --------------------------------------------------------------------- */
 
@@ -77,7 +95,7 @@ void CHARM(shc_read_mtx)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Too low maximum degree \"shcs->nmax\" to read "
                        "coefficients up to degree \"nmax\".");
-        return;
+        goto EXIT;
     }
 
 
@@ -86,7 +104,7 @@ void CHARM(shc_read_mtx)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Too low maximum degree inside the input file to read "
                        "coefficients up to degree \"nmax\".");
-        return;
+        goto EXIT;
     }
     /* --------------------------------------------------------------------- */
 
@@ -108,7 +126,7 @@ void CHARM(shc_read_mtx)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
         {
             /* Read an entry from the text file and store it as a string */
             /* ------------------------------------------------------------- */
-            num_entries = fscanf(stream, "%s", str);
+            num_entries = fscanf(fptr, "%s", str);
 
 
             /* Check for EOF */
@@ -119,7 +137,7 @@ void CHARM(shc_read_mtx)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
                                "Too few rows in the input file to read "
                                "spherical harmonic coefficients up to degree "
                                "\"nmax\".");
-                return;
+                goto EXIT;
             }
 
 
@@ -128,21 +146,21 @@ void CHARM(shc_read_mtx)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
                 CHARM(err_set)(err, __FILE__, __LINE__, __func__,
                                CHARM_EFILEIO,
                                "Failed to read an entry from the input file.");
-                return;
+                goto EXIT;
             }
             /* ------------------------------------------------------------- */
 
 
             /* Read the new line character if any */
             /* ------------------------------------------------------------- */
-            num_entries = fscanf(stream, "%1[\n]", nl);
+            num_entries = fscanf(fptr, "%1[\n]", nl);
             if ((num_entries == 1) && (nl[0] == '\n') && (col < nmax))
             {
                 CHARM(err_set)(err, __FILE__, __LINE__, __func__,
                                CHARM_EFILEIO,
                                "Too few columns to read spherical harmonic "
                                "coefficients up to degree \"nmax\".");
-                return;
+                goto EXIT;
             }
             /* ------------------------------------------------------------- */
 
@@ -156,7 +174,7 @@ void CHARM(shc_read_mtx)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
             if (!CHARM(err_isempty)(err))
             {
                 CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
-                return;
+                goto EXIT;
             }
             /* ------------------------------------------------------------- */
 
@@ -176,7 +194,7 @@ void CHARM(shc_read_mtx)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
          * continue with reading the next line, since all sought "nmax + 1"
          * values from the "row"th line were read */
         if (nl[0] != '\n')
-            fscanf(stream, "%*[^\n]\n");
+            fscanf(fptr, "%*[^\n]\n");
 
 
         /* Reset "nl" (it may contain the new line character found at the end
@@ -191,5 +209,8 @@ void CHARM(shc_read_mtx)(FILE *stream, unsigned long nmax, CHARM(shc) *shcs,
 
 
 
+EXIT:
+    fclose(fptr);
     return;
 }
+

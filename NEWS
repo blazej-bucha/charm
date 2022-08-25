@@ -1,5 +1,26 @@
 Upcoming release:
 
+* Changed API of the following functions to read/write spherical harmonic 
+  coefficients from/to files:
+
+    * "charm_shc_read_bin",
+    * "charm_shc_read_gfc",
+    * "charm_shc_read_mtx",
+    * "charm_shc_read_tbl",
+    * "charm_shc_write_bin",
+    * "charm_shc_write_mtx",
+    * "charm_shc_write_tbl".
+
+  Previously, it was necessary to open the stream for the input/output file, 
+  call the CHarm function to read/write the coefficients and, finally, close 
+  the stream.  All these steps had to be done by the user.  Now, the user only 
+  calls the function to read/write the coefficients and specifies the file's 
+  path name as one of the input parameters.  Opening and closing the stream is 
+  done by CHarm.
+
+  This should considerably simplify making the Python wrapper, given than 
+  wrapping "TYPE *" pointer with "ctypes" is not that trivial.
+
 * Two members, "nc" and "ns", were added to the "charm_shc" structure to 
   represent the total number of spherical harmonic coefficients "Cnm" and 
   "Snm", respectively.  This has no effect on API.

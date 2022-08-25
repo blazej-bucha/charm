@@ -13,7 +13,8 @@
 
 
 
-unsigned long CHARM(misc_str2ul)(char str[], char *err_msg, CHARM(err) *err)
+unsigned long CHARM(misc_str2ul)(const char *str, const char *err_msg,
+                                 CHARM(err) *err)
 {
     char *end_ptr;
     errno = 0;
