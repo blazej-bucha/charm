@@ -25,6 +25,9 @@ Upcoming release:
   represent the total number of spherical harmonic coefficients "Cnm" and 
   "Snm", respectively.  This has no effect on API.
 
+* Added support for Fortran's "D" and "d" decimal exponents when reading from 
+  text files.
+
 CHarm 0.1.2:
 
 * Bug fix for incorrectly included c-file instead of its respective header file 
