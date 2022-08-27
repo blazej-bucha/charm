@@ -81,20 +81,21 @@ CHARM(shc) *CHARM(shc_init)(unsigned long nmax, REAL mu, REAL r)
     /* --------------------------------------------------------------------- */
 
 
-    /* Set "shcs->c[m]" and "shcs->s[m]" to point to "C_{m,m}" and "S_{m,m}" */
+    /* Set "shcs->c[m]" and "shcs->s[m]" to point to "cnm0_tmp" and "snm0_tmp"
+     * such that the "Cnm" and "Snm" coefficients can be found as
+     * "shcs->c[m][n]" and "shcs->s[m][n]", respectively. */
     /* --------------------------------------------------------------------- */
-    unsigned long nmax1mm = 0;
+    size_t nx          = (size_t)nmax;
+    unsigned long nxmm = 0;
 
 
     for (unsigned long m = 0; m <= nmax; m++)
     {
-        /* Now set "shcs->c[m]" and "shcs->s[m]" to point to "C_{m,m}" and
-         * "S_{m,m}" */
-        shcs->c[m] = shcs->c[0] + nmax1mm;
-        shcs->s[m] = shcs->s[0] + nmax1mm;
+        shcs->c[m] = shcs->c[0] + nxmm;
+        shcs->s[m] = shcs->s[0] + nxmm;
 
 
-        nmax1mm += nmax1 - m;
+        nxmm += nx - m;
     }
     /* --------------------------------------------------------------------- */
 
@@ -107,8 +108,10 @@ EXIT:
 
 FAILURE:
     /* --------------------------------------------------------------------- */
-    free(cnm0_tmp);  free(snm0_tmp);
-    free(shcs->c); free(shcs->s);
+    free(cnm0_tmp);
+    free(snm0_tmp);
+    free(shcs->c);
+    free(shcs->s);
     free(shcs);
     shcs = NULL;
 

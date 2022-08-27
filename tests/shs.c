@@ -69,10 +69,10 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
 
     /* Modify coefficients of degrees "0" and "1" to allow for an accurate
      * validation in all precisions. */
-    shcs_pot->c[0][0 - 0] = (REAL)C00;
-    shcs_pot->c[0][1 - 0] = (REAL)C10;
-    shcs_pot->c[1][1 - 1] = (REAL)C11;
-    shcs_pot->s[1][1 - 1] = (REAL)S11;
+    shcs_pot->c[0][0] = (REAL)C00;
+    shcs_pot->c[0][1] = (REAL)C10;
+    shcs_pot->c[1][1] = (REAL)C11;
+    shcs_pot->s[1][1] = (REAL)S11;
     /* --------------------------------------------------------------------- */
 
 

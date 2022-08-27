@@ -134,52 +134,35 @@ typedef struct
      * \verbatim embed:rst:leading-asterisk
      *  .. warning::
      *
-     *      ``j`` does *not* represent the wave-number ``k``, but it is closely 
-     *      related to it (see ``charm@P@_leg_pnmj_j2k`` and 
-     *      ``charm@P@_leg_pnmj_k2j``).
+     *      The symbol ``j`` does *not* represent the wave-number ``k``, but
+     *      the two variables are closely related (see the
+     *      ``charm@P@_leg_pnmj_j2k`` and ``charm@P@_leg_pnmj_k2j`` functions).
      * \endverbatim
      *
-     * * Structure of ``pnmj`` when
-     *   ``nmj_order == CHARM_LEG_PNMJ_ORDER_MNJ``:
+     * * Structure of ``pnmj`` when ``nmj_order == CHARM_LEG_PNMJ_ORDER_MNJ``:
      *
      *   The first dimension of ``pnmj`` is related to harmonic orders, the 
      *   second dimension to harmonic degrees and the third dimension to 
      *   wave-numbers.  Importantly, ``pnmj`` is *not* a regular 3D array, as 
-     *   the number of elements in the second and the third dimension varies 
-     *   based on the first dimension.  The following scheme is applied:
+     *   the number of elements in the second and the third dimension varies
+     *   based on the first dimension.
      *
-     *   * each ``pnmj[m]``, with ``m = 0``, ``1``, ..., ``nmax``, has
-     *   ``nmax - m + 1`` elements for harmonic degrees
-     *     ``n = m``, ``m + 1``, ..., ``nmax`` (respectively),
-     *
-     *   * each ``pnmj[m][n - m]`` has ``floor(n / 2) + 1`` elements for 
-     *     wave-numbers.
-     *
-     *   The Fourier coefficient \f$P_{nmj}\f$, using the notation from 
-     *   Eq. (62) of Fukushima (2018), can therefore be access as follows 
-     *   ``Pnmj = pnmj[m][n - m][j]``.
+     *   The Fourier coefficient \f$P_{nmj}\f$, using the notation from
+     *   Eq. (62) of Fukushima (2018), can be access as
+     *   ``Pnmj = pnmj[m][n][j]``.
      *
      *
-     * * Structure of ``pnmj`` when
-     *   ``nmj_order == CHARM_LEG_PNMJ_ORDER_MJN``:
+     * * Structure of ``pnmj`` when ``nmj_order == CHARM_LEG_PNMJ_ORDER_MJN``:
      *
      *   The first dimension of ``pnmj`` is related to harmonic orders, the 
      *   second dimension to wave-numbers and the third dimension to harmonic 
      *   degrees.  Importantly, ``pnmj`` is *not* a regular 3D array, as the 
-     *   number of elements in the third dimension varies based on the ``m`` 
-     *   and ``j`` variables.  The following scheme is applied:
-     *
-     *   * each ``pnmj[m]``, with ``m = 0``, ``1``, ..., ``nmax``, has 
-     *     ``floor(nmax / 2) + 1`` elements for wave-number-related variable 
-     *     ``j = 0``, ``1``, ..., floor(nmax / 2)``,
-     *
-     *   * each ``pnmj[m][j]`` has ``(nmax - max(2 * j, m) + 1)`` elements for 
-     *     harmonic degrees ``max(2 * j, m)``, ``max(2 * j, m) + 1``, ..., 
-     *     ``nmax``.
+     *   number of elements in the third dimension varies based on the ``m``
+     *   and ``j`` variables.
      *
      *   The Fourier coefficient \f$P_{nmj}\f$, using the notation from 
-     *   Eq. (62) of Fukushima (2018), can therefore be access as follows
-     *   ``pnmj[m][j][n - CHARM_MAX(m, 2 * j)]``.
+     *   Eq. (62) of Fukushima (2018), can be access as
+     *   ``pnmj[m][j][n]``.
      *
      * When ``nmj_order == CHARM_LEG_PNMJ_ORDER_MNJ``, the following order of 
      * loops is recommended for fast sequential access to the \f$P_{nmj}\f$ 
@@ -189,11 +172,12 @@ typedef struct
      * \verbatim embed:rst:leading-asterisk
      *  .. code-block:: c
      *
-     *      charm@P@_pnmj *pnmj = charm@P@_leg_pnmj_init(100, CHARM_LEG_PNMJ_ORDER_MNJ)
+     *      unsigned long nmax = 100;
+     *      charm@P@_pnmj *pnmj = charm@P@_leg_pnmj_init(nmax, CHARM_LEG_PNMJ_ORDER_MNJ)
      *      for (unsigned long m = 0; m <= nmax; m++)
      *          for (unsigned long n = m; n <= nmax; n++)
      *              for (unsigned long j = 0; j <= (n / 2); j++)
-     *                  pnmj->pnmj[m][n - m][j];
+     *                  pnmj->pnmj[m][n][j];
      *
      * \endverbatim
      *
@@ -203,11 +187,12 @@ typedef struct
      * \verbatim embed:rst:leading-asterisk
      *  .. code-block:: c
      *
-     *      charm@P@_pnmj *pnmj = charm@P@_leg_pnmj_init(100, CHARM_LEG_PNMJ_ORDER_MJN)
+     *      unsigned long nmax = 100;
+     *      charm@P@_pnmj *pnmj = charm@P@_leg_pnmj_init(nmax, CHARM_LEG_PNMJ_ORDER_MJN)
      *      for (unsigned long m = 0; m <= nmax; m++)
      *          for (unsigned long j = 0; j <= (nmax / 2); j++)
      *              for (unsigned long n = CHARM_MAX(m, 2 * j); n <= nmax; n++)
-     *                  pnmj->pnmj[m][j][n - CHARM_MAX(m, 2 * j)];
+     *                  pnmj->pnmj[m][j][n];
      *
      * \endverbatim
      *

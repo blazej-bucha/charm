@@ -441,7 +441,6 @@ void CHARM(sha_point)(const CHARM(crd) *pnt, const REAL *f, unsigned long nmax,
         REAL_SIMD wlf;
         _Bool npm_even; /* True if "n + m" is even */
         size_t ipv; /* "i + v" */
-        unsigned long nmm; /* "n - m" */
 
 
         /* Loop over latitudes */
@@ -523,7 +522,7 @@ void CHARM(sha_point)(const CHARM(crd) *pnt, const REAL *f, unsigned long nmax,
             shared(latsin, ROOT3_r, FAILURE_glob, err) \
             private(am, bm, a2m, b2m, amp, amm, bmp, bmm) \
             private(x, ix, y, iy, wlf, ixy, z, iz) \
-            private(pnm0, pnm1, pnm2, npm_even, nmm) \
+            private(pnm0, pnm1, pnm2, npm_even) \
             shared(zero_ri, one_ri, mone_ri, zero_r) \
             shared(BIG_r, BIGI_r, BIGS_r, BIGSI_r, ABS_R_MASK) \
             private(tmp1_r, tmp2_r, mask1, mask2, mask3)
@@ -533,7 +532,7 @@ void CHARM(sha_point)(const CHARM(crd) *pnt, const REAL *f, unsigned long nmax,
             shared(latsin, ROOT3_r, FAILURE_glob, err) \
             private(am, bm, a2m, b2m, amp, amm, bmp, bmm) \
             private(x, ix, y, iy, wlf, ixy, z, iz) \
-            private(pnm0, pnm1, pnm2, npm_even, nmm)
+            private(pnm0, pnm1, pnm2, npm_even)
 #   endif
             {
             /* ............................................................. */
@@ -689,8 +688,8 @@ FAILURE_1_parallel:
 
 
                     /* Cm,m; Sm,m */
-                    shcs->c[m][0] += SUM_R(MUL_R(pnm0, amp));
-                    shcs->s[m][0] += SUM_R(MUL_R(pnm0, bmp));
+                    shcs->c[m][m] += SUM_R(MUL_R(pnm0, amp));
+                    shcs->s[m][m] += SUM_R(MUL_R(pnm0, bmp));
                     /* ----------------------------------------------------- */
 
 
@@ -712,8 +711,8 @@ FAILURE_1_parallel:
 
 
                         /* Cm+1,m; Sm+1,m */
-                        shcs->c[m][1] += SUM_R(MUL_R(pnm1, amm));
-                        shcs->s[m][1] += SUM_R(MUL_R(pnm1, bmm));
+                        shcs->c[m][m + 1] += SUM_R(MUL_R(pnm1, amm));
+                        shcs->s[m][m + 1] += SUM_R(MUL_R(pnm1, bmm));
 
 
                         /* Loop over degrees */
@@ -748,16 +747,15 @@ FAILURE_1_parallel:
 
                             /* Cm+2,m, Cm+3,m, ..., Cnmax,m and Sm+2,m, Sm+3,m,
                              * ..., Snmax,m */
-                            nmm = n - m;
                             if (npm_even)
                             {
-                                shcs->c[m][nmm] += SUM_R(MUL_R(pnm2, amp));
-                                shcs->s[m][nmm] += SUM_R(MUL_R(pnm2, bmp));
+                                shcs->c[m][n] += SUM_R(MUL_R(pnm2, amp));
+                                shcs->s[m][n] += SUM_R(MUL_R(pnm2, bmp));
                             }
                             else
                             {
-                                shcs->c[m][nmm] += SUM_R(MUL_R(pnm2, amm));
-                                shcs->s[m][nmm] += SUM_R(MUL_R(pnm2, bmm));
+                                shcs->c[m][n] += SUM_R(MUL_R(pnm2, amm));
+                                shcs->s[m][n] += SUM_R(MUL_R(pnm2, bmm));
                             }
 
 
@@ -852,8 +850,8 @@ FAILURE:
     {
         for (unsigned long n = m; n <= nmax; n++)
         {
-            shcs->c[m][n - m] *= c2;
-            shcs->s[m][n - m] *= c2;
+            shcs->c[m][n] *= c2;
+            shcs->s[m][n] *= c2;
         }
     }
     /* ..................................................................... */

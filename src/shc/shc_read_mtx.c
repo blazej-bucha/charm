@@ -183,9 +183,9 @@ void CHARM(shc_read_mtx)(const char *pathname, unsigned long nmax,
              * or "shcs->s" */
             /* ------------------------------------------------------------- */
             if (row >= col)
-                shcs->c[col][row - col] = entry_d;
+                shcs->c[col][row] = entry_d;
             else
-                shcs->s[row + 1][col - row - 1] = entry_d;
+                shcs->s[row + 1][col] = entry_d;
             /* ------------------------------------------------------------- */
         }
 

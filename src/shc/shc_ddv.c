@@ -64,8 +64,8 @@ void CHARM(shc_ddv)(const CHARM(shc) *shcs1, const CHARM(shc) *shcs2,
         ddvn = PREC(0.0);
         for (unsigned long m = 0; m <= n; m++)
         {
-            tmp_cnm = shcs1->c[m][n - m] - shcs2->c[m][n - m];
-            tmp_snm = shcs1->s[m][n - m] - shcs2->s[m][n - m];
+            tmp_cnm = shcs1->c[m][n] - shcs2->c[m][n];
+            tmp_snm = shcs1->s[m][n] - shcs2->s[m][n];
             ddvn += (tmp_cnm * tmp_cnm) + (tmp_snm * tmp_snm);
         }
 

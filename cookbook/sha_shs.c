@@ -472,26 +472,26 @@ int main(void)
     /* --------------------------------------------------------------------- */
     n = 2;
     unsigned long m = 0;
-    printf("C(%3lu,%3lu) = %0.16e\n", n, m, shcs2->c[m][n - m]);
-    printf("S(%3lu,%3lu) = %0.16e\n", n, m, shcs2->s[m][n - m]);
+    printf("C(%3lu,%3lu) = %0.16e\n", n, m, shcs2->c[m][n]);
+    printf("S(%3lu,%3lu) = %0.16e\n", n, m, shcs2->s[m][n]);
 
 
     n = 9;
     m = 0;
-    printf("C(%3lu,%3lu) = %0.16e\n", n, m, shcs2->c[m][n - m]);
-    printf("S(%3lu,%3lu) = %0.16e\n", n, m, shcs2->s[m][n - m]);
+    printf("C(%3lu,%3lu) = %0.16e\n", n, m, shcs2->c[m][n]);
+    printf("S(%3lu,%3lu) = %0.16e\n", n, m, shcs2->s[m][n]);
 
 
     n = 9;
     m = 4;
-    printf("C(%3lu,%3lu) = %0.16e\n", n, m, shcs2->c[m][n - m]);
-    printf("S(%3lu,%3lu) = %0.16e\n", n, m, shcs2->s[m][n - m]);
+    printf("C(%3lu,%3lu) = %0.16e\n", n, m, shcs2->c[m][n]);
+    printf("S(%3lu,%3lu) = %0.16e\n", n, m, shcs2->s[m][n]);
 
 
     n = 9;
     m = 9;
-    printf("C(%3lu,%3lu) = %0.16e\n", n, m, shcs2->c[m][n - m]);
-    printf("S(%3lu,%3lu) = %0.16e\n", n, m, shcs2->s[m][n - m]);
+    printf("C(%3lu,%3lu) = %0.16e\n", n, m, shcs2->c[m][n]);
+    printf("S(%3lu,%3lu) = %0.16e\n", n, m, shcs2->s[m][n]);
     /* --------------------------------------------------------------------- */
 
 

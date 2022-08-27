@@ -196,10 +196,12 @@ static int read_cnmsnm(FILE *fptr, unsigned long nmax_file, int cnmsnm,
         {
             if (cnmsnm == 0)
                 /* We are reading the "C" coefficients */
-                err = fread(shcs->c[m], sizeof(REAL), nmax_file + 1 - m, fptr);
+                err = fread(shcs->c[m] + m, sizeof(REAL), nmax_file + 1 - m,
+                            fptr);
             else if (cnmsnm == 1)
                 /* We are reading the "S" coefficients */
-                err = fread(shcs->s[m], sizeof(REAL), nmax_file + 1 - m, fptr);
+                err = fread(shcs->s[m] + m, sizeof(REAL), nmax_file + 1 - m,
+                            fptr);
             else
                 return 1;
 

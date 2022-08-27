@@ -93,22 +93,22 @@ int main(void)
     /* Let's start with zonal coefficients */
     unsigned long n = 9;  /* Harmonic degree */
     unsigned long m = 0;  /* Harmonic order */
-    printf("C(%3lu,%3lu) = %0.7e\n", n, m, shcs->c[m][n - m]);
-    printf("S(%3lu,%3lu) = %0.7e\n", n, m, shcs->s[m][n - m]);
+    printf("C(%3lu,%3lu) = %0.7e\n", n, m, shcs->c[m][n]);
+    printf("S(%3lu,%3lu) = %0.7e\n", n, m, shcs->s[m][n]);
 
 
     /* Now some tesseral coefficients */
     n = 9;
     m = 4;
-    printf("C(%3lu,%3lu) = %0.7e\n", n, m, shcs->c[m][n - m]);
-    printf("S(%3lu,%3lu) = %0.7e\n", n, m, shcs->s[m][n - m]);
+    printf("C(%3lu,%3lu) = %0.7e\n", n, m, shcs->c[m][n]);
+    printf("S(%3lu,%3lu) = %0.7e\n", n, m, shcs->s[m][n]);
 
 
     /* And finally some sectorial coefficients */
     n = 9;
     m = 9;
-    printf("C(%3lu,%3lu) = %0.7e\n", n, m, shcs->c[m][n - m]);
-    printf("S(%3lu,%3lu) = %0.7e\n", n, m, shcs->s[m][n - m]);
+    printf("C(%3lu,%3lu) = %0.7e\n", n, m, shcs->c[m][n]);
+    printf("S(%3lu,%3lu) = %0.7e\n", n, m, shcs->s[m][n]);
     /* --------------------------------------------------------------------- */
 
 
