@@ -171,12 +171,6 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin, REAL cltmax,
 
     /* Computation of the integrals */
     /* --------------------------------------------------------------------- */
-    /* Get the pointers to Fourier coefficients "pnmj->pnmj" of degrees "n1"
-     * and "n2" and orders "m1" and "m2" */
-    REAL *pnmj_m1n1 = pnmj->pnmj[m1][n1 - m1];
-    REAL *pnmj_m2n2 = pnmj->pnmj[m2][n2 - m2];
-
-
     /* Useful substitution */
     size_t k1_n2p1;
 
@@ -191,7 +185,7 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin, REAL cltmax,
     for (unsigned long k1 = 0; k1 <= n1; k1++)
     {
         if (((n1 - k1) % 2) != 0)
-            /* Continue, because the respective Fourier  coefficient is zero by
+            /* Continue, because the respective Fourier coefficient is zero by
              * definition */
             continue;
 
@@ -210,11 +204,19 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin, REAL cltmax,
                 continue;
 
 
-            ip_tmp += pnmj_m2n2[CHARM(leg_pnmj_k2j)(k2)] * itrig[k1_n2p1 + k2];
+            if (pnmj->nmj_order == CHARM_LEG_PNMJ_ORDER_MNJ)
+                ip_tmp += pnmj->pnmj[m2][n2][CHARM(leg_pnmj_k2j)(k2)] *
+                          itrig[k1_n2p1 + k2];
+            else if (pnmj->nmj_order == CHARM_LEG_PNMJ_ORDER_MJN)
+                ip_tmp += pnmj->pnmj[m2][CHARM(leg_pnmj_k2j)(k2)][n2] *
+                          itrig[k1_n2p1 + k2];
         }
 
 
-        ip += pnmj_m1n1[CHARM(leg_pnmj_k2j)(k1)] * ip_tmp;
+        if (pnmj->nmj_order == CHARM_LEG_PNMJ_ORDER_MNJ)
+            ip += pnmj->pnmj[m1][n1][CHARM(leg_pnmj_k2j)(k1)] * ip_tmp;
+        else if (pnmj->nmj_order == CHARM_LEG_PNMJ_ORDER_MJN)
+            ip += pnmj->pnmj[m1][CHARM(leg_pnmj_k2j)(k1)][n1] * ip_tmp;
     }
     /* --------------------------------------------------------------------- */
 
