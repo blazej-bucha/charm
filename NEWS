@@ -1,5 +1,26 @@
 Upcoming release:
 
+* Changed API to access the arrays in "charm_shc" and "charm_pnmj".  The 
+  members "c" and "s" of "charm_shc" structures are now accessed as
+
+          "c[m][n]",
+          "s[m][n]"
+
+  instead of
+
+          "c[m][n - m]",
+          "s[m][n - m]".
+
+  The member "pnmj" of "charm_pnmj" structures is now accessed as
+
+          "pnmj[m][n][j]",
+          "pnmj[m][j][n]"
+
+  instead of
+
+          "pnmj[m][n - m][j]",
+          "pnmj[m][j][n - CHARM_MAX(m, 2 * j)]".
+
 * Changed API of the following functions to read/write spherical harmonic 
   coefficients from/to files:
 
@@ -20,6 +41,11 @@ Upcoming release:
 
   This should considerably simplify making the Python wrapper, given than 
   wrapping "TYPE *" pointer with "ctypes" is not that trivial.
+
+* Bug fix for "integ_pn1m1pn2m2".  The routine now works correctly with both 
+  ordering schemes of Fourier coefficients of Legendre functions.
+
+* Fix a few leg_pnmj tests that did not actually run.
 
 * Two members, "nc" and "ns", were added to the "charm_shc" structure to 
   represent the total number of spherical harmonic coefficients "Cnm" and 
