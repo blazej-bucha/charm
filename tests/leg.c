@@ -81,7 +81,7 @@ int leg(void)
                                 FOLDER, nmax, m, n, FTYPE);
 
 
-                        errnum += validate(file, pnmj->pnmj[m][n], (n / 2),
+                        errnum += validate(file, pnmj->pnmj[m][n], (n / 2) + 1,
                                            PREC(10.0) * CHARM(glob_threshold));
                     }
             }
