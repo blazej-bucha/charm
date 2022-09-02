@@ -110,7 +110,7 @@ LTLIBRARIES = $(noinst_LTLIBRARIES)
 libcharm@P@_crd@OMP@_la_LIBADD =
 am_libcharm@P@_crd@OMP@_la_OBJECTS = crd_init.lo crd_free.lo crd_gl.lo \
 	crd_dh1.lo crd_dh2.lo crd_dh_lats_weights.lo \
-	crd_grd_check_symm.lo
+	crd_grd_check_symm.lo crd_check_cells.lo
 libcharm@P@_crd@OMP@_la_OBJECTS =  \
 	$(am_libcharm@P@_crd@OMP@_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -132,7 +132,8 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/crd_dh1.Plo ./$(DEPDIR)/crd_dh2.Plo \
+am__depfiles_remade = ./$(DEPDIR)/crd_check_cells.Plo \
+	./$(DEPDIR)/crd_dh1.Plo ./$(DEPDIR)/crd_dh2.Plo \
 	./$(DEPDIR)/crd_dh_lats_weights.Plo ./$(DEPDIR)/crd_free.Plo \
 	./$(DEPDIR)/crd_gl.Plo ./$(DEPDIR)/crd_grd_check_symm.Plo \
 	./$(DEPDIR)/crd_init.Plo
@@ -299,7 +300,8 @@ libcharm@P@_crd@OMP@_la_SOURCES = crd_init.c \
 								  crd_dh1.c \
 								  crd_dh2.c \
 								  crd_dh_lats_weights.c \
-								  crd_grd_check_symm.c
+								  crd_grd_check_symm.c \
+								  crd_check_cells.c
 
 EXTRA_DIST = *.h
 all: all-am
@@ -356,6 +358,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_check_cells.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_dh1.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_dh2.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_dh_lats_weights.Plo@am__quote@ # am--include-marker
@@ -476,7 +479,8 @@ clean-am: clean-generic clean-libtool clean-noinstLTLIBRARIES \
 	mostlyclean-am
 
 distclean: distclean-am
-		-rm -f ./$(DEPDIR)/crd_dh1.Plo
+		-rm -f ./$(DEPDIR)/crd_check_cells.Plo
+	-rm -f ./$(DEPDIR)/crd_dh1.Plo
 	-rm -f ./$(DEPDIR)/crd_dh2.Plo
 	-rm -f ./$(DEPDIR)/crd_dh_lats_weights.Plo
 	-rm -f ./$(DEPDIR)/crd_free.Plo
@@ -527,7 +531,8 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f ./$(DEPDIR)/crd_dh1.Plo
+		-rm -f ./$(DEPDIR)/crd_check_cells.Plo
+	-rm -f ./$(DEPDIR)/crd_dh1.Plo
 	-rm -f ./$(DEPDIR)/crd_dh2.Plo
 	-rm -f ./$(DEPDIR)/crd_dh_lats_weights.Plo
 	-rm -f ./$(DEPDIR)/crd_free.Plo

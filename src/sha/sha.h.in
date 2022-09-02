@@ -220,10 +220,10 @@ extern void charm@P@_sha_point(const charm@P@_crd *pnt,
  * - at least ``2 * nmax + 1`` data values in ``f`` are required in the 
  *   longitudinal direction,
  *
- * - ``cell->lat[0]`` has to be equal to ``-PI / 2.0`` (within the
+ * - ``cell->lat[0]`` has to be equal to ``PI / 2.0`` (within the
  *   ``charm@P@_glob_threshold`` limit, see the ``charm@P@_glob`` module),
  *
- * - ``cell->lat[2 * cell->nlat - 1]`` has to be equal to ``PI / 2.0`` (again,
+ * - ``cell->lat[2 * cell->nlat - 1]`` has to be equal to ``-PI / 2.0`` (again,
  *   within the ``charm@P@_glob_threshold`` limit),
  *
  * - ``cell->lon[0]`` has to be equal to ``0.0`` (still within the

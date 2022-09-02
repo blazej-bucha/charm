@@ -42,6 +42,21 @@ Upcoming release:
   This should considerably simplify making the Python wrapper, given than 
   wrapping "TYPE *" pointer with "ctypes" is not that trivial.
 
+* Changed API for SHA and SHS with cells
+
+    * "charm_sha_cell",
+    * "charm_shs_cell",
+    * "charm_shs_isurf".
+
+  Cell latitude boundaries must now follow the rule:
+
+    * the "lat[2 * i]" member of "charm_crd" now represents the maximum cell 
+      latitude instead of the minimum latitude,
+    * the "lat[2 * i + 1]" member of "charm_crd" now represents the minimum
+      cell latitude instead of the maximum latitude.
+
+  Area-mean grids are therefore no longer turned upside down.
+
 * Bug fix for "integ_pn1m1pn2m2".  The routine now works correctly with both 
   ordering schemes of Fourier coefficients of Legendre functions.
 

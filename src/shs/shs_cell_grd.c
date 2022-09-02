@@ -27,6 +27,7 @@
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
 #include "../crd/crd_grd_check_symm.h"
+#include "../crd/crd_check_cells.h"
 #include "../misc/misc_is_nearly_equal.h"
 #include "../simd/simd.h"
 #include "../simd/calloc_aligned.h"
@@ -146,6 +147,21 @@ void CHARM(shs_cell_grd)(const CHARM(crd) *cell, const CHARM(shc) *shcs,
          * memory, but is given as "(cell->lon[2 * j] + cell->lon[2 * j + 1])
          * / 2.0" for "j = 0, 1, ..., nlon - 1". */
         lon0 = (cell->lon[0] + cell->lon[1]) / PREC(2.0);
+    }
+    /* --------------------------------------------------------------------- */
+
+
+
+
+
+
+    /* Check cell boundaries */
+    /* --------------------------------------------------------------------- */
+    CHARM(crd_check_cells)(cell, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
     }
     /* --------------------------------------------------------------------- */
 
@@ -605,8 +621,8 @@ FAILURE_1_parallel:
 
                 if (latsinv[v] == 1)
                 {
-                    latminv[v] = cell->lat[2 * ipv];
-                    latmaxv[v] = cell->lat[2 * ipv + 1];
+                    latmaxv[v] = cell->lat[2 * ipv];
+                    latminv[v] = cell->lat[2 * ipv + 1];
                     t1v[v]     = SIN(latminv[v]);
                     u1v[v]     = COS(latminv[v]);
                     t2v[v]     = SIN(latmaxv[v]);

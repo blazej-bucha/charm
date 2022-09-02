@@ -27,9 +27,6 @@ void CHARM(generate_crd)(CHARM(crd) *grd, REAL r, REAL lat_rng, REAL lon_rng)
 
 
     if ((grd_type == CHARM_CRD_POINTS_GRID) ||
-        (grd_type == CHARM_CRD_POINTS_GRID_GL) ||
-        (grd_type == CHARM_CRD_POINTS_GRID_DH1) ||
-        (grd_type == CHARM_CRD_POINTS_GRID_DH2) ||
         (grd_type == CHARM_CRD_POINTS_SCATTERED))
     {
         for (size_t l = 0; l < nlat; l++)
@@ -44,9 +41,9 @@ void CHARM(generate_crd)(CHARM(crd) *grd, REAL r, REAL lat_rng, REAL lon_rng)
     {
         for (size_t l = 0; l < nlat; l++)
         {
-            grd->lat[2 * l]     = ((REAL)l / (REAL)nlat) * lat_rng - PI_2;
-            grd->lat[2 * l + 1] = ((REAL)(l + 1) / (REAL)nlat) * lat_rng -
-                                  PI_2;
+            grd->lat[2 * l]     = PI_2 - ((REAL)l / (REAL)nlat) * lat_rng;
+            grd->lat[2 * l + 1] = PI_2 - 
+                                  ((REAL)(l + 1) / (REAL)nlat) * lat_rng;
         }
 
 

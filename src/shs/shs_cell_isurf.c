@@ -16,6 +16,7 @@
 #include "../integ/integ_css.h"
 #include "../integ/integ_scs.h"
 #include "../integ/integ_sss.h"
+#include "../crd/crd_check_cells.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
 #include "../simd/simd.h"
@@ -88,6 +89,15 @@ void CHARM(shs_cell_isurf)(const CHARM(crd) *cell,
     size_t cell_nlat = cell->nlat;
     REAL dlon;
     CHARM(shs_cell_check_grd_lons)(cell, &dlon, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
+    /* Check cell boundaries */
+    CHARM(crd_check_cells)(cell, err);
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
@@ -325,8 +335,8 @@ FAILURE_1_parallel:
             ipv = i + v;
             if (ipv < cell_nlat)
             {
-                clt2v[v] = PI_2 - cell->lat[2 * ipv];
-                clt1v[v] = PI_2 - cell->lat[2 * ipv + 1];
+                clt1v[v] = PI_2 - cell->lat[2 * ipv];
+                clt2v[v] = PI_2 - cell->lat[2 * ipv + 1];
             }
             else
             {

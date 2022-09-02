@@ -283,9 +283,9 @@ typedef struct
  *        direction and the ``j``-th grid cell in the longitudinal direction 
  *        have to be accessed as 
  *
- *        - ``crd->lat[2 * i]`` for the minimum cell latitude,
+ *        - ``crd->lat[2 * i]`` for the maximum cell latitude,
  *
- *        - ``crd->lat[2 * i + 1]`` for the maximum cell latitude,
+ *        - ``crd->lat[2 * i + 1]`` for the minimum cell latitude,
  *
  *        - ``crd->lon[2 * j]`` for the minimum cell longitude,
  *

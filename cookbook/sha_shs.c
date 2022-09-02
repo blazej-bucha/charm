@@ -246,12 +246,12 @@ int main(void)
     /* Define some grid points */
     for (size_t i = 0; i < grd->nlat; i++)
     {
-        grd->lat[i] = -M_PI_2 + (double)i * M_PI / grd->nlat;
+        grd->lat[i] = M_PI_2 - ((double)i / (double)grd->nlat) * M_PI;
         grd->r[i]   = shcs->r + (double)i;
     }
     for (size_t j = 0; j < grd->nlon; j++)
     {
-        grd->lon[j] = (double)j * (2.0 * M_PI) / grd->nlon;
+        grd->lon[j] = ((double)j / (double)grd->nlon) * (2.0 * M_PI);
     }
 
 
@@ -304,21 +304,21 @@ int main(void)
 
     /* Define more or less randomly some scattered cells */
     /* --------------------------------------------------------------------- */
-    /* The minimum latitude of the first cell */
+    /* The maximum latitude of the first cell */
     sctr->lat[0] =  0.323413435;
 
-    /* The maximum latitude of the first cell */
-    sctr->lat[1] =  sctr->lat[0] + 0.234323;
-
-    /* The minimum latitude of the second cell */
-    sctr->lat[2] = -0.90234320952;
+    /* The minimum latitude of the first cell */
+    sctr->lat[1] =  sctr->lat[0] - 0.234323;
 
     /* The maximum latitude of the second cell */
-    sctr->lat[3] =  sctr->lat[2] + 0.4456;
+    sctr->lat[2] = -0.90234320952;
+
+    /* The minimum latitude of the second cell */
+    sctr->lat[3] =  sctr->lat[2] - 0.4456;
 
     /* And so on... */
     sctr->lat[4] =  0.0;
-    sctr->lat[5] =  sctr->lat[4] + M_PI_2;
+    sctr->lat[5] =  sctr->lat[4] - M_PI_2;
 
     /* And now the same, but with the longitudes... */
     sctr->lon[0] =  0.123456789;
@@ -385,10 +385,11 @@ int main(void)
     for (size_t i = 0; i < grd->nlat; i++)
     {
         /* The minimum cell latitudes */
-        grd->lat[2 * i]      = -M_PI_2 + (double)i       * M_PI / grd->nlat;
+        grd->lat[2 * i]      = M_PI_2 - ((double)i / (double)grd->nlat) * M_PI;
 
         /* The maximum cell latitudes */
-        grd->lat[2 * i + 1]  = -M_PI_2 + (double)(i + 1) * M_PI / grd->nlat;
+        grd->lat[2 * i + 1]  = M_PI_2 - ((double)(i + 1) / (double)grd->nlat) *
+                                        M_PI;
 
         /* The spherical radii (may vary with the latitude, but we use
          * a constant value here, because of the example that follows after
@@ -398,10 +399,11 @@ int main(void)
     for (size_t j = 0; j < grd->nlon; j++)
     {
         /* The minimum cell longitudes */
-        grd->lon[2 * j]      = (double)j       * (2.0 * M_PI) / grd->nlon;
+        grd->lon[2 * j]      = ((double)j / (double)grd->nlon) * (2.0 * M_PI);
 
         /* The maximum cell longitudes */
-        grd->lon[2 * j + 1]  = (double)(j + 1) * (2.0 * M_PI) / grd->nlon;
+        grd->lon[2 * j + 1]  = ((double)(j + 1) / (double)grd->nlon) * 
+                               (2.0 * M_PI);
     }
 
 

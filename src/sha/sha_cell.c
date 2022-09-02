@@ -20,6 +20,7 @@
 #include "../leg/leg_func_prepare.h"
 #include "../leg/leg_func_xnum.h"
 #include "../crd/crd_grd_check_symm.h"
+#include "../crd/crd_check_cells.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
 #include "../misc/misc_is_nearly_equal.h"
@@ -94,13 +95,13 @@ void CHARM(sha_cell)(const CHARM(crd) *cell, const REAL *f, unsigned long nmax,
 
     /* Check the latitudes of the computational grid */
     /* --------------------------------------------------------------------- */
-    /* The first latitude must be equal to "-PI_2". */
+    /* The first latitude must be equal to "PI_2". */
     /* ..................................................................... */
-    if (CHARM(misc_is_nearly_equal)(cell->lat[0], -PI_2,
+    if (CHARM(misc_is_nearly_equal)(cell->lat[0], PI_2,
                                     CHARM(glob_threshold)) != 1)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
-                       "\"cell->lat[0]\" has to be equal to \"-PI / 2.0\" "
+                       "\"cell->lat[0]\" has to be equal to \"PI / 2.0\" "
                        "within the \"threshold\".");
         return;
     }
@@ -119,14 +120,14 @@ void CHARM(sha_cell)(const CHARM(crd) *cell, const REAL *f, unsigned long nmax,
     /* ..................................................................... */
 
 
-    /* The last latitude must be equal to "PI_2". */
+    /* The last latitude must be equal to "-PI_2". */
     /* ..................................................................... */
     if (CHARM(misc_is_nearly_equal)(cell->lat[2 * cell_nlat - 1],
-                                    PI_2, CHARM(glob_threshold)) != 1)
+                                    -PI_2, CHARM(glob_threshold)) != 1)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"cell->lat[2 * cell->nlat - 1]\" has to "
-                       "be equal to \"PI / 2.0\" within the "
+                       "be equal to \"-PI / 2.0\" within the "
                        "\"threshold\".");
         return;
     }
@@ -189,7 +190,7 @@ void CHARM(sha_cell)(const CHARM(crd) *cell, const REAL *f, unsigned long nmax,
     for (size_t i = 0; i < cell_nlat; i++)
     {
         if (CHARM(misc_is_nearly_equal)(cell->lat[i],
-                                         -cell->lat[(2 * cell_nlat) - i - 1],
+                                        -cell->lat[(2 * cell_nlat) - i - 1],
                                         CHARM(glob_threshold2)) == 0)
         {
             /* The grid is not symmetric */
@@ -293,6 +294,21 @@ void CHARM(sha_cell)(const CHARM(crd) *cell, const REAL *f, unsigned long nmax,
                            "all \"j = 1, 2, ..., cell->nlon - 1\".");
             return;
         }
+    }
+    /* --------------------------------------------------------------------- */
+
+
+
+
+
+
+    /* Check cell boundaries */
+    /* --------------------------------------------------------------------- */
+    CHARM(crd_check_cells)(cell, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
     }
     /* --------------------------------------------------------------------- */
 
@@ -685,8 +701,8 @@ void CHARM(sha_cell)(const CHARM(crd) *cell, const REAL *f, unsigned long nmax,
 
                 if (latsinv[v] == 1)
                 {
-                    latminv[v] = cell->lat[2 * ipv];
-                    latmaxv[v] = cell->lat[2 * ipv + 1];
+                    latmaxv[v] = cell->lat[2 * ipv];
+                    latminv[v] = cell->lat[2 * ipv + 1];
                     t1v[v]     = SIN(latminv[v]);
                     u1v[v]     = COS(latminv[v]);
                     t2v[v]     = SIN(latmaxv[v]);
