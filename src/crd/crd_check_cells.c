@@ -11,7 +11,7 @@
 
 
 
-/* An internal function to cell boundaries. */
+/* An internal function to check cell boundaries. */
 void CHARM(crd_check_cells)(const CHARM(crd) *cell, CHARM(err) *err)
 {
     for (size_t i = 0; i < cell->nlat; i++)
