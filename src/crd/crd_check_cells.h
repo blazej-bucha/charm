@@ -1,8 +1,8 @@
 /* This header file is not a part of API. */
 
 
-#ifndef __CRD_CHECK_CELL_LATS_H__
-#define __CRD_CHECK_CELL_LATS_H__
+#ifndef __CRD_CHECK_CELLS_H__
+#define __CRD_CHECK_CELLS_H__
 
 
 #include <config.h>
