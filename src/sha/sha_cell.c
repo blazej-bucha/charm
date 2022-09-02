@@ -147,7 +147,8 @@ void CHARM(sha_cell)(const CHARM(crd) *cell, const REAL *f, unsigned long nmax,
                            "The grid cells are not nicely aligned in the "
                            "latitudinal direction.  It must hold that "
                            "\"cell->lat[2 * i + 1] == cell->lat[2 * (i + 1)]\""
-                           " for all \"i = 0, 1, ..., cell->nlat - 1\".");
+                           " for all \"i = 0, 1, ..., cell->nlat - 2\" with "
+                           "\"cell->nlat > 1\".");
             return;
         }
     }
@@ -290,8 +291,9 @@ void CHARM(sha_cell)(const CHARM(crd) *cell, const REAL *f, unsigned long nmax,
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                            "The grid cells are not nicely aligned in the "
                            "longitudinal direction.  It must hold that "
-                           "\"cell->lon[2 * j] == cell->lon[2 * j - 1]\" for "
-                           "all \"j = 1, 2, ..., cell->nlon - 1\".");
+                           "\"cell->lon[2 * j + 1] == cell->lon[2 * (j + 1)]\""
+                           " for all \"j = 0, 1, ..., cell->nlon - 2\" "
+                           "with \"cell->nlon > 1\".");
             return;
         }
     }
