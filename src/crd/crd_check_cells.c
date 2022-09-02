@@ -21,6 +21,7 @@ void CHARM(crd_check_cells)(const CHARM(crd) *cell, CHARM(err) *err)
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                            "Minimum cell latitudes must be smaller than "
                            "maximum cell latitudes.");
+            return;
         }
     }
 
@@ -32,6 +33,7 @@ void CHARM(crd_check_cells)(const CHARM(crd) *cell, CHARM(err) *err)
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                            "Minimum cell longitudes must be smaller than "
                            "maximum cell longitudes.");
+            return;
         }
     }
 
