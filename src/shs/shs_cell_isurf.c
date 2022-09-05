@@ -133,19 +133,31 @@ void CHARM(shs_cell_isurf)(const CHARM(crd) *cell,
     cnm1cnm3 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, size,
                                              sizeof(REAL));
     if (cnm1cnm3 == NULL)
+    {
+        FAILURE_glob = 1;
         goto FAILURE;
+    }
     cnm1snm3 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, size,
                                              sizeof(REAL));
     if (cnm1snm3 == NULL)
+    {
+        FAILURE_glob = 1;
         goto FAILURE;
+    }
     snm1cnm3 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, size,
                                              sizeof(REAL));
     if (snm1cnm3 == NULL)
+    {
+        FAILURE_glob = 1;
         goto FAILURE;
+    }
     snm1snm3 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, size,
                                              sizeof(REAL));
     if (snm1snm3 == NULL)
+    {
+        FAILURE_glob = 1;
         goto FAILURE;
+    }
 
 
     CHARM(shs_cell_isurf_coeffs)(shcs1, nmax1, shcs2,
