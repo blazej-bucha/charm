@@ -10,7 +10,7 @@
 
 
 
-CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, unsigned int nmj_order)
+CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, int nmj_order)
 {
     /* Allocate memory for the "CHARM(pnmj)" data type */
     /* --------------------------------------------------------------------- */
@@ -40,7 +40,7 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, unsigned int nmj_order)
     /* --------------------------------------------------------------------- */
 
 
-    /* Allocate the "pnmj-pnmj" array to store the Fourier coefficients of
+    /* Allocate the "pnmj->pnmj" array to store the Fourier coefficients of
      * Legendre functions */
     /* --------------------------------------------------------------------- */
     pnmj->pnmj = (REAL ***)malloc((nmax + 1) * sizeof(REAL **));

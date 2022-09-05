@@ -117,7 +117,7 @@ typedef struct
      * ``CHARM_LEG_PNMJ_ORDER_MJN``.  For details, see the description of 
      * ``pnmj`` below.
      * */
-    unsigned int nmj_order;
+    int nmj_order;
 
 
     /** Total number of Fourier coefficients \f$P_{nmj}\f$.  */
@@ -252,7 +252,7 @@ extern size_t charm@P@_leg_pnmj_length(unsigned long nmax);
  *
  * */
 extern charm@P@_pnmj *charm@P@_leg_pnmj_init(unsigned long nmax, 
-                                             unsigned int nmj_order);
+                                             int nmj_order);
 
 
 

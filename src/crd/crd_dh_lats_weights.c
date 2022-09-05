@@ -89,4 +89,7 @@ void CHARM(crd_dh_lats_weights)(CHARM(crd) *dh, unsigned long nmax)
         /* ----------------------------------------------------------------- */
     }
     }
+
+
+    return;
 }
