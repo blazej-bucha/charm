@@ -173,6 +173,7 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin, REAL cltmax,
     /* --------------------------------------------------------------------- */
     /* Useful substitution */
     size_t k1_n2p1;
+    unsigned long j1, j2;
 
 
     /* Initialize the value of the integral */
@@ -204,19 +205,20 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin, REAL cltmax,
                 continue;
 
 
+            j2 = CHARM(leg_pnmj_k2j)(k2);
             if (pnmj->nmj_order == CHARM_LEG_PNMJ_ORDER_MNJ)
-                ip_tmp += pnmj->pnmj[m2][n2][CHARM(leg_pnmj_k2j)(k2)] *
-                          itrig[k1_n2p1 + k2];
+                ip_tmp += pnmj->pnmj[m2][n2 - m2][j2] * itrig[k1_n2p1 + k2];
             else if (pnmj->nmj_order == CHARM_LEG_PNMJ_ORDER_MJN)
-                ip_tmp += pnmj->pnmj[m2][CHARM(leg_pnmj_k2j)(k2)][n2] *
+                ip_tmp += pnmj->pnmj[m2][j2][n2 - CHARM_MAX(m2, 2 * j2)] *
                           itrig[k1_n2p1 + k2];
         }
 
 
+        j1 = CHARM(leg_pnmj_k2j)(k1);
         if (pnmj->nmj_order == CHARM_LEG_PNMJ_ORDER_MNJ)
-            ip += pnmj->pnmj[m1][n1][CHARM(leg_pnmj_k2j)(k1)] * ip_tmp;
+            ip += pnmj->pnmj[m1][n1 - m1][j1] * ip_tmp;
         else if (pnmj->nmj_order == CHARM_LEG_PNMJ_ORDER_MJN)
-            ip += pnmj->pnmj[m1][CHARM(leg_pnmj_k2j)(k1)][n1] * ip_tmp;
+            ip += pnmj->pnmj[m1][j1][n1 - CHARM_MAX(m1, 2 * j1)] * ip_tmp;
     }
     /* --------------------------------------------------------------------- */
 

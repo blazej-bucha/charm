@@ -70,9 +70,9 @@ void CHARM(shc_write_mtx)(const CHARM(shc) *shcs, unsigned long nmax,
         for (unsigned long col = 0; col <= nmax; col++)
         {
             if (row >= col)
-                coeff = shcs->c[col][row];
+                coeff = shcs->c[col][row - col];
             else
-                coeff = shcs->s[row + 1][col];
+                coeff = shcs->s[row + 1][col - row - 1];
 
 
             if (CHARM(misc_fprintf_real)(fptr, format, coeff) < 1)

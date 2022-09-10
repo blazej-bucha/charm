@@ -64,6 +64,7 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
 
 
     _Bool npm_even; /* True if "n + m" is even */
+    unsigned long nmm; /* "n - m" */
     size_t idx;
     _Bool symm = CHARM(shs_check_symm_simd)(symm_simd);
 
@@ -242,8 +243,8 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
 
         /* Lumped coefficients */
         /* ................................................................. */
-        inm_cnm = MUL_R(inm0, SET1_R(shcs->c[m][m]));
-        inm_snm = MUL_R(inm0, SET1_R(shcs->s[m][m]));
+        inm_cnm = MUL_R(inm0, SET1_R(shcs->c[m][0]));
+        inm_snm = MUL_R(inm0, SET1_R(shcs->s[m][0]));
 
 
         idx = m * SIMD_SIZE;
@@ -307,8 +308,8 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
 
             /* Lumped coefficients */
             /* ............................................................. */
-            inm_cnm = MUL_R(inm1, SET1_R(shcs->c[m][m + 1]));
-            inm_snm = MUL_R(inm1, SET1_R(shcs->s[m][m + 1]));
+            inm_cnm = MUL_R(inm1, SET1_R(shcs->c[m][1]));
+            inm_snm = MUL_R(inm1, SET1_R(shcs->s[m][1]));
 
 
             idx = (m + 1) * SIMD_SIZE;
@@ -384,8 +385,9 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
 
                 /* Lumped coefficients */
                 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-                inm_cnm = MUL_R(inm2, SET1_R(shcs->c[m][n]));
-                inm_snm = MUL_R(inm2, SET1_R(shcs->s[m][n]));
+                nmm = n - m;
+                inm_cnm = MUL_R(inm2, SET1_R(shcs->c[m][nmm]));
+                inm_snm = MUL_R(inm2, SET1_R(shcs->s[m][nmm]));
 
 
                 idx = n * SIMD_SIZE;

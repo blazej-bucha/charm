@@ -506,6 +506,7 @@ void CHARM(sha_cell)(const CHARM(crd) *cell, const REAL *f, unsigned long nmax,
         REAL cm, sm, mr;
         _Bool npm_even; /* True if "n + m" is even */
         size_t ipv; /* "i + v" */
+        unsigned long nmm; /* "n - m" */
 
 
         /* ................................................................. */
@@ -856,7 +857,7 @@ void CHARM(sha_cell)(const CHARM(crd) *cell, const REAL *f, unsigned long nmax,
             private(amp, amm, bmp, bmm, cm_simd, sm_simd) \
             private(pnm0_latmin, pnm0_latmax, pnm1_latmin, pnm1_latmax) \
             private(pnm2_latmin, pnm2_latmax, in0, inm0, inm1, inm2) \
-            private(npm_even) \
+            private(npm_even, nmm) \
             shared(zero_ri, one_ri, mone_ri, zero_r) \
             shared(BIG_r, BIGI_r, BIGS_r, BIGSI_r, ABS_R_MASK) \
             private(tmp1_r, tmp2_r, mask1, mask2, mask3)
@@ -872,7 +873,7 @@ void CHARM(sha_cell)(const CHARM(crd) *cell, const REAL *f, unsigned long nmax,
             private(amp, amm, bmp, bmm, cm_simd, sm_simd) \
             private(pnm0_latmin, pnm0_latmax, pnm1_latmin, pnm1_latmax) \
             private(pnm2_latmin, pnm2_latmax, in0, inm0, inm1, inm2) \
-            private(npm_even)
+            private(npm_even, nmm)
 #   endif
             {
             /* ............................................................. */
@@ -1152,8 +1153,8 @@ FAILURE_1_parallel:
 
                     /* Spherical harmonic coefficients */
                     /* ..................................................... */
-                    shcs->c[m][m] += SUM_R(MUL_R(inm0, amp));
-                    shcs->s[m][m] += SUM_R(MUL_R(inm0, bmp));
+                    shcs->c[m][0] += SUM_R(MUL_R(inm0, amp));
+                    shcs->s[m][0] += SUM_R(MUL_R(inm0, bmp));
                     /* ..................................................... */
                     /* ----------------------------------------------------- */
 
@@ -1208,8 +1209,8 @@ FAILURE_1_parallel:
 
                         /* Spherical harmonic coefficients */
                         /* ................................................. */
-                        shcs->c[m][m + 1] += SUM_R(MUL_R(inm1, amm));
-                        shcs->s[m][m + 1] += SUM_R(MUL_R(inm1, bmm));
+                        shcs->c[m][1] += SUM_R(MUL_R(inm1, amm));
+                        shcs->s[m][1] += SUM_R(MUL_R(inm1, bmm));
                         /* ................................................. */
 
 
@@ -1292,15 +1293,16 @@ FAILURE_1_parallel:
                             /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
                             /* Cm+2,m, Cm+3,m, ..., Cnmax,m and Sm+2,m, Sm+3,m,
                              * * ..., Snmax,m */
+                            nmm = n - m;
                             if (npm_even)
                             {
-                                shcs->c[m][n] += SUM_R(MUL_R(inm2, amp));
-                                shcs->s[m][n] += SUM_R(MUL_R(inm2, bmp));
+                                shcs->c[m][nmm] += SUM_R(MUL_R(inm2, amp));
+                                shcs->s[m][nmm] += SUM_R(MUL_R(inm2, bmp));
                             }
                             else
                             {
-                                shcs->c[m][n] += SUM_R(MUL_R(inm2, amm));
-                                shcs->s[m][n] += SUM_R(MUL_R(inm2, bmm));
+                                shcs->c[m][nmm] += SUM_R(MUL_R(inm2, amm));
+                                shcs->s[m][nmm] += SUM_R(MUL_R(inm2, bmm));
                             }
                             /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
@@ -1403,8 +1405,8 @@ FAILURE:
     {
         for (unsigned long n = m; n <= nmax; n++)
         {
-            shcs->c[m][n] *= c2;
-            shcs->s[m][n] *= c2;
+            shcs->c[m][n - m] *= c2;
+            shcs->s[m][n - m] *= c2;
         }
     }
     /* ..................................................................... */

@@ -46,12 +46,12 @@ int main(void)
      * module)*/
     unsigned long k = charm_leg_pnmj_j2k(n, j);
     printf("Fourier coefficient for degree %lu, order %lu and "
-           "wave-number %lu = %0.16e\n", n, m, k, pnmj->pnmj[m][n][j]);
+           "wave-number %lu = %0.16e\n", n, m, k, pnmj->pnmj[m][n - m][j]);
 
 
     n = 360; m = 358; j = 101; k = charm_leg_pnmj_j2k(n, j);
     printf("Fourier coefficient for degree %lu, order %lu and "
-           "wave-number %lu = %0.16e\n", n, m, k, pnmj->pnmj[m][n][j]);
+           "wave-number %lu = %0.16e\n", n, m, k, pnmj->pnmj[m][n - m][j]);
 
 
     /* Free the heap memory */

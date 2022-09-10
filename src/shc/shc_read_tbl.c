@@ -101,8 +101,8 @@ void CHARM(shc_read_tbl)(const char *pathname, unsigned long nmax,
             continue;
 
 
-        shcs->c[m][n] = cnm;
-        shcs->s[m][n] = snm;
+        shcs->c[m][n - m] = cnm;
+        shcs->s[m][n - m] = snm;
     }
     /* --------------------------------------------------------------------- */
 

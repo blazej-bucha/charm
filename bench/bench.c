@@ -203,11 +203,11 @@ int main(void)
             {
                 /* Generate some more or less random spherical harmonic
                  * coefficients from "-1.0" to "1.0" */
-                shcs_ref->c[m][n] = PREC(-1.0) + (REAL)rand() / 
-                                    ((REAL)RAND_MAX / PREC(2.0));
-                if (m > 0)
-                    shcs_ref->s[m][n] = PREC(-1.0) + (REAL)rand() / 
+                shcs_ref->c[m][n - m] = PREC(-1.0) + (REAL)rand() / 
                                         ((REAL)RAND_MAX / PREC(2.0));
+                if (m > 0)
+                    shcs_ref->s[m][n - m] = PREC(-1.0) + (REAL)rand() / 
+                                            ((REAL)RAND_MAX / PREC(2.0));
             }
         }
 
@@ -290,13 +290,13 @@ int main(void)
         {
             for (unsigned long n = m; n <= nmax; n++)
             {
-                diff = shcs->c[m][n] - shcs_ref->c[m][n];
+                diff = shcs->c[m][n - m] - shcs_ref->c[m][n - m];
                 if (FABS(diff) > maxe)
                     maxe = diff;
                 rmse += diff * diff;
 
 
-                diff = shcs->s[m][n] - shcs_ref->s[m][n];
+                diff = shcs->s[m][n - m] - shcs_ref->s[m][n - m];
                 if (FABS(diff) > maxe)
                     maxe = diff;
                 rmse += diff * diff;

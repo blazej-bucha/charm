@@ -53,6 +53,7 @@ void CHARM(shs_point_kernel)(unsigned long nmax, unsigned long m,
 
     _Bool npm_even; /* True if "n + m" is even */
     size_t idx;
+    unsigned long nmm; /* "n - m" */
     _Bool symm = CHARM(shs_check_symm_simd)(symm_simd);
 
 
@@ -134,8 +135,8 @@ void CHARM(shs_point_kernel)(unsigned long nmax, unsigned long m,
 #endif
 
 
-        pnm_cnm = MUL_R(pnm0, SET1_R(shcs->c[m][m]));
-        pnm_snm = MUL_R(pnm0, SET1_R(shcs->s[m][m]));
+        pnm_cnm = MUL_R(pnm0, SET1_R(shcs->c[m][0]));
+        pnm_snm = MUL_R(pnm0, SET1_R(shcs->s[m][0]));
 
 
         idx = m * SIMD_SIZE;
@@ -165,8 +166,8 @@ void CHARM(shs_point_kernel)(unsigned long nmax, unsigned long m,
 #endif
 
 
-            pnm_cnm = MUL_R(pnm1, SET1_R(shcs->c[m][m + 1]));
-            pnm_snm = MUL_R(pnm1, SET1_R(shcs->s[m][m + 1]));
+            pnm_cnm = MUL_R(pnm1, SET1_R(shcs->c[m][1]));
+            pnm_snm = MUL_R(pnm1, SET1_R(shcs->s[m][1]));
 
 
             idx = (m + 1) * SIMD_SIZE;
@@ -205,8 +206,9 @@ void CHARM(shs_point_kernel)(unsigned long nmax, unsigned long m,
 #endif
 
 
-                pnm_cnm = MUL_R(pnm2, SET1_R(shcs->c[m][n]));
-                pnm_snm = MUL_R(pnm2, SET1_R(shcs->s[m][n]));
+                nmm = n - m;
+                pnm_cnm = MUL_R(pnm2, SET1_R(shcs->c[m][nmm]));
+                pnm_snm = MUL_R(pnm2, SET1_R(shcs->s[m][nmm]));
 
 
                 idx = n * SIMD_SIZE;

@@ -1,26 +1,5 @@
 Upcoming release:
 
-* Changed API to access the arrays in "charm_shc" and "charm_pnmj".  The 
-  members "c" and "s" of "charm_shc" structures are now accessed as
-
-          "c[m][n]",
-          "s[m][n]"
-
-  instead of
-
-          "c[m][n - m]",
-          "s[m][n - m]".
-
-  The member "pnmj" of "charm_pnmj" structures is now accessed as
-
-          "pnmj[m][n][j]",
-          "pnmj[m][j][n]"
-
-  instead of
-
-          "pnmj[m][n - m][j]",
-          "pnmj[m][j][n - CHARM_MAX(m, 2 * j)]".
-
 * Changed API of the following functions to read/write spherical harmonic 
   coefficients from/to files:
 

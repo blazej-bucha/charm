@@ -283,8 +283,10 @@ private(pnmj_m1_j1, max_m1_j1)
 
             for (unsigned long n1 = max_m1_j1; n1 <= nmax1; n1++)
             {
-                cnm1pnmj_m1_j1[n1] = shcs1->c[m1][n1] * pnmj_m1_j1[n1];
-                snm1pnmj_m1_j1[n1] = shcs1->s[m1][n1] * pnmj_m1_j1[n1];
+                cnm1pnmj_m1_j1[n1 - max_m1_j1] = shcs1->c[m1][n1 - m1] *
+                                                 pnmj_m1_j1[n1 - max_m1_j1];
+                snm1pnmj_m1_j1[n1 - max_m1_j1] = shcs1->s[m1][n1 - m1] *
+                                                 pnmj_m1_j1[n1 - max_m1_j1];
             }
         }
     }
@@ -346,19 +348,21 @@ private(cnm3_m3, snm3_m3)
                 unsigned long n3;
                 for (n3 = max_m3_j3; n3 < nmax3; n3 += 2)
                 {
-                    c_sum1 += cnm3_m3[n3] * pnmj_m3_j3[n3];
-                    s_sum1 += snm3_m3[n3] * pnmj_m3_j3[n3];
+                    c_sum1 += cnm3_m3[n3 - m3] * pnmj_m3_j3[n3 - max_m3_j3];
+                    s_sum1 += snm3_m3[n3 - m3] * pnmj_m3_j3[n3 - max_m3_j3];
 
 
-                    c_sum2 += cnm3_m3[n3 + 1] * pnmj_m3_j3[n3 + 1];
-                    s_sum2 += snm3_m3[n3 + 1] * pnmj_m3_j3[n3 + 1];
+                    c_sum2 += cnm3_m3[n3 + 1 - m3] *
+                              pnmj_m3_j3[n3 + 1 - max_m3_j3];
+                    s_sum2 += snm3_m3[n3 + 1 - m3] *
+                              pnmj_m3_j3[n3 + 1 - max_m3_j3];
                 }
 
 
                 if (n3 == nmax3)
                 {
-                    c_sum1 += cnm3_m3[n3] * pnmj_m3_j3[n3];
-                    s_sum1 += snm3_m3[n3] * pnmj_m3_j3[n3];
+                    c_sum1 += cnm3_m3[n3 - m3] * pnmj_m3_j3[n3 - max_m3_j3];
+                    s_sum1 += snm3_m3[n3 - m3] * pnmj_m3_j3[n3 - max_m3_j3];
                 }
                 }
 
@@ -400,8 +404,8 @@ private(idx, idxp1, idx0_lc, idx1_lc)
                     k1 = n1_rem_2 + j1pj1;
 
 
-                    cnm1pnmj_m1_j1_n1 = cnm1pnmj_m1[j1][n1];
-                    snm1pnmj_m1_j1_n1 = snm1pnmj_m1[j1][n1];
+                    cnm1pnmj_m1_j1_n1 = cnm1pnmj_m1[j1][n1 - max_m1_j1];
+                    snm1pnmj_m1_j1_n1 = snm1pnmj_m1[j1][n1 - max_m1_j1];
 
 
                     for (unsigned long j3 = 0; j3 <= nmax3_2; j3++)

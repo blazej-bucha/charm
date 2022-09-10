@@ -63,10 +63,10 @@ int sha(unsigned long nmax, char SHCs_file[])
 
     /* Modify coefficients of degrees "0" and "1" to allow for an accurate
      * validation in all precisions. */
-    shcs_ref->c[0][0] = (REAL)C00;
-    shcs_ref->c[0][1] = (REAL)C10;
-    shcs_ref->c[1][1] = (REAL)C11;
-    shcs_ref->s[1][1] = (REAL)S11;
+    shcs_ref->c[0][0 - 0] = (REAL)C00;
+    shcs_ref->c[0][1 - 0] = (REAL)C10;
+    shcs_ref->c[1][1 - 1] = (REAL)C11;
+    shcs_ref->s[1][1 - 1] = (REAL)S11;
     /* --------------------------------------------------------------------- */
 
 

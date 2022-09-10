@@ -50,8 +50,8 @@ void CHARM(shc_rescale)(CHARM(shc) *shcs, REAL munew, REAL rnew,
     {
         for (unsigned long n = m; n <= shcs->nmax; n++)
         {
-            shcs->c[m][n] *= tmp[n];
-            shcs->s[m][n] *= tmp[n];
+            shcs->c[m][n - m] *= tmp[n];
+            shcs->s[m][n - m] *= tmp[n];
         }
     }
 

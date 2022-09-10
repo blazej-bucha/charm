@@ -157,9 +157,9 @@ static int write_cnmsnm(const CHARM(shc) *shcs, unsigned long nmax, int cnmsnm,
     for (unsigned long m = 0; m <= nmax; m++)
     {
         if (cnmsnm == 0)
-            err = fwrite(shcs->c[m] + m, sizeof(REAL), nmax + 1 - m, fptr);
+            err = fwrite(shcs->c[m], sizeof(REAL), nmax + 1 - m, fptr);
         else if (cnmsnm == 1)
-            err = fwrite(shcs->s[m] + m, sizeof(REAL), nmax + 1 - m, fptr);
+            err = fwrite(shcs->s[m], sizeof(REAL), nmax + 1 - m, fptr);
         else
             return 1;
 
