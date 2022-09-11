@@ -117,7 +117,7 @@ typedef struct
      * ``CHARM_LEG_PNMJ_ORDER_MJN``.  For details, see the description of 
      * ``pnmj`` below.
      * */
-    int nmj_order;
+    int ordering;
 
 
     /** Total number of Fourier coefficients \f$P_{nmj}\f$.  */
@@ -127,8 +127,8 @@ typedef struct
     /**
      * Fourier coefficients.
      *
-     * The structure of ``pnmj`` depends on the ``nmj_order`` variable, which 
-     * takes one of two symbolic constants: ``CHARM_LEG_PNMJ_ORDER_MNJ`` or 
+     * The structure of ``pnmj`` depends on the ``ordering`` variable, which
+     * takes one of two symbolic constants: ``CHARM_LEG_PNMJ_ORDER_MNJ`` or
      * ``CHARM_LEG_PNMJ_ORDER_MJN``.
      *
      * \verbatim embed:rst:leading-asterisk
@@ -139,8 +139,7 @@ typedef struct
      *      ``charm@P@_leg_pnmj_k2j``).
      * \endverbatim
      *
-     * * Structure of ``pnmj`` when
-     *   ``nmj_order == CHARM_LEG_PNMJ_ORDER_MNJ``:
+     * * Structure of ``pnmj`` when ``ordering == CHARM_LEG_PNMJ_ORDER_MNJ``:
      *
      *   The first dimension of ``pnmj`` is related to harmonic orders, the 
      *   second dimension to harmonic degrees and the third dimension to 
@@ -160,8 +159,7 @@ typedef struct
      *   ``Pnmj = pnmj[m][n - m][j]``.
      *
      *
-     * * Structure of ``pnmj`` when
-     *   ``nmj_order == CHARM_LEG_PNMJ_ORDER_MJN``:
+     * * Structure of ``pnmj`` when ``ordering == CHARM_LEG_PNMJ_ORDER_MJN``:
      *
      *   The first dimension of ``pnmj`` is related to harmonic orders, the 
      *   second dimension to wave-numbers and the third dimension to harmonic 
@@ -181,9 +179,9 @@ typedef struct
      *   Eq. (62) of Fukushima (2018), can therefore be access as follows
      *   ``pnmj[m][j][n - CHARM_MAX(m, 2 * j)]``.
      *
-     * When ``nmj_order == CHARM_LEG_PNMJ_ORDER_MNJ``, the following order of 
-     * loops is recommended for fast sequential access to the \f$P_{nmj}\f$ 
-     * coefficients: harmonic order ``m``, harmonic degree ``n`` and 
+     * When ``ordering == CHARM_LEG_PNMJ_ORDER_MNJ``, the following order of
+     * loops is recommended for fast sequential access to the \f$P_{nmj}\f$
+     * coefficients: harmonic order ``m``, harmonic degree ``n`` and
      * wave-number-related variable ``j``; e.g.:
      *
      * \verbatim embed:rst:leading-asterisk
@@ -197,8 +195,8 @@ typedef struct
      *
      * \endverbatim
      *
-     * For ``nmj_order == CHARM_LEG_PNMJ_ORDER_MJN``, the recommended loop 
-     * order is:
+     * For ``ordering == CHARM_LEG_PNMJ_ORDER_MJN``, the recommended loop order
+     * is:
      *
      * \verbatim embed:rst:leading-asterisk
      *  .. code-block:: c
@@ -241,10 +239,10 @@ extern size_t charm@P@_leg_pnmj_length(unsigned long nmax);
 
 /**
  * Allocates and initializes a ``charm@P@_pnmj`` structure to store Fourier 
- * coefficients of Legendre functions up to maximum harmonic degree ``nmax`` 
- * using the ``nmj_order`` ordering scheme.  The ``nmj_order`` variable takes 
- * one of two symbolic constants: ``CHARM_LEG_PNMJ_ORDER_MNJ`` or 
- * ``CHARM_LEG_PNMJ_ORDER_MJN`` (see the ``charm@P@_pnmj`` structure).  All 
+ * coefficients of Legendre functions up to maximum harmonic degree ``nmax``
+ * using the ``ordering`` ordering scheme.  The ``ordering`` variable takes one
+ * of two symbolic constants: ``CHARM_LEG_PNMJ_ORDER_MNJ`` or
+ * ``CHARM_LEG_PNMJ_ORDER_MJN`` (see the ``charm@P@_pnmj`` structure).  All
  * coefficients are initialized to zero.
  *
  * On success, returned is a pointer to the ``charm@P@_pnmj`` structure.  On 
@@ -267,7 +265,7 @@ extern size_t charm@P@_leg_pnmj_length(unsigned long nmax);
  *
  * */
 extern charm@P@_pnmj *charm@P@_leg_pnmj_init(unsigned long nmax, 
-                                             int nmj_order);
+                                             int ordering);
 
 
 
@@ -287,10 +285,10 @@ extern void charm@P@_leg_pnmj_free(charm@P@_pnmj *pnmj);
 
 /**
  * Computes Fourier coefficients of fully normalized associated Legendre 
- * functions up to degree ``nmax`` and stores them in ``pnmj->pnmj``.  The 
- * structure of ``pnmj->pnmj`` depends on the ``pnmj->nmj_order`` variable, 
- * which takes one of two symbolic constants: ``CHARM_LEG_PNMJ_ORDER_MNJ`` or 
- * ``CHARM_LEG_PNMJ_ORDER_MJN`` (for further details, see the ``charm@P@_pnmj`` 
+ * functions up to degree ``nmax`` and stores them in ``pnmj->pnmj``.  The
+ * structure of ``pnmj->pnmj`` depends on the ``pnmj->ordering`` variable,
+ * which takes one of two symbolic constants: ``CHARM_LEG_PNMJ_ORDER_MNJ`` or
+ * ``CHARM_LEG_PNMJ_ORDER_MJN`` (for further details, see the ``charm@P@_pnmj``
  * structure).
  *
  * In case of failure, the error is written to ``err``.

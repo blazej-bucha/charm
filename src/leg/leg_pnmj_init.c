@@ -10,7 +10,7 @@
 
 
 
-CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, int nmj_order)
+CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, int ordering)
 {
     /* Allocate memory for the "CHARM(pnmj)" data type */
     /* --------------------------------------------------------------------- */
@@ -26,9 +26,9 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, int nmj_order)
     /* --------------------------------------------------------------------- */
 
 
-    /* Save the "nmj_order" value to the "CHARM(pnmj)" struct */
+    /* Save the "ordering" value to the "CHARM(pnmj)" struct */
     /* --------------------------------------------------------------------- */
-    pnmj->nmj_order = nmj_order;
+    pnmj->ordering = ordering;
     /* --------------------------------------------------------------------- */
 
 
@@ -56,7 +56,7 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, int nmj_order)
     }
 
 
-    if (nmj_order == CHARM_LEG_PNMJ_ORDER_MNJ)
+    if (ordering == CHARM_LEG_PNMJ_ORDER_MNJ)
     {
         for (unsigned long m = 0; m <= nmax; m++)
         {
@@ -77,7 +77,7 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, int nmj_order)
             }
         }
     }
-    else if (nmj_order == CHARM_LEG_PNMJ_ORDER_MJN)
+    else if (ordering == CHARM_LEG_PNMJ_ORDER_MJN)
     {
         for (unsigned long m = 0; m <= nmax; m++)
         {
@@ -118,7 +118,7 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, int nmj_order)
     /* --------------------------------------------------------------------- */
 
 
-    if (nmj_order == CHARM_LEG_PNMJ_ORDER_MNJ)
+    if (ordering == CHARM_LEG_PNMJ_ORDER_MNJ)
     {
         /* Now set the pointers "pnmj->pnmj[m][n - m]" to point to the right
          * elements of the numerical array "pnmj->pnmj[0][0]" */
@@ -134,7 +134,7 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, int nmj_order)
             }
         /* ----------------------------------------------------------------- */
     }
-    else if (nmj_order == CHARM_LEG_PNMJ_ORDER_MJN)
+    else if (ordering == CHARM_LEG_PNMJ_ORDER_MJN)
     {
         /* Now set the pointers "pnmj->pnmj[m][j]" to point to the right
          * elements of the numerical array "pnmj->pnmj[0][0]" */

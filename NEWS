@@ -36,6 +36,9 @@ Upcoming release:
 
   Area-mean grids are therefore no longer turned upside down.
 
+* The "nmj_order" member of "charm_pnmj" was renamed to "ordering".  This 
+  affects the API.
+
 * Bug fix for "integ_pn1m1pn2m2".  The routine now works correctly with both 
   ordering schemes of Fourier coefficients of Legendre functions.
 
@@ -43,7 +46,7 @@ Upcoming release:
 
 * Two members, "nc" and "ns", were added to the "charm_shc" structure to 
   represent the total number of spherical harmonic coefficients "Cnm" and 
-  "Snm", respectively.  This has no effect on API.
+  "Snm", respectively.  This does not break the previous API.
 
 * Added support for Fortran's "D" and "d" decimal exponents when reading from 
   text files.
