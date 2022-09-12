@@ -134,7 +134,7 @@ following flags to the ``./configure`` call.
 
 * ``--enable-single-precision`` or ``--enable-double-precision`` or 
   ``--enable-quad-precision`` to compile CHarm in single, double or quadruple 
-  precision, respectively (``float``, ``double`` and ``__float128`` data type 
+  precision, respectively (``float``, ``double`` and ``__float128`` data types 
   for floating point numbers, respectively).  If not specified, double 
   precision is used as default.
 
