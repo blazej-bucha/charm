@@ -85,8 +85,8 @@ Contact
 
 Should you have any comments, questions, bug report or criticism, please feel
 free to contact the author, Blažej Bucha, at blazej.bucha@stuba.sk.  Further
-products developed by the author can be found at `https://blazejbucha.com
-<https://blazejbucha.com>`_.
+products developed by the author can be found at `https://www.blazejbucha.com
+<https://www.blazejbucha.com>`_.
 
 
 Other spherical-harmonic-based libraries
@@ -138,7 +138,7 @@ having its pros and cons.  Explore!  A few examples are:
   <https://sourceforge.net/projects/hmanipulator/>`_: Spherical harmonic
   synthesis in sparse points and grids (no longer maintained),
 
-* `GrafLab <https://blazejbucha.com/#GrafLab>`_ and `isGrafLab
-  <https://blazejbucha.com/#isGrafLab>`_: MATLAB-based software packages for
-  spherical harmonic synthesis of gravity field functionals up to high degrees
-  and orders (tens of thousands and well beyond).
+* `GrafLab <https://github.com/blazej-bucha/graflab>`_ and `isGrafLab 
+  <https://github.com/blazej-bucha/isgraflab>`_: MATLAB-based software packages 
+  for spherical harmonic synthesis of gravity field functionals up to high 
+  degrees and orders (tens of thousands and well beyond).
