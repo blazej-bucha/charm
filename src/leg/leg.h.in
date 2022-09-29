@@ -322,9 +322,9 @@ extern void charm@P@_leg_pnmj_coeffs(charm@P@_pnmj *pnmj,
 
 
 /**
- * Transforms a wave-number-related variable ``j`` to the wave-number ``k`` of 
- * a Fourier coefficient of fully-normalized associated Legendre function (see 
- * Section C.1 of Fukushima, 2018),
+ * Transforms a wave-number-related variable ``j`` to the wave-number ``k`` of
+ * a Fourier coefficient of fully-normalized associated Legendre function of
+ * degree ``n`` (see Section C.1 of Fukushima, 2018),
  *
  * \verbatim embed:rst:leading-asterisk
  *  .. math::
