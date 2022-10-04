@@ -289,7 +289,8 @@ extern void charm@P@_leg_pnmj_free(charm@P@_pnmj *pnmj);
  * structure of ``pnmj->pnmj`` depends on the ``pnmj->ordering`` variable,
  * which takes one of two symbolic constants: ``CHARM_LEG_PNMJ_ORDER_MNJ`` or
  * ``CHARM_LEG_PNMJ_ORDER_MJN`` (for further details, see the ``charm@P@_pnmj``
- * structure).
+ * structure). If ``nmax < pnmj->nmax``, all Fourier coefficients in
+ * ``pnmj->pnmj`` beyond ``nmax`` are set to zero.
  *
  * In case of failure, the error is written to ``err``.
  *

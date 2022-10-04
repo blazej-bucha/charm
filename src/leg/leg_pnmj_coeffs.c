@@ -2,6 +2,7 @@
 /* ------------------------------------------------------------------------- */
 #include <config.h>
 #include <stdlib.h>
+#include <string.h>
 #include "../prec.h"
 #include "leg_pnmj_leq4.h"
 #include "leg_pnmj_dpeven.h"
@@ -126,6 +127,12 @@ void CHARM(leg_pnmj_coeffs)(CHARM(pnmj) *pnmj, unsigned long nmax,
                        CHARM_ERR_MALLOC_FAILURE);
         goto FAILURE;
     }
+
+
+    /* Before doing any actual computations, reset all Fourier coefficients to
+     * zero.  This ensures that if "nmax < pnmj->nmax", all Fourier
+     * coefficients in "pnmj->pnmj" beyond "nmax" will be set to zero. */
+    memset(pnmj->pnmj[0][0], 0, pnmj->npnmj * sizeof(REAL));
     /* --------------------------------------------------------------------- */
 
 
