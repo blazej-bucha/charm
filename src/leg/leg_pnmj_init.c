@@ -12,6 +12,14 @@
 
 CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, int ordering)
 {
+    /* Check inputs */
+    /* --------------------------------------------------------------------- */
+    if ((ordering != CHARM_LEG_PNMJ_ORDER_MNJ) &&
+        (ordering != CHARM_LEG_PNMJ_ORDER_MJN))
+        return NULL;
+    /* --------------------------------------------------------------------- */
+
+
     /* Allocate memory for the "CHARM(pnmj)" data type */
     /* --------------------------------------------------------------------- */
     CHARM(pnmj) *pnmj = (CHARM(pnmj) *)malloc(sizeof(CHARM(pnmj)));
@@ -48,11 +56,9 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, int ordering)
     {
         /* Memory allocation failed, so we have to deallocate all the memory
          * that has been allocated so far before we escape this function. */
-        free(pnmj->pnmj); free(pnmj);
-        pnmj = NULL;
-
-
-        return pnmj;
+        free(pnmj->pnmj);
+        free(pnmj);
+        return NULL;
     }
 
 
@@ -70,10 +76,7 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, int ordering)
                     free(pnmj->pnmj[m]);
                 free(pnmj->pnmj);
                 free(pnmj);
-                pnmj = NULL;
-
-
-                return pnmj;
+                return NULL;
             }
         }
     }
@@ -92,10 +95,7 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, int ordering)
                     free(pnmj->pnmj[m]);
                 free(pnmj->pnmj);
                 free(pnmj);
-                pnmj = NULL;
-
-
-                return pnmj;
+                return NULL;
             }
         }
     }
@@ -110,10 +110,7 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, int ordering)
             free(pnmj->pnmj[m]);
         free(pnmj->pnmj);
         free(pnmj);
-        pnmj = NULL;
-
-
-        return pnmj;
+        return NULL;
     }
     /* --------------------------------------------------------------------- */
 
