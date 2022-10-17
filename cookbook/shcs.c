@@ -23,7 +23,7 @@ int main(void)
      * coefficients.  For details on the structure of the output binary file,
      * see the description of the "charm_shc_write_bin" function in the
      * "charm_shc" module. */
-    char shcs_out_file[] = "../data/output/EGM96-degree10-mtx.shcs";
+    char shcs_out_file[] = "../data/output/EGM96-degree10.shcs";
     /* ===================================================================== */
 
 
