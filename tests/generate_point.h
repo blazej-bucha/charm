@@ -1,8 +1,8 @@
 /* This header file is not a part of API. */
 
 
-#ifndef __GENERATE_CRD_H__
-#define __GENERATE_CRD_H__
+#ifndef __GENERATE_POINT_H__
+#define __GENERATE_POINT_H__
 
 
 #include <config.h>
@@ -15,7 +15,7 @@ extern "C"
 #endif
 
 
-extern void CHARM(generate_crd)(CHARM(crd) *, REAL, REAL, REAL);
+extern void CHARM(generate_point)(CHARM(point) *, REAL, REAL, REAL);
 
 
 #ifdef __cplusplus

@@ -20,7 +20,8 @@ libcharm@P@_shs@OMP@_la_SOURCES = shs_cell.c \
 								  shs_rpows.c \
 								  shs_grd_lr.c \
 								  shs_grd_lr2.c \
-								  shs_grd_fft_check.c \
+								  shs_grd_point_fft_check.c \
+								  shs_grd_cell_fft_check.c \
 								  shs_grd_fft_lc.c \
 								  shs_grd_fft.c \
 								  shs_sctr_mulc.c \

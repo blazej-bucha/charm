@@ -31,7 +31,7 @@
 
 
 
-void CHARM(shs_cell_isurf)(const CHARM(crd) *cell,
+void CHARM(shs_cell_isurf)(const CHARM(cell) *cell,
                            const CHARM(shc) *shcs1, unsigned long nmax1,
                            const CHARM(shc) *shcs2, unsigned long nmax2,
                            unsigned long nmax3, unsigned long nmax4,
@@ -84,7 +84,8 @@ void CHARM(shs_cell_isurf)(const CHARM(crd) *cell,
     }
 
 
-    /* Check whether "cell->lon" is a linearly increasing array of cells. */
+    /* Check whether "cell->lonmin" and "cell->lonmax" are linearly increasing
+     * arrays. */
     size_t cell_nlon = cell->nlon;
     size_t cell_nlat = cell->nlat;
     REAL dlon;
@@ -178,7 +179,7 @@ void CHARM(shs_cell_isurf)(const CHARM(crd) *cell,
 
     /* Synthesis of the mean values on the irregular surface */
     /* --------------------------------------------------------------------- */
-    REAL lon0 = cell->lon[0];
+    REAL lon0 = cell->lonmin[0];
     DELTAlon = (REAL *)malloc(cell_nlon * sizeof(REAL));
     if (DELTAlon == NULL)
     {
@@ -186,7 +187,7 @@ void CHARM(shs_cell_isurf)(const CHARM(crd) *cell,
         goto FAILURE;
     }
     for (size_t j = 0; j < cell_nlon; j++)
-        DELTAlon[j] = cell->lon[2 * j + 1] - cell->lon[2 * j];
+        DELTAlon[j] = cell->lonmax[j] - cell->lonmin[j];
 
 
     REAL mur = shcs1->mu / shcs1->r;
@@ -347,8 +348,8 @@ FAILURE_1_parallel:
             ipv = i + v;
             if (ipv < cell_nlat)
             {
-                clt1v[v] = PI_2 - cell->lat[2 * ipv];
-                clt2v[v] = PI_2 - cell->lat[2 * ipv + 1];
+                clt1v[v] = PI_2 - cell->latmax[ipv];
+                clt2v[v] = PI_2 - cell->latmin[ipv];
             }
             else
             {

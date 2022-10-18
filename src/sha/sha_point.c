@@ -33,8 +33,8 @@
 
 
 
-void CHARM(sha_point)(const CHARM(crd) *pnt, const REAL *f, unsigned long nmax,
-                      CHARM(shc) *shcs, CHARM(err) *err)
+void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
+                      unsigned long nmax, CHARM(shc) *shcs, CHARM(err) *err)
 {
     /* Some trivial initial error checks */
     /* --------------------------------------------------------------------- */

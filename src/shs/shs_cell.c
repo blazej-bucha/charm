@@ -15,7 +15,7 @@
 
 
 
-void CHARM(shs_cell)(const CHARM(crd) *cell, const CHARM(shc) *shcs,
+void CHARM(shs_cell)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
                      unsigned long nmax, REAL *f, CHARM(err) *err)
 {
     /* Some trivial initial error checks */

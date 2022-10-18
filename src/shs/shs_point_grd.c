@@ -12,7 +12,7 @@
 #include "../prec.h"
 #include "shs_rpows.h"
 #include "shs_grd_fft.h"
-#include "shs_grd_fft_check.h"
+#include "shs_grd_point_fft_check.h"
 #include "shs_grd_fft_lc.h"
 #include "shs_grd_lr.h"
 #include "shs_grd_lr2.h"
@@ -36,7 +36,7 @@
 
 
 
-void CHARM(shs_point_grd)(const CHARM(crd) *pnt, const CHARM(shc) *shcs,
+void CHARM(shs_point_grd)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
                           unsigned long nmax, REAL *f, CHARM(err) *err)
 {
     /* Check the latitudes */
@@ -192,7 +192,7 @@ void CHARM(shs_point_grd)(const CHARM(crd) *pnt, const CHARM(shc) *shcs,
     size_t nlc = pnt_nlon / 2 + 1;
 
 
-    _Bool use_fft = CHARM(shs_grd_fft_check)(pnt, dlon, nmax);
+    _Bool use_fft = CHARM(shs_grd_point_fft_check)(pnt, dlon, nmax);
     if (!use_fft)
     {
         /* Get the origin of the longitude "pnt->lon" vector (will be necessary

@@ -180,12 +180,12 @@ typedef struct
     @RDT@ **s;
 
 
-    /** If ``True``, the spherical harmonic coefficients in ``c`` and ``s``
-     * were allocated by CHarm, so ``charm@P@_shc_free()`` deallocates them.
-     * If ``owner`` is ``False``, the coefficients in ``c`` and ``s`` were
-     * allocated outside CHarm, so ``charm@P@_shc_free()`` does *not*
-     * deallocate them (the user allocated the memory outside CHarm, so the
-     * user should free the memory outside CHarm as well).
+    /** If ``1``, the spherical harmonic coefficients in ``c`` and ``s`` were
+     * allocated by CHarm, so ``charm@P@_shc_free()`` deallocates them.  If
+     * ``owner`` is ``0``, the coefficients in ``c`` and ``s`` were allocated
+     * outside CHarm, so ``charm@P@_shc_free()`` does *not* deallocate them
+     * (the user allocated this memory outside CHarm, so the user should free
+     * the memory outside CHarm as well).
      *
      *
      * ``owner`` is set to ``1`` for ``charm@P@_shc`` returned by
@@ -204,10 +204,10 @@ typedef struct
 /* Function prototypes */
 /* ------------------------------------------------------------------------- */
 
-/** Returns a ``charm@P@_shc`` structure with maximum harmonic degree ``nmax``,
- * scaling parameter ``mu``, radius of the reference sphere ``r`` and
- * uninitialized spherical harmonic coefficients.  The ``owner`` member of
- * ``charm@P@_shc`` is set to ``1``.
+/** Returns a pointer to the ``charm@P@_shc`` structure that is created with
+ * maximum harmonic degree ``nmax``, scaling parameter ``mu``, radius of the
+ * reference sphere ``r`` and uninitialized spherical harmonic coefficients.
+ * The ``owner`` member of ``charm@P@_shc`` is set to ``1``.
  *
  * On success, returned is a pointer to the ``charm@P@_shc`` structure.  On 
  * error, ``NULL`` is returned.
@@ -228,10 +228,8 @@ extern charm@P@_shc *charm@P@_shc_malloc(unsigned long nmax,
 
 
 
-/** The same as ``charm@P@_shc_malloc()`` but with all spherical harmonic
- * coefficients initialized to zero.
- *
- * */
+/** The same as ``charm@P@_shc_malloc()`` but all spherical harmonic
+ * coefficients are initialized to zero.  */
 extern charm@P@_shc *charm@P@_shc_calloc(unsigned long nmax,
                                          @RDT@ mu,
                                          @RDT@ r);
@@ -241,10 +239,11 @@ extern charm@P@_shc *charm@P@_shc_calloc(unsigned long nmax,
 
 
 
-/** Returns a ``charm@P@_shc`` structure with maximum harmonic degree ``nmax``,
- * scaling parameter ``mu``, radius of the reference sphere ``r`` and spherical
- * harmonic coefficients from the ``c`` and ``s`` arrays (shallow copy).  The
- * ``owner`` member of ``charm@P@_shc`` is set to ``0``.
+/** Returns a pointer to the ``charm@P@_shc`` structure that is created with
+ * maximum harmonic degree ``nmax``, scaling parameter ``mu``, radius of the
+ * reference sphere ``r`` and spherical harmonic coefficients from the ``c``
+ * and ``s`` arrays (shallow copy).  The ``owner`` member of ``charm@P@_shc``
+ * is set to ``0``.
  *
  * On success, returned is a pointer to the ``charm@P@_shc`` structure.  On
  * error, ``NULL`` is returned.

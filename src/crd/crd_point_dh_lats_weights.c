@@ -17,7 +17,7 @@
 
 /* Computes latitudes and integration weights of Driscoll--Healy grids for
  * a given ``nmax`` and saves them to ``dh``. */
-void CHARM(crd_dh_lats_weights)(CHARM(crd) *dh, unsigned long nmax)
+void CHARM(crd_point_dh_lats_weights)(CHARM(point) *dh, unsigned long nmax)
 {
     unsigned long L  = nmax + 1;
     unsigned long L2 = 2 * L;

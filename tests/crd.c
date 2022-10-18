@@ -20,7 +20,7 @@ int crd(void)
     int errnum = 0;
     char file_lat[NSTR], file_lon[NSTR], file_r[NSTR];
     char grd_type[NSTR2];
-    CHARM(crd) * grd;
+    CHARM(point) *grd;
 
 
     /* Loop over quadrature grid types */
@@ -42,11 +42,11 @@ int crd(void)
 
 
                 if (g == 0)
-                    grd = CHARM(crd_gl)(nmax, r);
+                    grd = CHARM(crd_point_gl)(nmax, r);
                 else if (g == 1)
-                    grd = CHARM(crd_dh1)(nmax, r);
+                    grd = CHARM(crd_point_dh1)(nmax, r);
                 else if (g == 2)
-                    grd = CHARM(crd_dh2)(nmax, r);
+                    grd = CHARM(crd_point_dh2)(nmax, r);
                 if (grd == NULL)
                 {
                     fprintf(stderr, "Failed to initialize a crd "
@@ -77,7 +77,7 @@ int crd(void)
                                    PREC(10.0) * CHARM(glob_threshold));
 
 
-                CHARM(crd_free)(grd);
+                CHARM(crd_point_free)(grd);
             }
         }
     }

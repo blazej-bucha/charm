@@ -1,8 +1,8 @@
 /* This header file is not a part of API. */
 
 
-#ifndef __SHS_GRD_FFT_CHECK_H__
-#define __SHS_GRD_FFT_CHECK_H__
+#ifndef __CRD_CELL_CHECK_INPUTS_H__
+#define __CRD_CELL_CHECK_INPUTS_H__
 
 
 #include <config.h>
@@ -15,7 +15,7 @@ extern "C"
 #endif
 
 
-extern _Bool CHARM(shs_grd_fft_check)(const CHARM(crd) *, REAL, unsigned long);
+extern int CHARM(crd_cell_check_inputs)(int type, size_t nlat, size_t nlon);
 
 
 #ifdef __cplusplus
@@ -24,3 +24,4 @@ extern _Bool CHARM(shs_grd_fft_check)(const CHARM(crd) *, REAL, unsigned long);
 
 
 #endif
+

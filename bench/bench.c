@@ -223,7 +223,7 @@ int main(void)
 
 
         printf("    Preparing the Gauss--Legendre grid...\n");
-        CHARM(crd) *grd = CHARM(crd_gl)(nmax, PREC(1.0));
+        CHARM(point) *grd = CHARM(crd_point_gl)(nmax, PREC(1.0));
         if (grd == NULL)
         {
             fprintf(stderr, "Failed to compute the Gauss--Legendre grid.\n");
@@ -319,7 +319,7 @@ int main(void)
         printf("    Freeing the heap memory...\n");
         CHARM(shc_free)(shcs);
         CHARM(shc_free)(shcs_ref);
-        CHARM(crd_free)(grd);
+        CHARM(crd_point_free)(grd);
         free(f);
 
 

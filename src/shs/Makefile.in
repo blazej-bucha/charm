@@ -114,8 +114,9 @@ am_libcharm@P@_shs@OMP@_la_OBJECTS = shs_cell.lo shs_cell_grd.lo \
 	shs_cell_kernel.lo shs_cell_sctr.lo shs_cell_check_grd_lons.lo \
 	shs_point.lo shs_point_grd.lo shs_point_kernel.lo \
 	shs_point_sctr.lo shs_rpows.lo shs_grd_lr.lo shs_grd_lr2.lo \
-	shs_grd_fft_check.lo shs_grd_fft_lc.lo shs_grd_fft.lo \
-	shs_sctr_mulc.lo shs_check_symm.lo shs_check_symm_simd.lo
+	shs_grd_point_fft_check.lo shs_grd_cell_fft_check.lo \
+	shs_grd_fft_lc.lo shs_grd_fft.lo shs_sctr_mulc.lo \
+	shs_check_symm.lo shs_check_symm_simd.lo
 libcharm@P@_shs@OMP@_la_OBJECTS =  \
 	$(am_libcharm@P@_shs@OMP@_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -146,10 +147,12 @@ am__depfiles_remade = ./$(DEPDIR)/shs_cell.Plo \
 	./$(DEPDIR)/shs_cell_kernel.Plo ./$(DEPDIR)/shs_cell_sctr.Plo \
 	./$(DEPDIR)/shs_check_symm.Plo \
 	./$(DEPDIR)/shs_check_symm_simd.Plo \
-	./$(DEPDIR)/shs_grd_fft.Plo ./$(DEPDIR)/shs_grd_fft_check.Plo \
-	./$(DEPDIR)/shs_grd_fft_lc.Plo ./$(DEPDIR)/shs_grd_lr.Plo \
-	./$(DEPDIR)/shs_grd_lr2.Plo ./$(DEPDIR)/shs_point.Plo \
-	./$(DEPDIR)/shs_point_grd.Plo ./$(DEPDIR)/shs_point_kernel.Plo \
+	./$(DEPDIR)/shs_grd_cell_fft_check.Plo \
+	./$(DEPDIR)/shs_grd_fft.Plo ./$(DEPDIR)/shs_grd_fft_lc.Plo \
+	./$(DEPDIR)/shs_grd_lr.Plo ./$(DEPDIR)/shs_grd_lr2.Plo \
+	./$(DEPDIR)/shs_grd_point_fft_check.Plo \
+	./$(DEPDIR)/shs_point.Plo ./$(DEPDIR)/shs_point_grd.Plo \
+	./$(DEPDIR)/shs_point_kernel.Plo \
 	./$(DEPDIR)/shs_point_sctr.Plo ./$(DEPDIR)/shs_rpows.Plo \
 	./$(DEPDIR)/shs_sctr_mulc.Plo
 am__mv = mv -f
@@ -325,7 +328,8 @@ libcharm@P@_shs@OMP@_la_SOURCES = shs_cell.c \
 								  shs_rpows.c \
 								  shs_grd_lr.c \
 								  shs_grd_lr2.c \
-								  shs_grd_fft_check.c \
+								  shs_grd_point_fft_check.c \
+								  shs_grd_cell_fft_check.c \
 								  shs_grd_fft_lc.c \
 								  shs_grd_fft.c \
 								  shs_sctr_mulc.c \
@@ -398,11 +402,12 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_cell_sctr.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_check_symm.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_check_symm_simd.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_grd_cell_fft_check.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_grd_fft.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_grd_fft_check.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_grd_fft_lc.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_grd_lr.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_grd_lr2.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_grd_point_fft_check.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_point.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_point_grd.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_point_kernel.Plo@am__quote@ # am--include-marker
@@ -533,11 +538,12 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/shs_cell_sctr.Plo
 	-rm -f ./$(DEPDIR)/shs_check_symm.Plo
 	-rm -f ./$(DEPDIR)/shs_check_symm_simd.Plo
+	-rm -f ./$(DEPDIR)/shs_grd_cell_fft_check.Plo
 	-rm -f ./$(DEPDIR)/shs_grd_fft.Plo
-	-rm -f ./$(DEPDIR)/shs_grd_fft_check.Plo
 	-rm -f ./$(DEPDIR)/shs_grd_fft_lc.Plo
 	-rm -f ./$(DEPDIR)/shs_grd_lr.Plo
 	-rm -f ./$(DEPDIR)/shs_grd_lr2.Plo
+	-rm -f ./$(DEPDIR)/shs_grd_point_fft_check.Plo
 	-rm -f ./$(DEPDIR)/shs_point.Plo
 	-rm -f ./$(DEPDIR)/shs_point_grd.Plo
 	-rm -f ./$(DEPDIR)/shs_point_kernel.Plo
@@ -599,11 +605,12 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/shs_cell_sctr.Plo
 	-rm -f ./$(DEPDIR)/shs_check_symm.Plo
 	-rm -f ./$(DEPDIR)/shs_check_symm_simd.Plo
+	-rm -f ./$(DEPDIR)/shs_grd_cell_fft_check.Plo
 	-rm -f ./$(DEPDIR)/shs_grd_fft.Plo
-	-rm -f ./$(DEPDIR)/shs_grd_fft_check.Plo
 	-rm -f ./$(DEPDIR)/shs_grd_fft_lc.Plo
 	-rm -f ./$(DEPDIR)/shs_grd_lr.Plo
 	-rm -f ./$(DEPDIR)/shs_grd_lr2.Plo
+	-rm -f ./$(DEPDIR)/shs_grd_point_fft_check.Plo
 	-rm -f ./$(DEPDIR)/shs_point.Plo
 	-rm -f ./$(DEPDIR)/shs_point_grd.Plo
 	-rm -f ./$(DEPDIR)/shs_point_kernel.Plo

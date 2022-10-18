@@ -8,7 +8,8 @@
 #include "cmp_arrays.h"
 #include "parameters.h"
 #include "validate.h"
-#include "generate_crd.h"
+#include "generate_point.h"
+#include "generate_cell.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -101,10 +102,12 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
 
     /* GL, DH1 and DH2 point grids */
     /* ..................................................................... */
+    CHARM(point) *grd_pnt;
+    CHARM(cell) *grd_cell;
     {
     int grd_types[3] = {CHARM_CRD_POINTS_GRID_GL,
-                                  CHARM_CRD_POINTS_GRID_DH1,
-                                  CHARM_CRD_POINTS_GRID_DH2};
+                        CHARM_CRD_POINTS_GRID_DH1,
+                        CHARM_CRD_POINTS_GRID_DH2};
     for (int g = 0; g < 3; g++)
     {
         int grd_type = grd_types[g];
@@ -128,14 +131,14 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
                 REAL rref = shcs_pot->r + (REAL)(DELTAR) * (REAL)deltar;
 
 
-                CHARM(crd) *grd = NULL;
+                grd_pnt = NULL;
                 if (grd_type == CHARM_CRD_POINTS_GRID_GL)
-                    grd = CHARM(crd_gl)(nmax, rref);
+                    grd_pnt = CHARM(crd_point_gl)(nmax, rref);
                 else if (grd_type == CHARM_CRD_POINTS_GRID_DH1)
-                    grd = CHARM(crd_dh1)(nmax, rref);
+                    grd_pnt = CHARM(crd_point_dh1)(nmax, rref);
                 else if (grd_type == CHARM_CRD_POINTS_GRID_DH2)
-                    grd = CHARM(crd_dh2)(nmax, rref);
-                if (grd == NULL)
+                    grd_pnt = CHARM(crd_point_dh2)(nmax, rref);
+                if (grd_pnt == NULL)
                 {
                     fprintf(stderr, "Failed to initialize a \"crd\" "
                             "structure\n");
@@ -156,7 +159,8 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
                         FOLDER, nmax, deltar, grd_str, FTYPE);
 
 
-                REAL *f = (REAL *)malloc(grd->nlat * grd->nlon * sizeof(REAL));
+                REAL *f = (REAL *)malloc(grd_pnt->nlat * grd_pnt->nlon *
+                                         sizeof(REAL));
                 if (f == NULL)
                 {
                     fprintf(stderr, "malloc failure.\n");
@@ -164,15 +168,15 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
                 }
 
 
-                CHARM(shs_point)(grd, shcs_pot, nmax, f, err);
+                CHARM(shs_point)(grd_pnt, shcs_pot, nmax, f, err);
                 CHARM(err_handler)(err, 1);
 
 
-                errnum += validate(file, f, grd->nlat * grd->nlon,
+                errnum += validate(file, f, grd_pnt->nlat * grd_pnt->nlon,
                                    PREC(10.0) * CHARM(glob_threshold));
 
 
-                CHARM(crd_free)(grd);
+                CHARM(crd_point_free)(grd_pnt);
                 free(f);
             }
         }
@@ -226,76 +230,130 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
                         {
                             REAL r = shcs_pot->r + (REAL)(DELTAR) *
                                      (REAL)deltar;
-
-
-                            CHARM(crd) *grd = NULL;
-                            if (pc == 0)
-                                grd = CHARM(crd_init)(CHARM_CRD_POINTS_GRID,
-                                                      nlat[i], nlon[i]);
-                            else
-                                grd = CHARM(crd_init)(CHARM_CRD_CELLS_GRID,
-                                                      nlat[i], nlon[i]);
-                            if (grd == NULL)
-                            {
-                                fprintf(stderr, "Failed to initialize a "
-                                                "\"crd\" structure\n");
-                                exit(1);
-                            }
-
-
-                            if (fft == 0)
-                                CHARM(generate_crd)(grd, r, PI, PI);
-                            else
-                                CHARM(generate_crd)(grd, r, PI,
-                                                    PREC(2.0) * PI);
-
-
-                            /* To get a non-symmetric grid, we simply add some 
-                             * more or less random number to the first latitude 
-                             * */
-                            REAL break_symm = PREC(0.0);
-                            if (s == 0)
-                                break_symm = (REAL)(BREAK_SYMM);
-                            grd->lat[0] += break_symm;
-
-
-                            /* Generate output file name */
-                            char file[NSTR] = "";
-                            sprintf(file, "%s/shs_%s_nx%lu_n%zu_dr%d_fft%d"
-                                              "_s%d%s",
-                                    FOLDER, (pc == 0) ? "p": "c", nmax, i,
-                                    deltar, fft, (s == 0) ? 0 : 1, FTYPE);
-
-
-                            REAL *f = (REAL *)malloc(grd->nlat * grd->nlon *
-                                                     sizeof(REAL));
-                            if (f == NULL)
-                            {
-                                fprintf(stderr, "malloc failure.\n");
-                                exit(1);
-                            }
+                            REAL *f;
 
 
                             if (pc == 0)
                             {
-                                CHARM(shs_point)(grd, shcs_pot, nmax, f, err);
+                                grd_pnt = NULL;
+                                grd_pnt = \
+                                 CHARM(crd_point_calloc)(CHARM_CRD_POINTS_GRID,
+                                                         nlat[i], nlon[i]);
+                                if (grd_pnt == NULL)
+                                {
+                                    fprintf(stderr, "Failed to initialize a "
+                                                    "\"crd\" structure\n");
+                                    exit(1);
+                                }
+
+
+                                if (fft == 0)
+                                    CHARM(generate_point)(grd_pnt, r, PI, PI);
+                                else
+                                    CHARM(generate_point)(grd_pnt, r, PI,
+                                                          PREC(2.0) * PI);
+
+
+                                /* To get a non-symmetric grid, we simply add
+                                 * some more or less random number to the first
+                                 * latitude */
+                                REAL break_symm = PREC(0.0);
+                                if (s == 0)
+                                    break_symm = (REAL)(BREAK_SYMM);
+                                grd_pnt->lat[0] += break_symm;
+
+
+                                /* Generate output file name */
+                                char file[NSTR] = "";
+                                sprintf(file, "%s/shs_%s_nx%lu_n%zu_dr%d_fft%d"
+                                                  "_s%d%s",
+                                        FOLDER, (pc == 0) ? "p": "c", nmax, i,
+                                        deltar, fft, (s == 0) ? 0 : 1, FTYPE);
+
+
+                                f = (REAL *)malloc(grd_pnt->nlat *
+                                                   grd_pnt->nlon *
+                                                   sizeof(REAL));
+                                if (f == NULL)
+                                {
+                                    fprintf(stderr, "malloc failure.\n");
+                                    exit(1);
+                                }
+
+
+                                CHARM(shs_point)(grd_pnt, shcs_pot, nmax, f,
+                                                 err);
                                 CHARM(err_handler)(err, 1);
                                 errnum += validate(file, f,
-                                                   grd->nlat * grd->nlon,
+                                                   grd_pnt->nlat *
+                                                   grd_pnt->nlon,
                                                    PREC(10.0) *
                                                    CHARM(glob_threshold));
+
+
+                                CHARM(crd_point_free)(grd_pnt);
                             }
                             else
                             {
-                                CHARM(shs_cell)(grd, shcs_pot, nmax, f, err);
+                                grd_cell = NULL;
+                                grd_cell = \
+                                   CHARM(crd_cell_calloc)(CHARM_CRD_CELLS_GRID,
+                                                          nlat[i], nlon[i]);
+                                if (grd_cell == NULL)
+                                {
+                                    fprintf(stderr, "Failed to initialize a "
+                                                    "\"crd\" structure\n");
+                                    exit(1);
+                                }
+
+
+                                if (fft == 0)
+                                    CHARM(generate_cell)(grd_cell, r, PI, PI);
+                                else
+                                    CHARM(generate_cell)(grd_cell, r, PI,
+                                                         PREC(2.0) * PI);
+
+
+                                /* To get a non-symmetric grid, we simply add
+                                 * some more or less random number to the first
+                                 * latitude */
+                                REAL break_symm = PREC(0.0);
+                                if (s == 0)
+                                    break_symm = (REAL)(BREAK_SYMM);
+                                grd_cell->latmax[0] += break_symm;
+
+
+                                /* Generate output file name */
+                                char file[NSTR] = "";
+                                sprintf(file, "%s/shs_%s_nx%lu_n%zu_dr%d_fft%d"
+                                                  "_s%d%s",
+                                        FOLDER, (pc == 0) ? "p": "c", nmax, i,
+                                        deltar, fft, (s == 0) ? 0 : 1, FTYPE);
+
+
+                                f = (REAL *)malloc(grd_cell->nlat *
+                                                   grd_cell->nlon *
+                                                   sizeof(REAL));
+                                if (f == NULL)
+                                {
+                                    fprintf(stderr, "malloc failure.\n");
+                                    exit(1);
+                                }
+
+
+                                CHARM(shs_cell)(grd_cell, shcs_pot, nmax, f,
+                                                err);
                                 CHARM(err_handler)(err, 1);
                                 errnum += validate(file, f,
-                                                   grd->nlat * grd->nlon,
+                                                   grd_cell->nlat *
+                                                   grd_cell->nlon,
                                                    CHARM(glob_threshold2));
+
+
+                                CHARM(crd_cell_free)(grd_cell);
                             }
 
 
-                            CHARM(crd_free)(grd);
                             free(f);
                         }
                     }
@@ -318,6 +376,8 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
     size_t nlon[NSCTR] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 
 
+    CHARM(point) *sctr_pnt = NULL;
+    CHARM(cell) *sctr_cell = NULL;
     for (int pc = 0; pc < 2; pc++)
     {
         if (pc == 0)
@@ -333,58 +393,91 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
                 for (int deltar = 0; deltar < NDELTAR; deltar++)
                 {
                     REAL r = shcs_pot->r + (REAL)(DELTAR) * (REAL)deltar;
-
-
-                    CHARM(crd) *sctr = NULL;
-                    if (pc == 0)
-                        sctr = CHARM(crd_init)(CHARM_CRD_POINTS_SCATTERED,
-                                               nlat[i], nlon[i]);
-                    else
-                        sctr = CHARM(crd_init)(CHARM_CRD_CELLS_SCATTERED,
-                                               nlat[i], nlon[i]);
-                    if (sctr == NULL)
-                    {
-                        fprintf(stderr, "Failed to initialize a \"crd\" "
-                                "structure\n");
-                        exit(1);
-                    }
-
-
-                    CHARM(generate_crd)(sctr, r, PI, PREC(2.0) * PI);
-
-
-                    /* Generate output file name */
-                    char file[NSTR] = "";
-                    sprintf(file, "%s/shs_%s_nx%lu_n%zu_dr%d_sctr%s",
-                            FOLDER, (pc == 0) ? "p": "c", nmax, i, deltar,
-                            FTYPE);
-
-
-                    REAL *f = (REAL *)malloc(sctr->nlat * sizeof(REAL));
-                    if (f == NULL)
-                    {
-                        fprintf(stderr, "malloc failure.\n");
-                        exit(1);
-                    }
+                    REAL *f;
 
 
                     if (pc == 0)
                     {
-                        CHARM(shs_point)(sctr, shcs_pot, nmax, f, err);
+                        sctr_pnt = NULL;
+                        sctr_pnt = 
+                            CHARM(crd_point_calloc)(CHARM_CRD_POINTS_SCATTERED,
+                                                    nlat[i], nlon[i]);
+                        if (sctr_pnt == NULL)
+                        {
+                            fprintf(stderr, "Failed to initialize a \"crd\" "
+                                    "structure\n");
+                            exit(1);
+                        }
+
+
+                        CHARM(generate_point)(sctr_pnt, r, PI, PREC(2.0) * PI);
+
+
+                        /* Generate output file name */
+                        char file[NSTR] = "";
+                        sprintf(file, "%s/shs_%s_nx%lu_n%zu_dr%d_sctr%s",
+                                FOLDER, (pc == 0) ? "p": "c", nmax, i, deltar,
+                                FTYPE);
+
+
+                        f = (REAL *)malloc(sctr_pnt->nlat * sizeof(REAL));
+                        if (f == NULL)
+                        {
+                            fprintf(stderr, "malloc failure.\n");
+                            exit(1);
+                        }
+
+
+                        CHARM(shs_point)(sctr_pnt, shcs_pot, nmax, f, err);
                         CHARM(err_handler)(err, 1);
-                        errnum += validate(file, f, sctr->nlat,
+                        errnum += validate(file, f, sctr_pnt->nlat,
                                            PREC(10.0) * CHARM(glob_threshold));
+
+
+                        CHARM(crd_point_free)(sctr_pnt);
                     }
                     else
                     {
-                        CHARM(shs_cell)(sctr, shcs_pot, nmax, f, err);
+                        sctr_cell = NULL;
+                        sctr_cell = \
+                            CHARM(crd_cell_calloc)(CHARM_CRD_CELLS_SCATTERED,
+                                                   nlat[i], nlon[i]);
+                        if (sctr_cell == NULL)
+                        {
+                            fprintf(stderr, "Failed to initialize a \"crd\" "
+                                    "structure\n");
+                            exit(1);
+                        }
+
+
+                        CHARM(generate_cell)(sctr_cell, r, PI, PREC(2.0) * PI);
+
+
+                        /* Generate output file name */
+                        char file[NSTR] = "";
+                        sprintf(file, "%s/shs_%s_nx%lu_n%zu_dr%d_sctr%s",
+                                FOLDER, (pc == 0) ? "p": "c", nmax, i, deltar,
+                                FTYPE);
+
+
+                        f = (REAL *)malloc(sctr_cell->nlat * sizeof(REAL));
+                        if (f == NULL)
+                        {
+                            fprintf(stderr, "malloc failure.\n");
+                            exit(1);
+                        }
+
+
+                        CHARM(shs_cell)(sctr_cell, shcs_pot, nmax, f, err);
                         CHARM(err_handler)(err, 1);
-                        errnum += validate(file, f, sctr->nlat,
+                        errnum += validate(file, f, sctr_cell->nlat,
                                            CHARM(glob_threshold2));
+
+
+                        CHARM(crd_cell_free)(sctr_cell);
                     }
 
 
-                    CHARM(crd_free)(sctr);
                     free(f);
                 }
             }
@@ -418,8 +511,8 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
         {
             for (size_t i = 0; i < NCUSTOM_GRD_ISURF; i++)
             {
-                CHARM(crd) *grd = CHARM(crd_init)(CHARM_CRD_CELLS_GRID,
-                                                  nlat[i], nlon[i]);
+                CHARM(cell) *grd = CHARM(crd_cell_calloc)(CHARM_CRD_CELLS_GRID,
+                                                          nlat[i], nlon[i]);
                 if (grd == NULL)
                 {
                     fprintf(stderr, "Failed to initialize a " "\"crd\" "
@@ -428,7 +521,7 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
                 }
 
 
-                CHARM(generate_crd)(grd, PREC(0.0), PI, PREC(2.0) * PI);
+                CHARM(generate_cell)(grd, PREC(0.0), PI, PREC(2.0) * PI);
 
 
                 /* Generate output file name */
@@ -459,7 +552,7 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
                                    );
 
 
-                CHARM(crd_free)(grd);
+                CHARM(crd_cell_free)(grd);
                 free(f);
             }
         }

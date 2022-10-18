@@ -29,7 +29,7 @@
 
 
 
-CHARM(crd) *CHARM(crd_gl)(unsigned long nmax, REAL r)
+CHARM(point) *CHARM(crd_point_gl)(unsigned long nmax, REAL r)
 {
     /* Some simple error checks */
     /* --------------------------------------------------------------------- */
@@ -38,13 +38,14 @@ CHARM(crd) *CHARM(crd_gl)(unsigned long nmax, REAL r)
     /* --------------------------------------------------------------------- */
 
 
-    /* Initialize a "CHARM(crd)" structure and "w" based on the "nmax"
+    /* Initialize a "CHARM(point)" structure and "w" based on the "nmax"
      * value. */
     /* --------------------------------------------------------------------- */
     unsigned long L = nmax + 1;
 
 
-    CHARM(crd) *glg = CHARM(crd_init)(CHARM_CRD_POINTS_GRID_GL, L, 2 * L);
+    CHARM(point) *glg = CHARM(crd_point_calloc)(CHARM_CRD_POINTS_GRID_GL,
+                                                L, 2 * L);
     if (glg == NULL)
         return NULL;
     /* --------------------------------------------------------------------- */
@@ -149,7 +150,7 @@ CHARM(crd) *CHARM(crd_gl)(unsigned long nmax, REAL r)
 
     if (ERROR_glob > 0)
     {
-        CHARM(crd_free)(glg);
+        CHARM(crd_point_free)(glg);
         return NULL;
     }
     /* --------------------------------------------------------------------- */

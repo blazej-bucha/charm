@@ -30,7 +30,7 @@
 
 
 
-void CHARM(shs_cell_sctr)(const CHARM(crd) *cell, const CHARM(shc) *shcs,
+void CHARM(shs_cell_sctr)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
                           unsigned long nmax, REAL *f, CHARM(err) *err)
 {
     /* --------------------------------------------------------------------- */
@@ -391,8 +391,8 @@ FAILURE_1_parallel:
                 ipv = i + v;
                 if (ipv < ncell)
                 {
-                    latmaxv[v] = cell->lat[2 * ipv];
-                    latminv[v] = cell->lat[2 * ipv + 1];
+                    latmaxv[v] = cell->latmax[ipv];
+                    latminv[v] = cell->latmin[ipv];
 
 
                     t1v[v] = SIN(latminv[v]);
@@ -403,8 +403,8 @@ FAILURE_1_parallel:
                     u2v[v] = COS(latmaxv[v]);
 
 
-                    lonminv[v] = cell->lon[2 * ipv];
-                    lonmaxv[v] = cell->lon[2 * ipv + 1];
+                    lonminv[v] = cell->lonmin[ipv];
+                    lonmaxv[v] = cell->lonmax[ipv];
                     dlonv[v]   = lonmaxv[v] - lonminv[v];
                 }
                 else

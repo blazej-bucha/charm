@@ -11,17 +11,20 @@
 
 
 
-void CHARM(crd_free)(CHARM(crd) *crd)
+void CHARM(crd_point_free)(CHARM(point) *pnt)
 {
-    if (crd == NULL)
+    if (pnt == NULL)
         return;
 
 
-    free(crd->lat);
-    free(crd->lon);
-    free(crd->r);
-    free(crd->w);
-    free(crd);
+    if (pnt->owner)
+    {
+        free(pnt->lat);
+        free(pnt->lon);
+        free(pnt->r);
+        free(pnt->w);
+    }
+    free(pnt);
 
 
     return;

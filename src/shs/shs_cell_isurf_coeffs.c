@@ -55,7 +55,7 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
  * */
 {
     /* --------------------------------------------------------------------- */
-    CHARM(crd) *glg       = NULL;
+    CHARM(point) *glg     = NULL;
     CHARM(shc) *shcs3     = NULL;
     CHARM(pnmj) *pnmj     = NULL;
     CHARM(pnmj) *cnm1pnmj = NULL;
@@ -73,7 +73,7 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
 
     /* Prepare the Gauss--Legendre grid */
     /* --------------------------------------------------------------------- */
-    glg = CHARM(crd_gl)(nmax4, PREC(1.0));
+    glg = CHARM(crd_point_gl)(nmax4, PREC(1.0));
     if (glg == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -467,7 +467,7 @@ private(idx, idxp1, idx0_lc, idx1_lc)
     /* Free the heap memory */
     /* --------------------------------------------------------------------- */
 FAILURE:
-    CHARM(crd_free)(glg);
+    CHARM(crd_point_free)(glg);
     free(r);
     free(r_pow);
     free(cnm3pnmj_sum);

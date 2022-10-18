@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../prec.h"
-#include "crd_dh_lats_weights.h"
+#include "crd_point_check_inputs.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -13,47 +13,42 @@
 
 
 
-CHARM(crd) *CHARM(crd_dh2)(unsigned long nmax, REAL r)
+CHARM(point) *CHARM(crd_point_init)(int type, size_t nlat, size_t nlon,
+                                    REAL *lat, REAL *lon, REAL *r)
 {
-    /* Initialize a "CHARM(crd)" structure based on the "nmax" value. */
+    /* Check the inputs */
     /* --------------------------------------------------------------------- */
-    unsigned long L = nmax + 1;
-
-
-    CHARM(crd) *dhg = CHARM(crd_init)(CHARM_CRD_POINTS_GRID_DH2, 2 * L, 4 * L);
-    if (dhg == NULL)
+    if (CHARM(crd_point_check_inputs)(type, nlat, nlon))
         return NULL;
     /* --------------------------------------------------------------------- */
 
 
-    /* Latitudes and integration weights */
+    /* Initialize the "CHARM(point)" structure */
     /* --------------------------------------------------------------------- */
-    CHARM(crd_dh_lats_weights)(dhg, nmax);
-    /* --------------------------------------------------------------------- */
-
-
-    /* Longitudes */
-    /* --------------------------------------------------------------------- */
-    REAL c = PI / (REAL)(2 * L);
-
-
-#if CHARM_PARALLEL
-#pragma omp parallel for default(none) shared(dhg, L, c)
-#endif
-    for (unsigned long i = 0; i < (4 * L); i++)
-        dhg->lon[i] = c * (REAL)(i);
+    /* Allocate memory for the "CHARM(point)" data type */
+    CHARM(point) *pnt = (CHARM(point) *)malloc(sizeof(CHARM(point)));
+    if (pnt == NULL)
+        return pnt;
     /* --------------------------------------------------------------------- */
 
 
-    /* Spherical radii */
+    /* Set the array members of "pnt" */
     /* --------------------------------------------------------------------- */
-#if CHARM_PARALLEL
-#pragma omp parallel for default(none) shared(dhg, L, r)
-#endif
-    for (unsigned long i = 0; i < (2 * L); i++)
-        dhg->r[i] = r;
+    pnt->lat = lat;
+    pnt->lon = lon;
+    pnt->r   = r;
+    pnt->w   = NULL;
     /* --------------------------------------------------------------------- */
 
 
-    return dhg;
+    /* Set the scalar members of "pnt" */
+    /* --------------------------------------------------------------------- */
+    pnt->nlat  = nlat;
+    pnt->nlon  = nlon;
+    pnt->type  = type;
+    pnt->owner = 0;
+    /* --------------------------------------------------------------------- */
+
+
+    return pnt;
 }

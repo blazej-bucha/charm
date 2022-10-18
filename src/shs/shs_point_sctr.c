@@ -26,7 +26,7 @@
 
 
 
-void CHARM(shs_point_sctr)(const CHARM(crd) *pnt, const CHARM(shc) *shcs,
+void CHARM(shs_point_sctr)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
                            unsigned long nmax, REAL *f, CHARM(err) *err)
 {
     /* --------------------------------------------------------------------- */

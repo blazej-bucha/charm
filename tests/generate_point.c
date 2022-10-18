@@ -11,7 +11,8 @@
 
 
 
-void CHARM(generate_crd)(CHARM(crd) *grd, REAL r, REAL lat_rng, REAL lon_rng)
+void CHARM(generate_point)(CHARM(point) *grd, REAL r, REAL lat_rng,
+                           REAL lon_rng)
 {
     size_t nlat  = grd->nlat;
     size_t nlon  = grd->nlon;
@@ -35,23 +36,6 @@ void CHARM(generate_crd)(CHARM(crd) *grd, REAL r, REAL lat_rng, REAL lon_rng)
 
         for (size_t l = 0; l < nlon; l++)
             grd->lon[l] = ((REAL)l / (REAL)nlon) * lon_rng;
-    }
-    else if ((grd_type == CHARM_CRD_CELLS_GRID) ||
-             (grd_type == CHARM_CRD_CELLS_SCATTERED))
-    {
-        for (size_t l = 0; l < nlat; l++)
-        {
-            grd->lat[2 * l]     = PI_2 - ((REAL)l / (REAL)nlat) * lat_rng;
-            grd->lat[2 * l + 1] = PI_2 - 
-                                  ((REAL)(l + 1) / (REAL)nlat) * lat_rng;
-        }
-
-
-        for (size_t l = 0; l < nlon; l++)
-        {
-            grd->lon[2 * l]     = ((REAL)l / (REAL)nlon) * lon_rng;
-            grd->lon[2 * l + 1] = ((REAL)(l + 1) / (REAL)nlon) * lon_rng;
-        }
     }
     else
     {

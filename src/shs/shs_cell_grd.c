@@ -13,7 +13,7 @@
 #include "shs_cell_kernel.h"
 #include "shs_grd_lr.h"
 #include "shs_grd_lr2.h"
-#include "shs_grd_fft_check.h"
+#include "shs_grd_cell_fft_check.h"
 #include "shs_grd_fft_lc.h"
 #include "shs_cell_check_grd_lons.h"
 #include "shs_rpows.h"
@@ -39,7 +39,7 @@
 
 
 
-void CHARM(shs_cell_grd)(const CHARM(crd) *cell, const CHARM(shc) *shcs,
+void CHARM(shs_cell_grd)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
                          unsigned long nmax, REAL *f, CHARM(err) *err)
 {
     /* Check the latitudes of the computational grid */
@@ -76,8 +76,8 @@ void CHARM(shs_cell_grd)(const CHARM(crd) *cell, const CHARM(shc) *shcs,
 
     for (size_t i = 0; i < cell_nlat; i++)
     {
-        if (CHARM(misc_is_nearly_equal)(cell->lat[i],
-                                        -cell->lat[(2 * cell_nlat) - i - 1],
+        if (CHARM(misc_is_nearly_equal)(cell->latmin[i],
+                                        -cell->latmax[cell_nlat - i - 1],
                                         CHARM(glob_threshold2)) == 0)
         {
             symm = 0; /* The grid is not symmetric */
@@ -136,7 +136,7 @@ void CHARM(shs_cell_grd)(const CHARM(crd) *cell, const CHARM(shc) *shcs,
 
 
     /* If true, FFT is applied along the latitude parallels */
-    _Bool use_fft = CHARM(shs_grd_fft_check)(cell, dlon, nmax);
+    _Bool use_fft = CHARM(shs_grd_cell_fft_check)(cell, dlon, nmax);
     if (!use_fft)
     {
         /* OK, so no FFT and the longitudinal step is constant */
@@ -144,9 +144,9 @@ void CHARM(shs_cell_grd)(const CHARM(crd) *cell, const CHARM(shc) *shcs,
 
         /* Get the origin of the longitude "lon" array (will be necessary later
          * for the PSLR algorithm).  The "lon" array is not actually stored in
-         * memory, but is given as "(cell->lon[2 * j] + cell->lon[2 * j + 1])
-         * / 2.0" for "j = 0, 1, ..., nlon - 1". */
-        lon0 = (cell->lon[0] + cell->lon[1]) / PREC(2.0);
+         * memory, but is given as "(cell->lonmin[j] + cell->lonmax[j]) / 2.0"
+         * for "j = 0, 1, ..., nlon - 1". */
+        lon0 = (cell->lonmin[0] + cell->lonmax[0]) / PREC(2.0);
     }
     /* --------------------------------------------------------------------- */
 
@@ -621,8 +621,8 @@ FAILURE_1_parallel:
 
                 if (latsinv[v] == 1)
                 {
-                    latmaxv[v] = cell->lat[2 * ipv];
-                    latminv[v] = cell->lat[2 * ipv + 1];
+                    latmaxv[v] = cell->latmax[ipv];
+                    latminv[v] = cell->latmin[ipv];
                     t1v[v]     = SIN(latminv[v]);
                     u1v[v]     = COS(latminv[v]);
                     t2v[v]     = SIN(latmaxv[v]);

@@ -108,8 +108,12 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 LTLIBRARIES = $(noinst_LTLIBRARIES)
 libcharm@P@_crd@OMP@_la_LIBADD =
-am_libcharm@P@_crd@OMP@_la_OBJECTS = crd_init.lo crd_free.lo crd_gl.lo \
-	crd_dh1.lo crd_dh2.lo crd_dh_lats_weights.lo \
+am_libcharm@P@_crd@OMP@_la_OBJECTS = crd_point_malloc.lo \
+	crd_point_calloc.lo crd_point_init.lo crd_point_free.lo \
+	crd_point_check_inputs.lo crd_point_gl.lo crd_point_dh1.lo \
+	crd_point_dh2.lo crd_point_dh_lats_weights.lo \
+	crd_cell_malloc.lo crd_cell_calloc.lo crd_cell_init.lo \
+	crd_cell_free.lo crd_cell_check_inputs.lo \
 	crd_grd_check_symm.lo crd_check_cells.lo
 libcharm@P@_crd@OMP@_la_OBJECTS =  \
 	$(am_libcharm@P@_crd@OMP@_la_OBJECTS)
@@ -132,11 +136,19 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/crd_check_cells.Plo \
-	./$(DEPDIR)/crd_dh1.Plo ./$(DEPDIR)/crd_dh2.Plo \
-	./$(DEPDIR)/crd_dh_lats_weights.Plo ./$(DEPDIR)/crd_free.Plo \
-	./$(DEPDIR)/crd_gl.Plo ./$(DEPDIR)/crd_grd_check_symm.Plo \
-	./$(DEPDIR)/crd_init.Plo
+am__depfiles_remade = ./$(DEPDIR)/crd_cell_calloc.Plo \
+	./$(DEPDIR)/crd_cell_check_inputs.Plo \
+	./$(DEPDIR)/crd_cell_free.Plo ./$(DEPDIR)/crd_cell_init.Plo \
+	./$(DEPDIR)/crd_cell_malloc.Plo \
+	./$(DEPDIR)/crd_check_cells.Plo \
+	./$(DEPDIR)/crd_grd_check_symm.Plo \
+	./$(DEPDIR)/crd_point_calloc.Plo \
+	./$(DEPDIR)/crd_point_check_inputs.Plo \
+	./$(DEPDIR)/crd_point_dh1.Plo ./$(DEPDIR)/crd_point_dh2.Plo \
+	./$(DEPDIR)/crd_point_dh_lats_weights.Plo \
+	./$(DEPDIR)/crd_point_free.Plo ./$(DEPDIR)/crd_point_gl.Plo \
+	./$(DEPDIR)/crd_point_init.Plo \
+	./$(DEPDIR)/crd_point_malloc.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -294,12 +306,20 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 noinst_LTLIBRARIES = libcharm@P@_crd@OMP@.la
 AM_CPPFLAGS = -I$(top_srcdir)/charm
-libcharm@P@_crd@OMP@_la_SOURCES = crd_init.c \
-								  crd_free.c \
-								  crd_gl.c \
-								  crd_dh1.c \
-								  crd_dh2.c \
-								  crd_dh_lats_weights.c \
+libcharm@P@_crd@OMP@_la_SOURCES = crd_point_malloc.c \
+								  crd_point_calloc.c \
+								  crd_point_init.c \
+								  crd_point_free.c \
+								  crd_point_check_inputs.c \
+								  crd_point_gl.c \
+								  crd_point_dh1.c \
+								  crd_point_dh2.c \
+								  crd_point_dh_lats_weights.c \
+								  crd_cell_malloc.c \
+								  crd_cell_calloc.c \
+								  crd_cell_init.c \
+								  crd_cell_free.c \
+								  crd_cell_check_inputs.c \
 								  crd_grd_check_symm.c \
 								  crd_check_cells.c
 
@@ -358,14 +378,22 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_cell_calloc.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_cell_check_inputs.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_cell_free.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_cell_init.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_cell_malloc.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_check_cells.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_dh1.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_dh2.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_dh_lats_weights.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_free.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_gl.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_grd_check_symm.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_init.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_calloc.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_check_inputs.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_dh1.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_dh2.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_dh_lats_weights.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_free.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_gl.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_init.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_malloc.Plo@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -479,14 +507,22 @@ clean-am: clean-generic clean-libtool clean-noinstLTLIBRARIES \
 	mostlyclean-am
 
 distclean: distclean-am
-		-rm -f ./$(DEPDIR)/crd_check_cells.Plo
-	-rm -f ./$(DEPDIR)/crd_dh1.Plo
-	-rm -f ./$(DEPDIR)/crd_dh2.Plo
-	-rm -f ./$(DEPDIR)/crd_dh_lats_weights.Plo
-	-rm -f ./$(DEPDIR)/crd_free.Plo
-	-rm -f ./$(DEPDIR)/crd_gl.Plo
+		-rm -f ./$(DEPDIR)/crd_cell_calloc.Plo
+	-rm -f ./$(DEPDIR)/crd_cell_check_inputs.Plo
+	-rm -f ./$(DEPDIR)/crd_cell_free.Plo
+	-rm -f ./$(DEPDIR)/crd_cell_init.Plo
+	-rm -f ./$(DEPDIR)/crd_cell_malloc.Plo
+	-rm -f ./$(DEPDIR)/crd_check_cells.Plo
 	-rm -f ./$(DEPDIR)/crd_grd_check_symm.Plo
-	-rm -f ./$(DEPDIR)/crd_init.Plo
+	-rm -f ./$(DEPDIR)/crd_point_calloc.Plo
+	-rm -f ./$(DEPDIR)/crd_point_check_inputs.Plo
+	-rm -f ./$(DEPDIR)/crd_point_dh1.Plo
+	-rm -f ./$(DEPDIR)/crd_point_dh2.Plo
+	-rm -f ./$(DEPDIR)/crd_point_dh_lats_weights.Plo
+	-rm -f ./$(DEPDIR)/crd_point_free.Plo
+	-rm -f ./$(DEPDIR)/crd_point_gl.Plo
+	-rm -f ./$(DEPDIR)/crd_point_init.Plo
+	-rm -f ./$(DEPDIR)/crd_point_malloc.Plo
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic
 
@@ -531,14 +567,22 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f ./$(DEPDIR)/crd_check_cells.Plo
-	-rm -f ./$(DEPDIR)/crd_dh1.Plo
-	-rm -f ./$(DEPDIR)/crd_dh2.Plo
-	-rm -f ./$(DEPDIR)/crd_dh_lats_weights.Plo
-	-rm -f ./$(DEPDIR)/crd_free.Plo
-	-rm -f ./$(DEPDIR)/crd_gl.Plo
+		-rm -f ./$(DEPDIR)/crd_cell_calloc.Plo
+	-rm -f ./$(DEPDIR)/crd_cell_check_inputs.Plo
+	-rm -f ./$(DEPDIR)/crd_cell_free.Plo
+	-rm -f ./$(DEPDIR)/crd_cell_init.Plo
+	-rm -f ./$(DEPDIR)/crd_cell_malloc.Plo
+	-rm -f ./$(DEPDIR)/crd_check_cells.Plo
 	-rm -f ./$(DEPDIR)/crd_grd_check_symm.Plo
-	-rm -f ./$(DEPDIR)/crd_init.Plo
+	-rm -f ./$(DEPDIR)/crd_point_calloc.Plo
+	-rm -f ./$(DEPDIR)/crd_point_check_inputs.Plo
+	-rm -f ./$(DEPDIR)/crd_point_dh1.Plo
+	-rm -f ./$(DEPDIR)/crd_point_dh2.Plo
+	-rm -f ./$(DEPDIR)/crd_point_dh_lats_weights.Plo
+	-rm -f ./$(DEPDIR)/crd_point_free.Plo
+	-rm -f ./$(DEPDIR)/crd_point_gl.Plo
+	-rm -f ./$(DEPDIR)/crd_point_init.Plo
+	-rm -f ./$(DEPDIR)/crd_point_malloc.Plo
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
