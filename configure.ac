@@ -6,7 +6,7 @@ define(VERSION_SEMANTIC, m4_normalize(m4_include([VERSION])))
 AC_INIT([CHarm], [VERSION_SEMANTIC], [blazej.bucha@stuba.sk], [charm], [https://github.com/blazej-bucha/charm])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
-AC_CONFIG_SRCDIR([src/shc/shc_init.c])
+AC_CONFIG_SRCDIR([src/shc/shc_calloc.c])
 AM_INIT_AUTOMAKE([foreign])
 AM_MAINTAINER_MODE
 AC_DISABLE_SHARED

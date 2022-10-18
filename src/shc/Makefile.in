@@ -109,11 +109,11 @@ CONFIG_CLEAN_VPATH_FILES =
 LTLIBRARIES = $(noinst_LTLIBRARIES)
 libcharm@P@_shc@OMP@_la_LIBADD =
 am_libcharm@P@_shc@OMP@_la_OBJECTS = shc_da.lo shc_dda.lo shc_ddv.lo \
-	shc_dv.lo shc_init.lo shc_free.lo shc_read_bin.lo \
-	shc_read_mtx.lo shc_read_tbl.lo shc_read_gfc.lo \
-	shc_read_mtdt.lo shc_read_line.lo shc_write_bin.lo \
-	shc_write_mtx.lo shc_write_tbl.lo shc_write_mtdt.lo \
-	shc_rescale.lo shc_reset_coeffs.lo
+	shc_dv.lo shc_malloc.lo shc_calloc.lo shc_init.lo shc_free.lo \
+	shc_read_bin.lo shc_read_mtx.lo shc_read_tbl.lo \
+	shc_read_gfc.lo shc_read_mtdt.lo shc_read_line.lo \
+	shc_write_bin.lo shc_write_mtx.lo shc_write_tbl.lo \
+	shc_write_mtdt.lo shc_rescale.lo shc_reset_coeffs.lo
 libcharm@P@_shc@OMP@_la_OBJECTS =  \
 	$(am_libcharm@P@_shc@OMP@_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -135,15 +135,17 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/shc_da.Plo ./$(DEPDIR)/shc_dda.Plo \
+am__depfiles_remade = ./$(DEPDIR)/shc_calloc.Plo \
+	./$(DEPDIR)/shc_da.Plo ./$(DEPDIR)/shc_dda.Plo \
 	./$(DEPDIR)/shc_ddv.Plo ./$(DEPDIR)/shc_dv.Plo \
 	./$(DEPDIR)/shc_free.Plo ./$(DEPDIR)/shc_init.Plo \
-	./$(DEPDIR)/shc_read_bin.Plo ./$(DEPDIR)/shc_read_gfc.Plo \
-	./$(DEPDIR)/shc_read_line.Plo ./$(DEPDIR)/shc_read_mtdt.Plo \
-	./$(DEPDIR)/shc_read_mtx.Plo ./$(DEPDIR)/shc_read_tbl.Plo \
-	./$(DEPDIR)/shc_rescale.Plo ./$(DEPDIR)/shc_reset_coeffs.Plo \
-	./$(DEPDIR)/shc_write_bin.Plo ./$(DEPDIR)/shc_write_mtdt.Plo \
-	./$(DEPDIR)/shc_write_mtx.Plo ./$(DEPDIR)/shc_write_tbl.Plo
+	./$(DEPDIR)/shc_malloc.Plo ./$(DEPDIR)/shc_read_bin.Plo \
+	./$(DEPDIR)/shc_read_gfc.Plo ./$(DEPDIR)/shc_read_line.Plo \
+	./$(DEPDIR)/shc_read_mtdt.Plo ./$(DEPDIR)/shc_read_mtx.Plo \
+	./$(DEPDIR)/shc_read_tbl.Plo ./$(DEPDIR)/shc_rescale.Plo \
+	./$(DEPDIR)/shc_reset_coeffs.Plo ./$(DEPDIR)/shc_write_bin.Plo \
+	./$(DEPDIR)/shc_write_mtdt.Plo ./$(DEPDIR)/shc_write_mtx.Plo \
+	./$(DEPDIR)/shc_write_tbl.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -305,6 +307,8 @@ libcharm@P@_shc@OMP@_la_SOURCES = shc_da.c \
 								  shc_dda.c \
 								  shc_ddv.c \
 								  shc_dv.c \
+								  shc_malloc.c \
+								  shc_calloc.c \
 								  shc_init.c \
 								  shc_free.c \
 								  shc_read_bin.c \
@@ -375,12 +379,14 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_calloc.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_da.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_dda.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_ddv.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_dv.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_free.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_init.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_malloc.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_read_bin.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_read_gfc.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_read_line.Plo@am__quote@ # am--include-marker
@@ -506,12 +512,14 @@ clean-am: clean-generic clean-libtool clean-noinstLTLIBRARIES \
 	mostlyclean-am
 
 distclean: distclean-am
-		-rm -f ./$(DEPDIR)/shc_da.Plo
+		-rm -f ./$(DEPDIR)/shc_calloc.Plo
+	-rm -f ./$(DEPDIR)/shc_da.Plo
 	-rm -f ./$(DEPDIR)/shc_dda.Plo
 	-rm -f ./$(DEPDIR)/shc_ddv.Plo
 	-rm -f ./$(DEPDIR)/shc_dv.Plo
 	-rm -f ./$(DEPDIR)/shc_free.Plo
 	-rm -f ./$(DEPDIR)/shc_init.Plo
+	-rm -f ./$(DEPDIR)/shc_malloc.Plo
 	-rm -f ./$(DEPDIR)/shc_read_bin.Plo
 	-rm -f ./$(DEPDIR)/shc_read_gfc.Plo
 	-rm -f ./$(DEPDIR)/shc_read_line.Plo
@@ -568,12 +576,14 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f ./$(DEPDIR)/shc_da.Plo
+		-rm -f ./$(DEPDIR)/shc_calloc.Plo
+	-rm -f ./$(DEPDIR)/shc_da.Plo
 	-rm -f ./$(DEPDIR)/shc_dda.Plo
 	-rm -f ./$(DEPDIR)/shc_ddv.Plo
 	-rm -f ./$(DEPDIR)/shc_dv.Plo
 	-rm -f ./$(DEPDIR)/shc_free.Plo
 	-rm -f ./$(DEPDIR)/shc_init.Plo
+	-rm -f ./$(DEPDIR)/shc_malloc.Plo
 	-rm -f ./$(DEPDIR)/shc_read_bin.Plo
 	-rm -f ./$(DEPDIR)/shc_read_gfc.Plo
 	-rm -f ./$(DEPDIR)/shc_read_line.Plo

@@ -595,7 +595,7 @@ PACKAGE_STRING='CHarm 0.1.2-dev'
 PACKAGE_BUGREPORT='blazej.bucha@stuba.sk'
 PACKAGE_URL='https://github.com/blazej-bucha/charm'
 
-ac_unique_file="src/shc/shc_init.c"
+ac_unique_file="src/shc/shc_calloc.c"
 # Factoring default headers for most tests.
 ac_includes_default="\
 #include <stdio.h>

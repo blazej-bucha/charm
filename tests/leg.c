@@ -56,9 +56,9 @@ int leg(void)
         for (unsigned long nmax2 = 0; nmax2 <= nmax; nmax2++)
         {
             /* Initialize a structure to store the Fourier coefficients */
-            pnmj = CHARM(leg_pnmj_init)(nmax2,
-                                        (o == 0) ? CHARM_LEG_PNMJ_ORDER_MNJ :
-                                                   CHARM_LEG_PNMJ_ORDER_MJN);
+            pnmj = CHARM(leg_pnmj_calloc)(nmax2,
+                                          (o == 0) ? CHARM_LEG_PNMJ_ORDER_MNJ :
+                                                     CHARM_LEG_PNMJ_ORDER_MJN);
             if (pnmj == NULL)
             {
                 fprintf(stderr, "Failed to initialize the \"pnmj\" "

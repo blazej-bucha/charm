@@ -46,7 +46,7 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
 
     /* Read reference potential coefficients */
     /* --------------------------------------------------------------------- */
-    CHARM(shc) *shcs_pot = CHARM(shc_init)(nmax_pot, PREC(1.0), PREC(1.0));
+    CHARM(shc) *shcs_pot = CHARM(shc_calloc)(nmax_pot, PREC(1.0), PREC(1.0));
     if (shcs_pot == NULL)
     {
         fprintf(stderr, "Failed to initialize a \"shc\" structure.\n");
@@ -82,7 +82,7 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
 
     /* Read reference topo coefficients */
     /* --------------------------------------------------------------------- */
-    CHARM(shc) *shcs_topo = CHARM(shc_init)(nmax_topo, PREC(1.0), PREC(1.0));
+    CHARM(shc) *shcs_topo = CHARM(shc_calloc)(nmax_topo, PREC(1.0), PREC(1.0));
     if (shcs_topo == NULL)
     {
         fprintf(stderr, "Failed to initialize a \"shc\" structure.\n");

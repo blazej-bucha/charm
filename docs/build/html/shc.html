@@ -196,19 +196,17 @@
 <li><p>computes (difference) degree variances and degree amplitudes.</p></li>
 </ul>
 </p>
-<p><p><div class="admonition note">
+<p><div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This documentation is written for double precision version of 
-CHarm.</p>
+<p>This documentation is written for double precision version of CHarm. </p>
 </div>
 </p>
- </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-enums">Enums</p>
 <dl class="cpp enum">
 <dt id="_CPPv4Ut1_4">
 <span id="_CPPv3Ut1_4"></span><span class="target" id="charm__shc_8h_1adc29c2ff13d900c2f185ee95427fb06c"></span><em class="property">enum </em><strong>[anonymous]</strong><a class="headerlink" href="#_CPPv4Ut1_4" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Ordering scheme to write spherical harmonic coefficients with <code class="docutils literal notranslate"><span class="pre">charm_shc_write_tbl</span></code>. </p>
+<dd><p>Ordering scheme to write spherical harmonic coefficients with <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1af84f87b1de76e926087b39611d9d635e"><span class="std std-ref"><span class="pre">charm_shc_write_tbl()</span></span></a></code>. </p>
 <p><em>Values:</em></p>
 <dl class="cpp enumerator">
 <dt id="_CPPv4NUt1_421CHARM_SHC_WRITE_TBL_NE">
@@ -228,35 +226,108 @@ CHarm.</p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv414charm_shc_initmdd">
-<span id="_CPPv314charm_shc_initmdd"></span><span id="_CPPv214charm_shc_initmdd"></span><span id="charm_shc_init__unsigned-l.double.double"></span><span class="target" id="charm__shc_8h_1a44cdb96363d642c318e430fd203ccb5d"></span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc">charm_shc</a> *<code class="sig-name descname">charm_shc_init</code><span class="sig-paren">(</span>unsigned long <em>nmax</em>, double <em>mu</em>, double <em>r</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414charm_shc_initmdd" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Allocates and initializes a <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure of spherical harmonic coefficients up to the degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>. All coefficients are initialized to zero and are associated with the scaling parameter <code class="docutils literal notranslate"><span class="pre">mu</span></code> and the radius of the reference sphere <code class="docutils literal notranslate"><span class="pre">r</span></code>.</p>
+<dt id="_CPPv416charm_shc_mallocmdd">
+<span id="_CPPv316charm_shc_mallocmdd"></span><span id="_CPPv216charm_shc_mallocmdd"></span><span id="charm_shc_malloc__unsigned-l.double.double"></span><span class="target" id="charm__shc_8h_1a71bf6f7267355f7d444a8b841b4c5f44"></span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc">charm_shc</a> *<code class="sig-name descname">charm_shc_malloc</code><span class="sig-paren">(</span>unsigned long <em>nmax</em>, double <em>mu</em>, double <em>r</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416charm_shc_mallocmdd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns a <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure with maximum harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>, scaling parameter <code class="docutils literal notranslate"><span class="pre">mu</span></code>, radius of the reference sphere <code class="docutils literal notranslate"><span class="pre">r</span></code> and uninitialized spherical harmonic coefficients. The <code class="docutils literal notranslate"><span class="pre">owner</span></code> member of <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> is set to <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
 <p>On success, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure. On error, <code class="docutils literal notranslate"><span class="pre">NULL</span></code> is returned.</p>
-<p><p></p>
- </p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">charm_shc</span></code> structure created by this function must be 
-deallocated by calling <code class="docutils literal notranslate"><span class="pre">charm_shc_free</span></code>.  The <code class="docutils literal notranslate"><span class="pre">free</span></code> 
-function will <em>not</em> deallocate the memory and will lead to memory 
-leaks.</p>
-</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code class="docutils literal notranslate"><span class="pre">r</span></code> must be greater than zero.</p>
+<p><code class="docutils literal notranslate"><span class="pre">r</span></code> must be greater than zero. </p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The structure returned must be deallocated by calling <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1ac787c43697c5383d38c392d427b78669"><span class="std std-ref"><span class="pre">charm_shc_free()</span></span></a></code>. The <code class="docutils literal notranslate"><span class="pre">free</span></code> function will <em>not</em> deallocate the memory and will lead to memory leaks.</p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv416charm_shc_callocmdd">
+<span id="_CPPv316charm_shc_callocmdd"></span><span id="_CPPv216charm_shc_callocmdd"></span><span id="charm_shc_calloc__unsigned-l.double.double"></span><span class="target" id="charm__shc_8h_1aef25897b61e59bd0fb9825125e8daa73"></span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc">charm_shc</a> *<code class="sig-name descname">charm_shc_calloc</code><span class="sig-paren">(</span>unsigned long <em>nmax</em>, double <em>mu</em>, double <em>r</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416charm_shc_callocmdd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a71bf6f7267355f7d444a8b841b4c5f44"><span class="std std-ref"><span class="pre">charm_shc_malloc()</span></span></a></code> but with all spherical harmonic coefficients initialized to zero. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv414charm_shc_initmddPdPd">
+<span id="_CPPv314charm_shc_initmddPdPd"></span><span id="_CPPv214charm_shc_initmddPdPd"></span><span id="charm_shc_init__unsigned-l.double.double.doubleP.doubleP"></span><span class="target" id="charm__shc_8h_1a0c8915c03242005b436f30a06ab091ce"></span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc">charm_shc</a> *<code class="sig-name descname">charm_shc_init</code><span class="sig-paren">(</span>unsigned long <em>nmax</em>, double <em>mu</em>, double <em>r</em>, double *<em>c</em>, double *<em>s</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414charm_shc_initmddPdPd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns a <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure with maximum harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>, scaling parameter <code class="docutils literal notranslate"><span class="pre">mu</span></code>, radius of the reference sphere <code class="docutils literal notranslate"><span class="pre">r</span></code> and spherical harmonic coefficients from the <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> arrays (shallow copy). The <code class="docutils literal notranslate"><span class="pre">owner</span></code> member of <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> is set to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<p>On success, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure. On error, <code class="docutils literal notranslate"><span class="pre">NULL</span></code> is returned.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> pointers must have access to <code class="docutils literal notranslate"><span class="pre">((nmax</span> <span class="pre">+</span> <span class="pre">2)</span> <span class="pre">*</span> <span class="pre">(nmax</span> <span class="pre">+</span> <span class="pre">1))</span> <span class="pre">/</span> <span class="pre">2</span></code> array elements. The ordering of coefficients in <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> must follow the pattern:</p>
+<p><div class="math notranslate nohighlight">
+\[\begin{split}&amp;\bar{C}_{0,0}, \, \bar{C}_{1,0},\bar{C}_{2,0}, \, \cdots,
+\bar{C}_{\mathrm{nmax},0}, \bar{C}_{1,1},\, \bar{C}_{2,1}, \, \cdots,\\
+&amp;\bar{C}_{\mathrm{nmax},1}, \, \bar{C}_{2,2}, \bar{C}_{3,2},\,
+\cdots,\, \bar{C}_{\mathrm{nmax},\mathrm{nmax}},\end{split}\]</div>
+</p>
+<p>and</p>
+<p><div class="math notranslate nohighlight">
+\[\begin{split}&amp;\bar{S}_{0,0}, \, \bar{S}_{1,0},\bar{S}_{2,0}, \, \cdots,
+\bar{S}_{\mathrm{nmax},0}, \bar{S}_{1,1},\, \bar{S}_{2,1}, \, \cdots,\\
+&amp;\bar{S}_{\mathrm{nmax},1}, \, \bar{S}_{2,2}, \bar{S}_{3,2},\,
+\cdots,\, \bar{S}_{\mathrm{nmax},\mathrm{nmax}},\end{split}\]</div>
+</p>
+<p>respectively.</p>
+<p>The rationale behind this function is to provide a means to create a <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure from custom arrays of spherical harmonic coefficients <em>without a deep copy of the data</em>. The following code snippet illustrates this:</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">nmax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+<span class="kt">size_t</span> <span class="n">ncs</span> <span class="o">=</span> <span class="p">((</span><span class="n">nmax</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">nmax</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+
+<span class="kt">double</span> <span class="o">*</span><span class="n">myc</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">ncs</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+<span class="kt">double</span> <span class="o">*</span><span class="n">mys</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">ncs</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+
+<span class="c1">// Now fill &quot;myc&quot; and &quot;mys&quot; with your coefficients.</span>
+<span class="c1">// [Here goes your code]</span>
+
+<span class="c1">// Next, create the &quot;charm_shc&quot; structure from the &quot;myc&quot; and &quot;mys&quot;</span>
+<span class="c1">// coefficients:</span>
+<span class="n">charm_shc</span> <span class="o">*</span><span class="n">shcs</span> <span class="o">=</span> <span class="n">charm_shc_init</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">myc</span><span class="p">,</span> <span class="n">mys</span><span class="p">);</span>
+
+<span class="c1">// Do some cool things here with &quot;shcs&quot;, but remember that</span>
+<span class="c1">// &quot;shcs-&gt;c&quot; and &quot;shcs-&gt;s&quot; share the memory space with &quot;myc&quot; and</span>
+<span class="c1">// &quot;mys&quot;, respectively.</span>
+<span class="c1">// [Here goes your code]</span>
+
+<span class="c1">// At this point, we did everything we needed to do with &quot;shcs&quot;, so</span>
+<span class="c1">// let&#39;s release the memory associated with it.</span>
+<span class="n">charm_shc_free</span><span class="p">(</span><span class="n">shcs</span><span class="p">);</span>
+<span class="c1">// The &quot;shcs&quot; structure is now properly released.  But</span>
+<span class="c1">// since &quot;shcs&quot; was created by &quot;charm_shc_init&quot;, which does not</span>
+<span class="c1">// perform a deep copy of the coefficients in &quot;myc&quot; and &quot;mys&quot;, the</span>
+<span class="c1">// memory associated with &quot;myc&quot; and &quot;mys&quot; was not freed.  At this</span>
+<span class="c1">// point, you may therefore still use &quot;myc&quot; and &quot;mys&quot;.</span>
+<span class="c1">// [Here goes your code]</span>
+
+<span class="c1">// Once you are done with &quot;myc&quot; and &quot;mys&quot;, release the memory as</span>
+<span class="c1">// usually with:</span>
+<span class="n">free</span><span class="p">(</span><span class="n">myc</span><span class="p">);</span>
+<span class="n">free</span><span class="p">(</span><span class="n">mys</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">r</span></code> must be greater than zero. </p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The structure returned must be deallocated by calling <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1ac787c43697c5383d38c392d427b78669"><span class="std std-ref"><span class="pre">charm_shc_free()</span></span></a></code>. The <code class="docutils literal notranslate"><span class="pre">free</span></code> function will <em>not</em> deallocate the memory and will lead to memory leaks.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The spherical harmonic coefficients in the returned <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure share the memory space with the input <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> arrays. The function does not perform a deep copy of the data. Therefore, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1ac787c43697c5383d38c392d427b78669"><span class="std std-ref"><span class="pre">charm_shc_free()</span></span></a></code> properly deallocates the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure <em>except</em> for the spherical harmonic coefficients. The user allocated <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> outside the scope of CHarm, so the user decides when to deallocate.</p>
 </div>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv414charm_shc_freeP9charm_shc">
 <span id="_CPPv314charm_shc_freeP9charm_shc"></span><span id="_CPPv214charm_shc_freeP9charm_shc"></span><span id="charm_shc_free__charm_shcP"></span><span class="target" id="charm__shc_8h_1ac787c43697c5383d38c392d427b78669"></span>void <code class="sig-name descname">charm_shc_free</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc">charm_shc</a> *<em>shcs</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414charm_shc_freeP9charm_shc" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Frees the memory associated with <code class="docutils literal notranslate"><span class="pre">shcs</span></code>. No operation is performed if <code class="docutils literal notranslate"><span class="pre">shcs</span></code> is <code class="docutils literal notranslate"><span class="pre">NULL</span></code>. </p>
+<dd><p>Frees the memory associated with <code class="docutils literal notranslate"><span class="pre">shcs</span></code>. No operation is performed if <code class="docutils literal notranslate"><span class="pre">shcs</span></code> is <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">shcs-&gt;owner</span></code> is <code class="docutils literal notranslate"><span class="pre">1</span></code>, the function releases all the memory that is associated with <code class="docutils literal notranslate"><span class="pre">shcs</span></code>, including the arrays of spherical harmonic coefficients. If <code class="docutils literal notranslate"><span class="pre">shcs-&gt;owner</span></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code>, the coefficients are not released from the memory, because they were not allocated by CHarm. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv418charm_shc_read_binPKcmP9charm_shcP9charm_err">
 <span id="_CPPv318charm_shc_read_binPKcmP9charm_shcP9charm_err"></span><span id="_CPPv218charm_shc_read_binPKcmP9charm_shcP9charm_err"></span><span id="charm_shc_read_bin__cCP.unsigned-l.charm_shcP.charm_errP"></span><span class="target" id="charm__shc_8h_1a6edbd6078d34e1ad3a9186be8ddc3066"></span>void <code class="sig-name descname">charm_shc_read_bin</code><span class="sig-paren">(</span><em class="property">const</em> char *<em>pathname</em>, unsigned long <em>nmax</em>, <a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc">charm_shc</a> *<em>shcs</em>, <a class="reference internal" href="err.html#_CPPv49charm_err" title="charm_err">charm_err</a> *<em>err</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418charm_shc_read_binPKcmP9charm_shcP9charm_err" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Reads a <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure to <code class="docutils literal notranslate"><span class="pre">shcs</span></code> from a binary file whose name is the string pointed to by <code class="docutils literal notranslate"><span class="pre">pathname</span></code>. The structure is loaded up to the maximum spherical harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>. The file is assumed to has been created by <code class="docutils literal notranslate"><span class="pre">charm_shc_write_bin</span></code> on the same architecture. Error reported by the function (if any) is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>.</p>
+<dd><p>Reads a <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure to <code class="docutils literal notranslate"><span class="pre">shcs</span></code> from a binary file whose name is the string pointed to by <code class="docutils literal notranslate"><span class="pre">pathname</span></code>. The structure is loaded up to the maximum spherical harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>. The file is assumed to has been created by <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1acd4b855357c012625ddf89a6625970dd"><span class="std std-ref"><span class="pre">charm_shc_write_bin()</span></span></a></code> on the same architecture. Error reported by the function (if any) is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>.</p>
 <p>The input file is a binary representation of the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure in the following order:</p>
 <p><div class="math notranslate nohighlight">
 \[\begin{split}&amp;\mathrm{nmax2}, \, \mu, \, R, \bar{C}_{0,0}, \, 
@@ -279,15 +350,9 @@ leaks.</p>
 </p>
 <p>are spherical harmonic coefficients of degree <code class="docutils literal notranslate"><span class="pre">n</span></code> and order <code class="docutils literal notranslate"><span class="pre">m</span></code>. It must hold that <code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">&lt;=</span> <span class="pre">nmax2</span></code>. That is, from all coefficients up to degree <code class="docutils literal notranslate"><span class="pre">nmax2</span></code> that are stored in the file, properly loaded can be any subset up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">&lt;=</span> <span class="pre">nmax2</span></code>.</p>
 <p>It must hold that <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span> <span class="pre">&gt;=</span> <span class="pre">nmax</span></code>.</p>
-<p><p></p>
- </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The function modifies <code class="docutils literal notranslate"><span class="pre">shcs-&gt;c</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;s</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> 
-and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code> by the values from the input file, but it does not
-touch <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nc</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;ns</span></code>.  If
-<code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span> <span class="pre">&gt;</span> <span class="pre">nmax</span></code>, the coefficients beyond <code class="docutils literal notranslate"><span class="pre">nmax</span></code> are set to
-zero.</p>
+<p>The function modifies <code class="docutils literal notranslate"><span class="pre">shcs-&gt;c</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;s</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code> by the values from the input file, but it does not touch <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nc</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;ns</span></code>. If <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span> <span class="pre">&gt;</span> <span class="pre">nmax</span></code>, the coefficients beyond <code class="docutils literal notranslate"><span class="pre">nmax</span></code> are set to zero. </p>
 </div>
 </dd></dl>
 
@@ -297,22 +362,16 @@ zero.</p>
 <dd><p>Reads a <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure to <code class="docutils literal notranslate"><span class="pre">shcs</span></code> from a gfc file whose name is the string pointed to by <code class="docutils literal notranslate"><span class="pre">pathname</span></code>. The coefficients are loaded up to the maximum spherical harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>. Error reported by the function (if any) is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>.</p>
 <p>The structure of the <code class="docutils literal notranslate"><span class="pre">gfc</span></code> file is defined by ICGEM at <a class="reference external" href="http://icgem.gfz-potsdam.de/ICGEM-Format-2011.pdf">http://icgem.gfz-potsdam.de/ICGEM-Format-2011.pdf</a>. It must hold that <code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">&lt;=</span> <span class="pre">nmax2</span></code>, where <code class="docutils literal notranslate"><span class="pre">nmax2</span></code> is taken from the <code class="docutils literal notranslate"><span class="pre">max_degree</span></code> keyword of the <code class="docutils literal notranslate"><span class="pre">gfc</span></code> file. From all coefficients up to degree <code class="docutils literal notranslate"><span class="pre">nmax2</span></code> that are stored in the file, properly loaded can be any subset up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">&lt;=</span> <span class="pre">nmax2</span></code>. Lines specifying spherical harmonic coefficients can be sorted <em>arbitrarily</em>. The non-existing coefficients <span class="math notranslate nohighlight">\(\bar{S}_{n,0}\)</span> of order <code class="docutils literal notranslate"><span class="pre">0</span></code> do not need to be present in the file.</p>
 <p>It must hold that <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span> <span class="pre">&gt;=</span> <span class="pre">nmax</span></code>.</p>
-<p><p></p>
- </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The function modifies <code class="docutils literal notranslate"><span class="pre">shcs-&gt;c</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;s</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> and
-<code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code> by the values from the input file, but it does not
-touch <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nc</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;ns</span></code>.  If
-<code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span> <span class="pre">&gt;</span> <span class="pre">nmax</span></code>, the coefficients beyond <code class="docutils literal notranslate"><span class="pre">nmax</span></code> are set to
-zero.</p>
+<p>The function modifies <code class="docutils literal notranslate"><span class="pre">shcs-&gt;c</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;s</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code> by the values from the input file, but it does not touch <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nc</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;ns</span></code>. If <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span> <span class="pre">&gt;</span> <span class="pre">nmax</span></code>, the coefficients beyond <code class="docutils literal notranslate"><span class="pre">nmax</span></code> are set to zero. </p>
 </div>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv418charm_shc_read_tblPKcmP9charm_shcP9charm_err">
 <span id="_CPPv318charm_shc_read_tblPKcmP9charm_shcP9charm_err"></span><span id="_CPPv218charm_shc_read_tblPKcmP9charm_shcP9charm_err"></span><span id="charm_shc_read_tbl__cCP.unsigned-l.charm_shcP.charm_errP"></span><span class="target" id="charm__shc_8h_1ae4f1cc7f812a2e248a0b527f5e805dab"></span>void <code class="sig-name descname">charm_shc_read_tbl</code><span class="sig-paren">(</span><em class="property">const</em> char *<em>pathname</em>, unsigned long <em>nmax</em>, <a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc">charm_shc</a> *<em>shcs</em>, <a class="reference internal" href="err.html#_CPPv49charm_err" title="charm_err">charm_err</a> *<em>err</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418charm_shc_read_tblPKcmP9charm_shcP9charm_err" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Reads a <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure to <code class="docutils literal notranslate"><span class="pre">shcs</span></code> from a text file whose name is the string pointed to by <code class="docutils literal notranslate"><span class="pre">pathname</span></code>. The structure is loaded up to the maximum spherical harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>. The file is assumed to has been created by <code class="docutils literal notranslate"><span class="pre">charm_shc_write_tbl</span></code>. Error reported by the function (if any) is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>.</p>
+<dd><p>Reads a <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure to <code class="docutils literal notranslate"><span class="pre">shcs</span></code> from a text file whose name is the string pointed to by <code class="docutils literal notranslate"><span class="pre">pathname</span></code>. The structure is loaded up to the maximum spherical harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>. The file is assumed to has been created by <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1af84f87b1de76e926087b39611d9d635e"><span class="std std-ref"><span class="pre">charm_shc_write_tbl()</span></span></a></code>. Error reported by the function (if any) is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>.</p>
 <p>The first line of the input file must specify the maximum harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax2</span></code> of the coefficients stored in the file, their scaling parameter <code class="docutils literal notranslate"><span class="pre">mu</span></code> and the radius of the reference sphere <code class="docutils literal notranslate"><span class="pre">r</span></code>. Then, starting at a new line, provided must be a harmonic degree, harmonic order and the respective pair of coefficients per each line of the file. The entire file structure can be summarized as:</p>
 <p><div class="math notranslate nohighlight">
 \[\begin{split}\begin{matrix}
@@ -339,22 +398,16 @@ zero.</p>
 </p>
 <p>are spherical harmonic coefficients of degree <code class="docutils literal notranslate"><span class="pre">n</span></code> and order <code class="docutils literal notranslate"><span class="pre">m</span></code>. It must hold that <code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">&lt;=</span> <span class="pre">nmax2</span></code>. That is, from all coefficients up to degree <code class="docutils literal notranslate"><span class="pre">nmax2</span></code> that are stored in the file, properly loaded can be any subset up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">&lt;=</span> <span class="pre">nmax2</span></code>. Lines specifying spherical harmonic coefficients (all lines after the first one) can be sorted <em>arbitrarily</em>. The non-existing coefficients <span class="math notranslate nohighlight">\(\bar{S}_{n,0}\)</span> of order <code class="docutils literal notranslate"><span class="pre">0</span></code> do not need to be present in the file.</p>
 <p>It must hold that <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span> <span class="pre">&gt;=</span> <span class="pre">nmax</span></code>.</p>
-<p><p></p>
- </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The function modifies <code class="docutils literal notranslate"><span class="pre">shcs-&gt;c</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;s</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> and
-<code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code> by the values from the input file, but it does not
-touch <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nc</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;ns</span></code>.  If
-<code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span> <span class="pre">&gt;</span> <span class="pre">nmax</span></code>, the coefficients beyond <code class="docutils literal notranslate"><span class="pre">nmax</span></code> are set to
-zero.</p>
+<p>The function modifies <code class="docutils literal notranslate"><span class="pre">shcs-&gt;c</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;s</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code> by the values from the input file, but it does not touch <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nc</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;ns</span></code>. If <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span> <span class="pre">&gt;</span> <span class="pre">nmax</span></code>, the coefficients beyond <code class="docutils literal notranslate"><span class="pre">nmax</span></code> are set to zero. </p>
 </div>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv418charm_shc_read_mtxPKcmP9charm_shcP9charm_err">
 <span id="_CPPv318charm_shc_read_mtxPKcmP9charm_shcP9charm_err"></span><span id="_CPPv218charm_shc_read_mtxPKcmP9charm_shcP9charm_err"></span><span id="charm_shc_read_mtx__cCP.unsigned-l.charm_shcP.charm_errP"></span><span class="target" id="charm__shc_8h_1aef7b38038556d7a8d1dbc7380968fe82"></span>void <code class="sig-name descname">charm_shc_read_mtx</code><span class="sig-paren">(</span><em class="property">const</em> char *<em>pathname</em>, unsigned long <em>nmax</em>, <a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc">charm_shc</a> *<em>shcs</em>, <a class="reference internal" href="err.html#_CPPv49charm_err" title="charm_err">charm_err</a> *<em>err</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418charm_shc_read_mtxPKcmP9charm_shcP9charm_err" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Reads a <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure to <code class="docutils literal notranslate"><span class="pre">shcs</span></code> from a text file whose name is the string pointed to by <code class="docutils literal notranslate"><span class="pre">pathname</span></code>. The structure is loaded up to the maximum spherical harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>. The file is assumed to has been created by <code class="docutils literal notranslate"><span class="pre">charm_shc_write_mtx</span></code>. Error reported by the function (if any) is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>.</p>
+<dd><p>Reads a <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure to <code class="docutils literal notranslate"><span class="pre">shcs</span></code> from a text file whose name is the string pointed to by <code class="docutils literal notranslate"><span class="pre">pathname</span></code>. The structure is loaded up to the maximum spherical harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>. The file is assumed to has been created by <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1ac10bad7b9e1f8db98dbfc0f64ea1224c"><span class="std std-ref"><span class="pre">charm_shc_write_mtx()</span></span></a></code>. Error reported by the function (if any) is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>.</p>
 <p>The first line of the input file must specify the maximum harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax2</span></code> of the coefficients stored in the file, their scaling parameter <code class="docutils literal notranslate"><span class="pre">mu</span></code> and the radius of the reference sphere <code class="docutils literal notranslate"><span class="pre">r</span></code>. Then, starting at a new line, a matrix with a predefined structured specifying the coefficients must follow. The entire file structure can be summarized as:</p>
 <p><div class="math notranslate nohighlight">
 \[\begin{split}\begin{matrix}
@@ -383,15 +436,9 @@ zero.</p>
 <p>are spherical harmonic coefficients of degree <code class="docutils literal notranslate"><span class="pre">n</span></code> and order <code class="docutils literal notranslate"><span class="pre">m</span></code>. It must hold that <code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">&lt;=</span> <span class="pre">nmax2</span></code>. That is, from all coefficients up to degree <code class="docutils literal notranslate"><span class="pre">nmax2</span></code> that are stored in the file, properly loaded can be any subset up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">&lt;=</span> <span class="pre">nmax2</span></code>.</p>
 <p>It must hold that <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span> <span class="pre">&gt;=</span> <span class="pre">nmax</span></code>.</p>
 <p>Any empty line in the file (that is, containing only the new line character <code class="docutils literal notranslate"><span class="pre">\n</span></code>) is ignored.</p>
-<p><p></p>
- </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The function modifies <code class="docutils literal notranslate"><span class="pre">shcs-&gt;c</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;s</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> and
-<code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code> by the values from the input file, but it does not
-touch <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nc</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;ns</span></code>.  If
-<code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span> <span class="pre">&gt;</span> <span class="pre">nmax</span></code>, the coefficients beyond <code class="docutils literal notranslate"><span class="pre">nmax</span></code> are set to
-zero.</p>
+<p>The function modifies <code class="docutils literal notranslate"><span class="pre">shcs-&gt;c</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;s</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code> by the values from the input file, but it does not touch <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nc</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;ns</span></code>. If <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span> <span class="pre">&gt;</span> <span class="pre">nmax</span></code>, the coefficients beyond <code class="docutils literal notranslate"><span class="pre">nmax</span></code> are set to zero. </p>
 </div>
 </dd></dl>
 
@@ -473,14 +520,11 @@ zero.</p>
 \[\bar{C}_{n,m}, \, \bar{S}_{n,m}\]</div>
 </p>
 <p>are spherical harmonic coefficients of degree <code class="docutils literal notranslate"><span class="pre">n</span></code> and order <code class="docutils literal notranslate"><span class="pre">m</span></code>. It must hold that <code class="docutils literal notranslate"><span class="pre">shcs</span></code> stores spherical harmonic coefficients up to degree <code class="docutils literal notranslate"><span class="pre">nmax2</span> <span class="pre">&gt;=</span> <span class="pre">nmax</span></code>. That is, from all coefficients in <code class="docutils literal notranslate"><span class="pre">shcs</span></code> up to degree <code class="docutils literal notranslate"><span class="pre">nmax2</span></code>, properly written can be any subset up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">&lt;=</span> <span class="pre">nmax2</span></code>.</p>
-<p>The path to the output file in <code class="docutils literal notranslate"><span class="pre">pathname</span></code> must already exist. </p>
+<p>
+The path to the output file in <code class="docutils literal notranslate"><span class="pre">pathname</span></code> must already exist. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In the quadruple version of CHarm (<code class="docutils literal notranslate"><span class="pre">charmq_shc_write_mtx</span></code>), add 
-the <code class="docutils literal notranslate"><span class="pre">Q</span></code> letter to the <code class="docutils literal notranslate"><span class="pre">format</span></code> specifier.  Examples of valid 
-<code class="docutils literal notranslate"><span class="pre">format</span></code> specifiers in quadruple precision are <code class="docutils literal notranslate"><span class="pre">%0.34Qe</span></code>, 
-<code class="docutils literal notranslate"><span class="pre">%40.34Qe</span></code> or <code class="docutils literal notranslate"><span class="pre">%0.34Qf</span></code> (see the documentation to 
-<code class="docutils literal notranslate"><span class="pre">libquadmath</span></code>).</p>
+<p>In the quadruple version of CHarm (<code class="docutils literal notranslate"><span class="pre">charmq_shc_write_mtx()</span></code>), add the <code class="docutils literal notranslate"><span class="pre">Q</span></code> letter to the <code class="docutils literal notranslate"><span class="pre">format</span></code> specifier. Examples of valid <code class="docutils literal notranslate"><span class="pre">format</span></code> specifiers in quadruple precision are <code class="docutils literal notranslate"><span class="pre">%0.34Qe</span></code>, <code class="docutils literal notranslate"><span class="pre">%40.34Qe</span></code> or <code class="docutils literal notranslate"><span class="pre">%0.34Qf</span></code> (see the documentation to <code class="docutils literal notranslate"><span class="pre">libquadmath</span></code>).</p>
 </div>
 </dd></dl>
 
@@ -515,14 +559,11 @@ the <code class="docutils literal notranslate"><span class="pre">Q</span></code>
 \[\bar{C}_{n,m}, \, \bar{S}_{n,m}\]</div>
 </p>
 <p>are spherical harmonic coefficients of degree <code class="docutils literal notranslate"><span class="pre">n</span></code> and order <code class="docutils literal notranslate"><span class="pre">m</span></code>. It must hold that <code class="docutils literal notranslate"><span class="pre">shcs</span></code> stores spherical harmonic coefficients up to degree <code class="docutils literal notranslate"><span class="pre">nmax2</span> <span class="pre">&gt;=</span> <span class="pre">nmax</span></code>. That is, from all coefficients in <code class="docutils literal notranslate"><span class="pre">shcs</span></code> up to degree <code class="docutils literal notranslate"><span class="pre">nmax2</span></code>, properly written can be any subset up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">&lt;=</span> <span class="pre">nmax2</span></code>.</p>
-<p>The path to the output file in <code class="docutils literal notranslate"><span class="pre">pathname</span></code> must already exist. </p>
+<p>
+The path to the output file in <code class="docutils literal notranslate"><span class="pre">pathname</span></code> must already exist. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In the quadruple version of CHarm (<code class="docutils literal notranslate"><span class="pre">charmq_shc_write_mtx</span></code>), add 
-the <code class="docutils literal notranslate"><span class="pre">Q</span></code> letter to the <code class="docutils literal notranslate"><span class="pre">format</span></code> specifier.  Examples of valid 
-<code class="docutils literal notranslate"><span class="pre">format</span></code> specifiers in quadruple precision are <code class="docutils literal notranslate"><span class="pre">%0.34Qe</span></code>, 
-<code class="docutils literal notranslate"><span class="pre">%40.34Qe</span></code> or <code class="docutils literal notranslate"><span class="pre">%0.34Qf</span></code> (see the documentation to 
-<code class="docutils literal notranslate"><span class="pre">libquadmath</span></code>).</p>
+<p>In the quadruple version of CHarm (<code class="docutils literal notranslate"><span class="pre">charmq_shc_write_mtx()</span></code>), add the <code class="docutils literal notranslate"><span class="pre">Q</span></code> letter to the <code class="docutils literal notranslate"><span class="pre">format</span></code> specifier. Examples of valid <code class="docutils literal notranslate"><span class="pre">format</span></code> specifiers in quadruple precision are <code class="docutils literal notranslate"><span class="pre">%0.34Qe</span></code>, <code class="docutils literal notranslate"><span class="pre">%40.34Qe</span></code> or <code class="docutils literal notranslate"><span class="pre">%0.34Qf</span></code> (see the documentation to <code class="docutils literal notranslate"><span class="pre">libquadmath</span></code>).</p>
 </div>
 </dd></dl>
 
@@ -549,13 +590,9 @@ the <code class="docutils literal notranslate"><span class="pre">Q</span></code>
 <p><div class="math notranslate nohighlight">
 \[\mathrm{dv}_n = \sum_{m = 0}^{n}(\bar{C}_{nm}^2 + \bar{S}_{nm}^2) \,.\]</div>
 </p>
-<p><p></p>
- </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code> parameters are <strong>not</strong> used to 
-evaluate the degree variances, since this appears to be the most 
-common way in practice.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code> parameters are <strong>not</strong> used to evaluate the degree variances, since this appears to be the most common way in practice. </p>
 </div>
 </dd></dl>
 
@@ -569,13 +606,9 @@ common way in practice.</p>
 \[\mathrm{da}_n = \sqrt{\sum_{m = 0}^{n}(\bar{C}_{nm}^2 
 + \bar{S}_{nm}^2)} \,.\]</div>
 </p>
-<p><p></p>
- </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code> parameters are <strong>not</strong> used to 
-evaluate the degree amplitudes, since this appears to be the most 
-common way in practice.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code> parameters are <strong>not</strong> used to evaluate the degree amplitudes, since this appears to be the most common way in practice. </p>
 </div>
 </dd></dl>
 
@@ -590,15 +623,9 @@ common way in practice.</p>
 \bar{C}_{nm}^{(2)}\right)^2 + \left(\bar{S}_{nm}^{(1)} 
 - \bar{S}_{nm}^{(2)}\right)^2\right) \,.\]</div>
 </p>
-<p><p></p>
- </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code> parameters are <strong>not</strong> used to 
-evaluate the differece degree variances, since this appears to be 
-the most common way in practice.  However, the values of <code class="docutils literal notranslate"><span class="pre">mu</span></code> and 
-<code class="docutils literal notranslate"><span class="pre">r</span></code> in <code class="docutils literal notranslate"><span class="pre">shcs1</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs2</span></code> <strong>must</strong> be equal (the function 
-performs a check on this).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code> parameters are <strong>not</strong> used to evaluate the differece degree variances, since this appears to be the most common way in practice. However, the values of <code class="docutils literal notranslate"><span class="pre">mu</span></code> and <code class="docutils literal notranslate"><span class="pre">r</span></code> in <code class="docutils literal notranslate"><span class="pre">shcs1</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs2</span></code> <strong>must</strong> be equal (the function performs a check on this). </p>
 </div>
 </dd></dl>
 
@@ -613,15 +640,9 @@ performs a check on this).</p>
 \bar{C}_{nm}^{(2)}\right)^2 + \left(\bar{S}_{nm}^{(1)} 
 - \bar{S}_{nm}^{(2)}\right)^2\right)} \,.\]</div>
 </p>
-<p><p></p>
- </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code> parameters are <strong>not</strong> used to 
-evaluate the difference degree amplitudes, since this appears to be 
-the most common way in practice.  However, the values of <code class="docutils literal notranslate"><span class="pre">mu</span></code> and 
-<code class="docutils literal notranslate"><span class="pre">r</span></code> in <code class="docutils literal notranslate"><span class="pre">shcs1</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs2</span></code> <strong>must</strong> be equal (the function 
-performs a check on this).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code> parameters are <strong>not</strong> used to evaluate the difference degree amplitudes, since this appears to be the most common way in practice. However, the values of <code class="docutils literal notranslate"><span class="pre">mu</span></code> and <code class="docutils literal notranslate"><span class="pre">r</span></code> in <code class="docutils literal notranslate"><span class="pre">shcs1</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs2</span></code> <strong>must</strong> be equal (the function performs a check on this). </p>
 </div>
 </dd></dl>
 
@@ -629,8 +650,7 @@ performs a check on this).</p>
 <dl class="cpp struct">
 <dt id="_CPPv49charm_shc">
 <span id="_CPPv39charm_shc"></span><span id="_CPPv29charm_shc"></span><span id="charm_shc"></span><span class="target" id="structcharm__shc"></span><em class="property">struct </em><code class="sig-name descname">charm_shc</code><a class="headerlink" href="#_CPPv49charm_shc" title="Permalink to this definition">¶</a><br /></dt>
-<dd><em>#include &lt;charm_shc.h&gt;</em><p>Structure to store spherical harmonic coefficients and some associated data.</p>
-<p>In most cases, it is created by functions from this module that return a pointer to <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code>. Experienced users may create the structure on their own, provided that they assign correct values to its members, so that CHarm can properly understood the data in it (see the rules summarized below). </p>
+<dd><em>#include &lt;charm_shc.h&gt;</em><p>Structure to store spherical harmonic coefficients and some associated data. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
 <dl class="cpp var">
@@ -675,8 +695,9 @@ performs a check on this).</p>
 <li><p>Order <code class="docutils literal notranslate"><span class="pre">nmax</span></code>: <code class="docutils literal notranslate"><span class="pre">c[nmax]</span></code> has <code class="docutils literal notranslate"><span class="pre">1</span></code> column for degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.</p></li>
 </ul>
 </p>
-<p>Assuming the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure was initialized up to some degree <code class="docutils literal notranslate"><span class="pre">unsigned</span> <span class="pre">long</span> <span class="pre">nmax</span></code> as</p>
-<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">charm_shc</span> <span class="o">*</span><span class="n">shcs</span> <span class="o">=</span> <span class="n">charm_shc_init</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+<p>
+Assuming the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure was initialized up to some degree <code class="docutils literal notranslate"><span class="pre">unsigned</span> <span class="pre">long</span> <span class="pre">nmax</span></code> as</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">charm_shc</span> <span class="o">*</span><span class="n">shcs</span> <span class="o">=</span> <span class="n">charm_shc_calloc</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
 </pre></div>
 </div>
 </p>
@@ -703,6 +724,13 @@ performs a check on this).</p>
 <dt id="_CPPv4N9charm_shc1sE">
 <span id="_CPPv3N9charm_shc1sE"></span><span id="_CPPv2N9charm_shc1sE"></span><span id="charm_shc::s__doublePP"></span><span class="target" id="structcharm__shc_1a6818b02906586ec66ddf28095c779558"></span>double **<code class="sig-name descname">s</code><a class="headerlink" href="#_CPPv4N9charm_shc1sE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Spherical harmonic coefficients <span class="math notranslate nohighlight">\(\bar{S}_{nm}\)</span>. The same comments as for <code class="docutils literal notranslate"><span class="pre">c</span></code> apply to <code class="docutils literal notranslate"><span class="pre">s</span></code>, too. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv4N9charm_shc5ownerE">
+<span id="_CPPv3N9charm_shc5ownerE"></span><span id="_CPPv2N9charm_shc5ownerE"></span><span id="charm_shc::owner___Bool"></span><span class="target" id="structcharm__shc_1afa2a47ef5dfb21b8c01fa506b17859af"></span>_Bool <code class="sig-name descname">owner</code><a class="headerlink" href="#_CPPv4N9charm_shc5ownerE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the spherical harmonic coefficients in <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> were allocated by CHarm, so <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1ac787c43697c5383d38c392d427b78669"><span class="std std-ref"><span class="pre">charm_shc_free()</span></span></a></code> deallocates them. If <code class="docutils literal notranslate"><span class="pre">owner</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, the coefficients in <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> were allocated outside CHarm, so <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1ac787c43697c5383d38c392d427b78669"><span class="std std-ref"><span class="pre">charm_shc_free()</span></span></a></code> does <em>not</em> deallocate them (the user allocated the memory outside CHarm, so the user should free the memory outside CHarm as well).</p>
+<p><code class="docutils literal notranslate"><span class="pre">owner</span></code> is set to <code class="docutils literal notranslate"><span class="pre">1</span></code> for <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> returned by <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a71bf6f7267355f7d444a8b841b4c5f44"><span class="std std-ref"><span class="pre">charm_shc_malloc()</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1aef25897b61e59bd0fb9825125e8daa73"><span class="std std-ref"><span class="pre">charm_shc_calloc()</span></span></a></code>. <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a0c8915c03242005b436f30a06ab091ce"><span class="std std-ref"><span class="pre">charm_shc_init()</span></span></a></code> returns <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> with <code class="docutils literal notranslate"><span class="pre">owner</span></code> set to <code class="docutils literal notranslate"><span class="pre">0</span></code>. </p>
 </dd></dl>
 
 </div>

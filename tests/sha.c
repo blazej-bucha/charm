@@ -49,7 +49,7 @@ int sha(unsigned long nmax, char SHCs_file[])
 
     /* Read the test coefficients from a text file */
     /* --------------------------------------------------------------------- */
-    CHARM(shc) *shcs_ref = CHARM(shc_init)(nmax, PREC(1.0), PREC(1.0));
+    CHARM(shc) *shcs_ref = CHARM(shc_calloc)(nmax, PREC(1.0), PREC(1.0));
     if (shcs_ref == NULL)
     {
         fprintf(stderr, "Failed to initialize a \"shc\" structure.\n");
@@ -154,7 +154,7 @@ int sha(unsigned long nmax, char SHCs_file[])
             }
 
 
-            shcs_out = CHARM(shc_init)(nmax_tmp, shcs_ref->mu, shcs_ref->r);
+            shcs_out = CHARM(shc_calloc)(nmax_tmp, shcs_ref->mu, shcs_ref->r);
             if (shcs_out == NULL)
             {
                 fprintf(stderr, "Failed to initialize a \"shc\" structure.\n");
@@ -268,8 +268,8 @@ int sha(unsigned long nmax, char SHCs_file[])
 
                     if (nlat[i] >= (nmax + 1))
                     {
-                        shcs_out = CHARM(shc_init)(nmax, shcs_ref->mu,
-                                                         shcs_ref->r);
+                        shcs_out = CHARM(shc_calloc)(nmax, shcs_ref->mu,
+                                                     shcs_ref->r);
                         if (shcs_out == NULL)
                         {
                             fprintf(stderr, "Failed to initialize a "

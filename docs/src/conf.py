@@ -165,8 +165,8 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc, 'charm', 'CHarm Documentation',
-     author, 'charm', 'One line description of project.',
-     'Miscellaneous'),
+     author, 'charm', 'C library to work with spherical harmonics.',
+     ''),
 ]
 
 
@@ -194,3 +194,7 @@ def setup(app):
 
 breathe_projects = { "CHarm": "../xml" }
 breathe_default_project = "CHarm"
+breathe_show_define_initializer = True
+breathe_show_enumvalue_initializer = True
+breathe_show_include = False
+

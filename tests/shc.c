@@ -83,8 +83,8 @@ int shc(unsigned long nmax_topo,
     printf("    Reading coefficients from a \"mtx\" file...\n");
 
 
-    CHARM(shc) *shcs_topo_mtx = CHARM(shc_init)(nmax_topo, PREC(1.0),
-                                                PREC(1.0));
+    CHARM(shc) *shcs_topo_mtx = CHARM(shc_calloc)(nmax_topo, PREC(1.0),
+                                                  PREC(1.0));
     if (shcs_topo_mtx == NULL)
     {
         fprintf(stderr, "Failed to initialize a \"shc\" structure.\n");
@@ -161,8 +161,8 @@ int shc(unsigned long nmax_topo,
     printf("    Reading coefficients from a \"bin\" file...\n");
 
 
-    CHARM(shc) *shcs_topo_bin = CHARM(shc_init)(nmax_topo, PREC(1.0),
-                                                PREC(1.0));
+    CHARM(shc) *shcs_topo_bin = CHARM(shc_calloc)(nmax_topo, PREC(1.0),
+                                                  PREC(1.0));
     if (shcs_topo_bin == NULL)
     {
         fprintf(stderr, "Failed to initialize a \"shc\" structure");
@@ -187,8 +187,8 @@ int shc(unsigned long nmax_topo,
     /* Read spherical harmonic coefficients from the saved text file
      * "SHCs_out_topo_mtx_file" */
     /* --------------------------------------------------------------------- */
-    CHARM(shc) *shcs_topo_mtx_out = CHARM(shc_init)(nmax_topo, PREC(1.0),
-                                                    PREC(1.0));
+    CHARM(shc) *shcs_topo_mtx_out = CHARM(shc_calloc)(nmax_topo, PREC(1.0),
+                                                      PREC(1.0));
     if (shcs_topo_mtx_out == NULL)
     {
         fprintf(stderr, "Failed to initlize a \"shc\" structure");
@@ -322,8 +322,8 @@ int shc(unsigned long nmax_topo,
     /* --------------------------------------------------------------------- */
     /* ..................................................................... */
     printf("    Reading coefficients from a \"gfc\" file...\n");
-    CHARM(shc) *shcs_pot_gfc = CHARM(shc_init)(nmax_pot, PREC(1.0),
-                                               PREC(1.0));
+    CHARM(shc) *shcs_pot_gfc = CHARM(shc_calloc)(nmax_pot, PREC(1.0),
+                                                 PREC(1.0));
     if (shcs_pot_gfc == NULL)
     {
         fprintf(stderr, "Failed to initlize a \"shc\" structure");
@@ -338,8 +338,8 @@ int shc(unsigned long nmax_topo,
 
     /* ..................................................................... */
     printf("    Reading coefficients from a \"tbl\" file...\n");
-    CHARM(shc) *shcs_pot_tbl = CHARM(shc_init)(nmax_pot, PREC(1.0),
-                                               PREC(1.0));
+    CHARM(shc) *shcs_pot_tbl = CHARM(shc_calloc)(nmax_pot, PREC(1.0),
+                                                 PREC(1.0));
     if (shcs_pot_tbl == NULL)
     {
         fprintf(stderr, "Failed to initlize a \"shc\" structure");
@@ -397,8 +397,8 @@ int shc(unsigned long nmax_topo,
 
     printf("    Validating the writing to \"tbl\" using the \"N\" "
            "ordering scheme...\n");
-    CHARM(shc) *shcs_pot_tbl2 = CHARM(shc_init)(nmax_pot, PREC(1.0),
-                                                PREC(1.0));
+    CHARM(shc) *shcs_pot_tbl2 = CHARM(shc_calloc)(nmax_pot, PREC(1.0),
+                                                  PREC(1.0));
     if (shcs_pot_tbl2 == NULL)
     {
         fprintf(stderr, "Failed to initlize a \"shc\" structure");
@@ -429,8 +429,8 @@ int shc(unsigned long nmax_topo,
 
     printf("    Validating the writing to \"tbl\" using the \"M\" "
            "ordering scheme...\n");
-    CHARM(shc) *shcs_pot_tbl3 = CHARM(shc_init)(nmax_pot, PREC(1.0),
-                                                PREC(1.0));
+    CHARM(shc) *shcs_pot_tbl3 = CHARM(shc_calloc)(nmax_pot, PREC(1.0),
+                                                  PREC(1.0));
     if (shcs_pot_tbl3 == NULL)
     {
         fprintf(stderr, "Failed to initlize a \"shc\" structure");

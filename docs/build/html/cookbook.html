@@ -270,7 +270,7 @@ files and how to compute (difference) degree variances.</p>
 <span class="cm">     * coefficients.  For details on the structure of the output binary file,</span>
 <span class="cm">     * see the description of the &quot;charm_shc_write_bin&quot; function in the</span>
 <span class="cm">     * &quot;charm_shc&quot; module. */</span>
-    <span class="kt">char</span> <span class="n">shcs_out_file</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;../data/output/EGM96-degree10-mtx.shcs&quot;</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">shcs_out_file</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;../data/output/EGM96-degree10.shcs&quot;</span><span class="p">;</span>
     <span class="cm">/* ===================================================================== */</span>
 
 
@@ -287,7 +287,7 @@ files and how to compute (difference) degree variances.</p>
 <span class="cm">     * to &quot;1.0&quot;.  These values will later be overwritten when reading the input</span>
 <span class="cm">     * file.  In case of failure, returned is &quot;NULL&quot;, so always check the</span>
 <span class="cm">     * returned pointer for the &quot;NULL&quot; value! */</span>
-    <span class="n">charm_shc</span> <span class="o">*</span><span class="n">shcs</span> <span class="o">=</span> <span class="n">charm_shc_init</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+    <span class="n">charm_shc</span> <span class="o">*</span><span class="n">shcs</span> <span class="o">=</span> <span class="n">charm_shc_calloc</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">shcs</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to initialize the </span><span class="se">\&quot;</span><span class="s">charm_shc</span><span class="se">\&quot;</span><span class="s"> structure&quot;</span><span class="p">);</span>
@@ -373,7 +373,7 @@ files and how to compute (difference) degree variances.</p>
 
     <span class="cm">/* And now read back the coefficients to a new &quot;charm_shc&quot; structure called</span>
 <span class="cm">     * &quot;shcs2&quot; */</span>
-    <span class="n">charm_shc</span> <span class="o">*</span><span class="n">shcs2</span> <span class="o">=</span> <span class="n">charm_shc_init</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+    <span class="n">charm_shc</span> <span class="o">*</span><span class="n">shcs2</span> <span class="o">=</span> <span class="n">charm_shc_calloc</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">shcs2</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to initialize the </span><span class="se">\&quot;</span><span class="s">charm_shc</span><span class="se">\&quot;</span><span class="s"> structure.&quot;</span><span class="p">);</span>
@@ -512,7 +512,7 @@ points.</p></li>
 
 
     <span class="cm">/* Initialize a &quot;charm_shc&quot; structure */</span>
-    <span class="n">charm_shc</span> <span class="o">*</span><span class="n">shcs</span> <span class="o">=</span> <span class="n">charm_shc_init</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+    <span class="n">charm_shc</span> <span class="o">*</span><span class="n">shcs</span> <span class="o">=</span> <span class="n">charm_shc_calloc</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">shcs</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to initialize the </span><span class="se">\&quot;</span><span class="s">charm_shc</span><span class="se">\&quot;</span><span class="s"> structure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
@@ -581,7 +581,7 @@ points.</p></li>
     <span class="cm">/* Initialize a new structure of spherical harmonic coefficients for</span>
 <span class="cm">     * coefficients to be computed by the harmonic analysis.  Used are the same</span>
 <span class="cm">     * scalling constants as in &quot;shcs&quot;. */</span>
-    <span class="n">charm_shc</span> <span class="o">*</span><span class="n">shcs2</span> <span class="o">=</span> <span class="n">charm_shc_init</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">mu</span><span class="p">,</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">);</span>
+    <span class="n">charm_shc</span> <span class="o">*</span><span class="n">shcs2</span> <span class="o">=</span> <span class="n">charm_shc_calloc</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">mu</span><span class="p">,</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">shcs2</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to initialize the </span><span class="se">\&quot;</span><span class="s">charm_shc</span><span class="se">\&quot;</span><span class="s"> structure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
@@ -932,7 +932,7 @@ points.</p></li>
     <span class="cm">/* Initialize a new structure of spherical harmonic coefficients for</span>
 <span class="cm">     * coefficients to be recovered from the harmonic analysis.  Used are the</span>
 <span class="cm">     * same scalling constants as in &quot;shcs&quot;. */</span>
-    <span class="n">shcs2</span> <span class="o">=</span> <span class="n">charm_shc_init</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">mu</span><span class="p">,</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">);</span>
+    <span class="n">shcs2</span> <span class="o">=</span> <span class="n">charm_shc_calloc</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">mu</span><span class="p">,</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">shcs2</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to initialize the </span><span class="se">\&quot;</span><span class="s">charm_shc</span><span class="se">\&quot;</span><span class="s"> structure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
@@ -1018,7 +1018,7 @@ points.</p></li>
 
     <span class="cm">/* Initialize a structure to store the Fourier coefficients of Legendre</span>
 <span class="cm">     * functions */</span>
-    <span class="n">charm_pnmj</span> <span class="o">*</span><span class="n">pnmj</span> <span class="o">=</span> <span class="n">charm_leg_pnmj_init</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">CHARM_LEG_PNMJ_ORDER_MNJ</span><span class="p">);</span>
+    <span class="n">charm_pnmj</span> <span class="o">*</span><span class="n">pnmj</span> <span class="o">=</span> <span class="n">charm_leg_pnmj_calloc</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">CHARM_LEG_PNMJ_ORDER_MNJ</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">pnmj</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to initialize the </span><span class="se">\&quot;</span><span class="s">charm_pnmj</span><span class="se">\&quot;</span><span class="s"> &quot;</span>
@@ -1111,7 +1111,7 @@ product of Legendre functions only.</p>
 
     <span class="cm">/* Initialize the Fourier coefficients of Legendre functions */</span>
     <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">nmax</span> <span class="o">=</span> <span class="n">CHARM_MAX</span><span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">);</span>
-    <span class="n">charm_pnmj</span> <span class="o">*</span><span class="n">pnmj</span> <span class="o">=</span> <span class="n">charm_leg_pnmj_init</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">CHARM_LEG_PNMJ_ORDER_MNJ</span><span class="p">);</span>
+    <span class="n">charm_pnmj</span> <span class="o">*</span><span class="n">pnmj</span> <span class="o">=</span> <span class="n">charm_leg_pnmj_calloc</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">CHARM_LEG_PNMJ_ORDER_MNJ</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">pnmj</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to initialize the </span><span class="se">\&quot;</span><span class="s">charm_pnmj</span><span class="se">\&quot;</span><span class="s"> &quot;</span>

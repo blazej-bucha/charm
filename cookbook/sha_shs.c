@@ -35,7 +35,7 @@ int main(void)
 
 
     /* Initialize a "charm_shc" structure */
-    charm_shc *shcs = charm_shc_init(nmax, 1.0, 1.0);
+    charm_shc *shcs = charm_shc_calloc(nmax, 1.0, 1.0);
     if (shcs == NULL)
     {
         fprintf(stderr, "Failed to initialize the \"charm_shc\" structure.\n");
@@ -104,7 +104,7 @@ int main(void)
     /* Initialize a new structure of spherical harmonic coefficients for
      * coefficients to be computed by the harmonic analysis.  Used are the same
      * scalling constants as in "shcs". */
-    charm_shc *shcs2 = charm_shc_init(nmax, shcs->mu, shcs->r);
+    charm_shc *shcs2 = charm_shc_calloc(nmax, shcs->mu, shcs->r);
     if (shcs2 == NULL)
     {
         fprintf(stderr, "Failed to initialize the \"charm_shc\" structure.\n");
@@ -455,7 +455,7 @@ int main(void)
     /* Initialize a new structure of spherical harmonic coefficients for
      * coefficients to be recovered from the harmonic analysis.  Used are the
      * same scalling constants as in "shcs". */
-    shcs2 = charm_shc_init(nmax, shcs->mu, shcs->r);
+    shcs2 = charm_shc_calloc(nmax, shcs->mu, shcs->r);
     if (shcs2 == NULL)
     {
         fprintf(stderr, "Failed to initialize the \"charm_shc\" structure.\n");

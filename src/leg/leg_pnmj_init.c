@@ -10,7 +10,8 @@
 
 
 
-CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, int ordering)
+CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, int ordering,
+                                  REAL *pnmj_coeffs)
 {
     /* Check inputs */
     /* --------------------------------------------------------------------- */
@@ -101,17 +102,8 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, int ordering)
     }
 
 
-    pnmj->pnmj[0][0] = (REAL *)calloc(npnmj, sizeof(REAL));
-    if (pnmj->pnmj[0][0] == NULL)
-    {
-        /* Memory allocation failed, so we have to deallocate all the memory
-         * that has been allocated so far before we escape this function. */
-        for (unsigned long m = 0; m <= nmax; m++)
-            free(pnmj->pnmj[m]);
-        free(pnmj->pnmj);
-        free(pnmj);
-        return NULL;
-    }
+    /* Assign the "pnmj_coefficients" to the "charm_pnmj" structure. */
+    pnmj->pnmj[0][0] = pnmj_coeffs;
     /* --------------------------------------------------------------------- */
 
 
@@ -125,8 +117,6 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, int ordering)
             for (unsigned long n = m; n <= nmax; n++)
             {
                 pnmj->pnmj[m][n - m] = pnmj->pnmj[0][0] + nj;
-
-
                 nj += (n / 2) + 1;
             }
         /* ----------------------------------------------------------------- */
@@ -141,8 +131,6 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, int ordering)
             for (unsigned long j = 0; j <= (nmax / 2); j++)
             {
                 pnmj->pnmj[m][j] = pnmj->pnmj[0][0] + jn;
-
-
                 jn += nmax - CHARM_MAX(2 * j, m) + 1;
             }
         /* ----------------------------------------------------------------- */

@@ -1,5 +1,38 @@
 Upcoming release:
 
+* Functions:
+
+    * "charm_shc_init",
+    * "charm_crd_init",
+    * "charm_leg_pnmj_init"
+
+  were replaced by
+
+    * "charm_shc_calloc",
+    * "charm_crd_calloc",
+    * "charm_leg_pnmj_calloc".
+
+  The new functions behave in the same fashion as the old ones, including their 
+  interface.
+
+  The following functions have been added:
+
+    * "charm_shc_malloc",
+    * "charm_crd_malloc",
+    * "charm_leg_pnmj_malloc",
+
+  which behave similarly as their "*_calloc" counterparts, but provide 
+  uninitialized memory.
+
+  Functions:
+
+    * "charm_shc_init",
+    * "charm_crd_init"
+
+  have now a different meaning.  They can be used to create the respective 
+  structures from data arrays provided by the user.
+
+
 * Changed API of the following functions to read/write spherical harmonic 
   coefficients from/to files:
 

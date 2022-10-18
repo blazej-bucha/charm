@@ -144,7 +144,7 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
     /* Initialize the spherical harmonic coefficients for the "n + 1"th power
      * */
     /* --------------------------------------------------------------------- */
-    shcs3 = CHARM(shc_init)(nmax3, PREC(1.0), PREC(1.0));
+    shcs3 = CHARM(shc_calloc)(nmax3, PREC(1.0), PREC(1.0));
     if (shcs3 == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -166,7 +166,7 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
     unsigned long nmax = CHARM_MAX(nmax1, nmax3);
 
 
-    pnmj = CHARM(leg_pnmj_init)(nmax, CHARM_LEG_PNMJ_ORDER_MJN);
+    pnmj = CHARM(leg_pnmj_calloc)(nmax, CHARM_LEG_PNMJ_ORDER_MJN);
     if (pnmj == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -202,10 +202,10 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
 
     /* Variables to store pre-computed products of "shcs1->c", "shcs1->s" and
      * "pnmj->pnmj". It is useful to use the same structure as for "pnmj";
-     * therefore, the "CHARM(leg_pnmj_init)" function can be employed to
+     * therefore, the "CHARM(leg_pnmj_calloc)" function can be employed to
      * initialize the two variables. */
     /* ..................................................................... */
-    cnm1pnmj = CHARM(leg_pnmj_init)(nmax1, CHARM_LEG_PNMJ_ORDER_MJN);
+    cnm1pnmj = CHARM(leg_pnmj_calloc)(nmax1, CHARM_LEG_PNMJ_ORDER_MJN);
     if (cnm1pnmj == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -214,7 +214,7 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
     }
 
 
-    snm1pnmj = CHARM(leg_pnmj_init)(nmax1, CHARM_LEG_PNMJ_ORDER_MJN);
+    snm1pnmj = CHARM(leg_pnmj_calloc)(nmax1, CHARM_LEG_PNMJ_ORDER_MJN);
     if (snm1pnmj == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,

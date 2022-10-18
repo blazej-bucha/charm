@@ -112,9 +112,9 @@ am_libcharm@P@_leg@OMP@_la_OBJECTS = leg_func_anm_bnm.lo \
 	leg_func_dm.lo leg_func_gm_hm.lo leg_func_prepare.lo \
 	leg_func_r_ri.lo leg_pnmj_coeffs.lo leg_pnmj_dpeven.lo \
 	leg_pnmj_dpodd.lo leg_pnmj_gpeven.lo leg_pnmj_gpodd.lo \
-	leg_pnmj_init.lo leg_pnmj_free.lo leg_pnmj_length.lo \
-	leg_pnmj_j2k.lo leg_pnmj_k2j.lo leg_pnmj_leq4.lo \
-	leg_pol_en_fn.lo
+	leg_pnmj_calloc.lo leg_pnmj_malloc.lo leg_pnmj_init.lo \
+	leg_pnmj_free.lo leg_pnmj_length.lo leg_pnmj_j2k.lo \
+	leg_pnmj_k2j.lo leg_pnmj_leq4.lo leg_pol_en_fn.lo
 libcharm@P@_leg@OMP@_la_OBJECTS =  \
 	$(am_libcharm@P@_leg@OMP@_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -139,13 +139,14 @@ am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/leg_func_anm_bnm.Plo \
 	./$(DEPDIR)/leg_func_dm.Plo ./$(DEPDIR)/leg_func_gm_hm.Plo \
 	./$(DEPDIR)/leg_func_prepare.Plo ./$(DEPDIR)/leg_func_r_ri.Plo \
+	./$(DEPDIR)/leg_pnmj_calloc.Plo \
 	./$(DEPDIR)/leg_pnmj_coeffs.Plo \
 	./$(DEPDIR)/leg_pnmj_dpeven.Plo ./$(DEPDIR)/leg_pnmj_dpodd.Plo \
 	./$(DEPDIR)/leg_pnmj_free.Plo ./$(DEPDIR)/leg_pnmj_gpeven.Plo \
 	./$(DEPDIR)/leg_pnmj_gpodd.Plo ./$(DEPDIR)/leg_pnmj_init.Plo \
 	./$(DEPDIR)/leg_pnmj_j2k.Plo ./$(DEPDIR)/leg_pnmj_k2j.Plo \
 	./$(DEPDIR)/leg_pnmj_length.Plo ./$(DEPDIR)/leg_pnmj_leq4.Plo \
-	./$(DEPDIR)/leg_pol_en_fn.Plo
+	./$(DEPDIR)/leg_pnmj_malloc.Plo ./$(DEPDIR)/leg_pol_en_fn.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -313,6 +314,8 @@ libcharm@P@_leg@OMP@_la_SOURCES = leg_func_anm_bnm.c \
 								  leg_pnmj_dpodd.c \
 								  leg_pnmj_gpeven.c \
 								  leg_pnmj_gpodd.c \
+								  leg_pnmj_calloc.c \
+								  leg_pnmj_malloc.c \
 								  leg_pnmj_init.c \
 								  leg_pnmj_free.c \
 								  leg_pnmj_length.c \
@@ -381,6 +384,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leg_func_gm_hm.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leg_func_prepare.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leg_func_r_ri.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leg_pnmj_calloc.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leg_pnmj_coeffs.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leg_pnmj_dpeven.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leg_pnmj_dpodd.Plo@am__quote@ # am--include-marker
@@ -392,6 +396,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leg_pnmj_k2j.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leg_pnmj_length.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leg_pnmj_leq4.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leg_pnmj_malloc.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leg_pol_en_fn.Plo@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
@@ -511,6 +516,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/leg_func_gm_hm.Plo
 	-rm -f ./$(DEPDIR)/leg_func_prepare.Plo
 	-rm -f ./$(DEPDIR)/leg_func_r_ri.Plo
+	-rm -f ./$(DEPDIR)/leg_pnmj_calloc.Plo
 	-rm -f ./$(DEPDIR)/leg_pnmj_coeffs.Plo
 	-rm -f ./$(DEPDIR)/leg_pnmj_dpeven.Plo
 	-rm -f ./$(DEPDIR)/leg_pnmj_dpodd.Plo
@@ -522,6 +528,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/leg_pnmj_k2j.Plo
 	-rm -f ./$(DEPDIR)/leg_pnmj_length.Plo
 	-rm -f ./$(DEPDIR)/leg_pnmj_leq4.Plo
+	-rm -f ./$(DEPDIR)/leg_pnmj_malloc.Plo
 	-rm -f ./$(DEPDIR)/leg_pol_en_fn.Plo
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic
@@ -572,6 +579,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/leg_func_gm_hm.Plo
 	-rm -f ./$(DEPDIR)/leg_func_prepare.Plo
 	-rm -f ./$(DEPDIR)/leg_func_r_ri.Plo
+	-rm -f ./$(DEPDIR)/leg_pnmj_calloc.Plo
 	-rm -f ./$(DEPDIR)/leg_pnmj_coeffs.Plo
 	-rm -f ./$(DEPDIR)/leg_pnmj_dpeven.Plo
 	-rm -f ./$(DEPDIR)/leg_pnmj_dpodd.Plo
@@ -583,6 +591,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/leg_pnmj_k2j.Plo
 	-rm -f ./$(DEPDIR)/leg_pnmj_length.Plo
 	-rm -f ./$(DEPDIR)/leg_pnmj_leq4.Plo
+	-rm -f ./$(DEPDIR)/leg_pnmj_malloc.Plo
 	-rm -f ./$(DEPDIR)/leg_pol_en_fn.Plo
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic

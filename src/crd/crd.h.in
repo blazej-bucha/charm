@@ -114,14 +114,7 @@ enum
 
 
 /* ------------------------------------------------------------------------- */
-/**
- * Structure to store evaluation points/cells.
- *
- * In most cases, it is created by functions from this module that return 
- * a pointer to ``charm@P@_crd``.  Experienced users may create the structure 
- * on their own, provided that they assign correct values to its members, so 
- * that CHarm can properly understood the data in it (see the rules summarized 
- * below). */
+/** Structure to store evaluation points/cells. */
 typedef struct
 {
     /**

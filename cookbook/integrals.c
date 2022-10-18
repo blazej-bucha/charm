@@ -31,7 +31,7 @@ int main(void)
 
     /* Initialize the Fourier coefficients of Legendre functions */
     unsigned long nmax = CHARM_MAX(n1, n2);
-    charm_pnmj *pnmj = charm_leg_pnmj_init(nmax, CHARM_LEG_PNMJ_ORDER_MNJ);
+    charm_pnmj *pnmj = charm_leg_pnmj_calloc(nmax, CHARM_LEG_PNMJ_ORDER_MNJ);
     if (pnmj == NULL)
     {
         fprintf(stderr, "Failed to initialize the \"charm_pnmj\" "

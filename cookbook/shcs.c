@@ -40,7 +40,7 @@ int main(void)
      * to "1.0".  These values will later be overwritten when reading the input
      * file.  In case of failure, returned is "NULL", so always check the
      * returned pointer for the "NULL" value! */
-    charm_shc *shcs = charm_shc_init(nmax, 1.0, 1.0);
+    charm_shc *shcs = charm_shc_calloc(nmax, 1.0, 1.0);
     if (shcs == NULL)
     {
         fprintf(stderr, "Failed to initialize the \"charm_shc\" structure");
@@ -126,7 +126,7 @@ int main(void)
 
     /* And now read back the coefficients to a new "charm_shc" structure called
      * "shcs2" */
-    charm_shc *shcs2 = charm_shc_init(nmax, 1.0, 1.0);
+    charm_shc *shcs2 = charm_shc_calloc(nmax, 1.0, 1.0);
     if (shcs2 == NULL)
     {
         fprintf(stderr, "Failed to initialize the \"charm_shc\" structure.");

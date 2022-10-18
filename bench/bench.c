@@ -190,7 +190,7 @@ int main(void)
 
 
         printf("    Initializing reference harmonic coefficients...\n");
-        CHARM(shc) *shcs_ref = CHARM(shc_init)(nmax, PREC(1.0), PREC(1.0));
+        CHARM(shc) *shcs_ref = CHARM(shc_calloc)(nmax, PREC(1.0), PREC(1.0));
         if (shcs_ref == NULL)
         {
             fprintf(stderr, "Failed to initialize the shc structure.\n");
@@ -214,7 +214,7 @@ int main(void)
 
         printf("    Initializing harmonic coefficients for harmonic "
                "analysis...\n");
-        CHARM(shc) *shcs = CHARM(shc_init)(nmax, PREC(1.0), PREC(1.0));
+        CHARM(shc) *shcs = CHARM(shc_calloc)(nmax, PREC(1.0), PREC(1.0));
         if (shcs == NULL)
         {
             fprintf(stderr, "Failed to initialize the shc structure.\n");
