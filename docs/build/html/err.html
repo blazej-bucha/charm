@@ -194,15 +194,11 @@
 <li><p>handles errors.</p></li>
 </ul>
 </p>
-<p><p><div class="admonition note">
+<p><div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>When CHarm detects an error (e.g., an internal memory allocation
-failure), it properly frees all the internally allocated memory before
-returning back to the caller. No memory leaks should therefore occur,
-not even after a premature exit.</p>
+<p>When CHarm detects an error (e.g., an internal memory allocation failure), it properly frees all the internally allocated memory before returning back to the caller. No memory leaks should therefore occur, not even after a premature exit. </p>
 </div>
 </p>
- </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-defines">Defines</p>
 <dl class="cpp macro">
@@ -313,13 +309,9 @@ not even after a premature exit.</p>
 </ul>
 </p>
 <p>Before leaving the function, <code class="docutils literal notranslate"><span class="pre">err</span></code> is reset to the default empty values.</p>
-<p><p></p>
- </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>It is highly recommended to call the error handling function after 
-every call of CHarm routines that take the <code class="docutils literal notranslate"><span class="pre">charm_err</span></code> structure 
-as an input.</p>
+<p>It is highly recommended to call the error handling function after every call of CHarm routines that take the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err"><span class="std std-ref"><span class="pre">charm_err</span></span></a></code> structure as an input. </p>
 </div>
 </dd></dl>
 

@@ -6,7 +6,7 @@
  * * defines the ``charm@P@_shc`` structure to store spherical harmonic 
  *   coefficients,
  *
- * * initializes and frees the ``charm@P@_shc`` structure,
+ * * allocates, initializes and frees ``charm@P@_shc``,
  *
  * * reads/writes spherical harmonic coefficients from/to text and binary 
  *   files,
@@ -276,7 +276,9 @@ extern charm@P@_shc *charm@P@_shc_calloc(unsigned long nmax,
  *
  * \endverbatim
  *
- * respectively.
+ * respectively.  Be careful here and always put the product
+ * ``(nmax + 2) * (nmax + 1)`` into brackets to ensure correct rounding when
+ * subsequently dividing by ``2`` as shown above.
  *
  * The rationale behind this function is to provide a means to create
  * a ``charm@P@_shc`` structure from custom arrays of spherical harmonic

@@ -112,7 +112,8 @@ am_libcharm@P@_misc@OMP@_la_OBJECTS = misc_arr_chck_lin_incr.lo \
 	misc_arr_chck_symm.lo misc_arr_max.lo misc_arr_mean.lo \
 	misc_arr_min.lo misc_arr_std.lo misc_arr_rms.lo \
 	misc_is_nearly_equal.lo misc_fprintf_real.lo \
-	misc_print_version.lo misc_str2ul.lo misc_str2real.lo
+	misc_print_version.lo misc_str2ul.lo misc_str2real.lo \
+	misc_calloc.lo
 libcharm@P@_misc@OMP@_la_OBJECTS =  \
 	$(am_libcharm@P@_misc@OMP@_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -138,7 +139,8 @@ am__depfiles_remade = ./$(DEPDIR)/misc_arr_chck_lin_incr.Plo \
 	./$(DEPDIR)/misc_arr_chck_symm.Plo \
 	./$(DEPDIR)/misc_arr_max.Plo ./$(DEPDIR)/misc_arr_mean.Plo \
 	./$(DEPDIR)/misc_arr_min.Plo ./$(DEPDIR)/misc_arr_rms.Plo \
-	./$(DEPDIR)/misc_arr_std.Plo ./$(DEPDIR)/misc_fprintf_real.Plo \
+	./$(DEPDIR)/misc_arr_std.Plo ./$(DEPDIR)/misc_calloc.Plo \
+	./$(DEPDIR)/misc_fprintf_real.Plo \
 	./$(DEPDIR)/misc_is_nearly_equal.Plo \
 	./$(DEPDIR)/misc_print_version.Plo \
 	./$(DEPDIR)/misc_str2real.Plo ./$(DEPDIR)/misc_str2ul.Plo
@@ -310,7 +312,8 @@ libcharm@P@_misc@OMP@_la_SOURCES = misc_arr_chck_lin_incr.c \
 								   misc_fprintf_real.c \
 								   misc_print_version.c \
 								   misc_str2ul.c \
-								   misc_str2real.c
+								   misc_str2real.c \
+								   misc_calloc.c
 
 EXTRA_DIST = *.h
 all: all-am
@@ -374,6 +377,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_arr_min.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_arr_rms.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_arr_std.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_calloc.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_fprintf_real.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_is_nearly_equal.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_print_version.Plo@am__quote@ # am--include-marker
@@ -499,6 +503,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/misc_arr_min.Plo
 	-rm -f ./$(DEPDIR)/misc_arr_rms.Plo
 	-rm -f ./$(DEPDIR)/misc_arr_std.Plo
+	-rm -f ./$(DEPDIR)/misc_calloc.Plo
 	-rm -f ./$(DEPDIR)/misc_fprintf_real.Plo
 	-rm -f ./$(DEPDIR)/misc_is_nearly_equal.Plo
 	-rm -f ./$(DEPDIR)/misc_print_version.Plo
@@ -555,6 +560,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/misc_arr_min.Plo
 	-rm -f ./$(DEPDIR)/misc_arr_rms.Plo
 	-rm -f ./$(DEPDIR)/misc_arr_std.Plo
+	-rm -f ./$(DEPDIR)/misc_calloc.Plo
 	-rm -f ./$(DEPDIR)/misc_fprintf_real.Plo
 	-rm -f ./$(DEPDIR)/misc_is_nearly_equal.Plo
 	-rm -f ./$(DEPDIR)/misc_print_version.Plo

@@ -464,7 +464,8 @@ uninstall-am:
 # "breathe".
 docs-local:
 @DOC_TRUE@	rm -rf build/html
-@DOC_TRUE@	cd .. && ./config.status charm/charm_*.h && cd docs
+@DOC_TRUE@	cd .. && ./config.status charm/charm_*.h && \
+@DOC_TRUE@		./config.status charm/charm.h && cd docs
 @DOC_TRUE@	doxygen Doxyfile
 @DOC_TRUE@	$(MAKE) -f Makefile-sphinx html
 @DOC_FALSE@	@echo ERROR: Documentation can only be built if CHarm is compiled in \

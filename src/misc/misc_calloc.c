@@ -1,10 +1,9 @@
 /* Header files */
 /* ------------------------------------------------------------------------- */
 #include <config.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include "../prec.h"
-#include "leg_pnmj_alloc.h"
-#include "../misc/misc_calloc.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -12,7 +11,8 @@
 
 
 
-CHARM(pnmj) *CHARM(leg_pnmj_calloc)(unsigned long nmax, int ordering)
+/* Defines a custom "calloc" function with the same interface as "malloc". */
+void *CHARM(misc_calloc)(size_t size)
 {
-    return CHARM(leg_pnmj_alloc)(nmax, ordering, CHARM(misc_calloc));
+    return calloc(size, 1);
 }

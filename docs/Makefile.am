@@ -14,7 +14,8 @@ EXTRA_DIST = build/html \
 docs-local:
 if DOC
 	rm -rf build/html
-	cd .. && ./config.status charm/charm_*.h && cd docs
+	cd .. && ./config.status charm/charm_*.h && \
+		./config.status charm/charm.h && cd docs
 	doxygen Doxyfile
 	$(MAKE) -f Makefile-sphinx html
 else

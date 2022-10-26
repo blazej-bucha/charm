@@ -58,8 +58,8 @@ extern "C"
  *
  * The synthesis is done either at
  *
- * - a **grid** if ``pnt->type`` is set to ``CHARM_CRD_POINTS_GRID*`` (see the
- *   ``charm@P@_point`` structure), or
+ * - a **grid** if ``pnt->type`` is set to ``CHARM_CRD_POINTS_GRID*`` (see
+ *   ``charm@P@_point``), or
  *
  * - **scattered points** if ``pnt->type == CHARM_CRD_POINTS_SCATTERED``.
  *
@@ -183,10 +183,9 @@ extern "C"
 /** @note The function does not use ``cell->w``, so no constrains are applied.
  *
  * @param[in] pnt Evaluation points, organized either as a **grid** or as
- * **scattered points** (see the ``charm@P@_point`` structure).
+ * **scattered points** (see ``charm@P@_point``).
  *
- * @param[in] shcs Spherical harmonic coefficients (see the ``charm@P@_shc``
- * structure).
+ * @param[in] shcs Spherical harmonic coefficients (see ``charm@P@_shc``).
  *
  * @param[in] nmax Maximum spherical harmonic degree of the synthesis.
  *
@@ -237,8 +236,8 @@ extern void charm@P@_shs_point(const charm@P@_point *pnt,
  *
  * The synthesis is done either at
  *
- * - a **grid** if ``cell->type`` is set to ``CHARM_CRD_CELLS_GRID*`` (see the
- *   ``charm@P@_cell`` structure), or
+ * - a **grid** if ``cell->type`` is set to ``CHARM_CRD_CELLS_GRID*`` (see
+ *   ``charm@P@_cell``), or
  *
  * - **scattered cells** if ``cell->type == CHARM_CRD_CELLS_SCATTERED``.
  *
@@ -404,10 +403,9 @@ extern void charm@P@_shs_point(const charm@P@_point *pnt,
  *
  *
  * @param[in] cell Evaluation cells, organized either as a **grid** or as 
- * **scattered cells** (see the ``charm@P@_cell`` structure).
+ * **scattered cells** (see ``charm@P@_cell``).
  *
- * @param[in] shcs Spherical harmonic coefficients (see the ``charm@P@_shc`` 
- * module).
+ * @param[in] shcs Spherical harmonic coefficients (see ``charm@P@_shc``).
  *
  * @param[in] nmax Maximum spherical harmonic degree of the synthesis.
  *
@@ -490,8 +488,8 @@ extern void charm@P@_shs_cell(const charm@P@_cell *cell,
  *   function. Numerical experiments have shown that, in our implementation, 
  *   the speed improvement is completely negligible if any.
  *
- * * The structure of the longitudes must be the same as discussed in 
- *   ``charm@P@_shs_cell``.
+ * * The structure of the longitudes must be the same as discussed in
+ *   ``charm@P@_shs_cell()``.
  *
  * @warning Both scaling constants of the ``shcs2`` structure that defines the
  * irregular surface (``shcs2->mu`` and ``shcs2->r``) have to be equal to
@@ -521,12 +519,12 @@ extern void charm@P@_shs_cell(const charm@P@_cell *cell,
  * */
  /**
  *
- * @param[in] cell Evaluation cells organized as a **grid** (see the
- * ``charm@P@_cell`` structure).
+ * @param[in] cell Evaluation cells organized as a **grid** (see
+ * ``charm@P@_cell``).
  *
  * @param[in] shcs1 Spherical harmonic coefficients of the function (e.g., the 
  * gravitational potential), the block mean values of which are synthesized
- * (see the ``charm@P@_shc`` structure).
+ * (see ``charm@P@_shc``).
  *
  * @param[in] nmax1 Maximum harmonic degree of the function given by ``shcs1``, 
  * the block mean values of which are synthesized.

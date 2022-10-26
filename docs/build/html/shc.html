@@ -190,7 +190,7 @@
 <p>Module to work with spherical harmonic coefficients:</p>
 <p><ul class="simple">
 <li><p>defines the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure to store spherical harmonic coefficients,</p></li>
-<li><p>initializes and frees the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure,</p></li>
+<li><p>allocates, initializes and frees <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code>,</p></li>
 <li><p>reads/writes spherical harmonic coefficients from/to text and binary files,</p></li>
 <li><p>rescales spherical harmonic coefficients,</p></li>
 <li><p>computes (difference) degree variances and degree amplitudes.</p></li>
@@ -265,7 +265,7 @@
 &amp;\bar{S}_{\mathrm{nmax},1}, \, \bar{S}_{2,2}, \bar{S}_{3,2},\,
 \cdots,\, \bar{S}_{\mathrm{nmax},\mathrm{nmax}},\end{split}\]</div>
 </p>
-<p>respectively.</p>
+<p>respectively. Be careful here and always put the product <code class="docutils literal notranslate"><span class="pre">(nmax</span> <span class="pre">+</span> <span class="pre">2)</span> <span class="pre">*</span> <span class="pre">(nmax</span> <span class="pre">+</span> <span class="pre">1)</span></code> into brackets to ensure correct rounding when subsequently dividing by <code class="docutils literal notranslate"><span class="pre">2</span></code> as shown above.</p>
 <p>The rationale behind this function is to provide a means to create a <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure from custom arrays of spherical harmonic coefficients <em>without a deep copy of the data</em>. The following code snippet illustrates this:</p>
 <p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">nmax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
 

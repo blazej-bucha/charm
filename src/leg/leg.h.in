@@ -7,6 +7,8 @@
  * * defines the ``charm@P@_pnmj`` structure to store Fourier coefficients of 
  *   the Legendre functions,
  *
+ * * allocates, initializes and frees ``charm@P@_pnmj``,
+ *
  * * computes Fourier coefficients of Legendre functions after Fukushima
  *   (2018).
  *
@@ -256,9 +258,9 @@ extern void charm@P@_leg_pnmj_free(charm@P@_pnmj *pnmj);
  *
  * In case of failure, the error is written to ``err``.
  *
- * Before calling this function, the ``pnmj`` structure has to be initialized
- * via ``charm@P@_leg_pnmj_calloc()`` or ``charm@P@_leg_pnmj_malloc()`` and
- * later deallocated by ``charm@P@_leg_pnmj_free()``.
+ * Before calling this function, the ``pnmj`` structure has to be created by
+ * ``charm@P@_leg_pnmj_calloc()`` or ``charm@P@_leg_pnmj_malloc()`` and later
+ * deallocated by ``charm@P@_leg_pnmj_free()``.
  *
  * The algorithm of Fukushima (2018) is employed.
  *

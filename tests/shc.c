@@ -161,7 +161,7 @@ int shc(unsigned long nmax_topo,
     printf("    Reading coefficients from a \"bin\" file...\n");
 
 
-    CHARM(shc) *shcs_topo_bin = CHARM(shc_calloc)(nmax_topo, PREC(1.0),
+    CHARM(shc) *shcs_topo_bin = CHARM(shc_malloc)(nmax_topo, PREC(1.0),
                                                   PREC(1.0));
     if (shcs_topo_bin == NULL)
     {

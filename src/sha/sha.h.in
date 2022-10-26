@@ -126,8 +126,8 @@ enum
  *
  *
  * @param[in] pnt Structure defining grid points and integration weights (see
- * the ``charm@P@_point`` structure).  The ``pnt`` structure must be prepared
- * by calling the ``charm@P@_crd_point_gl()``, ``charm@P@_crd_point_dh1()`` or
+ * ``charm@P@_point``).  The ``pnt`` structure must be prepared by calling the
+ * ``charm@P@_crd_point_gl()``, ``charm@P@_crd_point_dh1()`` or
  * ``charm@P@_crd_point_dh2()`` with some ``nmax_signal``.  Importantly, it is
  * assumed that **no** harmonics (frequencies) are present in the input signal
  * beyond ``nmax_signal``.  Otherwise, the output spherical harmonic
@@ -263,8 +263,7 @@ extern void charm@P@_sha_point(const charm@P@_point *pnt,
  * */
  /**
  *
- * @param[in] cell Structure defining grid cells (see the
- * ``charm@P@_cell``structure).
+ * @param[in] cell Structure defining grid cells (see ``charm@P@_cell``).
  *
  * @param[in] f Input signal with block mean data given at the nodes of the
  * ``cell`` structure.  The pointer ``f`` must have an access to

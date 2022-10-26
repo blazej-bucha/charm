@@ -5,7 +5,7 @@
  *
  * * defines ``charm@P@_point`` and ``charm@P@_cell`` structures,
  *
- * * initializes and frees ``charm@P@_point`` and ``charm@P@_cell``,
+ * * allocates, initializes and frees ``charm@P@_point`` and ``charm@P@_cell``,
  *
  * * computes ``charm@P@_point`` for a few pre-defined grid types.
  *
@@ -285,10 +285,10 @@ typedef struct
 /* ------------------------------------------------------------------------- */
 
 /** Returns a pointer to the ``charm@P@_point`` structure that is created for
- * a given ``type`` with ``nlat`` latitudes, ``nlat`` spherical radii and
- * ``nlon`` longitudes.  If ``type`` is one of ``CHARM_CRD_POINTS_GRID_*``,
- * memory for ``nlat`` integration weights is allocated in addition.  The
- * memory of all arrays is uninitialized.
+ * a given ``type`` with ``nlat`` latitudes, ``nlon`` longitudes and ``nlat``
+ * spherical radii.  If ``type`` is one of ``CHARM_CRD_POINTS_GRID_*``, memory
+ * for ``nlat`` integration weights is allocated in addition.  The memory of
+ * all arrays is uninitialized.
  *
  * Valid values of ``type`` are all symbolic constants ``CHARM_CRD_POINTS_*``.
  *
@@ -482,9 +482,9 @@ extern charm@P@_point *charm@P@_crd_point_dh2(unsigned long nmax,
 
 
 /** Returns a pointer to the ``charm@P@_cell`` structure that is created for
- * a given ``type`` with ``nlat`` minimum and maximum latitudes, ``nlat``
- * spherical radii and ``nlon`` minimum and maximum longitudes.  The memory of
- * all array members of ``charm@P@_cell`` is uninitialized.
+ * a given ``type`` with ``nlat`` minimum and maximum latitudes, ``nlon``
+ * minimum and maximum longitudes and ``nlat`` spherical radii and.  The memory
+ * of all array members of ``charm@P@_cell`` is uninitialized.
  *
  * Valid values of ``type`` are all symbolic constants ``CHARM_CRD_CELLS_*``.
  *

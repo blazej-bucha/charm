@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include "../prec.h"
 #include "crd_cell_check_inputs.h"
+#include "crd_cell_alloc.h"
+#include "../misc/misc_calloc.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -15,78 +17,6 @@
 
 CHARM(cell) *CHARM(crd_cell_calloc)(int type, size_t nlat, size_t nlon)
 {
-    /* Check the inputs */
-    /* --------------------------------------------------------------------- */
-    if (CHARM(crd_cell_check_inputs)(type, nlat, nlon))
-        return NULL;
-    /* --------------------------------------------------------------------- */
-
-
-    /* Set the members of "cell" */
-    /* --------------------------------------------------------------------- */
-    CHARM(cell) *cell = NULL;
-    REAL *latmin      = NULL;
-    REAL *latmax      = NULL;
-    REAL *lonmin      = NULL;
-    REAL *lonmax      = NULL;
-    REAL *r           = NULL;
-
-
-    latmin = (REAL *)calloc(nlat, sizeof(REAL));
-    if (latmin == NULL)
-        goto FAILURE;
-
-
-    latmax = (REAL *)calloc(nlat, sizeof(REAL));
-    if (latmax == NULL)
-        goto FAILURE;
-
-
-    lonmin = (REAL *)calloc(nlon, sizeof(REAL));
-    if (lonmin == NULL)
-        goto FAILURE;
-
-
-    lonmax = (REAL *)calloc(nlon, sizeof(REAL));
-    if (lonmax == NULL)
-        goto FAILURE;
-
-
-    r = (REAL *)calloc(nlat, sizeof(REAL));
-    if (r == NULL)
-        goto FAILURE;
-
-
-    cell = CHARM(crd_cell_init)(type, nlat, nlon, latmin, latmax,
-                                lonmin, lonmax, r);
-    if (cell == NULL)
-        goto FAILURE;
-
-
-    cell->owner = 1;
-    /* --------------------------------------------------------------------- */
-
-
-EXIT:
-    /* --------------------------------------------------------------------- */
-    return cell;
-    /* --------------------------------------------------------------------- */
-
-
-FAILURE:
-    /* --------------------------------------------------------------------- */
-    free(latmin);
-    free(latmax);
-    free(lonmin);
-    free(lonmax);
-    free(r);
-    free(cell);
-
-
-    cell = NULL;
-
-
-    goto EXIT;
-    /* --------------------------------------------------------------------- */
+    return CHARM(crd_cell_alloc)(type, nlat, nlon, CHARM(misc_calloc));
 }
 

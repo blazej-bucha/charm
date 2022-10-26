@@ -9,16 +9,10 @@
  *
  * * handles errors.
  *
- * \verbatim embed:rst:leading-asterisk
- *  .. note::
- *
- *      When CHarm detects an error (e.g., an internal memory allocation
- *      failure), it properly frees all the internally allocated memory before
- *      returning back to the caller. No memory leaks should therefore occur,
- *      not even after a premature exit.
- *
- * \endverbatim
- *
+ * @note When CHarm detects an error (e.g., an internal memory allocation
+ * failure), it properly frees all the internally allocated memory before
+ * returning back to the caller. No memory leaks should therefore occur, not
+ * even after a premature exit.
  *
  * */
 
@@ -249,14 +243,9 @@ extern void charm@P@_err_reset(charm@P@_err *err);
  *
  * Before leaving the function, ``err`` is reset to the default empty values.
  *
- * \verbatim embed:rst:leading-asterisk
- *  .. note::
- *
- *      It is highly recommended to call the error handling function after 
- *      every call of CHarm routines that take the ``charm@P@_err`` structure 
- *      as an input.
- *
- * \endverbatim
+ * @note It is highly recommended to call the error handling function after
+ * every call of CHarm routines that take the ``charm@P@_err`` structure as an
+ * input.
  *
  * */
 extern void charm@P@_err_handler(charm@P@_err *err,

@@ -8,6 +8,7 @@ libcharm@P@_shc@OMP@_la_SOURCES = shc_da.c \
 								  shc_dda.c \
 								  shc_ddv.c \
 								  shc_dv.c \
+								  shc_alloc.c \
 								  shc_malloc.c \
 								  shc_calloc.c \
 								  shc_init.c \

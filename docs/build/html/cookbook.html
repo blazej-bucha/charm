@@ -542,8 +542,8 @@ points.</p></li>
     <span class="cm">/* Compute the Gauss--Legendre grid for a given &quot;nmax&quot; on a sphere that is</span>
 <span class="cm">     * &quot;1000.0&quot; metres above the reference sphere of spherical harmonic</span>
 <span class="cm">     * coefficients. */</span>
-    <span class="n">charm_crd</span> <span class="o">*</span><span class="n">grd</span> <span class="o">=</span> <span class="n">charm_crd_gl</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">+</span> <span class="mf">1000.0</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">grd</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="n">charm_point</span> <span class="o">*</span><span class="n">grd_pnt</span> <span class="o">=</span> <span class="n">charm_crd_point_gl</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">+</span> <span class="mf">1000.0</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">grd_pnt</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to compute the Gauss--Legendre grid.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
         <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
@@ -551,7 +551,8 @@ points.</p></li>
 
 
     <span class="cm">/* Allocate the memory for the synthesized signal */</span>
-    <span class="kt">double</span> <span class="o">*</span><span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlat</span> <span class="o">*</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+    <span class="kt">double</span> <span class="o">*</span><span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">grd_pnt</span><span class="o">-&gt;</span><span class="n">nlat</span> <span class="o">*</span> <span class="n">grd_pnt</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">*</span>
+                                 <span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">f</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;malloc failure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
@@ -562,7 +563,7 @@ points.</p></li>
     <span class="cm">/* Perform the synthesis.  Since the Gauss--Legendre grid resides &quot;1000.0&quot;</span>
 <span class="cm">     * metres above the reference sphere of the coefficients, performed is</span>
 <span class="cm">     * solid spherical harmonic synthesis. */</span>
-    <span class="n">charm_shs_point</span><span class="p">(</span><span class="n">grd</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_shs_point</span><span class="p">(</span><span class="n">grd_pnt</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
     <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 
 
@@ -570,12 +571,12 @@ points.</p></li>
     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Print some synthesized values of the signal...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
     <span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;f(%zu, %zu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">+</span> <span class="n">j</span><span class="p">]);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;f(%zu, %zu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">grd_pnt</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">+</span> <span class="n">j</span><span class="p">]);</span>
 
 
-    <span class="n">i</span> <span class="o">=</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlat</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
-    <span class="n">j</span> <span class="o">=</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;f(%zu, %zu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">+</span> <span class="n">j</span><span class="p">]);</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">grd_pnt</span><span class="o">-&gt;</span><span class="n">nlat</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="n">grd_pnt</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;f(%zu, %zu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">grd_pnt</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">+</span> <span class="n">j</span><span class="p">]);</span>
 
 
     <span class="cm">/* Initialize a new structure of spherical harmonic coefficients for</span>
@@ -595,7 +596,7 @@ points.</p></li>
 <span class="cm">     * resides on a sphere that is &quot;1000.0&quot; metres above the reference sphere.</span>
 <span class="cm">     * Therefore, the coefficients are automatically properly rescaled to the</span>
 <span class="cm">     * desired sphere defined by &quot;shcs2-&gt;r&quot;. */</span>
-    <span class="n">charm_sha_point</span><span class="p">(</span><span class="n">grd</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">shcs2</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_sha_point</span><span class="p">(</span><span class="n">grd_pnt</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">shcs2</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
     <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 
 
@@ -629,7 +630,7 @@ points.</p></li>
 
     <span class="cm">/* We will not need some of the structures and arrays anymore, so let&#39;s</span>
 <span class="cm">     * free them. */</span>
-    <span class="n">charm_crd_free</span><span class="p">(</span><span class="n">grd</span><span class="p">);</span>
+    <span class="n">charm_crd_point_free</span><span class="p">(</span><span class="n">grd_pnt</span><span class="p">);</span>
     <span class="n">charm_shc_free</span><span class="p">(</span><span class="n">shcs2</span><span class="p">);</span>
     <span class="n">free</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
     <span class="n">free</span><span class="p">(</span><span class="n">dda</span><span class="p">);</span>
@@ -649,30 +650,32 @@ points.</p></li>
     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;===========================</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
 
 
-    <span class="cm">/* Let&#39;s create a &quot;charm_crd&quot; structure to store 3 scattered points. */</span>
-    <span class="n">charm_crd</span> <span class="o">*</span><span class="n">sctr</span> <span class="o">=</span> <span class="n">charm_crd_init</span><span class="p">(</span><span class="n">CHARM_CRD_POINTS_SCATTERED</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">sctr</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="cm">/* Let&#39;s create a &quot;charm_point&quot; structure to store 3 scattered points. */</span>
+    <span class="n">charm_point</span> <span class="o">*</span><span class="n">sctr_pnt</span> <span class="o">=</span> <span class="n">charm_crd_point_calloc</span><span class="p">(</span><span class="n">CHARM_CRD_POINTS_SCATTERED</span><span class="p">,</span>
+                                                   <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">sctr_pnt</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="p">{</span>
-        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to initialize the </span><span class="se">\&quot;</span><span class="s">charm_crd</span><span class="se">\&quot;</span><span class="s"> structure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span>
+                <span class="s">&quot;Failed to initialize the </span><span class="se">\&quot;</span><span class="s">charm_point</span><span class="se">\&quot;</span><span class="s"> structure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
         <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
     <span class="p">}</span>
 
 
-    <span class="cm">/* Now let&#39;s feed &quot;sctr&quot; with some computation points (angular values must</span>
-<span class="cm">     * be provided in radians). */</span>
-    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.1</span><span class="p">;</span>
-    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.436231</span><span class="p">;</span>
-    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">-0.9651</span><span class="p">;</span>
-    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.0</span><span class="p">;</span>
-    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">1.53434</span><span class="p">;</span>
-    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">4.2316</span><span class="p">;</span>
-    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>   <span class="o">=</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">+</span> <span class="mf">1000.0</span><span class="p">;</span>
-    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>   <span class="o">=</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">+</span> <span class="mf">2000.0</span><span class="p">;</span>
-    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>   <span class="o">=</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">+</span> <span class="mf">3000.0</span><span class="p">;</span>
+    <span class="cm">/* Now let&#39;s feed &quot;sctr_pnt&quot; with some computation points (angular values</span>
+<span class="cm">     * must be provided in radians). */</span>
+    <span class="n">sctr_pnt</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.1</span><span class="p">;</span>
+    <span class="n">sctr_pnt</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.436231</span><span class="p">;</span>
+    <span class="n">sctr_pnt</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">-0.9651</span><span class="p">;</span>
+    <span class="n">sctr_pnt</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.0</span><span class="p">;</span>
+    <span class="n">sctr_pnt</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">1.53434</span><span class="p">;</span>
+    <span class="n">sctr_pnt</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">4.2316</span><span class="p">;</span>
+    <span class="n">sctr_pnt</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>   <span class="o">=</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">+</span> <span class="mf">1000.0</span><span class="p">;</span>
+    <span class="n">sctr_pnt</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>   <span class="o">=</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">+</span> <span class="mf">2000.0</span><span class="p">;</span>
+    <span class="n">sctr_pnt</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>   <span class="o">=</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">+</span> <span class="mf">3000.0</span><span class="p">;</span>
 
 
     <span class="cm">/* Allocate memory to store the synthesized signal */</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">sctr</span><span class="o">-&gt;</span><span class="n">nlat</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">sctr_pnt</span><span class="o">-&gt;</span><span class="n">nlat</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">f</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;malloc failure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
@@ -681,7 +684,7 @@ points.</p></li>
 
 
     <span class="cm">/* Do the synthesis */</span>
-    <span class="n">charm_shs_point</span><span class="p">(</span><span class="n">sctr</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_shs_point</span><span class="p">(</span><span class="n">sctr_pnt</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
     <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 
 
@@ -689,11 +692,11 @@ points.</p></li>
 
 
     <span class="cm">/* Print the synthesized values */</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">nlat</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">sctr_pnt</span><span class="o">-&gt;</span><span class="n">nlat</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
         <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
 
 
-    <span class="n">charm_crd_free</span><span class="p">(</span><span class="n">sctr</span><span class="p">);</span>
+    <span class="n">charm_crd_point_free</span><span class="p">(</span><span class="n">sctr_pnt</span><span class="p">);</span>
     <span class="n">free</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
 
 
@@ -711,29 +714,30 @@ points.</p></li>
     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;===========================</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
 
 
-    <span class="cm">/* Initialize a charm_crd structure to hold a &quot;5 x 10&quot; points grid. */</span>
-    <span class="n">grd</span> <span class="o">=</span> <span class="n">charm_crd_init</span><span class="p">(</span><span class="n">CHARM_CRD_POINTS_GRID</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">grd</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="cm">/* Initialize a charm_point structure to hold a &quot;5 x 10&quot; point grid. */</span>
+    <span class="n">grd_pnt</span> <span class="o">=</span> <span class="n">charm_crd_point_calloc</span><span class="p">(</span><span class="n">CHARM_CRD_POINTS_GRID</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">grd_pnt</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="p">{</span>
-        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to initialize the </span><span class="se">\&quot;</span><span class="s">charm_crd</span><span class="se">\&quot;</span><span class="s"> structure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span>
+                <span class="s">&quot;Failed to initialize the </span><span class="se">\&quot;</span><span class="s">charm_point</span><span class="se">\&quot;</span><span class="s"> structure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
         <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
     <span class="p">}</span>
 
 
     <span class="cm">/* Define some grid points */</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlat</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">grd_pnt</span><span class="o">-&gt;</span><span class="n">nlat</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
     <span class="p">{</span>
-        <span class="n">grd</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">M_PI_2</span> <span class="o">-</span> <span class="p">((</span><span class="kt">double</span><span class="p">)</span><span class="n">i</span> <span class="o">/</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlat</span><span class="p">)</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">;</span>
-        <span class="n">grd</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>   <span class="o">=</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">+</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">i</span><span class="p">;</span>
+        <span class="n">grd_pnt</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">M_PI_2</span> <span class="o">-</span> <span class="p">((</span><span class="kt">double</span><span class="p">)</span><span class="n">i</span> <span class="o">/</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">grd_pnt</span><span class="o">-&gt;</span><span class="n">nlat</span><span class="p">)</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">;</span>
+        <span class="n">grd_pnt</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>   <span class="o">=</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">+</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">i</span><span class="p">;</span>
     <span class="p">}</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">grd_pnt</span><span class="o">-&gt;</span><span class="n">nlon</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
     <span class="p">{</span>
-        <span class="n">grd</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="kt">double</span><span class="p">)</span><span class="n">j</span> <span class="o">/</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">);</span>
+        <span class="n">grd_pnt</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="kt">double</span><span class="p">)</span><span class="n">j</span> <span class="o">/</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">grd_pnt</span><span class="o">-&gt;</span><span class="n">nlon</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">);</span>
     <span class="p">}</span>
 
 
     <span class="cm">/* Initialize an array to store the synthesized signal */</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlat</span> <span class="o">*</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">grd_pnt</span><span class="o">-&gt;</span><span class="n">nlat</span> <span class="o">*</span> <span class="n">grd_pnt</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">f</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;malloc failure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
@@ -742,17 +746,17 @@ points.</p></li>
 
 
     <span class="cm">/* Do the synthesis */</span>
-    <span class="n">charm_shs_point</span><span class="p">(</span><span class="n">grd</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_shs_point</span><span class="p">(</span><span class="n">grd_pnt</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
     <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 
 
     <span class="cm">/* Print the synthesized values */</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlat</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">+</span> <span class="n">j</span><span class="p">]);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">grd_pnt</span><span class="o">-&gt;</span><span class="n">nlat</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">grd_pnt</span><span class="o">-&gt;</span><span class="n">nlon</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">grd_pnt</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">+</span> <span class="n">j</span><span class="p">]);</span>
 
 
-    <span class="n">charm_crd_free</span><span class="p">(</span><span class="n">grd</span><span class="p">);</span>
+    <span class="n">charm_crd_point_free</span><span class="p">(</span><span class="n">grd_pnt</span><span class="p">);</span>
     <span class="n">free</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
 
 
@@ -770,9 +774,10 @@ points.</p></li>
     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;===========================</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
 
 
-    <span class="cm">/* Initialize a &quot;charm_crd&quot; structure to hold 3 scattered cells. */</span>
-    <span class="n">sctr</span> <span class="o">=</span> <span class="n">charm_crd_init</span><span class="p">(</span><span class="n">CHARM_CRD_CELLS_SCATTERED</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">sctr</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="cm">/* Initialize a &quot;charm_cell&quot; structure to hold 3 scattered cells. */</span>
+    <span class="n">charm_cell</span> <span class="o">*</span><span class="n">sctr_cell</span> <span class="o">=</span> <span class="n">charm_crd_cell_calloc</span><span class="p">(</span><span class="n">CHARM_CRD_CELLS_SCATTERED</span><span class="p">,</span>
+                                                  <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">sctr_cell</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Failed to initialize scattered cells.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
         <span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
@@ -782,40 +787,40 @@ points.</p></li>
     <span class="cm">/* Define more or less randomly some scattered cells */</span>
     <span class="cm">/* --------------------------------------------------------------------- */</span>
     <span class="cm">/* The maximum latitude of the first cell */</span>
-    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.323413435</span><span class="p">;</span>
+    <span class="n">sctr_cell</span><span class="o">-&gt;</span><span class="n">latmax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.323413435</span><span class="p">;</span>
 
     <span class="cm">/* The minimum latitude of the first cell */</span>
-    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span>  <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.234323</span><span class="p">;</span>
+    <span class="n">sctr_cell</span><span class="o">-&gt;</span><span class="n">latmin</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span>  <span class="n">sctr_cell</span><span class="o">-&gt;</span><span class="n">latmax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.234323</span><span class="p">;</span>
 
     <span class="cm">/* The maximum latitude of the second cell */</span>
-    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">-0.90234320952</span><span class="p">;</span>
+    <span class="n">sctr_cell</span><span class="o">-&gt;</span><span class="n">latmax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">-0.90234320952</span><span class="p">;</span>
 
     <span class="cm">/* The minimum latitude of the second cell */</span>
-    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span>  <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.4456</span><span class="p">;</span>
+    <span class="n">sctr_cell</span><span class="o">-&gt;</span><span class="n">latmin</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span>  <span class="n">sctr_cell</span><span class="o">-&gt;</span><span class="n">latmax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.4456</span><span class="p">;</span>
 
     <span class="cm">/* And so on... */</span>
-    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.0</span><span class="p">;</span>
-    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span>  <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">-</span> <span class="n">M_PI_2</span><span class="p">;</span>
+    <span class="n">sctr_cell</span><span class="o">-&gt;</span><span class="n">latmax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.0</span><span class="p">;</span>
+    <span class="n">sctr_cell</span><span class="o">-&gt;</span><span class="n">latmin</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span>  <span class="n">sctr_cell</span><span class="o">-&gt;</span><span class="n">latmax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">M_PI_2</span><span class="p">;</span>
 
     <span class="cm">/* And now the same, but with the longitudes... */</span>
-    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.123456789</span><span class="p">;</span>
-    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span>  <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.3235</span><span class="p">;</span>
-    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">4.3445234</span><span class="p">;</span>
-    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span>  <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.01</span><span class="p">;</span>
-    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.0</span><span class="p">;</span>
-    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span>  <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">;</span>
+    <span class="n">sctr_cell</span><span class="o">-&gt;</span><span class="n">lonmin</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.123456789</span><span class="p">;</span>
+    <span class="n">sctr_cell</span><span class="o">-&gt;</span><span class="n">lonmax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span>  <span class="n">sctr_cell</span><span class="o">-&gt;</span><span class="n">lonmin</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.3235</span><span class="p">;</span>
+    <span class="n">sctr_cell</span><span class="o">-&gt;</span><span class="n">lonmin</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">4.3445234</span><span class="p">;</span>
+    <span class="n">sctr_cell</span><span class="o">-&gt;</span><span class="n">lonmax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span>  <span class="n">sctr_cell</span><span class="o">-&gt;</span><span class="n">lonmin</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.01</span><span class="p">;</span>
+    <span class="n">sctr_cell</span><span class="o">-&gt;</span><span class="n">lonmin</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.0</span><span class="p">;</span>
+    <span class="n">sctr_cell</span><span class="o">-&gt;</span><span class="n">lonmax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span>  <span class="n">sctr_cell</span><span class="o">-&gt;</span><span class="n">lonmin</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">;</span>
 
     <span class="cm">/* Finally, we define spherical radii of the scattered cells.  Importantly,</span>
 <span class="cm">     * the spherical radius is *constants* over the cells (but may vary from</span>
 <span class="cm">     * cell to cell). */</span>
-    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>   <span class="o">=</span>  <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">;</span>
-    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>   <span class="o">=</span>  <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">+</span> <span class="mf">1000.0</span><span class="p">;</span>
-    <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>   <span class="o">=</span>  <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">+</span> <span class="mf">2000.0</span><span class="p">;</span>
+    <span class="n">sctr_cell</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>      <span class="o">=</span>  <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">;</span>
+    <span class="n">sctr_cell</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>      <span class="o">=</span>  <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">+</span> <span class="mf">1000.0</span><span class="p">;</span>
+    <span class="n">sctr_cell</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>      <span class="o">=</span>  <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">+</span> <span class="mf">2000.0</span><span class="p">;</span>
     <span class="cm">/* --------------------------------------------------------------------- */</span>
 
 
     <span class="cm">/* Initialize an array to store the synthesized signal */</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlat</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">sctr_cell</span><span class="o">-&gt;</span><span class="n">nlat</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">f</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;malloc failure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
@@ -824,16 +829,16 @@ points.</p></li>
 
 
     <span class="cm">/* Do the synthesis */</span>
-    <span class="n">charm_shs_cell</span><span class="p">(</span><span class="n">sctr</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_shs_cell</span><span class="p">(</span><span class="n">sctr_cell</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
     <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 
 
     <span class="cm">/* Print the synthesized values */</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">sctr</span><span class="o">-&gt;</span><span class="n">nlat</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">sctr_cell</span><span class="o">-&gt;</span><span class="n">nlat</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
         <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
 
 
-    <span class="n">charm_crd_free</span><span class="p">(</span><span class="n">sctr</span><span class="p">);</span>
+    <span class="n">charm_crd_cell_free</span><span class="p">(</span><span class="n">sctr_cell</span><span class="p">);</span>
     <span class="n">free</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
 
 
@@ -852,40 +857,43 @@ points.</p></li>
     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;===========================</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
 
 
-    <span class="cm">/* Initialize a &quot;charm_crd&quot; structure to hold a grid of cells with &quot;15&quot;</span>
+    <span class="cm">/* Initialize a &quot;charm_cell&quot; structure to hold a grid of cells with &quot;15&quot;</span>
 <span class="cm">     * cells in the latitudinal direction and &quot;30&quot; cells in the longitudinal</span>
 <span class="cm">     * direction. */</span>
-    <span class="n">grd</span> <span class="o">=</span> <span class="n">charm_crd_init</span><span class="p">(</span><span class="n">CHARM_CRD_CELLS_GRID</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">30</span><span class="p">);</span>
+    <span class="n">charm_cell</span> <span class="o">*</span><span class="n">grd_cell</span> <span class="o">=</span> <span class="n">charm_crd_cell_calloc</span><span class="p">(</span><span class="n">CHARM_CRD_CELLS_GRID</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">30</span><span class="p">);</span>
 
 
     <span class="cm">/* Define some grid cells */</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlat</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">grd_cell</span><span class="o">-&gt;</span><span class="n">nlat</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
     <span class="p">{</span>
-        <span class="cm">/* The minimum cell latitudes */</span>
-        <span class="n">grd</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="p">]</span>      <span class="o">=</span> <span class="n">M_PI_2</span> <span class="o">-</span> <span class="p">((</span><span class="kt">double</span><span class="p">)</span><span class="n">i</span> <span class="o">/</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlat</span><span class="p">)</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">;</span>
-
         <span class="cm">/* The maximum cell latitudes */</span>
-        <span class="n">grd</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>  <span class="o">=</span> <span class="n">M_PI_2</span> <span class="o">-</span> <span class="p">((</span><span class="kt">double</span><span class="p">)(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlat</span><span class="p">)</span> <span class="o">*</span>
-                                        <span class="n">M_PI</span><span class="p">;</span>
+        <span class="n">grd_cell</span><span class="o">-&gt;</span><span class="n">latmax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">M_PI_2</span> <span class="o">-</span>
+                              <span class="p">((</span><span class="kt">double</span><span class="p">)</span><span class="n">i</span> <span class="o">/</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">grd_cell</span><span class="o">-&gt;</span><span class="n">nlat</span><span class="p">)</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">;</span>
+
+        <span class="cm">/* The minimum cell latitudes */</span>
+        <span class="n">grd_cell</span><span class="o">-&gt;</span><span class="n">latmin</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">M_PI_2</span> <span class="o">-</span>
+                              <span class="p">((</span><span class="kt">double</span><span class="p">)(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">grd_cell</span><span class="o">-&gt;</span><span class="n">nlat</span><span class="p">)</span> <span class="o">*</span>
+                              <span class="n">M_PI</span><span class="p">;</span>
 
         <span class="cm">/* The spherical radii (may vary with the latitude, but we use</span>
 <span class="cm">         * a constant value here, because of the example that follows after</span>
 <span class="cm">         * this one). */</span>
-        <span class="n">grd</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">+</span> <span class="mf">1000.0</span><span class="p">;</span>
+        <span class="n">grd_cell</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">+</span> <span class="mf">1000.0</span><span class="p">;</span>
     <span class="p">}</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">grd_cell</span><span class="o">-&gt;</span><span class="n">nlon</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="cm">/* The minimum cell longitudes */</span>
-        <span class="n">grd</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">j</span><span class="p">]</span>      <span class="o">=</span> <span class="p">((</span><span class="kt">double</span><span class="p">)</span><span class="n">j</span> <span class="o">/</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">);</span>
+        <span class="n">grd_cell</span><span class="o">-&gt;</span><span class="n">lonmin</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="kt">double</span><span class="p">)</span><span class="n">j</span> <span class="o">/</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">grd_cell</span><span class="o">-&gt;</span><span class="n">nlon</span><span class="p">)</span> <span class="o">*</span>
+                              <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">);</span>
 
         <span class="cm">/* The maximum cell longitudes */</span>
-        <span class="n">grd</span><span class="o">-&gt;</span><span class="n">lon</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>  <span class="o">=</span> <span class="p">((</span><span class="kt">double</span><span class="p">)(</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span><span class="p">)</span> <span class="o">*</span> 
-                               <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">);</span>
+        <span class="n">grd_cell</span><span class="o">-&gt;</span><span class="n">lonmax</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="kt">double</span><span class="p">)(</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">grd_cell</span><span class="o">-&gt;</span><span class="n">nlon</span><span class="p">)</span> <span class="o">*</span>
+                              <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">);</span>
     <span class="p">}</span>
 
 
     <span class="cm">/* Initialize an array to store the synthesized signal */</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlat</span> <span class="o">*</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">grd_cell</span><span class="o">-&gt;</span><span class="n">nlat</span> <span class="o">*</span> <span class="n">grd_cell</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">f</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;malloc failure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
@@ -894,7 +902,7 @@ points.</p></li>
 
 
     <span class="cm">/* Do the synthesis */</span>
-    <span class="n">charm_shs_cell</span><span class="p">(</span><span class="n">grd</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_shs_cell</span><span class="p">(</span><span class="n">grd_cell</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
     <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 
 
@@ -902,12 +910,12 @@ points.</p></li>
     <span class="cm">/* --------------------------------------------------------------------- */</span>
     <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="n">j</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;f(%zu, %zu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">+</span> <span class="n">j</span><span class="p">]);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;f(%zu, %zu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">grd_cell</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">+</span> <span class="n">j</span><span class="p">]);</span>
 
 
     <span class="n">i</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
     <span class="n">j</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;f(%zu, %zu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">grd</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">+</span> <span class="n">j</span><span class="p">]);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;f(%zu, %zu) = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">grd_cell</span><span class="o">-&gt;</span><span class="n">nlon</span> <span class="o">+</span> <span class="n">j</span><span class="p">]);</span>
     <span class="cm">/* --------------------------------------------------------------------- */</span>
 
 
@@ -925,8 +933,8 @@ points.</p></li>
     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;===========================</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
 
 
-    <span class="cm">/* In this example, we use the &quot;grd&quot; structure and the signal &quot;f&quot; from the</span>
-<span class="cm">     * previous example. */</span>
+    <span class="cm">/* In this example, we use the &quot;grd_cell&quot; structure and the signal &quot;f&quot; from</span>
+<span class="cm">     * the previous example. */</span>
 
 
     <span class="cm">/* Initialize a new structure of spherical harmonic coefficients for</span>
@@ -941,7 +949,7 @@ points.</p></li>
 
 
     <span class="cm">/* Do the analysis using the method of the approximate quadrature */</span>
-    <span class="n">charm_sha_cell</span><span class="p">(</span><span class="n">grd</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">CHARM_SHA_CELL_AQ</span><span class="p">,</span> <span class="n">shcs2</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
+    <span class="n">charm_sha_cell</span><span class="p">(</span><span class="n">grd_cell</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">CHARM_SHA_CELL_AQ</span><span class="p">,</span> <span class="n">shcs2</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
     <span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 
 
@@ -974,7 +982,7 @@ points.</p></li>
     <span class="cm">/* --------------------------------------------------------------------- */</span>
 
 
-    <span class="n">charm_crd_free</span><span class="p">(</span><span class="n">grd</span><span class="p">);</span>
+    <span class="n">charm_crd_cell_free</span><span class="p">(</span><span class="n">grd_cell</span><span class="p">);</span>
     <span class="n">charm_shc_free</span><span class="p">(</span><span class="n">shcs2</span><span class="p">);</span>
     <span class="n">free</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
 

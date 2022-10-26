@@ -400,7 +400,7 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
                     {
                         sctr_pnt = NULL;
                         sctr_pnt = 
-                            CHARM(crd_point_calloc)(CHARM_CRD_POINTS_SCATTERED,
+                            CHARM(crd_point_malloc)(CHARM_CRD_POINTS_SCATTERED,
                                                     nlat[i], nlon[i]);
                         if (sctr_pnt == NULL)
                         {
