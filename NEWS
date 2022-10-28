@@ -1,5 +1,12 @@
 Upcoming release:
 
+* The "charm_crd" structure was replaced by new structures:
+
+    * "charm_point" and
+    * "charm_cell",
+
+  which distinguish between evaluation points and evaluation cells.
+
 * Functions:
 
     * "charm_shc_init",
@@ -31,7 +38,6 @@ Upcoming release:
 
   have now a different meaning.  They can be used to create the respective 
   structures from data arrays provided by the user.
-
 
 * Changed API of the following functions to read/write spherical harmonic 
   coefficients from/to files:
