@@ -4623,7 +4623,7 @@ if test "x$ac_cv_prog_cc_c99" != xno; then :
 fi
 
 
-if test "$ac_cv_prog_cc_c99" = "yes" ; then
+if test "$ac_cv_prog_cc_c99" = "no" ; then
     as_fn_error $? "couldn't set $CC to accept C99" "$LINENO" 5
 fi
 

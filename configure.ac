@@ -32,7 +32,7 @@ AC_PROG_CPP
 AC_LANG(C)
 AC_PROG_CC_C_O
 AC_PROG_CC_C99
-if test "$ac_cv_prog_cc_c99" = "yes" ; then
+if test "$ac_cv_prog_cc_c99" = "no" ; then
     AC_MSG_ERROR([couldn't set $CC to accept C99])
 fi
 AC_PROG_INSTALL
