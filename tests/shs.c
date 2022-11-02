@@ -260,7 +260,7 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
                                 REAL break_symm = PREC(0.0);
                                 if (s == 0)
                                     break_symm = (REAL)(BREAK_SYMM);
-                                grd_pnt->lat[0] += break_symm;
+                                grd_pnt->lat[0] -= break_symm;
 
 
                                 /* Generate output file name */
@@ -320,13 +320,13 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
                                 REAL break_symm = PREC(0.0);
                                 if (s == 0)
                                     break_symm = (REAL)(BREAK_SYMM);
-                                grd_cell->latmax[0] += break_symm;
+                                grd_cell->latmax[0] -= break_symm;
 
 
                                 /* Generate output file name */
                                 char file[NSTR] = "";
                                 sprintf(file, "%s/shs_%s_nx%lu_n%zu_dr%d_fft%d"
-                                                  "_s%d%s",
+                                              "_s%d%s",
                                         FOLDER, (pc == 0) ? "p": "c", nmax, i,
                                         deltar, fft, (s == 0) ? 0 : 1, FTYPE);
 

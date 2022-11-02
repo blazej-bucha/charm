@@ -31,7 +31,7 @@ void CHARM(generate_point)(CHARM(point) *grd, REAL r, REAL lat_rng,
         (grd_type == CHARM_CRD_POINT_SCATTERED))
     {
         for (size_t l = 0; l < nlat; l++)
-            grd->lat[l] = ((REAL)l / (REAL)nlat2) * lat_rng - PI_2;
+            grd->lat[l] = PI_2 - ((REAL)l / (REAL)nlat2) * lat_rng;
 
 
         for (size_t l = 0; l < nlon; l++)
