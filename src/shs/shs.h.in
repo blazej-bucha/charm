@@ -58,10 +58,10 @@ extern "C"
  *
  * The synthesis is done either at
  *
- * - a **grid** if ``pnt->type`` is set to ``CHARM_CRD_POINTS_GRID*`` (see
+ * - a **grid** if ``pnt->type`` is set to ``CHARM_CRD_POINT_GRID*`` (see
  *   ``charm@P@_point``), or
  *
- * - **scattered points** if ``pnt->type == CHARM_CRD_POINTS_SCATTERED``.
+ * - **scattered points** if ``pnt->type == CHARM_CRD_POINT_SCATTERED``.
  *
  * For **grids**, efficient 1D FFT-based algorithm is applied along the 
  * latitude parallels whenever possible.  Otherwise, the Chebyshev recurrences 
@@ -236,10 +236,10 @@ extern void charm@P@_shs_point(const charm@P@_point *pnt,
  *
  * The synthesis is done either at
  *
- * - a **grid** if ``cell->type`` is set to ``CHARM_CRD_CELLS_GRID*`` (see
+ * - a **grid** if ``cell->type`` is set to ``CHARM_CRD_CELL_GRID*`` (see
  *   ``charm@P@_cell``), or
  *
- * - **scattered cells** if ``cell->type == CHARM_CRD_CELLS_SCATTERED``.
+ * - **scattered cells** if ``cell->type == CHARM_CRD_CELL_SCATTERED``.
  *
  * For **grids**, efficient 1D FFT-based algorithm is applied along the 
  * latitude parallels whenever possible.  Otherwise, the Chebyshev recurrences 
@@ -474,7 +474,7 @@ extern void charm@P@_shs_cell(const charm@P@_cell *cell,
  * controled by the input variables.
  *
  * This function can only be used with evaluation cells organized in a grid, 
- * that is, ``cell->type`` is set to ``CHARM_CRD_CELLS_GRID``.  Currently, only 
+ * that is, ``cell->type`` is set to ``CHARM_CRD_CELL_GRID``.  Currently, only 
  * the Chebyshev recurrences are supported for computation along the latitude 
  * parallels.
  *

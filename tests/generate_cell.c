@@ -18,8 +18,8 @@ void CHARM(generate_cell)(CHARM(cell) *grd, REAL r, REAL lat_rng, REAL lon_rng)
     int grd_type = grd->type;
 
 
-    if ((grd_type == CHARM_CRD_CELLS_GRID) ||
-        (grd_type == CHARM_CRD_CELLS_SCATTERED))
+    if ((grd_type == CHARM_CRD_CELL_GRID) ||
+        (grd_type == CHARM_CRD_CELL_SCATTERED))
     {
         for (size_t l = 0; l < nlat; l++)
         {

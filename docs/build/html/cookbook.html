@@ -651,7 +651,7 @@ points.</p></li>
 
 
     <span class="cm">/* Let&#39;s create a &quot;charm_point&quot; structure to store 3 scattered points. */</span>
-    <span class="n">charm_point</span> <span class="o">*</span><span class="n">sctr_pnt</span> <span class="o">=</span> <span class="n">charm_crd_point_calloc</span><span class="p">(</span><span class="n">CHARM_CRD_POINTS_SCATTERED</span><span class="p">,</span>
+    <span class="n">charm_point</span> <span class="o">*</span><span class="n">sctr_pnt</span> <span class="o">=</span> <span class="n">charm_crd_point_calloc</span><span class="p">(</span><span class="n">CHARM_CRD_POINT_SCATTERED</span><span class="p">,</span>
                                                    <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">sctr_pnt</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="p">{</span>
@@ -715,7 +715,7 @@ points.</p></li>
 
 
     <span class="cm">/* Initialize a charm_point structure to hold a &quot;5 x 10&quot; point grid. */</span>
-    <span class="n">grd_pnt</span> <span class="o">=</span> <span class="n">charm_crd_point_calloc</span><span class="p">(</span><span class="n">CHARM_CRD_POINTS_GRID</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+    <span class="n">grd_pnt</span> <span class="o">=</span> <span class="n">charm_crd_point_calloc</span><span class="p">(</span><span class="n">CHARM_CRD_POINT_GRID</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">grd_pnt</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span>
@@ -775,7 +775,7 @@ points.</p></li>
 
 
     <span class="cm">/* Initialize a &quot;charm_cell&quot; structure to hold 3 scattered cells. */</span>
-    <span class="n">charm_cell</span> <span class="o">*</span><span class="n">sctr_cell</span> <span class="o">=</span> <span class="n">charm_crd_cell_calloc</span><span class="p">(</span><span class="n">CHARM_CRD_CELLS_SCATTERED</span><span class="p">,</span>
+    <span class="n">charm_cell</span> <span class="o">*</span><span class="n">sctr_cell</span> <span class="o">=</span> <span class="n">charm_crd_cell_calloc</span><span class="p">(</span><span class="n">CHARM_CRD_CELL_SCATTERED</span><span class="p">,</span>
                                                   <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">sctr_cell</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="p">{</span>
@@ -860,7 +860,7 @@ points.</p></li>
     <span class="cm">/* Initialize a &quot;charm_cell&quot; structure to hold a grid of cells with &quot;15&quot;</span>
 <span class="cm">     * cells in the latitudinal direction and &quot;30&quot; cells in the longitudinal</span>
 <span class="cm">     * direction. */</span>
-    <span class="n">charm_cell</span> <span class="o">*</span><span class="n">grd_cell</span> <span class="o">=</span> <span class="n">charm_crd_cell_calloc</span><span class="p">(</span><span class="n">CHARM_CRD_CELLS_GRID</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">30</span><span class="p">);</span>
+    <span class="n">charm_cell</span> <span class="o">*</span><span class="n">grd_cell</span> <span class="o">=</span> <span class="n">charm_crd_cell_calloc</span><span class="p">(</span><span class="n">CHARM_CRD_CELL_GRID</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">30</span><span class="p">);</span>
 
 
     <span class="cm">/* Define some grid cells */</span>

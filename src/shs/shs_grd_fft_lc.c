@@ -25,7 +25,7 @@ void CHARM(shs_grd_fft_lc)(unsigned long m, REAL dlon,
     size_t idx2 = idx + SIMD_SIZE;
 
 
-    if (grd_type == CHARM_CRD_CELLS_GRID)
+    if (grd_type == CHARM_CRD_CELL_GRID)
     {
         /* Due to the use of the mean values, some additional terms need to be
          * taken into account when compared with the harmonic analysis based on
@@ -62,10 +62,10 @@ void CHARM(shs_grd_fft_lc)(unsigned long m, REAL dlon,
 
         return;
     }
-    else if ((grd_type == CHARM_CRD_POINTS_GRID) ||
-             (grd_type == CHARM_CRD_POINTS_GRID_GL) ||
-             (grd_type == CHARM_CRD_POINTS_GRID_DH1) ||
-             (grd_type == CHARM_CRD_POINTS_GRID_DH2))
+    else if ((grd_type == CHARM_CRD_POINT_GRID) ||
+             (grd_type == CHARM_CRD_POINT_GRID_GL) ||
+             (grd_type == CHARM_CRD_POINT_GRID_DH1) ||
+             (grd_type == CHARM_CRD_POINT_GRID_DH2))
     {
         /* Let's prepare the complex Fourier coefficients */
         STORE_R(&lc_tmp[idx], MUL_R(a, c));

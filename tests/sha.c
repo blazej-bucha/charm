@@ -238,7 +238,7 @@ int sha(unsigned long nmax, char SHCs_file[])
                     REAL r = shcs_ref->r + (REAL)(DELTAR) * (REAL)(dr);
 
 
-                    grd_cell = CHARM(crd_cell_calloc)(CHARM_CRD_CELLS_GRID,
+                    grd_cell = CHARM(crd_cell_calloc)(CHARM_CRD_CELL_GRID,
                                                       nlat[i], nlon[i]);
                     if (grd_cell == NULL)
                     {

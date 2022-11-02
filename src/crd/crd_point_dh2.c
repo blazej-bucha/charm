@@ -20,7 +20,7 @@ CHARM(point) *CHARM(crd_point_dh2)(unsigned long nmax, REAL r)
     unsigned long L = nmax + 1;
 
 
-    CHARM(point) *dhg = CHARM(crd_point_calloc)(CHARM_CRD_POINTS_GRID_DH2,
+    CHARM(point) *dhg = CHARM(crd_point_calloc)(CHARM_CRD_POINT_GRID_DH2,
                                                 2 * L, 4 * L);
     if (dhg == NULL)
         return NULL;

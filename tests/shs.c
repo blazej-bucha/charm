@@ -105,17 +105,17 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
     CHARM(point) *grd_pnt;
     CHARM(cell) *grd_cell;
     {
-    int grd_types[3] = {CHARM_CRD_POINTS_GRID_GL,
-                        CHARM_CRD_POINTS_GRID_DH1,
-                        CHARM_CRD_POINTS_GRID_DH2};
+    int grd_types[3] = {CHARM_CRD_POINT_GRID_GL,
+                        CHARM_CRD_POINT_GRID_DH1,
+                        CHARM_CRD_POINT_GRID_DH2};
     for (int g = 0; g < 3; g++)
     {
         int grd_type = grd_types[g];
-        if (grd_type == CHARM_CRD_POINTS_GRID_GL)
+        if (grd_type == CHARM_CRD_POINT_GRID_GL)
             printf("    Gauss--Legendre grid...\n");
-        else if (grd_type == CHARM_CRD_POINTS_GRID_DH1)
+        else if (grd_type == CHARM_CRD_POINT_GRID_DH1)
             printf("    Driscoll--Healy grid (DH1)...\n");
-        else if (grd_type == CHARM_CRD_POINTS_GRID_DH2)
+        else if (grd_type == CHARM_CRD_POINT_GRID_DH2)
             printf("    Driscoll--Healy grid (DH2)...\n");
         else
         {
@@ -132,11 +132,11 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
 
 
                 grd_pnt = NULL;
-                if (grd_type == CHARM_CRD_POINTS_GRID_GL)
+                if (grd_type == CHARM_CRD_POINT_GRID_GL)
                     grd_pnt = CHARM(crd_point_gl)(nmax, rref);
-                else if (grd_type == CHARM_CRD_POINTS_GRID_DH1)
+                else if (grd_type == CHARM_CRD_POINT_GRID_DH1)
                     grd_pnt = CHARM(crd_point_dh1)(nmax, rref);
-                else if (grd_type == CHARM_CRD_POINTS_GRID_DH2)
+                else if (grd_type == CHARM_CRD_POINT_GRID_DH2)
                     grd_pnt = CHARM(crd_point_dh2)(nmax, rref);
                 if (grd_pnt == NULL)
                 {
@@ -237,7 +237,7 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
                             {
                                 grd_pnt = NULL;
                                 grd_pnt = \
-                                 CHARM(crd_point_calloc)(CHARM_CRD_POINTS_GRID,
+                                 CHARM(crd_point_calloc)(CHARM_CRD_POINT_GRID,
                                                          nlat[i], nlon[i]);
                                 if (grd_pnt == NULL)
                                 {
@@ -297,7 +297,7 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
                             {
                                 grd_cell = NULL;
                                 grd_cell = \
-                                   CHARM(crd_cell_calloc)(CHARM_CRD_CELLS_GRID,
+                                   CHARM(crd_cell_calloc)(CHARM_CRD_CELL_GRID,
                                                           nlat[i], nlon[i]);
                                 if (grd_cell == NULL)
                                 {
@@ -400,7 +400,7 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
                     {
                         sctr_pnt = NULL;
                         sctr_pnt = 
-                            CHARM(crd_point_malloc)(CHARM_CRD_POINTS_SCATTERED,
+                            CHARM(crd_point_malloc)(CHARM_CRD_POINT_SCATTERED,
                                                     nlat[i], nlon[i]);
                         if (sctr_pnt == NULL)
                         {
@@ -440,7 +440,7 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
                     {
                         sctr_cell = NULL;
                         sctr_cell = \
-                            CHARM(crd_cell_calloc)(CHARM_CRD_CELLS_SCATTERED,
+                            CHARM(crd_cell_calloc)(CHARM_CRD_CELL_SCATTERED,
                                                    nlat[i], nlon[i]);
                         if (sctr_cell == NULL)
                         {
@@ -511,7 +511,7 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
         {
             for (size_t i = 0; i < NCUSTOM_GRD_ISURF; i++)
             {
-                CHARM(cell) *grd = CHARM(crd_cell_calloc)(CHARM_CRD_CELLS_GRID,
+                CHARM(cell) *grd = CHARM(crd_cell_calloc)(CHARM_CRD_CELL_GRID,
                                                           nlat[i], nlon[i]);
                 if (grd == NULL)
                 {

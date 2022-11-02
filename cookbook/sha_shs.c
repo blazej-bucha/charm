@@ -174,7 +174,7 @@ int main(void)
 
 
     /* Let's create a "charm_point" structure to store 3 scattered points. */
-    charm_point *sctr_pnt = charm_crd_point_calloc(CHARM_CRD_POINTS_SCATTERED,
+    charm_point *sctr_pnt = charm_crd_point_calloc(CHARM_CRD_POINT_SCATTERED,
                                                    3, 3);
     if (sctr_pnt == NULL)
     {
@@ -238,7 +238,7 @@ int main(void)
 
 
     /* Initialize a charm_point structure to hold a "5 x 10" point grid. */
-    grd_pnt = charm_crd_point_calloc(CHARM_CRD_POINTS_GRID, 5, 10);
+    grd_pnt = charm_crd_point_calloc(CHARM_CRD_POINT_GRID, 5, 10);
     if (grd_pnt == NULL)
     {
         fprintf(stderr,
@@ -298,7 +298,7 @@ int main(void)
 
 
     /* Initialize a "charm_cell" structure to hold 3 scattered cells. */
-    charm_cell *sctr_cell = charm_crd_cell_calloc(CHARM_CRD_CELLS_SCATTERED,
+    charm_cell *sctr_cell = charm_crd_cell_calloc(CHARM_CRD_CELL_SCATTERED,
                                                   3, 3);
     if (sctr_cell == NULL)
     {
@@ -383,7 +383,7 @@ int main(void)
     /* Initialize a "charm_cell" structure to hold a grid of cells with "15"
      * cells in the latitudinal direction and "30" cells in the longitudinal
      * direction. */
-    charm_cell *grd_cell = charm_crd_cell_calloc(CHARM_CRD_CELLS_GRID, 15, 30);
+    charm_cell *grd_cell = charm_crd_cell_calloc(CHARM_CRD_CELL_GRID, 15, 30);
 
 
     /* Define some grid cells */

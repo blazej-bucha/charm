@@ -51,8 +51,8 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
     /* If the number of latitudes is even, then "even = 1", otherwise "even =
      * 0" */
     _Bool even;
-    if ((pnt_type == CHARM_CRD_POINTS_GRID_DH1) ||
-        (pnt_type == CHARM_CRD_POINTS_GRID_DH2))
+    if ((pnt_type == CHARM_CRD_POINT_GRID_DH1) ||
+        (pnt_type == CHARM_CRD_POINT_GRID_DH2))
     {
         /* For the Driscoll--Healy grids, "pnt_nlat" is always an even number
          * and the grid is not symmetric in terms of our definition (the north
@@ -85,9 +85,9 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
         /* The grid is automatically considered as non-symmetric if there is
          * only a single latitude */
         symm = 0;
-    else if ((pnt_type == CHARM_CRD_POINTS_GRID_DH1) ||
-             (pnt_type == CHARM_CRD_POINTS_GRID_DH2) ||
-             (pnt_type == CHARM_CRD_POINTS_GRID_GL))
+    else if ((pnt_type == CHARM_CRD_POINT_GRID_DH1) ||
+             (pnt_type == CHARM_CRD_POINT_GRID_DH2) ||
+             (pnt_type == CHARM_CRD_POINT_GRID_GL))
     {
         /* The Driscoll--Healy grids or the Gauss--Legendre grid.
          *
@@ -153,7 +153,7 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
      * check whether the longitudinal step is constant.  For quadrature grids,
      * the longitudinal step is constant by definition, so no check is
      * needed. */
-    if ((pnt->type == CHARM_CRD_POINTS_GRID) && (pnt_nlon > 1))
+    if ((pnt->type == CHARM_CRD_POINT_GRID) && (pnt_nlon > 1))
     {
         err_tmp = CHARM(misc_arr_chck_lin_incr)(pnt->lon, pnt_nlon,
                                                 0, 1, CHARM(glob_threshold2),

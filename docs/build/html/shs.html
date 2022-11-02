@@ -207,8 +207,8 @@
 </p>
 <p>The synthesis is done either at</p>
 <p><ul class="simple">
-<li><p>a <strong>grid</strong> if <code class="docutils literal notranslate"><span class="pre">pnt-&gt;type</span></code> is set to <code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINTS_GRID*</span></code> (see <code class="docutils literal notranslate"><a class="reference internal" href="crd.html#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code>), or</p></li>
-<li><p><strong>scattered points</strong> if <code class="docutils literal notranslate"><span class="pre">pnt-&gt;type</span> <span class="pre">==</span> <span class="pre">CHARM_CRD_POINTS_SCATTERED</span></code>.</p></li>
+<li><p>a <strong>grid</strong> if <code class="docutils literal notranslate"><span class="pre">pnt-&gt;type</span></code> is set to <code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID*</span></code> (see <code class="docutils literal notranslate"><a class="reference internal" href="crd.html#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code>), or</p></li>
+<li><p><strong>scattered points</strong> if <code class="docutils literal notranslate"><span class="pre">pnt-&gt;type</span> <span class="pre">==</span> <span class="pre">CHARM_CRD_POINT_SCATTERED</span></code>.</p></li>
 </ul>
 </p>
 <p>For <strong>grids</strong>, efficient 1D FFT-based algorithm is applied along the latitude parallels whenever possible. Otherwise, the Chebyshev recurrences (e.g., Balmino et al 2012) are employed along the parallels. The latter option is slower. The following conditions must be satisfied in order for CHarm to apply FFT:</p>
@@ -313,8 +313,8 @@
 </p>
 <p>The synthesis is done either at</p>
 <p><ul class="simple">
-<li><p>a <strong>grid</strong> if <code class="docutils literal notranslate"><span class="pre">cell-&gt;type</span></code> is set to <code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELLS_GRID*</span></code> (see <code class="docutils literal notranslate"><a class="reference internal" href="crd.html#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code>), or</p></li>
-<li><p><strong>scattered cells</strong> if <code class="docutils literal notranslate"><span class="pre">cell-&gt;type</span> <span class="pre">==</span> <span class="pre">CHARM_CRD_CELLS_SCATTERED</span></code>.</p></li>
+<li><p>a <strong>grid</strong> if <code class="docutils literal notranslate"><span class="pre">cell-&gt;type</span></code> is set to <code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_GRID*</span></code> (see <code class="docutils literal notranslate"><a class="reference internal" href="crd.html#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code>), or</p></li>
+<li><p><strong>scattered cells</strong> if <code class="docutils literal notranslate"><span class="pre">cell-&gt;type</span> <span class="pre">==</span> <span class="pre">CHARM_CRD_CELL_SCATTERED</span></code>.</p></li>
 </ul>
 </p>
 <p>For <strong>grids</strong>, efficient 1D FFT-based algorithm is applied along the latitude parallels whenever possible. Otherwise, the Chebyshev recurrences are employed along the parallels. The latter option is slower. The following conditions must be satisfied in order for CHarm to apply FFT:</p>
@@ -440,7 +440,7 @@ lonmax: 1.0, 1.5, 2.0, 2.5, 3.0, 3.5
 \, \lambda) \right) \, \bar{P}_{nm}(\sin\varphi){.}\]</div>
 </p>
 <p>
-This function can only be used with evaluation cells organized in a grid, that is, <code class="docutils literal notranslate"><span class="pre">cell-&gt;type</span></code> is set to <code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELLS_GRID</span></code>. Currently, only the Chebyshev recurrences are supported for computation along the latitude parallels.</p>
+This function can only be used with evaluation cells organized in a grid, that is, <code class="docutils literal notranslate"><span class="pre">cell-&gt;type</span></code> is set to <code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_GRID</span></code>. Currently, only the Chebyshev recurrences are supported for computation along the latitude parallels.</p>
 <p>The Fourier coefficients are evaluated after Fukushima (2018).</p>
 <p>The function is parallelized using OpenMP.</p>
 <p><strong>Notes on evaluation cells organized in grids</strong></p>

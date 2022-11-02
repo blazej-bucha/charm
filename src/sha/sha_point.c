@@ -57,14 +57,14 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
 
     /* Get the maximum degree for which the grid in "pnt" was created.  The
      * value is derived from the number of latitudes "pnt_nlat". */
-    if (pnt_type == CHARM_CRD_POINTS_GRID_GL)
+    if (pnt_type == CHARM_CRD_POINT_GRID_GL)
     {
         /* In case of the Gauss--Legendre grid, it holds that "nmax_grd
          * = pnt_nlat - 1". */
         nmax_grd = pnt_nlat - 1;
     }
-    else if ((pnt_type == CHARM_CRD_POINTS_GRID_DH1) ||
-             (pnt_type == CHARM_CRD_POINTS_GRID_DH2))
+    else if ((pnt_type == CHARM_CRD_POINT_GRID_DH1) ||
+             (pnt_type == CHARM_CRD_POINT_GRID_DH2))
     {
         /* In case of the Driscoll--Healy grid, it holds that "nmax_grd
          * = (pnt_nlat - 2) / 2". */
@@ -219,10 +219,10 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
 
     /* Here, we have to use the maximum degree "nmax_grd" for which the input
      * grid in "pnt" was created. */
-    if ((pnt_type == CHARM_CRD_POINTS_GRID_GL) ||
-        (pnt_type == CHARM_CRD_POINTS_GRID_DH1))
+    if ((pnt_type == CHARM_CRD_POINT_GRID_GL) ||
+        (pnt_type == CHARM_CRD_POINT_GRID_DH1))
         c = PI / (REAL)(nmax_grd + 1);
-    else if (pnt_type == CHARM_CRD_POINTS_GRID_DH2)
+    else if (pnt_type == CHARM_CRD_POINT_GRID_DH2)
         c = PI / (REAL)(2 * nmax_grd + 2);
     /* --------------------------------------------------------------------- */
 

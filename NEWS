@@ -75,6 +75,9 @@ Upcoming release:
 
   Area-mean grids are therefore no longer turned upside down.
 
+* Symbolic constants "CHARM_CRD_CELLS_*" and "CHARM_CRD_POINTS_*" were renamed 
+  to "CHARM_CRD_CELL_*" and "CHARM_CRD_POINT_*".
+
 * The "nmj_order" member of "charm_pnmj" was renamed to "ordering".  This 
   affects the API.
 

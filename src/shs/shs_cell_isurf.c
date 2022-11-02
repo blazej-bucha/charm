@@ -39,11 +39,11 @@ void CHARM(shs_cell_isurf)(const CHARM(cell) *cell,
 {
     /* Some error checks */
     /* --------------------------------------------------------------------- */
-    if (cell->type != CHARM_CRD_CELLS_GRID)
+    if (cell->type != CHARM_CRD_CELL_GRID)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"cell->type\" must be set to "
-                       "\"CHARM_CRD_CELLS_GRID\".");
+                       "\"CHARM_CRD_CELL_GRID\".");
         return;
     }
 

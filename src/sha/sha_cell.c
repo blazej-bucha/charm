@@ -52,7 +52,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
     }
 
 
-    if (cell->type != CHARM_CRD_CELLS_GRID)
+    if (cell->type != CHARM_CRD_CELL_GRID)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Unsupported \"cell->type\" for spherical "

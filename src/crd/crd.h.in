@@ -58,38 +58,38 @@ extern "C"
 
 
 /* ------------------------------------------------------------------------- */
-/** Supported values of ``type`` in ``charm@P@_point`` (``CHARM_CRD_POINTS_*``)
- * and in ``charm@P@_cell`` (``CHARM_CRD_CELLS_*``). */
+/** Supported values of ``type`` in ``charm@P@_point`` (``CHARM_CRD_POINT_*``)
+ * and in ``charm@P@_cell`` (``CHARM_CRD_CELL_*``). */
 enum
 {
     /** Custom grid of cells. */
-    CHARM_CRD_CELLS_GRID = -2,
+    CHARM_CRD_CELL_GRID = -2,
 
 
     /** Scattered cells. */
-    CHARM_CRD_CELLS_SCATTERED,
+    CHARM_CRD_CELL_SCATTERED,
 
 
     /** Scattered points. */
-    CHARM_CRD_POINTS_SCATTERED = 1,
+    CHARM_CRD_POINT_SCATTERED = 1,
 
 
     /** Custom point grid. */
-    CHARM_CRD_POINTS_GRID,
+    CHARM_CRD_POINT_GRID,
 
 
     /** Gauss-Legendre point grid. */
-    CHARM_CRD_POINTS_GRID_GL,
+    CHARM_CRD_POINT_GRID_GL,
 
 
     /** Driscoll-Healy point grid as defined by Driscoll and Healy (1994)
      * (non-equiangular). */
-    CHARM_CRD_POINTS_GRID_DH1,
+    CHARM_CRD_POINT_GRID_DH1,
 
 
     /** The equiangular modification of the Driscoll-Healy point grid after
      * Wieczorek and Meschede  (2018). */
-    CHARM_CRD_POINTS_GRID_DH2
+    CHARM_CRD_POINT_GRID_DH2
 };
 /* ------------------------------------------------------------------------- */
 
@@ -106,19 +106,19 @@ typedef struct
      *
      * ``type`` takes the following symbolic constants: 
      *
-     * * ``CHARM_CRD_POINTS_SCATTERED`` for user-defined scattered points,
+     * * ``CHARM_CRD_POINT_SCATTERED`` for user-defined scattered points,
      *
-     * * ``CHARM_CRD_POINTS_GRID`` for a user-defined grid,
+     * * ``CHARM_CRD_POINT_GRID`` for a user-defined grid,
      *
-     * * ``CHARM_CRD_POINTS_GRID_GL`` for the Gauss-Legendre grid (Sneeuw,
+     * * ``CHARM_CRD_POINT_GRID_GL`` for the Gauss-Legendre grid (Sneeuw,
      *   1994) with ``nmax + 1`` latitudes and ``2 * nmax + 2`` longitudes
      *   (``nmax`` is maximum harmonic degree),
      *
-     * * ``CHARM_CRD_POINTS_GRID_DH1`` for the non-equiangular Driscoll-Healy
+     * * ``CHARM_CRD_POINT_GRID_DH1`` for the non-equiangular Driscoll-Healy
      *   grid as defined by Driscoll and Healy (1994) with ``2 * nmax + 2``
      *   latitudes and ``2 * nmax + 2`` longitudes, and
      *
-     * * ``CHARM_CRD_POINTS_GRID_DH2`` for an equiangular modification of the
+     * * ``CHARM_CRD_POINT_GRID_DH2`` for an equiangular modification of the
      *   Driscoll-Healy grid (Wieczorek and Meschede, 2018) with
      *   ``2 * nmax + 2`` latitudes and ``4 * nmax + 4`` longitudes.  */
     int type;
@@ -127,11 +127,11 @@ typedef struct
     /**
      * Number of latitudes.
      *
-     * * For **scattered** points (``type == CHARM_CRD_POINTS_SCATTERED``),
+     * * For **scattered** points (``type == CHARM_CRD_POINT_SCATTERED``),
      *   ``nlat`` represents the total number of points in the
      *   ``charm@P@_point`` structure.
      *
-     * * For **grids** (``type == CHARM_CRD_POINTS_GRID*``), ``nlat`` stands
+     * * For **grids** (``type == CHARM_CRD_POINT_GRID*``), ``nlat`` stands
      *   for the numbers of points in the latitudinal direction of the grid.
      *   */
     size_t nlat;
@@ -172,11 +172,11 @@ typedef struct
      * ``charm@P@_crd_point_dh1()`` and ``charm@P@_crd_point_dh2()`` functions,
      * that is, if
      *
-     * - ``type == CHARM_CRD_POINTS_GRID_GL``, 
+     * - ``type == CHARM_CRD_POINT_GRID_GL``, 
      *
-     * - ``type == CHARM_CRD_POINTS_GRID_DH1``, or 
+     * - ``type == CHARM_CRD_POINT_GRID_DH1``, or 
      *
-     * - ``type == CHARM_CRD_POINTS_GRID_DH2``.
+     * - ``type == CHARM_CRD_POINT_GRID_DH2``.
      *
      * ``nlat`` array elements are associated with ``w``.
      *
@@ -207,9 +207,9 @@ typedef struct
      *
      * ``type`` takes the following symbolic constants: 
      *
-     * * ``CHARM_CRD_CELLS_GRID`` for a user-defined grid of cells,
+     * * ``CHARM_CRD_CELL_GRID`` for a user-defined grid of cells,
      *
-     * * ``CHARM_CRD_CELLS_SCATTERED`` for a user-defined set of scattered 
+     * * ``CHARM_CRD_CELL_SCATTERED`` for a user-defined set of scattered 
      *   cells. */
     int type;
 
@@ -218,10 +218,10 @@ typedef struct
      * Number of latitudes.
      *
      * * For **scattered** cells (``type`` set to
-     *   ``CHARM_CRD_CELLS_SCATTERED``), ``nlat`` represents the total number
+     *   ``CHARM_CRD_CELL_SCATTERED``), ``nlat`` represents the total number
      *   of cells in the ``charm@P@_cell`` structure.
      *
-     * * For **grids** (``type`` set to ``CHARM_CRD_CELLS_GRID``), ``nlat``
+     * * For **grids** (``type`` set to ``CHARM_CRD_CELL_GRID``), ``nlat``
      *   stands for the numbers of cells in the latitudinal direction of the
      *   grid.  */
     size_t nlat;
@@ -286,11 +286,11 @@ typedef struct
 
 /** Returns a pointer to the ``charm@P@_point`` structure that is created for
  * a given ``type`` with ``nlat`` latitudes, ``nlon`` longitudes and ``nlat``
- * spherical radii.  If ``type`` is one of ``CHARM_CRD_POINTS_GRID_*``, memory
+ * spherical radii.  If ``type`` is one of ``CHARM_CRD_POINT_GRID_*``, memory
  * for ``nlat`` integration weights is allocated in addition.  The memory of
  * all arrays is uninitialized.
  *
- * Valid values of ``type`` are all symbolic constants ``CHARM_CRD_POINTS_*``.
+ * Valid values of ``type`` are all symbolic constants ``CHARM_CRD_POINT_*``.
  *
  * On success, returned is a pointer to the ``charm@P@_point`` structure.  On
  * error, ``NULL`` is returned.  Errors include memory allocation failures and
@@ -301,7 +301,7 @@ typedef struct
  *  .. note::
  *
  *      * For ``charm@P@_point *pnt`` returned by this function with ``type``
- *        being equal to one of ``CHARM_CRD_POINTS_GRID*``, the coordinates of
+ *        being equal to one of ``CHARM_CRD_POINT_GRID*``, the coordinates of
  *        the grid point on the ``i``-th latitude parallel and the ``j``-th
  *        meridian have to be accessed as
  *
@@ -313,7 +313,7 @@ typedef struct
  *
  *        with ``i = 0, 1, ..., nlat - 1`` and ``j = 0, 1, ..., nlon - 1``.
  *
- *      * For ``type`` set to ``CHARM_CRD_POINTS_SCATTERED``, the coordinates
+ *      * For ``type`` set to ``CHARM_CRD_POINT_SCATTERED``, the coordinates
  *        of the ``i``-th point have to be accessed as
  *
  *        - ``pnt->lat[i]`` for the grid latitude,
@@ -353,16 +353,16 @@ extern charm@P@_point *charm@P@_crd_point_calloc(int type,
 
 /** Returns a pointer to the ``charm@P@_point`` structure that is created for
  * a given ``type`` from user-define data (shallow copy).  Accepted values of
- * ``type`` are ``CHARM_CRD_POINTS_*``.
+ * ``type`` are ``CHARM_CRD_POINT_*``.
  *
- * * If ``type == CHARM_CRD_POINTS_SCATTERED``,
+ * * If ``type == CHARM_CRD_POINT_SCATTERED``,
  *
  *   - ``nlat`` must be equal to ``nlon`` and
  *
  *   - each of ``lat``, ``lon`` and ``r`` must have access to ``nlat``
  *     elements.
  *
- * * If ``type == CHARM_CRD_POINTS_GRID*``,
+ * * If ``type == CHARM_CRD_POINT_GRID*``,
  *
  *   - ``lat`` must have access to ``nlat`` elements,
  *
@@ -486,7 +486,7 @@ extern charm@P@_point *charm@P@_crd_point_dh2(unsigned long nmax,
  * minimum and maximum longitudes and ``nlat`` spherical radii and.  The memory
  * of all array members of ``charm@P@_cell`` is uninitialized.
  *
- * Valid values of ``type`` are all symbolic constants ``CHARM_CRD_CELLS_*``.
+ * Valid values of ``type`` are all symbolic constants ``CHARM_CRD_CELL_*``.
  *
  * On success, returned is a pointer to the ``charm@P@_cell`` structure.  On
  * error, ``NULL`` is returned.  Errors include memory allocation failures and
@@ -497,7 +497,7 @@ extern charm@P@_point *charm@P@_crd_point_dh2(unsigned long nmax,
  *  .. note::
  *
  *      * For ``charm@P@_cell *cell`` returned by this function with ``type``
- *        being equal to ``CHARM_CRD_CELLS_GRID*``, the coordinates of the grid
+ *        being equal to ``CHARM_CRD_CELL_GRID*``, the coordinates of the grid
  *        cell on the ``i``-th latitude parallel and the ``j``-th meridian have
  *        to be accessed as
  *
@@ -513,7 +513,7 @@ extern charm@P@_point *charm@P@_crd_point_dh2(unsigned long nmax,
  *
  *        with ``i = 0, 1, ..., nlat - 1`` and ``j = 0, 1, ..., nlon - 1``.
  *
- *      * For ``type`` set to ``CHARM_CRD_CELLS_SCATTERED``, the coordinates of
+ *      * For ``type`` set to ``CHARM_CRD_CELL_SCATTERED``, the coordinates of
  *        the ``i``-th cell have to be accessed as
  *
  *        - ``cell->latmin[i]`` for the minimum cell latitude,
@@ -557,16 +557,16 @@ extern charm@P@_cell *charm@P@_crd_cell_calloc(int type,
 
 /** Returns a pointer to the ``charm@P@_cell`` structure that is created for
  * a given ``type`` from user-define data (shallow copy).  Accepted values of
- * ``type`` are ``CHARM_CRD_CELLS_*``.
+ * ``type`` are ``CHARM_CRD_CELL_*``.
  *
- * * If ``type == CHARM_CRD_CELLS_SCATTERED``,
+ * * If ``type == CHARM_CRD_CELL_SCATTERED``,
  *
  *   - ``nlat`` must be equal to ``nlon`` and
  *
  *   - each of ``latmin``, ``latmax``, ``lonmin``, ``lonmax`` and ``r`` must
  *     have access to ``nlat`` elements.
  *
- * * If ``type == CHARM_CRD_CELLS_GRID``,
+ * * If ``type == CHARM_CRD_CELL_GRID``,
  *
  *   - ``latmin`` and ``latmax`` must each have access to ``nlat`` elements,
  *

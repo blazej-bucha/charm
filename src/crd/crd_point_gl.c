@@ -44,7 +44,7 @@ CHARM(point) *CHARM(crd_point_gl)(unsigned long nmax, REAL r)
     unsigned long L = nmax + 1;
 
 
-    CHARM(point) *glg = CHARM(crd_point_calloc)(CHARM_CRD_POINTS_GRID_GL,
+    CHARM(point) *glg = CHARM(crd_point_calloc)(CHARM_CRD_POINT_GRID_GL,
                                                 L, 2 * L);
     if (glg == NULL)
         return NULL;
