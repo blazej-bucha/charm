@@ -60,8 +60,9 @@ CHARM(shc) *CHARM(shc_init)(unsigned long nmax, REAL mu, REAL r,
 
     /* Set "shcs->c[m]" and "shcs->s[m]" to point to "C_{m,m}" and "S_{m,m}" */
     /* --------------------------------------------------------------------- */
-    shcs->c[0] = c;
-    shcs->s[0] = s;
+    shcs->c[0]  = c;
+    shcs->s[0]  = s;
+    shcs->owner = 0;
 
 
     unsigned long nmax1mm = 0;
