@@ -352,7 +352,7 @@ extern charm@P@_point *charm@P@_crd_point_calloc(int type,
 
 
 /** Returns a pointer to the ``charm@P@_point`` structure that is created for
- * a given ``type`` from user-define data (shallow copy).  Accepted values of
+ * a given ``type`` from user-defined data (shallow copy).  Accepted values of
  * ``type`` are ``CHARM_CRD_POINT_*``.
  *
  * * If ``type == CHARM_CRD_POINT_SCATTERED``,
@@ -556,7 +556,7 @@ extern charm@P@_cell *charm@P@_crd_cell_calloc(int type,
 
 
 /** Returns a pointer to the ``charm@P@_cell`` structure that is created for
- * a given ``type`` from user-define data (shallow copy).  Accepted values of
+ * a given ``type`` from user-defined data (shallow copy).  Accepted values of
  * ``type`` are ``CHARM_CRD_CELL_*``.
  *
  * * If ``type == CHARM_CRD_CELL_SCATTERED``,
