@@ -3,13 +3,14 @@ dnl Process this file with autoconf to produce a configure script.
 
 dnl ===========================================================================
 define(VERSION_SEMANTIC, m4_normalize(m4_include([VERSION])))
-AC_INIT([CHarm], [VERSION_SEMANTIC], [blazej.bucha@stuba.sk], [charm], [https://github.com/blazej-bucha/charm])
+AC_INIT([CHarm],[VERSION_SEMANTIC],[blazej.bucha@stuba.sk],[charm],[https://github.com/blazej-bucha/charm])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR([src/shc/shc_calloc.c])
-AM_INIT_AUTOMAKE([foreign])
+dnl Automake version "1.16.5" or newer is needed to enable the "--with-python*"
+dnl flags
+AM_INIT_AUTOMAKE([1.16.5 foreign])
 AM_MAINTAINER_MODE
-AC_DISABLE_SHARED
 AC_CANONICAL_HOST
 
 
@@ -31,15 +32,14 @@ AC_PROG_CC
 AC_PROG_CPP
 AC_LANG(C)
 AC_PROG_CC_C_O
-AC_PROG_CC_C99
 if test "$ac_cv_prog_cc_c99" = "no" ; then
     AC_MSG_ERROR([couldn't set $CC to accept C99])
 fi
 AC_PROG_INSTALL
-AC_PROG_LIBTOOL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AX_COMPILER_VENDOR
+LT_INIT
 dnl ===========================================================================
 
 
@@ -377,6 +377,57 @@ dnl ===========================================================================
 
 
 
+dnl Python
+dnl ===========================================================================
+AC_ARG_ENABLE([python], [AS_HELP_STRING([--enable-python], [enable Python interface (PyHarm) [default=no]])], py=$enableval, py=no)
+
+
+if test "$py" = "yes"; then
+    AC_MSG_NOTICE([enabling Python interface])
+    AM_PATH_PYTHON([3.6], [], [AC_MSG_ERROR([couldn't find suitable Python interpreter])])
+
+
+    if test "$enable_shared" != yes; then
+        AC_MSG_ERROR([shared library is required to build the Python interface; add the --enable-shared flag])
+    fi
+
+
+    if test "$sp" = "yes"; then
+        AC_SUBST([NP_FLOAT],  [float32])
+        AC_SUBST([CT_FLOAT],  [float])
+        AC_SUBST([PY_FLOAT],  [])
+    fi
+    if test "$dp" = "yes"; then
+        AC_SUBST([NP_FLOAT],  [float64])
+        AC_SUBST([CT_FLOAT],  [double])
+        AC_SUBST([PY_FLOAT],  [float, ]) dnl The comma is not a typo
+    fi
+    if test "$qp" = "yes"; then
+        AC_MSG_ERROR([Python interface is not supported for quadruple precision])
+    fi
+
+
+    AC_SUBST([OBJDIR], ["$objdir"])
+    eval shared_ext="$shrext_cmds"
+    AC_SUBST([SHARED_EXT], ["$shared_ext"])
+
+fi
+
+
+dnl Python interface must be enabled to build the documentation
+AM_CONDITIONAL(DOC_PY, test "$py" = "yes")
+
+
+dnl For single precision version of PyHarm, a symlink "wrap/pyharmf" is create
+dnl for "wrap/pyharm"
+AM_CONDITIONAL(SINGLE_PY, test "$py" = "yes" -a "$sp" = "yes")
+dnl ===========================================================================
+
+
+
+
+
+
 AC_CONFIG_FILES([Makefile \
                  charm/charm${P}.h:src/charm.h.in \
                  charm/charm${P}_crd.h:src/crd/crd.h.in \
@@ -409,4 +460,14 @@ AC_CONFIG_FILES([Makefile \
                  cookbook/Makefile \
                  data/Makefile \
                  charm-tmpl.pc], [], [P=${P}])
+
+
+if test "$py" = "yes"; then
+    AC_CONFIG_FILES([setup.py \
+                     wrap/pyharm/__init__.py \
+                     wrap/pyharm/_data_types.py \
+                     wrap/pyharm/Makefile], [], [])
+fi
+
+
 AC_OUTPUT

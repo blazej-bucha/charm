@@ -108,9 +108,7 @@ extern "C"
  * @param[in] pnmj The ``charm@P@_pnmj`` structure with the Fourier 
  * coefficients of associated Legendre functions up to degree 
  * ``CHARM_MAX(n1, n2)``.  It is assumed that the structure is prepared
- * beforehand by calling ``charm@P@_leg_pnmj_coeffs()``.  Note that ``j`` is
- * related to wave-numbers, but is *not* a wave-number (see the
- * ``charm@P@_leg`` module).
+ * beforehand by calling ``charm@P@_leg_pnmj_coeffs()``.
  *
  *
  * @param[out] err Error reported by the function (if any).
@@ -167,9 +165,7 @@ extern @RDT@ charm@P@_integ_pn1m1pn2m2(@RDT@ cltmin,
  * @param[in] pnmj The ``charm@P@_pnmj`` structure with the Fourier 
  * coefficients of associated Legendre functions up to degree 
  * ``CHARM_MAX(n1, n2)``.  It is assumed that the structure is prepared
- * beforehand by calling ``charm@P@_leg_pnmj_coeffs()``.  Note that ``j`` is
- * related to wave-numbers, but is *not* a wave-number (see the
- * ``charm@P@_leg`` module).
+ * beforehand by calling ``charm@P@_leg_pnmj_coeffs()``.
  *
  *
  * @param[out] err Error reported by the function (if any).

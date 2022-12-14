@@ -12,9 +12,9 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+import os
+import sys
+sys.path.insert(0, os.path.abspath('../../wrap/'))
 import datetime
 
 
@@ -50,8 +50,11 @@ release = ver
 # ones.
 extensions = [
     'sphinx_rtd_theme',
-    'breathe'
+    'breathe',
+    'sphinx.ext.autodoc',
+    'sphinx.ext.napoleon'
 ]
+napoleon_google_docstring = False
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = []

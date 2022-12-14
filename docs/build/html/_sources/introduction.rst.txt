@@ -2,8 +2,8 @@
 Introduction
 ============
 
-CHarm is a C library to work with spherical harmonics up to almost arbitrarily
-high degrees.
+CHarm is a C library to work with spherical harmonics up to almost arbitrarily 
+high degrees.  The library is accompanied by a Python wrapper called PyHarm.
 
 
 Features
@@ -43,8 +43,12 @@ Features
 
 * Performs discrete FFT by `FFTW <http://www.fftw.org/>`_.
 
-.. [#f1] This routine is unique to CHarm.
+* Ships with a Python wrapper to enable high-level programming while retaining 
+  the efficiency of the C language.  The wrapper, called PyHarm, wraps CHarm 
+  using `ctypes <https://docs.python.org/3/library/ctypes.html>`_ and is fully 
+  integrated with `numpy <https://numpy.org/>`_.
 
+.. [#f1] This routine is unique to CHarm.
 
 .. _download:
 
@@ -71,11 +75,12 @@ The documentation of the latest version from the ``master`` branch is available
 at `https://blazej-bucha.github.io/charm/index.html 
 <https://blazej-bucha.github.io/charm/index.html>`_.
 
-A pre-compiled HTML documentation is also available in ``docs/build/html`` or 
-it can be built by executing ``make docs`` (requires ``doxygen`` and Python 
-modules ``sphinx``, ``sphinx_rtd_theme`` and ``breathe``).  PDF and other 
-versions of the documentation can also be built (outside the installation 
-system) as ``cd docs && make -f Makefile-sphinx latexpdf``, etc.
+A pre-compiled HTML documentation is also available in ``docs/build/html``.  
+Alternatively, it can be built by executing ``make html`` after the 
+``configure`` call (requires ``doxygen`` and Python modules ``sphinx``, 
+``sphinx_rtd_theme`` and ``breathe``).  Other formats of the documentation, for 
+instance, a PDF file, can be built with ``cd docs && make latexpdf``, etc.  To 
+list all available formats, execute ``cd docs && make help``.
 
 
 .. _contact:

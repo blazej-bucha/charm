@@ -28,6 +28,10 @@ bench_run@P@@OMP@_LDADD = $(top_builddir)/libcharm@P@@OMP@.la
 bench_run@P@@OMP@dir = $(abs_top_builddir)/bench
 
 
+$(top_builddir)/libcharm@P@@OMP@.la:
+	cd $(top_builddir) && $(MAKE)
+
+
 bench-local: bench_run@P@@OMP@$(EXEEXT)
 	$(bench_run@P@@OMP@dir)/bench_run@P@@OMP@
 

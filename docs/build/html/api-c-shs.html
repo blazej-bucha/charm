@@ -1,0 +1,552 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>charm_shs &mdash; CHarm 0.1.2-dev documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom_BB.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="charm_sha" href="api-c-sha.html" />
+    <link rel="prev" title="charm_crd" href="api-c-crd.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> CHarm
+          
+
+          
+            
+            <img src="_static/charm-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.2-dev
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">Interfaces</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="api-c.html">CHarm (C API)</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html">charm_shc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">charm_shs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-sha.html">charm_sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-leg.html">charm_leg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-xnum.html">charm_xnum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html">charm_err</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-glob.html">charm_glob</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CHarm</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="api.html">Interfaces</a> &raquo;</li>
+        
+          <li><a href="api-c.html">CHarm (C API)</a> &raquo;</li>
+        
+      <li>charm_shs</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/api-c-shs.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="charm-shs">
+<span id="id1"></span><h1>charm_shs<a class="headerlink" href="#charm-shs" title="Permalink to this headline">¶</a></h1>
+<p>Module to perform solid spherical harmonic synthesis of point and mean values.</p>
+<p><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This documentation is written for double precision version of CHarm. </p>
+</div>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv415charm_shs_pointPK11charm_pointPK9charm_shcmPdP9charm_err">
+<span id="_CPPv315charm_shs_pointPK11charm_pointPK9charm_shcmPdP9charm_err"></span><span id="_CPPv215charm_shs_pointPK11charm_pointPK9charm_shcmPdP9charm_err"></span><span id="charm_shs_point__charm_pointCP.charm_shcCP.unsigned-l.doubleP.charm_errP"></span><span class="target" id="charm__shs_8h_1a47e78422d29ab4668f6140fe8a5b16af"></span>void <code class="sig-name descname">charm_shs_point</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="api-c-crd.html#_CPPv411charm_point" title="charm_point">charm_point</a> *<em>pnt</em>, <em class="property">const</em> <a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc">charm_shc</a> *<em>shcs</em>, unsigned long <em>nmax</em>, double *<em>f</em>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err">charm_err</a> *<em>err</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415charm_shs_pointPK11charm_pointPK9charm_shcmPdP9charm_err" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Performs the exact solid spherical harmonic synthesis of point values:</p>
+<p><div class="math notranslate nohighlight">
+\[f(\varphi,\lambda) = \dfrac{\mu}{R} \, \sum_{n = 0}^{n_{\max}} \left( 
+\dfrac{R}{r} \right)^{n + 1} \, \sum_{m = 0}^{n} \left( \bar{C}_{nm}\, 
+\cos(m \, \lambda) + \bar{S}_{nm} \, \sin(m \, \lambda) \right) \, 
+\bar{P}_{nm}(\sin\varphi){.}\]</div>
+</p>
+<p>The synthesis is done either at</p>
+<p><ul class="simple">
+<li><p>a <strong>grid</strong> if <code class="docutils literal notranslate"><span class="pre">pnt-&gt;type</span></code> is set to <code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID*</span></code> (see <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code>), or</p></li>
+<li><p><strong>scattered points</strong> if <code class="docutils literal notranslate"><span class="pre">pnt-&gt;type</span> <span class="pre">==</span> <span class="pre">CHARM_CRD_POINT_SCATTERED</span></code>.</p></li>
+</ul>
+</p>
+<p>For <strong>grids</strong>, efficient 1D FFT-based algorithm is applied along the latitude parallels whenever possible. Otherwise, the Chebyshev recurrences (e.g., Balmino et al 2012) are employed along the parallels. The latter option is slower. The following conditions must be satisfied in order for CHarm to apply FFT:</p>
+<p><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pnt-&gt;nlon</span> <span class="pre">&gt;</span> <span class="pre">1</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(pnt-&gt;nlon</span> <span class="pre">-</span> <span class="pre">1)</span> <span class="pre">/</span> <span class="pre">2</span> <span class="pre">&gt;=</span> <span class="pre">nmax</span></code>, where the division is rounded down,</p></li>
+<li><p>the longitudinal step <code class="docutils literal notranslate"><span class="pre">dlon</span></code> is constant,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pnt-&gt;lon[0]</span> <span class="pre">==</span> <span class="pre">0.0</span></code> within the numerical threshold (<code class="docutils literal notranslate"><span class="pre">charm_glob_threshold</span></code>), and</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pnt-&gt;lon[pnt-&gt;nlon</span> <span class="pre">-</span> <span class="pre">1]</span> <span class="pre">+</span> <span class="pre">dlon</span> <span class="pre">==</span> <span class="pre">2.0</span> <span class="pre">*</span> <span class="pre">PI</span></code> within the numerical threshold (<code class="docutils literal notranslate"><span class="pre">charm_glob_threshold</span></code>).</p></li>
+</ul>
+</p>
+<p>If any of these conditions is not satisfied, CHarm uses the Chebyshev recurrences. The algorithm is selected automatically by CHarm with the preference being FFT.</p>
+<p>For <strong>scattered points</strong>, tedious point-by-point synthesis is applied.</p>
+<p>The synthesis is parallelized using OpenMP.</p>
+<p><strong>Notes on evaluation points organized in grids</strong> (not relevant for scattered points)</p>
+<p><ul class="simple">
+<li><p>To improve the computational speed, exploited is the symmetry of Legendre functions with respect to the equator. This is done <em>automatically</em>, provided that the grid stored in <code class="docutils literal notranslate"><span class="pre">pnt</span></code> is recognized as symmetric with respect to the equator. Below are shown some examples of symmetric and non-symmetric grids. (While these examples use the unit degrees for a more intuitive understanding, note that the function inputs assume radians.)</p></li>
+<li><p>Examples of some <strong>symmetric</strong> grids (shown are only latitudes <code class="docutils literal notranslate"><span class="pre">pnt-&gt;lat</span></code>, the longitudes <code class="docutils literal notranslate"><span class="pre">pnt-&gt;lon</span></code> does not affect the grid symmetry):<ul>
+<li><p>Equator included: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">-</span><span class="mf">90.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">60.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">30.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="mf">60.0</span><span class="p">,</span> <span class="mf">90.0</span>
+</pre></div>
+</div>
+ or <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">-</span><span class="mf">80.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">60.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">40.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">20.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">,</span> <span class="mf">60.0</span><span class="p">,</span> <span class="mf">80.0</span>
+</pre></div>
+</div>
+</p></li>
+<li><p>Equator excluded: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">-</span><span class="mf">35.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">25.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">15.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">,</span> <span class="mf">35.0</span>
+</pre></div>
+</div>
+ or <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">-</span><span class="mf">90.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">85.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">80.0</span><span class="p">,</span> <span class="mf">80.0</span><span class="p">,</span> <span class="mf">85.0</span><span class="p">,</span> <span class="mf">90.0</span>
+</pre></div>
+</div>
+</p></li>
+<li><p>Varying spacing, equator excluded: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">-</span><span class="mf">90.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">80.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">75.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">70.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">69.0</span><span class="p">,</span> <span class="mf">69.0</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">,</span> <span class="mf">75.0</span><span class="p">,</span> <span class="mf">80.0</span><span class="p">,</span> <span class="mf">90.0</span>
+</pre></div>
+</div>
+</p></li>
+</ul>
+</p></li>
+</ul>
+</p>
+<p>Examples of some <strong>non-symmetric</strong> grids (shown are only latitudes again):</p>
+<p><ul class="simple">
+<li><p>The negative latitude of <code class="docutils literal notranslate"><span class="pre">-90.0</span> <span class="pre">deg</span></code> does not have its positive counterpart <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">-</span><span class="mf">90.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">60.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">30.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="mf">60.0</span>
+</pre></div>
+</div>
+</p></li>
+<li><p>The relative difference between <code class="docutils literal notranslate"><span class="pre">fabs(-4.99)</span></code> and <code class="docutils literal notranslate"><span class="pre">fabs(5.0)</span></code> is larger than <code class="docutils literal notranslate"><span class="pre">charm_glob_threshold2</span></code> (see <code class="docutils literal notranslate"><span class="pre">charm_glob.h</span></code>): <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">-</span><span class="mf">35.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">25.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">15.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.99</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">,</span> <span class="mf">35.0</span>
+</pre></div>
+</div>
+</p></li>
+</ul>
+</p>
+<p>In other words, the grid is symmetric in the latitudinal direction, provided that all positive latitudes have their negative counterparts at the right places. The check is done within a given threshold to suppress numerical inaccuracies, see the <code class="docutils literal notranslate"><span class="pre">charm_glob_threshold2</span></code> variable in the <code class="docutils literal notranslate"><span class="pre">charm_glob</span></code> module. The zero latitude, i.e., the equator, may be present in the grid (again, within the specified numerical threshold <code class="docutils literal notranslate"><span class="pre">charm_glob_threshold2</span></code>).</p>
+<p><ul class="simple">
+<li><p>The longitudes of the grid must be sampled increasingly with equal spacing, that is, the difference between any two consecutive longitudes must be positive and constant. The function performs a check on this. If the longitudes do not pass the test, an error message is written to <code class="docutils literal notranslate"><span class="pre">err</span></code> and the program returns to the caller.</p></li>
+</ul>
+</p>
+<p><strong>References</strong>:<ul class="simple">
+<li><p>Sneeuw, N. (1994) Global spherical harmonic analysis by least-squares and numerical quadrature methods in historical perspective. Geophysical Journal International 118:707-716</p></li>
+<li><p>Heiskannen, W. A., Moritz, H. (1967) Physical Geodesy. W. H. Freeman and Company, San Francisco, 364 pp</p></li>
+<li><p>Fukushima, T. (2012) Numerical computation of spherical harmonics of arbitrary degree and order by extending exponent of floating point numbers. Journal of Geodesy 86:271-285.</p></li>
+<li><p>Balmino, Vales, Bonvalot, Briais, 2012. Spherical harmonic modelling to ultra-high degree of Bouguer and isostatic anomalies. Journal of Geodesy 86:499-520, doi: 10.1007/s00190-011-0533-4 </p></li>
+</ul>
+</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The function does not use <code class="docutils literal notranslate"><span class="pre">cell-&gt;w</span></code>, so no constrains are applied.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The synthesis always starts at degree <code class="docutils literal notranslate"><span class="pre">nmin</span> <span class="pre">=</span> <span class="pre">0</span></code>. To use some other value of <code class="docutils literal notranslate"><span class="pre">nmin</span></code> (but satisfying <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">&lt;=</span> <span class="pre">nmin</span> <span class="pre">&lt;=</span> <span class="pre">nmax</span></code>), you can set the respective coefficients in <code class="docutils literal notranslate"><span class="pre">shcs</span></code> to zero and use the newly modified structure <code class="docutils literal notranslate"><span class="pre">shcs</span></code> as the input to this function. The synthesis will still formally start at degree <code class="docutils literal notranslate"><span class="pre">0</span></code>, but since the coefficients up to degree <code class="docutils literal notranslate"><span class="pre">nmin</span> <span class="pre">-</span> <span class="pre">1</span></code> are zero, they do not contribute to the output signal as required.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pnt</strong> – <strong>[in]</strong> Evaluation points, organized either as a <strong>grid</strong> or as <strong>scattered points</strong> (see <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code>).</p></li>
+<li><p><strong>shcs</strong> – <strong>[in]</strong> Spherical harmonic coefficients (see <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code>).</p></li>
+<li><p><strong>nmax</strong> – <strong>[in]</strong> Maximum spherical harmonic degree of the synthesis.</p></li>
+<li><p><strong>f</strong> – <strong>[out]</strong> Pointer to an output array with the synthesized signal. If <code class="docutils literal notranslate"><span class="pre">pnt</span></code> holds a <strong>grid</strong>, the pointer <code class="docutils literal notranslate"><span class="pre">f</span></code> must have an access to <code class="docutils literal notranslate"><span class="pre">pnt-&gt;nlat</span> <span class="pre">*</span> <span class="pre">pnt-&gt;nlon</span></code> array elements. The value of the signal synthesized at <code class="docutils literal notranslate"><span class="pre">pnt-&gt;lat[i]</span></code> and <code class="docutils literal notranslate"><span class="pre">pnt-&gt;lon[j]</span></code> can be found as: <code class="docutils literal notranslate"><span class="pre">f[i</span> <span class="pre">*</span> <span class="pre">pnt-&gt;nlon</span> <span class="pre">+</span> <span class="pre">j]</span></code> with <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">pnt-&gt;nlat</span> <span class="pre">-</span> <span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">pnt-&gt;nlon</span> <span class="pre">1</span></code>. In case <code class="docutils literal notranslate"><span class="pre">pnt</span></code> represents <strong>scattered points</strong>, <code class="docutils literal notranslate"><span class="pre">f</span></code> must have an access to <code class="docutils literal notranslate"><span class="pre">pnt-&gt;nlat</span> <span class="pre">==</span> <span class="pre">pnt-&gt;nlon</span></code> elements and <code class="docutils literal notranslate"><span class="pre">f[i]</span></code> stands for the value synthesized at <code class="docutils literal notranslate"><span class="pre">pnt-&gt;lat[i]</span></code> and <code class="docutils literal notranslate"><span class="pre">pnt-&gt;lon[i]</span></code> with <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">pnt-&gt;nlat</span> <span class="pre">-</span> <span class="pre">1</span></code> .</p></li>
+<li><p><strong>err</strong> – <strong>[out]</strong> Error reported by the function (if any). </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv414charm_shs_cellPK10charm_cellPK9charm_shcmPdP9charm_err">
+<span id="_CPPv314charm_shs_cellPK10charm_cellPK9charm_shcmPdP9charm_err"></span><span id="_CPPv214charm_shs_cellPK10charm_cellPK9charm_shcmPdP9charm_err"></span><span id="charm_shs_cell__charm_cellCP.charm_shcCP.unsigned-l.doubleP.charm_errP"></span><span class="target" id="charm__shs_8h_1add861cfba63c63d85c613ffe68af5c98"></span>void <code class="sig-name descname">charm_shs_cell</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="api-c-crd.html#_CPPv410charm_cell" title="charm_cell">charm_cell</a> *<em>cell</em>, <em class="property">const</em> <a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc">charm_shc</a> *<em>shcs</em>, unsigned long <em>nmax</em>, double *<em>f</em>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err">charm_err</a> *<em>err</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414charm_shs_cellPK10charm_cellPK9charm_shcmPdP9charm_err" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Performs the exact solid spherical harmonic synthesis of mean values over computational cells:</p>
+<p><div class="math notranslate nohighlight">
+\[\begin{split}\tilde{f}(\varphi_{\mathrm{min}}, \varphi_{\mathrm{max}}, 
+\lambda_{\mathrm{min}}, \lambda_{\mathrm{max}}) =&amp; \dfrac{1}{\Delta 
+\sigma} \, \dfrac{\mu}{R} \, \sum_{n = 0}^{n_{\max}} \left( 
+\dfrac{R}{r} \right)^{n + 1} \\
+&amp;\sum_{m = 0}^{n} \left( \bar{C}_{nm}\, 
+\int\limits_{\lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}} \cos(m \, 
+\lambda) \, \mathrm{d}\lambda + \bar{S}_{nm} \, 
+\int\limits_{\lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}} \sin(m \, 
+\lambda) \, \mathrm{d}\lambda \right) \\
+&amp;\int\limits_{\varphi_{\mathrm{min}}}^{\varphi_{\mathrm{max}}}\bar{P}_{nm}(\sin\varphi) 
+\, \cos\varphi \, \mathrm{d}\varphi{,}\end{split}\]</div>
+</p>
+<p>The synthesis is done either at</p>
+<p><ul class="simple">
+<li><p>a <strong>grid</strong> if <code class="docutils literal notranslate"><span class="pre">cell-&gt;type</span></code> is set to <code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_GRID*</span></code> (see <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code>), or</p></li>
+<li><p><strong>scattered cells</strong> if <code class="docutils literal notranslate"><span class="pre">cell-&gt;type</span> <span class="pre">==</span> <span class="pre">CHARM_CRD_CELL_SCATTERED</span></code>.</p></li>
+</ul>
+</p>
+<p>For <strong>grids</strong>, efficient 1D FFT-based algorithm is applied along the latitude parallels whenever possible. Otherwise, the Chebyshev recurrences are employed along the parallels. The latter option is slower. The following conditions must be satisfied in order for CHarm to apply FFT:</p>
+<p><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;nlon</span> <span class="pre">&gt;</span> <span class="pre">1</span></code>, and</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(cell-&gt;nlon</span> <span class="pre">-</span> <span class="pre">1)</span> <span class="pre">/</span> <span class="pre">2</span> <span class="pre">&gt;=</span> <span class="pre">nmax</span></code>, where the division is rounded down,</p></li>
+<li><p>the longitudinal step <code class="docutils literal notranslate"><span class="pre">dlon</span></code> is constant,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;lonmin[0]</span> <span class="pre">==</span> <span class="pre">0.0</span></code> within the numerical threshold (<code class="docutils literal notranslate"><span class="pre">charm_glob_threshold</span></code>),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;lonmax[2</span> <span class="pre">*</span> <span class="pre">cell-&gt;nlon</span> <span class="pre">-</span> <span class="pre">1]</span> <span class="pre">==</span> <span class="pre">2.0</span> <span class="pre">*</span> <span class="pre">PI</span></code> within the numerical threshold (<code class="docutils literal notranslate"><span class="pre">charm_glob_threshold</span></code>),</p></li>
+<li><p>the maximum longitude of the <code class="docutils literal notranslate"><span class="pre">j</span></code>th cell must be equal to the minimum longitude of the <code class="docutils literal notranslate"><span class="pre">j</span> <span class="pre">+</span> <span class="pre">1</span></code>th cell.</p></li>
+</ul>
+</p>
+<p>If any of these conditions is not satisfied, CHarm uses the Chebyshev recurrences. The algorithm is selected automatically by CHarm with the preference being FFT.</p>
+<p>For <strong>scattered cells</strong>, tedious cell-by-cell synthesis is applied.</p>
+<p>The synthesis is parallelized using OpenMP.</p>
+<p><strong>Notes on evaluation cells organized in grids</strong> (not relevant for scattered cells)</p>
+<p><ul class="simple">
+<li><p>To improve the computational speed, exploited is the symmetry of Legendre functions with respect to the equator. This is done <em>automatically</em>, provided that the grid stored in <code class="docutils literal notranslate"><span class="pre">cell</span></code> is recognized as symmetric with respect to the equator. Below are shown some examples of symmetric and non-symmetric grids. (While these examples use the unit degrees for a more intuitive understanding, note that the function inputs assume radians.)</p></li>
+<li><p><em>Examples of some symmetric grids</em> (shown are only the minimum and the maximum latitudes <code class="docutils literal notranslate"><span class="pre">latmin</span></code> and <code class="docutils literal notranslate"><span class="pre">latmax</span></code>, respectively; the longitudes do not affect the grid symmetry):</p></li>
+</ul>
+</p>
+<p><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>latmin: -90.0, -60.0, -30.0,  0.0, 30.0, 60.0
+latmax: -60.0, -30.0,   0.0, 30.0, 60.0, 90.0
+</pre></div>
+</div>
+</p>
+<p><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>latmin: -35.0, -25.0, -15.0, -5.0,  5.0, 15.0, 25.0
+latmax: -25.0, -15.0,  -5.0,  5.0, 15.0, 25.0, 35.0
+</pre></div>
+</div>
+</p>
+<p><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>latmin: -90.0, -85.0, 80.0, 85.0
+latmax: -85.0, -80.0, 85.0, 90.0
+</pre></div>
+</div>
+</p>
+<p><p><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>latmin: -90.0, -80.0, -75.0, -70.0, 69.0, 70.0, 75.0, 80.0
+latmax: -80.0, -75.0, -70.0, -69.0, 70.0, 75.0, 80.0, 90.0
+</pre></div>
+</div>
+</p>
+<ul class="simple">
+<li><p><em>Examples of some grids that are not considered as symmetric</em> (shown are again only latitudes):</p></li>
+</ul>
+</p>
+<p><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>latmin: -90.0, -60.0, -30.0,  0.0, 30.0
+latmax: -60.0, -30.0,   0.0, 30.0, 60.0
+</pre></div>
+</div>
+</p>
+<p><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>latmin: -35.0, -25.0, -15.0,     5.0, 15.0, 25.0
+latmax: -25.0, -15.0,  -4.99,   15.0, 25.0, 35.0
+</pre></div>
+</div>
+</p>
+<p><ul class="simple">
+<li><p>In other words, the grid is symmetric in the latitudinal direction, provided that all positive latitudes have their negative counterparts at the right places. The check is done within a given threshold to suppress numerical inaccuracies, see the <code class="docutils literal notranslate"><span class="pre">charm_glob_threshold2</span></code> variable in the <code class="docutils literal notranslate"><span class="pre">charm_glob</span></code> module. The zero latitude, i.e., the equator, may be present in the grid (again, within the specified numerical threshold <code class="docutils literal notranslate"><span class="pre">charm_glob_threshold2</span></code>).</p></li>
+<li><p>The longitudes of the grid must be sampled increasingly with equal spacing, that is, the difference between any two consecutive minimum cell longitudes must be positive and constant and the same holds for the maximum cell longitudes as well; moreover, the step in minimum cell longitudes must be equal to the step in maximum cell longitudes. Two examples of an acceptable longitudinal sampling (shown are minimum and maximum longitudes of grid cells):</p></li>
+</ul>
+</p>
+<p><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>lonmin: 0.0, 1.0, 2.0, 3.0, 4.0, 5.0
+lonmax: 1.0, 2.0, 3.0, 4.0, 5.0, 6.0
+</pre></div>
+</div>
+</p>
+<p><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>lonmin: 0.0, 0.5, 1.0, 1.5, 2.0, 2.5
+lonmax: 1.0, 1.5, 2.0, 2.5, 3.0, 3.5
+</pre></div>
+</div>
+</p>
+<p><ul class="simple">
+<li><p>The function performs all necessary checks. If the longitudes do not pass the test, an error message is written to <code class="docutils literal notranslate"><span class="pre">err</span></code> and program returns to the caller.</p></li>
+</ul>
+</p>
+<p><strong>References</strong>:<ul class="simple">
+<li><p>Colombo, O. L. (1981) Numerical methods for harmonic analysis on the sphere. Reports of the Department of Geodetic Science, Report No. 310, 140 pp</p></li>
+<li><p>Heiskannen, W. A., Moritz, H. (1967) Physical Geodesy. W. H. Freeman and Company, San Francisco, 364 pp</p></li>
+<li><p>Jekeli, C., Lee, J. K., Kwon, J. H. (2007) On the computation and approximation of ultra-high-degree spherical harmonic series. Journal of Geodesy 81:603-615</p></li>
+<li><p>Fukushima, T. (2012) Numerical computation of spherical harmonics of arbitrary degree and order by extending exponent of floating point numbers. Journal of Geodesy 86:271-285.</p></li>
+<li><p>Balmino, Vales, Bonvalot, Briais, 2012. Spherical harmonic modelling to ultra-high degree of Bouguer and isostatic anomalies. Journal of Geodesy 86:499–520, doi: 10.1007/s00190-011-0533-4</p></li>
+<li><p>Fukushima, T. (2014) Numerical computation of spherical harmonics of arbitrary degree and order by extending exponent of floating point numbers: III integral. Computers &amp; Geosciences 63:17-21</p></li>
+</ul>
+</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The synthesis automatically starts at degree <code class="docutils literal notranslate"><span class="pre">nmin</span> <span class="pre">=</span> <span class="pre">0</span></code>. To use some other value of <code class="docutils literal notranslate"><span class="pre">nmin</span></code>, see the tip given in <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1a47e78422d29ab4668f6140fe8a5b16af"><span class="std std-ref"><span class="pre">charm_shs_point()</span></span></a></code>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cell</strong> – <strong>[in]</strong> Evaluation cells, organized either as a <strong>grid</strong> or as <strong>scattered cells</strong> (see <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code>).</p></li>
+<li><p><strong>shcs</strong> – <strong>[in]</strong> Spherical harmonic coefficients (see <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code>).</p></li>
+<li><p><strong>nmax</strong> – <strong>[in]</strong> Maximum spherical harmonic degree of the synthesis.</p></li>
+<li><p><strong>f</strong> – <strong>[out]</strong> Pointer to an output array with the synthesized mean values. If <code class="docutils literal notranslate"><span class="pre">cell</span></code> holds a <strong>grid</strong>, the pointer <code class="docutils literal notranslate"><span class="pre">f</span></code> must have an access to <code class="docutils literal notranslate"><span class="pre">cell-&gt;nlat</span> <span class="pre">*</span> <span class="pre">cell-&gt;nlon</span></code> array elements. The mean value of the signal synthesized at the <code class="docutils literal notranslate"><span class="pre">i</span></code>th cell in the latitudinal direction and <code class="docutils literal notranslate"><span class="pre">j</span></code>th cell in the longitudinal direction can be found as: <code class="docutils literal notranslate"><span class="pre">f[i</span> <span class="pre">*</span> <span class="pre">cell-&gt;nlon</span> <span class="pre">+</span> <span class="pre">j]</span></code> with <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">cell-&gt;nlat</span> <span class="pre">-</span> <span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">cell-&gt;nlon</span> <span class="pre">-</span> <span class="pre">1</span></code>. In case <code class="docutils literal notranslate"><span class="pre">cell</span></code> represents <strong>scattered cells</strong>, <code class="docutils literal notranslate"><span class="pre">f</span></code> must have an access to <code class="docutils literal notranslate"><span class="pre">cell-&gt;nlat</span> <span class="pre">==</span> <span class="pre">cell-&gt;nlon</span></code> elements and <code class="docutils literal notranslate"><span class="pre">f[i]</span></code> stands for the mean value synthesized at the <code class="docutils literal notranslate"><span class="pre">i</span></code>th cell with <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">cell-&gt;nlat</span> <span class="pre">-</span> <span class="pre">1</span></code>.</p></li>
+<li><p><strong>err</strong> – <strong>[out]</strong> Error reported by the function (if any). </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv420charm_shs_cell_isurfPK10charm_cellPK9charm_shcmPK9charm_shcmmmPdP9charm_err">
+<span id="_CPPv320charm_shs_cell_isurfPK10charm_cellPK9charm_shcmPK9charm_shcmmmPdP9charm_err"></span><span id="_CPPv220charm_shs_cell_isurfPK10charm_cellPK9charm_shcmPK9charm_shcmmmPdP9charm_err"></span><span id="charm_shs_cell_isurf__charm_cellCP.charm_shcCP.unsigned-l.charm_shcCP.unsigned-l.unsigned-l.unsigned-l.doubleP.charm_errP"></span><span class="target" id="charm__shs_8h_1a97a46cd1cf748688ea350f6b03234d38"></span>void <code class="sig-name descname">charm_shs_cell_isurf</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="api-c-crd.html#_CPPv410charm_cell" title="charm_cell">charm_cell</a> *<em>cell</em>, <em class="property">const</em> <a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc">charm_shc</a> *<em>shcs1</em>, unsigned long <em>nmax1</em>, <em class="property">const</em> <a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc">charm_shc</a> *<em>shcs2</em>, unsigned long <em>nmax2</em>, unsigned long <em>nmax3</em>, unsigned long <em>nmax4</em>, double *<em>f</em>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err">charm_err</a> *<em>err</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv420charm_shs_cell_isurfPK10charm_cellPK9charm_shcmPK9charm_shcmmmPdP9charm_err" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Similarly as <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1add861cfba63c63d85c613ffe68af5c98"><span class="std std-ref"><span class="pre">charm_shs_cell()</span></span></a></code>, this function computes mean values of a function given by <code class="docutils literal notranslate"><span class="pre">shcs1</span></code>. The difference is that here, the mean values are integrated not on the unit sphere, but instead on a band-limited irregular surface <span class="math notranslate nohighlight">\(r(\varphi,\lambda)\)</span> defined by spherical harmonic coefficients in <code class="docutils literal notranslate"><span class="pre">shcs2</span></code>:</p>
+<p><div class="math notranslate nohighlight">
+\[\begin{split}\tilde{f}(\varphi_{\mathrm{min}}, 
+\varphi_{\mathrm{max}},\lambda_{\mathrm{min}},\lambda_{\mathrm{max}}) 
+=&amp; \frac{1}{\Delta \sigma} \, \frac{\mu^{(1)}}{R^{(1)}} \, 
+\int\limits_{\varphi = \varphi_{\mathrm{min}}}^{\varphi_{\mathrm{max}}} 
+\int\limits_{\lambda 
+= \lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}}\sum_{n 
+= 0}^{n_{\max_1}} \left( \frac{R^{(1)}}{r(\varphi, \lambda)}\right)^{(n 
++ 1)} \\
+&amp;\times \sum_{m = 0}^{n} \left( \bar{C}_{nm}^{(1)}\, \cos(m \, \lambda) 
++ \bar{S}_{nm}^{(1)} \, \sin(m \, \lambda) \right) \, 
+\bar{P}_{nm}(\sin\varphi)\\
+&amp;\times \mathrm{d}\lambda \, \cos\varphi \, \mathrm{d}\varphi\end{split}\]</div>
+</p>
+<p>with</p>
+<p><div class="math notranslate nohighlight">
+\[r(\varphi, \lambda) = \sum_{n = 0}^{n_{\max_2}} \sum_{m = 0}^{n} \left( 
+\bar{C}_{nm}^{(2)}\, \cos(m \, \lambda) + \bar{S}_{nm}^{(2)} \, \sin(m 
+\, \lambda) \right) \, \bar{P}_{nm}(\sin\varphi){.}\]</div>
+</p>
+<p>
+This function can only be used with evaluation cells organized in a grid, that is, <code class="docutils literal notranslate"><span class="pre">cell-&gt;type</span></code> is set to <code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_GRID</span></code>. Currently, only the Chebyshev recurrences are supported for computation along the latitude parallels.</p>
+<p>The Fourier coefficients are evaluated after Fukushima (2018).</p>
+<p>The function is parallelized using OpenMP.</p>
+<p><strong>Notes on evaluation cells organized in grids</strong></p>
+<p><ul class="simple">
+<li><p>The symmetry of Legendre function is <em>not</em> employed in this function. Numerical experiments have shown that, in our implementation, the speed improvement is completely negligible if any.</p></li>
+<li><p>The structure of the longitudes must be the same as discussed in <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1add861cfba63c63d85c613ffe68af5c98"><span class="std std-ref"><span class="pre">charm_shs_cell()</span></span></a></code>.</p></li>
+</ul>
+</p>
+<p><strong>References</strong>:</p>
+<p><ul class="simple">
+<li><p>Fukushima, T. (2012) Numerical computation of spherical harmonics of arbitrary degree and order by extending exponent of floating point numbers. Journal of Geodesy 86:271-285.</p></li>
+<li><p>Fukushima, T. (2018) Fast computation of sine/cosine series coefficients of associated Legendre functions of arbitrary high degree and order. </p></li>
+</ul>
+</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Contrary to <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1a47e78422d29ab4668f6140fe8a5b16af"><span class="std std-ref"><span class="pre">charm_shs_point()</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1add861cfba63c63d85c613ffe68af5c98"><span class="std std-ref"><span class="pre">charm_shs_cell()</span></span></a></code>, the computation is <em>not</em> exact, but the output accuracy can be well controled by the input variables.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The function does not use spherical radii <code class="docutils literal notranslate"><span class="pre">cell-&gt;r</span></code>, since these are synthesized from <code class="docutils literal notranslate"><span class="pre">shcs2</span></code>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The synthesis automatically starts at degree <code class="docutils literal notranslate"><span class="pre">nmin</span> <span class="pre">=</span> <span class="pre">0</span></code>. To use some other value of <code class="docutils literal notranslate"><span class="pre">nmin</span></code>, see the tip given in <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1a47e78422d29ab4668f6140fe8a5b16af"><span class="std std-ref"><span class="pre">charm_shs_point()</span></span></a></code>.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Both scaling constants of the <code class="docutils literal notranslate"><span class="pre">shcs2</span></code> structure that defines the irregular surface (<code class="docutils literal notranslate"><span class="pre">shcs2-&gt;mu</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs2-&gt;r</span></code>) have to be equal to <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This function is very demanding on RAM. More than <code class="docutils literal notranslate"><span class="pre">4</span> <span class="pre">*</span> <span class="pre">(nmax1</span> <span class="pre">+</span> <span class="pre">1)^2</span> <span class="pre">*</span> <span class="pre">(nmax3</span> <span class="pre">+</span> <span class="pre">1)^2</span> <span class="pre">*</span> <span class="pre">8</span> <span class="pre">/</span> <span class="pre">1024^3</span></code> GBs of memory are required in double precision. For instance, for <code class="docutils literal notranslate"><span class="pre">nmax1</span> <span class="pre">=</span> <span class="pre">150</span></code> and <code class="docutils literal notranslate"><span class="pre">nmax3</span> <span class="pre">=</span> <span class="pre">150</span></code>, about 15 GBs of RAM are occupied during the computation.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cell</strong> – <strong>[in]</strong> Evaluation cells organized as a <strong>grid</strong> (see <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code>).</p></li>
+<li><p><strong>shcs1</strong> – <strong>[in]</strong> Spherical harmonic coefficients of the function (e.g., the gravitational potential), the block mean values of which are synthesized (see <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code>).</p></li>
+<li><p><strong>nmax1</strong> – <strong>[in]</strong> Maximum harmonic degree of the function given by <code class="docutils literal notranslate"><span class="pre">shcs1</span></code>, the block mean values of which are synthesized.</p></li>
+<li><p><strong>shcs2</strong> – <strong>[in]</strong> Spherical harmonic coefficients of the surface, on which the block mean values are synthesized (see <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code>). The surface must be defined by the spherical radii <code class="docutils literal notranslate"><span class="pre">r</span></code>, that is, the synthesis of <code class="docutils literal notranslate"><span class="pre">shcs2</span></code> yields spherical radii of the surface, on which the mean values are sought.</p></li>
+<li><p><strong>nmax2</strong> – <strong>[in]</strong> Maximum harmonic degree of the surface defined by <code class="docutils literal notranslate"><span class="pre">shcs2</span></code>, on which the block mean values are synthesized.</p></li>
+<li><p><strong>nmax3</strong> – <strong>[in]</strong> Maximum harmonic degree of the powers <code class="docutils literal notranslate"><span class="pre">(shcs1-&gt;r</span> <span class="pre">/</span> <span class="pre">r)^(n</span> <span class="pre">+</span> <span class="pre">1)</span></code> used in the synthesis of the mean values. The term <code class="docutils literal notranslate"><span class="pre">(shcs1-&gt;r</span> <span class="pre">/</span> <span class="pre">r)^(n</span> <span class="pre">+</span> <span class="pre">1)</span></code> is a 2D sphere-like surface and <code class="docutils literal notranslate"><span class="pre">nmax3</span></code> defines the maximum harmonic degree of this surface to be used in the synthesis. In theory, <code class="docutils literal notranslate"><span class="pre">nmax3</span></code> should be infinite, since <code class="docutils literal notranslate"><span class="pre">shcs1-&gt;r</span> <span class="pre">/</span> <span class="pre">r</span></code> is non-band-limited for <code class="docutils literal notranslate"><span class="pre">r</span></code> band-limited to <code class="docutils literal notranslate"><span class="pre">nmax2</span></code>.</p></li>
+<li><p><strong>nmax4</strong> – <strong>[in]</strong> Maximum harmonic degree, up to which the powers <code class="docutils literal notranslate"><span class="pre">(shcs1-&gt;r</span> <span class="pre">/</span> <span class="pre">r)^(n</span> <span class="pre">+</span> <span class="pre">1)</span></code> are harmonically analyzed. The higher is the value of <code class="docutils literal notranslate"><span class="pre">nmax4</span></code>, the smaller is the aliasing effect. In theory, <code class="docutils literal notranslate"><span class="pre">nmax4</span></code> should be infinite, since <code class="docutils literal notranslate"><span class="pre">shcs1-&gt;r</span> <span class="pre">/</span> <span class="pre">r</span></code> is non-band-limited for band-limited <code class="docutils literal notranslate"><span class="pre">r</span></code>. Note that <code class="docutils literal notranslate"><span class="pre">nmax4</span></code> cannot be smaller than <code class="docutils literal notranslate"><span class="pre">nmax3</span></code>. In other words, the term <code class="docutils literal notranslate"><span class="pre">(shcs1-&gt;r</span> <span class="pre">/</span> <span class="pre">r)^(n</span> <span class="pre">+</span> <span class="pre">1)</span></code> is harmonically analyzed up to degree <code class="docutils literal notranslate"><span class="pre">nmax4</span></code>, but to synthesize it later, the <code class="docutils literal notranslate"><span class="pre">nmax3</span></code> maximum degree is used.</p></li>
+<li><p><strong>f</strong> – <strong>[out]</strong> Pointer to an output array with the synthesized mean values. The pointer <code class="docutils literal notranslate"><span class="pre">f</span></code> must have an access to <code class="docutils literal notranslate"><span class="pre">cell-&gt;nlat</span> <span class="pre">*</span> <span class="pre">cell-&gt;nlon</span></code> array elements. The mean value of the signal synthesized at the <code class="docutils literal notranslate"><span class="pre">i</span></code>th cell in the latitudinal direction and <code class="docutils literal notranslate"><span class="pre">j</span></code>th cell in the longitudinal direction can be found as: <code class="docutils literal notranslate"><span class="pre">f[i</span> <span class="pre">*</span> <span class="pre">cell-&gt;nlon</span> <span class="pre">+</span> <span class="pre">j]</span></code> with <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">cell-&gt;nlat</span> <span class="pre">-</span> <span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">cell-&gt;nlon</span> <span class="pre">-</span> <span class="pre">1</span></code>.</p></li>
+<li><p><strong>err</strong> – <strong>[out]</strong> Error reported by the function (if any). </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="api-c-sha.html" class="btn btn-neutral float-right" title="charm_sha" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="api-c-crd.html" class="btn btn-neutral float-left" title="charm_crd" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Blažej Bucha.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

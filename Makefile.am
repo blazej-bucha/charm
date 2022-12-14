@@ -14,12 +14,14 @@ SUBDIRS = charm \
 		  src/xnum \
 		  src/glob \
 		  src/simd \
+		  . \
 		  tests \
 		  bench \
 		  docs \
 		  m4 \
 		  cookbook \
-		  data
+		  data \
+		  wrap/pyharm
 
 
 SUBLIBS = src/crd/libcharm@P@_crd@OMP@.la \
@@ -47,9 +49,8 @@ EXTRA_DIST = AUTHORS \
 			 README.rst \
 			 TODO \
 			 VERSION \
-			 charm-tmpl.pc.in \
-			 config.h.in \
-			 configure.ac
+			 configure.ac \
+			 pyharm-parser.py
 
 
 lib_LTLIBRARIES = libcharm@P@@OMP@.la
@@ -64,12 +65,26 @@ pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = charm@P@@OMP@.pc
 
 
-.PHONY: docs bench
-
-
-docs:
-	cd docs && $(MAKE) docs-local
+.PHONY: bench
 
 
 bench:
 	cd bench && $(MAKE) bench-local
+
+
+pyharm-parser:
+	$(PYTHON) pyharm-parser.py
+
+
+remove-files:
+	rm -rf __pycache__
+
+
+clean-local: remove-files
+
+
+distclean-local: remove-files
+
+
+maintainer-clean-local: remove-files
+

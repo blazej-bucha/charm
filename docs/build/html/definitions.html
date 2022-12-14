@@ -106,7 +106,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Interfaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
@@ -296,16 +296,15 @@ boundaries to save some memory.</p>
 </li>
 <li><p><strong>Grid of cells</strong> is defined by</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">nlat</span></code> latitudes over a single grid meridian,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">nlon</span></code> longitudes over a single grid latitude parallel, and</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nlat</span></code> minimum cell latitudes over a single grid meridian,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nlat</span></code> maximum cell latitudes over a single grid meridian,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nlon</span></code> minimum longitudes over a single grid latitude parallel,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nlon</span></code> maximum longitudes over a single grid latitude parallel, and</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">nlat</span></code> spherical radii over a single grid meridian.</p></li>
 </ul>
-<p>The grid has in total <code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">*</span> <span class="pre">nlon</span></code> cells.  Note, however, that there is
-<code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">nlat</span></code> latitudes and <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">nlon</span></code> longitudes, since each grid cell is
-defined by a minimum and a maximum latitude, and a minimum and a maximum
-longitude (see the definitions above).  Given that the spherical radius (1)
-is implicitly constant over a grid cell and (2) may vary only with latitude,
-there is <code class="docutils literal notranslate"><span class="pre">nlat</span></code> spherical radii.</p>
+<p>The grid has in total <code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">*</span> <span class="pre">nlon</span></code> cells.  Given that the spherical radius
+(1) is implicitly constant over a grid cell and (2) may vary only with
+latitude, there is <code class="docutils literal notranslate"><span class="pre">nlat</span></code> spherical radii.</p>
 <p>Again, CHarm stores only the grid boundaries.</p>
 </li>
 <li><p><strong>Scattered points</strong> are defined by</p>
@@ -318,19 +317,19 @@ there is <code class="docutils literal notranslate"><span class="pre">nlat</span
 </li>
 <li><p><strong>Scattered cells</strong> are defined by</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">nlat</span> <span class="pre">==</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">nlon</span></code> latitudes,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">nlat</span> <span class="pre">==</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">nlon</span></code> longitudes, and</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">==</span> <span class="pre">nlon</span></code> minimum latitudes,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">==</span> <span class="pre">nlon</span></code> maximum latitudes,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">==</span> <span class="pre">nlon</span></code> minimum longitudes,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">==</span> <span class="pre">nlon</span></code> maximum longitudes,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">==</span> <span class="pre">nlon</span></code> spherical radii.</p></li>
 </ul>
-<p>The total number of scattered cells is <code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">==</span> <span class="pre">nlon</span></code>.  Similarly as with
-the <em>grid of cells</em>, we have <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">nlat</span> <span class="pre">==</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">nlon</span></code> latitudes and
-longitudes, but only <code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">==</span> <span class="pre">nlon</span></code> spherical radii and cells.</p>
+<p>The total number of scattered cells is <code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">==</span> <span class="pre">nlon</span></code>.</p>
 </li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Routines implementing the definitions of evaluation points/cells are
-gathered in the <a class="reference internal" href="crd.html#charm-crd"><span class="std std-ref">charm_crd</span></a> module.</p>
+gathered in <a class="reference internal" href="api-c-crd.html#charm-crd"><span class="std std-ref">charm_crd</span></a> and <a class="reference internal" href="api-py-crd.html#pyharm-crd"><span class="std std-ref">pyharm.crd</span></a>.</p>
 </div>
 </div>
 <div class="section" id="surface-spherical-harmonics">
@@ -406,8 +405,8 @@ Driscoll–Healy quadrature (Driscoll and Healy, 1994).</p>
 the quadratures are no longer exact.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Routines for spherical harmonic analysis are gathered in the
-<a class="reference internal" href="sha.html#charm-sha"><span class="std std-ref">charm_sha</span></a> module.</p>
+<p>Routines for spherical harmonic analysis are gathered in
+<a class="reference internal" href="api-c-sha.html#charm-sha"><span class="std std-ref">charm_sha</span></a> and <a class="reference internal" href="api-py-sha.html#pyharm-sha"><span class="std std-ref">pyharm.sha</span></a>.</p>
 </div>
 </div>
 <div class="section" id="spherical-harmonic-synthesis">
@@ -445,7 +444,8 @@ grid-wise numerical computations.</p>
 = \varphi_{\mathrm{min}}}^{\varphi_{\mathrm{max}}} \int\limits_{\lambda
 = \lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}} f(r(\varphi,\lambda),
 \varphi,\lambda) \\
-&amp;\times \mathrm{d}\lambda \, \cos\varphi \, \mathrm{d} \varphi {.}\end{split}\]</div>
+&amp;\times \mathrm{d}\lambda \, \cos\varphi \, \mathrm{d} \varphi {,}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\Delta\sigma\)</span> is the size of the cell on the unit sphere.</p>
 <p>Note that in the latter equation, <span class="math notranslate nohighlight">\(f(r(\varphi,\lambda),\varphi,\lambda)\)</span>
 is defined on an irregular surface given by a spherical radius
 <span class="math notranslate nohighlight">\(r(\varphi,\lambda)\)</span> that varies with the latitude and longitude.  This
@@ -453,8 +453,8 @@ computation is unique to CHarm and cannot be found in any other publicly
 available package or library.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Routines for spherical harmonic synthesis are gathered in the
-<a class="reference internal" href="shs.html#charm-shs"><span class="std std-ref">charm_shs</span></a> module.</p>
+<p>Routines for spherical harmonic synthesis are gathered in
+<a class="reference internal" href="api-c-shs.html#charm-shs"><span class="std std-ref">charm_shs</span></a> and <a class="reference internal" href="api-c-shs.html#charm-shs"><span class="std std-ref">charm_shs</span></a>.</p>
 </div>
 </div>
 <div class="section" id="references">

@@ -1,5 +1,9 @@
 Upcoming release:
 
+* Added Python wrapper called PyHarm.  This step necessitated several 
+  modifications of the CHarm API, some of which are not backward compatible.  
+  The changes are listed below.
+
 * The "charm_crd" structure was replaced by new structures:
 
     * "charm_point" and
@@ -92,6 +96,10 @@ Upcoming release:
 
 * Added support for Fortran's "D" and "d" decimal exponents when reading from 
   text files.
+
+* Compiling CHarm as a shared library is no longer disabled by default.
+
+* The documentation can now be build with "make html" instead of "make docs".
 
 CHarm 0.1.2:
 
