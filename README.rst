@@ -43,11 +43,10 @@ Features
 
 * Performs discrete FFT by `FFTW <http://www.fftw.org/>`_.
 
-* Ships with a Python wrapper to enable comfortable high-level programming 
-  while retaining the efficiency of the C language.  The wrapper, called 
-  PyHarm, wraps CHarm using `ctypes 
-  <https://docs.python.org/3/library/ctypes.html>`_ and is fully integrated 
-  with `numpy <https://numpy.org/>`_.
+* Ships with a Python wrapper to enable high-level programming while retaining 
+  the efficiency of the C language.  The wrapper, called PyHarm, wraps CHarm 
+  using `ctypes <https://docs.python.org/3/library/ctypes.html>`_ and is fully 
+  integrated with `numpy <https://numpy.org/>`_.
 
 .. [#f1] This routine is unique to CHarm.
 
@@ -81,7 +80,7 @@ Alternatively, it can be built by executing ``make html`` after the
 ``configure`` call (requires ``doxygen`` and Python modules ``sphinx``, 
 ``sphinx_rtd_theme`` and ``breathe``).  Other formats of the documentation, for 
 instance, a PDF file, can be built with ``cd docs && make latexpdf``, etc.  To 
-list list all available formats, execute ``cd docs && make help``.
+list all available formats, execute ``cd docs && make help``.
 
 
 .. _contact:
