@@ -672,7 +672,7 @@ extern void charm@P@_shc_write_bin(const charm@P@_shc *shcs,
 
 /** Writes ``shcs`` up to degree ``nmax`` to a text file whose name is the
  * string pointed to by ``pathname`` using the ``format`` specifier and the
- * ``order`` scheme for ordering spherical harmonic coefficients.  Error
+ * ``ordering`` scheme for ordering spherical harmonic coefficients.  Error
  * reported by the function (if any) is written to ``err``.
  *
  * The ``format`` specifier is used for all *floating point* data of 
@@ -682,7 +682,7 @@ extern void charm@P@_shc_write_bin(const charm@P@_shc *shcs,
  * ``%0.16f``.  The ``format`` specifiers may vary with the precision of the 
  * library (single, double or quadruple).
  *
- * If ``order == CHARM_SHC_WRITE_TBL_N``, the output file has the following
+ * If ``ordering == CHARM_SHC_WRITE_TBL_N``, the output file has the following
  * structure:
  *
  * \verbatim embed:rst:leading-asterisk
@@ -708,7 +708,7 @@ extern void charm@P@_shc_write_bin(const charm@P@_shc *shcs,
  *
  * \endverbatim
  *
- * If ``order == CHARM_SHC_WRITE_TBL_M``, the output file has the following
+ * If ``ordering == CHARM_SHC_WRITE_TBL_M``, the output file has the following
  * structure:
  *
  * \verbatim embed:rst:leading-asterisk
@@ -764,7 +764,7 @@ extern void charm@P@_shc_write_bin(const charm@P@_shc *shcs,
 extern void charm@P@_shc_write_tbl(const charm@P@_shc *shcs,
                                    unsigned long nmax,
                                    const char *format,
-                                   int order,
+                                   int ordering,
                                    const char *pathname,
                                    charm@P@_err *err);
 
