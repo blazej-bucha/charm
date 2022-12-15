@@ -287,7 +287,7 @@ int shs(unsigned long nmax_topo, char SHCs_topo_file[],
                                 errnum += validate(file, f,
                                                    grd_pnt->nlat *
                                                    grd_pnt->nlon,
-                                                   PREC(10.0) *
+                                                   PREC(100.0) *
                                                    CHARM(glob_threshold));
 
 
