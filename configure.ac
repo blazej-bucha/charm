@@ -414,6 +414,9 @@ if test "$py" = "yes"; then
 fi
 
 
+AM_CONDITIONAL(PY, test "$py" = "yes")
+
+
 dnl Python interface must be enabled to build the documentation
 AM_CONDITIONAL(DOC_PY, test "$py" = "yes")
 
@@ -459,15 +462,11 @@ AC_CONFIG_FILES([Makefile \
                  m4/Makefile \
                  cookbook/Makefile \
                  data/Makefile \
-                 charm-tmpl.pc], [], [P=${P}])
-
-
-if test "$py" = "yes"; then
-    AC_CONFIG_FILES([setup.py \
-                     wrap/pyharm/__init__.py \
-                     wrap/pyharm/_data_types.py \
-                     wrap/pyharm/Makefile], [], [])
-fi
+                 wrap/pyharm/Makefile \
+                 charm-tmpl.pc \
+                 setup.py \
+                 wrap/pyharm/__init__.py \
+                 wrap/pyharm/_data_types.py], [], [P=${P}])
 
 
 AC_OUTPUT

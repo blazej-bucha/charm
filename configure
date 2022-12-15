@@ -667,6 +667,8 @@ SINGLE_PY_FALSE
 SINGLE_PY_TRUE
 DOC_PY_FALSE
 DOC_PY_TRUE
+PY_FALSE
+PY_TRUE
 SHARED_EXT
 OBJDIR
 PY_FLOAT
@@ -15064,6 +15066,16 @@ fi
 
 
  if test "$py" = "yes"; then
+  PY_TRUE=
+  PY_FALSE='#'
+else
+  PY_TRUE='#'
+  PY_FALSE=
+fi
+
+
+
+ if test "$py" = "yes"; then
   DOC_PY_TRUE=
   DOC_PY_FALSE='#'
 else
@@ -15087,14 +15099,8 @@ fi
 
 
 
-ac_config_files="$ac_config_files Makefile charm/charm${P}.h:src/charm.h.in charm/charm${P}_crd.h:src/crd/crd.h.in charm/charm${P}_err.h:src/err/err.h.in charm/charm${P}_integ.h:src/integ/integ.h.in charm/charm${P}_leg.h:src/leg/leg.h.in charm/charm${P}_misc.h:src/misc/misc.h.in charm/charm${P}_sha.h:src/sha/sha.h.in charm/charm${P}_shc.h:src/shc/shc.h.in charm/charm${P}_shs.h:src/shs/shs.h.in charm/charm${P}_xnum.h:src/xnum/xnum.h.in charm/charm${P}_glob.h:src/glob/glob.h.in charm/Makefile src/Makefile src/crd/Makefile src/err/Makefile src/integ/Makefile src/leg/Makefile src/misc/Makefile src/sha/Makefile src/shc/Makefile src/shs/Makefile src/xnum/Makefile src/glob/Makefile src/simd/Makefile tests/Makefile bench/Makefile docs/Makefile m4/Makefile cookbook/Makefile data/Makefile charm-tmpl.pc"
+ac_config_files="$ac_config_files Makefile charm/charm${P}.h:src/charm.h.in charm/charm${P}_crd.h:src/crd/crd.h.in charm/charm${P}_err.h:src/err/err.h.in charm/charm${P}_integ.h:src/integ/integ.h.in charm/charm${P}_leg.h:src/leg/leg.h.in charm/charm${P}_misc.h:src/misc/misc.h.in charm/charm${P}_sha.h:src/sha/sha.h.in charm/charm${P}_shc.h:src/shc/shc.h.in charm/charm${P}_shs.h:src/shs/shs.h.in charm/charm${P}_xnum.h:src/xnum/xnum.h.in charm/charm${P}_glob.h:src/glob/glob.h.in charm/Makefile src/Makefile src/crd/Makefile src/err/Makefile src/integ/Makefile src/leg/Makefile src/misc/Makefile src/sha/Makefile src/shc/Makefile src/shs/Makefile src/xnum/Makefile src/glob/Makefile src/simd/Makefile tests/Makefile bench/Makefile docs/Makefile m4/Makefile cookbook/Makefile data/Makefile wrap/pyharm/Makefile charm-tmpl.pc setup.py wrap/pyharm/__init__.py wrap/pyharm/_data_types.py"
 
-
-
-if test "$py" = "yes"; then
-    ac_config_files="$ac_config_files setup.py wrap/pyharm/__init__.py wrap/pyharm/_data_types.py wrap/pyharm/Makefile"
-
-fi
 
 
 cat >confcache <<\_ACEOF
@@ -15240,6 +15246,10 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${OPENMP_TRUE}" && test -z "${OPENMP_FALSE}"; then
   as_fn_error $? "conditional \"OPENMP\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${PY_TRUE}" && test -z "${PY_FALSE}"; then
+  as_fn_error $? "conditional \"PY\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${DOC_PY_TRUE}" && test -z "${DOC_PY_FALSE}"; then
@@ -16156,11 +16166,11 @@ do
     "m4/Makefile") CONFIG_FILES="$CONFIG_FILES m4/Makefile" ;;
     "cookbook/Makefile") CONFIG_FILES="$CONFIG_FILES cookbook/Makefile" ;;
     "data/Makefile") CONFIG_FILES="$CONFIG_FILES data/Makefile" ;;
+    "wrap/pyharm/Makefile") CONFIG_FILES="$CONFIG_FILES wrap/pyharm/Makefile" ;;
     "charm-tmpl.pc") CONFIG_FILES="$CONFIG_FILES charm-tmpl.pc" ;;
     "setup.py") CONFIG_FILES="$CONFIG_FILES setup.py" ;;
     "wrap/pyharm/__init__.py") CONFIG_FILES="$CONFIG_FILES wrap/pyharm/__init__.py" ;;
     "wrap/pyharm/_data_types.py") CONFIG_FILES="$CONFIG_FILES wrap/pyharm/_data_types.py" ;;
-    "wrap/pyharm/Makefile") CONFIG_FILES="$CONFIG_FILES wrap/pyharm/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac
