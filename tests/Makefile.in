@@ -113,7 +113,8 @@ am_test_run@P@@OMP@_OBJECTS = test_run@P@@OMP@-run.$(OBJEXT) \
 	test_run@P@@OMP@-generate_cell.$(OBJEXT) \
 	test_run@P@@OMP@-crd.$(OBJEXT) test_run@P@@OMP@-shc.$(OBJEXT) \
 	test_run@P@@OMP@-shs.$(OBJEXT) test_run@P@@OMP@-sha.$(OBJEXT) \
-	test_run@P@@OMP@-leg.$(OBJEXT)
+	test_run@P@@OMP@-leg.$(OBJEXT) \
+	test_run@P@@OMP@-leg_abs_simd.$(OBJEXT)
 test_run@P@@OMP@_OBJECTS = $(am_test_run@P@@OMP@_OBJECTS)
 test_run@P@@OMP@_DEPENDENCIES = $(top_builddir)/libcharm@P@@OMP@.la
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -144,6 +145,7 @@ am__depfiles_remade = ./$(DEPDIR)/test_run@P@@OMP@-cmp_arrays.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-generate_cell.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-generate_point.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-leg.Po \
+	./$(DEPDIR)/test_run@P@@OMP@-leg_abs_simd.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-run.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-sha.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-shc.Po \
@@ -333,7 +335,8 @@ test_run@P@@OMP@_SOURCES = run.c \
 						   shc.c \
 						   shs.c \
 						   sha.c \
-						   leg.c
+						   leg.c \
+						   leg_abs_simd.c
 
 
 # Path to header files
@@ -405,6 +408,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-generate_cell.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-generate_point.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-leg.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-leg_abs_simd.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-run.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-sha.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-shc.Po@am__quote@ # am--include-marker
@@ -578,6 +582,20 @@ test_run@P@@OMP@-leg.obj: leg.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-leg.obj `if test -f 'leg.c'; then $(CYGPATH_W) 'leg.c'; else $(CYGPATH_W) '$(srcdir)/leg.c'; fi`
 
+test_run@P@@OMP@-leg_abs_simd.o: leg_abs_simd.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-leg_abs_simd.o -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-leg_abs_simd.Tpo -c -o test_run@P@@OMP@-leg_abs_simd.o `test -f 'leg_abs_simd.c' || echo '$(srcdir)/'`leg_abs_simd.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-leg_abs_simd.Tpo $(DEPDIR)/test_run@P@@OMP@-leg_abs_simd.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='leg_abs_simd.c' object='test_run@P@@OMP@-leg_abs_simd.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-leg_abs_simd.o `test -f 'leg_abs_simd.c' || echo '$(srcdir)/'`leg_abs_simd.c
+
+test_run@P@@OMP@-leg_abs_simd.obj: leg_abs_simd.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-leg_abs_simd.obj -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-leg_abs_simd.Tpo -c -o test_run@P@@OMP@-leg_abs_simd.obj `if test -f 'leg_abs_simd.c'; then $(CYGPATH_W) 'leg_abs_simd.c'; else $(CYGPATH_W) '$(srcdir)/leg_abs_simd.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-leg_abs_simd.Tpo $(DEPDIR)/test_run@P@@OMP@-leg_abs_simd.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='leg_abs_simd.c' object='test_run@P@@OMP@-leg_abs_simd.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-leg_abs_simd.obj `if test -f 'leg_abs_simd.c'; then $(CYGPATH_W) 'leg_abs_simd.c'; else $(CYGPATH_W) '$(srcdir)/leg_abs_simd.c'; fi`
+
 mostlyclean-libtool:
 	-rm -f *.lo
 
@@ -669,6 +687,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-generate_cell.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-generate_point.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-leg.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-leg_abs_simd.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-run.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-sha.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-shc.Po
@@ -724,6 +743,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-generate_cell.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-generate_point.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-leg.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-leg_abs_simd.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-run.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-sha.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-shc.Po

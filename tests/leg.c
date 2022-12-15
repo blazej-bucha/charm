@@ -4,9 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../src/prec.h"
+#include "../src/simd/simd.h"
 #include "cmp_arrays.h"
 #include "validate.h"
 #include "parameters.h"
+#include "leg_abs_simd.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -105,6 +107,15 @@ int leg(void)
             CHARM(leg_pnmj_free)(pnmj);
         }
     }
+
+
+
+
+
+
+#ifdef SIMD
+    errnum += leg_abs_simd();
+#endif
 
 
 

@@ -125,7 +125,7 @@
 #           define SIMD_TRUE     0xFF
 #           define PF(x)         _mm256_ ## x ## _ps
 #           define PINT(x)       _mm256_ ## x ## _epi32
-#           define PINT2(x)      _mm256_ ## x ## _epi32
+#           define PINT2         PINT
 #           define REAL_SIMD     __m256
 
 #       else /* Double precision */
@@ -162,7 +162,7 @@
 #           define SIMD_SIZE     16
 #           define SIMD_TRUE     0xFFFF
 #           define PF(x)         _mm512_ ## x ## _ps
-#           define PF_MASK(x)    _mm512_ ## x ## _ps ## _mask
+#           define PF_MASK(x)    _mm512_ ## x ## _ps_mask
 #           define PINT(x)       _mm512_ ## x ## _epi32
 #           define PI_MASK(x)    _mm512_ ## x ## _epi32_mask
 #           define REAL_SIMD     __m512
@@ -174,7 +174,7 @@
 #           define SIMD_SIZE     8
 #           define SIMD_TRUE     0xFF
 #           define PF(x)         _mm512_ ## x ## _pd
-#           define PF_MASK(x)    _mm512_ ## x ## _pd ## _mask
+#           define PF_MASK(x)    _mm512_ ## x ## _pd_mask
 #           define PINT(x)       _mm512_ ## x ## _epi64
 #           define PI_MASK(x)    _mm512_ ## x ## _epi64_mask
 #           define REAL_SIMD     __m512d
@@ -184,7 +184,8 @@
 #       endif
 
 
-#       define SIMD_MEMALIGN 64
+#       define SIMD_MEMALIGN     64
+#       define PINT2             PINT
 #       define P(x)              _mm512_ ## x
 #       define INT_SIMD          __m512i
 #       define RI_SIMD           INT_SIMD
@@ -313,15 +314,26 @@
 #   endif
 
 
-    /* Absolute value of a double vector */
+    /* Absolute value of a SIMD vector */
     /* ..................................................................... */
-    /* Compute the absolute value of all elements of a "__m256d" vector using
-     * the "ABS_R" macro.  Before using "ABS_R" in a code, the "ABS_R_INIT"
-     * macro must be called, ideally only once outside any loop.
-     *
-     * Do not touch the "-" sign in "ABS_R_MASK". */
-#   define ABS_R_INIT   REAL_SIMD ABS_R_MASK = SET1_R(PREC(-0.0))
-#   define ABS_R(x)     PF(andnot)(ABS_R_MASK, (x))
+    /* Compute the absolute value of all elements of a SIMD vector using the
+     * "ABS_R" macro.  Before using "ABS_R" in a code, the "ABS_R_INIT" macro
+     * must be called, ideally only once outside any loop. */
+#   ifdef CHARM_FLOAT
+#       define NONSIGNBITS 0x7FFFFFFF
+#   else
+#       define NONSIGNBITS 0x7FFFFFFFFFFFFFFFLL
+#   endif
+#   if HAVE_AVX_INSTRUCTIONS || HAVE_AVX2_INSTRUCTIONS
+#       define ABS_R_INIT   REAL_SIMD ABS_R_MASK = \
+                                        PF(castsi256)(PINT2(set1)(NONSIGNBITS))
+#   elif HAVE_AVX512F_INSTRUCTIONS
+#       define ABS_R_INIT   REAL_SIMD ABS_R_MASK = \
+                                        PF(castsi512)(PINT2(set1)(NONSIGNBITS))
+#   endif
+
+
+#   define ABS_R(x)     PF(and)(ABS_R_MASK, (x))
     /* ..................................................................... */
 
 
