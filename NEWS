@@ -88,6 +88,10 @@ Upcoming release:
 * Bug fix for "integ_pn1m1pn2m2".  The routine now works correctly with both 
   ordering schemes of Fourier coefficients of Legendre functions.
 
+* Bug fix for "shc_read_bin".  The function no longer throws an error when 
+  reading coefficients up to a lower maximum degree than the one in the binary 
+  file.
+
 * Fix a few leg_pnmj tests that did not actually run.
 
 * Two members, "nc" and "ns", were added to the "charm_shc" structure to 
