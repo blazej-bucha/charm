@@ -114,7 +114,7 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
         if (!CHARM(misc_is_nearly_equal)(pnt->r[i], r0, CHARM(glob_threshold)))
         {
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
-                           "All spherical radii in \"pnt->r\" must be"
+                           "All spherical radii in \"pnt->r\" must be "
                            "equal.");
             return;
         }

@@ -82,7 +82,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
                                          CHARM(glob_threshold)))
         {
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
-                           "All spherical radii in \"cell->r\" must be"
+                           "All spherical radii in \"cell->r\" must be "
                            "equal.");
             return;
         }
