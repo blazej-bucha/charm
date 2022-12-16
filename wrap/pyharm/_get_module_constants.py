@@ -23,7 +23,7 @@ def _get_module_constants(prefix):
 
     for name, value in _globals.items():
         if name.startswith(prefix):
-            namespace[name.removeprefix(prefix)] = value
+            namespace[name[len(prefix):]] = value
 
     return
 

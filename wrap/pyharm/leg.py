@@ -176,7 +176,7 @@ class Pnmj:
     def __repr__(self):
 
         return f'{_pyharm}.leg.Pnmj({self.nmax}, {self.ordering}, ' \
-               f'\'{self._from_method}\')'
+               f'{self._from_method})'
 
 
     def __del__(self):
