@@ -1,6 +1,6 @@
-# Note that a few files from EXTRA_DIST that were generated during the 
-# compilation and installation will *not* be included in distributions (see the 
-# "DEL_FILES" variable)
+# Note that a few files from EXTRA_DIST generated during the compilation and 
+# installation will still *not* be intentionally included in distributions (see 
+# the "DEL_FILES" variable)
 EXTRA_DIST = *.py \
 			 lib
 
@@ -36,15 +36,14 @@ if PY
 endif
 
 
+# This target should be executed regardless of whether or not PyHarm is build.
 remove-files:
-if PY
 	rm -f $(DEL_FILES)
 	rm -rf __pycache__
 	rm -rf $(top_srcdir)/build
 	rm -rf $(top_srcdir)/wrap/pyharm.egg-info
 	rm -rf $(top_srcdir)/wrap/pyharmf
 	rm -rf $(top_srcdir)/wrap/pyharmf.egg-info
-endif
 
 
 clean-local: remove-files
@@ -53,8 +52,7 @@ clean-local: remove-files
 distclean-local: remove-files
 
 
+# This target should be executed regardless of whether or not PyHarm is build.
 dist-hook:
-if PY
 	cd $(top_distdir)/wrap/pyharm && rm -f $(DEL_FILES)
-endif
 

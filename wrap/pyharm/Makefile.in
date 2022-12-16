@@ -272,9 +272,9 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 
-# Note that a few files from EXTRA_DIST that were generated during the 
-# compilation and installation will *not* be included in distributions (see the 
-# "DEL_FILES" variable)
+# Note that a few files from EXTRA_DIST generated during the compilation and 
+# installation will still *not* be intentionally included in distributions (see 
+# the "DEL_FILES" variable)
 EXTRA_DIST = *.py \
 			 lib
 
@@ -500,20 +500,22 @@ uninstall-local:
 @PY_TRUE@	PATCH=`echo "@CHARM_PATCH@" | tr - .`; \
 @PY_TRUE@	rm -rf $(pythondir)/pyharm@P@-$$MAJOR.$$MINOR.$$PATCH*
 
+# This target should be executed regardless of whether or not PyHarm is build.
 remove-files:
-@PY_TRUE@	rm -f $(DEL_FILES)
-@PY_TRUE@	rm -rf __pycache__
-@PY_TRUE@	rm -rf $(top_srcdir)/build
-@PY_TRUE@	rm -rf $(top_srcdir)/wrap/pyharm.egg-info
-@PY_TRUE@	rm -rf $(top_srcdir)/wrap/pyharmf
-@PY_TRUE@	rm -rf $(top_srcdir)/wrap/pyharmf.egg-info
+	rm -f $(DEL_FILES)
+	rm -rf __pycache__
+	rm -rf $(top_srcdir)/build
+	rm -rf $(top_srcdir)/wrap/pyharm.egg-info
+	rm -rf $(top_srcdir)/wrap/pyharmf
+	rm -rf $(top_srcdir)/wrap/pyharmf.egg-info
 
 clean-local: remove-files
 
 distclean-local: remove-files
 
+# This target should be executed regardless of whether or not PyHarm is build.
 dist-hook:
-@PY_TRUE@	cd $(top_distdir)/wrap/pyharm && rm -f $(DEL_FILES)
+	cd $(top_distdir)/wrap/pyharm && rm -f $(DEL_FILES)
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
