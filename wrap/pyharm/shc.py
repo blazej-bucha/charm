@@ -407,9 +407,7 @@ class Shc:
         """
         Reads spherical harmonic coefficients up to degree `nmax` from a `gfc`
         file specified in `pathname`.  For the structure of the input file,
-        refer to
-        `https://blazej-bucha.github.io/charm/build/html/api-c-shc.html
-        <https://blazej-bucha.github.io/charm/build/html/api-c-shc.html>`_.
+        refer to `charm_shc <./api-c-shc.html>`_.
 
         Parameters
         ----------
@@ -433,9 +431,7 @@ class Shc:
         """
         Reads spherical harmonic coefficients up to degree `nmax` from a `mtx`
         file specified in `pathname`.  For the structure of the input file,
-        refer to
-        `https://blazej-bucha.github.io/charm/build/html/api-c-shc.html
-        <https://blazej-bucha.github.io/charm/build/html/api-c-shc.html>`_.
+        refer to `charm_shc <./api-c-shc.html>`_.
 
         Parameters
         ----------
@@ -459,9 +455,7 @@ class Shc:
         """
         Reads spherical harmonic coefficients up to degree `nmax` from a `tbl`
         file specified in `pathname`.  For the structure of the input file,
-        refer to
-        `https://blazej-bucha.github.io/charm/build/html/api-c-shc.html
-        <https://blazej-bucha.github.io/charm/build/html/api-c-shc.html>`_.
+        refer to `charm_shc <./api-c-shc.html>`_.
 
         Parameters
         ----------
@@ -485,9 +479,7 @@ class Shc:
         """
         Reads spherical harmonic coefficients up to degree `nmax` from a `bin`
         file specified in `pathname`.  For the structure of the input file,
-        refer to
-        `https://blazej-bucha.github.io/charm/build/html/api-c-shc.html
-        <https://blazej-bucha.github.io/charm/build/html/api-c-shc.html>`_.
+        refer to `charm_shc <./api-c-shc.html>`_.
 
         Parameters
         ----------
@@ -511,8 +503,7 @@ class Shc:
         Writes an :class:`Shc` class instance up to degree `nmax` to a text
         file specified in `pathname` using formatting for floating point
         numbers `format`.  For the structure of the output file, refer to
-        `https://blazej-bucha.github.io/charm/build/html/api-c-shc.html
-        <https://blazej-bucha.github.io/charm/build/html/api-c-shc.html>`_.
+        `charm_shc <./api-c-shc.html>`_.
 
         Parameters
         ----------
@@ -560,9 +551,7 @@ class Shc:
         Writes an :class:`Shc` class instance up to degree `nmax` to a text
         file specified in `pathname` using formatting for floating point
         numbers `format` and ordering scheme `ordering`.  For the structure of
-        the output file, refer to
-        `https://blazej-bucha.github.io/charm/build/html/api-c-shc.html
-        <https://blazej-bucha.github.io/charm/build/html/api-c-shc.html>`_.
+        the output file, refer to `charm_shc <./api-c-shc.html>`_.
 
         Parameters
         ----------
@@ -621,9 +610,7 @@ class Shc:
         """
         Writes an :class:`Shc` class instance up to degree `nmax` to a binary 
         file specified in `pathname`.  For the structure of the output file, 
-        refer to 
-        `https://blazej-bucha.github.io/charm/build/html/api-c-shc.html
-        <https://blazej-bucha.github.io/charm/build/html/api-c-shc.html>`_.
+        refer to `charm_shc <./api-c-shc.html>`_.
 
         Parameters
         ----------

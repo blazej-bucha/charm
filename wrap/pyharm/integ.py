@@ -212,9 +212,7 @@ def _check_pn1m1pn2m2_inputs(cltmin, cltmax, n1, m1, n2, m2, pnmj):
         associated Legendre functions up to degree :obj:`max(n1, n2)`.  It is
         assumed that the instance is prepared beforehand.  Note that :obj:`j`
         is related to wave-numbers, but is *not* a wave-number (refer to
-        `https://blazej-bucha.github.io/charm/build/html/api-c-leg.html
-        <https://blazej-bucha.github.io/charm/build/html/api-c-leg.html>`_ for
-        the full documentation).
+        `charm_leg <./api-c-leg.html>`_ for the full documentation).
     """
 
     _check_flt_scalar(cltmin, 'The minimum co-latitude')

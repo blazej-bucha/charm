@@ -36,10 +36,8 @@ CELL_AQ: int
 def point(pnt, f, nmax, mu=_MU, r=_R):
     """
     Performs surface spherical harmonic analysis of point values :obj:`f` at
-    :obj:`pnt` up to maximum degree :obj:`nmax`.  Refer to
-    `https://blazej-bucha.github.io/charm/build/html/api-c-sha.html 
-    <https://blazej-bucha.github.io/charm/build/html/api-c-sha.html>`_ for the 
-    full documentation.
+    :obj:`pnt` up to maximum degree :obj:`nmax`.  Refer to `charm_sha 
+    <./api-c-sha.html>`_ for the full documentation.
 
     Parameters
     ----------
@@ -108,10 +106,8 @@ def point(pnt, f, nmax, mu=_MU, r=_R):
 def cell(cell, f, nmax, method, mu=_MU, r=_R):
     """
     Performs surface spherical harmonic analysis of point values :obj:`f` at
-    :obj:`cell` up to maximum degree :obj:`nmax`.  Refer to
-    `https://blazej-bucha.github.io/charm/build/html/api-c-shc.html 
-    <https://blazej-bucha.github.io/charm/build/html/api-c-shc.html>`_ for the 
-    full documentation.
+    :obj:`cell` up to maximum degree :obj:`nmax`.  Refer to `charm_sha 
+    <./api-c-sha.html>`_ for the full documentation.
 
     Parameters
     ----------

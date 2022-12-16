@@ -19,10 +19,8 @@ from ._data_types import _ct_ulong, _ct_flt, _pyharm_flt
 def point(pnt, shcs, nmax):
     """
     Performs spherical harmonic synthesis of point values from :obj:`shcs` at
-    :obj:`pnt` up to maximum degree :obj:`nmax`.  Refer to
-    `https://blazej-bucha.github.io/charm/build/html/api-c-shs.html
-    <https://blazej-bucha.github.io/charm/build/html/api-c-shs.html>`_ for the 
-    full documentation.
+    :obj:`pnt` up to maximum degree :obj:`nmax`.  Refer to `charm_shs 
+    <./api-c-shs.html>`_ for the full documentation.
 
     Parameters
     ----------
@@ -86,10 +84,8 @@ def point(pnt, shcs, nmax):
 def cell(cell, shcs, nmax):
     """
     Performs spherical harmonic synthesis of area-mean values from :obj:`shcs`
-    at :obj:`cell` up to maximum degree :obj:`nmax`.  Refer to
-    `https://blazej-bucha.github.io/charm/build/html/api-c-shs.html
-    <https://blazej-bucha.github.io/charm/build/html/api-c-shs.html>`_ for the 
-    full documentation.
+    at :obj:`cell` up to maximum degree :obj:`nmax`.  Refer to `charm_shs 
+    <./api-c-shs.html>`_ for the full documentation.
 
     Parameters
     ----------
@@ -155,10 +151,8 @@ def cell_isurf(cell, shcs1, nmax1, shcs2, nmax2, nmax3, nmax4):
     :obj:`nmax3` and :obj:`nmax4` represent the maximum harmonic degrees to 
     synthesize and analyze the :obj:`(shcs1.r / r)^(n + 1)` terms, where 
     :obj:`r` stands for the spherical radius of the irregular surface defined 
-    by :obj:`shcs2`.  Refer to 
-    `https://blazej-bucha.github.io/charm/build/html/api-c-shs.html 
-    <https://blazej-bucha.github.io/charm/build/html/api-c-shs.html>`_ for the 
-    full documentation.
+    by :obj:`shcs2`.  Refer to `charm_shs <./api-c-shs.html>`_ for the full 
+    documentation.
 
     Parameters
     ----------

@@ -326,6 +326,8 @@ Requirements
 
 * Python interpreter 3.6 or newer.
 
+* Python module pip.
+
 * Python module numpy (reasonably old version).
 
 * Python module ctypes (reasonably old version).

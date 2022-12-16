@@ -66,9 +66,7 @@ class _PointBase:
     It is not recommended for users to interact with this class.  
     Always work with the derived classes.
 
-    For details, refer to
-    `https://blazej-bucha.github.io/charm/build/html/api-c-crd.html
-    <https://blazej-bucha.github.io/charm/build/html/api-c-crd.html>`_.
+    For details, refer to `charm_crd <./api-c-crd.html>`_.
 
     Parameters
     ----------
@@ -91,8 +89,7 @@ class _PointBase:
               and :obj:`r` variables must be numpy floating point arrays of 
               dimension :obj:`1`.  The number of array elements of the arrays 
               depends on :obj:`crd_type` (for further detail, refer to 
-              `https://blazej-bucha.github.io/charm/build/html/api-c-crd.html 
-              <https://blazej-bucha.github.io/charm/build/html/api-c-crd.html>`_.)
+              `charm_crd <./api-c-crd.html>`_.)
 
     Note
     ----
@@ -496,9 +493,7 @@ class PointSctr(_PointBase):
     """
     Class for scattered points.
 
-    For details, refer to
-    `https://blazej-bucha.github.io/charm/build/html/api-c-crd.html
-    <https://blazej-bucha.github.io/charm/build/html/api-c-crd.html>`_.
+    For details, refer to `charm_crd <./api-c-crd.html>`_.
 
     To create a :class:`PointGrid` class instance, always use one of the 
     following factory methods:
@@ -631,9 +626,7 @@ class PointGrid(_PointBase):
     """
     Class for custom point grids.
 
-    For details, refer to
-    `https://blazej-bucha.github.io/charm/build/html/api-c-crd.html
-    <https://blazej-bucha.github.io/charm/build/html/api-c-crd.html>`_.
+    For details, refer to `charm_crd <./api-c-crd.html>`_.
 
     To create a :class:`PointGrid` class instance, always use one of the 
     following factory methods:
@@ -774,9 +767,7 @@ class PointGridGL(_PointBase):
     """
     Class for Gauss--Legendre point grids.
 
-    For details, refer to
-    `https://blazej-bucha.github.io/charm/build/html/api-c-crd.html
-    <https://blazej-bucha.github.io/charm/build/html/api-c-crd.html>`_.
+    For details, refer to `charm_crd <./api-c-crd.html>`_.
 
     Create a :class:`PointGridGL` class instance like this:
 
@@ -832,9 +823,7 @@ class PointGridDH1(_PointBase):
     """
     Class for non-equiangular Driscoll--Healy point grids.
 
-    For details, refer to
-    `https://blazej-bucha.github.io/charm/build/html/api-c-crd.html
-    <https://blazej-bucha.github.io/charm/build/html/api-c-crd.html>`_.
+    For details, refer to `charm_crd <./api-c-crd.html>`_.
 
     Create a :class:`PointGridDH1` class instance like this:
 
@@ -890,9 +879,7 @@ class PointGridDH2(_PointBase):
     """
     Class for equiangular Driscoll--Healy point grids.
 
-    For details, refer to
-    `https://blazej-bucha.github.io/charm/build/html/api-c-crd.html
-    <https://blazej-bucha.github.io/charm/build/html/api-c-crd.html>`_.
+    For details, refer to `charm_crd <./api-c-crd.html>`_.
 
     Create a :class:`PointGridDH2` class instance like this:
 
@@ -972,9 +959,7 @@ class _CellBase:
     It is not recommended for users to interact with this class.  
     Always work with the derived classes.
 
-    For details, refer to
-    `https://blazej-bucha.github.io/charm/build/html/api-c-crd.html
-    <https://blazej-bucha.github.io/charm/build/html/api-c-crd.html>`_.
+    For details, refer to `charm_crd <./api-c-crd.html>`_.
 
     Parameters
     ----------
@@ -998,9 +983,7 @@ class _CellBase:
               :obj:`lonmin`, :obj:`lonmax` and :obj:`r` variables must be numpy 
               floating point arrays of dimension :obj:`1`.  The number of array 
               elements of the arrays depends on :obj:`crd_type` (for further 
-              detail, refer to 
-              `https://blazej-bucha.github.io/charm/build/html/api-c-crd.html 
-              <https://blazej-bucha.github.io/charm/build/html/api-c-crd.html>`_.)
+              detail, refer to `charm_crd <./api-c-crd.html>`_.)
 
     Note
     ----
@@ -1339,9 +1322,7 @@ class CellSctr(_CellBase):
     """
     Class for scattered cells.
 
-    For details, refer to
-    `https://blazej-bucha.github.io/charm/build/html/api-c-crd.html
-    <https://blazej-bucha.github.io/charm/build/html/api-c-crd.html>`_.
+    For details, refer to `charm_crd <./api-c-crd.html>`_.
 
     To create a :class:`CellGrid` class instance, always use one of the 
     following factory methods:
@@ -1486,9 +1467,7 @@ class CellGrid(_CellBase):
     """
     Class for custom cell grids.
 
-    For details, refer to
-    `https://blazej-bucha.github.io/charm/build/html/api-c-crd.html
-    <https://blazej-bucha.github.io/charm/build/html/api-c-crd.html>`_.
+    For details, refer to `charm_crd <./api-c-crd.html>`_.
 
     To create a :class:`CellGrid` class instance, always use one of the 
     following factory methods:

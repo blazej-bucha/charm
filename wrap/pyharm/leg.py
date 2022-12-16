@@ -35,17 +35,13 @@ _ORDERING = [PNMJ_ORDER_MNJ, PNMJ_ORDER_MJN]
 
 #: int: Ordering scheme of Fourier coefficients of Legendre functions: order
 #: :obj:`m`, degree :obj:`n` and wave-number-related variable :obj:`j`.
-#: For further details, refer to
-#: `https://blazej-bucha.github.io/charm/build/html/api-c-leg.html
-#: <https://blazej-bucha.github.io/charm/build/html/api-c-leg.html>`_.
+#: For further details, refer to `charm_leg <./api-c-leg.html>`_.
 PNMJ_ORDER_MNJ: int
 
 
 #: int: Ordering scheme of Fourier coefficients of Legendre functions: order
 #: :obj:`m`, wave-number-related variable :obj:`j` and degree :obj:`n`.
-#: For further details, refer to
-#: `https://blazej-bucha.github.io/charm/build/html/api-c-leg.html
-#: <https://blazej-bucha.github.io/charm/build/html/api-c-leg.html>`_.
+#: For further details, refer to `charm_leg <./api-c-leg.html>`_.
 PNMJ_ORDER_MJN: int
 
 
@@ -97,10 +93,7 @@ class Pnmj:
     :attr:`ordering` and :attr:`pnmj` attributes are not
     writable.
 
-    For details, refer to
-    `https://blazej-bucha.github.io/charm/build/html/api-c-leg.html
-    <https://blazej-bucha.github.io/charm/build/html/api-c-leg.html>`_.
-
+    For details, refer to `charm_leg <./api-c-leg.html>`_.
     """
 
 
@@ -343,9 +336,8 @@ class Pnmj:
         :obj:`k` of a Fourier coefficient of fully-normalized associated
         Legendre function of degree :obj:`n`.
 
-        For further details, see the references at
-        `https://blazej-bucha.github.io/charm/build/html/api-c-leg.html
-        <https://blazej-bucha.github.io/charm/build/html/api-c-leg.html>`_.
+        For further details, see the references at `charm_leg 
+        <./api-c-leg.html>`_.
 
         Parameters
         ----------
@@ -377,9 +369,8 @@ class Pnmj:
         fully-normalized associated Legendre functions to the
         wave-number-related variable :obj:`j`.
 
-        For further details, see the references at
-        `https://blazej-bucha.github.io/charm/build/html/api-c-leg.html
-        <https://blazej-bucha.github.io/charm/build/html/api-c-leg.html>`_.
+        For further details, see the references at `charm_leg 
+        <./api-c-leg.html>`_.
 
         Parameters
         ----------
@@ -464,14 +455,9 @@ class Pnmj:
 
         ret  = f'The following symbolic constants are accepted as the '
         ret += f'\'ordering\'\nattribute of the \'Pnmj\' class:\n'
-        ret += f'\n'
         for ordering in _ORDERING:
-            ret += '\t%s' % _get_pnmj_ordering_str(ordering)
             ret += '\n'
-        ret += f'\n'
-        ret += f'For further details, visit '
-        ret += f'\'`https://blazej-bucha.github.io/charm/build/html/'
-        ret += f'api-c-leg.html\'.'
+            ret += '\t%s' % _get_pnmj_ordering_str(ordering)
 
         return ret
 
