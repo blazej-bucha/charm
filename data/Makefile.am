@@ -3,7 +3,7 @@ EXTRA_DIST = input \
 			 tests
 
 
-CLEANFILES = data/output/*
+CLEANFILES = output/*
 
 
 dist-hook:

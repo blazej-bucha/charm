@@ -274,7 +274,7 @@ EXTRA_DIST = input \
 			 output \
 			 tests
 
-CLEANFILES = data/output/*
+CLEANFILES = output/*
 all: all-am
 
 .SUFFIXES:
