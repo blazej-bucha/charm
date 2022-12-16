@@ -12,14 +12,13 @@
 
 
 
-/* Check the "ABS_R" macro from "../src/simd/simd.h" if SIMD instructions are
- * enabled. */
-int leg_abs_simd(void)
+/* Check the "ABS_R" macro from "../src/simd/simd.h". */
+int abs_r(void)
 {
     int errnum = 0;
 
 
-    /* Test value */
+    /* Tested value */
     REAL_SIMD x = SET1_R(PREC(-1.5));
 
 
@@ -31,8 +30,8 @@ int leg_abs_simd(void)
     ABS_R_INIT;
     if (MOVEMASK(EQ_R(ABS_R(x), x_ref)) != SIMD_TRUE)
     {
-        printf("            WARNING: The \"ABS_R\" macro does not work with "
-               "negative inputs!\n");
+        printf("        WARNING: The \"ABS_R\" macro does not work "
+               "correctly with negative floating point numbers!\n");
         errnum += 1;
     }
 
@@ -41,8 +40,8 @@ int leg_abs_simd(void)
     x = SET1_R(PREC(1.5));
     if (MOVEMASK(EQ_R(ABS_R(x), x_ref)) != SIMD_TRUE)
     {
-        printf("            WARNING: The \"ABS_R\" macro does not work with "
-               "positive inputs!\n");
+        printf("        WARNING: The \"ABS_R\" macro does not work "
+               "correctly with positive floating point numbers!\n");
         errnum += 1;
     }
 

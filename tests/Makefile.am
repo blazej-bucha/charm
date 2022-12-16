@@ -16,7 +16,8 @@ test_run@P@@OMP@_SOURCES = run.c \
 						   shs.c \
 						   sha.c \
 						   leg.c \
-						   leg_abs_simd.c
+						   misc.c \
+						   abs_r.c
 
 
 # Path to header files

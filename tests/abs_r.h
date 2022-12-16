@@ -1,12 +1,11 @@
 /* This header file is not a part of API. */
 
 
-#ifndef __LEG_ABS_SIMD_H__
-#define __LEG_ABS_SIMD_H__
+#ifndef __ABS_R_H__
+#define __ABS_R_H__
 
 
 #include <config.h>
-#include "../src/prec.h"
 
 
 #ifdef __cplusplus
@@ -15,7 +14,7 @@ extern "C"
 #endif
 
 
-extern int leg_abs_simd(void);
+extern int abs_r(void);
 
 
 #ifdef __cplusplus
