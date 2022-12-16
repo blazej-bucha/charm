@@ -250,7 +250,7 @@ int shc(unsigned long nmax_topo,
 
         sprintf(file, "%s/shc_nx%lu_da%s", FOLDER, (unsigned long)NMAX,
                                            FTYPE);
-        errnum += validate(file, dv, nmax2 + 1,
+        errnum += validate(file, da, nmax2 + 1,
                            PREC(10.0) * CHARM(glob_threshold));
 
 

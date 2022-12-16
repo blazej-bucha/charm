@@ -94,6 +94,8 @@ Upcoming release:
 
 * Fix a few leg_pnmj tests that did not actually run.
 
+* Fixed use-after-free bug in degree amplitude tests.
+
 * Two members, "nc" and "ns", were added to the "charm_shc" structure to 
   represent the total number of spherical harmonic coefficients "Cnm" and 
   "Snm", respectively.  This does not break the previous API.
