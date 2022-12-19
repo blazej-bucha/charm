@@ -1,0 +1,517 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>pyharm.leg &mdash; CHarm 0.2.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom_BB.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pyharm.integ" href="api-py-integ.html" />
+    <link rel="prev" title="pyharm.sha" href="api-py-sha.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> CHarm
+          
+
+          
+            
+            <img src="_static/charm-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">Interfaces</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api-c.html">CHarm (C API)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="api-py-shc.html">shc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">crd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">shs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">sha</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">leg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">integ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">misc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-xnum.html">xnum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-glob.html">glob</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CHarm</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="api.html">Interfaces</a> &raquo;</li>
+        
+          <li><a href="api-py.html">PyHarm (Python API)</a> &raquo;</li>
+        
+      <li>pyharm.leg</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/api-py-leg.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pyharm.leg">
+<span id="id1"></span><span id="pyharm-leg"></span><h1>pyharm.leg<a class="headerlink" href="#module-pyharm.leg" title="Permalink to this headline">¶</a></h1>
+<p>Module to work with the fully-normalized associated Legendre functions of the
+first kind:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>defines the <a class="reference internal" href="#pyharm.leg.Pnmj" title="pyharm.leg.Pnmj"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyharm.leg.Pnmj</span></code></a> class to store Fourier coefficients
+of the Legendre functions,</p></li>
+<li><p>computes Fourier coefficients of Legendre functions.</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This documentation is written for double precision version of PyHarm.</p>
+</div>
+<dl class="py data">
+<dt id="pyharm.leg.PNMJ_ORDER_MNJ">
+<code class="sig-prename descclassname">pyharm.leg.</code><code class="sig-name descname">PNMJ_ORDER_MNJ</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#pyharm.leg.PNMJ_ORDER_MNJ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ordering scheme of Fourier coefficients of Legendre functions: order
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code>, degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> and wave-number-related variable <code class="xref py py-obj docutils literal notranslate"><span class="pre">j</span></code>.
+For further details, refer to <a class="reference external" href="./api-c-leg.html">charm_leg</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt id="pyharm.leg.PNMJ_ORDER_MJN">
+<code class="sig-prename descclassname">pyharm.leg.</code><code class="sig-name descname">PNMJ_ORDER_MJN</code><em class="property">: int</em><em class="property"> = 1</em><a class="headerlink" href="#pyharm.leg.PNMJ_ORDER_MJN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ordering scheme of Fourier coefficients of Legendre functions: order
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code>, wave-number-related variable <code class="xref py py-obj docutils literal notranslate"><span class="pre">j</span></code> and degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code>.
+For further details, refer to <a class="reference external" href="./api-c-leg.html">charm_leg</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="pyharm.leg.Pnmj">
+<em class="property">class </em><code class="sig-prename descclassname">pyharm.leg.</code><code class="sig-name descname">Pnmj</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nmax</span></em>, <em class="sig-param"><span class="n">ordering</span></em>, <em class="sig-param"><span class="n">coeffs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for Fourier coefficients of fully-normalized associated Legendre
+functions of the first kind.</p>
+<p>To create a <a class="reference internal" href="#pyharm.leg.Pnmj" title="pyharm.leg.Pnmj"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pnmj</span></code></a> class instance, always use one of the following
+factory methods:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="#pyharm.leg.Pnmj.from_garbage" title="pyharm.leg.Pnmj.from_garbage"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_garbage()</span></code></a>,</p></li>
+<li><p><a class="reference internal" href="#pyharm.leg.Pnmj.from_zeros" title="pyharm.leg.Pnmj.from_zeros"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_zeros()</span></code></a>.</p></li>
+</ul>
+</div></blockquote>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pnmj</span> <span class="o">=</span> <span class="n">pyharm</span><span class="o">.</span><span class="n">leg</span><span class="o">.</span><span class="n">Pnmj</span><span class="o">.</span><span class="n">from_garbage</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree</p></li>
+<li><p><strong>ordering</strong> (<em>integer</em>) – Ordering scheme of Fourier coefficients.  Use
+<a class="reference internal" href="#pyharm.leg.Pnmj.get_ordering_types" title="pyharm.leg.Pnmj.get_ordering_types"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_ordering_types()</span></code></a> to get all supported ordering schemes.</p></li>
+<li><p><strong>coeffs</strong> (None or <code class="xref py py-obj docutils literal notranslate"><span class="pre">0</span></code>) – <p>Determines the way of initializing Fourier coefficients:</p>
+<blockquote>
+<div><ul>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code> to not initialize Fourier coefficients (<cite>malloc</cite> in
+C),</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">0</span></code> to set all Fourier coefficients to zero (<cite>calloc</cite> in C).</p></li>
+</ul>
+</div></blockquote>
+</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Once a <a class="reference internal" href="#pyharm.leg.Pnmj" title="pyharm.leg.Pnmj"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pnmj</span></code></a> class instance is created, its <a class="reference internal" href="#pyharm.leg.Pnmj.nmax" title="pyharm.leg.Pnmj.nmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax</span></code></a>,
+<a class="reference internal" href="#pyharm.leg.Pnmj.ordering" title="pyharm.leg.Pnmj.ordering"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ordering</span></code></a> and <a class="reference internal" href="#pyharm.leg.Pnmj.pnmj" title="pyharm.leg.Pnmj.pnmj"><code class="xref py py-attr docutils literal notranslate"><span class="pre">pnmj</span></code></a> attributes are not
+writable.</p>
+<p>For details, refer to <a class="reference external" href="./api-c-leg.html">charm_leg</a>.</p>
+</div>
+<dl class="py method">
+<dt id="pyharm.leg.Pnmj.nmax">
+<em class="property">property </em><code class="sig-name descname">nmax</code><a class="headerlink" href="#pyharm.leg.Pnmj.nmax" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximum harmonic degree of the Fourier coefficients.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyharm.leg.Pnmj.ordering">
+<em class="property">property </em><code class="sig-name descname">ordering</code><a class="headerlink" href="#pyharm.leg.Pnmj.ordering" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ordering scheme of the Fourier coefficients.  Use the
+<a class="reference internal" href="#pyharm.leg.Pnmj.get_ordering_str" title="pyharm.leg.Pnmj.get_ordering_str"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_ordering_str()</span></code></a> method to get all supported values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyharm.leg.Pnmj.pnmj">
+<em class="property">property </em><code class="sig-name descname">pnmj</code><a class="headerlink" href="#pyharm.leg.Pnmj.pnmj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fourier coefficients.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyharm.leg.Pnmj.from_garbage">
+<em class="property">classmethod </em><code class="sig-name descname">from_garbage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nmax</span></em>, <em class="sig-param"><span class="n">ordering</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj.from_garbage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a <a class="reference internal" href="#pyharm.leg.Pnmj" title="pyharm.leg.Pnmj"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pnmj</span></code></a> class instance with uninitialized Fourier
+coefficients (<cite>malloc</cite> in C).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree</p></li>
+<li><p><strong>ordering</strong> (<em>integer</em>) – Ordering scheme of Fourier coefficients, optional.  Default value
+is <a class="reference internal" href="#pyharm.leg.PNMJ_ORDER_MNJ" title="pyharm.leg.PNMJ_ORDER_MNJ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PNMJ_ORDER_MNJ</span></code></a>.  Use <a class="reference internal" href="#pyharm.leg.Pnmj.get_ordering_types" title="pyharm.leg.Pnmj.get_ordering_types"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_ordering_types()</span></code></a> to
+get all supported ordering schemes.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – A <a class="reference internal" href="#pyharm.leg.Pnmj" title="pyharm.leg.Pnmj"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pnmj</span></code></a> class instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pyharm.leg.Pnmj" title="pyharm.leg.Pnmj">Pnmj</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyharm.leg.Pnmj.from_zeros">
+<em class="property">classmethod </em><code class="sig-name descname">from_zeros</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nmax</span></em>, <em class="sig-param"><span class="n">ordering</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj.from_zeros" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a <a class="reference internal" href="#pyharm.leg.Pnmj" title="pyharm.leg.Pnmj"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pnmj</span></code></a> class instance with all Fourier coefficients
+initialized to zero (<cite>calloc</cite> in C).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree</p></li>
+<li><p><strong>ordering</strong> (<em>integer</em>) – Ordering scheme of Fourier coefficients, optional.  Default value
+is <a class="reference internal" href="#pyharm.leg.PNMJ_ORDER_MNJ" title="pyharm.leg.PNMJ_ORDER_MNJ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PNMJ_ORDER_MNJ</span></code></a>.  Use <a class="reference internal" href="#pyharm.leg.Pnmj.get_ordering_types" title="pyharm.leg.Pnmj.get_ordering_types"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_ordering_types()</span></code></a> to
+get all supported ordering schemes.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – A <a class="reference internal" href="#pyharm.leg.Pnmj" title="pyharm.leg.Pnmj"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pnmj</span></code></a> class instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pyharm.leg.Pnmj" title="pyharm.leg.Pnmj">Pnmj</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyharm.leg.Pnmj.coeffs">
+<code class="sig-name descname">coeffs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nmax</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj.coeffs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes Fourier coefficients of Legendre functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree, optional.  If not provided, the object’s
+<a class="reference internal" href="#pyharm.leg.Pnmj.nmax" title="pyharm.leg.Pnmj.nmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax</span></code></a> attribute is used.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyharm.leg.Pnmj.get_coeff">
+<code class="sig-name descname">get_coeff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em>, <em class="sig-param"><span class="n">m</span></em>, <em class="sig-param"><span class="n">j</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj.get_coeff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns Fourier coefficient of degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code>, order <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> and
+wave-number-related value <code class="xref py py-obj docutils literal notranslate"><span class="pre">j</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> (<em>integer</em>) – Spherical harmonic degree</p></li>
+<li><p><strong>m</strong> (<em>integer</em>) – Spherical harmonic order</p></li>
+<li><p><strong>j</strong> (<em>integer</em>) – Value related to the wave-number of Fourier coefficient (refer to
+<a class="reference internal" href="#pyharm.leg.Pnmj.j2k" title="pyharm.leg.Pnmj.j2k"><code class="xref py py-meth docutils literal notranslate"><span class="pre">j2k()</span></code></a> and <a class="reference internal" href="#pyharm.leg.Pnmj.k2j" title="pyharm.leg.Pnmj.k2j"><code class="xref py py-meth docutils literal notranslate"><span class="pre">k2j()</span></code></a> for further details)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Fourier coefficient of degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code>, order <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> and
+wave-number-related value <code class="xref py py-obj docutils literal notranslate"><span class="pre">j</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>floating point</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyharm.leg.Pnmj.get_ordering_str">
+<code class="sig-name descname">get_ordering_str</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj.get_ordering_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms the object’s <a class="reference internal" href="#pyharm.leg.Pnmj.ordering" title="pyharm.leg.Pnmj.ordering"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ordering</span></code></a> attribute to a pretty string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>out</strong> – Pretty name of the <a class="reference internal" href="#pyharm.leg.Pnmj.ordering" title="pyharm.leg.Pnmj.ordering"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ordering</span></code></a> attribute</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyharm.leg.Pnmj.j2k">
+<em class="property">static </em><code class="sig-name descname">j2k</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em>, <em class="sig-param"><span class="n">j</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj.j2k" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms a wave-number-related variable <code class="xref py py-obj docutils literal notranslate"><span class="pre">j</span></code> to the wave-number
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">k</span></code> of a Fourier coefficient of fully-normalized associated
+Legendre function of degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code>.</p>
+<p>For further details, see the references at <a class="reference external" href="./api-c-leg.html">charm_leg</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> (<em>integer</em>) – Spherical harmonic degree of the Legendre function</p></li>
+<li><p><strong>j</strong> (<em>integer</em>) – Variable related to the wave-number <code class="xref py py-obj docutils literal notranslate"><span class="pre">k</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Wave-number <code class="xref py py-obj docutils literal notranslate"><span class="pre">k</span></code> of the Fourier coefficient of a Legendre function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>integer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyharm.leg.Pnmj.k2j">
+<em class="property">static </em><code class="sig-name descname">k2j</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">k</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj.k2j" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms a wave-number <code class="xref py py-obj docutils literal notranslate"><span class="pre">k</span></code> of a Fourier coefficient of
+fully-normalized associated Legendre functions to the
+wave-number-related variable <code class="xref py py-obj docutils literal notranslate"><span class="pre">j</span></code>.</p>
+<p>For further details, see the references at <a class="reference external" href="./api-c-leg.html">charm_leg</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>k</strong> (<em>integer</em>) – Wave-number</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Wave-number-related variable <code class="xref py py-obj docutils literal notranslate"><span class="pre">j</span></code> of the Fourier coefficient
+of a Legendre function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>integer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyharm.leg.Pnmj.get_ordering_types">
+<em class="property">static </em><code class="sig-name descname">get_ordering_types</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj.get_ordering_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints all names of symbolic constants that are accepted as the
+<a class="reference internal" href="#pyharm.leg.Pnmj.ordering" title="pyharm.leg.Pnmj.ordering"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ordering</span></code></a> attribute of the <a class="reference internal" href="#pyharm.leg.Pnmj" title="pyharm.leg.Pnmj"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pnmj</span></code></a> class.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyharm.leg.fourier_coeffs">
+<code class="sig-prename descclassname">pyharm.leg.</code><code class="sig-name descname">fourier_coeffs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nmax</span></em>, <em class="sig-param"><span class="n">ordering</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.fourier_coeffs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes Fourier coefficients of Legendre functions up to degree
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax</span></code> using the <code class="xref py py-obj docutils literal notranslate"><span class="pre">ordering</span></code> ordering scheme of coefficients.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree</p></li>
+<li><p><strong>ordering</strong> (<em>integer</em>) – Ordering scheme of Fourier coefficients, optional.  Default value is
+<a class="reference internal" href="#pyharm.leg.PNMJ_ORDER_MNJ" title="pyharm.leg.PNMJ_ORDER_MNJ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PNMJ_ORDER_MNJ</span></code></a>.  Use <a class="reference internal" href="#pyharm.leg.Pnmj.get_ordering_types" title="pyharm.leg.Pnmj.get_ordering_types"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Pnmj.get_ordering_types()</span></code></a> to get
+all supported ordering schemes.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Fourier coefficients</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pyharm.leg.Pnmj" title="pyharm.leg.Pnmj">Pnmj</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="api-py-integ.html" class="btn btn-neutral float-right" title="pyharm.integ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="api-py-sha.html" class="btn btn-neutral float-left" title="pyharm.sha" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Blažej Bucha.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

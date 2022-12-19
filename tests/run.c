@@ -10,6 +10,7 @@
 #include "crd.h"
 #include "sha.h"
 #include "leg.h"
+#include "misc.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -159,6 +160,17 @@ int main(void)
     printf("Testing the \"leg\" module...\n");
     err = leg();
     print_test_outcome(err, "leg");
+    err_sum += err;
+    /* ..................................................................... */
+
+
+    /* ..................................................................... */
+    printf("Miscellaneous tests...\n");
+    err = misc();
+    if (err)
+        printf("    Miscellaneous tests didn't pass!\n");
+    else
+        printf("    Miscellaneous tests passed.\n");
     err_sum += err;
     /* ..................................................................... */
 

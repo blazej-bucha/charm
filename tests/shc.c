@@ -83,8 +83,8 @@ int shc(unsigned long nmax_topo,
     printf("    Reading coefficients from a \"mtx\" file...\n");
 
 
-    CHARM(shc) *shcs_topo_mtx = CHARM(shc_init)(nmax_topo, PREC(1.0),
-                                                PREC(1.0));
+    CHARM(shc) *shcs_topo_mtx = CHARM(shc_calloc)(nmax_topo, PREC(1.0),
+                                                  PREC(1.0));
     if (shcs_topo_mtx == NULL)
     {
         fprintf(stderr, "Failed to initialize a \"shc\" structure.\n");
@@ -92,21 +92,13 @@ int shc(unsigned long nmax_topo,
     }
 
 
-    FILE *fptr = fopen(SHCs_in_topo_mtx_file, "r");
-    if (fptr == NULL)
-    {
-        fprintf(stderr, "Failed to open the stream for \"%s\".\n",
-                SHCs_in_topo_mtx_file);
-        exit(CHARM_FAILURE);
-    }
-    CHARM(shc_read_mtx)(fptr, nmax_topo, shcs_topo_mtx, err);
+    CHARM(shc_read_mtx)(SHCs_in_topo_mtx_file, nmax_topo, shcs_topo_mtx, err);
     if (!CHARM(err_isempty)(err))
     {
         fprintf(stderr, "        Failed.\n");
         errnum += 1;
     }
     CHARM(err_handler)(err, 0);
-    fclose(fptr);
     /* --------------------------------------------------------------------- */
 
 
@@ -120,15 +112,6 @@ int shc(unsigned long nmax_topo,
     printf("    Writing coefficients to a \"mtx\" file...\n");
 
 
-    fptr = fopen(SHCs_out_topo_mtx_file, "w");
-    if (fptr == NULL)
-    {
-        fprintf(stderr, "Failed to open the stream for \"%s\".\n",
-                SHCs_out_topo_mtx_file);
-        exit(CHARM_FAILURE);
-    }
-
-
 #if CHARM_FLOAT
 #   define FORMAT "%0.7e"
 #elif CHARM_QUAD
@@ -136,16 +119,14 @@ int shc(unsigned long nmax_topo,
 #else
 #   define FORMAT "%0.16e"
 #endif
-    CHARM(shc_write_mtx)(shcs_topo_mtx, nmax_topo, FORMAT, fptr, err);
+    CHARM(shc_write_mtx)(shcs_topo_mtx, nmax_topo, FORMAT,
+                         SHCs_out_topo_mtx_file, err);
     if (!CHARM(err_isempty)(err))
     {
         fprintf(stderr, "        Failed.\n");
         errnum += 1;
     }
     CHARM(err_handler)(err, 0);
-
-
-    fclose(fptr);
     /* --------------------------------------------------------------------- */
 
 
@@ -159,27 +140,14 @@ int shc(unsigned long nmax_topo,
     printf("    Writing coefficients to a \"bin\" file...\n");
 
 
-    fptr = fopen(SHCs_out_topo_bin_file, "wb");
-    if (fptr == NULL)
-    {
-        fprintf(stderr, "Failed to open the stream for \"%s\".\n",
-                SHCs_out_topo_bin_file);
-        exit(CHARM_FAILURE);
-    }
-
-
-    CHARM(shc_write_bin)(shcs_topo_mtx, nmax_topo, fptr, err);
+    CHARM(shc_write_bin)(shcs_topo_mtx, nmax_topo, SHCs_out_topo_bin_file,
+                         err);
     if (!CHARM(err_isempty)(err))
     {
         fprintf(stderr, "        Failed.\n");
         errnum += 1;
     }
-
-
     CHARM(err_handler)(err, 0);
-
-
-    fclose(fptr);
     /* --------------------------------------------------------------------- */
 
 
@@ -193,29 +161,22 @@ int shc(unsigned long nmax_topo,
     printf("    Reading coefficients from a \"bin\" file...\n");
 
 
-    CHARM(shc) *shcs_topo_bin = CHARM(shc_init)(nmax_topo, PREC(1.0),
-                                                PREC(1.0));
+    CHARM(shc) *shcs_topo_bin = CHARM(shc_malloc)(nmax_topo, PREC(1.0),
+                                                  PREC(1.0));
     if (shcs_topo_bin == NULL)
     {
         fprintf(stderr, "Failed to initialize a \"shc\" structure");
         exit(CHARM_FAILURE);
     }
 
-    fptr = fopen(SHCs_out_topo_bin_file, "r");
-    if (fptr == NULL)
-    {
-        fprintf(stderr, "Failed to open the stream for \"%s\".\n",
-                SHCs_out_topo_bin_file);
-        exit(CHARM_FAILURE);
-    }
-    CHARM(shc_read_bin)(fptr, nmax_topo, shcs_topo_bin, err);
+
+    CHARM(shc_read_bin)(SHCs_out_topo_bin_file, nmax_topo, shcs_topo_bin, err);
     if (!CHARM(err_isempty)(err))
     {
         fprintf(stderr, "        Failed.\n");
         errnum += 1;
     }
     CHARM(err_handler)(err, 0);
-    fclose(fptr);
     /* --------------------------------------------------------------------- */
 
 
@@ -226,24 +187,18 @@ int shc(unsigned long nmax_topo,
     /* Read spherical harmonic coefficients from the saved text file
      * "SHCs_out_topo_mtx_file" */
     /* --------------------------------------------------------------------- */
-    CHARM(shc) *shcs_topo_mtx_out = CHARM(shc_init)(nmax_topo, PREC(1.0),
-                                                    PREC(1.0));
+    CHARM(shc) *shcs_topo_mtx_out = CHARM(shc_calloc)(nmax_topo, PREC(1.0),
+                                                      PREC(1.0));
     if (shcs_topo_mtx_out == NULL)
     {
         fprintf(stderr, "Failed to initlize a \"shc\" structure");
         exit(CHARM_FAILURE);
     }
 
-    fptr = fopen(SHCs_out_topo_mtx_file, "r");
-    if (fptr == NULL)
-    {
-        fprintf(stderr, "Failed to open the stream for \"%s\".\n",
-                SHCs_out_topo_mtx_file);
-        exit(CHARM_FAILURE);
-    }
-    CHARM(shc_read_mtx)(fptr, nmax_topo, shcs_topo_mtx_out, err);
+
+    CHARM(shc_read_mtx)(SHCs_out_topo_mtx_file, nmax_topo, shcs_topo_mtx_out,
+                        err);
     CHARM(err_handler)(err, 1);
-    fclose(fptr);
     /* --------------------------------------------------------------------- */
 
 
@@ -295,7 +250,7 @@ int shc(unsigned long nmax_topo,
 
         sprintf(file, "%s/shc_nx%lu_da%s", FOLDER, (unsigned long)NMAX,
                                            FTYPE);
-        errnum += validate(file, dv, nmax2 + 1,
+        errnum += validate(file, da, nmax2 + 1,
                            PREC(10.0) * CHARM(glob_threshold));
 
 
@@ -367,47 +322,33 @@ int shc(unsigned long nmax_topo,
     /* --------------------------------------------------------------------- */
     /* ..................................................................... */
     printf("    Reading coefficients from a \"gfc\" file...\n");
-    CHARM(shc) *shcs_pot_gfc = CHARM(shc_init)(nmax_pot, PREC(1.0),
-                                               PREC(1.0));
+    CHARM(shc) *shcs_pot_gfc = CHARM(shc_calloc)(nmax_pot, PREC(1.0),
+                                                 PREC(1.0));
     if (shcs_pot_gfc == NULL)
     {
         fprintf(stderr, "Failed to initlize a \"shc\" structure");
         exit(CHARM_FAILURE);
     }
 
-    fptr = fopen(SHCs_in_pot_gfc_file, "r");
-    if (fptr == NULL)
-    {
-        fprintf(stderr, "Failed to open the stream for \"%s\".\n",
-                SHCs_in_pot_gfc_file);
-        exit(CHARM_FAILURE);
-    }
-    CHARM(shc_read_gfc)(fptr, nmax_pot, shcs_pot_gfc, err);
+
+    CHARM(shc_read_gfc)(SHCs_in_pot_gfc_file, nmax_pot, shcs_pot_gfc, err);
     CHARM(err_handler)(err, 1);
-    fclose(fptr);
     /* ..................................................................... */
 
 
     /* ..................................................................... */
     printf("    Reading coefficients from a \"tbl\" file...\n");
-    CHARM(shc) *shcs_pot_tbl = CHARM(shc_init)(nmax_pot, PREC(1.0),
-                                               PREC(1.0));
+    CHARM(shc) *shcs_pot_tbl = CHARM(shc_calloc)(nmax_pot, PREC(1.0),
+                                                 PREC(1.0));
     if (shcs_pot_tbl == NULL)
     {
         fprintf(stderr, "Failed to initlize a \"shc\" structure");
         exit(CHARM_FAILURE);
     }
 
-    fptr = fopen(SHCs_in_pot_tbl_file, "r");
-    if (fptr == NULL)
-    {
-        fprintf(stderr, "Failed to open the stream for \"%s\".\n",
-                SHCs_in_pot_tbl_file);
-        exit(CHARM_FAILURE);
-    }
-    CHARM(shc_read_tbl)(fptr, nmax_pot, shcs_pot_tbl, err);
+
+    CHARM(shc_read_tbl)(SHCs_in_pot_tbl_file, nmax_pot, shcs_pot_tbl, err);
     CHARM(err_handler)(err, 1);
-    fclose(fptr);
     /* ..................................................................... */
 
 
@@ -444,43 +385,27 @@ int shc(unsigned long nmax_topo,
     /* ..................................................................... */
     printf("    Writing coefficients to \"tbl\" using the \"N\" ordering "
            "scheme...\n");
-    fptr = fopen(SHCs_out_pot_tbl_n_file, "w");
-    if (fptr == NULL)
-    {
-        fprintf(stderr, "Failed to open the stream for \"%s\".\n",
-                SHCs_out_pot_tbl_n_file);
-        exit(CHARM_FAILURE);
-    }
     CHARM(shc_write_tbl)(shcs_pot_tbl, nmax_pot, FORMAT,
-                         CHARM_SHC_WRITE_TBL_N, fptr, err);
+                         CHARM_SHC_WRITE_TBL_N, SHCs_out_pot_tbl_n_file, err);
     if (!CHARM(err_isempty)(err))
     {
         fprintf(stderr, "        Failed.\n");
         errnum += 1;
     }
     CHARM(err_handler)(err, 0);
-    fclose(fptr);
 
 
     printf("    Validating the writing to \"tbl\" using the \"N\" "
            "ordering scheme...\n");
-    CHARM(shc) *shcs_pot_tbl2 = CHARM(shc_init)(nmax_pot, PREC(1.0),
-                                                PREC(1.0));
+    CHARM(shc) *shcs_pot_tbl2 = CHARM(shc_calloc)(nmax_pot, PREC(1.0),
+                                                  PREC(1.0));
     if (shcs_pot_tbl2 == NULL)
     {
         fprintf(stderr, "Failed to initlize a \"shc\" structure");
         exit(CHARM_FAILURE);
     }
-    fptr = fopen(SHCs_out_pot_tbl_n_file, "r");
-    if (fptr == NULL)
-    {
-        fprintf(stderr, "Failed to open the stream for \"%s\".\n",
-                SHCs_out_pot_tbl_n_file);
-        exit(CHARM_FAILURE);
-    }
-    CHARM(shc_read_tbl)(fptr, nmax_pot, shcs_pot_tbl2, err);
+    CHARM(shc_read_tbl)(SHCs_out_pot_tbl_n_file, nmax_pot, shcs_pot_tbl2, err);
     CHARM(err_handler)(err, 1);
-    fclose(fptr);
     CHARM(shc_dda)(shcs_pot_tbl, shcs_pot_tbl2, nmax_pot, dda, err);
     CHARM(err_handler)(err, 1);
     errnum += cmp_arrays(dda, ddv_dda_ref, nmax_pot + 1,
@@ -492,43 +417,27 @@ int shc(unsigned long nmax_topo,
     /* ..................................................................... */
     printf("    Writing coefficients to \"tbl\" using the \"M\" ordering "
            "scheme...\n");
-    fptr = fopen(SHCs_out_pot_tbl_m_file, "w");
-    if (fptr == NULL)
-    {
-        fprintf(stderr, "Failed to open the stream for \"%s\".\n",
-                SHCs_out_pot_tbl_m_file);
-        exit(CHARM_FAILURE);
-    }
     CHARM(shc_write_tbl)(shcs_pot_tbl, nmax_pot, FORMAT,
-                         CHARM_SHC_WRITE_TBL_M, fptr, err);
+                         CHARM_SHC_WRITE_TBL_M, SHCs_out_pot_tbl_m_file, err);
     if (!CHARM(err_isempty)(err))
     {
         fprintf(stderr, "        Failed.\n");
         errnum += 1;
     }
     CHARM(err_handler)(err, 0);
-    fclose(fptr);
 
 
     printf("    Validating the writing to \"tbl\" using the \"M\" "
            "ordering scheme...\n");
-    CHARM(shc) *shcs_pot_tbl3 = CHARM(shc_init)(nmax_pot, PREC(1.0),
-                                                PREC(1.0));
+    CHARM(shc) *shcs_pot_tbl3 = CHARM(shc_calloc)(nmax_pot, PREC(1.0),
+                                                  PREC(1.0));
     if (shcs_pot_tbl3 == NULL)
     {
         fprintf(stderr, "Failed to initlize a \"shc\" structure");
         exit(CHARM_FAILURE);
     }
-    fptr = fopen(SHCs_out_pot_tbl_m_file, "r");
-    if (fptr == NULL)
-    {
-        fprintf(stderr, "Failed to open the stream for \"%s\".\n",
-                SHCs_out_pot_tbl_m_file);
-        exit(CHARM_FAILURE);
-    }
-    CHARM(shc_read_tbl)(fptr, nmax_pot, shcs_pot_tbl3, err);
+    CHARM(shc_read_tbl)(SHCs_out_pot_tbl_m_file, nmax_pot, shcs_pot_tbl3, err);
     CHARM(err_handler)(err, 1);
-    fclose(fptr);
     CHARM(shc_dda)(shcs_pot_tbl, shcs_pot_tbl3, nmax_pot, dda, err);
     CHARM(err_handler)(err, 1);
     errnum += cmp_arrays(dda, ddv_dda_ref, nmax_pot + 1,

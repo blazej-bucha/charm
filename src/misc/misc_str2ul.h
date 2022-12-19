@@ -15,7 +15,8 @@ extern "C"
 #endif
 
 
-extern unsigned long CHARM(misc_str2ul)(char *, char *, CHARM(err) *);
+extern unsigned long CHARM(misc_str2ul)(const char *, const char *,
+                                        CHARM(err) *);
 
 
 #ifdef __cplusplus

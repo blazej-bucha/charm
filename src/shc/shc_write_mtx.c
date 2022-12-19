@@ -16,24 +16,43 @@
 
 
 void CHARM(shc_write_mtx)(const CHARM(shc) *shcs, unsigned long nmax,
-                          const char *format, FILE *stream, CHARM(err) *err)
+                          const char *format, const char *pathname,
+                          CHARM(err) *err)
 {
+    /* Open "pathname" to write */
+    /* --------------------------------------------------------------------- */
+    FILE *fptr = fopen(pathname, "w");
+    if (fptr == NULL)
+    {
+        char msg[CHARM_ERR_MAX_MSG];
+        sprintf(msg, "Couldn't create \"%s\".", pathname);
+        CHARM(err_set)(err, __FILE__, __LINE__, __func__,
+                       CHARM_EFILEIO, msg);
+        return;
+    }
+    /* --------------------------------------------------------------------- */
+
+
+
+
+
+
     /* Check maximum harmonic degree */
     if (nmax > shcs->nmax)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Not enough coefficients in \"shcs\" to write "
                        "up to degree \"nmax\".");
-        return;
+        goto EXIT;
     }
 
 
     /* Write the metadata */
-    CHARM(shc_write_mtdt)(nmax, shcs->mu, shcs->r, format, stream, err);
+    CHARM(shc_write_mtdt)(nmax, shcs->mu, shcs->r, format, fptr, err);
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
-        return;
+        goto EXIT;
     }
 
 
@@ -56,30 +75,32 @@ void CHARM(shc_write_mtx)(const CHARM(shc) *shcs, unsigned long nmax,
                 coeff = shcs->s[row + 1][col - row - 1];
 
 
-            if (CHARM(misc_fprintf_real)(stream, format, coeff) < 1)
+            if (CHARM(misc_fprintf_real)(fptr, format, coeff) < 1)
             {
                 CHARM(err_set)(err, __FILE__, __LINE__, __func__,
                                CHARM_EFILEIO,
                                "Failed to write to the output file.");
-                return;
+                goto EXIT;
             }
 
 
             if (col < nmax)
-                fprintf(stream, " ");
+                fprintf(fptr, " ");
         }
 
 
-        if (fprintf(stream, "\n") < 1)
+        if (fprintf(fptr, "\n") < 1)
         {
             CHARM(err_set)(err, __FILE__, __LINE__, __func__,
                            CHARM_EFILEIO,
                            "Failed to write to the output file.");
-            return;
+            goto EXIT;
         }
     }
     /* --------------------------------------------------------------------- */
 
 
+EXIT:
+    fclose(fptr);
     return;
 }

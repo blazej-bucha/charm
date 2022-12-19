@@ -3,13 +3,7 @@
  * Module to perform solid spherical harmonic synthesis of point and mean 
  * values.
  *
- * \verbatim embed:rst:leading-asterisk
- *      .. note::
- *
- *          This documentation is written for double precision version of 
- *          CHarm.
- *
- * \endverbatim
+ * @note This documentation is written for double precision version of CHarm.
  *
  * */
 
@@ -64,10 +58,10 @@ extern "C"
  *
  * The synthesis is done either at
  *
- * - a **grid** if ``pnt->type`` is set to ``CHARM_CRD_POINTS_GRID*`` (see the 
- *   ``charm@P@_crd`` module), or
+ * - a **grid** if ``pnt->type`` is set to ``CHARM_CRD_POINT_GRID*`` (see
+ *   ``charm@P@_point``), or
  *
- * - **scattered points** if ``pnt->type == CHARM_CRD_POINTS_SCATTERED``.
+ * - **scattered points** if ``pnt->type == CHARM_CRD_POINT_SCATTERED``.
  *
  * For **grids**, efficient 1D FFT-based algorithm is applied along the 
  * latitude parallels whenever possible.  Otherwise, the Chebyshev recurrences 
@@ -92,14 +86,6 @@ extern "C"
  * preference being FFT.
  *
  * For **scattered points**, tedious point-by-point synthesis is applied.
- *
- * \verbatim embed:rst:leading-asterisk
- *  .. note::
- *
- *      The function does not use ``pnt->w`` at all, so no constrains are 
- *      applied.  ``pnt->w`` can therefore be, for instance, ``NULL``.
- *
- * \endverbatim
  *
  * The synthesis is parallelized using OpenMP.
  *
@@ -169,18 +155,13 @@ extern "C"
  *   ``err`` and the program returns to the caller.
  *
  *
- * \verbatim embed:rst:leading-asterisk
- *  .. note::
- *
- *      The synthesis always starts at degree ``nmin = 0``.  To use some other 
- *      value of ``nmin`` (but satisfying ``1 <= nmin <= nmax``), you can set 
- *      the respective coefficients in ``shcs`` to zero and use the newly 
- *      modified structure ``shcs`` as the input to this function. The 
- *      synthesis will still formally start at degree ``0``, but since the 
- *      coefficients up to degree ``nmin - 1`` are zero, they do not contribute 
- *      to the output signal as required.
- *
- * \endverbatim
+ * @note The synthesis always starts at degree ``nmin = 0``.  To use some other
+ * value of ``nmin`` (but satisfying ``1 <= nmin <= nmax``), you can set the
+ * respective coefficients in ``shcs`` to zero and use the newly modified
+ * structure ``shcs`` as the input to this function. The synthesis will still
+ * formally start at degree ``0``, but since the coefficients up to degree
+ * ``nmin - 1`` are zero, they do not contribute to the output signal as
+ * required.
  *
  * **References**:
  * - Sneeuw, N. (1994) Global spherical harmonic analysis by least-squares and 
@@ -199,29 +180,29 @@ extern "C"
  *   86:499-520, doi: 10.1007/s00190-011-0533-4
  *
  * */
-/**
- * @param[in] pnt Evaluation points, organized either as a **grid** or as 
- * **scattered points** (see the ``charm@P@_crd`` module).
+/** @note The function does not use ``cell->w``, so no constrains are applied.
  *
- * @param[in] shcs Spherical harmonic coefficients (see the ``charm@P@_shc`` 
- * module).
+ * @param[in] pnt Evaluation points, organized either as a **grid** or as
+ * **scattered points** (see ``charm@P@_point``).
+ *
+ * @param[in] shcs Spherical harmonic coefficients (see ``charm@P@_shc``).
  *
  * @param[in] nmax Maximum spherical harmonic degree of the synthesis.
  *
  * @param[out] f Pointer to an output array with the synthesized signal.  If 
- * ``pnt`` holds a **grid**, the pointer ``f`` must have an access to 
- * ``pnt->nlat * pnt->nlon`` array elements.   The value of ``f`` synthesized 
- * at ``pnt->lat[i]`` and ``pnt->lon[j]`` can be found as: 
+ * ``pnt`` holds a **grid**, the pointer ``f`` must have an access to
+ * ``pnt->nlat * pnt->nlon`` array elements.   The value of the signal
+ * synthesized at ``pnt->lat[i]`` and ``pnt->lon[j]`` can be found as:
  * ``f[i * pnt->nlon + j]`` with ``i = 0, 1, ..., pnt->nlat - 1`` and 
- * ``j = 0, 1, ..., pnt->nlon - 1``.  In case ``pnt`` represents **scattered 
- * points**, ``f`` must have an access to ``pnt->nlat == pnt->nlon`` elements 
- * and ``f[i]`` stands for the value synthesized at ``pnt->lat[i]`` and 
+ * ``j = 0, 1, ..., pnt->nlon 1``.  In case ``pnt`` represents **scattered
+ * points**, ``f`` must have an access to ``pnt->nlat == pnt->nlon`` elements
+ * and ``f[i]`` stands for the value synthesized at ``pnt->lat[i]`` and
  * ``pnt->lon[i]`` with ``i = 0, 1, ..., pnt->nlat - 1`` .
  *
  * @param[out] err Error reported by the function (if any).
  *
  * */
-extern void charm@P@_shs_point(const charm@P@_crd *pnt,
+extern void charm@P@_shs_point(const charm@P@_point *pnt,
                                const charm@P@_shc *shcs,
                                unsigned long nmax,
                                @RDT@ *f,
@@ -255,10 +236,10 @@ extern void charm@P@_shs_point(const charm@P@_crd *pnt,
  *
  * The synthesis is done either at
  *
- * - a **grid** if ``cell->type`` is set to ``CHARM_CRD_CELLS_GRID*`` (see the 
- *   ``charm@P@_crd`` module), or
+ * - a **grid** if ``cell->type`` is set to ``CHARM_CRD_CELL_GRID*`` (see
+ *   ``charm@P@_cell``), or
  *
- * - **scattered cells** if ``cell->type == CHARM_CRD_CELLS_SCATTERED``.
+ * - **scattered cells** if ``cell->type == CHARM_CRD_CELL_SCATTERED``.
  *
  * For **grids**, efficient 1D FFT-based algorithm is applied along the 
  * latitude parallels whenever possible.  Otherwise, the Chebyshev recurrences 
@@ -271,10 +252,10 @@ extern void charm@P@_shs_point(const charm@P@_crd *pnt,
  *
  * - the longitudinal step ``dlon`` is constant,
  *
- * - ``cell->lon[0] == 0.0`` within the numerical threshold
+ * - ``cell->lonmin[0] == 0.0`` within the numerical threshold
  *   (``charm@P@_glob_threshold``),
  *
- * - ``cell->lon[2 * cell->nlon - 1] + dlon == 2.0 * PI`` within the numerical
+ * - ``cell->lonmax[2 * cell->nlon - 1] == 2.0 * PI`` within the numerical
  *   threshold (``charm@P@_glob_threshold``),
  *
  * - the maximum longitude of the ``j``th cell must be equal to the minimum 
@@ -285,14 +266,6 @@ extern void charm@P@_shs_point(const charm@P@_crd *pnt,
  * preference being FFT.
  *
  * For **scattered cells**, tedious cell-by-cell synthesis is applied.
- *
- * \verbatim embed:rst:leading-asterisk
- *  .. note::
- *
- *      The function does not use ``cell->w`` at all, so no constrains are 
- *      applied.  ``cell->w`` can therefore be, for instance, ``NULL``.
- *
- * \endverbatim
  *
  * The synthesis is parallelized using OpenMP.
  *
@@ -401,14 +374,8 @@ extern void charm@P@_shs_point(const charm@P@_crd *pnt,
  *    pass the test, an error message is written to ``err`` and program returns 
  *    to the caller.
  *
- *   \verbatim embed:rst:leading-asterisk
- *    .. note::
- *
- *        The synthesis automatically starts at degree ``nmin = 0``.  To use some 
- *        other value of ``nmin``, see the tip given in 
- *        ``charm@P@_shs_point``.
- *
- *   \endverbatim
+ * @note The synthesis automatically starts at degree ``nmin = 0``.  To use
+ * some other value of ``nmin``, see the tip given in ``charm@P@_shs_point()``.
  *
  * **References**:
  * * Colombo, O. L. (1981) Numerical methods for harmonic analysis on the 
@@ -436,28 +403,27 @@ extern void charm@P@_shs_point(const charm@P@_crd *pnt,
  *
  *
  * @param[in] cell Evaluation cells, organized either as a **grid** or as 
- * **scattered cells** (see the ``charm@P@_crd`` module).
+ * **scattered cells** (see ``charm@P@_cell``).
  *
- * @param[in] shcs Spherical harmonic coefficients (see the ``charm@P@_shc`` 
- * module).
+ * @param[in] shcs Spherical harmonic coefficients (see ``charm@P@_shc``).
  *
  * @param[in] nmax Maximum spherical harmonic degree of the synthesis.
  *
  * @param[out] f Pointer to an output array with the synthesized mean 
  * values. If ``cell`` holds a **grid**, the pointer ``f`` must have an access 
- * to ``cell->nlat * cell->nlon`` array elements.   The mean value of ``f`` 
- * synthesized at the ``i``th cell in the latitudinal direction and ``j``th 
- * cell in the longitudinal direction can be found as:
+ * to ``cell->nlat * cell->nlon`` array elements.   The mean value of the
+ * signal synthesized at the ``i``th cell in the latitudinal direction and
+ * ``j``th cell in the longitudinal direction can be found as:
  * ``f[i * cell->nlon + j]`` with ``i = 0, 1, ..., cell->nlat - 1`` and
- * ``j = 0, 1, ..., cell->nlon - 1``.  In case ``cell`` represents
- * **scattered cells**, ``f`` must have an access to
- * ``cell->nlat == cell->nlon`` elements and ``f[i]`` stands for the mean value 
- * synthesized at the ``i``th cell with ``i = 0, 1, ..., cell->nlat - 1`` .
+ * ``j = 0, 1, ..., cell->nlon - 1``.  In case ``cell`` represents **scattered
+  * cells**, ``f`` must have an access to
+ * ``cell->nlat == cell->nlon`` elements and ``f[i]`` stands for the mean value
+ * synthesized at the ``i``th cell with ``i = 0, 1, ..., cell->nlat - 1``.
  *
  * @param[out] err Error reported by the function (if any).
  *
  * */
-extern void charm@P@_shs_cell(const charm@P@_crd *cell,
+extern void charm@P@_shs_cell(const charm@P@_cell *cell,
                               const charm@P@_shc *shcs,
                               unsigned long nmax,
                               @RDT@ *f,
@@ -468,11 +434,10 @@ extern void charm@P@_shs_cell(const charm@P@_crd *cell,
 
 
 
-/**
- * Similarly as ``charm@P@_shs_cell``, this function computes mean values of 
- * a function given by ``shcs1``.  The difference is that here, the mean values 
- * are integrated not on the unit sphere, but instead on a band-limited 
- * irregular surface \f$r(\varphi,\lambda)\f$ defined by spherical harmonic 
+/** Similarly as ``charm@P@_shs_cell()``, this function computes mean values of
+ * a function given by ``shcs1``.  The difference is that here, the mean values
+ * are integrated not on the unit sphere, but instead on a band-limited
+ * irregular surface \f$r(\varphi,\lambda)\f$ defined by spherical harmonic
  * coefficients in ``shcs2``:
  *
  * \verbatim embed:rst:leading-asterisk
@@ -504,18 +469,12 @@ extern void charm@P@_shs_cell(const charm@P@_crd *cell,
  *
  * \endverbatim
  *
- * \verbatim embed:rst:leading-asterisk
- *  .. warning::
- *
- *      Contrary to ``charm@P@_shs_point`` and ``charm@P@_shs_cell``, the 
- *      computation is *not* exact, but the output accuracy can be well 
- *      controled by the input variables.
- *
- *
- * \endverbatim
+ * @warning Contrary to ``charm@P@_shs_point()`` and ``charm@P@_shs_cell()``,
+ * the computation is *not* exact, but the output accuracy can be well
+ * controled by the input variables.
  *
  * This function can only be used with evaluation cells organized in a grid, 
- * that is, ``cell->type`` is set to ``CHARM_CRD_CELLS_GRID``.  Currently, only 
+ * that is, ``cell->type`` is set to ``CHARM_CRD_CELL_GRID``.  Currently, only 
  * the Chebyshev recurrences are supported for computation along the latitude 
  * parallels.
  *
@@ -529,51 +488,23 @@ extern void charm@P@_shs_cell(const charm@P@_crd *cell,
  *   function. Numerical experiments have shown that, in our implementation, 
  *   the speed improvement is completely negligible if any.
  *
- * * The structure of the longitudes must be the same as discussed in 
- *   ``charm@P@_shs_cell``.
+ * * The structure of the longitudes must be the same as discussed in
+ *   ``charm@P@_shs_cell()``.
  *
- * \verbatim embed:rst:leading-asterisk
- *  .. warning::
+ * @warning Both scaling constants of the ``shcs2`` structure that defines the
+ * irregular surface (``shcs2->mu`` and ``shcs2->r``) have to be equal to
+ * ``1.0``.
  *
- *      Both scaling constants of the ``shcs2`` structure that defines the 
- *      irregular surface (``shcs2->mu`` and ``shcs2->r``) have to be equal to
- *      ``1.0``.
+ * @warning This function is very demanding on RAM.  More than
+ * ``4 * (nmax1 + 1)^2 * (nmax3 + 1)^2 * 8 / 1024^3`` GBs of memory are
+ * required in double precision.  For instance, for ``nmax1 = 150`` and
+ * ``nmax3 = 150``, about 15 GBs of RAM are occupied during the computation.
  *
- * \endverbatim
+ * @note The function does not use spherical radii ``cell->r``, since these are
+ * synthesized from ``shcs2``.
  *
- * \verbatim embed:rst:leading-asterisk
- *  .. warning::
- *
- *      This function is very demanding on RAM.  More than
- *      ``4 * (nmax1 + 1)^2 * (nmax3 + 1)^2 * 8 / 1024^3`` GBs of memory are
- *      required in double precision.  For instance, for ``nmax1 = 150`` and
- *      ``nmax3 = 150``, about 15 GBs of RAM are occupied during the
- *      computation.
- *
- * \endverbatim
- *
- * \verbatim embed:rst:leading-asterisk
- *  .. note::
- *
- *      The function does not use ``cell->w``, so no constrains are applied.
- *
- * \endverbatim
- *
- * \verbatim embed:rst:leading-asterisk
- *  .. note::
- *
- *      The function does not use spherical radii ``cell->r``, since these are 
- *      synthesized from ``shcs2``.
- *
- * \endverbatim
- *
- * \verbatim embed:rst:leading-asterisk
- *  .. note::
- *
- *      The synthesis automatically starts at degree ``nmin = 0``.  To use some 
- *      other value of ``nmin``, see the tip given in ``charm@P@_shs_point``.
- *
- * \endverbatim
+ * @note The synthesis automatically starts at degree ``nmin = 0``.  To use
+ * some other value of ``nmin``, see the tip given in ``charm@P@_shs_point()``.
  *
  *
  * **References**:
@@ -588,21 +519,21 @@ extern void charm@P@_shs_cell(const charm@P@_crd *cell,
  * */
  /**
  *
- * @param[in] cell Evaluation cells organized as a **grid** (see the 
- * ``charm@P@_crd`` module).
+ * @param[in] cell Evaluation cells organized as a **grid** (see
+ * ``charm@P@_cell``).
  *
  * @param[in] shcs1 Spherical harmonic coefficients of the function (e.g., the 
- * gravitational potential), the block mean values of which are synthesized 
- * (see the ``charm@P@_shc`` module).
+ * gravitational potential), the block mean values of which are synthesized
+ * (see ``charm@P@_shc``).
  *
  * @param[in] nmax1 Maximum harmonic degree of the function given by ``shcs1``, 
  * the block mean values of which are synthesized.
  *
- * @param[in] shcs2 Spherical harmonic coefficients of the surface, on which 
- * the block mean values are synthesized (see the ``charm@P@_shc`` 
- * module). The surface must be defined by the spherical radii ``r``, that is, 
- * the synthesis of ``shcs2`` yields spherical radii of the surface, on which 
- * the mean values are sought.
+ * @param[in] shcs2 Spherical harmonic coefficients of the surface, on which
+ * the block mean values are synthesized (see ``charm@P@_shc``). The surface
+ * must be defined by the spherical radii ``r``, that is, the synthesis of
+ * ``shcs2`` yields spherical radii of the surface, on which the mean values
+ * are sought.
  *
  * @param[in] nmax2 Maximum harmonic degree of the surface defined by 
  * ``shcs2``, on which the block mean values are synthesized.
@@ -625,16 +556,15 @@ extern void charm@P@_shs_cell(const charm@P@_crd *cell,
  *
  * @param[out] f Pointer to an output array with the synthesized mean 
  * values. The pointer ``f`` must have an access to ``cell->nlat * cell->nlon`` 
- * array elements.   The mean value of ``f`` synthesized at the ``i``th cell in 
- * the latitudinal direction and ``j``th cell in the longitudinal direction can 
- * be found as:
- * ``f[i * cell->nlon + j]`` with ``i = 0, 1, ..., cell->nlat - 1`` and
- * ``j = 0, 1, ..., cell->nlon - 1``.
+ * array elements.   The mean value of the signal synthesized at the ``i``th
+ * cell in the latitudinal direction and ``j``th cell in the longitudinal
+ * direction can be found as: ``f[i * cell->nlon + j]`` with
+ * ``i = 0, 1, ..., cell->nlat - 1`` and ``j = 0, 1, ..., cell->nlon - 1``.
  *
  * @param[out] err Error reported by the function (if any).
  *
  * */
-extern void charm@P@_shs_cell_isurf(const charm@P@_crd *cell,
+extern void charm@P@_shs_cell_isurf(const charm@P@_cell *cell,
                                     const charm@P@_shc *shcs1,
                                     unsigned long nmax1,
                                     const charm@P@_shc *shcs2,

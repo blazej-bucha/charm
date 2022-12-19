@@ -5,13 +5,21 @@ Installation on Unix-based operating systems
 
 This section provides an installation guide for Unix-based operating systems,
 particularly :ref:`Linux <installation_linux>` and :ref:`macOS
-<installation_mac>`.
+<installation_mac>`.  First, discussed is the installation of :ref:`CHarm (the 
+C library) <charm_installation>` and then follow instructions on how to build 
+:ref:`PyHarm (the Python wrapper) <pyharm_installation>`.
 
 
-.. _requirements:
+.. _charm_installation:
+
+CHarm (the C library)
+---------------------
+
+
+.. _charm_requirements:
 
 Requirements
-------------
+~~~~~~~~~~~~
 
 * C compiler supporting C99.  `GCC <https://gcc.gnu.org/>`_ is recommended 
   (available by default on most Linux distributions).  Other compilers that are 
@@ -34,7 +42,7 @@ Requirements
 .. _installation_linux:
 
 Installation on Linux
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 At first, we will install FFTW and then we will proceed with the installation
 of CHarm.
@@ -42,7 +50,7 @@ of CHarm.
 .. _installation_FFTW_linux:
 
 FFTW installation
-^^^^^^^^^^^^^^^^^
+"""""""""""""""""
 
 FFTW can either be installed via you package manager or built from the source.
 
@@ -97,7 +105,7 @@ FFTW can either be installed via you package manager or built from the source.
 .. _default_installation_charm_linux:
 
 Default CHarm installation
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""
 
 If you
 
@@ -127,14 +135,14 @@ install`` installs the library.
 .. _customized_installation_charm_linux:
 
 Customized CHarm installation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""
 
 The installation process can be tailored by appending one or more of the
 following flags to the ``./configure`` call.
 
 * ``--enable-single-precision`` or ``--enable-double-precision`` or 
   ``--enable-quad-precision`` to compile CHarm in single, double or quadruple 
-  precision, respectively (``float``, ``double`` and ``__float128`` data type 
+  precision, respectively (``float``, ``double`` and ``__float128`` data types 
   for floating point numbers, respectively).  If not specified, double 
   precision is used as default.
 
@@ -161,9 +169,6 @@ following flags to the ``./configure`` call.
 * ``--prefix=/your/custom/path`` to specify a custom installation path for
   CHarm (default is ``--prefix=/usr/local``).
 
-* ``--enable-shared`` to compile CHarm as a shared library *in addition* to the
-  static library.
-
 * ``LDFLAGS=-L/your/path/to/FFTW/lib`` to specify a custom path to your FFTW
   libs (empty by default, that is, default is to assume that FFTW is accessible
   to the compiler).
@@ -174,6 +179,8 @@ following flags to the ``./configure`` call.
 * ``CPPFLAGS=-I/your/path/to/FFTW/include`` to specify a custom path to your
   FFTW header file (empty by default, that is, default is to assume that FFTW
   is accessible to the compiler).
+
+* ``--disable-shared`` to not compile CHarm as a shared library.
 
 * Other useful variables:
 
@@ -194,18 +201,16 @@ An example installation
 
 * in quadruple precision,
 
-* with OpenMP parallelization enabled,
+* with OpenMP parallelization enabled, and
 
-* with SIMD instructions disabled, and
-
-* with the shared library, too,
+* with SIMD instructions disabled
 
 looks like:
 
 .. code-block:: console
 
-   ./configure --prefix=/opt/charm --enable-openmp --enable-shared \
-        --enable-quad-precision LDFLAGS=-L/opt/fftwq-3.3.9/lib \
+   ./configure --prefix=/opt/charm --enable-openmp --enable-quad-precision \
+        LDFLAGS=-L/opt/fftwq-3.3.9/lib \
         CPPFLAGS=-I/opt/fftwq-3.3.9/include
    make
    make check
@@ -216,13 +221,13 @@ looks like:
 
 
 Installation on macOS
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 At first, we will install FFTW and then we will proceed with the installation
 of CHarm.
 
 FFTW installation
-^^^^^^^^^^^^^^^^^
+"""""""""""""""""
 
 FFTW can either be installed via you package manager or built from the source,
 preferably with GCC.  The latter is strongly recommended on macOS.
@@ -259,7 +264,7 @@ preferably with GCC.  The latter is strongly recommended on macOS.
 
   .. code-block:: console
 
-      ./configure --enable-openmp --enable-shared CC=gcc-10
+      ./configure --enable-openmp CC=gcc-10
 
   Without the ``CC`` flag, the ``Clang`` compiler will most likely be used
   which may cause an installation failure when using the ``--enable-openmp``
@@ -268,7 +273,7 @@ preferably with GCC.  The latter is strongly recommended on macOS.
   the ``Clang`` compiler.
 
 CHarm installation
-^^^^^^^^^^^^^^^^^^
+""""""""""""""""""
 
 Having installed FFTW, you may proceed with the same instructions as given in
 the :ref:`default_installation_charm_linux` and
@@ -278,7 +283,7 @@ variable when calling the ``./configure`` script from the CHarm installation.
 
 
 A few installation notes
-------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 * The output lib names depend on the user-defined compilation settings and
   follow the pattern:
@@ -301,7 +306,150 @@ A few installation notes
   to worry about overwriting the header and lib files.
 
 
+.. _charm_uninstallation:
+
 Uninstallation
---------------
+~~~~~~~~~~~~~~
 
 Execute ``sudo make uninstall``.
+
+
+.. _pyharm_installation:
+
+PyHarm (the Python wrapper)
+---------------------------
+
+Before reading this chapter, make sure you know how to compile :ref:`CHarm 
+<charm_installation>`.  Otherwise, you won't be able to build PyHarm.
+
+
+Requirements
+~~~~~~~~~~~~
+
+*Additional* prerequisites when compared with :ref:`requirements 
+<charm_requirements>`:
+
+* Python interpreter 3.6 or newer.
+
+* Python module `pip <https://docs.python.org/3/installing/index.html>`_.
+
+* Python module `numpy <https://numpy.org/>`_ (reasonably old version).
+
+* Python module `ctypes <https://docs.python.org/3/library/ctypes.html>`_ 
+  (reasonably old version).
+
+
+Building PyHarm
+~~~~~~~~~~~~~~~
+
+Installation of PyHarm is disabled by default.  To enable it, you have to add 
+the ``--enable-python`` flag to the ``configure`` call *in addition* to the 
+flags discussed in the :ref:`CHarm (the C library) <charm_installation>` 
+chapter.
+
+The following flags may be used in addition to ``--enable-python``.
+
+* The ``PYTHON`` variable specifies the Python interpreter you want to use.  
+  For instance, ``PYTHON=python3.9`` will ensure that the build is done 
+  with/for Python version 3.9.  Use the appropriate version (depends on your 
+  machine).
+
+* By default, PyHarm is built to the ``${prefix}/lib`` directory.  The path in 
+  ``${prefix}`` is taken from the ``--prefix`` flag (see :ref:`CHarm (the 
+  C library) <charm_installation>`).  The default installation path can be 
+  replaced by a custom one using the ``--with-python_prefix`` flag, for 
+  instance, ``--with-python_prefix=/home/isaac/pyharm``.
+
+  Using the correct path in ``--with-python_prefix`` is crucial for Python to 
+  find PyHarm.  Otherwise, when calling
+
+  .. code-block:: python
+
+    >>> import pyharm
+
+  from within the Python shell or a Python script, ``ModuleNotFoundError`` will 
+  be thrown.
+
+  There are several strategies to choose the installation path.
+
+  * If you are not really confident with all this, create and activate a Python 
+    virtual environment:
+
+    .. code-block:: bash
+
+        python3 -m venv /path/to/your/virtual/environment/
+        source /path/to/your/virtual/environment/bin/activate
+
+    Then use ``--with-python_prefix=/path/to/your/virtual/environment`` when 
+    calling the ``configure`` script.  After executing ``make`` and ``make 
+    install``, you are ready to import PyHarm in a Python shell or a Python 
+    script:
+
+    .. code-block:: python
+
+        >>> import pyharm
+
+  * If you want to install PyHarm as a user, find the lib path of your Python 
+    user packages, for instance,
+
+    .. code-block:: bash
+
+        python3 -m site --user-site
+
+    The output might like ``/home/isaac/.local/lib/python3.9/site-packages``, 
+    depending on the version of your Python and on your OS.  Based on this 
+    path, you can specify your installation path; in this case it is
+    ``--with-python_prefix=/home/isaac/.local``.  Note that the 
+    ``lib/python3.9/site-packages`` directories have to be omitted, as they are 
+    added to the installation path automatically.
+
+  * If you want to install PyHarm next to your system Python packages, you must 
+    specify neither ``--prefix`` nor ``--with-python_prefix``.
+
+  Note that if you use custom a path in ``--prefix`` but do not specify 
+  ``--with-python_prefix``, you will most likely not be able to (easily) import 
+  PyHarm.
+
+Example installation
+""""""""""""""""""""
+
+A typical installation of PyHarm to a Python virtual environment looks like 
+this:
+
+.. code-block:: bash
+
+  python3 -m venv /tmp/python-venv
+  source /tmp/python-venv/bin/activate
+  ./configure --prefix=/tmp/charm --enable-openmp \
+     LDFLAGS=-L/opt/fftw-3.3.9/lib CPPFLAGS=-I/opt/fftw-3.3.9/include \
+     --enable-python PYTHON=python3.9 --with-python_prefix=/tmp/python-venv
+  make
+  make check
+  make install
+
+
+Open Python:
+
+.. code-block:: bash
+
+  python3
+
+From within Python, you can now work with PyHarm:
+
+.. code-block:: python
+
+  >>> import pyharm as ph
+  >>> ph.misc.print_version()
+  >>> quit()
+
+Deactivate the virtual environment from the shell:
+
+.. code-block:: bash
+
+  deactivate
+
+
+Uninstallation
+~~~~~~~~~~~~~~
+
+See :ref:`charm_uninstallation`.

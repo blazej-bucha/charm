@@ -14,6 +14,9 @@ libcharm@P@_leg@OMP@_la_SOURCES = leg_func_anm_bnm.c \
 								  leg_pnmj_dpodd.c \
 								  leg_pnmj_gpeven.c \
 								  leg_pnmj_gpodd.c \
+								  leg_pnmj_alloc.c \
+								  leg_pnmj_calloc.c \
+								  leg_pnmj_malloc.c \
 								  leg_pnmj_init.c \
 								  leg_pnmj_free.c \
 								  leg_pnmj_length.c \

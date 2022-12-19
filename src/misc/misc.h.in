@@ -49,17 +49,17 @@ extern "C"
 /* ------------------------------------------------------------------------- */
 /**
  * Major version number of CHarm. */
-#define CHARM_VERSION_MAJOR @CHARM_MAJOR@
+#define CHARM_VERSION_MAJOR "@CHARM_MAJOR@"
 
 
 /**
  * Minor version number of CHarm. */
-#define CHARM_VERSION_MINOR @CHARM_MINOR@
+#define CHARM_VERSION_MINOR "@CHARM_MINOR@"
 
 
 /**
  * Patch number of CHarm. */
-#define CHARM_VERSION_PATCH @CHARM_PATCH@
+#define CHARM_VERSION_PATCH "@CHARM_PATCH@"
 
 
 /**

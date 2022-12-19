@@ -50,9 +50,7 @@ extern "C"
 
 
 /* ------------------------------------------------------------------------- */
-/**
- * Enumeration for harmonic analysis methods using evaluation cells.
- * */
+/** Harmonic analysis methods using evaluation cells.  */
 enum
 {
     /**
@@ -89,11 +87,11 @@ enum
  * The coefficients are automatically normalized to the constants \f$\mu\f$ and 
  * \f$R\f$, which are taken from ``shcs->mu`` and ``shcs->r``, respectively. If 
  * \f$r \neq R\f$ (``pnt->r[i] != shcs->r``), the coefficients are also 
- * rescaled **from** the data sphere with the radius \f$r\f$ **to** the 
- * reference sphere with the radius \f$R\f$ via ``charm@P@_shc_rescale``. If 
- * \f$r = R = \mu = 1\f$ (``pnt->r[i] == shcs->r == shcs->mu == 1.0``), one 
- * gets the well-known relation for spherical harmonic analysis on the unit 
- * sphere (no normalization, no rescaling).
+ * rescaled **from** the data sphere with the radius \f$r\f$ **to** the
+ * reference sphere with the radius \f$R\f$ using
+ * ``charm@P@_shc_rescale()``. If \f$r = R = \mu = 1\f$ (``pnt->r[i] == shcs->r
+ * == shcs->mu == 1.0``), one gets the well-known relation for spherical
+ * harmonic analysis on the unit sphere (no normalization, no rescaling).
  *
  * The integrals are evaluated by exact quadratures, either the Gauss-Legendre 
  * or the Driscoll-Healy one.  The type of the quadrature to be applied is 
@@ -102,18 +100,12 @@ enum
  * The loop over latitudes is parallelized using OpenMP.
  *
  * The function exploits the symmetry property of Legendre functions with 
- * respect to the equator, thereby improving its performance.  For further 
- * details on the grid requirements, see ``charm@P@_shs_point``.
+ * respect to the equator, thereby improving its performance.  For further
+ * details on the grid requirements, see ``charm@P@_shs_point()``.
  *
- * \verbatim embed:rst:leading-asterisk
- *  .. note::
- *
- *      The function modifies ``shcs->c`` and ``shcs->s``, but touches neither
- *      ``shcs->nmax`` nor ``shcs->mu`` nor ``shcs->r``.  The latter two
- *      parameters are, however, essential to determine the scaling and
- *      normalization of the output coefficients.
- *
- * \endverbatim
+ * @note The function modifies ``shcs->c`` and ``shcs->s``, but it does not
+ * touch the remaining members of ``shcs``.  If ``shcs->nmax > nmax``, the
+ * coefficients beyond ``nmax`` are set to zero.
  *
  *
  * **References**:
@@ -133,13 +125,13 @@ enum
  *   numbers. Journal of Geodesy 86:271-285
  *
  *
- * @param[in] pnt Structure defining grid points and integration weights (see 
- * the ``charm@P@_grd`` module).  The ``pnt`` structure must be prepared by 
- * calling the ``charm@P@_crd_gl``, ``charm@P@_crd_dh1`` or 
- * ``charm@P@_crd_dh2`` with some ``nmax_signal``.  Importantly, it is 
- * assumed that **no** harmonics (frequencies) are present in the input signal 
-    * beyond ``nmax_signal``.  Otherwise, the output spherical harmonic 
-        * coefficients will suffer from the alliasing effect.
+ * @param[in] pnt Structure defining grid points and integration weights (see
+ * ``charm@P@_point``).  The ``pnt`` structure must be prepared by calling the
+ * ``charm@P@_crd_point_gl()``, ``charm@P@_crd_point_dh1()`` or
+ * ``charm@P@_crd_point_dh2()`` with some ``nmax_signal``.  Importantly, it is
+ * assumed that **no** harmonics (frequencies) are present in the input signal
+ * beyond ``nmax_signal``.  Otherwise, the output spherical harmonic
+ * coefficients will suffer from the alliasing effect.
  *
  * @param[in] f Input signal with point data given at the nodes of the ``pnt`` 
  * structure and containing harmonics up to degree ``nmax_signal`` 
@@ -154,13 +146,13 @@ enum
  * beyond ``nmax_signal`` in ``f``, than the output coefficients are computed 
  * exactly for all ``nmax <= nmax_signal``.
  *
- * @param[out] shcs Output spherical harmonic coefficients (see the 
-* ``charm@P@_shc`` module).
+ * @param[out] shcs Output spherical harmonic coefficients (see
+ * ``charm@P@_shc``).
  *
  * @param[out] err Error reported by the function (if any).
  *
  * */
-extern void charm@P@_sha_point(const charm@P@_crd *pnt,
+extern void charm@P@_sha_point(const charm@P@_point *pnt,
                                const @RDT@ *f,
                                unsigned long nmax,
                                charm@P@_shc *shcs,
@@ -194,26 +186,18 @@ extern void charm@P@_sha_point(const charm@P@_crd *pnt,
  *
  * \endverbatim
  *
- * See also the comments from ``charm@P@_sha_point`` on the normalization 
- * and rescaling of the coefficients with \f$R\f$, \f$r\f$ and \f$\mu\f$.
+ * See also the comments from ``charm@P@_sha_point()`` on the normalization and
+ * rescaling of the coefficients with \f$R\f$, \f$r\f$ and \f$\mu\f$.
  *
  * Applied is the approximate numerical quadrature due to Colombo (1981).
- *
- * \verbatim embed:rst:leading-asterisk
- *  .. note::
- *
- *      The function does not use ``cell->w`` at all, so no constrains are 
- *      applied.  ``cell->w`` can therefore be, for instance, ``NULL``.
- *
- * \endverbatim
  *
  * The loop over latitudes is parallelized using OpenMP.
  *
  * **A note on grid cells**
  *
- * Since the quadrature is approximate, the grid restrictions are more relaxed 
- * when compared with ``charm@P@_sha_point``.  Yet, some conditions has to 
- * be fulfilled:
+ * Since the quadrature is approximate, the grid restrictions are more relaxed
+ * when compared with ``charm@P@_sha_point()``.  Yet, some conditions has to be
+ * fulfilled:
  *
  * - at least ``nmax + 1`` data values in ``f`` are required in the latitudinal 
  *   direction,
@@ -221,16 +205,16 @@ extern void charm@P@_sha_point(const charm@P@_crd *pnt,
  * - at least ``2 * nmax + 1`` data values in ``f`` are required in the 
  *   longitudinal direction,
  *
- * - ``cell->lat[0]`` has to be equal to ``-PI / 2.0`` (within the
+ * - ``cell->latmax[0]`` has to be equal to ``PI / 2.0`` (within the
  *   ``charm@P@_glob_threshold`` limit, see the ``charm@P@_glob`` module),
  *
- * - ``cell->lat[2 * cell->nlat - 1]`` has to be equal to ``PI / 2.0`` (again,
+ * - ``cell->latmin[cell->nlat - 1]`` has to be equal to ``-PI / 2.0`` (again,
  *   within the ``charm@P@_glob_threshold`` limit),
  *
- * - ``cell->lon[0]`` has to be equal to ``0.0`` (still within the
+ * - ``cell->lonmin[0]`` has to be equal to ``0.0`` (still within the
  *   ``charm@P@_glob_threshold`` limit),
  *
- * - ``cell->lon[2 * cell->nlon - 1]`` has to be equal to ``2.0 * PI`` (still
+ * - ``cell->lonmax[cell->nlon - 1]`` has to be equal to ``2.0 * PI`` (still
  *   within the ``charm@P@_glob_threshold`` limit),
  *
  * - the maximum latitude of one cell has to be equal to the minimum latitude 
@@ -238,16 +222,15 @@ extern void charm@P@_sha_point(const charm@P@_crd *pnt,
  *   both within the ``charm@P@_glob_threshold`` limit).
  *
  * If possible, the function exploits the symmetry property of Legendre 
- * functions and their integrals with respect to the equator, thereby improving 
- * its performance (see the ``charm@P@_shs`` module).
+ * functions and their integrals with respect to the equator, thereby improving
+ * its performance (see ``charm@P@_shs_cell()``).
  *
  * \verbatim embed:rst:leading-asterisk
  *  .. note::
  *
- *      The function modifies ``shcs->c`` and ``shcs->s``, but touches neither
- *      ``shcs->nmax``, ``shcs->mu`` nor ``shcs->r``.  The latter two
- *      parameters are, however, essential to determine the scaling and
- *      normalization of the output coefficients.
+ *      The function modifies ``shcs->c`` and ``shcs->s``, but it does not
+ *      touch the remaining members of ``shcs``.  If ``shcs->nmax > nmax``, the
+ *      coefficients beyond ``nmax`` are set to zero.
  *
  * \endverbatim
  *
@@ -280,15 +263,14 @@ extern void charm@P@_sha_point(const charm@P@_crd *pnt,
  * */
  /**
  *
- * @param[in] cell Structure defining grid cells (see the ``charm@P@_grd`` 
- * module).
+ * @param[in] cell Structure defining grid cells (see ``charm@P@_cell``).
  *
- * @param[in] f Input signal with block mean data given at the nodes of the 
- * ``cell`` structure.  The pointer ``f`` must have an access to 
- * ``cell->nlat * cell->nlon`` array elements.  The value of ``f`` at 
- * ``cell->lat[i]`` and ``cell->lon[j]`` must be stored as 
- * ``f[i * cell->nlon + j]`` with ``i = 0, 1, ..., cell->nlat - 1`` and ``j 
- * = 0, 1, ..., pnt->nlon - 1``.
+ * @param[in] f Input signal with block mean data given at the nodes of the
+ * ``cell`` structure.  The pointer ``f`` must have an access to
+ * ``cell->nlat * cell->nlon`` array elements.  The mean value of the signal at
+ * the ``i``-th cell in the latitudinal direction and the ``j``-th cell in the
+ * longitudinal direction must be stored as ``f[i * cell->nlon + j]`` with
+ * ``i = 0, 1, ..., cell->nlat 1`` and ``j = 0, 1, ..., pnt->nlon 1``.
  *
  * @param[in] nmax Maximum harmonic degree of the output spherical harmonic 
  * coefficients.
@@ -297,13 +279,13 @@ extern void charm@P@_sha_point(const charm@P@_crd *pnt,
  * only method currently supported is the approximate quadrature 
  * ``CHARM_SHA_CELL_AQ`` (described above).
  *
- * @param[out] shcs Output spherical harmonic coefficients (see the 
- * ``charm@P@_shc`` module).
+ * @param[out] shcs Output spherical harmonic coefficients (see
+ * ``charm@P@_shc``).
  *
  * @param[out] err Error reported by the function (if any).
  *
  * */
-extern void charm@P@_sha_cell(const charm@P@_crd *cell,
+extern void charm@P@_sha_cell(const charm@P@_cell *cell,
                               const @RDT@ *f,
                               unsigned long nmax,
                               int method,

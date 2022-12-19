@@ -15,7 +15,7 @@ extern "C"
 #endif
 
 
-extern void CHARM(shs_cell_check_grd_lons)(const CHARM(crd) *, REAL *dlon,
+extern void CHARM(shs_cell_check_grd_lons)(const CHARM(cell) *, REAL *dlon,
                                            CHARM(err) *);
 
 

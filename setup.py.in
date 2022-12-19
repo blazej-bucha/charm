@@ -1,0 +1,27 @@
+from setuptools import setup
+
+
+# Get the version number of Charm
+# .............................................................................
+ver = open("./VERSION").read()
+
+ret = ver.find("\n")
+if ret != -1:
+    ver = ver[:ret]
+# .............................................................................
+
+
+setup(name='pyharm@P@',
+      version=ver,
+      description='Python wrapper for CHarm, a C library to work with '
+                  'spherical harmonics up to almost arbitrarily high degrees',
+      license='The 3-Clause BSD License',
+      author='Blazej Bucha',
+      author_email='blazej.bucha@stuba.sk',
+      packages=['pyharm@P@'],
+      package_dir={'': 'wrap'},
+      package_data={'': ['lib/*']},
+      url='https://github.com/blazej-bucha/charm',
+      install_requires=['numpy']
+      )
+

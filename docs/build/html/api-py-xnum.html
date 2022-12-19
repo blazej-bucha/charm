@@ -1,0 +1,324 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>pyharm.xnum &mdash; CHarm 0.2.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom_BB.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pyharm.glob" href="api-py-glob.html" />
+    <link rel="prev" title="pyharm.misc" href="api-py-misc.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> CHarm
+          
+
+          
+            
+            <img src="_static/charm-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">Interfaces</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api-c.html">CHarm (C API)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="api-py-shc.html">shc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">crd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">shs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-leg.html">leg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">integ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">misc</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">xnum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-glob.html">glob</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CHarm</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="api.html">Interfaces</a> &raquo;</li>
+        
+          <li><a href="api-py.html">PyHarm (Python API)</a> &raquo;</li>
+        
+      <li>pyharm.xnum</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/api-py-xnum.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pyharm.xnum">
+<span id="id1"></span><span id="pyharm-xnum"></span><h1>pyharm.xnum<a class="headerlink" href="#module-pyharm.xnum" title="Permalink to this headline">¶</a></h1>
+<p>Module to work with X-numbers after Fukushima (2012).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This documentation is written for double precision version of CHarm.</p>
+</div>
+<p><strong>References:</strong></p>
+<ul class="simple">
+<li><p>Fukushima, T. (2012) Numerical computation of spherical harmonics of
+arbitrary degree and order by extending exponent of floating point
+numbers. Journal of Geodesy 86:271-285.</p></li>
+</ul>
+<dl class="py function">
+<dt id="pyharm.xnum.xnorm">
+<code class="sig-prename descclassname">pyharm.xnum.</code><code class="sig-name descname">xnorm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">ix</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.xnum.xnorm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Weakly normalizes an X-number. The function is due to Fukushima (2012),
+Table 7.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>floating point</em>) – Significand of the input X-number</p></li>
+<li><p><strong>ix</strong> (<em>integer</em>) – Exponent of the input X-number</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>x</strong> (<em>floating point</em>) – Significand of the output X-number</p></li>
+<li><p><strong>ix</strong> (<em>integer</em>) – Exponent of the output X-number</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyharm.xnum.xlsum2">
+<code class="sig-prename descclassname">pyharm.xnum.</code><code class="sig-name descname">xlsum2</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">f</span></em>, <em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">g</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">ix</span></em>, <em class="sig-param"><span class="n">iy</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.xnum.xlsum2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes a two-term linear sum of X-numbers with F-number coefficients.
+The function is due to Fukushima (2012), Table 8.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f</strong> (<em>floating point</em>) – F-number coefficient of the first linear term</p></li>
+<li><p><strong>x</strong> (<em>floating point</em>) – Significand of the first X-number term</p></li>
+<li><p><strong>g</strong> (<em>floating point</em>) – F-number coefficient of the second linear term</p></li>
+<li><p><strong>y</strong> (<em>floating point</em>) – Significand of the second X-number term</p></li>
+<li><p><strong>ix</strong> (<em>integer</em>) – Exponent of the first X-number term</p></li>
+<li><p><strong>iy</strong> (<em>integer</em>) – Exponent of the second X-number term</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>z</strong> (<em>floating point</em>) – Pointer to the significand of the output X-number</p></li>
+<li><p><strong>iz</strong> (<em>floating point</em>) – Pointer to the exponent of the output X-number</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyharm.xnum.x2f">
+<code class="sig-prename descclassname">pyharm.xnum.</code><code class="sig-name descname">x2f</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">ix</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.xnum.x2f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates an X-number into an F-number. The function is due to Fukushima
+(2012), Table 6.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>floating point</em>) – Significand of the X-number</p></li>
+<li><p><strong>ix</strong> (<em>integer</em>) – Exponent of the X-number</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – The F-number representation of an input X-number</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>floating point</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="api-py-glob.html" class="btn btn-neutral float-right" title="pyharm.glob" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="api-py-misc.html" class="btn btn-neutral float-left" title="pyharm.misc" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Blažej Bucha.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

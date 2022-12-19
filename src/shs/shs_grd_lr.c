@@ -18,7 +18,7 @@ void CHARM(shs_grd_lr)(unsigned long m, REAL lon0, REAL dlon, size_t nlon,
                        int grd_type, REAL_SIMD a, REAL_SIMD b, REAL_SIMD a2,
                        REAL_SIMD b2, _Bool symm, REAL *fi, REAL *fi2)
 {
-    if (grd_type == CHARM_CRD_CELLS_GRID)
+    if (grd_type == CHARM_CRD_CELL_GRID)
     {
         /* Before applying the PSLR algorithm from Balmino et al. (2012), the
          * lumped coefficients need to be multiplied by additional terms, which

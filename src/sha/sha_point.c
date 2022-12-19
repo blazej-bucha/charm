@@ -10,6 +10,7 @@
 #include <math.h>
 #include <fftw3.h>
 #include "../prec.h"
+#include "../shc/shc_reset_coeffs.h"
 #include "../leg/leg_func_anm_bnm.h"
 #include "../leg/leg_func_dm.h"
 #include "../leg/leg_func_r_ri.h"
@@ -32,8 +33,8 @@
 
 
 
-void CHARM(sha_point)(const CHARM(crd) *pnt, const REAL *f, unsigned long nmax,
-                      CHARM(shc) *shcs, CHARM(err) *err)
+void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
+                      unsigned long nmax, CHARM(shc) *shcs, CHARM(err) *err)
 {
     /* Some trivial initial error checks */
     /* --------------------------------------------------------------------- */
@@ -56,14 +57,14 @@ void CHARM(sha_point)(const CHARM(crd) *pnt, const REAL *f, unsigned long nmax,
 
     /* Get the maximum degree for which the grid in "pnt" was created.  The
      * value is derived from the number of latitudes "pnt_nlat". */
-    if (pnt_type == CHARM_CRD_POINTS_GRID_GL)
+    if (pnt_type == CHARM_CRD_POINT_GRID_GL)
     {
         /* In case of the Gauss--Legendre grid, it holds that "nmax_grd
          * = pnt_nlat - 1". */
         nmax_grd = pnt_nlat - 1;
     }
-    else if ((pnt_type == CHARM_CRD_POINTS_GRID_DH1) ||
-             (pnt_type == CHARM_CRD_POINTS_GRID_DH2))
+    else if ((pnt_type == CHARM_CRD_POINT_GRID_DH1) ||
+             (pnt_type == CHARM_CRD_POINT_GRID_DH2))
     {
         /* In case of the Driscoll--Healy grid, it holds that "nmax_grd
          * = (pnt_nlat - 2) / 2". */
@@ -113,7 +114,7 @@ void CHARM(sha_point)(const CHARM(crd) *pnt, const REAL *f, unsigned long nmax,
         if (!CHARM(misc_is_nearly_equal)(pnt->r[i], r0, CHARM(glob_threshold)))
         {
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
-                           "All spherical radii in \"pnt->r\" must be"
+                           "All spherical radii in \"pnt->r\" must be "
                            "equal.");
             return;
         }
@@ -218,10 +219,10 @@ void CHARM(sha_point)(const CHARM(crd) *pnt, const REAL *f, unsigned long nmax,
 
     /* Here, we have to use the maximum degree "nmax_grd" for which the input
      * grid in "pnt" was created. */
-    if ((pnt_type == CHARM_CRD_POINTS_GRID_GL) ||
-        (pnt_type == CHARM_CRD_POINTS_GRID_DH1))
+    if ((pnt_type == CHARM_CRD_POINT_GRID_GL) ||
+        (pnt_type == CHARM_CRD_POINT_GRID_DH1))
         c = PI / (REAL)(nmax_grd + 1);
-    else if (pnt_type == CHARM_CRD_POINTS_GRID_DH2)
+    else if (pnt_type == CHARM_CRD_POINT_GRID_DH2)
         c = PI / (REAL)(2 * nmax_grd + 2);
     /* --------------------------------------------------------------------- */
 
@@ -230,12 +231,8 @@ void CHARM(sha_point)(const CHARM(crd) *pnt, const REAL *f, unsigned long nmax,
 
 
 
-    /* Initialize all elements of the output coefficients to zero */
-    /* --------------------------------------------------------------------- */
-    unsigned long nm_count = ((nmax + 2) * (nmax + 1)) / 2;
-    memset(shcs->c[0], 0, nm_count * sizeof(REAL));
-    memset(shcs->s[0], 0, nm_count * sizeof(REAL));
-    /* --------------------------------------------------------------------- */
+    /* Set all coefficients in "shcs" to zero */
+    CHARM(shc_reset_coeffs)(shcs);
 
 
 

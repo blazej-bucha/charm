@@ -1,3 +1,5 @@
+* Add unit tests for PyHarm.
+
 * Add support for fused multiply-add instructions.
 
 * Add the Condon--Shortley phase factor.
@@ -5,8 +7,6 @@
 * Add other normalization schemes.
 
 * Add polar optimization.
-
-* Create a Python wrapper, probably using SWIG or ctypes.
 
 * Check coordinates for the [-pi / 2, pi / 2] and [0, 2 * pi] intervals in sha 
   and shs functions.

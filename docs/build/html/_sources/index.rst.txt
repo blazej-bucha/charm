@@ -9,7 +9,7 @@ Welcome to CHarm
    install
    definitions
    cookbook
-   modules
+   api
    benchmarks
    platforms
    citing

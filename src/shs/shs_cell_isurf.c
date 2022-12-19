@@ -16,6 +16,7 @@
 #include "../integ/integ_css.h"
 #include "../integ/integ_scs.h"
 #include "../integ/integ_sss.h"
+#include "../crd/crd_check_cells.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
 #include "../simd/simd.h"
@@ -30,7 +31,7 @@
 
 
 
-void CHARM(shs_cell_isurf)(const CHARM(crd) *cell,
+void CHARM(shs_cell_isurf)(const CHARM(cell) *cell,
                            const CHARM(shc) *shcs1, unsigned long nmax1,
                            const CHARM(shc) *shcs2, unsigned long nmax2,
                            unsigned long nmax3, unsigned long nmax4,
@@ -38,11 +39,11 @@ void CHARM(shs_cell_isurf)(const CHARM(crd) *cell,
 {
     /* Some error checks */
     /* --------------------------------------------------------------------- */
-    if (cell->type != CHARM_CRD_CELLS_GRID)
+    if (cell->type != CHARM_CRD_CELL_GRID)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"cell->type\" must be set to "
-                       "\"CHARM_CRD_CELLS_GRID\".");
+                       "\"CHARM_CRD_CELL_GRID\".");
         return;
     }
 
@@ -83,11 +84,21 @@ void CHARM(shs_cell_isurf)(const CHARM(crd) *cell,
     }
 
 
-    /* Check whether "cell->lon" is a linearly increasing array of cells. */
+    /* Check whether "cell->lonmin" and "cell->lonmax" are linearly increasing
+     * arrays. */
     size_t cell_nlon = cell->nlon;
     size_t cell_nlat = cell->nlat;
     REAL dlon;
     CHARM(shs_cell_check_grd_lons)(cell, &dlon, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
+    /* Check cell boundaries */
+    CHARM(crd_check_cells)(cell, err);
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
@@ -123,19 +134,31 @@ void CHARM(shs_cell_isurf)(const CHARM(crd) *cell,
     cnm1cnm3 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, size,
                                              sizeof(REAL));
     if (cnm1cnm3 == NULL)
+    {
+        FAILURE_glob = 1;
         goto FAILURE;
+    }
     cnm1snm3 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, size,
                                              sizeof(REAL));
     if (cnm1snm3 == NULL)
+    {
+        FAILURE_glob = 1;
         goto FAILURE;
+    }
     snm1cnm3 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, size,
                                              sizeof(REAL));
     if (snm1cnm3 == NULL)
+    {
+        FAILURE_glob = 1;
         goto FAILURE;
+    }
     snm1snm3 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, size,
                                              sizeof(REAL));
     if (snm1snm3 == NULL)
+    {
+        FAILURE_glob = 1;
         goto FAILURE;
+    }
 
 
     CHARM(shs_cell_isurf_coeffs)(shcs1, nmax1, shcs2,
@@ -156,7 +179,7 @@ void CHARM(shs_cell_isurf)(const CHARM(crd) *cell,
 
     /* Synthesis of the mean values on the irregular surface */
     /* --------------------------------------------------------------------- */
-    REAL lon0 = cell->lon[0];
+    REAL lon0 = cell->lonmin[0];
     DELTAlon = (REAL *)malloc(cell_nlon * sizeof(REAL));
     if (DELTAlon == NULL)
     {
@@ -164,7 +187,7 @@ void CHARM(shs_cell_isurf)(const CHARM(crd) *cell,
         goto FAILURE;
     }
     for (size_t j = 0; j < cell_nlon; j++)
-        DELTAlon[j] = cell->lon[2 * j + 1] - cell->lon[2 * j];
+        DELTAlon[j] = cell->lonmax[j] - cell->lonmin[j];
 
 
     REAL mur = shcs1->mu / shcs1->r;
@@ -325,8 +348,8 @@ FAILURE_1_parallel:
             ipv = i + v;
             if (ipv < cell_nlat)
             {
-                clt2v[v] = PI_2 - cell->lat[2 * ipv];
-                clt1v[v] = PI_2 - cell->lat[2 * ipv + 1];
+                clt1v[v] = PI_2 - cell->latmax[ipv];
+                clt2v[v] = PI_2 - cell->latmin[ipv];
             }
             else
             {

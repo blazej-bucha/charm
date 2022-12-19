@@ -16,8 +16,8 @@ void CHARM(crd_grd_check_symm)(size_t ipv, size_t v, int grd_type,
                                size_t nlatdo, _Bool symm, _Bool even,
                                REAL *symmv, REAL *latsinv)
 {
-    if ((grd_type == CHARM_CRD_POINTS_GRID_DH1) ||
-        (grd_type == CHARM_CRD_POINTS_GRID_DH2))
+    if ((grd_type == CHARM_CRD_POINT_GRID_DH1) ||
+        (grd_type == CHARM_CRD_POINT_GRID_DH2))
     {
         if (ipv == 0)
         {
@@ -46,7 +46,7 @@ void CHARM(crd_grd_check_symm)(size_t ipv, size_t v, int grd_type,
             latsinv[v] = 0;
         }
     }
-    else if (grd_type == CHARM_CRD_POINTS_GRID_GL)
+    else if (grd_type == CHARM_CRD_POINT_GRID_GL)
     {
         if (ipv < (nlatdo + even - 1))
         {
@@ -66,8 +66,8 @@ void CHARM(crd_grd_check_symm)(size_t ipv, size_t v, int grd_type,
             latsinv[v] = 0;
         }
     }
-    else if ((grd_type == CHARM_CRD_POINTS_GRID) ||
-             (grd_type == CHARM_CRD_CELLS_GRID))
+    else if ((grd_type == CHARM_CRD_POINT_GRID) ||
+             (grd_type == CHARM_CRD_CELL_GRID))
     {
         if (symm == 0)
             symmv[v] = 0;

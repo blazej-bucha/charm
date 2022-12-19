@@ -1,3 +1,112 @@
+CHarm 0.2.0:
+
+* Added Python wrapper called PyHarm.  This step necessitated several 
+  modifications of the CHarm API, some of which are not backward compatible.  
+  The changes are listed below.
+
+* The "charm_crd" structure was replaced by new structures:
+
+    * "charm_point" and
+    * "charm_cell",
+
+  which distinguish between evaluation points and evaluation cells.
+
+* Functions:
+
+    * "charm_shc_init",
+    * "charm_crd_init",
+    * "charm_leg_pnmj_init"
+
+  were replaced by
+
+    * "charm_shc_calloc",
+    * "charm_crd_calloc",
+    * "charm_leg_pnmj_calloc".
+
+  The new functions behave in the same fashion as the old ones, including their 
+  interface.
+
+  The following functions have been added:
+
+    * "charm_shc_malloc",
+    * "charm_crd_malloc",
+    * "charm_leg_pnmj_malloc",
+
+  which behave similarly as their "*_calloc" counterparts, but provide 
+  uninitialized memory.
+
+  Functions:
+
+    * "charm_shc_init",
+    * "charm_crd_init"
+
+  have now a different meaning.  They can be used to create the respective 
+  structures from data arrays provided by the user.
+
+* Changed API of the following functions to read/write spherical harmonic 
+  coefficients from/to files:
+
+    * "charm_shc_read_bin",
+    * "charm_shc_read_gfc",
+    * "charm_shc_read_mtx",
+    * "charm_shc_read_tbl",
+    * "charm_shc_write_bin",
+    * "charm_shc_write_mtx",
+    * "charm_shc_write_tbl".
+
+  Previously, it was necessary to open the stream for the input/output file, 
+  call the CHarm function to read/write the coefficients and, finally, close 
+  the stream.  All these steps had to be done by the user.  Now, the user only 
+  calls the function to read/write the coefficients and specifies the file's 
+  path name as one of the input parameters.  Opening and closing the stream is 
+  done by CHarm.
+
+  This should considerably simplify making the Python wrapper, given than 
+  wrapping "TYPE *" pointer with "ctypes" is not that trivial.
+
+* Changed API for SHA and SHS with cells
+
+    * "charm_sha_cell",
+    * "charm_shs_cell",
+    * "charm_shs_isurf".
+
+  Cell latitude boundaries must now follow the rule:
+
+    * the "lat[2 * i]" member of "charm_crd" now represents the maximum cell 
+      latitude instead of the minimum latitude,
+    * the "lat[2 * i + 1]" member of "charm_crd" now represents the minimum
+      cell latitude instead of the maximum latitude.
+
+  Area-mean grids are therefore no longer turned upside down.
+
+* Symbolic constants "CHARM_CRD_CELLS_*" and "CHARM_CRD_POINTS_*" were renamed 
+  to "CHARM_CRD_CELL_*" and "CHARM_CRD_POINT_*".
+
+* The "nmj_order" member of "charm_pnmj" was renamed to "ordering".  This 
+  affects the API.
+
+* Bug fix for "integ_pn1m1pn2m2".  The routine now works correctly with both 
+  ordering schemes of Fourier coefficients of Legendre functions.
+
+* Bug fix for "shc_read_bin".  The function no longer throws an error when 
+  reading coefficients up to a maximum degree that is lower than the one in the 
+  binary file.
+
+* Fix a few leg_pnmj tests that did not actually run.
+
+* Fixed use-after-free bug in degree amplitude tests.
+
+* Two members, "nc" and "ns", were added to the "charm_shc" structure to 
+  represent the total number of spherical harmonic coefficients "Cnm" and 
+  "Snm", respectively.  This does not break the previous API.
+
+* Added support for Fortran's "D" and "d" decimal exponents when reading from 
+  text files.
+
+* Compiling CHarm as a shared library is no longer disabled by default.
+
+* The documentation can now be build with "make html" instead of "make docs".
+
 CHarm 0.1.2:
 
 * Bug fix for incorrectly included c-file instead of its respective header file 

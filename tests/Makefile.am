@@ -9,12 +9,15 @@ EXTRA_DIST = *.h
 test_run@P@@OMP@_SOURCES = run.c \
 						   cmp_arrays.c \
 						   validate.c \
-						   generate_crd.c \
+						   generate_point.c \
+						   generate_cell.c \
 						   crd.c \
 						   shc.c \
 						   shs.c \
 						   sha.c \
-						   leg.c
+						   leg.c \
+						   misc.c \
+						   abs_r.c
 
 
 # Path to header files

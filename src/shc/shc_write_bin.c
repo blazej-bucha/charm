@@ -23,8 +23,26 @@ static int write_cnmsnm(const CHARM(shc) *, unsigned long, int, FILE *);
 
 
 void CHARM(shc_write_bin)(const CHARM(shc) *shcs, unsigned long nmax,
-                          FILE *stream, CHARM(err) *err)
+                          const char *pathname, CHARM(err) *err)
 {
+    /* Open "pathname" to write */
+    /* ===================================================================== */
+    FILE *fptr = fopen(pathname, "wb");
+    if (fptr == NULL)
+    {
+        char msg[CHARM_ERR_MAX_MSG];
+        sprintf(msg, "Couldn't create \"%s\".", pathname);
+        CHARM(err_set)(err, __FILE__, __LINE__, __func__,
+                       CHARM_EFILEIO, msg);
+        return;
+    }
+    /* ===================================================================== */
+
+
+
+
+
+
     /* Check maximum harmonic degree */
     /* ===================================================================== */
     if (nmax > shcs->nmax)
@@ -32,7 +50,7 @@ void CHARM(shc_write_bin)(const CHARM(shc) *shcs, unsigned long nmax,
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Not enough coefficients in \"shcs\" to write "
                        "up to degree \"nmax\".");
-        return;
+        goto EXIT;
     }
     /* ===================================================================== */
 
@@ -51,32 +69,32 @@ void CHARM(shc_write_bin)(const CHARM(shc) *shcs, unsigned long nmax,
     /* The maximum harmonic degree.  Note that written is the user-defined
      * maximum harmonic degree "nmax" (not "shcs->nmax"), as this is what we
      * are asked to do by the user. */
-    err_tmp = fwrite(&nmax, sizeof(unsigned long), 1, stream);
+    err_tmp = fwrite(&nmax, sizeof(unsigned long), 1, fptr);
     if (err_tmp < 1)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFILEIO,
                        "Failed to write the maximum harmonic degree.");
-        return;
+        goto EXIT;
     }
 
 
     /* The scaling parameter */
-    err_tmp = fwrite(&(shcs->mu), sizeof(REAL), 1, stream);
+    err_tmp = fwrite(&(shcs->mu), sizeof(REAL), 1, fptr);
     if (err_tmp < 1)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFILEIO,
                        "Failed to write the scaling parameter.");
-        return;
+        goto EXIT;
     }
 
 
     /* The scaling parameter */
-    err_tmp = fwrite(&(shcs->r), sizeof(REAL), 1, stream);
+    err_tmp = fwrite(&(shcs->r), sizeof(REAL), 1, fptr);
     if (err_tmp < 1)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFILEIO,
                        "Failed to write the radius of the reference sphere.");
-        return;
+        goto EXIT;
     }
     /* ===================================================================== */
 
@@ -87,12 +105,12 @@ void CHARM(shc_write_bin)(const CHARM(shc) *shcs, unsigned long nmax,
 
     /* Write the "shcs->c" coefficients */
     /* ===================================================================== */
-    err_tmp = write_cnmsnm(shcs, nmax, 0, stream);
+    err_tmp = write_cnmsnm(shcs, nmax, 0, fptr);
     if (err_tmp != 0)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFILEIO,
                        "Failed to write the \"C\" coefficients).");
-        return;
+        goto EXIT;
     }
     /* ===================================================================== */
 
@@ -103,12 +121,12 @@ void CHARM(shc_write_bin)(const CHARM(shc) *shcs, unsigned long nmax,
 
     /* Write the "shcs->s" coefficients */
     /* ===================================================================== */
-    err_tmp = write_cnmsnm(shcs, nmax, 1, stream);
+    err_tmp = write_cnmsnm(shcs, nmax, 1, fptr);
     if (err_tmp != 0)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFILEIO,
                        "Failed to write the \"S\" coefficients).");
-        return;
+        goto EXIT;
     }
     /* ===================================================================== */
 
@@ -117,6 +135,8 @@ void CHARM(shc_write_bin)(const CHARM(shc) *shcs, unsigned long nmax,
 
 
 
+EXIT:
+    fclose(fptr);
     return;
 }
 
@@ -128,7 +148,7 @@ void CHARM(shc_write_bin)(const CHARM(shc) *shcs, unsigned long nmax,
 /* Just a small function to write "Cnm" and "Snm" coefficients to the binary
  * file.  Hopefully, no detailed documentation is needed. */
 static int write_cnmsnm(const CHARM(shc) *shcs, unsigned long nmax, int cnmsnm,
-                        FILE *stream)
+                        FILE *fptr)
 {
     int err = 0;
 
@@ -137,9 +157,9 @@ static int write_cnmsnm(const CHARM(shc) *shcs, unsigned long nmax, int cnmsnm,
     for (unsigned long m = 0; m <= nmax; m++)
     {
         if (cnmsnm == 0)
-            err = fwrite(shcs->c[m], sizeof(REAL), nmax + 1 - m, stream);
+            err = fwrite(shcs->c[m], sizeof(REAL), nmax + 1 - m, fptr);
         else if (cnmsnm == 1)
-            err = fwrite(shcs->s[m], sizeof(REAL), nmax + 1 - m, stream);
+            err = fwrite(shcs->s[m], sizeof(REAL), nmax + 1 - m, fptr);
         else
             return 1;
 

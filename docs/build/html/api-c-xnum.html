@@ -1,0 +1,316 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>charm_xnum &mdash; CHarm 0.2.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom_BB.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="charm_err" href="api-c-err.html" />
+    <link rel="prev" title="charm_misc" href="api-c-misc.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> CHarm
+          
+
+          
+            
+            <img src="_static/charm-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">Interfaces</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="api-c.html">CHarm (C API)</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html">charm_shc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-sha.html">charm_sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-leg.html">charm_leg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">charm_xnum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html">charm_err</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-glob.html">charm_glob</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CHarm</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="api.html">Interfaces</a> &raquo;</li>
+        
+          <li><a href="api-c.html">CHarm (C API)</a> &raquo;</li>
+        
+      <li>charm_xnum</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/api-c-xnum.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="charm-xnum">
+<h1>charm_xnum<a class="headerlink" href="#charm-xnum" title="Permalink to this headline">¶</a></h1>
+<p>Module to work with X-numbers after Fukushima (2012).</p>
+<p><p><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This documentation is written for double precision version of 
+CHarm.</p>
+</div>
+</p>
+</p>
+<p><strong>References</strong>:</p>
+<p><ul class="simple">
+<li><p>Fukushima, T. (2012) Numerical computation of spherical harmonics of arbitrary degree and order by extending exponent of floating point numbers. Journal of Geodesy 86:271-285.</p></li>
+</ul>
+</p>
+<p></p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv416charm_xnum_xnormPdPi">
+<span id="_CPPv316charm_xnum_xnormPdPi"></span><span id="_CPPv216charm_xnum_xnormPdPi"></span><span id="charm_xnum_xnorm__doubleP.iP"></span><span class="target" id="charm__xnum_8h_1a1070c32c7f397e363119e0b12abf7ac1"></span>void <code class="sig-name descname">charm_xnum_xnorm</code><span class="sig-paren">(</span>double *<em>x</em>, int *<em>ix</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416charm_xnum_xnormPdPi" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Weakly normalizes an X-number. The function is due to Fukushima (2012), Table 7.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <strong>[in]</strong> Pointer to the significand of the input X-number</p></li>
+<li><p><strong>ix</strong> – <strong>[in]</strong> Pointer to the exponent of the input X-number</p></li>
+<li><p><strong>x</strong> – <strong>[out]</strong> Pointer to the significand of the output X-number</p></li>
+<li><p><strong>ix</strong> – <strong>[out]</strong> Pointer to the exponent of the output X-number </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv417charm_xnum_xlsum2ddddPdiiPi">
+<span id="_CPPv317charm_xnum_xlsum2ddddPdiiPi"></span><span id="_CPPv217charm_xnum_xlsum2ddddPdiiPi"></span><span id="charm_xnum_xlsum2__double.double.double.double.doubleP.i.i.iP"></span><span class="target" id="charm__xnum_8h_1ac9eca0db2cd9b7ba38b80832b4dd353c"></span>void <code class="sig-name descname">charm_xnum_xlsum2</code><span class="sig-paren">(</span>double <em>f</em>, double <em>x</em>, double <em>g</em>, double <em>y</em>, double *<em>z</em>, int <em>ix</em>, int <em>iy</em>, int *<em>iz</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv417charm_xnum_xlsum2ddddPdiiPi" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Computes a two-term linear sum of X-numbers with F-number coefficients. The function is due to Fukushima (2012), Table 8.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f</strong> – <strong>[in]</strong> F-number coefficient of the first linear term</p></li>
+<li><p><strong>x</strong> – <strong>[in]</strong> Significand of the first X-number term</p></li>
+<li><p><strong>g</strong> – <strong>[in]</strong> F-number coefficient of the second linear term</p></li>
+<li><p><strong>y</strong> – <strong>[in]</strong> Significand of the second X-number term</p></li>
+<li><p><strong>ix</strong> – <strong>[in]</strong> Exponent of the first X-number term</p></li>
+<li><p><strong>iy</strong> – <strong>[in]</strong> Exponent of the second X-number term</p></li>
+<li><p><strong>z</strong> – <strong>[out]</strong> Pointer to the significand of the output X-number</p></li>
+<li><p><strong>iz</strong> – <strong>[out]</strong> Pointer to the exponent of the output X-number </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv414charm_xnum_x2fdi">
+<span id="_CPPv314charm_xnum_x2fdi"></span><span id="_CPPv214charm_xnum_x2fdi"></span><span id="charm_xnum_x2f__double.i"></span><span class="target" id="charm__xnum_8h_1a3bf2ad51abd1642f93e7eab13728b01c"></span>double <code class="sig-name descname">charm_xnum_x2f</code><span class="sig-paren">(</span>double <em>x</em>, int <em>ix</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414charm_xnum_x2fdi" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Translates an X-number into an F-number. The function is due to Fukushima (2012), Table 6.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <strong>[in]</strong> Significand of the X-number </p></li>
+<li><p><strong>ix</strong> – <strong>[in]</strong> Exponent of the X-number</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The F-number representation of an input X-number. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="api-c-err.html" class="btn btn-neutral float-right" title="charm_err" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="api-c-misc.html" class="btn btn-neutral float-left" title="charm_misc" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Blažej Bucha.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

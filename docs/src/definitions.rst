@@ -120,18 +120,19 @@ points/cells.
 
 * **Grid of cells** is defined by
 
-  * ``2 * nlat`` latitudes over a single grid meridian,
+  * ``nlat`` minimum cell latitudes over a single grid meridian,
 
-  * ``2 * nlon`` longitudes over a single grid latitude parallel, and
+  * ``nlat`` maximum cell latitudes over a single grid meridian,
+
+  * ``nlon`` minimum longitudes over a single grid latitude parallel,
+
+  * ``nlon`` maximum longitudes over a single grid latitude parallel, and
 
   * ``nlat`` spherical radii over a single grid meridian.
 
-  The grid has in total ``nlat * nlon`` cells.  Note, however, that there is
-  ``2 * nlat`` latitudes and ``2 * nlon`` longitudes, since each grid cell is
-  defined by a minimum and a maximum latitude, and a minimum and a maximum
-  longitude (see the definitions above).  Given that the spherical radius (1)
-  is implicitly constant over a grid cell and (2) may vary only with latitude,
-  there is ``nlat`` spherical radii.
+  The grid has in total ``nlat * nlon`` cells.  Given that the spherical radius 
+  (1) is implicitly constant over a grid cell and (2) may vary only with 
+  latitude, there is ``nlat`` spherical radii.
 
   Again, CHarm stores only the grid boundaries.
 
@@ -147,20 +148,22 @@ points/cells.
 
 * **Scattered cells** are defined by
 
-  * ``2 * nlat == 2 * nlon`` latitudes,
+  * ``nlat == nlon`` minimum latitudes,
 
-  * ``2 * nlat == 2 * nlon`` longitudes, and
+  * ``nlat == nlon`` maximum latitudes,
+
+  * ``nlat == nlon`` minimum longitudes,
+
+  * ``nlat == nlon`` maximum longitudes,
 
   * ``nlat == nlon`` spherical radii.
 
-  The total number of scattered cells is ``nlat == nlon``.  Similarly as with
-  the *grid of cells*, we have ``2 * nlat == 2 * nlon`` latitudes and
-  longitudes, but only ``nlat == nlon`` spherical radii and cells.
+  The total number of scattered cells is ``nlat == nlon``.
 
 .. note::
 
    Routines implementing the definitions of evaluation points/cells are
-   gathered in the :ref:`charm_crd` module.
+   gathered in :ref:`charm_crd` and :ref:`pyharm_crd`.
 
 
 Surface spherical harmonics
@@ -249,8 +252,8 @@ the quadratures are no longer exact.
 
 .. note::
 
-   Routines for spherical harmonic analysis are gathered in the
-   :ref:`charm_sha` module.
+   Routines for spherical harmonic analysis are gathered in
+   :ref:`charm_sha` and :ref:`pyharm_sha`.
 
 
 Spherical harmonic synthesis
@@ -298,7 +301,9 @@ and
    = \varphi_{\mathrm{min}}}^{\varphi_{\mathrm{max}}} \int\limits_{\lambda
    = \lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}} f(r(\varphi,\lambda),
    \varphi,\lambda) \\
-   &\times \mathrm{d}\lambda \, \cos\varphi \, \mathrm{d} \varphi {.}
+   &\times \mathrm{d}\lambda \, \cos\varphi \, \mathrm{d} \varphi {,}
+
+where :math:`\Delta\sigma` is the size of the cell on the unit sphere.
 
 Note that in the latter equation, :math:`f(r(\varphi,\lambda),\varphi,\lambda)`
 is defined on an irregular surface given by a spherical radius
@@ -308,8 +313,8 @@ available package or library.
 
 .. note::
 
-   Routines for spherical harmonic synthesis are gathered in the
-   :ref:`charm_shs` module.
+   Routines for spherical harmonic synthesis are gathered in
+   :ref:`charm_shs` and :ref:`charm_shs`.
 
 
 References

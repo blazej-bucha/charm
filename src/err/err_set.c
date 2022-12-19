@@ -13,11 +13,11 @@
 
 
 void CHARM(err_set)(CHARM(err) *err,
-                    const char file[],
+                    const char *file,
                     unsigned int line,
-                    const char func[],
+                    const char *func,
                     int code,
-                    const char msg[])
+                    const char *msg)
 {
     if ((err == NULL) || (err->issaturated))
         return;
