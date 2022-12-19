@@ -57,7 +57,7 @@ must
 * have the ``dtype`` flag set to ``numpy.float64`` (or to ``numpy.float32`` if 
   the library was compiled in single precision), and
 
-* have the ``flags.c_contiguous`` set to ``True``.
+* have the ``flags.c_contiguous`` attribute set to ``True``.
 
 As an example, let's create a 1D numpy array ``x`` that meets all of these 
 conditions.

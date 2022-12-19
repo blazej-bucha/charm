@@ -1,4 +1,4 @@
-Upcoming release:
+CHarm 0.2.0:
 
 * Added Python wrapper called PyHarm.  This step necessitated several 
   modifications of the CHarm API, some of which are not backward compatible.  
@@ -89,8 +89,8 @@ Upcoming release:
   ordering schemes of Fourier coefficients of Legendre functions.
 
 * Bug fix for "shc_read_bin".  The function no longer throws an error when 
-  reading coefficients up to a lower maximum degree than the one in the binary 
-  file.
+  reading coefficients up to a maximum degree that is lower than the one in the 
+  binary file.
 
 * Fix a few leg_pnmj tests that did not actually run.
 

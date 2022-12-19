@@ -378,7 +378,7 @@ The following flags may be used in addition to ``--enable-python``.
     .. code-block:: bash
 
         python3 -m venv /path/to/your/virtual/environment/
-        source /path/to/your/virtual/enviroment/bin/activate
+        source /path/to/your/virtual/environment/bin/activate
 
     Then use ``--with-python_prefix=/path/to/your/virtual/environment`` when 
     calling the ``configure`` script.  After executing ``make`` and ``make 
@@ -419,6 +419,7 @@ this:
 .. code-block:: bash
 
   python3 -m venv /tmp/python-venv
+  source /tmp/python-venv/bin/activate
   ./configure --prefix=/tmp/charm --enable-openmp \
      LDFLAGS=-L/opt/fftw-3.3.9/lib CPPFLAGS=-I/opt/fftw-3.3.9/include \
      --enable-python PYTHON=python3.9 --with-python_prefix=/tmp/python-venv
@@ -427,11 +428,10 @@ this:
   make install
 
 
-Now activate the virtual environment and open Python:
+Open Python:
 
 .. code-block:: bash
 
-  source /tmp/python-venv/bin/activate
   python3
 
 From within Python, you can now work with PyHarm:

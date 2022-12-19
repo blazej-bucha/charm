@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Installation on Unix-based operating systems &mdash; CHarm 0.1.2-dev documentation</title>
+  <title>Installation on Unix-based operating systems &mdash; CHarm 0.2.0 documentation</title>
   
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.1.2-dev
+                0.2.0
               </div>
             
           
@@ -488,7 +488,7 @@ be thrown.</p>
 <li><p>If you are not really confident with all this, create and activate a Python
 virtual environment:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 -m venv /path/to/your/virtual/environment/
-<span class="nb">source</span> /path/to/your/virtual/enviroment/bin/activate
+<span class="nb">source</span> /path/to/your/virtual/environment/bin/activate
 </pre></div>
 </div>
 <p>Then use <code class="docutils literal notranslate"><span class="pre">--with-python_prefix=/path/to/your/virtual/environment</span></code> when
@@ -524,6 +524,7 @@ PyHarm.</p>
 <p>A typical installation of PyHarm to a Python virtual environment looks like
 this:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 -m venv /tmp/python-venv
+<span class="nb">source</span> /tmp/python-venv/bin/activate
 ./configure --prefix<span class="o">=</span>/tmp/charm --enable-openmp <span class="se">\</span>
    <span class="nv">LDFLAGS</span><span class="o">=</span>-L/opt/fftw-3.3.9/lib <span class="nv">CPPFLAGS</span><span class="o">=</span>-I/opt/fftw-3.3.9/include <span class="se">\</span>
    --enable-python <span class="nv">PYTHON</span><span class="o">=</span>python3.9 --with-python_prefix<span class="o">=</span>/tmp/python-venv
@@ -532,9 +533,8 @@ make check
 make install
 </pre></div>
 </div>
-<p>Now activate the virtual environment and open Python:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> /tmp/python-venv/bin/activate
-python3
+<p>Open Python:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3
 </pre></div>
 </div>
 <p>From within Python, you can now work with PyHarm:</p>

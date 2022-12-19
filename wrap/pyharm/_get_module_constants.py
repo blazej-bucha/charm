@@ -4,7 +4,7 @@ from ._constants import _globals
 
 def _get_module_constants(prefix):
     """
-    Private function to dynamically add global constants from the `_global`
+    Private function to dynamically add global constants from the `_globals`
     dictionary inside `_constants.py` to the module's namespace.  The variables
     are added under a modified name following the pattern:
 

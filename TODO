@@ -1,3 +1,5 @@
+* Add unit tests for PyHarm.
+
 * Add support for fused multiply-add instructions.
 
 * Add the Condon--Shortley phase factor.
