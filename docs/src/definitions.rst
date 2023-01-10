@@ -314,7 +314,7 @@ available package or library.
 .. note::
 
    Routines for spherical harmonic synthesis are gathered in
-   :ref:`charm_shs` and :ref:`charm_shs`.
+   :ref:`charm_shs` and :ref:`pyharm_shs`.
 
 
 References

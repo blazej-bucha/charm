@@ -66,7 +66,7 @@ shcs2 = ph.shc.Shc.from_file_bin(shcs_out_file, nmax)
 # -----------------------------------------------------------------------------
 
 
-# Compute degree variances from the loaded coefficients
+# Compute degree variances from "shcs"
 # -----------------------------------------------------------------------------
 dv = shcs.dv()
 

@@ -329,11 +329,11 @@ Requirements
 *Additional* prerequisites when compared with :ref:`requirements 
 <charm_requirements>`:
 
-* Python interpreter 3.6 or newer.
+* Python interpreter 3.6 or newer,
 
-* Python module `pip <https://docs.python.org/3/installing/index.html>`_.
+* Python module `pip <https://docs.python.org/3/installing/index.html>`_,
 
-* Python module `numpy <https://numpy.org/>`_ (reasonably old version).
+* Python module `numpy <https://numpy.org/>`_ (reasonably old version),
 
 * Python module `ctypes <https://docs.python.org/3/library/ctypes.html>`_ 
   (reasonably old version).

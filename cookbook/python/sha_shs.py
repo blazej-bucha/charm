@@ -139,7 +139,7 @@ print('Solid spherical harmonic synthesis at a custom grid of points')
 print('===========================')
 
 # Define some grid points as numpy arrays.  Then create a "PointGrid" class 
-# that is designed to store custom point grids.
+# instance that is designed to store custom point grids.
 nlat    = 5
 nlon    = 10
 lat     = np.linspace(np.pi / 2.0, -np.pi / 2.0, nlat)
@@ -245,9 +245,9 @@ print('===========================')
 shcs2 = ph.sha.cell(grd_cell, f, nmax, ph.sha.CELL_AQ, shcs.mu, shcs.r)
 
 
-# Print some of the compute coefficients.  Note that the harmonic analysis with 
-# block-mean values in cells is *not* exact, hence the coefficients will not be 
-# equal to the input ones.
+# Print some of the computed coefficients.  Note that the harmonic analysis 
+# with block-mean values in cells is *not* exact, hence the coefficients will 
+# not be equal to the input ones.
 n = [2, 9, 9, 9]  # List of harmonic degrees
 m = [0, 0, 4, 9]  # List of harmonic orders
 cnm, snm = shcs2.get_coeffs(n, m)

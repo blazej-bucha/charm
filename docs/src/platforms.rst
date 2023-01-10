@@ -4,10 +4,6 @@
 Tested platforms
 ================
 
-CHarm has been successfully compiled and tested using the following hardware 
-and software.
-
-
 .. _platforms:
 .. list-table:: Known supported configurations
    :header-rows: 1
@@ -30,6 +26,10 @@ and software.
      - GCC 11.2.0
 
    * - x86_64
+     - Alpine Linux 3.17.0 (using Docker)
+     - GCC 12.2.1 with musl 1.2.3-r4 as libc
+
+   * - x86_64
      - FreeBSD 13.0-RELEASE
      - Clang 11.0.1, GCC 10.3.0
 
@@ -42,5 +42,5 @@ and software.
      - GCC 10.2.1
 
 
-We would love to hear your own experience, be it positive or negative, 
-especially on platforms not listed in the table!
+We would love to hear your own experience, especially on platforms not listed 
+in the table!

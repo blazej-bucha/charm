@@ -137,7 +137,7 @@ int main(void)
     /* --------------------------------------------------------------------- */
 
 
-    /* Compute degree variances from the loaded coefficients */
+    /* Compute degree variances from "shcs" */
     /* --------------------------------------------------------------------- */
     /* Compute degree variances of the input signal */
     double *dv = (double *)malloc((nmax + 1) * sizeof(double));
