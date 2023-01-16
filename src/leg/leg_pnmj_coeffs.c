@@ -221,7 +221,12 @@ void CHARM(leg_pnmj_coeffs)(CHARM(pnmj) *pnmj, unsigned long nmax,
         }
 
 
-        for (unsigned long m = n - 2; m != (unsigned long)-1; m--)
+        /* The loop can alternatively be designed as
+         *
+         *      for (unsigned long m = n - 2; m != (unsigned long)-1; m--)
+         *
+         * but the current form seems to be more robust. */
+        for (unsigned long m = n - 1; m-- > 0;)
         {
             CHARM(leg_pnmj_gpeven)(jmax, n, m, xp2, xp1, xp0, ip2, ip1,
                                    ip0, err);
@@ -334,7 +339,12 @@ void CHARM(leg_pnmj_coeffs)(CHARM(pnmj) *pnmj, unsigned long nmax,
         }
 
 
-        for (unsigned long m = n - 2; m != (unsigned long)-1; m--)
+        /* The loop can alternatively be designed as
+         *
+         *      for (unsigned long m = n - 2; m != (unsigned long)-1; m--)
+         *
+         * but the current form seems to be more robust. */
+        for (unsigned long m = n - 1; m-- > 0;)
         {
             CHARM(leg_pnmj_gpodd)(jmax, n, m, xp2, xp1, xp0, ip2, ip1, ip0,
                                     err);
