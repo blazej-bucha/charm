@@ -1,3 +1,20 @@
+Upcoming release:
+
+* Added support for polar optimization to increase computational speed
+  (Eqs. 7 and 8 of Reinecke and Seljebotn 2013).  As long as the polar
+  optimization parameters (see the `glob` module) are chosen appropriately,
+  this technique improves the performance and still keeps an excellent
+  accuracy.  However, unwisely chosen tuning parameters may negatively affect
+  the output accuracy.
+
+  By default, the polar optimization is turned off.
+
+  References:
+
+   * Reinecke, M., Seljebotn, D. S. (2013) Libsharp -- spherical harmonic
+     transforms revisited.  Astronomy and Astrophysics 554, A112, doi:
+     10.1051/0004-6361/201321494.
+
 CHarm 0.2.0:
 
 * Added Python wrapper called PyHarm.  This step necessitated several 

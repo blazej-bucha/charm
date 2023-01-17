@@ -177,7 +177,8 @@ void CHARM(shs_cell_isurf)(const CHARM(cell) *cell,
 
 
 
-    /* Synthesis of the mean values on the irregular surface */
+    /* Synthesis of the mean values on the irregular surface.  No polar
+     * optimization is used here. */
     /* --------------------------------------------------------------------- */
     REAL lon0 = cell->lonmin[0];
     DELTAlon = (REAL *)malloc(cell_nlon * sizeof(REAL));
@@ -194,7 +195,6 @@ void CHARM(shs_cell_isurf)(const CHARM(cell) *cell,
     size = (nmax1 + 1) * (nmax3 + 1) * SIMD_SIZE;
 
 
-    /* Loop over the latitude cells */
 #if CHARM_PARALLEL
 #pragma omp parallel default(none) \
 shared(cell, DELTAlon, lon0, dlon, cell_nlat, cell_nlon) \
@@ -337,6 +337,7 @@ FAILURE_1_parallel:
     REAL_SIMD tmp;
 
 
+    /* Loop over the latitude cells */
 #if CHARM_PARALLEL
 #pragma omp for
 #endif

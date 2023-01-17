@@ -26,6 +26,8 @@
 #include "../crd/crd_grd_check_symm.h"
 #include "../misc/misc_arr_chck_lin_incr.h"
 #include "../misc/misc_arr_chck_symm.h"
+#include "../misc/misc_polar_optimization_threshold.h"
+#include "../misc/misc_polar_optimization_apply.h"
 #include "../simd/simd.h"
 #include "../simd/calloc_aligned.h"
 #include "../simd/free_aligned.h"
@@ -301,10 +303,14 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
     REAL mur = shcs->mu / shcs->r;
 
 
+    /* Get the polar optimization threshold */
+    REAL_SIMD pt = CHARM(misc_polar_optimization_threshold)(nmax);
+
+
 #if CHARM_PARALLEL
 #pragma omp parallel default(none) \
 shared(f, shcs, nmax, pnt, pnt_nlat, pnt_nlon, dm, r, ri, nlatdo, pnt_type) \
-shared(lon0, dlon, even, symm, FAILURE_glob, mur, err, nlc, plan, use_fft)
+shared(lon0, dlon, even, symm, FAILURE_glob, mur, err, nlc, plan, use_fft, pt)
 #endif
     {
         /* ................................................................. */
@@ -536,7 +542,7 @@ FAILURE_1_parallel:
         /* ................................................................. */
 
 
-        REAL_SIMD t, symm_simd;
+        REAL_SIMD t, u, symm_simd;
         REAL_SIMD a, b, a2, b2;
         a = b = a2 = b2 = SET_ZERO_R;
 
@@ -584,6 +590,7 @@ FAILURE_1_parallel:
 
 
             t         = LOAD_R(&tv[0]);
+            u         = LOAD_R(&uv[0]);
             symm_simd = LOAD_R(&symmv[0]);
 
 
@@ -624,6 +631,11 @@ FAILURE_1_parallel:
             /* ------------------------------------------------------------- */
             for (unsigned long m = 0; m <= nmax; m++)
             {
+
+                /* Apply polar optimization if asked to do so */
+                if (CHARM(misc_polar_optimization_apply)(m, nmax, u, pt))
+                    continue;
+
 
                 /* Computation of "anm" and "bnm" coefficients for Legendre
                  * recurrence relations */

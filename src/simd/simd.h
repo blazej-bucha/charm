@@ -391,7 +391,11 @@
 
 
 #   define EQ_R(x, y)           ((x) == (y))
+#   define LT_R(x, y)           ((x) < (y))
 #   define MOVEMASK(x)          (x)
+
+
+#   define MASK_SIMD            int
 
 
     /* Absolute value.  The "FABS" macro is defined in "../prec.h". */

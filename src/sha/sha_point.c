@@ -20,6 +20,8 @@
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
 #include "../misc/misc_is_nearly_equal.h"
+#include "../misc/misc_polar_optimization_threshold.h"
+#include "../misc/misc_polar_optimization_apply.h"
 #if CHARM_PARALLEL
 #   include <omp.h>
 #endif
@@ -231,14 +233,6 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
 
 
 
-    /* Set all coefficients in "shcs" to zero */
-    CHARM(shc_reset_coeffs)(shcs);
-
-
-
-
-
-
     /* Create a plan for FFT */
     /* --------------------------------------------------------------------- */
 #if CHARM_PARALLEL && FFTW3_OMP
@@ -289,9 +283,17 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
 
 
     /* --------------------------------------------------------------------- */
+    /* Set all coefficients in "shcs" to zero */
+    CHARM(shc_reset_coeffs)(shcs);
+
+
+    /* Get the polar optimization threshold */
+    REAL_SIMD pt = CHARM(misc_polar_optimization_threshold)(nmax);
+
+
     {
         REAL_SIMD pnm0, pnm1, pnm2;
-        REAL_SIMD x, y, z, t;
+        REAL_SIMD x, y, z, t, u;
         RI_SIMD   ix, iy, iz, ixy;
         REAL_SIMD ROOT3_r = SET1_R(ROOT3);
 #ifdef SIMD
@@ -505,6 +507,7 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
 
 
             t      = LOAD_R(&tv[0]);
+            u      = LOAD_R(&uv[0]);
             symm   = LOAD_R(&symmv[0]);
             latsin = LOAD_R(&latsinv[0]);
 
@@ -519,8 +522,8 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
 #if CHARM_PARALLEL
 #   ifdef SIMD
         #pragma omp parallel default(none) \
-            shared(nmax, symm, r, ri, a, b, a2, b2, shcs, t, ps, ips) \
-            shared(latsin, ROOT3_r, FAILURE_glob, err) \
+            shared(nmax, symm, r, ri, a, b, a2, b2, shcs, t, u, ps, ips) \
+            shared(latsin, pt, ROOT3_r, FAILURE_glob, err) \
             private(am, bm, a2m, b2m, amp, amm, bmp, bmm) \
             private(x, ix, y, iy, wlf, ixy, z, iz) \
             private(pnm0, pnm1, pnm2, npm_even, nmm) \
@@ -529,8 +532,8 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
             private(tmp1_r, tmp2_r, mask1, mask2, mask3)
 #   else
         #pragma omp parallel default(none) \
-            shared(nmax, symm, r, ri, a, b, a2, b2, shcs, t, ps, ips) \
-            shared(latsin, ROOT3_r, FAILURE_glob, err) \
+            shared(nmax, symm, r, ri, a, b, a2, b2, shcs, t, u, ps, ips) \
+            shared(latsin, pt, ROOT3_r, FAILURE_glob, err) \
             private(am, bm, a2m, b2m, amp, amm, bmp, bmm) \
             private(x, ix, y, iy, wlf, ixy, z, iz) \
             private(pnm0, pnm1, pnm2, npm_even, nmm)
@@ -603,6 +606,11 @@ FAILURE_1_parallel:
 #endif
             for (unsigned long m = 0; m <= nmax; m++)
             {
+
+                /* Apply polar optimization if asked to do so */
+                if (CHARM(misc_polar_optimization_apply)(m, nmax, u, pt))
+                    continue;
+
 
                 /* Computation of "anm" and "bnm" coefficients for Legendre
                  * recurrence relations */

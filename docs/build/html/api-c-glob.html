@@ -193,7 +193,8 @@
             
   <div class="section" id="charm-glob">
 <span id="id1"></span><h1>charm_glob<a class="headerlink" href="#charm-glob" title="Permalink to this headline">¶</a></h1>
-<p>Module defining global CHarm variables <code class="docutils literal notranslate"><span class="pre">charm_glob_threshold</span></code> and <code class="docutils literal notranslate"><span class="pre">charm_glob_threshold2</span></code>.</p>
+<p>Module defining global CHarm variables.</p>
+<p>The global variables are declared in <code class="docutils literal notranslate"><span class="pre">charm_glob.h</span></code> and are initialized to safe values. Should you need to modify them for some reason, simply include <code class="docutils literal notranslate"><span class="pre">charm_glob.h</span></code> (or <code class="docutils literal notranslate"><span class="pre">charm.h</span></code>) in your code and set (without definition) the variables to whatever values you prefer. After that, whenever you call a CHarm routine that uses the global variables, the routine will use your own values instead of the default ones.</p>
 <p><p><div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This module is for experienced users only.  Most users should not
@@ -202,19 +203,50 @@ interact with it.</p>
 </p>
  </p>
 <div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-parameters-defining-the-polar-optimization">Parameters defining the polar optimization</p>
+<p>CHarm can be told to skip the computation of all spherical harmonics during spherical harmonic synthesis/analysis for which</p>
+<p><p><div class="math notranslate nohighlight">
+\[m - n_{\max} \, \cos\varphi &gt; \max(a_1, a_2 \, n_{\max}){.}\]</div>
+</p>
+</p>
+<p>If the parameters <code class="docutils literal notranslate"><span class="pre">a1</span></code> and <code class="docutils literal notranslate"><span class="pre">a2</span></code> (see <code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a1</span></code> and <code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a2</span></code> below) are tuned reasonably, the polar optimization can improve the computation speed while <em>not</em> deteriorating the output accuracy. This is because the inequality filters out spherical harmonics that are of such small magnitudes in the polar areas that they do not contribute to the result (within the numerical precision). However, if the parameters are set unwisely, the accuracy can be compromised.</p>
+<p>If the second polar optimization parameter <code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a2</span></code> is negative (which is the default), <em>no</em> polar optimization is applied, that is, all spherical harmonics are evaluated, regardless of their smallness in magnitude. If it is non-negative, the polar optimization is applied.</p>
+<p>The following values of the tuning parameters improve the computation speed and, in most cases, can safely be used without deteriorating the accuracy (Reinecke and Seljebotn, 2013):</p>
+<p><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a1</span> <span class="pre">=</span> <span class="pre">100</span></code> and</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a2</span> <span class="pre">=</span> <span class="pre">0.01</span></code>.</p></li>
+</ul>
+</p>
+<p><strong>References</strong>:</p>
+<p><ul class="simple">
+<li><p>Reinecke, M., Seljebotn, D. S. (2013) Libsharp  spherical harmonic transforms revisited. Astronomy and Astrophysics 554, A112, doi: 10.1051/0004-6361/201321494. </p></li>
+</ul>
+</p>
+<dl class="cpp var">
+<dt id="_CPPv432charm_glob_polar_optimization_a1">
+<span id="_CPPv332charm_glob_polar_optimization_a1"></span><span id="_CPPv232charm_glob_polar_optimization_a1"></span><span id="charm_glob_polar_optimization_a1__unsigned-l"></span><span class="target" id="charm__glob_8h_1a912f3a473bd2a2762a005616916dbe52"></span>unsigned long <code class="sig-name descname">charm_glob_polar_optimization_a1</code><a class="headerlink" href="#_CPPv432charm_glob_polar_optimization_a1" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The <code class="docutils literal notranslate"><span class="pre">a1</span></code> polar optimization parameter (default is <code class="docutils literal notranslate"><span class="pre">100</span></code>) </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt id="_CPPv432charm_glob_polar_optimization_a2">
+<span id="_CPPv332charm_glob_polar_optimization_a2"></span><span id="_CPPv232charm_glob_polar_optimization_a2"></span><span id="charm_glob_polar_optimization_a2__double"></span><span class="target" id="charm__glob_8h_1ab5fc3b2f3555814f59ea7d7fd8004de0"></span>double <code class="sig-name descname">charm_glob_polar_optimization_a2</code><a class="headerlink" href="#_CPPv432charm_glob_polar_optimization_a2" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The <code class="docutils literal notranslate"><span class="pre">a2</span></code> polar optimization parameter (default is <code class="docutils literal notranslate"><span class="pre">-1.0</span></code>, that is, no polar optimization) </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-variables">Variables</p>
 <dl class="cpp var">
 <dt id="_CPPv420charm_glob_threshold">
 <span id="_CPPv320charm_glob_threshold"></span><span id="_CPPv220charm_glob_threshold"></span><span id="charm_glob_threshold__double"></span><span class="target" id="charm__glob_8h_1ab38bfd45ebf0f622c892ec1d0045c601"></span>double <code class="sig-name descname">charm_glob_threshold</code><a class="headerlink" href="#_CPPv420charm_glob_threshold" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Threshold to judge whether two floating point numbers are equal, <code class="docutils literal notranslate"><span class="pre">100.0</span> <span class="pre">*</span> <span class="pre">EPS</span></code>, where <code class="docutils literal notranslate"><span class="pre">EPS</span></code> is the machine epsilon of the floating point data type (<code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">double</span></code> or <code class="docutils literal notranslate"><span class="pre">__float128</span></code>).</p>
-<p>Experienced users may (under some very specific circumstances) need the possibility to tighten or relax the threshold after the library is compiled. To this end, simply set <code class="docutils literal notranslate"><span class="pre">charm_glob_threshold</span></code> to whatever value you need (the variable is already declared in <code class="docutils literal notranslate"><span class="pre">charm_glob.h</span></code>). After that, whenever you call a CHarm routine, it will use your own value instead of the default one. Use wisely! </p>
+<dd><p>Threshold to judge whether two floating point numbers are equal, <code class="docutils literal notranslate"><span class="pre">100.0</span> <span class="pre">*</span> <span class="pre">EPS</span></code>, where <code class="docutils literal notranslate"><span class="pre">EPS</span></code> is the machine epsilon of the floating point data type (<code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">double</span></code> or <code class="docutils literal notranslate"><span class="pre">__float128</span></code>). Experienced users may (under some very specific circumstances) need the possibility to tighten or relax the threshold. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv421charm_glob_threshold2">
 <span id="_CPPv321charm_glob_threshold2"></span><span id="_CPPv221charm_glob_threshold2"></span><span id="charm_glob_threshold2__double"></span><span class="target" id="charm__glob_8h_1afb419caab47d66aff55c04d1339b4f7d"></span>double <code class="sig-name descname">charm_glob_threshold2</code><a class="headerlink" href="#_CPPv421charm_glob_threshold2" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>A more relaxed threshold to judge whether two floating point numbers are equal, <code class="docutils literal notranslate"><span class="pre">100000.0</span> <span class="pre">*</span> <span class="pre">EPS</span></code>. It is used to check longitudes of <em>custom</em> user-defined grids for a constant longitudinal step (required by the FFT-based algorithms). To this end, we use double differences. For high-resolution grids, the longitudinal step may be very small, so that two consecutive longitudes are very similar. Since double differences increase numerical errors, the threshold needs to be sufficiently large in such situations (yet narrow enough). The current value was found to be sufficient for quadrature grids associated with degrees as high as <code class="docutils literal notranslate"><span class="pre">70,000</span></code>.</p>
-<p>The same comment on modifying this value applies as for <code class="docutils literal notranslate"><span class="pre">charm_glob_threshold</span></code>. </p>
+<dd><p>A more relaxed threshold to judge whether two floating point numbers are equal, <code class="docutils literal notranslate"><span class="pre">100000.0</span> <span class="pre">*</span> <span class="pre">EPS</span></code>. It is used to check longitudes of <em>custom</em> user-defined grids for a constant longitudinal step (required by the FFT-based algorithms). To this end, we use double differences. For high-resolution grids, the longitudinal step may be very small, so that two consecutive longitudes are very similar. Since double differences increase numerical errors, the threshold needs to be sufficiently large in such situations (yet narrow enough). The current value was found to be sufficient for quadrature grids associated with degrees as high as <code class="docutils literal notranslate"><span class="pre">70,000</span></code>. </p>
 </dd></dl>
 
 </div>

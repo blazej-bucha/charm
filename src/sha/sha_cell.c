@@ -24,6 +24,8 @@
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
 #include "../misc/misc_is_nearly_equal.h"
+#include "../misc/misc_polar_optimization_threshold.h"
+#include "../misc/misc_polar_optimization_apply.h"
 #if CHARM_PARALLEL
 #   include <omp.h>
 #endif
@@ -417,14 +419,6 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
 
 
 
-    /* Set all coefficients in "shcs" to zero */
-    CHARM(shc_reset_coeffs)(shcs);
-
-
-
-
-
-
     /* Create a plan for FFT */
     /* --------------------------------------------------------------------- */
 #if CHARM_PARALLEL && FFTW3_OMP
@@ -474,8 +468,15 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
 
 
 
-    /* Loop over latitudes */
     /* --------------------------------------------------------------------- */
+    /* Set all coefficients in "shcs" to zero */
+    CHARM(shc_reset_coeffs)(shcs);
+
+
+    /* Get the polar optimization threshold */
+    REAL_SIMD pt = CHARM(misc_polar_optimization_threshold)(nmax);
+
+
     {
         REAL_SIMD x1, y1, z1, t1, u1;
         REAL_SIMD x2, y2, z2, t2, u2;
@@ -850,7 +851,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
         #pragma omp parallel default(none) \
             shared(nmax, t1, t2, u1, u2, symm_simd) \
             shared(shcs, en, fn, gm, hm, imm, ps1, ps2, ips1, ips2, r, ri) \
-            shared(a, b, a2, b2, dlon, latsin) \
+            shared(a, b, a2, b2, dlon, latsin, pt) \
             shared(FAILURE_glob, err) \
             private(am, bm, a2m, b2m) \
             private(cm, sm, x1, x2, ix1, ix2, y1, y2, iy1, iy2, w, mr) \
@@ -866,7 +867,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
         #pragma omp parallel default(none) \
             shared(nmax, t1, t2, u1, u2, symm_simd) \
             shared(shcs, en, fn, gm, hm, imm, ps1, ps2, ips1, ips2, r, ri) \
-            shared(a, b, a2, b2, dlon, latsin) \
+            shared(a, b, a2, b2, dlon, latsin, pt) \
             shared(FAILURE_glob, err) \
             private(am, bm, a2m, b2m) \
             private(cm, sm, x1, x2, ix1, ix2, y1, y2, iy1, iy2, w, mr) \
@@ -944,6 +945,14 @@ FAILURE_1_parallel:
 #endif
             for (unsigned long m = 0; m <= nmax; m++)
             {
+
+                /* Apply polar optimization if asked to do so.  Since "u1
+                 * = sin(latmin)" and "u2 = sin(latmax)", it is sufficient to
+                 * check "u1" only.  In other words, if the polar optimization
+                 * can be applied for "u1", it can surely be applied for
+                 * "u2". */
+                if (CHARM(misc_polar_optimization_apply)(m, nmax, u1, pt))
+                    continue;
 
 
                 /* Due to the use of the mean values, some additional terms

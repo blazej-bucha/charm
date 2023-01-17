@@ -20,6 +20,8 @@
 #include "../crd/crd_check_cells.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
+#include "../misc/misc_polar_optimization_threshold.h"
+#include "../misc/misc_polar_optimization_apply.h"
 #include "../simd/simd.h"
 #include "../simd/calloc_aligned.h"
 #include "../simd/free_aligned.h"
@@ -154,14 +156,17 @@ void CHARM(shs_cell_sctr)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
 
 
 
-    /* Loop over grid latitudes */
     /* --------------------------------------------------------------------- */
     REAL_SIMD mur = SET1_R(shcs->mu / shcs->r);
 
 
+    /* Get the polar optimization threshold */
+    REAL_SIMD pt = CHARM(misc_polar_optimization_threshold)(nmax);
+
+
 #if CHARM_PARALLEL
 #pragma omp parallel default(none) \
-shared(f, shcs, nmax, cell, dm, en, fn, gm, hm, r, ri) \
+shared(f, shcs, nmax, cell, dm, en, fn, gm, hm, r, ri, pt) \
 shared(ncell, FAILURE_glob, mur, err)
 #endif
     {
@@ -439,6 +444,14 @@ FAILURE_1_parallel:
             /* ------------------------------------------------------------- */
             for (unsigned long m = 0; m <= nmax; m++)
             {
+
+                /* Apply polar optimization if asked to do so.  Since "u1
+                 * = sin(latmin)" and "u2 = sin(latmax)", it is sufficient to
+                 * check "u1" only.  In other words, if the polar optimization
+                 * can be applied for "u1", it can surely be applied for
+                 * "u2". */
+                if (CHARM(misc_polar_optimization_apply)(m, nmax, u1, pt))
+                    continue;
 
 
                 /* Computation of "anm" and "bnm" coefficients for Legendre
