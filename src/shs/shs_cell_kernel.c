@@ -67,6 +67,7 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
     unsigned long nmm; /* "n - m" */
     size_t idx;
     _Bool symm = CHARM(shs_check_symm_simd)(symm_simd);
+    _Bool ds1, ds2; /* Dynamical switching */
 
 
     iy1 = iy2 = iz1 = iz2 = ixy1 = ixy2 = SET_ZERO_RI;
@@ -121,6 +122,8 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
              * = 0", then the parity of the first "n + m" is always odd.  then,
              * it changes with every loop iteration. */
             npm_even = 0;
+
+
             for (unsigned long n = 1; n <= nmax; n++, npm_even = !npm_even)
             {
                 /* P20, P30, ..., Pnmax+1,0
@@ -329,10 +332,15 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
 
             /* Pm+2,m, Pm+3,m, ..., Pnmax,m and their integrals */
             /* ............................................................. */
+            ds1 = ds2 = 0;
+
+
             /* Is "n + m" even?  Since we start the loop with "n = m + 2", then
              * the parity of the first "m + 2 + m" is always even.  Then, it
              * changes with every loop iteration. */
             npm_even = 1;
+
+
             for (unsigned long n = (m + 2); n <= nmax;
                  n++, npm_even = !npm_even)
             {
@@ -344,11 +352,11 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
                                        tmp1_r, tmp2_r, mask1, mask2, 
                                        mask3, zero_r, zero_ri, one_ri,
                                        BIG_r, BIGI_r, BIGS_r, BIGSI_r,
-                                       TESSERALS1, TESSERALS2);
+                                       TESSERALS1, TESSERALS2, ds1);
 #else
                 PNM_TESSERAL_XNUM(x1, y1, z1, ix1, iy1, iz1,
                                   ixy1, w, t1, anm[n], bnm[n],
-                                  pnm2_latmin, pnm2_latmin = PREC(0.0));
+                                  pnm2_latmin, pnm2_latmin = PREC(0.0), ds1);
 #endif
 
 
@@ -359,11 +367,11 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
                                        tmp1_r, tmp2_r, mask1, mask2, 
                                        mask3, zero_r, zero_ri, one_ri,
                                        BIG_r, BIGI_r, BIGS_r, BIGSI_r,
-                                       TESSERALS3, TESSERALS4);
+                                       TESSERALS3, TESSERALS4, ds2);
 #else
                 PNM_TESSERAL_XNUM(x2, y2, z2, ix2, iy2, iz2,
                                   ixy2, w, t2, anm[n], bnm[n],
-                                  pnm2_latmax, pnm2_latmax = PREC(0.0));
+                                  pnm2_latmax, pnm2_latmax = PREC(0.0), ds2);
 #endif
 
 

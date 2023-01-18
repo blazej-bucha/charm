@@ -55,6 +55,7 @@ void CHARM(shs_point_kernel)(unsigned long nmax, unsigned long m,
     size_t idx;
     unsigned long nmm; /* "n - m" */
     _Bool symm = CHARM(shs_check_symm_simd)(symm_simd);
+    _Bool ds; /* Dynamical switching */
 
 
     /* Summations over harmonic degree "n" */
@@ -96,6 +97,8 @@ void CHARM(shs_point_kernel)(unsigned long nmax, unsigned long m,
              * = 0", then the parity of the first "n + m" is always even.
              * Then, it changes with every loop iteration. */
             npm_even = 1;
+
+
             for (unsigned long n = 2; n <= nmax; n++, npm_even = !npm_even)
             {
                 idx = n * SIMD_SIZE;
@@ -184,10 +187,15 @@ void CHARM(shs_point_kernel)(unsigned long nmax, unsigned long m,
 
             /* Loop over degrees */
             /* ------------------------------------------------- */
+            ds = 0;
+
+
             /* Is "n + m" even?  Since we start the loop with "n = m + 2", then
              * the parity of the first "m + 2 + m" is always even.  Then, it
              * changes with every loop iteration. */
             npm_even = 1;
+
+
             for (unsigned long n = (m + 2); n <= nmax;
                  n++, npm_even = !npm_even)
             {
@@ -198,11 +206,11 @@ void CHARM(shs_point_kernel)(unsigned long nmax, unsigned long m,
                                        tmp1_r, tmp2_r, mask1, mask2, 
                                        mask3, zero_r, zero_ri, one_ri,
                                        BIG_r, BIGI_r, BIGS_r, BIGSI_r,
-                                       TESSERALS1, TESSERALS2);
+                                       TESSERALS1, TESSERALS2, ds);
 #else
                 PNM_TESSERAL_XNUM(x, y, z, ix, iy, iz,
                                   ixy, w, t, anm[n], bnm[n],
-                                  pnm2, continue);
+                                  pnm2, continue, ds);
 #endif
 
 

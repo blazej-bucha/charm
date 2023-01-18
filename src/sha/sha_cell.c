@@ -509,6 +509,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
         _Bool npm_even; /* True if "n + m" is even */
         size_t ipv; /* "i + v" */
         unsigned long nmm; /* "n - m" */
+        _Bool ds1, ds2; /* Dynamical switching */
 
 
         /* ................................................................. */
@@ -859,7 +860,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
             private(amp, amm, bmp, bmm, cm_simd, sm_simd) \
             private(pnm0_latmin, pnm0_latmax, pnm1_latmin, pnm1_latmax) \
             private(pnm2_latmin, pnm2_latmax, in0, inm0, inm1, inm2) \
-            private(npm_even, nmm) \
+            private(npm_even, nmm, ds1, ds2) \
             shared(zero_ri, one_ri, mone_ri, zero_r) \
             shared(BIG_r, BIGI_r, BIGS_r, BIGSI_r, ABS_R_MASK) \
             private(tmp1_r, tmp2_r, mask1, mask2, mask3)
@@ -875,7 +876,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
             private(amp, amm, bmp, bmm, cm_simd, sm_simd) \
             private(pnm0_latmin, pnm0_latmax, pnm1_latmin, pnm1_latmax) \
             private(pnm2_latmin, pnm2_latmax, in0, inm0, inm1, inm2) \
-            private(npm_even, nmm)
+            private(npm_even, nmm, ds1, ds2)
 #   endif
             {
             /* ............................................................. */
@@ -1053,6 +1054,8 @@ FAILURE_1_parallel:
                          * + m" is always odd.  Then, it changes with every
                          * loop iteration. */
                         npm_even = 0;
+
+
                         for (unsigned long n = 1; n <= nmax;
                              n++, npm_even = !npm_even)
                         {
@@ -1226,11 +1229,16 @@ FAILURE_1_parallel:
 
                         /* Pm+2,m, Pm+3,m, ..., Pnmax,m and their integrals */
                         /* ................................................. */
+                        ds1 = ds2 = 0;
+
+
                         /* Is "n + m" even?  Since we start the loop with "n
                          * = m + 2", then the parity of the first "m + 2 + m"
                          * is always even.  Then, it changes with every loop
                          * iteration. */
                         npm_even = 1;
+
+
                         for (unsigned long n = (m + 2); n <= nmax;
                              n++, npm_even = !npm_even)
                         {
@@ -1247,14 +1255,15 @@ FAILURE_1_parallel:
                                                    zero_ri, one_ri,
                                                    BIG_r, BIGI_r,
                                                    BIGS_r, BIGSI_r,
-                                                   TESSERALS1, TESSERALS2);
+                                                   TESSERALS1, TESSERALS2,
+                                                   ds1);
 #else
                             PNM_TESSERAL_XNUM(x1, y1, z1,
                                               ix1, iy1, iz1,
                                               ixy1, w, t1,
                                               anm[n], bnm[n],
                                               pnm2_latmin,
-                                              pnm2_latmin = PREC(0.0));
+                                              pnm2_latmin = PREC(0.0), ds1);
 #endif
 
 
@@ -1270,14 +1279,15 @@ FAILURE_1_parallel:
                                                    zero_ri, one_ri,
                                                    BIG_r, BIGI_r,
                                                    BIGS_r, BIGSI_r,
-                                                   TESSERALS3, TESSERALS4);
+                                                   TESSERALS3, TESSERALS4,
+                                                   ds2);
 #else
                             PNM_TESSERAL_XNUM(x2, y2, z2,
                                               ix2, iy2, iz2,
                                               ixy2, w, t2,
                                               anm[n], bnm[n],
                                               pnm2_latmax,
-                                              pnm2_latmax = PREC(0.0));
+                                              pnm2_latmax = PREC(0.0), ds2);
 #endif
 
 

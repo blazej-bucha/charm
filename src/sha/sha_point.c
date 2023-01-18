@@ -444,6 +444,7 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
         _Bool npm_even; /* True if "n + m" is even */
         size_t ipv; /* "i + v" */
         unsigned long nmm; /* "n - m" */
+        _Bool ds; /* Dynamical switching */
 
 
         /* Loop over latitudes */
@@ -526,7 +527,7 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
             shared(latsin, pt, ROOT3_r, FAILURE_glob, err) \
             private(am, bm, a2m, b2m, amp, amm, bmp, bmm) \
             private(x, ix, y, iy, wlf, ixy, z, iz) \
-            private(pnm0, pnm1, pnm2, npm_even, nmm) \
+            private(pnm0, pnm1, pnm2, npm_even, nmm, ds) \
             shared(zero_ri, one_ri, mone_ri, zero_r) \
             shared(BIG_r, BIGI_r, BIGS_r, BIGSI_r, ABS_R_MASK) \
             private(tmp1_r, tmp2_r, mask1, mask2, mask3)
@@ -536,7 +537,7 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
             shared(latsin, pt, ROOT3_r, FAILURE_glob, err) \
             private(am, bm, a2m, b2m, amp, amm, bmp, bmm) \
             private(x, ix, y, iy, wlf, ixy, z, iz) \
-            private(pnm0, pnm1, pnm2, npm_even, nmm)
+            private(pnm0, pnm1, pnm2, npm_even, nmm, ds)
 #   endif
             {
             /* ............................................................. */
@@ -661,6 +662,8 @@ FAILURE_1_parallel:
                          * + m" is always even.  Then, it changes with every
                          * loop iteration. */
                         npm_even = 1;
+
+
                         for (unsigned long n = 2; n <= nmax;
                              n++, npm_even = !npm_even)
                         {
@@ -726,18 +729,23 @@ FAILURE_1_parallel:
 
                         /* Loop over degrees */
                         /* ------------------------------------------------- */
+                        ds = 0;
+
+
                         /* Is "n + m" even?  Since we start the loop with "n
                          * = m + 2", then the parity of the first "m + 2 + m"
                          * is always even.  Then, it changes with every loop
                          * iteration. */
                         npm_even = 1;
+
+
                         for (unsigned long n = (m + 2); n <= nmax;
                              n++, npm_even = !npm_even)
                         {
                             /* Compute tesseral Legendre function */
 #ifdef SIMD
                             PNM_TESSERAL_XNUM_SIMD(x, y, z, ix, iy, iz, ixy,
-                                                   wlf, t, anm[n], bnm[n], 
+                                                   wlf, t, anm[n], bnm[n],
                                                    pnm2,
                                                    tmp1_r, tmp2_r,
                                                    mask1, mask2, 
@@ -745,12 +753,13 @@ FAILURE_1_parallel:
                                                    zero_ri, one_ri,
                                                    BIG_r, BIGI_r,
                                                    BIGS_r, BIGSI_r,
-                                                   TESSERALS1, TESSERALS2);
+                                                   TESSERALS1, TESSERALS2, ds);
 #else
                             PNM_TESSERAL_XNUM(x, y, z,
                                               ix, iy, iz,
                                               ixy, wlf, t,
-                                              anm[n], bnm[n], pnm2, continue);
+                                              anm[n], bnm[n], pnm2, continue,
+                                              ds);
 #endif
 
 
