@@ -387,7 +387,7 @@ FAILURE_1_parallel:
 
 
 #if CHARM_PARALLEL
-#pragma omp for
+#pragma omp for schedule(dynamic)
 #endif
         for (size_t i = 0; i < SIMD_GET_MULTIPLE(ncell); i += SIMD_SIZE)
         {

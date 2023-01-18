@@ -339,7 +339,7 @@ FAILURE_1_parallel:
 
     /* Loop over the latitude cells */
 #if CHARM_PARALLEL
-#pragma omp for
+#pragma omp for schedule(dynamic)
 #endif
     for (size_t i = 0; i < SIMD_GET_MULTIPLE(cell_nlat); i += SIMD_SIZE)
     {

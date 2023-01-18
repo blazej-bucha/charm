@@ -27,6 +27,12 @@ Upcoming release:
     Proceedings of the 2013 IAG Scientific Assembly, Potsdam, Germany, 1--6 
     September, 2013, 143:193--197. https://doi.org/10.1007/1345_2015_124
 
+* Added dynamic scheduling to parallel for loops in shs.  This slightly 
+  improves the performance, because the time to compute Legendre functions 
+  varies across the meridian (mainly due to X-numbers, dynamical switching and, 
+  if applied, polar optimization).  In sha, the dynamic scheduling has been in 
+  use right from the beginning.
+
 CHarm 0.2.0:
 
 * Added Python wrapper called PyHarm.  This step necessitated several 
