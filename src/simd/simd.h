@@ -44,6 +44,7 @@
 #undef INT_SIMD
 #undef RI_SIMD
 #undef MASK_SIMD
+#undef MASK2_SIMD
 #undef P
 #undef PF
 #undef PINT
@@ -396,6 +397,7 @@
 
 
 #   define MASK_SIMD            int
+#   define MASK2_SIMD           MASK_SIMD
 
 
     /* Absolute value.  The "FABS" macro is defined in "../prec.h". */

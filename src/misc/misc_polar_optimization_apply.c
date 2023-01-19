@@ -26,12 +26,12 @@ _Bool CHARM(misc_polar_optimization_apply)(unsigned long m,
     /* Do the test */
     REAL_SIMD nmax_simd = SET1_R(nmax);
     REAL_SIMD m_simd    = SET1_R(m);
-    MASK_SIMD test      = LT_R(threshold,
+    MASK2_SIMD test     = LT_R(threshold,
                                SUB_R(m_simd, MUL_R(nmax_simd, sinlat)));
 
 
     /* Apply the polar optimization only if "test" is true for all "sinlat". */
-    if (MOVEMASK(test) == SIMD_TRUE)
+    if (MOVEMASK((test)) == SIMD_TRUE)
         return 1;
     else
         return 0;
