@@ -233,7 +233,7 @@ if test "$avx" = "yes" -a "$avx512" = "yes"; then
 fi
 if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes"; then
     if test "$dp" != "yes" -a "$sp" != "yes"; then
-        AC_MSG_ERROR([SIMD instructions can be enabled in single and double precision only])
+        AC_MSG_ERROR([SIMD instructions are not supported in quadruple precision])
     fi
 fi
 
