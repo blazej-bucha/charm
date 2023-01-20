@@ -214,11 +214,20 @@ coefficients:</p>
 <p>In single precision, the tests are conducted up to <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">=</span> <span class="pre">7200</span></code> only.
 Somewhere beyond that degree, it becomes difficult to compute the nodes of the
 Gauss–Legendre quadrature without an overflow in single precision.  The
-Driscoll–Healy quadrature could be used as an alternative, but this approach
-is not followed here in order to provide homogeneous tests.</p>
+Driscoll–Healy quadrature could be used as an alternative, but this would
+produce heterogeneous tests.</p>
 <img alt="_images/benchf-accuracy.png" src="_images/benchf-accuracy.png" />
 <p><strong>Double precision</strong></p>
+<p><em>Polar optimization disabled (default)</em></p>
 <img alt="_images/bench-accuracy.png" src="_images/bench-accuracy.png" />
+<p><em>Polar optimization enabled</em> (<code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a1</span> <span class="pre">=</span> <span class="pre">100</span></code>,
+<code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a2</span> <span class="pre">=</span> <span class="pre">0.01</span></code>).  Comparing this figure and the
+previous one, it is seen that even though the polar optimization introduces
+<em>approximations</em> to spherical harmonic transforms, the numerical accuracy is
+the same.  The small differences between the two figures are caused by the fact
+that a new set random spherical harmonic coefficients was generated in both
+experiments.</p>
+<img alt="_images/bench-po-accuracy.png" src="_images/bench-po-accuracy.png" />
 <p><strong>Quadruple precision</strong></p>
 <img alt="_images/benchq-accuracy.png" src="_images/benchq-accuracy.png" />
 </div>
@@ -230,7 +239,14 @@ section.</p>
 <p><strong>Single precision</strong></p>
 <img alt="_images/benchf-time.png" src="_images/benchf-time.png" />
 <p><strong>Double precision</strong></p>
+<p><em>Polar optimization disabled (default)</em></p>
 <img alt="_images/bench-time.png" src="_images/bench-time.png" />
+<p><em>Using the polar optimization</em> (<code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a1</span> <span class="pre">=</span> <span class="pre">100</span></code>,
+<code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a2</span> <span class="pre">=</span> <span class="pre">0.01</span></code>), the performance improved by about
+25 percent, while the accuracy remains the same (see above).  More aggressive
+polar optimization can further improve the performance, but, after some
+critical point, only at the cost of deteriorated accuracy.</p>
+<img alt="_images/bench-po-time.png" src="_images/bench-po-time.png" />
 <p><strong>Quadruple precision</strong></p>
 <img alt="_images/benchq-time.png" src="_images/benchq-time.png" />
 </div>

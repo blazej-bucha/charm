@@ -4,9 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#ifdef _MSC_VER
-#   define _USE_MATH_DEFINES
-#endif
 #include <math.h>
 #include <fftw3.h>
 #include "../prec.h"
@@ -161,14 +158,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
     /* Check whether the number of cells in the latitudinal direction is even
      * or odd */
     /* ..................................................................... */
-    _Bool even;
-    if ((cell_nlat % 2) == 0)
-        /* The number of cells in the latitudinal direction is an even number
-         * */
-        even = 1;
-    else
-        /* The number of cells in the latitudinal direction is an odd number */
-        even = 0;
+    _Bool even = (cell_nlat % 2) == 0;
     /* ..................................................................... */
 
 
@@ -179,16 +169,15 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
      * otherwise "symm = 0". If "symm == 1", the function automatically
      * exploits the symmetry property of Legendre functions in order to
      * accelerate the computation */
-    _Bool symm;
-    if (cell_nlat == 1)
-        /* If there is only one cell in the latitudinal direction within the
-         * grid, the grid is automatically considered as not symmetric */
-        symm = 0;
-    else
-        /* If there is more than one cell in the latitudinal direction in the
-         * grid, let's start by assuming that the grid is symmetric with
-         * respect to the equator and check whether this is indeed true */
-        symm = 1;
+
+
+    /* If there is only one cell in the latitudinal direction, the grid is
+     * automatically considered as not symmetric.
+     *
+     * If there is more than one cell, let's start by assuming that the grid is
+     * symmetric with respect to the equator and check whether this is indeed
+     * true */
+    _Bool symm = cell_nlat > 1;
 
 
     for (size_t i = 0; i < cell_nlat; i++)

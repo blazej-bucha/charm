@@ -3,9 +3,6 @@
 #include <config.h>
 #include <stdio.h>
 #include <stdlib.h>
-#ifdef _MSC_VER
-#   define _USE_MATH_DEFINES
-#endif
 #include <math.h>
 #include "../prec.h"
 /* ------------------------------------------------------------------------- */

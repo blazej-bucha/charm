@@ -31,8 +31,5 @@ _Bool CHARM(misc_polar_optimization_apply)(unsigned long m,
 
 
     /* Apply the polar optimization only if "test" is true for all "sinlat". */
-    if (MOVEMASK((test)) == SIMD_TRUE)
-        return 1;
-    else
-        return 0;
+    return MOVEMASK((test)) == SIMD_TRUE;
 }

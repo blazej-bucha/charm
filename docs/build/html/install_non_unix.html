@@ -183,7 +183,11 @@ offers a fully functional Linux distribution that you can run from within
 Windows 10 (no dual boot).  WSL is officially supported by Microsoft and its
 installation is very easy.  Having installed WSL, you may proceed with
 <a class="reference internal" href="install_unix.html#installation-unix"><span class="std std-ref">Installation on Unix-based operating systems</span></a>.</p>
-<p>Other good solution is, for instance, <a class="reference external" href="https://en.wikipedia.org/wiki/Cygwin">Cygwin</a>.</p>
+<p>Other solution is, for instance, <a class="reference external" href="https://en.wikipedia.org/wiki/Cygwin">Cygwin</a>.  We have noticed, however, that when
+combined with SIMD instructions, Cygwin throws segmentation fault errors, even
+for some clearly valid parts of the code.  With SIMD instructions disabled, the
+library seems to work fine, but the performance is suboptimal.  OpenMP
+parallelization also seems to work properly.</p>
 </div>
 
 

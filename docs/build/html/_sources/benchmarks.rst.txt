@@ -47,15 +47,27 @@ coefficients:
 In single precision, the tests are conducted up to ``N = 7200`` only.
 Somewhere beyond that degree, it becomes difficult to compute the nodes of the
 Gauss--Legendre quadrature without an overflow in single precision.  The
-Driscoll--Healy quadrature could be used as an alternative, but this approach
-is not followed here in order to provide homogeneous tests.
+Driscoll--Healy quadrature could be used as an alternative, but this would 
+produce heterogeneous tests.
 
 .. image:: ../img/benchf-accuracy.png
 
 
 **Double precision**
 
+*Polar optimization disabled (default)*
+
 .. image:: ../img/bench-accuracy.png
+
+*Polar optimization enabled* (``charm_glob_polar_optimization_a1 = 100``, 
+``charm_glob_polar_optimization_a2 = 0.01``).  Comparing this figure and the 
+previous one, it is seen that even though the polar optimization introduces 
+*approximations* to spherical harmonic transforms, the numerical accuracy is 
+the same.  The small differences between the two figures are caused by the fact 
+that a new set random spherical harmonic coefficients was generated in both 
+experiments.
+
+.. image:: ../img/bench-po-accuracy.png
 
 
 **Quadruple precision**
@@ -76,7 +88,17 @@ section.
 
 **Double precision**
 
+*Polar optimization disabled (default)*
+
 .. image:: ../img/bench-time.png
+
+*Using the polar optimization* (``charm_glob_polar_optimization_a1 = 100``, 
+``charm_glob_polar_optimization_a2 = 0.01``), the performance improved by about 
+25 percent, while the accuracy remains the same (see above).  More aggressive 
+polar optimization can further improve the performance, but, after some 
+critical point, only at the cost of deteriorated accuracy.
+
+.. image:: ../img/bench-po-time.png
 
 **Quadruple precision**
 

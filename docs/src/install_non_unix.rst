@@ -10,5 +10,9 @@ Windows 10 (no dual boot).  WSL is officially supported by Microsoft and its
 installation is very easy.  Having installed WSL, you may proceed with
 :ref:`installation_unix`.
 
-Other good solution is, for instance, `Cygwin
-<https://en.wikipedia.org/wiki/Cygwin>`_.
+Other solution is, for instance, `Cygwin 
+<https://en.wikipedia.org/wiki/Cygwin>`_.  We have noticed, however, that when 
+combined with SIMD instructions, Cygwin throws segmentation fault errors, even 
+for some clearly valid parts of the code.  With SIMD instructions disabled, the 
+library seems to work fine, but the performance is suboptimal.  OpenMP 
+parallelization also seems to work properly.
