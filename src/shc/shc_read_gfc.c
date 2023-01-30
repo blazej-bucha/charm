@@ -46,7 +46,7 @@ void CHARM(shc_read_gfc)(const char *pathname, unsigned long nmax,
     char line[SHC_READ_GFC_NLINE];
     char key_str[SHC_READ_GFC_NSTR];
     char val_str[SHC_READ_GFC_NSTR];
-    unsigned long nmax_file = -1;
+    unsigned long nmax_file;
     /* --------------------------------------------------------------------- */
 
 
