@@ -1,5 +1,11 @@
 * Add unit tests for PyHarm.
 
+* Add note in docs that "sudo make install" installs PyHarm as a root, too, 
+  even if in virtual environment.  It seems that the uninstallation must then 
+  be manual instead of using just "pip uninstall pyharm".  For now, the best 
+  solution therefore seems to be to install both CHarm and PyHarm either as 
+  a user or as a root and not combine the two.
+
 * Add support for fused multiply-add instructions.
 
 * Add the Condon--Shortley phase factor.
