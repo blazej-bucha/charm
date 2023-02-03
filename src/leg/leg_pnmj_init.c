@@ -3,6 +3,7 @@
 #include <config.h>
 #include <stdlib.h>
 #include "../prec.h"
+#include "leg_pnmj_length.h"
 /* ------------------------------------------------------------------------- */
 
 

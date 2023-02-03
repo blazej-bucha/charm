@@ -33,6 +33,10 @@ Upcoming release:
   if applied, polar optimization).  In sha, the dynamic scheduling has been in 
   use right from the beginning.
 
+* The function "charm_leg_pnmj_length" was removed from the API.  The number of 
+  coefficients stored in the "charm_pnmj" structure is already provided in its 
+  "npnmj" member.
+
 CHarm 0.2.0:
 
 * Added Python wrapper called PyHarm.  This step necessitated several 
