@@ -15,7 +15,7 @@ In your Python code, import PyHarm in double precision by:
 
    >>> import pyharm as ph
 
-To import PyHarm in single precision, execute:
+To import PyHarm in single precision, use:
 
 .. code-block:: python
 
@@ -29,8 +29,7 @@ Both precisions can be combined in a single Python file, too:
    >>> import pyharmf as phf
 
 The chapters that follow show how to work with PyHarm in double and single 
-precision, respectively.  Note that PyHarm does not support quadruple 
-precision.
+precision, respectively.  Quadruple precision is not supported in PyHarm.
 
 
 PyHarm in double precision
@@ -40,9 +39,8 @@ PyHarm attempts to follow the rules of the object-oriented programming
 paradigm.  Several classes are introduced to represent spherical harmonic 
 coefficients, coordinates of evaluation points/cells and Fourier coefficients 
 of Legendre functions.  Most of the classes are accompanied by factory methods 
-to instantiate the classes.  Whenever there is a factory method available, 
-users should always create class instances with one of the factory methods.  
-The factory methods are summarized within the class documentation.  
+for instantiation, so users should always instantiate the classes using these 
+methods.  The factory methods are summarized within the class documentation.  
 Alternatively, they can be found by searching for the *classmethod* flag that 
 precedes the class method names in the documentation.
 
@@ -72,8 +70,8 @@ conditions.
     True
 
 In this code snippet, we did not specify the ``dtype`` and ``order`` flags when 
-calling ``numpy.zeros``.  Therefore, numpy automatically used their default 
-values, namely ``numpy.float64`` and ``'C'``.  In some cases, you might need to 
+calling ``numpy.zeros``,  so numpy automatically used their default values, 
+namely ``numpy.float64`` and ``'C'``.  In some cases, you might need to 
 explicitly specify the two flags:
 
 .. code-block:: python

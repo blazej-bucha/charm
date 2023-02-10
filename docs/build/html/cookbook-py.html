@@ -197,7 +197,7 @@ be found in the <code class="docutils literal notranslate"><span class="pre">coo
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
 </pre></div>
 </div>
-<p>To import PyHarm in single precision, execute:</p>
+<p>To import PyHarm in single precision, use:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharmf</span> <span class="k">as</span> <span class="nn">phf</span>
 </pre></div>
 </div>
@@ -207,17 +207,15 @@ be found in the <code class="docutils literal notranslate"><span class="pre">coo
 </pre></div>
 </div>
 <p>The chapters that follow show how to work with PyHarm in double and single
-precision, respectively.  Note that PyHarm does not support quadruple
-precision.</p>
+precision, respectively.  Quadruple precision is not supported in PyHarm.</p>
 <div class="section" id="pyharm-in-double-precision">
 <h2>PyHarm in double precision<a class="headerlink" href="#pyharm-in-double-precision" title="Permalink to this headline">¶</a></h2>
 <p>PyHarm attempts to follow the rules of the object-oriented programming
 paradigm.  Several classes are introduced to represent spherical harmonic
 coefficients, coordinates of evaluation points/cells and Fourier coefficients
 of Legendre functions.  Most of the classes are accompanied by factory methods
-to instantiate the classes.  Whenever there is a factory method available,
-users should always create class instances with one of the factory methods.
-The factory methods are summarized within the class documentation.
+for instantiation, so users should always instantiate the classes using these
+methods.  The factory methods are summarized within the class documentation.
 Alternatively, they can be found by searching for the <em>classmethod</em> flag that
 precedes the class method names in the documentation.</p>
 <div class="section" id="integration-with-numpy">
@@ -241,8 +239,8 @@ conditions.</p>
 </pre></div>
 </div>
 <p>In this code snippet, we did not specify the <code class="docutils literal notranslate"><span class="pre">dtype</span></code> and <code class="docutils literal notranslate"><span class="pre">order</span></code> flags when
-calling <code class="docutils literal notranslate"><span class="pre">numpy.zeros</span></code>.  Therefore, numpy automatically used their default
-values, namely <code class="docutils literal notranslate"><span class="pre">numpy.float64</span></code> and <code class="docutils literal notranslate"><span class="pre">'C'</span></code>.  In some cases, you might need to
+calling <code class="docutils literal notranslate"><span class="pre">numpy.zeros</span></code>,  so numpy automatically used their default values,
+namely <code class="docutils literal notranslate"><span class="pre">numpy.float64</span></code> and <code class="docutils literal notranslate"><span class="pre">'C'</span></code>.  In some cases, you might need to
 explicitly specify the two flags:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">5</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
@@ -318,7 +316,7 @@ files and how to compute (difference) degree variances.</p>
 
 
 <span class="c1"># Now let&#39;s save the coefficients to a binary file and then read them back to </span>
-<span class="c1"># another structure for spherical harmonic coefficients.  Just for the fun...</span>
+<span class="c1"># a new &quot;Shc&quot; class instance.  Just for the fun...</span>
 <span class="c1"># -----------------------------------------------------------------------------</span>
 <span class="n">shcs</span><span class="o">.</span><span class="n">to_file_bin</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">shcs_out_file</span><span class="p">)</span>
 

@@ -56,7 +56,7 @@ print(f'S({n}, {m}) = {snm}')
 
 
 # Now let's save the coefficients to a binary file and then read them back to 
-# another structure for spherical harmonic coefficients.  Just for the fun...
+# a new "Shc" class instance.  Just for the fun...
 # -----------------------------------------------------------------------------
 shcs.to_file_bin(nmax, shcs_out_file)
 

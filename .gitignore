@@ -33,6 +33,7 @@ tests/test_run[fq]_omp
 wrap/pyharm/_data_types.py
 wrap/pyharm/__init__.py
 wrap/pyharm/lib/*
+wrap/pyharm.egg-info
 wrap/pyharm[f].egg-info
 wrap/pyharmf
 setup.py
