@@ -483,8 +483,8 @@ extern charm@P@_point *charm@P@_crd_point_dh2(unsigned long nmax,
 
 /** Returns a pointer to the ``charm@P@_cell`` structure that is created for
  * a given ``type`` with ``nlat`` minimum and maximum latitudes, ``nlon``
- * minimum and maximum longitudes and ``nlat`` spherical radii and.  The memory
- * of all array members of ``charm@P@_cell`` is uninitialized.
+ * minimum and maximum longitudes and ``nlat`` spherical radii.  The memory of
+ * all array members of ``charm@P@_cell`` is uninitialized.
  *
  * Valid values of ``type`` are all symbolic constants ``CHARM_CRD_CELL_*``.
  *
