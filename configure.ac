@@ -19,6 +19,13 @@ AX_SPLIT_VERSION
 AC_SUBST([CHARM_MAJOR], ["$AX_MAJOR_VERSION"])
 AC_SUBST([CHARM_MINOR], ["$AX_MINOR_VERSION"])
 AC_SUBST([CHARM_PATCH], ["$AX_POINT_VERSION"])
+dnl If "-" is found in "AX_POINT_VERSION", remove all characters that follow
+dnl it, including the "-" character itself.  This is useful to get the
+dnl patch version number without the "-dev" string.
+AC_PROG_SED
+AX_POINT_VERSION_NUMBER=`echo "$AX_POINT_VERSION" | $SED 's/-.*//'`
+AC_SUBST([CHARM_PATCH_NUMBER], ["$AX_POINT_VERSION_NUMBER"])
+echo "checking Point version number... $AX_POINT_VERSION_NUMBER"
 dnl ===========================================================================
 
 
