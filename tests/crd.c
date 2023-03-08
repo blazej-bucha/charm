@@ -20,7 +20,7 @@ int crd(void)
     int errnum = 0;
     char file_lat[NSTR], file_lon[NSTR], file_r[NSTR];
     char grd_type[NSTR2];
-    CHARM(point) *grd;
+    CHARM(point) *grd = NULL;
 
 
     /* Loop over quadrature grid types */

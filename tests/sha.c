@@ -77,7 +77,7 @@ int sha(unsigned long nmax, char SHCs_file[])
     /* Check spherical harmonic analysis with points values using all supported
      * quadratures */
     /* --------------------------------------------------------------------- */
-    CHARM(point) *grd_pnt;
+    CHARM(point) *grd_pnt = NULL;
     CHARM(cell) *grd_cell;
     REAL *f;
     CHARM(shc) *shcs_out;

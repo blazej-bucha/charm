@@ -135,7 +135,7 @@ void CHARM(shs_cell_grd)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
 
 
     /* If true, FFT is applied along the latitude parallels */
-    _Bool use_fft = CHARM(shs_grd_cell_fft_check)(cell, dlon, nmax);
+    _Bool use_fft = CHARM(shs_grd_cell_fft_check)(cell, nmax);
     if (!use_fft)
     {
         /* OK, so no FFT and the longitudinal step is constant */
@@ -270,7 +270,7 @@ void CHARM(shs_cell_grd)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
     /* --------------------------------------------------------------------- */
     if (use_fft)
     {
-        lc  = (FFTW(complex) *)FFTW(malloc)(nlc * SIMD_SIZE * 
+        lc  = (FFTW(complex) *)FFTW(malloc)(nlc * SIMD_SIZE *
                                             sizeof(FFTW(complex)));
         if (lc == NULL)
         {
@@ -424,14 +424,14 @@ shared(nlc, plan, use_fft)
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-        symmv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE, 
+        symmv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
                                               sizeof(REAL));
         if (symmv == NULL)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-        latsinv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE, 
+        latsinv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
                                                 sizeof(REAL));
         if (latsinv == NULL)
         {
@@ -632,7 +632,7 @@ FAILURE_1_parallel:
                 }
                 else
                 {
-                    latminv[v] = latmaxv[v] = t1v[v] = u1v[v] = t2v[v] = 
+                    latminv[v] = latmaxv[v] = t1v[v] = u1v[v] = t2v[v] =
                         u2v[v] = PREC(0.0);
                     continue;
                 }

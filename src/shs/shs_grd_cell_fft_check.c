@@ -13,7 +13,7 @@
 
 /* An internal function to check whether or not FFT can be applied for cell
  * grid-wise synthesis. */
-_Bool CHARM(shs_grd_cell_fft_check)(const CHARM(cell) *grd, REAL dlon,
+_Bool CHARM(shs_grd_cell_fft_check)(const CHARM(cell) *grd,
                                     unsigned long nmax)
 {
     if (grd->nlon > 1)
