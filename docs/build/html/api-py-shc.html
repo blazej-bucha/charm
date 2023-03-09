@@ -609,8 +609,8 @@ arrays spherical harmonic coefficients <cite>Cnm</cite> and <cite>Snm</cite> of 
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> and all corresponding degrees <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">m,</span> <span class="pre">m</span> <span class="pre">+</span> <span class="pre">1,</span> <span class="pre">...,</span>
 <span class="pre">self.nmax</span></code>.</p></li>
 <li><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> are lists of equal size, returned are arrays
-spherical harmonic coefficients <cite>Cnm</cite> and <cite>Snm</cite> of degrees taken from
-the <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> list and orders taken from the <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> list.</p></li>
+of spherical harmonic coefficients <cite>Cnm</cite> and <cite>Snm</cite> of degrees taken
+from the <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> list and orders taken from the <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> list.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -639,8 +639,8 @@ copies of the original spherical harmonic coefficients.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>n</strong> (<em>integer</em><em>, </em><em>list of integers</em>) – Spherical harmonic degree, optional.</p></li>
-<li><p><strong>m</strong> (<em>integer</em><em>, </em><em>list of integers</em>) – Spherical harmonic order, optional.</p></li>
+<li><p><strong>n</strong> (<em>integer</em><em>, </em><em>list of integers</em><em>, </em><em>None</em>) – Spherical harmonic degree, optional.</p></li>
+<li><p><strong>m</strong> (<em>integer</em><em>, </em><em>list of integers</em><em>, </em><em>None</em>) – Spherical harmonic order, optional.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -712,10 +712,10 @@ shallow.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>n</strong> (<em>integer</em><em>, </em><em>list of integers</em>) – Spherical harmonic degree, optional.</p></li>
-<li><p><strong>m</strong> (<em>integer</em><em>, </em><em>list of integers</em>) – Spherical harmonic order, optional.</p></li>
-<li><p><strong>c</strong> (<em>floating point</em><em> or </em><em>numpy array of floating points</em>) – Spherical harmonic coefficient(s) <cite>Cnm</cite>, optional.</p></li>
-<li><p><strong>s</strong> (<em>floating point</em><em> or </em><em>numpy array of floating points</em>) – Spherical harmonic coefficient(s) <cite>Snm</cite>, optional.</p></li>
+<li><p><strong>n</strong> (<em>integer</em><em>, </em><em>list of integers</em><em>, </em><em>None</em>) – Spherical harmonic degree, optional.</p></li>
+<li><p><strong>m</strong> (<em>integer</em><em>, </em><em>list of integers</em><em>, </em><em>None</em>) – Spherical harmonic order, optional.</p></li>
+<li><p><strong>c</strong> (<em>floating point</em><em>, </em><em>numpy array of floating points</em><em>, </em><em>None</em>) – Spherical harmonic coefficient(s) <cite>Cnm</cite>, optional.</p></li>
+<li><p><strong>s</strong> (<em>floating point</em><em>, </em><em>numpy array of floating points</em><em>, </em><em>None</em>) – Spherical harmonic coefficient(s) <cite>Snm</cite>, optional.</p></li>
 </ul>
 </dd>
 </dl>

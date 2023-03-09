@@ -385,12 +385,12 @@ points.</p></li>
 
 <span class="c1"># INPUTS</span>
 <span class="c1"># =============================================================================</span>
-<span class="c1"># Define the path to an input text file with spherical harmonic coefficients.  </span>
+<span class="c1"># Define the path to an input text file with spherical harmonic coefficients.</span>
 <span class="c1"># For details on the structure of the text file, see the documentation.</span>
 <span class="n">shcs_in_file</span> <span class="o">=</span> <span class="s1">&#39;../../data/input/EGM96-degree10-mtx.txt&#39;</span>
 
 
-<span class="c1"># Maximum harmonic degree of coefficients to read.  The same degree is used </span>
+<span class="c1"># Maximum harmonic degree of coefficients to read.  The same degree is used</span>
 <span class="c1"># later in the harmonic synthesis and harmonic analysis.</span>
 <span class="n">nmax</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="c1"># =============================================================================</span>
@@ -405,15 +405,15 @@ points.</p></li>
 <span class="n">shcs</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">from_file_mtx</span><span class="p">(</span><span class="n">shcs_in_file</span><span class="p">,</span> <span class="n">nmax</span><span class="p">)</span>
 
 
-<span class="c1"># Now let&#39;s say we do not want to use the zero-degree term.  This can be </span>
+<span class="c1"># Now let&#39;s say we do not want to use the zero-degree term.  This can be</span>
 <span class="c1"># achieved simply by setting the respective &quot;C00&quot; coefficient to zero.</span>
 <span class="n">shcs</span><span class="o">.</span><span class="n">set_coeffs</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
 
 
-<span class="c1"># Compute the Gauss--Legendre grid for a given &quot;nmax&quot; on a sphere that is </span>
-<span class="c1"># &quot;1000.0&quot; metres above the reference sphere of spherical harmonic </span>
-<span class="c1"># coefficients.  PyHarm represents the Gauss--Legendre grid via the </span>
-<span class="c1"># &quot;PointGridGL&quot; class.  For the Driscoll--Healy grids, PyHarm has the </span>
+<span class="c1"># Compute the Gauss--Legendre grid for a given &quot;nmax&quot; on a sphere that is</span>
+<span class="c1"># &quot;1000.0&quot; metres above the reference sphere of spherical harmonic</span>
+<span class="c1"># coefficients.  PyHarm represents the Gauss--Legendre grid via the</span>
+<span class="c1"># &quot;PointGridGL&quot; class.  For the Driscoll--Healy grids, PyHarm has the</span>
 <span class="c1"># &quot;PointGridDH1&quot; and &quot;PointGridDH2&quot; classes (see the documentation).</span>
 <span class="n">grd_pnt</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">crd</span><span class="o">.</span><span class="n">PointGridGL</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">shcs</span><span class="o">.</span><span class="n">r</span> <span class="o">+</span> <span class="mf">1000.0</span><span class="p">)</span>
 
@@ -427,8 +427,8 @@ points.</p></li>
 <span class="c1"># Note on parallelization</span>
 <span class="c1"># -----------------------</span>
 <span class="c1">#</span>
-<span class="c1"># If you compiled the library with OpenMP parallelization enabled, you can </span>
-<span class="c1"># control the number of threads being used either by an environmental variable </span>
+<span class="c1"># If you compiled the library with OpenMP parallelization enabled, you can</span>
+<span class="c1"># control the number of threads being used either by an environmental variable</span>
 <span class="c1"># or in your Python code, for instance, like this:</span>
 <span class="c1">#</span>
 <span class="c1"># from threadpoolctl import threadpool_limits</span>
@@ -449,16 +449,17 @@ points.</p></li>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
 
-<span class="c1"># Now use the synthesized signal and compute back its spherical harmonic </span>
-<span class="c1"># coefficients by harmonic analysis.  The output coefficients in &quot;shcs2&quot; should </span>
-<span class="c1"># be the same as the input ones &quot;shcs&quot;.  Note that the signal &quot;f&quot; resides on </span>
-<span class="c1"># a sphere that is &quot;1000.0&quot; metres above the reference sphere.  Therefore, the </span>
-<span class="c1"># coefficients are automatically properly rescaled to the desired sphere </span>
-<span class="c1"># defined by &quot;shcs2.r&quot;.</span>
+<span class="c1"># Now use the synthesized signal and compute back its spherical harmonic</span>
+<span class="c1"># coefficients by harmonic analysis.  The output coefficients in &quot;shcs2&quot; should</span>
+<span class="c1"># be the same as the input ones in &quot;shcs&quot;.  Note that the signal &quot;f&quot; resides on</span>
+<span class="c1"># a sphere that is &quot;1000.0&quot; metres above the reference sphere &quot;shcs.r&quot;.  The</span>
+<span class="c1"># last input parameter therefore allows user to define the reference radius of</span>
+<span class="c1"># the output coefficients.  In this case, this value is set to &quot;shcs.r&quot; to</span>
+<span class="c1"># ensure that &quot;shcs2.r&quot; will be the same as &quot;shcs.r&quot;.</span>
 <span class="n">shcs2</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">sha</span><span class="o">.</span><span class="n">point</span><span class="p">(</span><span class="n">grd_pnt</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">shcs</span><span class="o">.</span><span class="n">mu</span><span class="p">,</span> <span class="n">shcs</span><span class="o">.</span><span class="n">r</span><span class="p">)</span>
 
 
-<span class="c1"># Now check whether &quot;shcs&quot; and &quot;shcs2&quot; are the same by computing their </span>
+<span class="c1"># Now check whether &quot;shcs&quot; and &quot;shcs2&quot; are the same by computing their</span>
 <span class="c1"># difference degree amplitudes</span>
 <span class="n">dda</span> <span class="o">=</span> <span class="n">shcs</span><span class="o">.</span><span class="n">dda</span><span class="p">(</span><span class="n">shcs2</span><span class="p">)</span>
 
@@ -474,7 +475,7 @@ points.</p></li>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Difference degree amplitude for harmonic degree </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1"> = </span><span class="si">{</span><span class="n">dda</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
 
-<span class="c1"># We will not need some of the variables anymore, so let&#39;s free the memory by </span>
+<span class="c1"># We will not need some of the variables anymore, so let&#39;s free the memory by</span>
 <span class="c1"># deleting them</span>
 <span class="k">del</span> <span class="n">grd_pnt</span><span class="p">,</span> <span class="n">shcs2</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">dda</span>
 
@@ -489,8 +490,8 @@ points.</p></li>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===========================&#39;</span><span class="p">)</span>
 
 
-<span class="c1"># Create a &quot;PointSctr&quot; class instance to store three scattered points.  The </span>
-<span class="c1"># instance will be created from three numpy arrays that hold the coordinates of </span>
+<span class="c1"># Create a &quot;PointSctr&quot; class instance to store three scattered points.  The</span>
+<span class="c1"># instance will be created from three numpy arrays that hold the coordinates of</span>
 <span class="c1"># the scattered points.</span>
 <span class="n">lat</span>      <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.436231</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9651</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
 <span class="n">lon</span>      <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.53434</span><span class="p">,</span> <span class="mf">4.2316</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
@@ -519,7 +520,7 @@ points.</p></li>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Solid spherical harmonic synthesis at a custom grid of points&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===========================&#39;</span><span class="p">)</span>
 
-<span class="c1"># Define some grid points as numpy arrays.  Then create a &quot;PointGrid&quot; class </span>
+<span class="c1"># Define some grid points as numpy arrays.  Then create a &quot;PointGrid&quot; class</span>
 <span class="c1"># instance that is designed to store custom point grids.</span>
 <span class="n">nlat</span>    <span class="o">=</span> <span class="mi">5</span>
 <span class="n">nlon</span>    <span class="o">=</span> <span class="mi">10</span>
@@ -548,9 +549,9 @@ points.</p></li>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===========================&#39;</span><span class="p">)</span>
 
 
-<span class="c1"># Now we define evaluation cells to synthesize area mean values.  To this end, </span>
-<span class="c1"># we specify numpy arrays of minimum and maximum latitudes and longitudes and </span>
-<span class="c1"># an array of spherical radii.  Using these arrays, we create a &quot;CellSctr&quot; </span>
+<span class="c1"># Now we define evaluation cells to synthesize area mean values.  To this end,</span>
+<span class="c1"># we specify numpy arrays of minimum and maximum latitudes and longitudes and</span>
+<span class="c1"># an array of spherical radii.  Using these arrays, we create a &quot;CellSctr&quot;</span>
 <span class="c1"># class instance.</span>
 <span class="n">latmax</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.323413435</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.90234320952</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
 <span class="n">latmin</span>    <span class="o">=</span> <span class="n">latmax</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.234323</span><span class="p">,</span> <span class="mf">0.4456</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">])</span>
@@ -580,7 +581,7 @@ points.</p></li>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===========================&#39;</span><span class="p">)</span>
 
 
-<span class="c1"># Define the grid cells and create a &quot;CellGrid&quot; class instance from numpy </span>
+<span class="c1"># Define the grid cells and create a &quot;CellGrid&quot; class instance from numpy</span>
 <span class="c1"># arrays.</span>
 <span class="n">nlat</span>     <span class="o">=</span> <span class="mi">15</span>
 <span class="n">nlon</span>     <span class="o">=</span> <span class="mi">30</span>
@@ -618,7 +619,7 @@ points.</p></li>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===========================&#39;</span><span class="p">)</span>
 
 
-<span class="c1"># In this example, we use the &quot;grd_cell&quot; instance and the signal &quot;f&quot; from the </span>
+<span class="c1"># In this example, we use the &quot;grd_cell&quot; instance and the signal &quot;f&quot; from the</span>
 <span class="c1"># previous example</span>
 
 
@@ -626,8 +627,8 @@ points.</p></li>
 <span class="n">shcs2</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">sha</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">grd_cell</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">ph</span><span class="o">.</span><span class="n">sha</span><span class="o">.</span><span class="n">CELL_AQ</span><span class="p">,</span> <span class="n">shcs</span><span class="o">.</span><span class="n">mu</span><span class="p">,</span> <span class="n">shcs</span><span class="o">.</span><span class="n">r</span><span class="p">)</span>
 
 
-<span class="c1"># Print some of the computed coefficients.  Note that the harmonic analysis </span>
-<span class="c1"># with block-mean values in cells is *not* exact, hence the coefficients will </span>
+<span class="c1"># Print some of the computed coefficients.  Note that the harmonic analysis</span>
+<span class="c1"># with block-mean values in cells is *not* exact, hence the coefficients will</span>
 <span class="c1"># not be equal to the input ones.</span>
 <span class="n">n</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>  <span class="c1"># List of harmonic degrees</span>
 <span class="n">m</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>  <span class="c1"># List of harmonic orders</span>
