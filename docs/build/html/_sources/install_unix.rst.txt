@@ -406,7 +406,7 @@ The following flags may be used in addition to ``--enable-python``.
   * If you want to install PyHarm next to your system Python packages, you must 
     specify neither ``--prefix`` nor ``--with-python_prefix``.
 
-  Note that if you use custom a path in ``--prefix`` but do not specify 
+  Note that if you use a custom path in ``--prefix`` but do not specify 
   ``--with-python_prefix``, you will most likely not be able to (easily) import 
   PyHarm.
 
