@@ -45,8 +45,7 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, int ordering,
     /* Get the size of the array to store the Fourier coefficients of Legendre
      * functions and save it to the "CHARM(pnmj)" struct */
     /* --------------------------------------------------------------------- */
-    size_t npnmj = CHARM(leg_pnmj_length)(nmax);
-    pnmj->npnmj = npnmj;
+    pnmj->npnmj = CHARM(leg_pnmj_length)(nmax);
     /* --------------------------------------------------------------------- */
 
 

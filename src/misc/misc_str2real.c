@@ -26,7 +26,7 @@ REAL CHARM(misc_str2real)(char str[], const char *err_msg, CHARM(err) *err)
      * 'D' and 'd' characters in "str".  If there is a match, the character
      * found is replaced by 'E' or 'e', respectively.  It is sufficient to
      * check for the first presence of the characters, as more than one 'D' or
-     * 'd' implies as incorrect format anyway. */
+     * 'd' implies an incorrect format anyway. */
     char *match = strchr(str, 'D');
     if (match != NULL)
         *match = 'E';
