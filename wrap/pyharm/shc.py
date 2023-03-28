@@ -662,17 +662,17 @@ class Shc:
           and order `m`.  The two returned values are floating points.
 
         * If :obj:`n` is integer and :obj:`m` is :obj:`None`, returned are
-          arrays spherical harmonic coefficients `Cnm` and `Snm` of degree
-          :obj:`n` and all corresponding orders :obj:`m = 0, 1, ..., n`.
+          two arrays of spherical harmonic coefficients `Cnm` and `Snm` of
+          degree :obj:`n` and all corresponding orders :obj:`m = 0, 1, ..., n`.
 
-        * If :obj:`n` is :obj:`None` and :obj:`m` is integer, returned are
-          arrays spherical harmonic coefficients `Cnm` and `Snm` of order
+        * If :obj:`n` is :obj:`None` and :obj:`m` is integer, returned are two
+          arrays of spherical harmonic coefficients `Cnm` and `Snm` of order
           :obj:`m` and all corresponding degrees :obj:`n = m, m + 1, ...,
           self.nmax`.
 
-        * If :obj:`n` and :obj:`m` are lists of equal size, returned are arrays
-          of spherical harmonic coefficients `Cnm` and `Snm` of degrees taken
-          from the :obj:`n` list and orders taken from the :obj:`m` list.
+        * If :obj:`n` and :obj:`m` are lists of equal size, returned are two
+          arrays of spherical harmonic coefficients `Cnm` and `Snm` of degrees
+          taken from the :obj:`n` list and orders taken from the :obj:`m` list.
 
         Note
         ----
@@ -770,7 +770,8 @@ class Shc:
 
         * If both :obj:`n` and :obj:`m` are integers, sets the spherical
           harmonic coefficients `Cnm` and/or `Snm` to the input parameters `c`
-          and `s`, respectively.  `c` and `s` must be floating point scalars.
+          and/or `s`, respectively.  `c` and `s` must be floating point
+          scalars.
 
         * If :obj:`n` is integer and :obj:`m` is :obj:`None`, sets spherical
           harmonic coefficients of degree :obj:`n` and all corresponding

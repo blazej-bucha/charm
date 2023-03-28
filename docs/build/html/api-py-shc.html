@@ -602,15 +602,15 @@ space.</p>
 spherical harmonic coefficients <cite>Cnm</cite> and <cite>Snm</cite>, each of degree <cite>n</cite>
 and order <cite>m</cite>.  The two returned values are floating points.</p></li>
 <li><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> is integer and <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> is <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, returned are
-arrays spherical harmonic coefficients <cite>Cnm</cite> and <cite>Snm</cite> of degree
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> and all corresponding orders <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">n</span></code>.</p></li>
-<li><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> is <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> is integer, returned are
-arrays spherical harmonic coefficients <cite>Cnm</cite> and <cite>Snm</cite> of order
+two arrays of spherical harmonic coefficients <cite>Cnm</cite> and <cite>Snm</cite> of
+degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> and all corresponding orders <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">n</span></code>.</p></li>
+<li><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> is <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> is integer, returned are two
+arrays of spherical harmonic coefficients <cite>Cnm</cite> and <cite>Snm</cite> of order
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> and all corresponding degrees <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">m,</span> <span class="pre">m</span> <span class="pre">+</span> <span class="pre">1,</span> <span class="pre">...,</span>
 <span class="pre">self.nmax</span></code>.</p></li>
-<li><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> are lists of equal size, returned are arrays
-of spherical harmonic coefficients <cite>Cnm</cite> and <cite>Snm</cite> of degrees taken
-from the <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> list and orders taken from the <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> list.</p></li>
+<li><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> are lists of equal size, returned are two
+arrays of spherical harmonic coefficients <cite>Cnm</cite> and <cite>Snm</cite> of degrees
+taken from the <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> list and orders taken from the <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> list.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -661,7 +661,8 @@ order <cite>m</cite> to the values of <cite>c</cite> and <cite>s</cite>, respect
 <ul class="simple">
 <li><p>If both <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> are integers, sets the spherical
 harmonic coefficients <cite>Cnm</cite> and/or <cite>Snm</cite> to the input parameters <cite>c</cite>
-and <cite>s</cite>, respectively.  <cite>c</cite> and <cite>s</cite> must be floating point scalars.</p></li>
+and/or <cite>s</cite>, respectively.  <cite>c</cite> and <cite>s</cite> must be floating point
+scalars.</p></li>
 <li><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> is integer and <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> is <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, sets spherical
 harmonic coefficients of degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> and all corresponding
 harmonic orders <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">n</span></code> to the input parameters <cite>c</cite>
