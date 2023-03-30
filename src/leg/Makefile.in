@@ -115,7 +115,7 @@ am_libcharm@P@_leg@OMP@_la_OBJECTS = leg_func_anm_bnm.lo \
 	leg_pnmj_alloc.lo leg_pnmj_calloc.lo leg_pnmj_malloc.lo \
 	leg_pnmj_init.lo leg_pnmj_free.lo leg_pnmj_length.lo \
 	leg_pnmj_j2k.lo leg_pnmj_k2j.lo leg_pnmj_leq4.lo \
-	leg_pol_en_fn.lo
+	leg_pnmj_check_ordering.lo leg_pol_en_fn.lo
 libcharm@P@_leg@OMP@_la_OBJECTS =  \
 	$(am_libcharm@P@_leg@OMP@_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -141,6 +141,7 @@ am__depfiles_remade = ./$(DEPDIR)/leg_func_anm_bnm.Plo \
 	./$(DEPDIR)/leg_func_dm.Plo ./$(DEPDIR)/leg_func_gm_hm.Plo \
 	./$(DEPDIR)/leg_func_prepare.Plo ./$(DEPDIR)/leg_func_r_ri.Plo \
 	./$(DEPDIR)/leg_pnmj_alloc.Plo ./$(DEPDIR)/leg_pnmj_calloc.Plo \
+	./$(DEPDIR)/leg_pnmj_check_ordering.Plo \
 	./$(DEPDIR)/leg_pnmj_coeffs.Plo \
 	./$(DEPDIR)/leg_pnmj_dpeven.Plo ./$(DEPDIR)/leg_pnmj_dpodd.Plo \
 	./$(DEPDIR)/leg_pnmj_free.Plo ./$(DEPDIR)/leg_pnmj_gpeven.Plo \
@@ -342,6 +343,7 @@ libcharm@P@_leg@OMP@_la_SOURCES = leg_func_anm_bnm.c \
 								  leg_pnmj_j2k.c \
 								  leg_pnmj_k2j.c \
 								  leg_pnmj_leq4.c \
+								  leg_pnmj_check_ordering.c \
 								  leg_pol_en_fn.c
 
 EXTRA_DIST = *.h
@@ -406,6 +408,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leg_func_r_ri.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leg_pnmj_alloc.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leg_pnmj_calloc.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leg_pnmj_check_ordering.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leg_pnmj_coeffs.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leg_pnmj_dpeven.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leg_pnmj_dpodd.Plo@am__quote@ # am--include-marker
@@ -538,6 +541,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/leg_func_r_ri.Plo
 	-rm -f ./$(DEPDIR)/leg_pnmj_alloc.Plo
 	-rm -f ./$(DEPDIR)/leg_pnmj_calloc.Plo
+	-rm -f ./$(DEPDIR)/leg_pnmj_check_ordering.Plo
 	-rm -f ./$(DEPDIR)/leg_pnmj_coeffs.Plo
 	-rm -f ./$(DEPDIR)/leg_pnmj_dpeven.Plo
 	-rm -f ./$(DEPDIR)/leg_pnmj_dpodd.Plo
@@ -602,6 +606,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/leg_func_r_ri.Plo
 	-rm -f ./$(DEPDIR)/leg_pnmj_alloc.Plo
 	-rm -f ./$(DEPDIR)/leg_pnmj_calloc.Plo
+	-rm -f ./$(DEPDIR)/leg_pnmj_check_ordering.Plo
 	-rm -f ./$(DEPDIR)/leg_pnmj_coeffs.Plo
 	-rm -f ./$(DEPDIR)/leg_pnmj_dpeven.Plo
 	-rm -f ./$(DEPDIR)/leg_pnmj_dpodd.Plo

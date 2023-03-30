@@ -8,6 +8,7 @@
 #include "integ_cs.h"
 #include "integ_ss.h"
 #include "integ_sc.h"
+#include "../leg/leg_pnmj_check_ordering.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
 /* ------------------------------------------------------------------------- */
@@ -17,11 +18,18 @@
 
 
 
-REAL CHARM(integ_yi1n1m1yi2n2m2)(REAL cltmin, REAL cltmax,
-                                 REAL lonmin, REAL lonmax,
-                                 _Bool i1, unsigned long n1, unsigned long m1,
-                                 _Bool i2, unsigned long n2, unsigned long m2,
-                                 const CHARM(pnmj) *pnmj, CHARM(err) *err)
+REAL CHARM(integ_yi1n1m1yi2n2m2)(REAL cltmin,
+                                 REAL cltmax,
+                                 REAL lonmin,
+                                 REAL lonmax,
+                                 _Bool i1,
+                                 unsigned long n1,
+                                 unsigned long m1,
+                                 _Bool i2,
+                                 unsigned long n2,
+                                 unsigned long m2,
+                                 const CHARM(pnmj) *pnmj,
+                                 CHARM(err) *err)
 {
     /* Some simple error checks */
     /* --------------------------------------------------------------------- */
@@ -83,6 +91,15 @@ REAL CHARM(integ_yi1n1m1yi2n2m2)(REAL cltmin, REAL cltmax,
 
         return (PREC(0.0) / PREC(0.0));
     }
+
+
+    if (CHARM(leg_pnmj_check_ordering)(pnmj->ordering))
+    {
+        CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
+                       "Unsupported value of \"pnmj->ordering\".");
+        return (PREC(0.0) / PREC(0.0));
+    }
+
     /* --------------------------------------------------------------------- */
 
 

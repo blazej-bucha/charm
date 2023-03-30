@@ -9,6 +9,7 @@
 #include "leg_pnmj_gpeven.h"
 #include "leg_pnmj_dpodd.h"
 #include "leg_pnmj_gpodd.h"
+#include "leg_pnmj_check_ordering.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
 /* ------------------------------------------------------------------------- */
@@ -18,7 +19,8 @@
 
 
 
-void CHARM(leg_pnmj_coeffs)(CHARM(pnmj) *pnmj, unsigned long nmax,
+void CHARM(leg_pnmj_coeffs)(CHARM(pnmj) *pnmj,
+                            unsigned long nmax,
                             CHARM(err) *err)
 {
     /* An error check for the size of the "CHARM(pnmj)" structure */
@@ -27,6 +29,14 @@ void CHARM(leg_pnmj_coeffs)(CHARM(pnmj) *pnmj, unsigned long nmax,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"nmax\" cannot be larger than \"pnmj->nmax\".");
+        return;
+    }
+
+
+    if (CHARM(leg_pnmj_check_ordering)(pnmj->ordering))
+    {
+        CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
+                       "Unsupported value of \"pnmj->ordering\".");
         return;
     }
     /* --------------------------------------------------------------------- */

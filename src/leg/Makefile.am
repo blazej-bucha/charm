@@ -23,6 +23,7 @@ libcharm@P@_leg@OMP@_la_SOURCES = leg_func_anm_bnm.c \
 								  leg_pnmj_j2k.c \
 								  leg_pnmj_k2j.c \
 								  leg_pnmj_leq4.c \
+								  leg_pnmj_check_ordering.c \
 								  leg_pol_en_fn.c
 
 

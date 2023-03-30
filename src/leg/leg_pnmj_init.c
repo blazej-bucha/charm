@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "../prec.h"
 #include "leg_pnmj_length.h"
+#include "leg_pnmj_check_ordering.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -11,13 +12,13 @@
 
 
 
-CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax, int ordering,
+CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax,
+                                  int ordering,
                                   REAL *pnmj_coeffs)
 {
     /* Check inputs */
     /* --------------------------------------------------------------------- */
-    if ((ordering != CHARM_LEG_PNMJ_ORDER_MNJ) &&
-        (ordering != CHARM_LEG_PNMJ_ORDER_MJN))
+    if (CHARM(leg_pnmj_check_ordering)(ordering))
         return NULL;
     /* --------------------------------------------------------------------- */
 
