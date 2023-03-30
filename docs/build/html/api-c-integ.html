@@ -195,12 +195,13 @@
 <h1>charm_integ<a class="headerlink" href="#charm-integ" title="Permalink to this headline">¶</a></h1>
 <p>Module to compute the following integrals:</p>
 <p><ul class="simple">
-<li><p>a product of two fully-normalized associated Legendre functions and a sine of a co-latitude over a restricted domain of co-latitudes,</p></li>
+<li><p>a product of two fully-normalized associated Legendre functions and a sine of a co-latitude,</p></li>
 </ul>
 </p>
 <p><p><div class="math notranslate nohighlight">
-\[\int_{\theta_1}^{\theta_2} \bar{P}_{nm}(\cos\theta) \, 
-\bar{P}_{nm}(\cos\theta) \, \sin(\theta) \, \mathrm{d}\theta \,,\]</div>
+\[\int\limits_{\theta_1}^{\theta_2} \bar{P}_{n_1,m_1}(\cos\theta) \,
+\bar{P}_{n_2,m_2}(\cos\theta) \, \sin(\theta) \,
+\mathrm{d}\theta{,} \quad \theta_1 \leq \theta_2{,}\]</div>
 </p>
 </p>
 <p><ul class="simple">
@@ -208,9 +209,11 @@
 </ul>
 </p>
 <p><p><div class="math notranslate nohighlight">
-\[\int_{\theta_1}^{\theta_2} \int_{\lambda_1}^{\lambda_2} 
-\bar{Y}_{nm}(\theta, \lambda) \, \bar{Y}_{nm}(\theta, \lambda) \, 
-\mathrm{d}\lambda \, \sin(\theta) \, \mathrm{d}\theta \,.\]</div>
+\[\int\limits_{\theta_1}^{\theta_2}
+\int\limits_{\lambda_1}^{\lambda_2} \bar{Y}_{n_1,m_1}(\theta,
+\lambda) \, \bar{Y}_{n_2,m_2}(\theta, \lambda) \, \mathrm{d}\lambda
+\, \sin(\theta) \, \mathrm{d}\theta{,} \quad \theta_1 \leq
+\theta_2{,} \quad \lambda_1 \leq \lambda_2{.}\]</div>
 </p>
 </p>
 <p><p><div class="admonition note">
@@ -228,12 +231,12 @@ CHarm.</p>
 <span id="_CPPv322charm_integ_pn1m1pn2m2ddmmmmPK10charm_pnmjP9charm_err"></span><span id="_CPPv222charm_integ_pn1m1pn2m2ddmmmmPK10charm_pnmjP9charm_err"></span><span id="charm_integ_pn1m1pn2m2__double.double.unsigned-l.unsigned-l.unsigned-l.unsigned-l.charm_pnmjCP.charm_errP"></span><span class="target" id="charm__integ_8h_1a5e8908b240ba5a580e0cf37233c91c6b"></span>double <code class="sig-name descname">charm_integ_pn1m1pn2m2</code><span class="sig-paren">(</span>double <em>cltmin</em>, double <em>cltmax</em>, unsigned long <em>n1</em>, unsigned long <em>m1</em>, unsigned long <em>n2</em>, unsigned long <em>m2</em>, <em class="property">const</em> <a class="reference internal" href="api-c-leg.html#_CPPv410charm_pnmj" title="charm_pnmj">charm_pnmj</a> *<em>pnmj</em>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err">charm_err</a> *<em>err</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv422charm_integ_pn1m1pn2m2ddmmmmPK10charm_pnmjP9charm_err" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Analytically computes the integral</p>
 <p><div class="math notranslate nohighlight">
-\[\mathrm{ip} = 
-     \int_{\theta_{\mathrm{min}}}^{\theta_{\mathrm{max}}} 
-     \bar{P}_{n_1, m_1}(\cos\theta) \, \bar{P}_{n_2, 
-     m_2}(\cos\theta) \, \sin\theta \, \mathrm{d}\theta\]</div>
+\[\mathrm{ip}
+= \int\limits_{\theta_{\mathrm{min}}}^{\theta_{\mathrm{max}}}
+\bar{P}_{n_1, m_1}(\cos\theta) \, \bar{P}_{n_2, m_2}(\cos\theta) \,
+\sin\theta \, \mathrm{d}\theta{,} \quad \theta_{\mathrm{min}} \leq
+\theta_{\mathrm{max}}{.}\]</div>
 </p>
-<p>over a restricted domain of co-latitudes.</p>
 <p>The computation is based on the Fourier coefficients of the associated Legendre functions (see Eq. 33 of Pail and Plank, 2001).</p>
 <p><strong>References</strong>:</p>
 <p><ul class="simple">
@@ -249,7 +252,7 @@ CHarm.</p>
 <li><p><strong>m1</strong> – <strong>[in]</strong> Harmonic order of the first Legendre function. </p></li>
 <li><p><strong>n2</strong> – <strong>[in]</strong> Harmonic degree of the second Legendre function. </p></li>
 <li><p><strong>m2</strong> – <strong>[in]</strong> Harmonic order of the second Legendre function. </p></li>
-<li><p><strong>pnmj</strong> – <strong>[in]</strong> The <code class="docutils literal notranslate"><a class="reference internal" href="api-c-leg.html#structcharm__pnmj"><span class="std std-ref"><span class="pre">charm_pnmj</span></span></a></code> structure with the Fourier coefficients of associated Legendre functions up to degree <code class="docutils literal notranslate"><a class="reference internal" href="api-c-misc.html#charm__misc_8h_1ab2f2b89babc5ac3cdc71cd3eaeafe7a1"><span class="std std-ref"><span class="pre">CHARM_MAX(n1,</span> <span class="pre">n2)</span></span></a></code>. It is assumed that the structure is prepared beforehand by calling <code class="docutils literal notranslate"><a class="reference internal" href="api-c-leg.html#charm__leg_8h_1a128cee73dc61b72516bbb00191d85b92"><span class="std std-ref"><span class="pre">charm_leg_pnmj_coeffs()</span></span></a></code>.</p></li>
+<li><p><strong>pnmj</strong> – <strong>[in]</strong> The <code class="docutils literal notranslate"><a class="reference internal" href="api-c-leg.html#structcharm__pnmj"><span class="std std-ref"><span class="pre">charm_pnmj</span></span></a></code> structure with the Fourier coefficients of associated Legendre functions at least up to degree <code class="docutils literal notranslate"><a class="reference internal" href="api-c-misc.html#charm__misc_8h_1ab2f2b89babc5ac3cdc71cd3eaeafe7a1"><span class="std std-ref"><span class="pre">CHARM_MAX(n1,</span> <span class="pre">n2)</span></span></a></code>. It is assumed that the structure is prepared beforehand by calling <code class="docutils literal notranslate"><a class="reference internal" href="api-c-leg.html#charm__leg_8h_1a128cee73dc61b72516bbb00191d85b92"><span class="std std-ref"><span class="pre">charm_leg_pnmj_coeffs()</span></span></a></code>.</p></li>
 <li><p><strong>err</strong> – <strong>[out]</strong> Error reported by the function (if any).</p></li>
 </ul>
 </dd>
@@ -264,14 +267,22 @@ CHarm.</p>
 <span id="_CPPv326charm_integ_yi1n1m1yi2n2m2dddd5_Boolmm5_BoolmmPK10charm_pnmjP9charm_err"></span><span id="_CPPv226charm_integ_yi1n1m1yi2n2m2dddd5_Boolmm5_BoolmmPK10charm_pnmjP9charm_err"></span><span id="charm_integ_yi1n1m1yi2n2m2__double.double.double.double._Bool.unsigned-l.unsigned-l._Bool.unsigned-l.unsigned-l.charm_pnmjCP.charm_errP"></span><span class="target" id="charm__integ_8h_1a7deb6c6ef570894bb7e8a1b89ef8af28"></span>double <code class="sig-name descname">charm_integ_yi1n1m1yi2n2m2</code><span class="sig-paren">(</span>double <em>cltmin</em>, double <em>cltmax</em>, double <em>lonmin</em>, double <em>lonmax</em>, _Bool <em>i1</em>, unsigned long <em>n1</em>, unsigned long <em>m1</em>, _Bool <em>i2</em>, unsigned long <em>n2</em>, unsigned long <em>m2</em>, <em class="property">const</em> <a class="reference internal" href="api-c-leg.html#_CPPv410charm_pnmj" title="charm_pnmj">charm_pnmj</a> *<em>pnmj</em>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err">charm_err</a> *<em>err</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv426charm_integ_yi1n1m1yi2n2m2dddd5_Boolmm5_BoolmmPK10charm_pnmjP9charm_err" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Analytically computes the integral</p>
 <p><div class="math notranslate nohighlight">
-\[\mathrm{iy} = 
-     \int_{\theta_{\mathrm{min}}}^{\theta_{\mathrm{max}}} 
-     \int_{\lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}} 
-     \bar{Y}_{i_1,n_1,m_1}(\theta, \lambda) \, 
-     \bar{Y}_{i_2,n_2,m_2}(\theta, \lambda) \, \mathrm{d} 
-     \lambda \, \sin(\theta) \, \mathrm{d}\theta \, \]</div>
+\[\mathrm{iy}
+= \int\limits_{\theta_{\mathrm{min}}}^{\theta_{\mathrm{max}}}
+\int\limits_{\lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}}
+\bar{Y}_{i_1,n_1,m_1}(\theta, \lambda) \,
+\bar{Y}_{i_2,n_2,m_2}(\theta, \lambda) \, \mathrm{d} \lambda \,
+\sin(\theta) \, \mathrm{d}\theta{,} \quad \theta_{\mathrm{min}}
+\leq \theta_{\mathrm{max}}{,} \quad \lambda_{\mathrm{min}} \leq
+\lambda_{\mathrm{max}}{,}\]</div>
 </p>
-<p>over a rectangular cell on the unit sphere.</p>
+<p>where</p>
+<p><div class="math notranslate nohighlight">
+\[\begin{split}\bar{Y}_{i,n,m}(\theta, \lambda) = \begin{cases}
+\bar{P}_{nm}(\cos\theta) \, \cos(m \, \lambda) \quad &amp;\textrm{if}
+\quad i = 0{,}\\ \bar{P}_{nm}(\cos\theta) \, \sin(m \, \lambda)
+\quad &amp;\textrm{if} \quad i = 1{.} \end{cases}\end{split}\]</div>
+</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -282,15 +293,15 @@ CHarm.</p>
 <li><p><strong>i1</strong> – <strong>[in]</strong> <code class="docutils literal notranslate"><span class="pre">0</span></code> if the first spherical harmonic function is of the <code class="docutils literal notranslate"><span class="pre">cos</span></code> type; <code class="docutils literal notranslate"><span class="pre">1</span></code> for the <code class="docutils literal notranslate"><span class="pre">sin</span></code> type. </p></li>
 <li><p><strong>n1</strong> – <strong>[in]</strong> Harmonic degree of the first spherical harmonic function. </p></li>
 <li><p><strong>m1</strong> – <strong>[in]</strong> Harmonic order of the first spherical harmonic function. </p></li>
-<li><p><strong>i2</strong> – <strong>[in]</strong> <code class="docutils literal notranslate"><span class="pre">0</span></code> if the second spherical harmonic function the <code class="docutils literal notranslate"><span class="pre">cos</span></code> term of the longitude in it; <code class="docutils literal notranslate"><span class="pre">1</span></code> for the <code class="docutils literal notranslate"><span class="pre">sin</span></code> term. </p></li>
+<li><p><strong>i2</strong> – <strong>[in]</strong> <code class="docutils literal notranslate"><span class="pre">0</span></code> if the second spherical harmonic function is of the <code class="docutils literal notranslate"><span class="pre">cos</span></code> type; <code class="docutils literal notranslate"><span class="pre">1</span></code> for the <code class="docutils literal notranslate"><span class="pre">sin</span></code> type. </p></li>
 <li><p><strong>n2</strong> – <strong>[in]</strong> Harmonic degree of the second spherical harmonic function. </p></li>
 <li><p><strong>m2</strong> – <strong>[in]</strong> Harmonic order of the second spherical harmonic function. </p></li>
-<li><p><strong>pnmj</strong> – <strong>[in]</strong> The <code class="docutils literal notranslate"><a class="reference internal" href="api-c-leg.html#structcharm__pnmj"><span class="std std-ref"><span class="pre">charm_pnmj</span></span></a></code> structure with the Fourier coefficients of associated Legendre functions up to degree <code class="docutils literal notranslate"><a class="reference internal" href="api-c-misc.html#charm__misc_8h_1ab2f2b89babc5ac3cdc71cd3eaeafe7a1"><span class="std std-ref"><span class="pre">CHARM_MAX(n1,</span> <span class="pre">n2)</span></span></a></code>. It is assumed that the structure is prepared beforehand by calling <code class="docutils literal notranslate"><a class="reference internal" href="api-c-leg.html#charm__leg_8h_1a128cee73dc61b72516bbb00191d85b92"><span class="std std-ref"><span class="pre">charm_leg_pnmj_coeffs()</span></span></a></code>.</p></li>
+<li><p><strong>pnmj</strong> – <strong>[in]</strong> The <code class="docutils literal notranslate"><a class="reference internal" href="api-c-leg.html#structcharm__pnmj"><span class="std std-ref"><span class="pre">charm_pnmj</span></span></a></code> structure with the Fourier coefficients of associated Legendre functions at least up to degree <code class="docutils literal notranslate"><a class="reference internal" href="api-c-misc.html#charm__misc_8h_1ab2f2b89babc5ac3cdc71cd3eaeafe7a1"><span class="std std-ref"><span class="pre">CHARM_MAX(n1,</span> <span class="pre">n2)</span></span></a></code>. It is assumed that the structure is prepared beforehand by calling <code class="docutils literal notranslate"><a class="reference internal" href="api-c-leg.html#charm__leg_8h_1a128cee73dc61b72516bbb00191d85b92"><span class="std std-ref"><span class="pre">charm_leg_pnmj_coeffs()</span></span></a></code>.</p></li>
 <li><p><strong>err</strong> – <strong>[out]</strong> Error reported by the function (if any).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The output value <code class="docutils literal notranslate"><span class="pre">iy</span></code> of the integral. In case of an error, returned is the <code class="docutils literal notranslate"><span class="pre">nan</span></code> value and the error is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
+<dd class="field-even"><p>The value <code class="docutils literal notranslate"><span class="pre">iy</span></code> of the integral. In case of an error, returned is the <code class="docutils literal notranslate"><span class="pre">nan</span></code> value and the error is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
 </dd>
 </dl>
 </dd></dl>

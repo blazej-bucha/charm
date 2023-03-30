@@ -193,18 +193,21 @@
 <span id="id1"></span><span id="pyharm-integ"></span><h1>pyharm.integ<a class="headerlink" href="#module-pyharm.integ" title="Permalink to this headline">¶</a></h1>
 <p>Module to compute the following integrals:</p>
 <ul>
-<li><p>a product of two fully-normalized associated Legendre functions and a sine of
-a co-latitude over a restricted domain of co-latitudes,</p>
+<li><p>a product of two fully-normalized associated Legendre functions and a sine
+of a co-latitude,</p>
 <div class="math notranslate nohighlight">
-\[\int_{\theta_1}^{\theta_2} \bar{P}_{nm}(\cos\theta) \,
-\bar{P}_{nm}(\cos\theta) \, \sin(\theta) \, \mathrm{d}\theta \,,\]</div>
+\[\int\limits_{\theta_1}^{\theta_2} \bar{P}_{n_1,m_1}(\cos\theta) \,
+\bar{P}_{n_2,m_2}(\cos\theta) \, \sin(\theta) \,
+\mathrm{d}\theta{,} \quad \theta_1 \leq \theta_2{,}\]</div>
 </li>
 <li><p>a product of two <code class="xref py py-obj docutils literal notranslate"><span class="pre">4pi</span></code> fully-normalized surface spherical harmonic
 functions over a rectangular cell on the unit sphere,</p>
 <div class="math notranslate nohighlight">
-\[\int_{\theta_1}^{\theta_2} \int_{\lambda_1}^{\lambda_2}
-\bar{Y}_{nm}(\theta, \lambda) \, \bar{Y}_{nm}(\theta, \lambda) \,
-\mathrm{d}\lambda \, \sin(\theta) \, \mathrm{d}\theta \,.\]</div>
+\[\int\limits_{\theta_1}^{\theta_2}
+\int\limits_{\lambda_1}^{\lambda_2} \bar{Y}_{n_1,m_1}(\theta,
+\lambda) \, \bar{Y}_{n_2,m_2}(\theta, \lambda) \, \mathrm{d}\lambda
+\, \sin(\theta) \, \mathrm{d}\theta{,} \quad \theta_1 \leq
+\theta_2{,} \quad \lambda_1 \leq \lambda_2{.}\]</div>
 </li>
 </ul>
 <div class="admonition note">
@@ -216,11 +219,10 @@ functions over a rectangular cell on the unit sphere,</p>
 <code class="sig-prename descclassname">pyharm.integ.</code><code class="sig-name descname">pn1m1pn2m2</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cltmin</span></em>, <em class="sig-param"><span class="n">cltmax</span></em>, <em class="sig-param"><span class="n">n1</span></em>, <em class="sig-param"><span class="n">m1</span></em>, <em class="sig-param"><span class="n">n2</span></em>, <em class="sig-param"><span class="n">m2</span></em>, <em class="sig-param"><span class="n">pnmj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.integ.pn1m1pn2m2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Analytically computes the integral</p>
 <div class="math notranslate nohighlight">
-\[\mathrm{ip} =
-     \int_{\theta_{\mathrm{min}}}^{\theta_{\mathrm{max}}}
-     \bar{P}_{n_1, m_1}(\cos\theta) \, \bar{P}_{n_2,
-     m_2}(\cos\theta) \, \sin\theta \, \mathrm{d}\theta\]</div>
-<p>over a restricted domain of co-latitudes.</p>
+\[\mathrm{ip} = \int\limits_{\theta_{\mathrm{min}}}^{\theta_{\mathrm{max}}}
+\bar{P}_{n_1, m_1}(\cos\theta) \, \bar{P}_{n_2, m_2}(\cos\theta) \,
+\sin\theta \, \mathrm{d}\theta{,} \quad \theta_{\mathrm{min}} \leq
+\theta_{\mathrm{max}}{.}\]</div>
 <p>The computation is based on the Fourier coefficients of the associated
 Legendre functions (see Eq. 33 of Pail and Plank, 2001).</p>
 <p><strong>References</strong>:</p>
@@ -257,12 +259,19 @@ applications. Journal of Geodesy 75:44–56</p></li>
 <dd><p>Analytically computes the integral</p>
 <div class="math notranslate nohighlight">
 \[\mathrm{iy} =
-     \int_{\theta_{\mathrm{min}}}^{\theta_{\mathrm{max}}}
-     \int_{\lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}}
+     \int\limits_{\theta_{\mathrm{min}}}^{\theta_{\mathrm{max}}}
+     \int\limits_{\lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}}
      \bar{Y}_{i_1,n_1,m_1}(\theta, \lambda) \,
      \bar{Y}_{i_2,n_2,m_2}(\theta, \lambda) \, \mathrm{d}
-     \lambda \, \sin(\theta) \, \mathrm{d}\theta \,\]</div>
-<p>over a rectangular cell on the unit sphere.</p>
+     \lambda \, \sin(\theta) \, \mathrm{d}\theta{,} \quad
+     \theta_{\mathrm{min}} \leq \theta_{\mathrm{max}}{,} \quad
+     \lambda_{\mathrm{min}} \leq \lambda_{\mathrm{max}}{,}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\bar{Y}_{i,n,m}(\theta, \lambda) = \begin{cases}
+\bar{P}_{nm}(\cos\theta) \, \cos(m \, \lambda) \quad &amp;\textrm{if}
+\quad i = 0{,}\\ \bar{P}_{nm}(\cos\theta) \, \sin(m \, \lambda)
+\quad &amp;\textrm{if} \quad i = 1{.} \end{cases}\end{split}\]</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -277,12 +286,12 @@ type, <code class="xref py py-obj docutils literal notranslate"><span class="pre
 <li><p><strong>i2</strong> (<em>integer</em>) – The same as <code class="xref py py-obj docutils literal notranslate"><span class="pre">i1</span></code> but for the second spherical harmonic function</p></li>
 <li><p><strong>n2</strong> (<em>integer</em>) – Harmonic degree of the second spherical harmonic function</p></li>
 <li><p><strong>m2</strong> (<em>integer</em>) – Harmonic order of the second spherical harmonic function</p></li>
-<li><p><strong>pnmj</strong> (<a class="reference internal" href="api-py-leg.html#pyharm.leg.Pnmj" title="pyharm.leg.Pnmj"><em>Pnmj</em></a>) – Fourier coefficients of Legendre functions up to degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">max(n1,</span>
-<span class="pre">n2)</span></code>.</p></li>
+<li><p><strong>pnmj</strong> (<a class="reference internal" href="api-py-leg.html#pyharm.leg.Pnmj" title="pyharm.leg.Pnmj"><em>Pnmj</em></a>) – Fourier coefficients of Legendre functions at least up to degree
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">max(n1,</span> <span class="pre">n2)</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>out</strong> – The output value <code class="xref py py-obj docutils literal notranslate"><span class="pre">iy</span></code> of the integral.</p>
+<dd class="field-even"><p><strong>out</strong> – The value <code class="xref py py-obj docutils literal notranslate"><span class="pre">iy</span></code> of the integral.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>floating point</p>

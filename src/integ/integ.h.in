@@ -3,14 +3,15 @@
  *
  * Module to compute the following integrals:
  *
- * * a product of two fully-normalized associated Legendre functions and a sine 
- * of a co-latitude over a restricted domain of co-latitudes,
+ * * a product of two fully-normalized associated Legendre functions and a sine
+ * of a co-latitude,
  *
  * \verbatim embed:rst:leading-asterisk
  *      .. math::
  *
- *          \int_{\theta_1}^{\theta_2} \bar{P}_{nm}(\cos\theta) \, 
- *          \bar{P}_{nm}(\cos\theta) \, \sin(\theta) \, \mathrm{d}\theta \,,
+ *          \int\limits_{\theta_1}^{\theta_2} \bar{P}_{n_1,m_1}(\cos\theta) \,
+ *          \bar{P}_{n_2,m_2}(\cos\theta) \, \sin(\theta) \,
+ *          \mathrm{d}\theta{,} \quad \theta_1 \leq \theta_2{,}
  *
  * \endverbatim
  *
@@ -20,9 +21,11 @@
  * \verbatim embed:rst:leading-asterisk
  *      .. math::
  *
- *          \int_{\theta_1}^{\theta_2} \int_{\lambda_1}^{\lambda_2} 
- *          \bar{Y}_{nm}(\theta, \lambda) \, \bar{Y}_{nm}(\theta, \lambda) \, 
- *          \mathrm{d}\lambda \, \sin(\theta) \, \mathrm{d}\theta \,.
+ *          \int\limits_{\theta_1}^{\theta_2}
+ *          \int\limits_{\lambda_1}^{\lambda_2} \bar{Y}_{n_1,m_1}(\theta,
+ *          \lambda) \, \bar{Y}_{n_2,m_2}(\theta, \lambda) \, \mathrm{d}\lambda
+ *          \, \sin(\theta) \, \mathrm{d}\theta{,} \quad \theta_1 \leq
+ *          \theta_2{,} \quad \lambda_1 \leq \lambda_2{.}
  *
  * \endverbatim
  *
@@ -79,14 +82,13 @@ extern "C"
  * \verbatim embed:rst:leading-asterisk
  *      .. math::
  *
- *                  \mathrm{ip} = 
- *                       \int_{\theta_{\mathrm{min}}}^{\theta_{\mathrm{max}}} 
- *                       \bar{P}_{n_1, m_1}(\cos\theta) \, \bar{P}_{n_2, 
- *                       m_2}(\cos\theta) \, \sin\theta \, \mathrm{d}\theta
+ *          \mathrm{ip}
+ *          = \int\limits_{\theta_{\mathrm{min}}}^{\theta_{\mathrm{max}}}
+ *          \bar{P}_{n_1, m_1}(\cos\theta) \, \bar{P}_{n_2, m_2}(\cos\theta) \,
+ *          \sin\theta \, \mathrm{d}\theta{,} \quad \theta_{\mathrm{min}} \leq
+ *          \theta_{\mathrm{max}}{.}
  *
  * \endverbatim
- *
- * over a restricted domain of co-latitudes.
  *
  * The computation is based on the Fourier coefficients of the associated 
  * Legendre functions (see Eq. 33 of Pail and Plank, 2001).
@@ -105,8 +107,8 @@ extern "C"
  * @param[in] m1 Harmonic order of the first Legendre function.
  * @param[in] n2 Harmonic degree of the second Legendre function.
  * @param[in] m2 Harmonic order of the second Legendre function.
- * @param[in] pnmj The ``charm@P@_pnmj`` structure with the Fourier 
- * coefficients of associated Legendre functions up to degree 
+ * @param[in] pnmj The ``charm@P@_pnmj`` structure with the Fourier
+ * coefficients of associated Legendre functions at least up to degree
  * ``CHARM_MAX(n1, n2)``.  It is assumed that the structure is prepared
  * beforehand by calling ``charm@P@_leg_pnmj_coeffs()``.
  *
@@ -138,16 +140,28 @@ extern @RDT@ charm@P@_integ_pn1m1pn2m2(@RDT@ cltmin,
  * \verbatim embed:rst:leading-asterisk
  *      .. math::
  *
- *                  \mathrm{iy} = 
- *                       \int_{\theta_{\mathrm{min}}}^{\theta_{\mathrm{max}}} 
- *                       \int_{\lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}} 
- *                       \bar{Y}_{i_1,n_1,m_1}(\theta, \lambda) \, 
- *                       \bar{Y}_{i_2,n_2,m_2}(\theta, \lambda) \, \mathrm{d} 
- *                       \lambda \, \sin(\theta) \, \mathrm{d}\theta \, 
+ *          \mathrm{iy}
+ *          = \int\limits_{\theta_{\mathrm{min}}}^{\theta_{\mathrm{max}}}
+ *          \int\limits_{\lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}}
+ *          \bar{Y}_{i_1,n_1,m_1}(\theta, \lambda) \,
+ *          \bar{Y}_{i_2,n_2,m_2}(\theta, \lambda) \, \mathrm{d} \lambda \,
+ *          \sin(\theta) \, \mathrm{d}\theta{,} \quad \theta_{\mathrm{min}}
+ *          \leq \theta_{\mathrm{max}}{,} \quad \lambda_{\mathrm{min}} \leq
+ *          \lambda_{\mathrm{max}}{,}
  *
  * \endverbatim
  *
- * over a rectangular cell on the unit sphere.
+ * where
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. math::
+ *
+ *          \bar{Y}_{i,n,m}(\theta, \lambda) = \begin{cases}
+ *          \bar{P}_{nm}(\cos\theta) \, \cos(m \, \lambda) \quad &\textrm{if}
+ *          \quad i = 0{,}\\ \bar{P}_{nm}(\cos\theta) \, \sin(m \, \lambda)
+ *          \quad &\textrm{if} \quad i = 1{.} \end{cases}
+ *
+ * \endverbatim
  *
  *
  * @param[in] cltmin Minimum co-latitude in radians.
@@ -158,12 +172,12 @@ extern @RDT@ charm@P@_integ_pn1m1pn2m2(@RDT@ cltmin,
  * ``cos`` type; ``1`` for the ``sin`` type.
  * @param[in] n1 Harmonic degree of the first spherical harmonic function.
  * @param[in] m1 Harmonic order of the first spherical harmonic function.
- * @param[in] i2 ``0`` if the second spherical harmonic function the ``cos`` 
- * term of the longitude in it; ``1`` for the ``sin`` term.
+ * @param[in] i2 ``0`` if the second spherical harmonic function is of the
+ * ``cos`` type; ``1`` for the ``sin`` type.
  * @param[in] n2 Harmonic degree of the second spherical harmonic function.
  * @param[in] m2 Harmonic order of the second spherical harmonic function.
- * @param[in] pnmj The ``charm@P@_pnmj`` structure with the Fourier 
- * coefficients of associated Legendre functions up to degree 
+ * @param[in] pnmj The ``charm@P@_pnmj`` structure with the Fourier
+ * coefficients of associated Legendre functions at least up to degree
  * ``CHARM_MAX(n1, n2)``.  It is assumed that the structure is prepared
  * beforehand by calling ``charm@P@_leg_pnmj_coeffs()``.
  *
@@ -171,8 +185,8 @@ extern @RDT@ charm@P@_integ_pn1m1pn2m2(@RDT@ cltmin,
  * @param[out] err Error reported by the function (if any).
  *
  *
- * @return The output value ``iy`` of the integral.  In case of an error, 
- * returned is the ``nan`` value and the error is written to ``err``.
+ * @return The value ``iy`` of the integral.  In case of an error, returned is
+ * the ``nan`` value and the error is written to ``err``.
  *
  * */
 extern @RDT@ charm@P@_integ_yi1n1m1yi2n2m2(@RDT@ cltmin,
