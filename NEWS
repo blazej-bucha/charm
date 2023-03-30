@@ -1,5 +1,7 @@
 Upcoming release:
 
+* Fixed memory leak in "charm_integ_pn1m1pn2m2".
+
 * Added support for polar optimization to increase computational speed
   (Eqs. 7 and 8 of Reinecke and Seljebotn 2013).  As long as the polar
   optimization parameters (see the `glob` module) are chosen appropriately,
