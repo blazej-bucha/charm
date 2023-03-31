@@ -30,10 +30,12 @@ Upcoming release:
     September, 2013, 143:193--197. https://doi.org/10.1007/1345_2015_124
 
 * Added dynamic scheduling to parallel for loops in shs.  This slightly 
-  improves the performance, because the time to compute Legendre functions 
+  improves the performance, because the computation time of Legendre functions 
   varies across the meridian (mainly due to X-numbers, dynamical switching and, 
   if applied, polar optimization).  In sha, the dynamic scheduling has been in 
   use right from the beginning.
+
+* Added tests for "charm_integ_pn1m1pn2m2" and "charm_integ_yi1n1m1yi2n2m2".
 
 * The function "charm_leg_pnmj_length" was removed from the API.  The number of 
   coefficients stored in the "charm_pnmj" structure is already provided in its 

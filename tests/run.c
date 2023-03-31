@@ -10,6 +10,7 @@
 #include "crd.h"
 #include "sha.h"
 #include "leg.h"
+#include "integ.h"
 #include "misc.h"
 /* ------------------------------------------------------------------------- */
 
@@ -165,6 +166,14 @@ int main(void)
 
 
     /* ..................................................................... */
+    printf("Testing the \"integ\" module...\n");
+    err = integ();
+    print_test_outcome(err, "integ");
+    err_sum += err;
+    /* ..................................................................... */
+
+
+    /* ..................................................................... */
     printf("Miscellaneous tests...\n");
     err = misc();
     if (err)
@@ -177,7 +186,7 @@ int main(void)
 
     printf("\n");
     if (err_sum)
-        printf("Oh, no...  %d %s didn't pass.\n", 
+        printf("Oh, no...  %d %s didn't pass.\n",
                err_sum, err_sum == 1 ? "test" : "tests");
     else
         printf("All tests seem to pass.\n");

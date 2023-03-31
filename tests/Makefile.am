@@ -7,6 +7,7 @@ EXTRA_DIST = *.h
 
 # Source code of the test program
 test_run@P@@OMP@_SOURCES = run.c \
+						   cmp_vals.c \
 						   cmp_arrays.c \
 						   validate.c \
 						   generate_point.c \
@@ -16,7 +17,10 @@ test_run@P@@OMP@_SOURCES = run.c \
 						   shs.c \
 						   sha.c \
 						   leg.c \
+						   integ.c \
 						   misc.c \
+						   check_integ_pn1m1pn2m2.c \
+						   check_integ_yi1n1m1yi2n2m2.c \
 						   abs_r.c
 
 

@@ -107,13 +107,18 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am_test_run@P@@OMP@_OBJECTS = test_run@P@@OMP@-run.$(OBJEXT) \
+	test_run@P@@OMP@-cmp_vals.$(OBJEXT) \
 	test_run@P@@OMP@-cmp_arrays.$(OBJEXT) \
 	test_run@P@@OMP@-validate.$(OBJEXT) \
 	test_run@P@@OMP@-generate_point.$(OBJEXT) \
 	test_run@P@@OMP@-generate_cell.$(OBJEXT) \
 	test_run@P@@OMP@-crd.$(OBJEXT) test_run@P@@OMP@-shc.$(OBJEXT) \
 	test_run@P@@OMP@-shs.$(OBJEXT) test_run@P@@OMP@-sha.$(OBJEXT) \
-	test_run@P@@OMP@-leg.$(OBJEXT) test_run@P@@OMP@-misc.$(OBJEXT) \
+	test_run@P@@OMP@-leg.$(OBJEXT) \
+	test_run@P@@OMP@-integ.$(OBJEXT) \
+	test_run@P@@OMP@-misc.$(OBJEXT) \
+	test_run@P@@OMP@-check_integ_pn1m1pn2m2.$(OBJEXT) \
+	test_run@P@@OMP@-check_integ_yi1n1m1yi2n2m2.$(OBJEXT) \
 	test_run@P@@OMP@-abs_r.$(OBJEXT)
 test_run@P@@OMP@_OBJECTS = $(am_test_run@P@@OMP@_OBJECTS)
 test_run@P@@OMP@_DEPENDENCIES = $(top_builddir)/libcharm@P@@OMP@.la
@@ -141,10 +146,14 @@ DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/test_run@P@@OMP@-abs_r.Po \
+	./$(DEPDIR)/test_run@P@@OMP@-check_integ_pn1m1pn2m2.Po \
+	./$(DEPDIR)/test_run@P@@OMP@-check_integ_yi1n1m1yi2n2m2.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-cmp_arrays.Po \
+	./$(DEPDIR)/test_run@P@@OMP@-cmp_vals.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-crd.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-generate_cell.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-generate_point.Po \
+	./$(DEPDIR)/test_run@P@@OMP@-integ.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-leg.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-misc.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-run.Po \
@@ -329,6 +338,7 @@ EXTRA_DIST = *.h
 
 # Source code of the test program
 test_run@P@@OMP@_SOURCES = run.c \
+						   cmp_vals.c \
 						   cmp_arrays.c \
 						   validate.c \
 						   generate_point.c \
@@ -338,7 +348,10 @@ test_run@P@@OMP@_SOURCES = run.c \
 						   shs.c \
 						   sha.c \
 						   leg.c \
+						   integ.c \
 						   misc.c \
+						   check_integ_pn1m1pn2m2.c \
+						   check_integ_yi1n1m1yi2n2m2.c \
 						   abs_r.c
 
 
@@ -407,10 +420,14 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-abs_r.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-check_integ_pn1m1pn2m2.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-check_integ_yi1n1m1yi2n2m2.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-cmp_arrays.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-cmp_vals.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-crd.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-generate_cell.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-generate_point.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-integ.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-leg.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-misc.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-run.Po@am__quote@ # am--include-marker
@@ -459,6 +476,20 @@ test_run@P@@OMP@-run.obj: run.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='run.c' object='test_run@P@@OMP@-run.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-run.obj `if test -f 'run.c'; then $(CYGPATH_W) 'run.c'; else $(CYGPATH_W) '$(srcdir)/run.c'; fi`
+
+test_run@P@@OMP@-cmp_vals.o: cmp_vals.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-cmp_vals.o -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-cmp_vals.Tpo -c -o test_run@P@@OMP@-cmp_vals.o `test -f 'cmp_vals.c' || echo '$(srcdir)/'`cmp_vals.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-cmp_vals.Tpo $(DEPDIR)/test_run@P@@OMP@-cmp_vals.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cmp_vals.c' object='test_run@P@@OMP@-cmp_vals.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-cmp_vals.o `test -f 'cmp_vals.c' || echo '$(srcdir)/'`cmp_vals.c
+
+test_run@P@@OMP@-cmp_vals.obj: cmp_vals.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-cmp_vals.obj -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-cmp_vals.Tpo -c -o test_run@P@@OMP@-cmp_vals.obj `if test -f 'cmp_vals.c'; then $(CYGPATH_W) 'cmp_vals.c'; else $(CYGPATH_W) '$(srcdir)/cmp_vals.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-cmp_vals.Tpo $(DEPDIR)/test_run@P@@OMP@-cmp_vals.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cmp_vals.c' object='test_run@P@@OMP@-cmp_vals.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-cmp_vals.obj `if test -f 'cmp_vals.c'; then $(CYGPATH_W) 'cmp_vals.c'; else $(CYGPATH_W) '$(srcdir)/cmp_vals.c'; fi`
 
 test_run@P@@OMP@-cmp_arrays.o: cmp_arrays.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-cmp_arrays.o -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-cmp_arrays.Tpo -c -o test_run@P@@OMP@-cmp_arrays.o `test -f 'cmp_arrays.c' || echo '$(srcdir)/'`cmp_arrays.c
@@ -586,6 +617,20 @@ test_run@P@@OMP@-leg.obj: leg.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-leg.obj `if test -f 'leg.c'; then $(CYGPATH_W) 'leg.c'; else $(CYGPATH_W) '$(srcdir)/leg.c'; fi`
 
+test_run@P@@OMP@-integ.o: integ.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-integ.o -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-integ.Tpo -c -o test_run@P@@OMP@-integ.o `test -f 'integ.c' || echo '$(srcdir)/'`integ.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-integ.Tpo $(DEPDIR)/test_run@P@@OMP@-integ.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='integ.c' object='test_run@P@@OMP@-integ.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-integ.o `test -f 'integ.c' || echo '$(srcdir)/'`integ.c
+
+test_run@P@@OMP@-integ.obj: integ.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-integ.obj -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-integ.Tpo -c -o test_run@P@@OMP@-integ.obj `if test -f 'integ.c'; then $(CYGPATH_W) 'integ.c'; else $(CYGPATH_W) '$(srcdir)/integ.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-integ.Tpo $(DEPDIR)/test_run@P@@OMP@-integ.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='integ.c' object='test_run@P@@OMP@-integ.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-integ.obj `if test -f 'integ.c'; then $(CYGPATH_W) 'integ.c'; else $(CYGPATH_W) '$(srcdir)/integ.c'; fi`
+
 test_run@P@@OMP@-misc.o: misc.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-misc.o -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-misc.Tpo -c -o test_run@P@@OMP@-misc.o `test -f 'misc.c' || echo '$(srcdir)/'`misc.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-misc.Tpo $(DEPDIR)/test_run@P@@OMP@-misc.Po
@@ -599,6 +644,34 @@ test_run@P@@OMP@-misc.obj: misc.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='misc.c' object='test_run@P@@OMP@-misc.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-misc.obj `if test -f 'misc.c'; then $(CYGPATH_W) 'misc.c'; else $(CYGPATH_W) '$(srcdir)/misc.c'; fi`
+
+test_run@P@@OMP@-check_integ_pn1m1pn2m2.o: check_integ_pn1m1pn2m2.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-check_integ_pn1m1pn2m2.o -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-check_integ_pn1m1pn2m2.Tpo -c -o test_run@P@@OMP@-check_integ_pn1m1pn2m2.o `test -f 'check_integ_pn1m1pn2m2.c' || echo '$(srcdir)/'`check_integ_pn1m1pn2m2.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-check_integ_pn1m1pn2m2.Tpo $(DEPDIR)/test_run@P@@OMP@-check_integ_pn1m1pn2m2.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_integ_pn1m1pn2m2.c' object='test_run@P@@OMP@-check_integ_pn1m1pn2m2.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-check_integ_pn1m1pn2m2.o `test -f 'check_integ_pn1m1pn2m2.c' || echo '$(srcdir)/'`check_integ_pn1m1pn2m2.c
+
+test_run@P@@OMP@-check_integ_pn1m1pn2m2.obj: check_integ_pn1m1pn2m2.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-check_integ_pn1m1pn2m2.obj -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-check_integ_pn1m1pn2m2.Tpo -c -o test_run@P@@OMP@-check_integ_pn1m1pn2m2.obj `if test -f 'check_integ_pn1m1pn2m2.c'; then $(CYGPATH_W) 'check_integ_pn1m1pn2m2.c'; else $(CYGPATH_W) '$(srcdir)/check_integ_pn1m1pn2m2.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-check_integ_pn1m1pn2m2.Tpo $(DEPDIR)/test_run@P@@OMP@-check_integ_pn1m1pn2m2.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_integ_pn1m1pn2m2.c' object='test_run@P@@OMP@-check_integ_pn1m1pn2m2.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-check_integ_pn1m1pn2m2.obj `if test -f 'check_integ_pn1m1pn2m2.c'; then $(CYGPATH_W) 'check_integ_pn1m1pn2m2.c'; else $(CYGPATH_W) '$(srcdir)/check_integ_pn1m1pn2m2.c'; fi`
+
+test_run@P@@OMP@-check_integ_yi1n1m1yi2n2m2.o: check_integ_yi1n1m1yi2n2m2.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-check_integ_yi1n1m1yi2n2m2.o -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-check_integ_yi1n1m1yi2n2m2.Tpo -c -o test_run@P@@OMP@-check_integ_yi1n1m1yi2n2m2.o `test -f 'check_integ_yi1n1m1yi2n2m2.c' || echo '$(srcdir)/'`check_integ_yi1n1m1yi2n2m2.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-check_integ_yi1n1m1yi2n2m2.Tpo $(DEPDIR)/test_run@P@@OMP@-check_integ_yi1n1m1yi2n2m2.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_integ_yi1n1m1yi2n2m2.c' object='test_run@P@@OMP@-check_integ_yi1n1m1yi2n2m2.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-check_integ_yi1n1m1yi2n2m2.o `test -f 'check_integ_yi1n1m1yi2n2m2.c' || echo '$(srcdir)/'`check_integ_yi1n1m1yi2n2m2.c
+
+test_run@P@@OMP@-check_integ_yi1n1m1yi2n2m2.obj: check_integ_yi1n1m1yi2n2m2.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-check_integ_yi1n1m1yi2n2m2.obj -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-check_integ_yi1n1m1yi2n2m2.Tpo -c -o test_run@P@@OMP@-check_integ_yi1n1m1yi2n2m2.obj `if test -f 'check_integ_yi1n1m1yi2n2m2.c'; then $(CYGPATH_W) 'check_integ_yi1n1m1yi2n2m2.c'; else $(CYGPATH_W) '$(srcdir)/check_integ_yi1n1m1yi2n2m2.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-check_integ_yi1n1m1yi2n2m2.Tpo $(DEPDIR)/test_run@P@@OMP@-check_integ_yi1n1m1yi2n2m2.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_integ_yi1n1m1yi2n2m2.c' object='test_run@P@@OMP@-check_integ_yi1n1m1yi2n2m2.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-check_integ_yi1n1m1yi2n2m2.obj `if test -f 'check_integ_yi1n1m1yi2n2m2.c'; then $(CYGPATH_W) 'check_integ_yi1n1m1yi2n2m2.c'; else $(CYGPATH_W) '$(srcdir)/check_integ_yi1n1m1yi2n2m2.c'; fi`
 
 test_run@P@@OMP@-abs_r.o: abs_r.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-abs_r.o -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-abs_r.Tpo -c -o test_run@P@@OMP@-abs_r.o `test -f 'abs_r.c' || echo '$(srcdir)/'`abs_r.c
@@ -701,10 +774,14 @@ clean-am: clean-checkPROGRAMS clean-generic clean-libtool clean-local \
 
 distclean: distclean-am
 		-rm -f ./$(DEPDIR)/test_run@P@@OMP@-abs_r.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_integ_pn1m1pn2m2.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_integ_yi1n1m1yi2n2m2.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-cmp_arrays.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-cmp_vals.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-crd.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-generate_cell.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-generate_point.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-integ.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-leg.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-misc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-run.Po
@@ -758,10 +835,14 @@ installcheck-am:
 
 maintainer-clean: maintainer-clean-am
 		-rm -f ./$(DEPDIR)/test_run@P@@OMP@-abs_r.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_integ_pn1m1pn2m2.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_integ_yi1n1m1yi2n2m2.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-cmp_arrays.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-cmp_vals.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-crd.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-generate_cell.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-generate_point.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-integ.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-leg.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-misc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-run.Po
