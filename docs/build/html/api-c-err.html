@@ -210,25 +210,25 @@
 <dl class="cpp macro">
 <dt id="c.CHARM_ERR_MAX_FILE">
 <span class="target" id="charm__err_8h_1a2206023ac94616afe5070f54161a37c8"></span><code class="sig-name descname">CHARM_ERR_MAX_FILE</code> 4096<a class="headerlink" href="#c.CHARM_ERR_MAX_FILE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Maximum number of characters that can be stored in <code class="docutils literal notranslate"><span class="pre">charm_err-&gt;file[i]</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">CHARM_ERR_MAX_LEVEL</span> <span class="pre">-</span> <span class="pre">1</span></code>, including the terminating null character. </p>
+<dd><p>Maximum number of characters that can be stored in <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err_1acffc24efbdee4e116c0e0657b682d7aa"><span class="std std-ref"><span class="pre">charm_err.file</span></span></a><span class="pre">[i]</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <a class="reference internal" href="#charm__err_8h_1a49e5d96b857828ae82cccca933919b4b"><span class="std std-ref"><span class="pre">CHARM_ERR_MAX_LEVEL</span></span></a> <span class="pre">-</span> <span class="pre">1</span></code>, including the terminating null character. </p>
 </dd></dl>
 
 <dl class="cpp macro">
 <dt id="c.CHARM_ERR_MAX_FUNC">
 <span class="target" id="charm__err_8h_1a0febddc0efe42b313e0e1ba1a09a366e"></span><code class="sig-name descname">CHARM_ERR_MAX_FUNC</code> 256<a class="headerlink" href="#c.CHARM_ERR_MAX_FUNC" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Maximum number of characters that can be stored in <code class="docutils literal notranslate"><span class="pre">charm_err-&gt;func[i]</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">CHARM_ERR_MAX_LEVEL</span> <span class="pre">-</span> <span class="pre">1</span></code>, including the terminating null character. </p>
+<dd><p>Maximum number of characters that can be stored in <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err_1a26b843134aa95c774c4228fb00590f7a"><span class="std std-ref"><span class="pre">charm_err.func</span></span></a><span class="pre">[i]</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <a class="reference internal" href="#charm__err_8h_1a49e5d96b857828ae82cccca933919b4b"><span class="std std-ref"><span class="pre">CHARM_ERR_MAX_LEVEL</span></span></a> <span class="pre">-</span> <span class="pre">1</span></code>, including the terminating null character. </p>
 </dd></dl>
 
 <dl class="cpp macro">
 <dt id="c.CHARM_ERR_MAX_MSG">
 <span class="target" id="charm__err_8h_1a257215c6769e91568cb1393037023312"></span><code class="sig-name descname">CHARM_ERR_MAX_MSG</code> 4096<a class="headerlink" href="#c.CHARM_ERR_MAX_MSG" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Maximum number of characters in <code class="docutils literal notranslate"><span class="pre">charm_err-&gt;msg</span></code>, including the terminating null character. </p>
+<dd><p>Maximum number of characters in <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err_1ad127e3297ca08ccbfc812118d4e80478"><span class="std std-ref"><span class="pre">charm_err.msg</span></span></a></code>, including the terminating null character. </p>
 </dd></dl>
 
 <dl class="cpp macro">
 <dt id="c.CHARM_ERR_MAX_LEVEL">
 <span class="target" id="charm__err_8h_1a49e5d96b857828ae82cccca933919b4b"></span><code class="sig-name descname">CHARM_ERR_MAX_LEVEL</code> 10<a class="headerlink" href="#c.CHARM_ERR_MAX_LEVEL" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Maximum number of error propagations from the function in which the error occurred to the caller. </p>
+<dd><p>Maximum number of error propagations from the function, in which the error occurred to the caller. </p>
 </dd></dl>
 
 <dl class="cpp macro">
@@ -289,8 +289,12 @@
 <dl class="cpp function">
 <dt id="_CPPv414charm_err_initv">
 <span id="_CPPv314charm_err_initv"></span><span id="_CPPv214charm_err_initv"></span><span id="charm_err_init__void"></span><span class="target" id="charm__err_8h_1aa2930ce9d6e1c992c405bcd4d38fe083"></span><a class="reference internal" href="#_CPPv49charm_err" title="charm_err">charm_err</a> *<code class="sig-name descname">charm_err_init</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414charm_err_initv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Allocates and initializes an <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err"><span class="std std-ref"><span class="pre">charm_err</span></span></a></code> structure using default empty values.</p>
-<p>On success, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err"><span class="std std-ref"><span class="pre">charm_err</span></span></a></code> structure. On error, <code class="docutils literal notranslate"><span class="pre">NULL</span></code> is returned. </p>
+<dd><p>Allocates and initializes the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err"><span class="std std-ref"><span class="pre">charm_err</span></span></a></code> structure using default empty values. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>On success, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err"><span class="std std-ref"><span class="pre">charm_err</span></span></a></code> structure. On error, <code class="docutils literal notranslate"><span class="pre">NULL</span></code> is returned. </p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="cpp function">
@@ -308,7 +312,7 @@
 <dl class="cpp function">
 <dt id="_CPPv417charm_err_handlerP9charm_err5_Bool">
 <span id="_CPPv317charm_err_handlerP9charm_err5_Bool"></span><span id="_CPPv217charm_err_handlerP9charm_err5_Bool"></span><span id="charm_err_handler__charm_errP._Bool"></span><span class="target" id="charm__err_8h_1a3b58f956ffbe19c48b626fd9b584cded"></span>void <code class="sig-name descname">charm_err_handler</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49charm_err" title="charm_err">charm_err</a> *<em>err</em>, _Bool <em>terminate</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv417charm_err_handlerP9charm_err5_Bool" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Error handler.</p>
+<dd><p>Error handler. </p>
 <p><ul class="simple">
 <li><p>If <code class="docutils literal notranslate"><span class="pre">err</span></code> is not empty, prints detailed information on the error. If <code class="docutils literal notranslate"><span class="pre">terminate</span></code> is set to Boolean <code class="docutils literal notranslate"><span class="pre">1</span></code>, the program subsequently terminates.</p></li>
 <li><p>If <code class="docutils literal notranslate"><span class="pre">err</span></code> is empty, neither an error is printed nor the program is terminated (regardless of the <code class="docutils literal notranslate"><span class="pre">terminate</span></code> value).</p></li>
@@ -344,25 +348,25 @@
 <dl class="cpp var">
 <dt id="_CPPv4N9charm_err4fileE">
 <span id="_CPPv3N9charm_err4fileE"></span><span id="_CPPv2N9charm_err4fileE"></span><span id="charm_err::file__cPP"></span><span class="target" id="structcharm__err_1acffc24efbdee4e116c0e0657b682d7aa"></span>char **<code class="sig-name descname">file</code><a class="headerlink" href="#_CPPv4N9charm_err4fileE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p><code class="docutils literal notranslate"><span class="pre">file[0]</span></code> is a pointer to a string with the name of the file in which the error was encountered; <code class="docutils literal notranslate"><span class="pre">file[i]</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">...,</span> <span class="pre">CHARM_ERR_MAX_LEVEL</span> <span class="pre">-</span> <span class="pre">1</span></code>, are file names through which the error was propagated to the caller. </p>
+<dd><p><code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err_1acffc24efbdee4e116c0e0657b682d7aa"><span class="std std-ref"><span class="pre">charm_err.file</span></span></a><span class="pre">[0]</span></code> is a pointer to a string with the name of the file in which the error was encountered; <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err_1acffc24efbdee4e116c0e0657b682d7aa"><span class="std std-ref"><span class="pre">charm_err.file</span></span></a><span class="pre">[i]</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">...,</span> <a class="reference internal" href="#charm__err_8h_1a49e5d96b857828ae82cccca933919b4b"><span class="std std-ref"><span class="pre">CHARM_ERR_MAX_LEVEL</span></span></a> <span class="pre">-</span> <span class="pre">1</span></code>, are file names through which the error was propagated to the caller. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N9charm_err4lineE">
 <span id="_CPPv3N9charm_err4lineE"></span><span id="_CPPv2N9charm_err4lineE"></span><span id="charm_err::line__unsigned-iP"></span><span class="target" id="structcharm__err_1a93f77fa2c860c8b62bd00e2cc89af628"></span>unsigned int *<code class="sig-name descname">line</code><a class="headerlink" href="#_CPPv4N9charm_err4lineE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Pointer to an array with line numbers of <code class="docutils literal notranslate"><span class="pre">file[i]</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">CHARM_ERR_MAX_LEVEL</span> <span class="pre">-</span> <span class="pre">1</span></code>, at which the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err"><span class="std std-ref"><span class="pre">charm_err</span></span></a></code> structure was modified. </p>
+<dd><p>Pointer to an array with line numbers of <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err_1acffc24efbdee4e116c0e0657b682d7aa"><span class="std std-ref"><span class="pre">charm_err.file</span></span></a><span class="pre">[i]</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <a class="reference internal" href="#charm__err_8h_1a49e5d96b857828ae82cccca933919b4b"><span class="std std-ref"><span class="pre">CHARM_ERR_MAX_LEVEL</span></span></a> <span class="pre">-</span> <span class="pre">1</span></code>, at which the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err"><span class="std std-ref"><span class="pre">charm_err</span></span></a></code> structure was modified. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N9charm_err4funcE">
 <span id="_CPPv3N9charm_err4funcE"></span><span id="_CPPv2N9charm_err4funcE"></span><span id="charm_err::func__cPP"></span><span class="target" id="structcharm__err_1a26b843134aa95c774c4228fb00590f7a"></span>char **<code class="sig-name descname">func</code><a class="headerlink" href="#_CPPv4N9charm_err4funcE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Same as <code class="docutils literal notranslate"><span class="pre">file</span></code>, but with function names. </p>
+<dd><p>Same as <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err_1acffc24efbdee4e116c0e0657b682d7aa"><span class="std std-ref"><span class="pre">charm_err.file</span></span></a></code>, but with function names. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N9charm_err4codeE">
 <span id="_CPPv3N9charm_err4codeE"></span><span id="_CPPv2N9charm_err4codeE"></span><span id="charm_err::code__i"></span><span class="target" id="structcharm__err_1a4e91feeeb0eef0b76ea6923f73a5c908"></span>int <code class="sig-name descname">code</code><a class="headerlink" href="#_CPPv4N9charm_err4codeE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Error code (see the <code class="docutils literal notranslate"><span class="pre">errors</span> <span class="pre">enumerations</span></code>). </p>
+<dd><p>Error code (see the errors enumerations <code class="docutils literal notranslate"><a class="reference internal" href="#charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7aa184de9ef11b8d67321e8efb5a0bb882"><span class="std std-ref"><span class="pre">CHARM_FAILURE</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7a2f5b21353cdb465cb3d173b9071e474a"><span class="std std-ref"><span class="pre">CHARM_SUCCESS</span></span></a></code>, etc.). </p>
 </dd></dl>
 
 <dl class="cpp var">
@@ -374,7 +378,7 @@
 <dl class="cpp var">
 <dt id="_CPPv4N9charm_err11issaturatedE">
 <span id="_CPPv3N9charm_err11issaturatedE"></span><span id="_CPPv2N9charm_err11issaturatedE"></span><span id="charm_err::issaturated___Bool"></span><span class="target" id="structcharm__err_1ab9e4d1322499e46fe98fbf9eec9a1bed"></span>_Bool <code class="sig-name descname">issaturated</code><a class="headerlink" href="#_CPPv4N9charm_err11issaturatedE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Signalizes whether or not the levels of the error structure are saturated due to the error propagations. If true, the structure can no longer store most recent error propagations. This should never happen, though, since <code class="docutils literal notranslate"><span class="pre">CHARM_ERR_MAX_LEVEL</span></code> is chosen large enough. </p>
+<dd><p>Signalizes whether or not the levels of the error structure are saturated due to the error propagations. If true, the structure can no longer store most recent error propagations. This should never happen, though, since <code class="docutils literal notranslate"><a class="reference internal" href="#charm__err_8h_1a49e5d96b857828ae82cccca933919b4b"><span class="std std-ref"><span class="pre">CHARM_ERR_MAX_LEVEL</span></span></a></code> is chosen large enough. </p>
 </dd></dl>
 
 </div>

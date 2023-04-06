@@ -64,12 +64,21 @@ enum
 
 
 
-/* ------------------------------------------------------------------------- */
 /* Function prototypes */
 /* ------------------------------------------------------------------------- */
-/**
- * Performs the exact surface spherical harmonic analysis based on point data 
- * values:
+
+/* ......................................................................... */
+/** @name Analysis of point values
+ *
+ * Functions to perform spherical harmonic analysis of point values.
+ *
+ * @{
+ * */
+
+
+
+/** @brief Performs the exact surface spherical harmonic analysis based on
+ * point data values:
  *
  * \verbatim embed:rst:leading-asterisk
  *  .. math::
@@ -84,11 +93,11 @@ enum
  *
  * \endverbatim
  *
- * The coefficients are automatically normalized to the constants \f$\mu\f$ and 
- * \f$R\f$, which are taken from ``shcs->mu`` and ``shcs->r``, respectively. If 
- * \f$r \neq R\f$ (``pnt->r[i] != shcs->r``), the coefficients are also 
- * rescaled **from** the data sphere with the radius \f$r\f$ **to** the
- * reference sphere with the radius \f$R\f$ using
+ * @details The coefficients are automatically normalized to the constants
+ * \f$\mu\f$ and \f$R\f$, which are taken from ``shcs->mu`` and ``shcs->r``,
+ * respectively. If \f$r \neq R\f$ (``pnt->r[i] != shcs->r``), the coefficients
+ * are also rescaled **from** the data sphere with the radius \f$r\f$ **to**
+ * the reference sphere with the radius \f$R\f$ using
  * ``charm@P@_shc_rescale()``. If \f$r = R = \mu = 1\f$ (``pnt->r[i] == shcs->r
  * == shcs->mu == 1.0``), one gets the well-known relation for spherical
  * harmonic analysis on the unit sphere (no normalization, no rescaling).
@@ -159,13 +168,27 @@ extern void charm@P@_sha_point(const charm@P@_point *pnt,
                                charm@P@_err *err);
 
 
-
-
-
-
 /**
- * Performs an approximate surface spherical harmonic analysis based on mean 
- * data values (area means, block-means) given over grid cells: 
+ * @}
+ * */
+/* ......................................................................... */
+
+
+
+
+
+
+/* ......................................................................... */
+/** @name Analysis of mean values
+ *
+ * Functions to perform spherical harmonic analysis of mean values.
+ *
+ * @{
+ * */
+
+
+/** @brief Performs an approximate surface spherical harmonic analysis based on
+ * mean data values (area means, block-means) given over grid cells: 
  *
  * \verbatim embed:rst:leading-asterisk
  *  .. math::
@@ -189,7 +212,8 @@ extern void charm@P@_sha_point(const charm@P@_point *pnt,
  * See also the comments from ``charm@P@_sha_point()`` on the normalization and
  * rescaling of the coefficients with \f$R\f$, \f$r\f$ and \f$\mu\f$.
  *
- * Applied is the approximate numerical quadrature due to Colombo (1981).
+ * @details Applied is the approximate numerical quadrature due to Colombo
+ * (1981).
  *
  * The loop over latitudes is parallelized using OpenMP.
  *
@@ -206,20 +230,21 @@ extern void charm@P@_sha_point(const charm@P@_point *pnt,
  *   longitudinal direction,
  *
  * - ``cell->latmax[0]`` has to be equal to ``PI / 2.0`` (within the
- *   ``charm@P@_glob_threshold`` limit, see the ``charm@P@_glob`` module),
+ *   ``::charm@P@_glob_threshold`` limit, see <a
+ *   href="./api-c-glob.html">charm@P@_glob</a>),
  *
  * - ``cell->latmin[cell->nlat - 1]`` has to be equal to ``-PI / 2.0`` (again,
- *   within the ``charm@P@_glob_threshold`` limit),
+ *   within the ``::charm@P@_glob_threshold`` limit),
  *
  * - ``cell->lonmin[0]`` has to be equal to ``0.0`` (still within the
- *   ``charm@P@_glob_threshold`` limit),
+ *   ``::charm@P@_glob_threshold`` limit),
  *
  * - ``cell->lonmax[cell->nlon - 1]`` has to be equal to ``2.0 * PI`` (still
- *   within the ``charm@P@_glob_threshold`` limit),
+ *   within the ``::charm@P@_glob_threshold`` limit),
  *
  * - the maximum latitude of one cell has to be equal to the minimum latitude 
  *   of the next cell that follows (the same holds also for the longitudes;
- *   both within the ``charm@P@_glob_threshold`` limit).
+ *   both within the ``::charm@P@_glob_threshold`` limit).
  *
  * If possible, the function exploits the symmetry property of Legendre 
  * functions and their integrals with respect to the equator, thereby improving
@@ -276,8 +301,8 @@ extern void charm@P@_sha_point(const charm@P@_point *pnt,
  * coefficients.
  *
  * @param[in] method Method of spherical harmonic analysis of cell data.  The 
- * only method currently supported is the approximate quadrature 
- * ``CHARM_SHA_CELL_AQ`` (described above).
+ * only method currently supported is the approximate quadrature
+ * ``::CHARM_SHA_CELL_AQ``.
  *
  * @param[out] shcs Output spherical harmonic coefficients (see
  * ``charm@P@_shc``).
@@ -291,6 +316,12 @@ extern void charm@P@_sha_cell(const charm@P@_cell *cell,
                               int method,
                               charm@P@_shc *shcs,
                               charm@P@_err *err);
+
+
+/**
+ * @}
+ * */
+/* ......................................................................... */
 /* ------------------------------------------------------------------------- */
 
 

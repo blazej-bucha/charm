@@ -13,9 +13,6 @@
  *   (2018).
  *
  *
- * @note This documentation is written for double precision version of CHarm.
- *
- *
  * **References**:
  *
  * * Fukushima, T. (2018) Fast computation of sine/cosine series coefficients 
@@ -25,6 +22,9 @@
  *   arbitrary degree and order by extending exponent of floating point 
  *   numbers.  Computers and Geosciences 63, 17-21, doi: 
  *   10.1016/j.cageo.2013.10.010
+ *
+ *
+ * @note This documentation is written for double precision version of CHarm.
  *
  * */
 
@@ -63,8 +63,7 @@ extern "C"
 /* Symbolic constants defining the indexing order of the output 3D "pnmj" array 
  * with the Fourier coefficients */
 /* ------------------------------------------------------------------------- */
-/** Ordering scheme of the ``pnmj`` member (a 3D array) of the
- * ``charm@P@_pnmj`` structure. */
+/** Ordering scheme of ``charm@P@_pnmj.pnmj`` (a 3D array). */
 enum
 {
     /** Order ``m``, degree ``n``, wave-number-related variable ``j``.  Note
@@ -97,79 +96,84 @@ typedef struct
     unsigned long nmax;
 
 
-    /**
-     * Ordering scheme of the Fourier coefficients in the ``pnmj`` member of
-     * ``charm@P@_pnmj``: either ``CHARM_LEG_PNMJ_ORDER_MNJ`` or 
-     * ``CHARM_LEG_PNMJ_ORDER_MJN``.  For details, see the description of 
-     * ``pnmj`` below.
+    /** Ordering scheme of the Fourier coefficients in ``charm@P@_pnmj.pnmj``:
+     * either ``::CHARM_LEG_PNMJ_ORDER_MNJ`` or ``::CHARM_LEG_PNMJ_ORDER_MJN``.
      * */
     int ordering;
 
 
-    /** Total number of Fourier coefficients \f$P_{nmj}\f$.  */
+    /** Total number of Fourier coefficients \f$P_{nmj}\f$ in
+     * ``charm@P@_pnmj.pnmj``.  */
     size_t npnmj;
 
 
     /**
      * Fourier coefficients.
      *
-     * The structure of ``pnmj`` depends on the ``ordering`` variable, which
-     * takes one of two symbolic constants: ``CHARM_LEG_PNMJ_ORDER_MNJ`` or
-     * ``CHARM_LEG_PNMJ_ORDER_MJN``.
+     * The structure of ``charm@P@_pnmj.pnmj`` depends on
+     * ``charm@P@_pnmj.ordering``, which takes one of two constants:
+     * ``::CHARM_LEG_PNMJ_ORDER_MNJ`` or ``::CHARM_LEG_PNMJ_ORDER_MJN``.
      *
      * @warning ``j`` does *not* represent the wave-number ``k``, but it is
      * closely related to it (see ``charm@P@_leg_pnmj_j2k()`` and
      * ``charm@P@_leg_pnmj_k2j()``).
      *
-     * * Structure of ``pnmj`` when ``ordering == CHARM_LEG_PNMJ_ORDER_MNJ``:
+     * * Structure of ``charm@P@_pnmj.pnmj`` when ``charm@P@_pnmj.ordering`` is
+     *   ``::CHARM_LEG_PNMJ_ORDER_MNJ``:
      *
-     *   The first dimension of ``pnmj`` is related to harmonic orders, the 
-     *   second dimension to harmonic degrees and the third dimension to 
-     *   wave-numbers.  Importantly, ``pnmj`` is *not* a regular 3D array, as 
-     *   the number of elements in the second and the third dimension varies 
-     *   based on the first dimension.  The following scheme is applied:
+     *   The first dimension of ``charm@P@_pnmj.pnmj`` is related to harmonic
+     *   orders, the second dimension to harmonic degrees and the third
+     *   dimension to wave-numbers.  Importantly, ``charm@P@_pnmj.pnmj`` is
+     *   *not* a regular 3D array, as the number of elements in the second and
+     *   the third dimension varies based on the first dimension.  The
+     *   following scheme is applied:
      *
-     *   * each ``pnmj[m]``, with ``m = 0``, ``1``, ..., ``nmax``, has
-     *   ``nmax - m + 1`` elements for harmonic degrees
-     *     ``n = m``, ``m + 1``, ..., ``nmax`` (respectively),
+     *   * each ``charm@P@_pnmj.pnmj[m]``, with ``m = 0``, ``1``, ...,
+     *   ``nmax``, has ``charm@P@_pnmj.nmax - m + 1`` elements for harmonic
+     *   degrees ``n = m``, ``m + 1``, ..., ``charm@P@_pnmj.nmax``
+     *   (respectively),
      *
-     *   * each ``pnmj[m][n - m]`` has ``floor(n / 2) + 1`` elements for 
-     *     wave-numbers.
+     *   * each ``charm@P@_pnmj.pnmj[m][n - m]`` has ``floor(n / 2) + 1``
+     *     elements for wave-numbers.
      *
-     *   The Fourier coefficient \f$P_{nmj}\f$, using the notation from 
-     *   Eq. (62) of Fukushima (2018), can therefore be access as follows 
-     *   ``Pnmj = pnmj[m][n - m][j]``.
+     *   The Fourier coefficient \f$P_{nmj}\f$, using the notation from
+     *   Eq. (62) of Fukushima (2018), can therefore be access as follows
+     *   ``charm@P@_pnmj.pnmj[m][n - m][j]``.
      *
      *
-     * * Structure of ``pnmj`` when ``ordering == CHARM_LEG_PNMJ_ORDER_MJN``:
+     * * Structure of ``charm@P@_pnmj.pnmj`` when ``charm@P@_pnmj.ordering`` is
+     *   ``::CHARM_LEG_PNMJ_ORDER_MJN``:
      *
-     *   The first dimension of ``pnmj`` is related to harmonic orders, the 
-     *   second dimension to wave-numbers and the third dimension to harmonic 
-     *   degrees.  Importantly, ``pnmj`` is *not* a regular 3D array, as the 
-     *   number of elements in the third dimension varies based on the ``m`` 
-     *   and ``j`` variables.  The following scheme is applied:
+     *   The first dimension of ``charm@P@_pnmj.pnmj`` is related to harmonic
+     *   orders, the second dimension to wave-numbers and the third dimension
+     *   to harmonic degrees.  Importantly, ``charm@P@_pnmj.pnmj`` is *not*
+     *   a regular 3D array, as the number of elements in the third dimension
+     *   varies based on the ``m`` and ``j`` variables.  The following scheme
+     *   is applied:
      *
-     *   * each ``pnmj[m]``, with ``m = 0``, ``1``, ..., ``nmax``, has 
-     *     ``floor(nmax / 2) + 1`` elements for wave-number-related variable 
-     *     ``j = 0``, ``1``, ..., floor(nmax / 2)``,
+     *   * each ``charm@P@_pnmj.pnmj[m]``, with ``m = 0``, ``1``, ...,
+     *     ``charm@P@_pnmj.nmax``, has ``floor(charm@P@_pnmj.nmax / 2) + 1``
+     *     elements for wave-number-related variable ``j = 0``, ``1``, ...,
+     *     ``floor(charm@P@_pnmj.nmax / 2)``,
      *
-     *   * each ``pnmj[m][j]`` has ``(nmax - max(2 * j, m) + 1)`` elements for 
-     *     harmonic degrees ``max(2 * j, m)``, ``max(2 * j, m) + 1``, ..., 
-     *     ``nmax``.
+     *   * each ``charm@P@_pnmj.pnmj[m][j]`` has
+     *   ``(charm@P@_pnmj.nmax - max(2 * j, m) + 1)`` elements for harmonic
+     *   degrees ``max(2 * j, m)``, ``max(2 * j, m) + 1``, ...,
+     *   ``charm@P@_pnmj.nmax``.
      *
      *   The Fourier coefficient \f$P_{nmj}\f$, using the notation from 
      *   Eq. (62) of Fukushima (2018), can therefore be access as follows
-     *   ``pnmj[m][j][n - CHARM_MAX(m, 2 * j)]``.
+     *   ``charm@P@_pnmj.pnmj[m][j][n - CHARM_MAX(m, 2 * j)]``.
      *
-     * When ``ordering == CHARM_LEG_PNMJ_ORDER_MNJ``, the following order of
-     * loops is recommended for fast sequential access to the \f$P_{nmj}\f$
-     * coefficients: harmonic order ``m``, harmonic degree ``n`` and
-     * wave-number-related variable ``j``; e.g.:
+     * If ``charm@P@_pnmj.ordering`` is ``::CHARM_LEG_PNMJ_ORDER_MNJ``, the
+     * following order of loops is recommended for fast sequential access to
+     * the \f$P_{nmj}\f$ coefficients: harmonic order ``m``, harmonic degree
+     * ``n`` and wave-number-related variable ``j``; e.g.:
      *
      * \verbatim embed:rst:leading-asterisk
      *  .. code-block:: c
      *
-     *      charm@P@_pnmj *pnmj = charm@P@_leg_pnmj_calloc(100, CHARM_LEG_PNMJ_ORDER_MNJ)
+     *      charm@P@_pnmj *pnmj = charm@P@_leg_pnmj_calloc(nmax, CHARM_LEG_PNMJ_ORDER_MNJ)
      *      for (unsigned long m = 0; m <= nmax; m++)
      *          for (unsigned long n = m; n <= nmax; n++)
      *              for (unsigned long j = 0; j <= (n / 2); j++)
@@ -177,13 +181,13 @@ typedef struct
      *
      * \endverbatim
      *
-     * For ``ordering == CHARM_LEG_PNMJ_ORDER_MJN``, the recommended loop order
-     * is:
+     * If ``charm@P@_pnmj.ordering`` is ``::CHARM_LEG_PNMJ_ORDER_MJN``, the
+     * recommended loop order is:
      *
      * \verbatim embed:rst:leading-asterisk
      *  .. code-block:: c
      *
-     *      charm@P@_pnmj *pnmj = charm@P@_leg_pnmj_calloc(100, CHARM_LEG_PNMJ_ORDER_MJN)
+     *      charm@P@_pnmj *pnmj = charm@P@_leg_pnmj_calloc(nmax, CHARM_LEG_PNMJ_ORDER_MJN)
      *      for (unsigned long m = 0; m <= nmax; m++)
      *          for (unsigned long j = 0; j <= (nmax / 2); j++)
      *              for (unsigned long n = CHARM_MAX(m, 2 * j); n <= nmax; n++)
@@ -192,9 +196,8 @@ typedef struct
      * \endverbatim
      *
      *
-     * The coefficients (elements) in ``charm@P@_pnmj->pnmj`` are stored in 
-     * a single *contiguous* block of memory.
-     * */
+     * The coefficients (elements) in ``charm@P@_pnmj.pnmj`` are stored in
+     * a single *contiguous* block of memory.  */
     @RDT@ ***pnmj;
 } charm@P@_pnmj;
 /* ------------------------------------------------------------------------- */
@@ -207,18 +210,30 @@ typedef struct
 /* Function prototypes */
 /* ------------------------------------------------------------------------- */
 
-/** Returns a pointer to the ``charm@P@_pnmj`` structure that is created with
- * maximum harmonic degree ``nmax``, ordering scheme ``ordering`` and
- * uninitialized Fourier coefficients.  The ``ordering`` variable takes one of
- * two symbolic constants: ``CHARM_LEG_PNMJ_ORDER_MNJ`` or
- * ``CHARM_LEG_PNMJ_ORDER_MJN`` (see the ``charm@P@_pnmj`` structure).
+
+/* ......................................................................... */
+/** @name Allocate and free the charm@P@_pnmj structure
  *
- * On success, returned is a pointer to the ``charm@P@_pnmj`` structure.  On 
- * error, ``NULL`` is returned.
+ * Functions to allocate and free ``charm@P@_pnmj``.
  *
- * @warning A ``pnmj`` structure created by this function must be deallocated
- * by calling ``charm@P@_leg_pnmj_free()``.  The usual deallocation ``free``
- * will *not* deallocate the memory and will lead to memory leaks.
+ * @{
+ * */
+
+
+/** @brief Allocates Fourier coefficients of the fully-normalized associated
+ * Legendre functions up to harmonic degree ``nmax`` using the ordering scheme
+ * ``ordering``.  The Fourier coefficients are uninitialized, so their values
+ * are undefined.
+ *
+ * @details ``ordering`` can be set either to ``::CHARM_LEG_PNMJ_ORDER_MNJ`` or
+ * ``::CHARM_LEG_PNMJ_ORDER_MJN``.
+ *
+ * @warning The ``charm@P@_pnmj`` structure created by this function must be
+ * deallocated by calling ``charm@P@_leg_pnmj_free()``.  The usual deallocation
+ * ``free`` will *not* deallocate the memory and will lead to memory leaks.
+ *
+ * @returns On success, returned is a pointer to the ``charm@P@_pnmj``
+ * structure.  On error, ``NULL`` is returned.
  *
  * */
 extern charm@P@_pnmj *charm@P@_leg_pnmj_malloc(unsigned long nmax, 
@@ -229,8 +244,8 @@ extern charm@P@_pnmj *charm@P@_leg_pnmj_malloc(unsigned long nmax,
 
 
 
-/** The same as ``charm@P@_leg_pnmj_malloc()`` but all Fourier coefficients are
- * initialized to zero. */
+/** @brief The same as ``charm@P@_leg_pnmj_malloc()`` but all Fourier
+ * coefficients are initialized to zero. */
 extern charm@P@_pnmj *charm@P@_leg_pnmj_calloc(unsigned long nmax, 
                                                int ordering);
 
@@ -239,28 +254,39 @@ extern charm@P@_pnmj *charm@P@_leg_pnmj_calloc(unsigned long nmax,
 
 
 
-/**
- * Frees the memory associated with ``pnmj``.  No operation is performed if 
- * ``pnmj`` is ``NULL``.
- * */
+/** @brief Frees the memory associated with ``pnmj``.  No operation is
+ * performed if ``pnmj`` is ``NULL``.  */
 extern void charm@P@_leg_pnmj_free(charm@P@_pnmj *pnmj);
 
 
-
-
-
-
 /**
- * Computes Fourier coefficients of fully normalized associated Legendre
- * functions up to degree ``nmax`` and saves them to ``pnmj``.  The structure
- * of ``pnmj->pnmj`` depends on ``pnmj->ordering``. If ``nmax < pnmj->nmax``,
- * all Fourier coefficients in ``pnmj->pnmj`` beyond ``nmax`` are set to zero.
+ * @}
+ * */
+
+
+
+
+
+
+/* ......................................................................... */
+/** @name Fourier coefficients of Legendre functions
  *
- * In case of failure, the error is written to ``err``.
+ * Functions to compute the Fourier coefficients of Legendre functions and some
+ * associated useful functions.
  *
- * Before calling this function, the ``pnmj`` structure has to be created by
- * ``charm@P@_leg_pnmj_calloc()`` or ``charm@P@_leg_pnmj_malloc()`` and later
- * deallocated by ``charm@P@_leg_pnmj_free()``.
+ * @{
+ * */
+
+
+/** @brief Computes Fourier coefficients of fully normalized associated
+ * Legendre functions up to degree ``nmax`` and saves them to ``pnmj``.  The
+ * structure of ``pnmj->pnmj`` depends on ``pnmj->ordering``. If ``nmax
+ * < pnmj->nmax``, all Fourier coefficients in ``pnmj->pnmj`` beyond ``nmax``
+ * are set to zero.  In case of failure, the error is written to ``err``.
+ *
+ * @details Before calling this function, the ``pnmj`` structure has to be
+ * created by ``charm@P@_leg_pnmj_calloc()`` or ``charm@P@_leg_pnmj_malloc()``
+ * and later deallocated by ``charm@P@_leg_pnmj_free()``.
  *
  * The algorithm of Fukushima (2018) is employed.
  *
@@ -280,10 +306,9 @@ extern void charm@P@_leg_pnmj_coeffs(charm@P@_pnmj *pnmj,
 
 
 
-/**
- * Transforms a wave-number-related variable ``j`` to the wave-number ``k`` of
- * a Fourier coefficient of fully-normalized associated Legendre function of
- * degree ``n`` (see Section C.1 of Fukushima, 2018),
+/** @brief Transforms a wave-number-related variable ``j`` to the wave-number
+ * ``k`` of a Fourier coefficient of fully-normalized associated Legendre
+ * function of degree ``n`` (see Section C.1 of Fukushima, 2018),
  *
  * \verbatim embed:rst:leading-asterisk
  *  .. math::
@@ -295,8 +320,8 @@ extern void charm@P@_leg_pnmj_coeffs(charm@P@_pnmj *pnmj,
  * @param[in] n Harmonic degree of the Legendre function.
  * @param[in] j Variable related to the wave-number ``k``.
  *
- * @return Wave-number ``k`` of the Fourier coefficient of a Legendre function.
- * */
+ * @returns Wave-number ``k`` of the Fourier coefficient of a Legendre
+ * function.  */
 extern unsigned long charm@P@_leg_pnmj_j2k(unsigned long n,
                                            unsigned long j);
 
@@ -305,10 +330,9 @@ extern unsigned long charm@P@_leg_pnmj_j2k(unsigned long n,
 
 
 
-/**
- * Transforms a wave-number ``k`` of a Fourier coefficient of fully-normalized 
- * associated Legendre function to the wave-number-related variable ``j`` (see 
- * Section C.1 of Fukushima, 2018),
+/** @brief Transforms a wave-number ``k`` of a Fourier coefficient of
+ * fully-normalized associated Legendre function to the wave-number-related
+ * variable ``j`` (see Section C.1 of Fukushima, 2018),
  *
  * \verbatim embed:rst:leading-asterisk
  *  .. math::
@@ -319,10 +343,14 @@ extern unsigned long charm@P@_leg_pnmj_j2k(unsigned long n,
  *
  * @param[in] k Wave-number of a Fourier coefficients of Legendre function.
  *
- * @return Wave-number-related variable ``j`` of the Fourier coefficient of 
- * a Legendre function.
- * */
+ * @returns Wave-number-related variable ``j`` of the Fourier coefficient of
+ * a Legendre function.  */
 extern unsigned long charm@P@_leg_pnmj_k2j(unsigned long k);
+
+
+/**
+ * @}
+ * */
 
 
 /* ------------------------------------------------------------------------- */

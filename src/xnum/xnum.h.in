@@ -44,9 +44,9 @@ extern "C"
 
 /* Function prototypes */
 /* ------------------------------------------------------------------------- */
-/**
- * Weakly normalizes an X-number.  The function is due to Fukushima (2012), 
- * Table 7.
+/** @brief Weakly normalizes an X-number.
+ *
+ * @details The function is due to Fukushima (2012), Table 7.
  *
  * @param[in]   x Pointer to the significand of the input X-number
  *
@@ -65,9 +65,10 @@ extern void charm@P@_xnum_xnorm(@RDT@ *x,
 
 
 
-/**
- * Computes a two-term linear sum of X-numbers with F-number coefficients.  The 
- * function is due to Fukushima (2012), Table 8.
+/** @brief Computes a two-term linear sum of X-numbers with F-number
+ * coefficients.
+ *
+ * @details The function is due to Fukushima (2012), Table 8.
  *
  *
  * @param[in] f   F-number coefficient of the first linear term
@@ -101,14 +102,14 @@ extern void charm@P@_xnum_xlsum2(@RDT@ f,
 
 
 
-/**
- * Translates an X-number into an F-number.  The function is due to Fukushima 
- * (2012), Table 6.
+/** @brief Translates an X-number into an F-number.
+ *
+ * @details The function is due to Fukushima (2012), Table 6.
  *
  * @param[in] x  Significand of the X-number
  * @param[in] ix Exponent of the X-number
  *
- * @return The F-number representation of an input X-number.
+ * @returns The F-number representation of an input X-number.
  *
  * */
 extern @RDT@ charm@P@_xnum_x2f(@RDT@ x,

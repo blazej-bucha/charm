@@ -43,8 +43,19 @@ extern "C"
 
 /* Function prototypes */
 /* ------------------------------------------------------------------------- */
-/**
- * Performs the exact solid spherical harmonic synthesis of point values:
+
+
+/* ......................................................................... */
+/** @name Synthesis of point values
+ *
+ * Functions to perform spherical harmonic synthesis of point values.
+ *
+ * @{
+ * */
+
+
+/** @brief Performs the exact solid spherical harmonic synthesis of point
+ * values:
  *
  * \verbatim embed:rst:leading-asterisk
  *  .. math::
@@ -56,12 +67,13 @@ extern "C"
  *
  * \endverbatim
  *
- * The synthesis is done either at
+ * @details The synthesis is done either at
  *
- * - a **grid** if ``pnt->type`` is set to ``CHARM_CRD_POINT_GRID*`` (see
- *   ``charm@P@_point``), or
+ * - a **grid** if ``pnt->type`` is ``::CHARM_CRD_POINT_GRID``,
+ *   ``::CHARM_CRD_POINT_GRID_GL``, ``::CHARM_CRD_POINT_GRID_DH1`` or
+ *   ``::CHARM_CRD_POINT_GRID_DH2`` (see ``charm@P@_point``), or
  *
- * - **scattered points** if ``pnt->type == CHARM_CRD_POINT_SCATTERED``.
+ * - **scattered points** if ``pnt->type`` is ``::CHARM_CRD_POINT_SCATTERED``.
  *
  * For **grids**, efficient 1D FFT-based algorithm is applied along the 
  * latitude parallels whenever possible.  Otherwise, the Chebyshev recurrences 
@@ -76,10 +88,10 @@ extern "C"
  * - the longitudinal step ``dlon`` is constant,
  *
  * - ``pnt->lon[0] == 0.0`` within the numerical threshold
- *   (``charm@P@_glob_threshold``), and
+ *   (``::charm@P@_glob_threshold``), and
  *
  * - ``pnt->lon[pnt->nlon - 1] + dlon == 2.0 * PI`` within the numerical
- *   threshold (``charm@P@_glob_threshold``).
+ *   threshold (``::charm@P@_glob_threshold``).
  *
  * If any of these conditions is not satisfied, CHarm uses the Chebyshev 
  * recurrences.  The algorithm is selected automatically by CHarm with the 
@@ -135,7 +147,8 @@ extern "C"
  *          -90.0, -60.0, -30.0, 0.0, 30.0, 60.0
  *
  *   - The relative difference between ``fabs(-4.99)`` and ``fabs(5.0)`` is
- *     larger than ``charm@P@_glob_threshold2`` (see ``charm@P@_glob.h``):
+ *     larger than ``::charm@P@_glob_threshold2`` (see <a
+ *     href="./api-c-glob.html">charm@P@_glob</a>):
  *
  *          -35.0, -25.0, -15.0, -4.99, 5.0, 15.0, 25.0, 35.0
  *
@@ -143,10 +156,10 @@ extern "C"
  * * In other words, the grid is symmetric in the latitudinal direction, 
  *   provided that all positive latitudes have their negative counterparts at 
  *   the right places.  The check is done within a given threshold to suppress
- *   numerical inaccuracies, see the ``charm@P@_glob_threshold2`` variable in
- *   the ``charm@P@_glob`` module. The zero latitude, i.e., the equator, may be
- *   present in the grid (again, within the specified numerical threshold
- *   ``charm@P@_glob_threshold2``).
+ *   numerical inaccuracies, see the ``::charm@P@_glob_threshold2`` variable in
+ *   the <a href="./api-c-glob.html">charm@P@_glob</a> module. The zero
+ *   latitude, i.e., the equator, may be present in the grid (again, within the
+ *   specified numerical threshold ``::charm@P@_glob_threshold2``).
  *
  * * The longitudes of the grid must be sampled increasingly with equal 
  *   spacing, that is, the difference between any two consecutive longitudes 
@@ -209,13 +222,27 @@ extern void charm@P@_shs_point(const charm@P@_point *pnt,
                                charm@P@_err *err);
 
 
-
-
-
-
 /**
- * Performs the exact solid spherical harmonic synthesis of mean values over 
- * computational cells:
+ * @}
+ * */
+/* ......................................................................... */
+
+
+
+
+
+
+/* ......................................................................... */
+/** @name Synthesis of mean values
+ *
+ * Functions to perform spherical harmonic synthesis of mean values.
+ *
+ * @{
+ * */
+
+
+/** @brief Performs the exact solid spherical harmonic synthesis of mean values
+ * over computational cells:
  *
  * \verbatim embed:rst:leading-asterisk
  *  .. math::
@@ -234,12 +261,12 @@ extern void charm@P@_shs_point(const charm@P@_point *pnt,
  *
  * \endverbatim
  *
- * The synthesis is done either at
+ * @details The synthesis is done either at
  *
- * - a **grid** if ``cell->type`` is set to ``CHARM_CRD_CELL_GRID*`` (see
+ * - a **grid** if ``cell->type`` is ``::CHARM_CRD_CELL_GRID`` (see
  *   ``charm@P@_cell``), or
  *
- * - **scattered cells** if ``cell->type == CHARM_CRD_CELL_SCATTERED``.
+ * - **scattered cells** if ``cell->type`` is ``::CHARM_CRD_CELL_SCATTERED``.
  *
  * For **grids**, efficient 1D FFT-based algorithm is applied along the 
  * latitude parallels whenever possible.  Otherwise, the Chebyshev recurrences 
@@ -253,10 +280,10 @@ extern void charm@P@_shs_point(const charm@P@_point *pnt,
  * - the longitudinal step ``dlon`` is constant,
  *
  * - ``cell->lonmin[0] == 0.0`` within the numerical threshold
- *   (``charm@P@_glob_threshold``),
+ *   (``::charm@P@_glob_threshold``),
  *
  * - ``cell->lonmax[2 * cell->nlon - 1] == 2.0 * PI`` within the numerical
- *   threshold (``charm@P@_glob_threshold``),
+ *   threshold (``::charm@P@_glob_threshold``),
  *
  * - the maximum longitude of the ``j``th cell must be equal to the minimum 
  *   longitude of the ``j + 1``th cell.
@@ -341,10 +368,10 @@ extern void charm@P@_shs_point(const charm@P@_point *pnt,
  * * In other words, the grid is symmetric in the latitudinal direction, 
  *   provided that all positive latitudes have their negative counterparts at 
  *   the right places.  The check is done within a given threshold to suppress
- *   numerical inaccuracies, see the ``charm@P@_glob_threshold2`` variable in
- *   the ``charm@P@_glob`` module. The zero latitude, i.e., the equator, may be
- *   present in the grid (again, within the specified numerical threshold
- *   ``charm@P@_glob_threshold2``).
+ *   numerical inaccuracies, see the ``::charm@P@_glob_threshold2`` variable in
+ *   the <a href="./api-c-glob.html">charm@P@_glob</a> module. The zero
+ *   latitude, i.e., the equator, may be present in the grid (again, within the
+ *   specified numerical threshold ``::charm@P@_glob_threshold2``).
  *
  * * The longitudes of the grid must be sampled increasingly with equal 
  *   spacing, that is, the difference between any two consecutive minimum cell 
@@ -434,11 +461,11 @@ extern void charm@P@_shs_cell(const charm@P@_cell *cell,
 
 
 
-/** Similarly as ``charm@P@_shs_cell()``, this function computes mean values of
- * a function given by ``shcs1``.  The difference is that here, the mean values
- * are integrated not on the unit sphere, but instead on a band-limited
- * irregular surface \f$r(\varphi,\lambda)\f$ defined by spherical harmonic
- * coefficients in ``shcs2``:
+/** @brief Similarly as ``charm@P@_shs_cell()``, this function computes mean
+ * values of a function given by ``shcs1``.  The difference is that here, the
+ * mean values are integrated not on the unit sphere, but instead on
+ * a band-limited irregular surface \f$r(\varphi,\lambda)\f$ defined by
+ * spherical harmonic coefficients in ``shcs2``:
  *
  * \verbatim embed:rst:leading-asterisk
  *  .. math::
@@ -473,10 +500,10 @@ extern void charm@P@_shs_cell(const charm@P@_cell *cell,
  * the computation is *not* exact, but the output accuracy can be well
  * controled by the input variables.
  *
- * This function can only be used with evaluation cells organized in a grid, 
- * that is, ``cell->type`` is set to ``CHARM_CRD_CELL_GRID``.  Currently, only 
- * the Chebyshev recurrences are supported for computation along the latitude 
- * parallels.
+ * @details This function can only be used with evaluation cells organized in
+ * a grid, that is, ``cell->type`` is set to ``::CHARM_CRD_CELL_GRID``.
+ * Currently, only the Chebyshev recurrences are supported for computation
+ * along the latitude parallels.
  *
  * The Fourier coefficients are evaluated after Fukushima (2018).
  *
@@ -573,6 +600,12 @@ extern void charm@P@_shs_cell_isurf(const charm@P@_cell *cell,
                                     unsigned long nmax4,
                                     @RDT@ *f,
                                     charm@P@_err *err);
+
+
+/**
+ * @}
+ * */
+/* ......................................................................... */
 /* ------------------------------------------------------------------------- */
 
 

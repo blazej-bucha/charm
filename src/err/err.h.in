@@ -44,28 +44,27 @@ extern "C"
 /* ------------------------------------------------------------------------- */
 #undef CHARM_ERR_MAX_FILE
 /** Maximum number of characters that can be stored in
- * ``charm@P@_err->file[i]``, ``i = 0, 1, ..., CHARM_ERR_MAX_LEVEL - 1``,
+ * ``charm@P@_err.file[i]``, ``i = 0, 1, ..., ::CHARM_ERR_MAX_LEVEL - 1``,
  * including the terminating null character.  */
 #define CHARM_ERR_MAX_FILE 4096
 
 
 #undef CHARM_ERR_MAX_FUNC
 /** Maximum number of characters that can be stored in
- * ``charm@P@_err->func[i]``, ``i = 0, 1, ..., CHARM_ERR_MAX_LEVEL - 1``,
+ * ``charm@P@_err.func[i]``, ``i = 0, 1, ..., ::CHARM_ERR_MAX_LEVEL - 1``,
  * including the terminating null character.  */
 #define CHARM_ERR_MAX_FUNC 256
 
 
 #undef CHARM_ERR_MAX_MSG
-/** Maximum number of characters in ``charm@P@_err->msg``, including the
+/** Maximum number of characters in ``charm@P@_err.msg``, including the
  * terminating null character.  */
 #define CHARM_ERR_MAX_MSG 4096
 
 
 #undef CHARM_ERR_MAX_LEVEL
-/** Maximum number of error propagations from the function in which the error 
- * occurred to the caller.
- * */
+/** Maximum number of error propagations from the function, in which the error
+ * occurred to the caller.  */
 #define CHARM_ERR_MAX_LEVEL 10
 /* ------------------------------------------------------------------------- */
 
@@ -146,28 +145,25 @@ typedef struct
     unsigned int level;
 
 
-    /** ``file[0]`` is a pointer to a string with the name of the file in which
-     * the error was encountered; ``file[i]``, ``i = 1, 2, ...,
-     * CHARM_ERR_MAX_LEVEL - 1``, are file names through which the error was
-     * propagated to the caller. */
+    /** ``charm@P@_err.file[0]`` is a pointer to a string with the name of the
+     * file in which the error was encountered; ``charm@P@_err.file[i]``,
+     * ``i = 1, 2, ..., ::CHARM_ERR_MAX_LEVEL - 1``, are file names through
+     * which the error was propagated to the caller. */
     char **file;
 
 
-    /** Pointer to an array with line numbers of ``file[i]``,
-     * ``i = 0, 1, ..., CHARM_ERR_MAX_LEVEL - 1``, at which the
+    /** Pointer to an array with line numbers of ``charm@P@_err.file[i]``,
+     * ``i = 0, 1, ..., ::CHARM_ERR_MAX_LEVEL - 1``, at which the
      * ``charm@P@_err`` structure was modified.  */
     unsigned int *line;
 
 
-    /**
-     * Same as ``file``, but with function names.
-     * */
+    /** Same as ``charm@P@_err.file``, but with function names.  */
     char **func;
 
 
-    /**
-     * Error code (see the ``errors enumerations``).
-     * */
+    /** Error code (see the errors enumerations ``::CHARM_FAILURE``,
+     * ``::CHARM_SUCCESS``, etc.).  */
     int code;
 
 
@@ -180,7 +176,7 @@ typedef struct
     /** Signalizes whether or not the levels of the error structure are
      * saturated due to the error propagations.  If true, the structure can no
      * longer store most recent error propagations.  This should never happen,
-     * though, since ``CHARM_ERR_MAX_LEVEL`` is chosen large enough. */
+     * though, since ``::CHARM_ERR_MAX_LEVEL`` is chosen large enough. */
     _Bool issaturated;
 } charm@P@_err;
 /* ------------------------------------------------------------------------- */
@@ -191,13 +187,11 @@ typedef struct
 
 
 /* ------------------------------------------------------------------------- */
-/**
- * Allocates and initializes an ``charm@P@_err`` structure using default empty 
- * values.
+/** @brief Allocates and initializes the ``charm@P@_err`` structure using
+ * default empty values.
  *
- * On success, returned is a pointer to the ``charm@P@_err`` structure.  On 
- * error, ``NULL`` is returned.
- * */
+ * @returns On success, returned is a pointer to the ``charm@P@_err``
+ * structure.  On error, ``NULL`` is returned.  */
 extern charm@P@_err *charm@P@_err_init(void);
 /* ------------------------------------------------------------------------- */
 
@@ -207,9 +201,8 @@ extern charm@P@_err *charm@P@_err_init(void);
 
 
 /* ------------------------------------------------------------------------- */
-/**
- * Frees the memory associated with ``err``.  No operation is performed if 
- * ``err`` is ``NULL``. */
+/** @brief Frees the memory associated with ``err``.  No operation is performed
+ * if ``err`` is ``NULL``. */
 extern void charm@P@_err_free(charm@P@_err *err);
 /* ------------------------------------------------------------------------- */
 
@@ -219,9 +212,7 @@ extern void charm@P@_err_free(charm@P@_err *err);
 
 
 /* ------------------------------------------------------------------------- */
-/**
- * Resets ``err`` to the default empty values.
- * */
+/** @brief Resets ``err`` to the default empty values.  */
 extern void charm@P@_err_reset(charm@P@_err *err);
 /* ------------------------------------------------------------------------- */
 
@@ -231,12 +222,12 @@ extern void charm@P@_err_reset(charm@P@_err *err);
 
 
 /* ------------------------------------------------------------------------- */
-/**
- * Error handler.
+/** @brief Error handler.
+ *
+ * @details
  *
  * * If ``err`` is not empty, prints detailed information on the error.  If
- *   ``terminate`` is set to Boolean ``1``, the program subsequently
- *   terminates.
+ * ``terminate`` is set to Boolean ``1``, the program subsequently terminates.
  *
  * * If ``err`` is empty, neither an error is printed nor the program is
  *   terminated (regardless of the ``terminate`` value).
@@ -258,9 +249,7 @@ extern void charm@P@_err_handler(charm@P@_err *err,
 
 
 /* ------------------------------------------------------------------------- */
-/**
- * Returns boolean ``1`` if ``err`` is empty or ``0`` otherwise.
- * */
+/** @brief Returns boolean ``1`` if ``err`` is empty or ``0`` otherwise.  */
 extern _Bool charm@P@_err_isempty(const charm@P@_err *err);
 /* ------------------------------------------------------------------------- */
 

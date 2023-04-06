@@ -76,8 +76,7 @@ extern "C"
 
 /* Function prototypes */
 /* ------------------------------------------------------------------------- */
-/**
- * Analytically computes the integral
+/** @brief Analytically computes the integral
  *
  * \verbatim embed:rst:leading-asterisk
  *      .. math::
@@ -90,8 +89,8 @@ extern "C"
  *
  * \endverbatim
  *
- * The computation is based on the Fourier coefficients of the associated 
- * Legendre functions (see Eq. 33 of Pail and Plank, 2001).
+ * @details The computation is based on the Fourier coefficients of the
+ * associated Legendre functions (see Eq. 33 of Pail and Plank, 2001).
  *
  *
  * **References**: 
@@ -116,7 +115,7 @@ extern "C"
  * @param[out] err Error reported by the function (if any).
  *
  *
- * @return The value ``ip`` of the integral.  In case of an error, returned is 
+ * @returns The value ``ip`` of the integral.  In case of an error, returned is
  * the ``nan`` value and the error is written to ``err``.
  *
  * */
@@ -134,8 +133,7 @@ extern @RDT@ charm@P@_integ_pn1m1pn2m2(@RDT@ cltmin,
 
 
 
-/**
- * Analytically computes the integral
+/** @brief Analytically computes the integral
  *
  * \verbatim embed:rst:leading-asterisk
  *      .. math::
@@ -185,7 +183,7 @@ extern @RDT@ charm@P@_integ_pn1m1pn2m2(@RDT@ cltmin,
  * @param[out] err Error reported by the function (if any).
  *
  *
- * @return The value ``iy`` of the integral.  In case of an error, returned is
+ * @returns The value ``iy`` of the integral.  In case of an error, returned is
  * the ``nan`` value and the error is written to ``err``.
  *
  * */

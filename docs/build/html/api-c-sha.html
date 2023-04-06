@@ -207,27 +207,12 @@ CHarm.</p>
 </p>
  </p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-enums">Enums</p>
-<dl class="cpp enum">
-<dt id="_CPPv4Ut1_3">
-<span id="_CPPv3Ut1_3"></span><span class="target" id="charm__sha_8h_1abc6126af1d45847bc59afa0aa3216b04"></span><em class="property">enum </em><strong>[anonymous]</strong><a class="headerlink" href="#_CPPv4Ut1_3" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Harmonic analysis methods using evaluation cells. </p>
-<p><em>Values:</em></p>
-<dl class="cpp enumerator">
-<dt id="_CPPv4NUt1_317CHARM_SHA_CELL_AQE">
-<span id="_CPPv3NUt1_317CHARM_SHA_CELL_AQE"></span><span class="target" id="charm__sha_8h_1abc6126af1d45847bc59afa0aa3216b04ac5edf8164d412c4f07f63ad008ad12f8"></span><em class="property">enumerator </em><code class="sig-name descname">CHARM_SHA_CELL_AQ</code><a class="headerlink" href="#_CPPv4NUt1_317CHARM_SHA_CELL_AQE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Spherical harmonic analysis of cell data using the <em>approximate</em> quadrature method. </p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-analysis-of-point-values">Analysis of point values</p>
+<p>Functions to perform spherical harmonic analysis of point values. </p>
 <dl class="cpp function">
 <dt id="_CPPv415charm_sha_pointPK11charm_pointPKdmP9charm_shcP9charm_err">
 <span id="_CPPv315charm_sha_pointPK11charm_pointPKdmP9charm_shcP9charm_err"></span><span id="_CPPv215charm_sha_pointPK11charm_pointPKdmP9charm_shcP9charm_err"></span><span id="charm_sha_point__charm_pointCP.doubleCP.unsigned-l.charm_shcP.charm_errP"></span><span class="target" id="charm__sha_8h_1ae98177417defe2a6344b7fb62a1c74a7"></span>void <code class="sig-name descname">charm_sha_point</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="api-c-crd.html#_CPPv411charm_point" title="charm_point">charm_point</a> *<em>pnt</em>, <em class="property">const</em> double *<em>f</em>, unsigned long <em>nmax</em>, <a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc">charm_shc</a> *<em>shcs</em>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err">charm_err</a> *<em>err</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415charm_sha_pointPK11charm_pointPKdmP9charm_shcP9charm_err" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Performs the exact surface spherical harmonic analysis based on point data values:</p>
+<dd><p>Performs the exact surface spherical harmonic analysis based on point data values: </p>
 <p><div class="math notranslate nohighlight">
 \[\begin{split}\left.\begin{aligned}
 \bar{C}_{nm} \\
@@ -266,10 +251,14 @@ CHarm.</p>
 </dl>
 </dd></dl>
 
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-analysis-of-mean-values">Analysis of mean values</p>
+<p>Functions to perform spherical harmonic analysis of mean values. </p>
 <dl class="cpp function">
 <dt id="_CPPv414charm_sha_cellPK10charm_cellPKdmiP9charm_shcP9charm_err">
 <span id="_CPPv314charm_sha_cellPK10charm_cellPKdmiP9charm_shcP9charm_err"></span><span id="_CPPv214charm_sha_cellPK10charm_cellPKdmiP9charm_shcP9charm_err"></span><span id="charm_sha_cell__charm_cellCP.doubleCP.unsigned-l.i.charm_shcP.charm_errP"></span><span class="target" id="charm__sha_8h_1a0cfef83c12175c434125d39f2a100080"></span>void <code class="sig-name descname">charm_sha_cell</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="api-c-crd.html#_CPPv410charm_cell" title="charm_cell">charm_cell</a> *<em>cell</em>, <em class="property">const</em> double *<em>f</em>, unsigned long <em>nmax</em>, int <em>method</em>, <a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc">charm_shc</a> *<em>shcs</em>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err">charm_err</a> *<em>err</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414charm_sha_cellPK10charm_cellPKdmiP9charm_shcP9charm_err" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Performs an approximate surface spherical harmonic analysis based on mean data values (area means, block-means) given over grid cells:</p>
+<dd><p>Performs an approximate surface spherical harmonic analysis based on mean data values (area means, block-means) given over grid cells: </p>
 <p><div class="math notranslate nohighlight">
 \[\begin{split}\left.\begin{aligned}
 \bar{C}_{nm} \\
@@ -293,11 +282,11 @@ CHarm.</p>
 <p><ul class="simple">
 <li><p>at least <code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">+</span> <span class="pre">1</span></code> data values in <code class="docutils literal notranslate"><span class="pre">f</span></code> are required in the latitudinal direction,</p></li>
 <li><p>at least <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">nmax</span> <span class="pre">+</span> <span class="pre">1</span></code> data values in <code class="docutils literal notranslate"><span class="pre">f</span></code> are required in the longitudinal direction,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;latmax[0]</span></code> has to be equal to <code class="docutils literal notranslate"><span class="pre">PI</span> <span class="pre">/</span> <span class="pre">2.0</span></code> (within the <code class="docutils literal notranslate"><span class="pre">charm_glob_threshold</span></code> limit, see the <code class="docutils literal notranslate"><span class="pre">charm_glob</span></code> module),</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;latmin[cell-&gt;nlat</span> <span class="pre">-</span> <span class="pre">1]</span></code> has to be equal to <code class="docutils literal notranslate"><span class="pre">-PI</span> <span class="pre">/</span> <span class="pre">2.0</span></code> (again, within the <code class="docutils literal notranslate"><span class="pre">charm_glob_threshold</span></code> limit),</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;lonmin[0]</span></code> has to be equal to <code class="docutils literal notranslate"><span class="pre">0.0</span></code> (still within the <code class="docutils literal notranslate"><span class="pre">charm_glob_threshold</span></code> limit),</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;lonmax[cell-&gt;nlon</span> <span class="pre">-</span> <span class="pre">1]</span></code> has to be equal to <code class="docutils literal notranslate"><span class="pre">2.0</span> <span class="pre">*</span> <span class="pre">PI</span></code> (still within the <code class="docutils literal notranslate"><span class="pre">charm_glob_threshold</span></code> limit),</p></li>
-<li><p>the maximum latitude of one cell has to be equal to the minimum latitude of the next cell that follows (the same holds also for the longitudes; both within the <code class="docutils literal notranslate"><span class="pre">charm_glob_threshold</span></code> limit).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;latmax[0]</span></code> has to be equal to <code class="docutils literal notranslate"><span class="pre">PI</span> <span class="pre">/</span> <span class="pre">2.0</span></code> (within the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1ab38bfd45ebf0f622c892ec1d0045c601"><span class="std std-ref"><span class="pre">charm_glob_threshold</span></span></a></code> limit, see <a class="reference external" href="./api-c-glob.html">charm_glob</a>),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;latmin[cell-&gt;nlat</span> <span class="pre">-</span> <span class="pre">1]</span></code> has to be equal to <code class="docutils literal notranslate"><span class="pre">-PI</span> <span class="pre">/</span> <span class="pre">2.0</span></code> (again, within the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1ab38bfd45ebf0f622c892ec1d0045c601"><span class="std std-ref"><span class="pre">charm_glob_threshold</span></span></a></code> limit),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;lonmin[0]</span></code> has to be equal to <code class="docutils literal notranslate"><span class="pre">0.0</span></code> (still within the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1ab38bfd45ebf0f622c892ec1d0045c601"><span class="std std-ref"><span class="pre">charm_glob_threshold</span></span></a></code> limit),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;lonmax[cell-&gt;nlon</span> <span class="pre">-</span> <span class="pre">1]</span></code> has to be equal to <code class="docutils literal notranslate"><span class="pre">2.0</span> <span class="pre">*</span> <span class="pre">PI</span></code> (still within the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1ab38bfd45ebf0f622c892ec1d0045c601"><span class="std std-ref"><span class="pre">charm_glob_threshold</span></span></a></code> limit),</p></li>
+<li><p>the maximum latitude of one cell has to be equal to the minimum latitude of the next cell that follows (the same holds also for the longitudes; both within the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1ab38bfd45ebf0f622c892ec1d0045c601"><span class="std std-ref"><span class="pre">charm_glob_threshold</span></span></a></code> limit).</p></li>
 </ul>
 </p>
 <p>If possible, the function exploits the symmetry property of Legendre functions and their integrals with respect to the equator, thereby improving its performance (see <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shs.html#charm__shs_8h_1add861cfba63c63d85c613ffe68af5c98"><span class="std std-ref"><span class="pre">charm_shs_cell()</span></span></a></code>).</p>
@@ -323,12 +312,28 @@ coefficients beyond <code class="docutils literal notranslate"><span class="pre"
 <li><p><strong>cell</strong> – <strong>[in]</strong> Structure defining grid cells (see <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code>).</p></li>
 <li><p><strong>f</strong> – <strong>[in]</strong> Input signal with block mean data given at the nodes of the <code class="docutils literal notranslate"><span class="pre">cell</span></code> structure. The pointer <code class="docutils literal notranslate"><span class="pre">f</span></code> must have an access to <code class="docutils literal notranslate"><span class="pre">cell-&gt;nlat</span> <span class="pre">*</span> <span class="pre">cell-&gt;nlon</span></code> array elements. The mean value of the signal at the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th cell in the latitudinal direction and the <code class="docutils literal notranslate"><span class="pre">j</span></code>-th cell in the longitudinal direction must be stored as <code class="docutils literal notranslate"><span class="pre">f[i</span> <span class="pre">*</span> <span class="pre">cell-&gt;nlon</span> <span class="pre">+</span> <span class="pre">j]</span></code> with <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">cell-&gt;nlat</span> <span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">pnt-&gt;nlon</span> <span class="pre">1</span></code>.</p></li>
 <li><p><strong>nmax</strong> – <strong>[in]</strong> Maximum harmonic degree of the output spherical harmonic coefficients.</p></li>
-<li><p><strong>method</strong> – <strong>[in]</strong> Method of spherical harmonic analysis of cell data. The only method currently supported is the approximate quadrature <code class="docutils literal notranslate"><span class="pre">CHARM_SHA_CELL_AQ</span></code> (described above).</p></li>
+<li><p><strong>method</strong> – <strong>[in]</strong> Method of spherical harmonic analysis of cell data. The only method currently supported is the approximate quadrature <code class="docutils literal notranslate"><a class="reference internal" href="#charm__sha_8h_1abc6126af1d45847bc59afa0aa3216b04ac5edf8164d412c4f07f63ad008ad12f8"><span class="std std-ref"><span class="pre">CHARM_SHA_CELL_AQ</span></span></a></code>.</p></li>
 <li><p><strong>shcs</strong> – <strong>[out]</strong> Output spherical harmonic coefficients (see <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code>).</p></li>
 <li><p><strong>err</strong> – <strong>[out]</strong> Error reported by the function (if any). </p></li>
 </ul>
 </dd>
 </dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-enums">Enums</p>
+<dl class="cpp enum">
+<dt id="_CPPv4Ut1_3">
+<span id="_CPPv3Ut1_3"></span><span class="target" id="charm__sha_8h_1abc6126af1d45847bc59afa0aa3216b04"></span><em class="property">enum </em><strong>[anonymous]</strong><a class="headerlink" href="#_CPPv4Ut1_3" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Harmonic analysis methods using evaluation cells. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt id="_CPPv4NUt1_317CHARM_SHA_CELL_AQE">
+<span id="_CPPv3NUt1_317CHARM_SHA_CELL_AQE"></span><span class="target" id="charm__sha_8h_1abc6126af1d45847bc59afa0aa3216b04ac5edf8164d412c4f07f63ad008ad12f8"></span><em class="property">enumerator </em><code class="sig-name descname">CHARM_SHA_CELL_AQ</code><a class="headerlink" href="#_CPPv4NUt1_317CHARM_SHA_CELL_AQE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Spherical harmonic analysis of cell data using the <em>approximate</em> quadrature method. </p>
+</dd></dl>
+
 </dd></dl>
 
 </div>

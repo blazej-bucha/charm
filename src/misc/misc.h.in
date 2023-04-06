@@ -95,8 +95,8 @@ extern "C"
 
 /* Function prototypes */
 /* ------------------------------------------------------------------------- */
-/** Prints library info to ``stdout`` (library name, version, compilation date,
- * precision, etc). */
+/** @brief Prints library info to ``stdout`` (library name, version,
+ * compilation date, precision, etc). */
 extern void charm@P@_misc_print_version(void);
 /* ------------------------------------------------------------------------- */
 

@@ -120,14 +120,16 @@ typedef struct
      * one to harmonic degrees. Importantly, the number of columns varies for
      * each row as follows:
      *
-     * * Order ``0``: ``c[0]`` has ``charm@P@_shc.nmax + 1`` columns for
-     *   degrees ``0``, ``1``, ..., ``charm@P@_shc.nmax`` (respectively),
+     * * Order ``0``: ``charm@P@_shc.c[0]`` has ``charm@P@_shc.nmax + 1``
+     *   columns for degrees ``0``, ``1``, ..., ``charm@P@_shc.nmax``
+     *   (respectively),
      *
-     * * Order ``1``: ``c[1]`` has ``charm@P@_shc.nmax`` columns for degrees
-     *   ``1``, ``2``, ..., ``charm@P@_shc.nmax`` (respectively),
+     * * Order ``1``: ``charm@P@_shc.c[1]`` has ``charm@P@_shc.nmax`` columns
+     *   for degrees ``1``, ``2``, ..., ``charm@P@_shc.nmax`` (respectively),
      *
-     * * Order ``2``: ``c[2]`` has ``charm@P@_shc.nmax - 1`` columns for
-     *   degrees ``2``, ``3``, ..., ``charm@P@_shc.nmax`` (respectively),
+     * * Order ``2``: ``charm@P@_shc.c[2]`` has ``charm@P@_shc.nmax - 1``
+     *   columns for degrees ``2``, ``3``, ..., ``charm@P@_shc.nmax``
+     *   (respectively),
      *
      * * ...
      *
