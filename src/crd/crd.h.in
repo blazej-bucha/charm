@@ -9,8 +9,6 @@
  *
  * * computes ``charm@P@_point`` for a few pre-defined grid types.
  *
- * @note  This documentation is written for double precision version of CHarm.
- *
  * **References**:
  *
  * * Sneeuw, N. (1994) Global spherical harmonic analysis by least-squares and 
@@ -20,8 +18,10 @@
  * * Driscoll, J. R., Healy, D. M. (1994) Computing Fourier transforms and 
  *   convolutions on the 2-sphere. Advances in Applied Mathematics 15:202-250
  *
- * * Wieczorek, M. A., Meschede, M. (2018) SHTools: Tools for Working with 
- *   Spherical Harmonics.  Geochemistry, Geophysics, Geosystems 19:2574-2592
+ * * Wieczorek, M. A., Meschede, M. (2018) SHTools: Tools for Working with
+ *   Spherical Harmonics. Geochemistry, Geophysics, Geosystems 19:2574-2592
+ *
+ * @note  This documentation is written for double precision version of CHarm.
  *
  * */
 
@@ -58,8 +58,11 @@ extern "C"
 
 
 /* ------------------------------------------------------------------------- */
-/** Supported values of ``type`` in ``charm@P@_point`` (``CHARM_CRD_POINT_*``)
- * and in ``charm@P@_cell`` (``CHARM_CRD_CELL_*``). */
+/** Defines supported values of ``charm@P@_point.type`` to
+ * ``::CHARM_CRD_POINT_SCATTERED``, ``::CHARM_CRD_POINT_GRID``,
+ * ``::CHARM_CRD_POINT_GRID_GL``, ``::CHARM_CRD_POINT_GRID_DH1``,
+ * ``::CHARM_CRD_POINT_GRID_DH2``. For ``charm@P@_cell.type``, valid constants
+ * are ``::CHARM_CRD_CELL_SCATTERED`` and ``::CHARM_CRD_CELL_GRID``. */
 enum
 {
     /** Custom grid of cells. */
@@ -104,21 +107,21 @@ typedef struct
 {
     /** Defines whether the points are organized as a grid or are scattered.
      *
-     * ``type`` takes the following symbolic constants: 
+     * ``charm@P@_point.type`` takes the following constants: 
      *
-     * * ``CHARM_CRD_POINT_SCATTERED`` for user-defined scattered points,
+     * * ``::CHARM_CRD_POINT_SCATTERED`` for user-defined scattered points,
      *
-     * * ``CHARM_CRD_POINT_GRID`` for a user-defined grid,
+     * * ``::CHARM_CRD_POINT_GRID`` for a user-defined grid,
      *
-     * * ``CHARM_CRD_POINT_GRID_GL`` for the Gauss-Legendre grid (Sneeuw,
+     * * ``::CHARM_CRD_POINT_GRID_GL`` for the Gauss-Legendre grid (Sneeuw,
      *   1994) with ``nmax + 1`` latitudes and ``2 * nmax + 2`` longitudes
      *   (``nmax`` is maximum harmonic degree),
      *
-     * * ``CHARM_CRD_POINT_GRID_DH1`` for the non-equiangular Driscoll-Healy
+     * * ``::CHARM_CRD_POINT_GRID_DH1`` for the non-equiangular Driscoll-Healy
      *   grid as defined by Driscoll and Healy (1994) with ``2 * nmax + 2``
      *   latitudes and ``2 * nmax + 2`` longitudes, and
      *
-     * * ``CHARM_CRD_POINT_GRID_DH2`` for an equiangular modification of the
+     * * ``::CHARM_CRD_POINT_GRID_DH2`` for an equiangular modification of the
      *   Driscoll-Healy grid (Wieczorek and Meschede, 2018) with
      *   ``2 * nmax + 2`` latitudes and ``4 * nmax + 4`` longitudes.  */
     int type;
@@ -127,41 +130,47 @@ typedef struct
     /**
      * Number of latitudes.
      *
-     * * For **scattered** points (``type == CHARM_CRD_POINT_SCATTERED``),
-     *   ``nlat`` represents the total number of points in the
-     *   ``charm@P@_point`` structure.
+     * * For **scattered** points (``charm@P@_point.type`` is
+     *   ``::CHARM_CRD_POINT_SCATTERED``), ``charm@P@_point.nlat`` represents
+     *   the total number of points in the ``charm@P@_point`` structure.
      *
-     * * For **grids** (``type == CHARM_CRD_POINT_GRID*``), ``nlat`` stands
-     *   for the numbers of points in the latitudinal direction of the grid.
-     *   */
+     * * For **grids** (``charm@P@_point.type`` is ``::CHARM_CRD_POINT_GRID``,
+     *   ``::CHARM_CRD_POINT_GRID_GL``, ``::CHARM_CRD_POINT_GRID_DH1`` or
+     *   ``::CHARM_CRD_POINT_GRID_DH2``), ``charm@P@_point.nlat`` stands for
+     *   the numbers of points in the latitudinal direction of the grid.  */
     size_t nlat;
 
 
     /**
      * Number of longitudes.
      *
-     * * For **scattered** points, ``nlon`` represents the total number of
-     *   points in the ``charm@P@_point`` structure. ``nlon`` must be equal to
-     *   ``nlat``.  The total number of points is ``nlat == nlon``.
+     * * For **scattered** points, ``charm@P@_point.nlon`` represents the total
+     *   number of points in the ``charm@P@_point``
+     *   structure. ``charm@P@_point.nlon`` must be equal to
+     *   ``charm@P@_point.nlat``. The total number of points is
+     *   ``charm@P@_point.nlat == charm@P@_point.nlon``.
      *
-     * * For **grids**, ``nlon`` stands for the numbers of points in the
-     *   longitudinal direction of the grid.  ``nlat`` and ``nlon`` may be
-     *   different.  The total number of grid points is ``nlat * nlon``.  */
+     * * For **grids**, ``charm@P@_point.nlon`` stands for the numbers of
+     *   points in the longitudinal direction of the grid.
+     *   ``charm@P@_point.nlat`` and ``charm@P@_point.nlon`` may be different.
+     *   The total number of grid points is ``charm@P@_point.nlat
+     *   * charm@P@_point.nlon``.  */
     size_t nlon;
 
 
-    /** Pointer to an array of latitudes in radians.  ``nlat`` array elements
-     * are associated with ``lat``. */
+    /** Pointer to an array of latitudes in radians.  ``charm@P@_point.nlat``
+     * array elements are associated with ``charm@P@_point.lat``. */
     @RDT@ *lat;
 
 
-    /** Pointer to an array of longitudes in radians.  ``nlon`` array elements
-     * are associated with ``lon``. */
+    /** Pointer to an array of longitudes in radians.  ``charm@P@_point.nlon``
+     * array elements are associated with ``charm@P@_point.lon``. */
     @RDT@ *lon;
 
 
-    /** Pointer to an array of spherical radii in metres.  ``nlat`` array
-     * elements are associated with ``r``. */
+    /** Pointer to an array of spherical radii in metres.
+     * ``charm@P@_point.nlat`` array elements are associated with
+     * ``charm@P@_point.r``. */
     @RDT@ *r;
 
 
@@ -170,27 +179,24 @@ typedef struct
      * pointer is used (i.e. is not ``NULL``) only for ``charm@P@_point``
      * structures returned by the ``charm@P@_crd_point_gl()``,
      * ``charm@P@_crd_point_dh1()`` and ``charm@P@_crd_point_dh2()`` functions,
-     * that is, if
+     * that is, if ``charm@P@_point.type`` is ``::CHARM_CRD_POINT_GRID_GL``,
+     * ``::CHARM_CRD_POINT_GRID_DH1``, or ``::CHARM_CRD_POINT_GRID_DH2``.
      *
-     * - ``type == CHARM_CRD_POINT_GRID_GL``, 
+     * ``charm@P@_point.nlat`` array elements are associated with
+     * ``charm@P@_point.w``.
      *
-     * - ``type == CHARM_CRD_POINT_GRID_DH1``, or 
-     *
-     * - ``type == CHARM_CRD_POINT_GRID_DH2``.
-     *
-     * ``nlat`` array elements are associated with ``w``.
-     *
-     * For all other values of ``type``, ``w`` is ``NULL`` and is never used.
-     * */
+     * For all other values of ``charm@P@_point.type``, ``charm@P@_point.w`` is
+     * ``NULL`` and is never used.  */
     @RDT@ *w;
 
 
-    /** If ``1``, the memory associated with ``lat``, ``lon``, ``r`` and ``w``
+    /** If ``1``, the memory associated with ``charm@P@_point.lat``,
+     * ``charm@P@_point.lon``, ``charm@P@_point.r`` and ``charm@P@_point.w``
      * was allocated by CHarm, so ``charm@P@_crd_point_free()`` deallocates it.
-     * If ``owner`` is ``0``, the memory associated with these arrays was
-     * allocated outside CHarm, so ``charm@P@_crd_point_free()`` does *not*
-     * deallocate it (the user allocated this memory outside CHarm, so the user
-     * should free the memory outside CHarm as well). */
+     * If ``charm@P@_point.owner`` is ``0``, the memory associated with these
+     * arrays was allocated outside CHarm, so ``charm@P@_crd_point_free()``
+     * does *not* deallocate it (the user allocated this memory outside CHarm,
+     * so the user should free the memory outside CHarm as well). */
     _Bool owner;
 } charm@P@_point;
 
@@ -205,11 +211,11 @@ typedef struct
     /** Defines whether the cells are organized as a regular grid or are
      * scattered.
      *
-     * ``type`` takes the following symbolic constants: 
+     * ``charm@P@_cell.type`` takes the following constants:
      *
-     * * ``CHARM_CRD_CELL_GRID`` for a user-defined grid of cells,
+     * * ``::CHARM_CRD_CELL_GRID`` for a user-defined grid of cells,
      *
-     * * ``CHARM_CRD_CELL_SCATTERED`` for a user-defined set of scattered 
+     * * ``::CHARM_CRD_CELL_SCATTERED`` for a user-defined set of scattered
      *   cells. */
     int type;
 
@@ -217,61 +223,70 @@ typedef struct
     /**
      * Number of latitudes.
      *
-     * * For **scattered** cells (``type`` set to
-     *   ``CHARM_CRD_CELL_SCATTERED``), ``nlat`` represents the total number
-     *   of cells in the ``charm@P@_cell`` structure.
+     * * For **scattered** cells (``charm@P@_cell.type`` set to
+     *   ``::CHARM_CRD_CELL_SCATTERED``), ``charm@P@_cell.nlat`` represents the
+     *   total number of cells in the ``charm@P@_cell`` structure.
      *
-     * * For **grids** (``type`` set to ``CHARM_CRD_CELL_GRID``), ``nlat``
-     *   stands for the numbers of cells in the latitudinal direction of the
-     *   grid.  */
+     * * For **grids** (``charm@P@_cell.type`` set to
+     *   ``::CHARM_CRD_CELL_GRID``), ``charm@P@_cell.nlat`` stands for the
+     *   numbers of cells in the latitudinal direction of the grid.  */
     size_t nlat;
 
 
     /**
      * Number of longitudes.
      *
-     * * For **scattered** cells, ``nlon`` represents the total number of cells
-     *   in the ``charm@P@_cell`` structure. ``nlon`` must be equal to
-     *   ``nlat``.  The total number of cells is equal to ``nlat == nlon``.
+     * * For **scattered** cells, ``charm@P@_cell.nlon`` represents the total
+     *   number of cells in the ``charm@P@_cell``
+     *   structure. ``charm@P@_cell.nlon`` must be equal to
+     *   ``charm@P@_cell.nlat``. The total number of cells is equal to
+     *   ``charm@P@_cell.nlat == charm@P@_cell.nlon``.
      *
-     * * For **grids**, ``nlon`` stands for the numbers of cells in the
-     *   longitudinal direction of the grid.  ``nlat`` and ``nlon`` may be
-     *   different.  The total number of grid cells is ``nlat * nlon``.  */
+     * * For **grids**, ``charm@P@_cell.nlon`` stands for the numbers of cells
+     *   in the longitudinal direction of the grid.  ``charm@P@_cell.nlat`` and
+     *   ``charm@P@_cell.nlon`` may be different. The total number of grid
+     *   cells is ``charm@P@_cell.nlat * charm@P@_cell.nlon``.  */
     size_t nlon;
 
 
-    /** Pointer to an array of minimum cell latitudes in radians.  ``nlat``
-     * array elements are associated with ``latmin`` */
+    /** Pointer to an array of minimum cell latitudes in radians.
+     * ``charm@P@_cell.nlat`` array elements are associated with
+     * ``charm@P@_cell.latmin`` */
     @RDT@ *latmin;
 
 
-    /** Pointer to an array of maximum cell latitudes in radians.  ``nlat``
-     * array elements are associated with ``latmax`` */
+    /** Pointer to an array of maximum cell latitudes in radians.
+     * ``charm@P@_cell.nlat`` array elements are associated with
+     * ``charm@P@_cell.latmax`` */
     @RDT@ *latmax;
 
 
-    /** Pointer to an array of minimum cell longitudes in radians. ``nlon``
-     * array elements are associated with ``lonmin`` */
+    /** Pointer to an array of minimum cell longitudes in
+     * radians. ``charm@P@_cell.nlon`` array elements are associated with
+     * ``charm@P@_cell.lonmin`` */
     @RDT@ *lonmin;
 
 
-    /** Pointer to an array of maximum cell longitudes in radians. ``nlon``
-     * array elements are associated with ``lonmax`` */
+    /** Pointer to an array of maximum cell longitudes in
+     * radians. ``charm@P@_cell.nlon`` array elements are associated with
+     * ``charm@P@_cell.lonmax`` */
     @RDT@ *lonmax;
 
 
-    /** Pointer to an array of spherical radii in metres. ``nlat`` array
-     * elements are associated with ``r``.  */
+    /** Pointer to an array of spherical radii in
+     * metres. ``charm@P@_cell.nlat`` array elements are associated with
+     * ``charm@P@_cell.r``.  */
     @RDT@ *r;
 
 
-    /** If ``1``, the memory associated with ``latmin``, ``latmax``,
-     * ``lonmin``, ``lonmax`` and ``r`` was allocated by CHarm, so
-     * ``charm@P@_crd_cell_free()`` deallocates it.  If ``owner`` is ``0``, the
-     * memory associated with these arrays was allocated outside CHarm, so
-     * ``charm@P@_crd_cell_free()`` does *not* deallocate it (the user
-     * allocated this memory outside CHarm, so the user should free the memory
-     * outside CHarm as well). */
+    /** If ``1``, the memory associated with ``charm@P@_cell.latmin``,
+     * ``charm@P@_cell.latmax``, ``charm@P@_cell.lonmin``,
+     * ``charm@P@_cell.lonmax`` and ``charm@P@_cell.r`` was allocated by CHarm,
+     * so ``charm@P@_crd_cell_free()`` deallocates it. If
+     * ``charm@P@_cell.owner`` is ``0``, the memory associated with these
+     * arrays was allocated outside CHarm, so ``charm@P@_crd_cell_free()`` does
+     * *not* deallocate it (the user allocated this memory outside CHarm, so
+     * the user should free the memory outside CHarm as well). */
     _Bool owner;
 } charm@P@_cell;
 /* ------------------------------------------------------------------------- */
@@ -284,51 +299,61 @@ typedef struct
 /* Function prototypes */
 /* ------------------------------------------------------------------------- */
 
-/** Returns a pointer to the ``charm@P@_point`` structure that is created for
- * a given ``type`` with ``nlat`` latitudes, ``nlon`` longitudes and ``nlat``
- * spherical radii.  If ``type`` is one of ``CHARM_CRD_POINT_GRID_*``, memory
- * for ``nlat`` integration weights is allocated in addition.  The memory of
- * all arrays is uninitialized.
+/* ......................................................................... */
+/** @name Allocate, initialize and free the charm@P@_point structure
  *
- * Valid values of ``type`` are all symbolic constants ``CHARM_CRD_POINT_*``.
+ * These functions allocate, initialize and free the ``charm@P@_point``
+ * structure, which is designed to store evaluation points.
  *
- * On success, returned is a pointer to the ``charm@P@_point`` structure.  On
- * error, ``NULL`` is returned.  Errors include memory allocation failures and
- * incorrect input arguments (e.g., ``nlat < 1``, ``nlon < 1`` or unsupported
- * value of ``type``).
+ * @{
+ * */
+
+
+/** @brief Allocates evaluation points of a given ``type`` with ``nlat``
+ * latitudes, ``nlon`` longitudes and ``nlat`` spherical radii. If ``type`` is
+ * ``::CHARM_CRD_POINT_GRID_GL``, ``::CHARM_CRD_POINT_GRID_DH1`` or
+ * ``::CHARM_CRD_POINT_GRID_DH2``, ``nlat`` integration weights are allocated
+ * in addition. The memory of all array elements is uninitialized, so their
+ * values are undefined.
  *
- * \verbatim embed:rst:leading-asterisk
- *  .. note::
+ * @details Valid values of ``type`` are constants
+ * ``::CHARM_CRD_POINT_SCATTERED``, ``::CHARM_CRD_POINT_GRID``,
+ * ``::CHARM_CRD_POINT_GRID_GL``, ``::CHARM_CRD_POINT_GRID_DH1`` and
+ * ``::CHARM_CRD_POINT_GRID_DH2``.
  *
- *      * For ``charm@P@_point *pnt`` returned by this function with ``type``
- *        being equal to one of ``CHARM_CRD_POINT_GRID*``, the coordinates of
- *        the grid point on the ``i``-th latitude parallel and the ``j``-th
- *        meridian have to be accessed as
+ * * For ``charm@P@_point *pnt`` returned by this function with ``type`` being
+ *   ``::CHARM_CRD_POINT_GRID``, ``::CHARM_CRD_POINT_GRID_GL``,
+ *   ``::CHARM_CRD_POINT_GRID_DH1`` or ``::CHARM_CRD_POINT_GRID_DH2``, the
+ *   coordinates of the grid point on the ``i``-th latitude parallel and the
+ *   ``j``-th meridian have to be accessed as
  *
- *        - ``pnt->lat[i]`` for the grid latitude,
+ *   - ``pnt->lat[i]`` for the grid latitude,
  *
- *        - ``pnt->lon[j]`` for the grid longitude, and
+ *   - ``pnt->lon[j]`` for the grid longitude, and
  *
- *        - ``pnt->r[i]`` for the spherical radii
+ *   - ``pnt->r[i]`` for the spherical radii
  *
- *        with ``i = 0, 1, ..., nlat - 1`` and ``j = 0, 1, ..., nlon - 1``.
+ *   with ``i = 0, 1, ..., nlat - 1`` and ``j = 0, 1, ..., nlon - 1``.
  *
- *      * For ``type`` set to ``CHARM_CRD_POINT_SCATTERED``, the coordinates
- *        of the ``i``-th point have to be accessed as
+ * * For ``type`` set to ``::CHARM_CRD_POINT_SCATTERED``, the coordinates of
+ *   the ``i``-th point have to be accessed as
  *
- *        - ``pnt->lat[i]`` for the grid latitude,
+ *   - ``pnt->lat[i]`` for the grid latitude,
  *
- *        - ``pnt->lon[i]`` for the grid longitude, and
+ *   - ``pnt->lon[i]`` for the grid longitude, and
  *
- *        - ``pnt->r[i]`` for the spherical radii
+ *   - ``pnt->r[i]`` for the spherical radii
  *
- *        with ``i = 0, 1, ..., nlat - 1``, ``nlat == nlon``.
- *
- * \endverbatim
+ *   with ``i = 0, 1, ..., nlat - 1``, ``nlat == nlon``.
  *
  * @warning The structure returned *must* be deallocated by calling
- * ``charm@P@_crd_point_free()``.  The usual deallocation with ``free`` will
+ * ``charm@P@_crd_point_free()``. The usual deallocation with ``free`` will
  * lead to memory leaks.
+ *
+ * @returns On success, returned is a pointer to the ``charm@P@_point``
+ * structure. On error, ``NULL`` is returned. Errors include memory allocation
+ * failures and incorrect input arguments (e.g., ``nlat < 1``, ``nlon < 1`` or
+ * unsupported value of ``type``).
  *
  * */
 extern charm@P@_point *charm@P@_crd_point_malloc(int type,
@@ -340,8 +365,8 @@ extern charm@P@_point *charm@P@_crd_point_malloc(int type,
 
 
 
-/** The same as ``charm@P@_crd_point_malloc()`` but the memory of all arrays is
- * initialized to zero. */
+/** @brief The same as ``charm@P@_crd_point_malloc()`` but all array elements
+ * are initialized to zero. */
 extern charm@P@_point *charm@P@_crd_point_calloc(int type,
                                                  size_t nlat,
                                                  size_t nlon);
@@ -351,18 +376,24 @@ extern charm@P@_point *charm@P@_crd_point_calloc(int type,
 
 
 
-/** Returns a pointer to the ``charm@P@_point`` structure that is created for
- * a given ``type`` from user-defined data (shallow copy).  Accepted values of
- * ``type`` are ``CHARM_CRD_POINT_*``.
+/** @brief For a given point ``type``, takes ``nlat`` spherical latitudes from
+ * the array pointed to by ``lat``, ``nlon`` spherical longitudes from ``lon``
+ * and ``nlat`` spherical radii from ``r`` (shallow copy).
  *
- * * If ``type == CHARM_CRD_POINT_SCATTERED``,
+ * @details Valid values of ``type`` are constants
+ * ``::CHARM_CRD_POINT_SCATTERED``, ``::CHARM_CRD_POINT_GRID``,
+ * ``::CHARM_CRD_POINT_GRID_GL``, ``::CHARM_CRD_POINT_GRID_DH1`` and
+ * ``::CHARM_CRD_POINT_GRID_DH2``.
+ *
+ * * If ``type`` is ``::CHARM_CRD_POINT_SCATTERED``,
  *
  *   - ``nlat`` must be equal to ``nlon`` and
  *
  *   - each of ``lat``, ``lon`` and ``r`` must have access to ``nlat``
  *     elements.
  *
- * * If ``type == CHARM_CRD_POINT_GRID*``,
+ * * If ``type`` is ``::CHARM_CRD_POINT_GRID``, ``::CHARM_CRD_POINT_GRID_GL``,
+ * ``::CHARM_CRD_POINT_GRID_DH1`` or ``::CHARM_CRD_POINT_GRID_DH2``,
  *
  *   - ``lat`` must have access to ``nlat`` elements,
  *
@@ -370,22 +401,22 @@ extern charm@P@_point *charm@P@_crd_point_calloc(int type,
  *
  *   - ``r`` must have access to ``nlat`` elements.
  *
- * On success, returned is a pointer to the ``charm@P@_point`` structure.  On
- * error, ``NULL`` is returned.  Errors include memory allocation failures and
- * incorrect input arguments (e.g., ``nlat < 1``, ``nlon < 1`` or unsupported
- * value of ``type``).
- *
  * @note See ``charm@P@_crd_point_malloc()`` to find out how to access the
  * coordinates stored in the returned ``charm@P@_point`` structure.
  *
  * @note See ``charm@P@_shc_init()`` for the rationale behind the shallow
- * copies of input arrays ``lat``, ``lon`` and ``r``.  The memory of these
+ * copies of input arrays ``lat``, ``lon`` and ``r``. The memory of these
  * arrays must be treated in the same fashion as shown therein with the ``c``
  * and ``s`` arrays.
  *
  * @warning The ``charm@P@_point`` structure created by this function *must* be
- * deallocated using ``charm@P@_crd_point_free()``.  The usual deallocation
- * with ``free`` will lead to memory leaks.
+ * deallocated using ``charm@P@_crd_point_free()``. The usual deallocation with
+ * ``free`` will lead to memory leaks.
+ *
+ * @returns On success, returned is a pointer to the ``charm@P@_point``
+ * structure. On error, ``NULL`` is returned. Errors include memory allocation
+ * failures and incorrect input arguments (e.g., ``nlat < 1``, ``nlon < 1`` or
+ * unsupported value of ``type``).
  *
  * */
 extern charm@P@_point *charm@P@_crd_point_init(int type,
@@ -400,11 +431,11 @@ extern charm@P@_point *charm@P@_crd_point_init(int type,
 
 
 
-/** Frees the memory associated with ``pnt``.  No operation is performed if
- * ``pnt`` is ``NULL``.
- * 
- * If ``pnt->owner`` is ``1``, the function releases all the memory that is
- * associated with ``pnt``, including that of its array members.  If
+/** @brief Frees the memory associated with ``pnt``. No operation is performed
+ * if ``pnt`` is ``NULL``.
+ *
+ * @details If ``pnt->owner`` is ``1``, the function releases all the memory
+ * that is associated with ``pnt``, including that of its array members. If
  * ``pnt->owner`` is ``0``, the arrays are not released from the memory,
  * because they were not allocated by CHarm.
  *
@@ -412,36 +443,51 @@ extern charm@P@_point *charm@P@_crd_point_init(int type,
 extern void charm@P@_crd_point_free(charm@P@_point *pnt);
 
 
+/**
+ * @}
+ * */
+/* ......................................................................... */
 
 
 
 
-/** Prepares a ``charm@P@_point`` structure of the Gauss-Legendre grid that is
- * associated with the maximum harmonic degree ``nmax`` (Sneeuw, 1994) and
- * resides on the sphere with the radius ``r``. The integration weights are
- * computed on the *unit* sphere.
+
+
+/* ......................................................................... */
+/** @name Quadrature point grids
  *
- * On success, returned is a pointer to the ``charm@P@_point`` structure.  On
- * error, ``NULL`` is returned.  In addition to the memory allocation failure,
- * the error may be due to the exceeded maximum number of iterations to compute
- * the latitudes or due to the overflow problem.  The latter may happen in
- * *single* precision if ``nmax`` is larger than ``7200`` or so.  The overflow
- * check is *not* performed if your ``math.h`` system header file does not
- * define the ``isfinite`` macro or if the macro is present, but it does not
- * work properly with the specified floating point data type (particularly
- * ``__float128``).  You may want to inspect the output of the
- * ``charm_misc_print_version`` function to see if CHarm utilizes the
- * ``isfinite`` macro.
+ * These functions compute the Gauss-Legendre and Driscoll-Healy quadrature
+ * grids and the associated integration weights.
  *
- * Loops are parallelized using OpenMP.
+ * @{
+ * */
+
+
+/** @brief Computes the Gauss-Legendre grid associated with the harmonic degree
+ * ``nmax`` (Sneeuw, 1994) on the sphere with the radius ``r``. The integration
+ * weights are computed on the *unit* sphere.
+ *
+ * @details Loops are parallelized using OpenMP.
  *
  * \verbatim embed:rst:leading-asterisk
  *      .. note::
  *
- *          The Gauss-Legendre grid is non-equiangular in terms of the 
- *          latitude.  The longitudinal step is constant.
+ *          The Gauss-Legendre grid is non-equiangular in latitude. The
+ *          longitudinal step is constant.
  *
  * \endverbatim
+ *
+ * @returns On success, returned is a pointer to the ``charm@P@_point``
+ * structure. On error, ``NULL`` is returned. In addition to the memory
+ * allocation failure, the error may be due to the exceeded maximum number of
+ * iterations to compute the latitudes or due to the overflow problem. The
+ * latter may happen in *single* precision if ``nmax`` is larger than ``7200``
+ * or so. The overflow check is *not* performed if your ``math.h`` system
+ * header file does not define the ``isfinite`` macro or if the macro is
+ * present, but it does not work properly with the specified floating point
+ * data type (particularly ``__float128``). You may want to inspect the output
+ * of the ``charm@P@_misc_print_version()`` function to see if CHarm utilizes
+ * the ``isfinite`` macro.
  *
  * */
 extern charm@P@_point *charm@P@_crd_point_gl(unsigned long nmax,
@@ -452,16 +498,15 @@ extern charm@P@_point *charm@P@_crd_point_gl(unsigned long nmax,
 
 
 
-/** Prepares a ``charm@P@_point`` structure of the non-equiangular
- * Driscoll-Healy grid (as defined by Driscoll and Healy, 1994) that is
- * associated with the maximum spherical harmonic degree ``nmax`` and resides
- * on the sphere with the radius ``r``.  The integration weights are computed
- * on the *unit* sphere.
+/** @brief Computes the non-equiangular Driscoll-Healy grid (as defined by
+ * Driscoll and Healy, 1994) associated with the maximum spherical harmonic
+ * degree ``nmax`` on the sphere with the radius ``r``. The integration weights
+ * are computed on the *unit* sphere.
  *
- * On success, returned is a pointer to the ``charm@P@_point`` structure.  On
- * error, ``NULL`` is returned.
+ * @details Loops are parallelized using OpenMP.
  *
- * Loops are parallelized using OpenMP. */
+ * @returns On success, returned is a pointer to the ``charm@P@_point``
+ * structure. On error, ``NULL`` is returned.  */
 extern charm@P@_point *charm@P@_crd_point_dh1(unsigned long nmax,
                                               @RDT@ r);
 
@@ -470,69 +515,81 @@ extern charm@P@_point *charm@P@_crd_point_dh1(unsigned long nmax,
 
 
 
-/** The same as ``charm@P@_crd_point_dh1()`` but for an equiangular
- * modification of the Driscoll-Healy grid after Wieczorek and Meschede
- * (2018).  */
+/** @brief The same as ``charm@P@_crd_point_dh1()`` but for the equiangular
+ * modification of the Driscoll-Healy grid after Wieczorek and Meschede (2018).
+ * */
 extern charm@P@_point *charm@P@_crd_point_dh2(unsigned long nmax,
                                               @RDT@ r);
 
 
+/**
+ * @}
+ * */
+/* ......................................................................... */
 
 
 
 
-/** Returns a pointer to the ``charm@P@_cell`` structure that is created for
- * a given ``type`` with ``nlat`` minimum and maximum latitudes, ``nlon``
- * minimum and maximum longitudes and ``nlat`` spherical radii.  The memory of
- * all array members of ``charm@P@_cell`` is uninitialized.
+
+
+/* ......................................................................... */
+/** @name Allocate, initialize and free the charm@P@_cell structure
  *
- * Valid values of ``type`` are all symbolic constants ``CHARM_CRD_CELL_*``.
+ * These functions allocate, initialize and free the ``charm@P@_cell``
+ * structure, which is designed to store evaluation cells.
  *
- * On success, returned is a pointer to the ``charm@P@_cell`` structure.  On
- * error, ``NULL`` is returned.  Errors include memory allocation failures and
- * incorrect input arguments (e.g., ``nlat < 1``, ``nlon < 1`` or unsupported
- * value of ``type``).
+ * @{
+ * */
+
+
+/** @brief Allocates evaluation cells of a given ``type`` with ``nlat`` minimum
+ * and maximum latitudes, ``nlon`` minimum and maximum longitudes and ``nlat``
+ * spherical radii. The memory of all array elements is uninitialized, so their
+ * values are undefined.
  *
- * \verbatim embed:rst:leading-asterisk
- *  .. note::
+ * @details Valid values of ``type`` are all constants
+ * ``::CHARM_CRD_CELL_GRID`` and ``::CHARM_CRD_CELL_SCATTERED``.
  *
- *      * For ``charm@P@_cell *cell`` returned by this function with ``type``
- *        being equal to ``CHARM_CRD_CELL_GRID*``, the coordinates of the grid
- *        cell on the ``i``-th latitude parallel and the ``j``-th meridian have
- *        to be accessed as
+ * * For ``charm@P@_cell *cell`` returned by this function with ``type`` being
+ *   ``::CHARM_CRD_CELL_GRID``, the coordinates of the grid cell on the
+ *   ``i``-th latitude parallel and the ``j``-th meridian have to be accessed
+ *   as
  *
- *        - ``cell->latmin[i]`` for the minimum cell latitude,
+ *   - ``cell->latmin[i]`` for the minimum cell latitude,
  *
- *        - ``cell->latmax[i]`` for the maximum cell latitude,
+ *   - ``cell->latmax[i]`` for the maximum cell latitude,
  *
- *        - ``cell->lonmin[j]`` for the minimum cell longitude,
+ *   - ``cell->lonmin[j]`` for the minimum cell longitude,
  *
- *        - ``cell->lonmax[j]`` for the maximum cell longitude,
+ *   - ``cell->lonmax[j]`` for the maximum cell longitude,
  *
- *        - ``cell->r[i]`` for the spherical radii
+ *   - ``cell->r[i]`` for the spherical radii
  *
- *        with ``i = 0, 1, ..., nlat - 1`` and ``j = 0, 1, ..., nlon - 1``.
+ *   with ``i = 0, 1, ..., nlat - 1`` and ``j = 0, 1, ..., nlon - 1``.
  *
- *      * For ``type`` set to ``CHARM_CRD_CELL_SCATTERED``, the coordinates of
- *        the ``i``-th cell have to be accessed as
+ * * For ``type`` set to ``::CHARM_CRD_CELL_SCATTERED``, the coordinates of the
+ *   ``i``-th cell have to be accessed as
  *
- *        - ``cell->latmin[i]`` for the minimum cell latitude,
+ *   - ``cell->latmin[i]`` for the minimum cell latitude,
  *
- *        - ``cell->latmax[i]`` for the maximum cell latitude,
+ *   - ``cell->latmax[i]`` for the maximum cell latitude,
  *
- *        - ``cell->lonmin[i]`` for the minimum cell longitude,
+ *   - ``cell->lonmin[i]`` for the minimum cell longitude,
  *
- *        - ``cell->lonmax[i]`` for the maximum cell longitude,
+ *   - ``cell->lonmax[i]`` for the maximum cell longitude,
  *
- *        - ``cell->r[i]`` for the spherical radii
+ *   - ``cell->r[i]`` for the spherical radii
  *
- *        with ``i = 0, 1, ..., nlat - 1``, ``nlat == nlon``.
- *
- * \endverbatim
+ *   with ``i = 0, 1, ..., nlat - 1``, ``nlat == nlon``.
  *
  * @warning The structure returned *must* be deallocated by calling
- * ``charm@P@_crd_cell_free()``.  The usual deallocation with ``free`` will
- * lead to memory leaks.
+ * ``charm@P@_crd_cell_free()``. The usual deallocation with ``free`` will lead
+ * to memory leaks.
+ *
+ * @returns On success, returned is a pointer to the ``charm@P@_cell``
+ * structure. On error, ``NULL`` is returned. Errors include memory allocation
+ * failures and incorrect input arguments (e.g., ``nlat < 1``, ``nlon < 1`` or
+ * unsupported value of ``type``).
  *
  * */
 extern charm@P@_cell *charm@P@_crd_cell_malloc(int type,
@@ -544,8 +601,8 @@ extern charm@P@_cell *charm@P@_crd_cell_malloc(int type,
 
 
 
-/** The same as ``charm@P@_crd_cell_malloc()`` but the memory of all arrays is
- * initialized to zero. */
+/** @brief The same as ``charm@P@_crd_cell_malloc()`` but the memory of all
+ * array elements is initialized to zero. */
 extern charm@P@_cell *charm@P@_crd_cell_calloc(int type,
                                                size_t nlat,
                                                size_t nlon);
@@ -555,18 +612,22 @@ extern charm@P@_cell *charm@P@_crd_cell_calloc(int type,
 
 
 
-/** Returns a pointer to the ``charm@P@_cell`` structure that is created for
- * a given ``type`` from user-defined data (shallow copy).  Accepted values of
- * ``type`` are ``CHARM_CRD_CELL_*``.
+/** @brief For a given ``type``, takes ``nlat`` minimum and maximum spherical
+ * latitudes from the arrays pointed to by ``latmin`` and ``latmax``, ``nlon``
+ * minimum and maximum spherical longitudes from ``lonmin`` and ``lonmax`` and
+ * ``nlat`` spherical radii from ``r``, respectively (shallow copy).
  *
- * * If ``type == CHARM_CRD_CELL_SCATTERED``,
+ * @details Accepted values of ``type`` are ``::CHARM_CRD_CELL_GRID`` and
+ * ``::CHARM_CRD_CELL_SCATTERED``.
+ *
+ * * If ``type`` is ``::CHARM_CRD_CELL_SCATTERED``,
  *
  *   - ``nlat`` must be equal to ``nlon`` and
  *
  *   - each of ``latmin``, ``latmax``, ``lonmin``, ``lonmax`` and ``r`` must
  *     have access to ``nlat`` elements.
  *
- * * If ``type == CHARM_CRD_CELL_GRID``,
+ * * If ``type`` is ``::CHARM_CRD_CELL_GRID``,
  *
  *   - ``latmin`` and ``latmax`` must each have access to ``nlat`` elements,
  *
@@ -574,22 +635,22 @@ extern charm@P@_cell *charm@P@_crd_cell_calloc(int type,
  *
  *   - ``r`` must have access to ``nlat`` elements.
  *
- * On success, returned is a pointer to the ``charm@P@_cell`` structure.  On
- * error, ``NULL`` is returned.  Errors include memory allocation failures and
- * incorrect input arguments (e.g., ``nlat < 1``, ``nlon < 1`` or unsupported
- * value of ``type``).
- *
  * @note See ``charm@P@_crd_cell_malloc()`` to find out how to access the
  * coordinates stored in the returned ``charm@P@_cell`` structure.
  *
  * @note See ``charm@P@_shc_init()`` for the rationale behind the shallow
  * copies of input arrays ``latmin``, ``latmax``, ``lonmin``, ``lonmax`` and
- * ``r``.  The memory of these arrays must be treated in the same fashion as
+ * ``r``. The memory of these arrays must be treated in the same fashion as
  * shown therein with the ``c`` and ``s`` arrays.
  *
  * @warning The ``charm@P@_cell`` structure created by this function *must* be
- * deallocated using ``charm@P@_crd_cell_free()``.  The usual deallocation with
+ * deallocated using ``charm@P@_crd_cell_free()``. The usual deallocation with
  * ``free`` will lead to memory leaks.
+ *
+ * @returns On success, returned is a pointer to the ``charm@P@_cell``
+ * structure. On error, ``NULL`` is returned. Errors include memory allocation
+ * failures and incorrect input arguments (e.g., ``nlat < 1``, ``nlon < 1`` or
+ * unsupported value of ``type``).
  *
  * */
 extern charm@P@_cell *charm@P@_crd_cell_init(int type,
@@ -606,14 +667,20 @@ extern charm@P@_cell *charm@P@_crd_cell_init(int type,
 
 
 
-/** Frees the memory associated with ``cell``.  No operation is performed if
- * ``cell`` is ``NULL``.
- * 
- * If ``cell->owner`` is ``1``, the function releases all the memory that is
- * associated with ``cell``, including that of its array members.  If
+/** @brief Frees the memory associated with ``cell``. No operation is performed
+ * if ``cell`` is ``NULL``.
+ *
+ * @details If ``cell->owner`` is ``1``, the function releases all the memory
+ * that is associated with ``cell``, including that of its array members. If
  * ``cell->owner`` is ``0``, the arrays are not released from the memory,
  * because they were not allocated by CHarm.  */
 extern void charm@P@_crd_cell_free(charm@P@_cell *cell);
+
+
+/**
+ * @}
+ * */
+/* ......................................................................... */
 /* ------------------------------------------------------------------------- */
 
 

@@ -120,20 +120,21 @@ typedef struct
      * one to harmonic degrees. Importantly, the number of columns varies for
      * each row as follows:
      *
-     * * Order ``0``: ``c[0]`` has ``nmax + 1`` columns for degrees ``0``,
-     *   ``1``, ..., ``nmax`` (respectively),
+     * * Order ``0``: ``c[0]`` has ``charm@P@_shc.nmax + 1`` columns for
+     *   degrees ``0``, ``1``, ..., ``charm@P@_shc.nmax`` (respectively),
      *
-     * * Order ``1``: ``c[1]`` has ``nmax`` columns for degrees ``1``, ``2``,
-     *   ..., ``nmax`` (respectively),
+     * * Order ``1``: ``c[1]`` has ``charm@P@_shc.nmax`` columns for degrees
+     *   ``1``, ``2``, ..., ``charm@P@_shc.nmax`` (respectively),
      *
-     * * Order ``2``: ``c[2]`` has ``nmax - 1`` columns for degrees ``2``,
-     *   ``3``, ..., ``nmax`` (respectively),
+     * * Order ``2``: ``c[2]`` has ``charm@P@_shc.nmax - 1`` columns for
+     *   degrees ``2``, ``3``, ..., ``charm@P@_shc.nmax`` (respectively),
      *
      * * ...
      *
-     * * Order ``nmax``: ``c[nmax]`` has ``1`` column for degree ``nmax``.
+     * * Order ``charm@P@_shc.nmax``: ``c[charm@P@_shc.nmax]`` has ``1`` column
+     * for degree ``charm@P@_shc.nmax``.
      *
-     * @warning ``c`` is *not* a 2D rectangular array.
+     * @warning ``charm@P@_shc.c`` is *not* a 2D rectangular array.
      *
      * Assuming the ``charm@P@_shc`` structure was initialized up to some 
      * degree ``unsigned long nmax`` as 
@@ -156,14 +157,15 @@ typedef struct
      *
      * \endverbatim
      *
-     * The coefficients in ``c`` are stored in a contiguous block of
-     * memory. For fast sequential access, the loop over harmonic orders should
-     * always be the outer one, in which the degree-dependent loop is nested,
-     * such as:
+     * The coefficients in ``charm@P@_shc.c`` are stored in a contiguous block
+     * of memory. For fast sequential access, the loop over harmonic orders
+     * should always be the outer one, in which the degree-dependent loop is
+     * nested, such as:
      *
      * \verbatim embed:rst:leading-asterisk
      * .. code-block:: c
      *
+     *     charm@P@_shc *shcs = charm@P@_shc_calloc(nmax, 1.0, 1.0);
      *     for (unsigned long m = 0; m <= nmax; m++)
      *         for (unsigned long n = m; n <= nmax; n++)
      *             shcs->c[m][n - m];
@@ -174,22 +176,23 @@ typedef struct
 
 
     /** Spherical harmonic coefficients \f$\bar{S}_{nm}\f$. The same comments
-     * as for ``c`` apply to ``s``, too.  */
+     * as for ``charm@P@_shc.c`` apply to ``charm@P@_shc.s``, too.  */
     @RDT@ **s;
 
 
-    /** If ``1``, the spherical harmonic coefficients in ``c`` and ``s`` were
-     * allocated by CHarm, so ``charm@P@_shc_free()`` deallocates them. If
-     * ``owner`` is ``0``, the coefficients in ``c`` and ``s`` were allocated
-     * outside CHarm, so ``charm@P@_shc_free()`` does *not* deallocate them
-     * (the user allocated this memory outside CHarm, so the user should free
-     * the memory outside CHarm as well).
+    /** If ``1``, the spherical harmonic coefficients in ``charm@P@_shc.c`` and
+     * ``charm@P@_shc.s`` were allocated by CHarm, so ``charm@P@_shc_free()``
+     * deallocates them. If ``charm@P@_shc.owner`` is ``0``, the coefficients
+     * in ``charm@P@_shc.c`` and ``charm@P@_shc.s`` were allocated outside
+     * CHarm, so ``charm@P@_shc_free()`` does *not* deallocate them (the user
+     * allocated this memory outside CHarm, so the user should free the memory
+     * outside CHarm as well).
      *
      *
-     * ``owner`` is set to ``1`` for ``charm@P@_shc`` returned by
+     * ``charm@P@_shc.owner`` is set to ``1`` for ``charm@P@_shc`` returned by
      * ``charm@P@_shc_malloc()`` and ``charm@P@_shc_calloc()``.
-     * ``charm@P@_shc_init()`` returns ``charm@P@_shc`` with ``owner`` set to
-     * ``0``.*/
+     * ``charm@P@_shc_init()`` returns ``charm@P@_shc`` with
+     * ``charm@P@_shc.owner`` set to ``0``.*/
     _Bool owner;
 } charm@P@_shc;
 /* ------------------------------------------------------------------------- */
