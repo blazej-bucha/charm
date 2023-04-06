@@ -98,6 +98,79 @@ extern "C"
 /** @brief Prints library info to ``stdout`` (library name, version,
  * compilation date, precision, etc). */
 extern void charm@P@_misc_print_version(void);
+
+
+
+
+
+
+/** @brief Returns:
+ *
+ * * ``1`` if CHarm was compiled in single precision
+ *   (``--enable-single-precision``),
+ *
+ * * ``2`` if CHarm was compiled in double precision
+ *   (``--enable-double-precision`` or no precision flag),
+ *
+ * * ``3`` if CHarm was compiled quadruple precision
+ *   (``--enable-quad-precision``). */
+extern int charm@P@_misc_buildopt_precision(void);
+
+
+
+
+
+
+/** @brief Returns a non-zero value if CHarm was compiled with the OpenMP
+ * parallelization enabled (``--enable-openmp``).  Otherwise, zero is
+ * returned. */
+extern int charm@P@_misc_buildopt_omp_charm(void);
+
+
+
+
+
+
+/** @brief Returns a non-zero value if the host's FFTW library supports OpenMP
+ * parallelization.  Otherwise, zero is returned.
+ *
+ * @details If non-zero, all FFTW computations are parallelized. */
+extern int charm@P@_misc_buildopt_omp_fftw(void);
+
+
+
+
+
+
+/** @brief Returns:
+ *
+ * * ``0`` if CHarm was compiled with SIMD instructions disabled,
+ *
+ * * ``1`` if CHarm was compiled with AVX instructions enabled
+ *   (``--enable-avx``),
+ *
+ * * ``2`` if CHarm was compiled with AVX2 instructions enabled
+ *   (``--enable-avx2``),
+ *
+ * * ``3`` if CHarm was compiled with AVX-512 instructions enabled
+ *   (``--enable-avx-512``).
+ *
+ * */
+extern int charm@P@_misc_buildopt_simd(void);
+
+
+
+
+
+
+/** @brief Returns a non-zero value if correctly working ``isfinite`` macro was
+ * found in the system's ``math.h`` header file before the compilation.
+ * Otherwise, zero is returned.
+ *
+ * @details On some systems, the ``isfinite`` macro is available in ``math.h``
+ * but is not working correctly with ``__float128`` floating point data type
+ * (quadruple precision).  In that case, zero is returned. */
+extern int charm@P@_misc_buildopt_isfinite(void);
 /* ------------------------------------------------------------------------- */
 
 

@@ -114,7 +114,10 @@ am_libcharm@P@_misc@OMP@_la_OBJECTS = misc_arr_chck_lin_incr.lo \
 	misc_is_nearly_equal.lo misc_fprintf_real.lo \
 	misc_print_version.lo misc_str2ul.lo misc_str2real.lo \
 	misc_calloc.lo misc_polar_optimization_apply.lo \
-	misc_polar_optimization_threshold.lo
+	misc_polar_optimization_threshold.lo \
+	misc_buildopt_precision.lo misc_buildopt_omp_charm.lo \
+	misc_buildopt_omp_fftw.lo misc_buildopt_simd.lo \
+	misc_buildopt_isfinite.lo
 libcharm@P@_misc@OMP@_la_OBJECTS =  \
 	$(am_libcharm@P@_misc@OMP@_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -140,7 +143,12 @@ am__depfiles_remade = ./$(DEPDIR)/misc_arr_chck_lin_incr.Plo \
 	./$(DEPDIR)/misc_arr_chck_symm.Plo \
 	./$(DEPDIR)/misc_arr_max.Plo ./$(DEPDIR)/misc_arr_mean.Plo \
 	./$(DEPDIR)/misc_arr_min.Plo ./$(DEPDIR)/misc_arr_rms.Plo \
-	./$(DEPDIR)/misc_arr_std.Plo ./$(DEPDIR)/misc_calloc.Plo \
+	./$(DEPDIR)/misc_arr_std.Plo \
+	./$(DEPDIR)/misc_buildopt_isfinite.Plo \
+	./$(DEPDIR)/misc_buildopt_omp_charm.Plo \
+	./$(DEPDIR)/misc_buildopt_omp_fftw.Plo \
+	./$(DEPDIR)/misc_buildopt_precision.Plo \
+	./$(DEPDIR)/misc_buildopt_simd.Plo ./$(DEPDIR)/misc_calloc.Plo \
 	./$(DEPDIR)/misc_fprintf_real.Plo \
 	./$(DEPDIR)/misc_is_nearly_equal.Plo \
 	./$(DEPDIR)/misc_polar_optimization_apply.Plo \
@@ -336,7 +344,12 @@ libcharm@P@_misc@OMP@_la_SOURCES = misc_arr_chck_lin_incr.c \
 								   misc_str2real.c \
 								   misc_calloc.c \
 								   misc_polar_optimization_apply.c \
-								   misc_polar_optimization_threshold.c
+								   misc_polar_optimization_threshold.c \
+								   misc_buildopt_precision.c \
+								   misc_buildopt_omp_charm.c \
+								   misc_buildopt_omp_fftw.c \
+								   misc_buildopt_simd.c \
+								   misc_buildopt_isfinite.c
 
 EXTRA_DIST = *.h
 all: all-am
@@ -400,6 +413,11 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_arr_min.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_arr_rms.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_arr_std.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_buildopt_isfinite.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_buildopt_omp_charm.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_buildopt_omp_fftw.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_buildopt_precision.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_buildopt_simd.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_calloc.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_fprintf_real.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_is_nearly_equal.Plo@am__quote@ # am--include-marker
@@ -527,6 +545,11 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/misc_arr_min.Plo
 	-rm -f ./$(DEPDIR)/misc_arr_rms.Plo
 	-rm -f ./$(DEPDIR)/misc_arr_std.Plo
+	-rm -f ./$(DEPDIR)/misc_buildopt_isfinite.Plo
+	-rm -f ./$(DEPDIR)/misc_buildopt_omp_charm.Plo
+	-rm -f ./$(DEPDIR)/misc_buildopt_omp_fftw.Plo
+	-rm -f ./$(DEPDIR)/misc_buildopt_precision.Plo
+	-rm -f ./$(DEPDIR)/misc_buildopt_simd.Plo
 	-rm -f ./$(DEPDIR)/misc_calloc.Plo
 	-rm -f ./$(DEPDIR)/misc_fprintf_real.Plo
 	-rm -f ./$(DEPDIR)/misc_is_nearly_equal.Plo
@@ -586,6 +609,11 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/misc_arr_min.Plo
 	-rm -f ./$(DEPDIR)/misc_arr_rms.Plo
 	-rm -f ./$(DEPDIR)/misc_arr_std.Plo
+	-rm -f ./$(DEPDIR)/misc_buildopt_isfinite.Plo
+	-rm -f ./$(DEPDIR)/misc_buildopt_omp_charm.Plo
+	-rm -f ./$(DEPDIR)/misc_buildopt_omp_fftw.Plo
+	-rm -f ./$(DEPDIR)/misc_buildopt_precision.Plo
+	-rm -f ./$(DEPDIR)/misc_buildopt_simd.Plo
 	-rm -f ./$(DEPDIR)/misc_calloc.Plo
 	-rm -f ./$(DEPDIR)/misc_fprintf_real.Plo
 	-rm -f ./$(DEPDIR)/misc_is_nearly_equal.Plo

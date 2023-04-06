@@ -248,6 +248,51 @@ precision.</p>
 <dd><p>Prints library info to <code class="docutils literal notranslate"><span class="pre">stdout</span></code> (library name, version, compilation date, precision, etc). </p>
 </dd></dl>
 
+<dl class="cpp function">
+<dt id="_CPPv429charm_misc_buildopt_precisionv">
+<span id="_CPPv329charm_misc_buildopt_precisionv"></span><span id="_CPPv229charm_misc_buildopt_precisionv"></span><span id="charm_misc_buildopt_precision__void"></span><span class="target" id="charm__misc_8h_1a8f7b05e914c623dbfcc864d6e38420c0"></span>int <code class="sig-name descname">charm_misc_buildopt_precision</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv429charm_misc_buildopt_precisionv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns: </p>
+<p><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code> if CHarm was compiled in single precision (<code class="docutils literal notranslate"><span class="pre">--enable-single-precision</span></code>),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2</span></code> if CHarm was compiled in double precision (<code class="docutils literal notranslate"><span class="pre">--enable-double-precision</span></code> or no precision flag),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">3</span></code> if CHarm was compiled quadruple precision (<code class="docutils literal notranslate"><span class="pre">--enable-quad-precision</span></code>). </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv429charm_misc_buildopt_omp_charmv">
+<span id="_CPPv329charm_misc_buildopt_omp_charmv"></span><span id="_CPPv229charm_misc_buildopt_omp_charmv"></span><span id="charm_misc_buildopt_omp_charm__void"></span><span class="target" id="charm__misc_8h_1a379e12f8631a38effa96c917732dee18"></span>int <code class="sig-name descname">charm_misc_buildopt_omp_charm</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv429charm_misc_buildopt_omp_charmv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns a non-zero value if CHarm was compiled with the OpenMP parallelization enabled (<code class="docutils literal notranslate"><span class="pre">--enable-openmp</span></code>). Otherwise, zero is returned. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv428charm_misc_buildopt_omp_fftwv">
+<span id="_CPPv328charm_misc_buildopt_omp_fftwv"></span><span id="_CPPv228charm_misc_buildopt_omp_fftwv"></span><span id="charm_misc_buildopt_omp_fftw__void"></span><span class="target" id="charm__misc_8h_1ac869ccc00d2ef189bd93f256c7d67848"></span>int <code class="sig-name descname">charm_misc_buildopt_omp_fftw</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv428charm_misc_buildopt_omp_fftwv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns a non-zero value if the host’s FFTW library supports OpenMP parallelization. Otherwise, zero is returned. </p>
+<p>If non-zero, all FFTW computations are parallelized. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv424charm_misc_buildopt_simdv">
+<span id="_CPPv324charm_misc_buildopt_simdv"></span><span id="_CPPv224charm_misc_buildopt_simdv"></span><span id="charm_misc_buildopt_simd__void"></span><span class="target" id="charm__misc_8h_1a415dfa0c054083fe821ab89b6a0e4348"></span>int <code class="sig-name descname">charm_misc_buildopt_simd</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424charm_misc_buildopt_simdv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns: </p>
+<p><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code> if CHarm was compiled with SIMD instructions disabled,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code> if CHarm was compiled with AVX instructions enabled (<code class="docutils literal notranslate"><span class="pre">--enable-avx</span></code>),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2</span></code> if CHarm was compiled with AVX2 instructions enabled (<code class="docutils literal notranslate"><span class="pre">--enable-avx2</span></code>),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">3</span></code> if CHarm was compiled with AVX-512 instructions enabled (<code class="docutils literal notranslate"><span class="pre">--enable-avx-512</span></code>). </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv428charm_misc_buildopt_isfinitev">
+<span id="_CPPv328charm_misc_buildopt_isfinitev"></span><span id="_CPPv228charm_misc_buildopt_isfinitev"></span><span id="charm_misc_buildopt_isfinite__void"></span><span class="target" id="charm__misc_8h_1a39d6ec21ee423b8fae3f36a4a7851663"></span>int <code class="sig-name descname">charm_misc_buildopt_isfinite</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv428charm_misc_buildopt_isfinitev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns a non-zero value if correctly working <code class="docutils literal notranslate"><span class="pre">isfinite</span></code> macro was found in the system’s <code class="docutils literal notranslate"><span class="pre">math.h</span></code> header file before the compilation. Otherwise, zero is returned. </p>
+<p>On some systems, the <code class="docutils literal notranslate"><span class="pre">isfinite</span></code> macro is available in <code class="docutils literal notranslate"><span class="pre">math.h</span></code> but is not working correctly with <code class="docutils literal notranslate"><span class="pre">__float128</span></code> floating point data type (quadruple precision). In that case, zero is returned. </p>
+</dd></dl>
+
 </div>
 </div>
 

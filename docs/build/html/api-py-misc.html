@@ -203,6 +203,62 @@
 etc).</p>
 </dd></dl>
 
+<dl class="py function">
+<dt id="pyharm.misc.buildopt_precision">
+<code class="sig-prename descclassname">pyharm.misc.</code><code class="sig-name descname">buildopt_precision</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.misc.buildopt_precision" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code> if CHarm was compiled in single precision
+(<code class="docutils literal notranslate"><span class="pre">--enable-single-precision</span></code>),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2</span></code> if CHarm was compiled in double precision
+(<code class="docutils literal notranslate"><span class="pre">--enable-double-precision</span></code> or no precision flag),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">3</span></code> if CHarm was compiled quadruple precision
+(<code class="docutils literal notranslate"><span class="pre">--enable-quad-precision</span></code>).</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyharm.misc.buildopt_omp_charm">
+<code class="sig-prename descclassname">pyharm.misc.</code><code class="sig-name descname">buildopt_omp_charm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.misc.buildopt_omp_charm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a non-zero value if CHarm was compiled with the OpenMP
+parallelization enabled (<code class="docutils literal notranslate"><span class="pre">--enable-openmp</span></code>).  Otherwise, zero is
+returned.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyharm.misc.buildopt_omp_fftw">
+<code class="sig-prename descclassname">pyharm.misc.</code><code class="sig-name descname">buildopt_omp_fftw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.misc.buildopt_omp_fftw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a non-zero value if the host’s FFTW library supports OpenMP
+parallelization.  Otherwise, zero is returned.</p>
+<p>If non-zero, all FFTW computations are parallelized.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyharm.misc.buildopt_simd">
+<code class="sig-prename descclassname">pyharm.misc.</code><code class="sig-name descname">buildopt_simd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.misc.buildopt_simd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code> if CHarm was compiled with SIMD instructions disabled,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code> if CHarm was compiled with AVX instructions enabled
+(<code class="docutils literal notranslate"><span class="pre">--enable-avx</span></code>),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2</span></code> if CHarm was compiled with AVX2 instructions enabled
+(<code class="docutils literal notranslate"><span class="pre">--enable-avx2</span></code>),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">3</span></code> if CHarm was compiled with AVX-512 instructions enabled
+(<code class="docutils literal notranslate"><span class="pre">--enable-avx-512</span></code>).</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyharm.misc.buildopt_isfinite">
+<code class="sig-prename descclassname">pyharm.misc.</code><code class="sig-name descname">buildopt_isfinite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.misc.buildopt_isfinite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a non-zero value if correctly working <code class="docutils literal notranslate"><span class="pre">isfinite</span></code> macro was found
+in the system’s <code class="docutils literal notranslate"><span class="pre">math.h</span></code> header file before the compilation.  Otherwise,
+zero is returned.</p>
+<p>On some systems, the <code class="docutils literal notranslate"><span class="pre">isfinite</span></code> macro is available in <code class="docutils literal notranslate"><span class="pre">math.h</span></code> but is
+not working correctly with <code class="docutils literal notranslate"><span class="pre">__float128</span></code> floating point data type
+(quadruple precision).  In that case, zero is returned.</p>
+</dd></dl>
+
 </div>
 
 

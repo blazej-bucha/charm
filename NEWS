@@ -35,6 +35,15 @@ Upcoming release:
   if applied, polar optimization).  In sha, the dynamic scheduling has been in 
   use right from the beginning.
 
+* Added functions to check various features of CHarm that are determined during 
+  the compilation time:
+
+  * charm_misc_buildopt_precision,
+  * charm_misc_buildopt_omp_charm,
+  * charm_misc_buildopt_omp_fftw,
+  * charm_misc_buildopt_simd,
+  * charm_misc_buildopt_isfinite.
+
 * Added tests for "charm_integ_pn1m1pn2m2" and "charm_integ_yi1n1m1yi2n2m2".
 
 * The function "charm_leg_pnmj_length" was removed from the API.  The number of 

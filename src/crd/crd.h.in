@@ -482,12 +482,8 @@ extern void charm@P@_crd_point_free(charm@P@_point *pnt);
  * allocation failure, the error may be due to the exceeded maximum number of
  * iterations to compute the latitudes or due to the overflow problem. The
  * latter may happen in *single* precision if ``nmax`` is larger than ``7200``
- * or so. The overflow check is *not* performed if your ``math.h`` system
- * header file does not define the ``isfinite`` macro or if the macro is
- * present, but it does not work properly with the specified floating point
- * data type (particularly ``__float128``). You may want to inspect the output
- * of the ``charm@P@_misc_print_version()`` function to see if CHarm utilizes
- * the ``isfinite`` macro.
+ * or so. The overflow check is *not* performed if the output from
+ * ``charm@P@_misc_buildopt_isfinite()`` is zero.
  *
  * */
 extern charm@P@_point *charm@P@_crd_point_gl(unsigned long nmax,

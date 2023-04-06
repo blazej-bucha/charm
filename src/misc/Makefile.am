@@ -18,7 +18,12 @@ libcharm@P@_misc@OMP@_la_SOURCES = misc_arr_chck_lin_incr.c \
 								   misc_str2real.c \
 								   misc_calloc.c \
 								   misc_polar_optimization_apply.c \
-								   misc_polar_optimization_threshold.c
+								   misc_polar_optimization_threshold.c \
+								   misc_buildopt_precision.c \
+								   misc_buildopt_omp_charm.c \
+								   misc_buildopt_omp_fftw.c \
+								   misc_buildopt_simd.c \
+								   misc_buildopt_isfinite.c
 
 
 EXTRA_DIST = *.h

@@ -3,6 +3,7 @@
 #include <config.h>
 #include <stdio.h>
 #include "../prec.h"
+#include "misc_buildopt.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -12,7 +13,6 @@
 
 void CHARM(misc_print_version)(void)
 {
-
     printf(
 
 
@@ -32,66 +32,62 @@ void CHARM(misc_print_version)(void)
 #ifdef PACKAGE_BUGREPORT
     "Bug-report: " PACKAGE_BUGREPORT "\n"
 #endif
-    "License: The 3-Clause BSD License\n"
-
-
-    "\n"
-    "Precision: "
-#if CHARM_FLOAT
-        "single"
-#elif CHARM_QUAD
-        "quadruple"
-#else
-        "double"
-#endif
-
-
-    "\n"
-    "OpenMP in CHarm: "
-#if CHARM_PARALLEL
-        "enabled"
-#else
-        "disabled"
-#endif
-
-
-    "\n"
-    "OpenMP in FFTW: "
-#if FFTW3_OMP
-        "enabled"
-#else
-        "disabled"
-#endif
-
-
-    "\n"
-    "SIMD parallelism: "
-#if HAVE_AVX_INSTRUCTIONS
-    "avx"
-#elif HAVE_AVX2_INSTRUCTIONS
-    "avx2"
-#elif HAVE_AVX512F_INSTRUCTIONS
-    "avx-512"
-#endif
-#if !(HAVE_AVX_INSTRUCTIONS) && !(HAVE_AVX2_INSTRUCTIONS) && \
-    !(HAVE_AVX512F_INSTRUCTIONS)
-    "none"
-#endif
-
-
-    "\n"
-    "isfinite macro in math.h: "
-#if HAVE_ISFINITE
-        "yes"
-#else
-        "no"
-#endif
-
-
-    "\n"
+    "License: The 3-Clause BSD License\n\n"
 
 
     );
+
+
+    printf("Precision: ");
+    int ret = CHARM(misc_buildopt_precision)();
+    if (ret == BUILDOPT_PRECISION_SINGLE)
+        printf("single");
+    else if (ret == BUILDOPT_PRECISION_DOUBLE)
+        printf("double");
+    else if (ret == BUILDOPT_PRECISION_QUAD)
+        printf("quadruple");
+    else
+        printf("unsupported value, recompile CHarm");
+    printf("\n");
+
+
+    printf("OpenMP in CHarm: ");
+    if (CHARM(misc_buildopt_omp_charm)())
+        printf("enabled");
+    else
+        printf("disabled");
+    printf("\n");
+
+
+    printf("OpenMP in FFTW: ");
+    if (CHARM(misc_buildopt_omp_fftw)())
+        printf("enabled");
+    else
+        printf("disabled");
+    printf("\n");
+
+
+    printf("SIMD parallelism: ");
+    ret = CHARM(misc_buildopt_simd)();
+    if (ret == BUILDOPT_SIMD_NONE)
+        printf("none");
+    else if (ret == BUILDOPT_SIMD_AVX)
+        printf("avx");
+    else if (ret == BUILDOPT_SIMD_AVX2)
+        printf("avx2");
+    else if (ret == BUILDOPT_SIMD_AVX512)
+        printf("avx-512");
+    else
+        printf("unsupported value, recompile CHarm");
+    printf("\n");
+
+
+    printf("isfinite macro in math.h: " );
+    if (CHARM(misc_buildopt_isfinite)())
+        printf("yes");
+    else
+        printf("no");
+    printf("\n");
 
 
     return;
