@@ -135,10 +135,6 @@ extern "C"
  *
  *          -90.0, -80.0, -75.0, -70.0, -69.0, 69.0, 70.0, 75.0, 80.0, 90.0
  *
- *
- * */
-/**
- *
  * * Examples of some **non-symmetric** grids (shown are only latitudes again):
  *
  *   - The negative latitude of ``-90.0 deg`` does not have its positive 
@@ -192,8 +188,7 @@ extern "C"
  *   ultra-high degree of Bouguer and isostatic anomalies. Journal of Geodesy 
  *   86:499-520, doi: 10.1007/s00190-011-0533-4
  *
- * */
-/** @note The function does not use ``cell->w``, so no constrains are applied.
+ * @note The function does not use ``cell->w``, so no constrains are applied.
  *
  * @param[in] pnt Evaluation points, organized either as a **grid** or as
  * **scattered points** (see ``charm@P@_point``).
@@ -273,7 +268,7 @@ extern void charm@P@_shs_point(const charm@P@_point *pnt,
  * are employed along the parallels.  The latter option is slower.  The 
  * following conditions must be satisfied in order for CHarm to apply FFT:
  *
- * - ``cell->nlon > 1``, and
+ * - ``cell->nlon > 1``,
  *
  * - ``(cell->nlon - 1) / 2 >= nmax``, where the division is rounded down,
  *
@@ -283,7 +278,7 @@ extern void charm@P@_shs_point(const charm@P@_point *pnt,
  *   (``::charm@P@_glob_threshold``),
  *
  * - ``cell->lonmax[2 * cell->nlon - 1] == 2.0 * PI`` within the numerical
- *   threshold (``::charm@P@_glob_threshold``),
+ *   threshold (``::charm@P@_glob_threshold``), and
  *
  * - the maximum longitude of the ``j``th cell must be equal to the minimum 
  *   longitude of the ``j + 1``th cell.

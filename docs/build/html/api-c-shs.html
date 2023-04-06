@@ -254,10 +254,7 @@
 </p></li>
 </ul>
 </p></li>
-</ul>
-</p>
-<p>Examples of some <strong>non-symmetric</strong> grids (shown are only latitudes again):</p>
-<p><ul class="simple">
+<li><p>Examples of some <strong>non-symmetric</strong> grids (shown are only latitudes again):<ul>
 <li><p>The negative latitude of <code class="docutils literal notranslate"><span class="pre">-90.0</span> <span class="pre">deg</span></code> does not have its positive counterpart <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">-</span><span class="mf">90.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">60.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">30.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="mf">60.0</span>
 </pre></div>
 </div>
@@ -267,9 +264,8 @@
 </div>
 </p></li>
 </ul>
-</p>
-<p>In other words, the grid is symmetric in the latitudinal direction, provided that all positive latitudes have their negative counterparts at the right places. The check is done within a given threshold to suppress numerical inaccuracies, see the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1afb419caab47d66aff55c04d1339b4f7d"><span class="std std-ref"><span class="pre">charm_glob_threshold2</span></span></a></code> variable in the <a class="reference external" href="./api-c-glob.html">charm_glob</a> module. The zero latitude, i.e., the equator, may be present in the grid (again, within the specified numerical threshold <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1afb419caab47d66aff55c04d1339b4f7d"><span class="std std-ref"><span class="pre">charm_glob_threshold2</span></span></a></code>).</p>
-<p><ul class="simple">
+</p></li>
+<li><p>In other words, the grid is symmetric in the latitudinal direction, provided that all positive latitudes have their negative counterparts at the right places. The check is done within a given threshold to suppress numerical inaccuracies, see the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1afb419caab47d66aff55c04d1339b4f7d"><span class="std std-ref"><span class="pre">charm_glob_threshold2</span></span></a></code> variable in the <a class="reference external" href="./api-c-glob.html">charm_glob</a> module. The zero latitude, i.e., the equator, may be present in the grid (again, within the specified numerical threshold <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1afb419caab47d66aff55c04d1339b4f7d"><span class="std std-ref"><span class="pre">charm_glob_threshold2</span></span></a></code>).</p></li>
 <li><p>The longitudes of the grid must be sampled increasingly with equal spacing, that is, the difference between any two consecutive longitudes must be positive and constant. The function performs a check on this. If the longitudes do not pass the test, an error message is written to <code class="docutils literal notranslate"><span class="pre">err</span></code> and the program returns to the caller.</p></li>
 </ul>
 </p>
@@ -277,16 +273,16 @@
 <li><p>Sneeuw, N. (1994) Global spherical harmonic analysis by least-squares and numerical quadrature methods in historical perspective. Geophysical Journal International 118:707-716</p></li>
 <li><p>Heiskannen, W. A., Moritz, H. (1967) Physical Geodesy. W. H. Freeman and Company, San Francisco, 364 pp</p></li>
 <li><p>Fukushima, T. (2012) Numerical computation of spherical harmonics of arbitrary degree and order by extending exponent of floating point numbers. Journal of Geodesy 86:271-285.</p></li>
-<li><p>Balmino, Vales, Bonvalot, Briais, 2012. Spherical harmonic modelling to ultra-high degree of Bouguer and isostatic anomalies. Journal of Geodesy 86:499-520, doi: 10.1007/s00190-011-0533-4 </p></li>
+<li><p>Balmino, Vales, Bonvalot, Briais, 2012. Spherical harmonic modelling to ultra-high degree of Bouguer and isostatic anomalies. Journal of Geodesy 86:499-520, doi: 10.1007/s00190-011-0533-4</p></li>
 </ul>
 </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The function does not use <code class="docutils literal notranslate"><span class="pre">cell-&gt;w</span></code>, so no constrains are applied.</p>
+<p>The synthesis always starts at degree <code class="docutils literal notranslate"><span class="pre">nmin</span> <span class="pre">=</span> <span class="pre">0</span></code>. To use some other value of <code class="docutils literal notranslate"><span class="pre">nmin</span></code> (but satisfying <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">&lt;=</span> <span class="pre">nmin</span> <span class="pre">&lt;=</span> <span class="pre">nmax</span></code>), you can set the respective coefficients in <code class="docutils literal notranslate"><span class="pre">shcs</span></code> to zero and use the newly modified structure <code class="docutils literal notranslate"><span class="pre">shcs</span></code> as the input to this function. The synthesis will still formally start at degree <code class="docutils literal notranslate"><span class="pre">0</span></code>, but since the coefficients up to degree <code class="docutils literal notranslate"><span class="pre">nmin</span> <span class="pre">-</span> <span class="pre">1</span></code> are zero, they do not contribute to the output signal as required.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The synthesis always starts at degree <code class="docutils literal notranslate"><span class="pre">nmin</span> <span class="pre">=</span> <span class="pre">0</span></code>. To use some other value of <code class="docutils literal notranslate"><span class="pre">nmin</span></code> (but satisfying <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">&lt;=</span> <span class="pre">nmin</span> <span class="pre">&lt;=</span> <span class="pre">nmax</span></code>), you can set the respective coefficients in <code class="docutils literal notranslate"><span class="pre">shcs</span></code> to zero and use the newly modified structure <code class="docutils literal notranslate"><span class="pre">shcs</span></code> as the input to this function. The synthesis will still formally start at degree <code class="docutils literal notranslate"><span class="pre">0</span></code>, but since the coefficients up to degree <code class="docutils literal notranslate"><span class="pre">nmin</span> <span class="pre">-</span> <span class="pre">1</span></code> are zero, they do not contribute to the output signal as required.</p>
+<p>The function does not use <code class="docutils literal notranslate"><span class="pre">cell-&gt;w</span></code>, so no constrains are applied.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -330,11 +326,11 @@
 </p>
 <p>For <strong>grids</strong>, efficient 1D FFT-based algorithm is applied along the latitude parallels whenever possible. Otherwise, the Chebyshev recurrences are employed along the parallels. The latter option is slower. The following conditions must be satisfied in order for CHarm to apply FFT:</p>
 <p><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;nlon</span> <span class="pre">&gt;</span> <span class="pre">1</span></code>, and</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;nlon</span> <span class="pre">&gt;</span> <span class="pre">1</span></code>,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">(cell-&gt;nlon</span> <span class="pre">-</span> <span class="pre">1)</span> <span class="pre">/</span> <span class="pre">2</span> <span class="pre">&gt;=</span> <span class="pre">nmax</span></code>, where the division is rounded down,</p></li>
 <li><p>the longitudinal step <code class="docutils literal notranslate"><span class="pre">dlon</span></code> is constant,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;lonmin[0]</span> <span class="pre">==</span> <span class="pre">0.0</span></code> within the numerical threshold (<code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1ab38bfd45ebf0f622c892ec1d0045c601"><span class="std std-ref"><span class="pre">charm_glob_threshold</span></span></a></code>),</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;lonmax[2</span> <span class="pre">*</span> <span class="pre">cell-&gt;nlon</span> <span class="pre">-</span> <span class="pre">1]</span> <span class="pre">==</span> <span class="pre">2.0</span> <span class="pre">*</span> <span class="pre">PI</span></code> within the numerical threshold (<code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1ab38bfd45ebf0f622c892ec1d0045c601"><span class="std std-ref"><span class="pre">charm_glob_threshold</span></span></a></code>),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;lonmax[2</span> <span class="pre">*</span> <span class="pre">cell-&gt;nlon</span> <span class="pre">-</span> <span class="pre">1]</span> <span class="pre">==</span> <span class="pre">2.0</span> <span class="pre">*</span> <span class="pre">PI</span></code> within the numerical threshold (<code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1ab38bfd45ebf0f622c892ec1d0045c601"><span class="std std-ref"><span class="pre">charm_glob_threshold</span></span></a></code>), and</p></li>
 <li><p>the maximum longitude of the <code class="docutils literal notranslate"><span class="pre">j</span></code>th cell must be equal to the minimum longitude of the <code class="docutils literal notranslate"><span class="pre">j</span> <span class="pre">+</span> <span class="pre">1</span></code>th cell.</p></li>
 </ul>
 </p>

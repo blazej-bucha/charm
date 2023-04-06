@@ -153,8 +153,8 @@ typedef struct
      * * For **grids**, ``charm@P@_point.nlon`` stands for the numbers of
      *   points in the longitudinal direction of the grid.
      *   ``charm@P@_point.nlat`` and ``charm@P@_point.nlon`` may be different.
-     *   The total number of grid points is ``charm@P@_point.nlat
-     *   * charm@P@_point.nlon``.  */
+     *   The total number of grid points is
+     *   ``charm@P@_point.nlat * charm@P@_point.nlon``.  */
     size_t nlon;
 
 
