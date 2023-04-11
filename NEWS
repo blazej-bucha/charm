@@ -1,6 +1,6 @@
 Upcoming release:
 
-* Fixed memory leak in "charm_integ_pn1m1pn2m2".
+* Fixed memory leak in `charm_integ_pn1m1pn2m2`.
 
 * Added support for polar optimization to increase computational speed
   (Eqs. 7 and 8 of Reinecke and Seljebotn 2013).  As long as the polar
@@ -13,21 +13,21 @@ Upcoming release:
 
   References:
 
-  * Reinecke, M., Seljebotn, D. S. (2013) Libsharp -- spherical harmonic
-    transforms revisited.  Astronomy and Astrophysics 554, A112, doi:
-    10.1051/0004-6361/201321494.
+    * Reinecke, M., Seljebotn, D. S. (2013) Libsharp -- spherical harmonic
+      transforms revisited.  Astronomy and Astrophysics 554, A112, doi:
+      10.1051/0004-6361/201321494.
 
 * Added automatic dynamical switching to the computation of Legendre functions 
   (Fukushima, 2016).  This slightly improves the performance.
 
   References:
 
-  * Fukushima, T. (2016) Numerical computation of point values, derivatives, 
-    and integrals of associated Legendre function of the first kind and point 
-    values and derivatives of oblate spheroidal harmonics of the second kind of 
-    high degree and order. In: Rizos, C., Willis, P. (eds): IAG 150 Years: 
-    Proceedings of the 2013 IAG Scientific Assembly, Potsdam, Germany, 1--6 
-    September, 2013, 143:193--197. https://doi.org/10.1007/1345_2015_124
+    * Fukushima, T. (2016) Numerical computation of point values, derivatives, 
+      and integrals of associated Legendre function of the first kind and point 
+      values and derivatives of oblate spheroidal harmonics of the second kind 
+      of high degree and order. In: Rizos, C., Willis, P. (eds): IAG 150 Years: 
+      Proceedings of the 2013 IAG Scientific Assembly, Potsdam, Germany, 1--6 
+      September, 2013, 143:193--197. https://doi.org/10.1007/1345_2015_124
 
 * Added dynamic scheduling to parallel for loops in shs.  This slightly 
   improves the performance, because the computation time of Legendre functions 
@@ -38,17 +38,17 @@ Upcoming release:
 * Added functions to check various features of CHarm that are determined during 
   the compilation time:
 
-  * charm_misc_buildopt_precision,
-  * charm_misc_buildopt_omp_charm,
-  * charm_misc_buildopt_omp_fftw,
-  * charm_misc_buildopt_simd,
-  * charm_misc_buildopt_isfinite.
+    * `charm_misc_buildopt_precision`,
+    * `charm_misc_buildopt_omp_charm`,
+    * `charm_misc_buildopt_omp_fftw`,
+    * `charm_misc_buildopt_simd`,
+    * `charm_misc_buildopt_isfinite`.
 
-* Added tests for "charm_integ_pn1m1pn2m2" and "charm_integ_yi1n1m1yi2n2m2".
+* Added tests for `charm_integ_pn1m1pn2m2` and `charm_integ_yi1n1m1yi2n2m2`.
 
-* The function "charm_leg_pnmj_length" was removed from the API.  The number of 
-  coefficients stored in the "charm_pnmj" structure is already provided in its 
-  "npnmj" member.
+* The function `charm_leg_pnmj_length` was removed from the API.  The number of 
+  coefficients stored in the `charm_pnmj` structure is already provided in its 
+  `npnmj` member.
 
 CHarm 0.2.0:
 
