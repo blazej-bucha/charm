@@ -98,7 +98,7 @@ FFTW can either be installed via you package manager or built from the source.
   a shared library (mandatory to install CHarm).  To install CHarm in single or
   quadruple precision, add also the ``--enable-single`` or
   ``--enable-quad-precision`` flag, respectively, when calling the
-  ``configure`` script.  If you do not want to parallelize CHarm, you may omit
+  ``configure`` script.  If you do not want to parallelize FFTW, you may omit
   the ``--enable-openmp`` flag.
 
 
