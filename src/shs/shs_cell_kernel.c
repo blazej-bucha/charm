@@ -29,8 +29,9 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
                             REAL_SIMD *imm0, REAL_SIMD *imm1, REAL_SIMD *imm2,
                             const REAL *en, const REAL *fn,
                             const REAL *gm, const REAL *hm,
-                            const REAL *ri, const REAL *rpows,
-                            const REAL *rpows2,
+                            const REAL *ri,
+                            REAL_SIMD ratio, REAL_SIMD ratio2,
+                            REAL_SIMD ratiom, REAL_SIMD ratio2m,
                             REAL_SIMD symm_simd, REAL_SIMD *a,  REAL_SIMD *b,
                             REAL_SIMD *a2, REAL_SIMD *b2)
 {
@@ -57,12 +58,14 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
     REAL_SIMD pnm0_latmax, pnm1_latmax, pnm2_latmax;
     REAL_SIMD in0, inm0, inm1, inm2;
     REAL_SIMD inm_cnm, inm_snm;
-    REAL_SIMD tmp;
+
+
+    REAL_SIMD ration  = ratiom;
+    REAL_SIMD ratio2n = ratio2m;
 
 
     _Bool npm_even; /* True if "n + m" is even */
     unsigned long nmm; /* "n - m" */
-    size_t idx;
     _Bool symm = CHARM(shs_check_symm_simd)(symm_simd);
     _Bool ds1, ds2; /* Dynamical switching */
 
@@ -100,14 +103,16 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
         /* Lumped coefficients */
         /* ................................................................. */
         inm_cnm = MUL_R(in0, SET1_R(shcs->c[0][0]));
-        *a      = MUL_R(LOAD_R(&rpows[0]), inm_cnm);
+        *a      = MUL_R(ration, inm_cnm);
         *b      = SET_ZERO_R;
+        ration  = MUL_R(ration, ratio);
 
 
         if (symm)
         {
-            *a2 = MUL_R(LOAD_R(&rpows2[0]), inm_cnm);
-            *b2 = SET_ZERO_R;
+            *a2     = MUL_R(ratio2n, inm_cnm);
+            *b2     = SET_ZERO_R;
+            ratio2n = MUL_R(ratio2n, ratio2);
         }
         /* ................................................................. */
 
@@ -152,16 +157,19 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
 
                 /* Lumped coefficients */
                 /* ......................................................... */
-                idx = n * SIMD_SIZE;
                 inm_cnm = MUL_R(in0, SET1_R(shcs->c[0][n]));
-                *a      = ADD_R(*a, MUL_R(LOAD_R(&rpows[idx]), inm_cnm));
+                *a      = ADD_R(*a, MUL_R(ration, inm_cnm));
+                ration  = MUL_R(ration, ratio);
 
                 if (symm)
                 {
                     if (npm_even)
-                        *a2 = ADD_R(*a2, MUL_R(LOAD_R(&rpows2[idx]), inm_cnm));
+                        *a2 = ADD_R(*a2, MUL_R(ratio2n, inm_cnm));
                     else
-                        *a2 = SUB_R(*a2, MUL_R(LOAD_R(&rpows2[idx]), inm_cnm));
+                        *a2 = SUB_R(*a2, MUL_R(ratio2n, inm_cnm));
+
+
+                    ratio2n = MUL_R(ratio2n, ratio2);
                 }
                 /* ......................................................... */
 
@@ -186,10 +194,10 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
         /* Sectorial Legendre functions and their integrals */
         /* ----------------------------------------------------------------- */
 
-        idx = (m - 1) * SIMD_SIZE;
         /* Pmm for "latmin" */
 #ifdef SIMD
-        PNM_SECTORIAL_XNUM_SIMD(x1, ix1, ps1[idx], ips1[idx], pnm0_latmin,
+        PNM_SECTORIAL_XNUM_SIMD(x1, ix1, ps1[(m - 1) * SIMD_SIZE],
+                                ips1[(m - 1) * SIMD_SIZE], pnm0_latmin,
                                 BIG_r, zero_r, zero_ri, mone_ri, mask1, mask2,
                                 SECTORIALS1);
 #else
@@ -199,7 +207,8 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
 
         /* Pmm for "latmax" */
 #ifdef SIMD
-        PNM_SECTORIAL_XNUM_SIMD(x2, ix2, ps2[idx], ips2[idx], pnm0_latmax,
+        PNM_SECTORIAL_XNUM_SIMD(x2, ix2, ps2[(m - 1) * SIMD_SIZE],
+                                ips2[(m - 1) * SIMD_SIZE], pnm0_latmax,
                                 BIG_r, zero_r, zero_ri, mone_ri, mask1, mask2,
                                 SECTORIALS2);
 #else
@@ -247,17 +256,16 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
         inm_snm = MUL_R(inm0, SET1_R(shcs->s[m][0]));
 
 
-        idx = m * SIMD_SIZE;
-        tmp = LOAD_R(&rpows[idx]);
-        *a  = MUL_R(tmp, inm_cnm);
-        *b  = MUL_R(tmp, inm_snm);
+        *a     = MUL_R(ration, inm_cnm);
+        *b     = MUL_R(ration, inm_snm);
+        ration = MUL_R(ration, ratio);
 
 
         if (symm)
         {
-            tmp = LOAD_R(&rpows2[idx]);
-            *a2 = MUL_R(tmp, inm_cnm);
-            *b2 = MUL_R(tmp, inm_snm);
+            *a2     = MUL_R(ratio2n, inm_cnm);
+            *b2     = MUL_R(ratio2n, inm_snm);
+            ratio2n = MUL_R(ratio2n, ratio2);
         }
         /* ................................................................. */
         /* ----------------------------------------------------------------- */
@@ -275,8 +283,8 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
             /* Pm+1,m for "latmin" */
 #ifdef SIMD
             PNM_SEMISECTORIAL_XNUM_SIMD(x1, y1, ix1, iy1, w, t1, anm[m + 1],
-                                        pnm1_latmin, mask1, mask2, mask3, 
-                                        zero_r, zero_ri, mone_ri, BIG_r, 
+                                        pnm1_latmin, mask1, mask2, mask3,
+                                        zero_r, zero_ri, mone_ri, BIG_r,
                                         BIGS_r,  BIGI_r, SEMISECTORIALS1);
 #else
             PNM_SEMISECTORIAL_XNUM(x1, y1, ix1, iy1, w, t1, anm[m + 1],
@@ -287,8 +295,8 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
             /* Pm+1,m for "latmax" */
 #ifdef SIMD
             PNM_SEMISECTORIAL_XNUM_SIMD(x2, y2, ix2, iy2, w, t2, anm[m + 1],
-                                        pnm1_latmax, mask1, mask2, mask3, 
-                                        zero_r, zero_ri, mone_ri, BIG_r, 
+                                        pnm1_latmax, mask1, mask2, mask3,
+                                        zero_r, zero_ri, mone_ri, BIG_r,
                                         BIGS_r,  BIGI_r, SEMISECTORIALS2);
 #else
             PNM_SEMISECTORIAL_XNUM(x2, y2, ix2, iy2, w, t2, anm[m + 1],
@@ -301,7 +309,7 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
             /* This is not a typo, "pnm0" are indeed required here */
             inm1 = -MUL_R(SET1_R(anm[m + 1] / (REAL)(m + 2)),
                           SUB_R(MUL_R(MUL_R(u2, u2), pnm0_latmax),
-                                MUL_R(MUL_R(u1, u1), 
+                                MUL_R(MUL_R(u1, u1),
                                       pnm0_latmin)));
             /* ............................................................. */
 
@@ -312,17 +320,16 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
             inm_snm = MUL_R(inm1, SET1_R(shcs->s[m][1]));
 
 
-            idx = (m + 1) * SIMD_SIZE;
-            tmp = LOAD_R(&rpows[idx]);
-            *a = ADD_R(*a, MUL_R(tmp, inm_cnm));
-            *b = ADD_R(*b, MUL_R(tmp, inm_snm));
+            *a     = ADD_R(*a, MUL_R(ration, inm_cnm));
+            *b     = ADD_R(*b, MUL_R(ration, inm_snm));
+            ration = MUL_R(ration, ratio);
 
 
             if (symm)
             {
-                tmp = LOAD_R(&rpows2[idx]);
-                *a2 = SUB_R(*a2, MUL_R(tmp, inm_cnm));
-                *b2 = SUB_R(*b2, MUL_R(tmp, inm_snm));
+                *a2     = SUB_R(*a2, MUL_R(ratio2n, inm_cnm));
+                *b2     = SUB_R(*b2, MUL_R(ratio2n, inm_snm));
+                ratio2n = MUL_R(ratio2n, ratio2);
             }
             /* ............................................................. */
 
@@ -346,7 +353,7 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
 #ifdef SIMD
                 PNM_TESSERAL_XNUM_SIMD(x1, y1, z1, ix1, iy1, iz1, ixy1,
                                        w, t1, anm[n], bnm[n], pnm2_latmin,
-                                       tmp1_r, tmp2_r, mask1, mask2, 
+                                       tmp1_r, tmp2_r, mask1, mask2,
                                        mask3, zero_r, zero_ri, one_ri,
                                        BIG_r, BIGI_r, BIGS_r, BIGSI_r,
                                        TESSERALS1, TESSERALS2, ds1);
@@ -361,7 +368,7 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
 #ifdef SIMD
                 PNM_TESSERAL_XNUM_SIMD(x2, y2, z2, ix2, iy2, iz2, ixy2,
                                        w, t2, anm[n], bnm[n], pnm2_latmax,
-                                       tmp1_r, tmp2_r, mask1, mask2, 
+                                       tmp1_r, tmp2_r, mask1, mask2,
                                        mask3, zero_r, zero_ri, one_ri,
                                        BIG_r, BIGI_r, BIGS_r, BIGSI_r,
                                        TESSERALS3, TESSERALS4, ds2);
@@ -395,25 +402,26 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
                 inm_snm = MUL_R(inm2, SET1_R(shcs->s[m][nmm]));
 
 
-                idx = n * SIMD_SIZE;
-                tmp = LOAD_R(&rpows[idx]);
-                *a  = ADD_R(*a, MUL_R(tmp, inm_cnm));
-                *b  = ADD_R(*b, MUL_R(tmp, inm_snm));
+                *a     = ADD_R(*a, MUL_R(ration, inm_cnm));
+                *b     = ADD_R(*b, MUL_R(ration, inm_snm));
+                ration = MUL_R(ration, ratio);
 
 
                 if (symm)
                 {
-                    tmp = LOAD_R(&rpows2[idx]);
                     if (npm_even)
                     {
-                        *a2 = ADD_R(*a2, MUL_R(tmp, inm_cnm));
-                        *b2 = ADD_R(*b2, MUL_R(tmp, inm_snm));
+                        *a2 = ADD_R(*a2, MUL_R(ratio2n, inm_cnm));
+                        *b2 = ADD_R(*b2, MUL_R(ratio2n, inm_snm));
                     }
                     else
                     {
-                        *a2 = SUB_R(*a2, MUL_R(tmp, inm_cnm));
-                        *b2 = SUB_R(*b2, MUL_R(tmp, inm_snm));
+                        *a2 = SUB_R(*a2, MUL_R(ratio2n, inm_cnm));
+                        *b2 = SUB_R(*b2, MUL_R(ratio2n, inm_snm));
                     }
+
+
+                    ratio2n = MUL_R(ratio2n, ratio2);
                 }
                 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 

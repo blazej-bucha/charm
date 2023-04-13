@@ -7,7 +7,6 @@
 #include <math.h>
 #include <fftw3.h>
 #include "../prec.h"
-#include "shs_rpows.h"
 #include "shs_grd_fft.h"
 #include "shs_grd_point_fft_check.h"
 #include "shs_grd_fft_lc.h"
@@ -304,10 +303,16 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
     REAL_SIMD pt = CHARM(misc_polar_optimization_threshold)(nmax);
 
 
+    /* Radius of the reference sphere that is associated with the spherical
+     * harmonic coefficients */
+    REAL_SIMD rref = SET1_R(shcs->r);
+
+
 #if CHARM_PARALLEL
 #pragma omp parallel default(none) \
 shared(f, shcs, nmax, pnt, pnt_nlat, pnt_nlon, dm, r, ri, nlatdo, pnt_type) \
-shared(lon0, dlon, even, symm, FAILURE_glob, mur, err, nlc, plan, use_fft, pt)
+shared(lon0, dlon, even, symm, FAILURE_glob, mur, err, nlc, plan, use_fft) \
+shared(pt, rref)
 #endif
     {
         /* ................................................................. */
@@ -323,12 +328,12 @@ shared(lon0, dlon, even, symm, FAILURE_glob, mur, err, nlc, plan, use_fft, pt)
         REAL *uv           = NULL;
         REAL *symmv        = NULL;
         REAL *latsinv      = NULL;
+        REAL *pnt_rv       = NULL;
+        REAL *pnt_r2v      = NULL;
         REAL *lc_simd      = NULL;
         REAL *lc2_simd     = NULL;
         REAL *anm          = NULL;
         REAL *bnm          = NULL;
-        REAL *rpows        = NULL;
-        REAL *rpows2       = NULL;
         FFTW(complex) *lc  = NULL;
         FFTW(complex) *lc2 = NULL;
         REAL *ftmp         = NULL;
@@ -351,37 +356,44 @@ shared(lon0, dlon, even, symm, FAILURE_glob, mur, err, nlc, plan, use_fft, pt)
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-        latv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE, 
+        latv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
                                              sizeof(REAL));
         if (latv == NULL)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-        tv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE, 
+        tv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
                                            sizeof(REAL));
         if (tv == NULL)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-        uv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE, 
+        uv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
                                            sizeof(REAL));
         if (uv == NULL)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-        symmv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE, 
+        symmv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
                                               sizeof(REAL));
         if (symmv == NULL)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-        latsinv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE, 
+        latsinv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
                                                 sizeof(REAL));
         if (latsinv == NULL)
+        {
+            FAILURE_priv = 1;
+            goto FAILURE_1_parallel;
+        }
+        pnt_rv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                               sizeof(REAL));
+        if (pnt_rv == NULL)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
@@ -394,14 +406,6 @@ shared(lon0, dlon, even, symm, FAILURE_glob, mur, err, nlc, plan, use_fft, pt)
         }
         bnm = (REAL *)calloc(nmax + 1, sizeof(REAL));
         if (bnm == NULL)
-        {
-            FAILURE_priv = 1;
-            goto FAILURE_1_parallel;
-        }
-        rpows = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                              (nmax + 1) * SIMD_SIZE,
-                                              sizeof(REAL));
-        if (rpows == NULL)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
@@ -448,10 +452,9 @@ shared(lon0, dlon, even, symm, FAILURE_glob, mur, err, nlc, plan, use_fft, pt)
 
         if (symm)
         {
-            rpows2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                                   (nmax + 1) * SIMD_SIZE,
-                                                   sizeof(REAL));
-            if (rpows2 == NULL)
+            pnt_r2v = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                                    sizeof(REAL));
+            if (pnt_r2v == NULL)
             {
                 FAILURE_priv = 1;
                 goto FAILURE_1_parallel;
@@ -540,8 +543,10 @@ FAILURE_1_parallel:
 
 
         REAL_SIMD t, u, symm_simd;
+        REAL_SIMD pnt_r, pnt_r2;
+        REAL_SIMD ratio, ratio2, ratiom, ratio2m;
         REAL_SIMD a, b, a2, b2;
-        a = b = a2 = b2 = SET_ZERO_R;
+        a = b = a2 = b2 = ratio = ratio2 = ratiom = ratio2m = SET_ZERO_R;
 
         size_t ipv;
 
@@ -562,33 +567,42 @@ FAILURE_1_parallel:
 
                 if (latsinv[v] == 1)
                 {
-                    latv[v] = pnt->lat[ipv];
-                    tv[v]   = SIN(latv[v]);
-                    uv[v]   = COS(latv[v]);
+                    latv[v]   = pnt->lat[ipv];
+                    tv[v]     = SIN(pnt->lat[ipv]);
+                    uv[v]     = COS(pnt->lat[ipv]);
+                    pnt_rv[v] = pnt->r[ipv];
+
+
+                    if (symm)
+                        pnt_r2v[v] = pnt->r[pnt_nlat - ipv - 1];
                 }
                 else
                 {
-                    latv[v] = tv[v] = uv[v] = PREC(0.0);
+                    latv[v] = tv[v] = uv[v] = pnt_rv[v] = PREC(0.0);
+                    if (symm)
+                        pnt_r2v[v] = PREC(0.0);
+
+
                     continue;
                 }
-                /* --------------------------------------------------------- */
-
-
-                /* Pre-compute the powers of "shcs->r / pnt->r[ipv]" */
-                /* --------------------------------------------------------- */
-                CHARM(shs_rpows)(v, shcs->r, pnt->r[ipv], rpows, nmax);
-
-
-                if (symmv[v])
-                    CHARM(shs_rpows)(v, shcs->r, pnt->r[pnt_nlat - ipv - 1],
-                                     rpows2, nmax);
                 /* --------------------------------------------------------- */
             }
 
 
             t         = LOAD_R(&tv[0]);
             u         = LOAD_R(&uv[0]);
+            pnt_r     = LOAD_R(&pnt_rv[0]);
             symm_simd = LOAD_R(&symmv[0]);
+
+
+            ratio  = DIV_R(rref, pnt_r);
+            ratiom = ratio;
+            if (symm)
+            {
+                pnt_r2  = LOAD_R(&pnt_r2v[0]);
+                ratio2  = DIV_R(rref, pnt_r2);
+                ratio2m = ratio2;
+            }
 
 
             /* Prepare arrays for sectorial Legendre functions */
@@ -631,7 +645,7 @@ FAILURE_1_parallel:
 
                 /* Apply polar optimization if asked to do so */
                 if (CHARM(misc_polar_optimization_apply)(m, nmax, u, pt))
-                    continue;
+                    goto UPDATE_RATIOS;
 
 
                 /* Computation of "anm" and "bnm" coefficients for Legendre
@@ -641,7 +655,9 @@ FAILURE_1_parallel:
 
                 /* Computation of the lumped coefficients */
                 CHARM(shs_point_kernel)(nmax, m, shcs, anm, bnm,
-                                        t, ps, ips, rpows, rpows2,
+                                        t, ps, ips,
+                                        ratio, ratio2,
+                                        ratiom, ratio2m,
                                         symm_simd, &a, &b, &a2, &b2);
 
 
@@ -654,6 +670,12 @@ FAILURE_1_parallel:
                     CHARM(shs_grd_lr)(m, lon0, dlon, pnt_nlon, pnt_type,
                                       a, b, a2, b2, symm, fi, fi2);
                 /* --------------------------------------------------------- */
+
+
+UPDATE_RATIOS:
+                ratiom = MUL_R(ratiom, ratio);
+                if (symm)
+                    ratio2m = MUL_R(ratio2m, ratio2);
 
 
             } /* End of the loop over harmonic orders */
@@ -700,7 +722,7 @@ FAILURE_2_parallel:
         CHARM(free_aligned)(latv);
         CHARM(free_aligned)(tv);        CHARM(free_aligned)(uv);
         CHARM(free_aligned)(symmv);     CHARM(free_aligned)(latsinv);
-        CHARM(free_aligned)(rpows);     CHARM(free_aligned)(rpows2);
+        CHARM(free_aligned)(pnt_rv);    CHARM(free_aligned)(pnt_r2v);
         CHARM(free_aligned)(fi);        CHARM(free_aligned)(fi2);
         CHARM(free_aligned)(lc_simd);   CHARM(free_aligned)(lc2_simd);
         free(anm); free(bnm);

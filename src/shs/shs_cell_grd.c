@@ -13,7 +13,6 @@
 #include "shs_grd_cell_fft_check.h"
 #include "shs_grd_fft_lc.h"
 #include "shs_cell_check_grd_lons.h"
-#include "shs_rpows.h"
 #include "shs_grd_fft.h"
 #include "../leg/leg_func_anm_bnm.h"
 #include "../leg/leg_func_dm.h"
@@ -315,11 +314,16 @@ void CHARM(shs_cell_grd)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
     REAL_SIMD pt = CHARM(misc_polar_optimization_threshold)(nmax);
 
 
+    /* Radius of the reference sphere that is associated with the spherical
+     * harmonic coefficients */
+    REAL_SIMD rref = SET1_R(shcs->r);
+
+
 #if CHARM_PARALLEL
 #pragma omp parallel default(none) \
 shared(f, shcs, nmax, cell, cell_nlat, cell_nlon, dm, en, fn, gm, hm, r, ri) \
 shared(nlatdo, lon0, dlon, even, symm, FAILURE_glob, mur, err, cell_type, pt) \
-shared(nlc, plan, use_fft)
+shared(nlc, plan, use_fft, rref)
 #endif
     {
         /* ................................................................. */
@@ -350,8 +354,8 @@ shared(nlc, plan, use_fft)
         REAL *ftmp2        = NULL;
         FFTW(complex) *lc  = NULL;
         FFTW(complex) *lc2 = NULL;
-        REAL *rpows        = NULL;
-        REAL *rpows2       = NULL;
+        REAL *cell_rv      = NULL;
+        REAL *cell_r2v     = NULL;
 
 
         ips1 = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, nmax * SIMD_SIZE,
@@ -490,10 +494,9 @@ shared(nlc, plan, use_fft)
         }
 
 
-        rpows = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                              (nmax + 1) * SIMD_SIZE,
-                                              sizeof(REAL));
-        if (rpows == NULL)
+        cell_rv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                                sizeof(REAL));
+        if (cell_rv == NULL)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
@@ -540,10 +543,9 @@ shared(nlc, plan, use_fft)
             }
 
 
-            rpows2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                                   (nmax + 1) * SIMD_SIZE,
-                                                   sizeof(REAL));
-            if (rpows2 == NULL)
+            cell_r2v = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                                     sizeof(REAL));
+            if (cell_r2v == NULL)
             {
                 FAILURE_priv = 1;
                 goto FAILURE_1_parallel;
@@ -598,6 +600,14 @@ FAILURE_1_parallel:
         REAL_SIMD symm_simd;
 
 
+        /* Here, we have pairs of radii-related variables (e.g., "ratio" and
+         * "ratio2") not because of the cell boundaries (constant "cell->r" is
+         * assumed for each cell), but because of the possible grid symmetry */
+        REAL_SIMD cell_r, cell_r2;
+        REAL_SIMD ratio, ratio2, ratiom, ratio2m;
+        ratio = ratio2 = ratiom = ratio2m = SET_ZERO_R;
+
+
         REAL_SIMD a, b, a2, b2;
         a = b = a2 = b2 = SET_ZERO_R;
         REAL_SIMD imm0, imm1, imm2;
@@ -629,24 +639,22 @@ FAILURE_1_parallel:
                     u1v[v]     = COS(latminv[v]);
                     t2v[v]     = SIN(latmaxv[v]);
                     u2v[v]     = COS(latmaxv[v]);
+                    cell_rv[v] = cell->r[ipv];
+
+
+                    if (symm)
+                        cell_r2v[v] = cell->r[cell_nlat - ipv - 1];
                 }
                 else
                 {
                     latminv[v] = latmaxv[v] = t1v[v] = u1v[v] = t2v[v] =
-                        u2v[v] = PREC(0.0);
+                        u2v[v] = cell_rv[v] = PREC(0.0);
+                    if (symm)
+                        cell_r2v[v] = PREC(0.0);
+
+
                     continue;
                 }
-                /* --------------------------------------------------------- */
-
-
-                /* Pre-compute the powers of "shcs->r / cell->r[i + v]" */
-                /* --------------------------------------------------------- */
-                CHARM(shs_rpows)(v, shcs->r, cell->r[ipv], rpows, nmax);
-
-
-                if (symmv[v])
-                    CHARM(shs_rpows)(v, shcs->r, cell->r[cell_nlat - ipv - 1],
-                                     rpows2, nmax);
                 /* --------------------------------------------------------- */
             }
 
@@ -657,7 +665,18 @@ FAILURE_1_parallel:
             u2        = LOAD_R(&u2v[0]);
             latmin    = LOAD_R(&latminv[0]);
             latmax    = LOAD_R(&latmaxv[0]);
+            cell_r    = LOAD_R(&cell_rv[0]);
             symm_simd = LOAD_R(&symmv[0]);
+
+
+            ratio  = DIV_R(rref, cell_r);
+            ratiom = ratio;
+            if (symm)
+            {
+                cell_r2 = LOAD_R(&cell_r2v[0]);
+                ratio2  = DIV_R(rref, cell_r2);
+                ratio2m = ratio2;
+            }
 
 
             /* Prepare arrays for sectorial Legendre functions */
@@ -707,7 +726,7 @@ FAILURE_1_parallel:
                  * can be applied for "u1", it can surely be applied for
                  * "u2". */
                 if (CHARM(misc_polar_optimization_apply)(m, nmax, u1, pt))
-                    continue;
+                    goto UPDATE_RATIOS;
 
 
                 /* Computation of "anm" and "bnm" coefficients for Legendre
@@ -723,7 +742,9 @@ FAILURE_1_parallel:
                                        ps1, ps2,
                                        ips1, ips2,
                                        &imm0, &imm1, &imm2,
-                                       en, fn, gm, hm, ri, rpows, rpows2,
+                                       en, fn, gm, hm, ri,
+                                       ratio, ratio2,
+                                       ratiom, ratio2m,
                                        symm_simd,
                                        &a, &b, &a2, &b2);
 
@@ -735,6 +756,13 @@ FAILURE_1_parallel:
                 else
                     CHARM(shs_grd_lr)(m, lon0, dlon, cell_nlon, cell_type,
                                       a, b, a2, b2, symm, fi, fi2);
+
+
+UPDATE_RATIOS:
+                ratiom = MUL_R(ratiom, ratio);
+                if (symm)
+                    ratio2m = MUL_R(ratio2m, ratio2);
+
 
             } /* End of the loop over harmonic orders */
             /* ------------------------------------------------------------- */
@@ -794,7 +822,7 @@ FAILURE_2_parallel:
         CHARM(free_aligned)(ips2);     CHARM(free_aligned)(ps2);
         CHARM(free_aligned)(t1v);      CHARM(free_aligned)(t2v);
         CHARM(free_aligned)(u1v);      CHARM(free_aligned)(u2v);
-        CHARM(free_aligned)(rpows);    CHARM(free_aligned)(rpows2);
+        CHARM(free_aligned)(cell_rv);  CHARM(free_aligned)(cell_r2v);
         CHARM(free_aligned)(symmv);    CHARM(free_aligned)(latsinv);
         CHARM(free_aligned)(latminv);  CHARM(free_aligned)(latmaxv);
         CHARM(free_aligned)(fi);       CHARM(free_aligned)(fi2);
