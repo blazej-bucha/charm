@@ -157,18 +157,18 @@ typedef struct
      *     ``floor(charm@P@_pnmj.nmax / 2)``,
      *
      *   * each ``charm@P@_pnmj.pnmj[m][j]`` has
-     *   ``(charm@P@_pnmj.nmax - max(2 * j, m) + 1)`` elements for harmonic
-     *   degrees ``max(2 * j, m)``, ``max(2 * j, m) + 1``, ...,
-     *   ``charm@P@_pnmj.nmax``.
+     *   ``(charm@P@_pnmj.nmax - CHARM_MAX(2 * j, m) + 1)`` elements for
+     *   harmonic degrees ``CHARM_MAX(2 * j, m)``, ``CHARM_MAX(2 * j, m) + 1``,
+     *   ..., ``charm@P@_pnmj.nmax``.
      *
      *   The Fourier coefficient \f$P_{nmj}\f$, using the notation from 
      *   Eq. (62) of Fukushima (2018), can therefore be access as follows
      *   ``charm@P@_pnmj.pnmj[m][j][n - CHARM_MAX(m, 2 * j)]``.
      *
      * If ``charm@P@_pnmj.ordering`` is ``::CHARM_LEG_PNMJ_ORDER_MNJ``, the
-     * following order of loops is recommended for fast sequential access to
-     * the \f$P_{nmj}\f$ coefficients: harmonic order ``m``, harmonic degree
-     * ``n`` and wave-number-related variable ``j``; e.g.:
+     * following loop order is recommended for fast sequential access to the
+     * \f$P_{nmj}\f$ coefficients: harmonic order ``m``, harmonic degree ``n``
+     * and wave-number-related variable ``j``; e.g.:
      *
      * \verbatim embed:rst:leading-asterisk
      *  .. code-block:: c
@@ -284,11 +284,7 @@ extern void charm@P@_leg_pnmj_free(charm@P@_pnmj *pnmj);
  * < pnmj->nmax``, all Fourier coefficients in ``pnmj->pnmj`` beyond ``nmax``
  * are set to zero.  In case of failure, the error is written to ``err``.
  *
- * @details Before calling this function, the ``pnmj`` structure has to be
- * created by ``charm@P@_leg_pnmj_calloc()`` or ``charm@P@_leg_pnmj_malloc()``
- * and later deallocated by ``charm@P@_leg_pnmj_free()``.
- *
- * The algorithm of Fukushima (2018) is employed.
+ * @details The algorithm of Fukushima (2018) is employed.
  *
  *
  * **References**:
