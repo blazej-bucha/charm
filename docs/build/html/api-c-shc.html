@@ -256,38 +256,39 @@ The <code class="docutils literal notranslate"><span class="pre">c</span></code>
 </p>
 <p>respectively. Be careful here and always put the product <code class="docutils literal notranslate"><span class="pre">(nmax</span> <span class="pre">+</span> <span class="pre">2)</span> <span class="pre">*</span> <span class="pre">(nmax</span> <span class="pre">+</span> <span class="pre">1)</span></code> into brackets to ensure correct rounding when subsequently dividing by <code class="docutils literal notranslate"><span class="pre">2</span></code> as shown above.</p>
 <p>The rationale behind this function is to provide a means to create the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure from custom arrays of spherical harmonic coefficients <em>without a deep copy of the data</em>. The following code snippet illustrates this:</p>
-<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">nmax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">nmax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
 
- <span class="kt">size_t</span> <span class="n">ncs</span> <span class="o">=</span> <span class="p">((</span><span class="n">nmax</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">nmax</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+<span class="kt">size_t</span> <span class="n">ncs</span> <span class="o">=</span> <span class="p">((</span><span class="n">nmax</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">nmax</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
 
- <span class="kt">double</span> <span class="o">*</span><span class="n">myc</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">ncs</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
- <span class="kt">double</span> <span class="o">*</span><span class="n">mys</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">ncs</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+<span class="kt">double</span> <span class="o">*</span><span class="n">myc</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">ncs</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+<span class="kt">double</span> <span class="o">*</span><span class="n">mys</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">ncs</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
 
- <span class="c1">// Now fill &quot;myc&quot; and &quot;mys&quot; with your coefficients.</span>
- <span class="c1">// [Here goes your code]</span>
+<span class="c1">// Now fill &quot;myc&quot; and &quot;mys&quot; with your coefficients.</span>
+<span class="c1">// [Here goes your code]</span>
 
- <span class="c1">// Next, create the &quot;charm_shc&quot; structure from the &quot;myc&quot; and &quot;mys&quot;</span>
- <span class="c1">// coefficients:</span>
- <span class="n">charm_shc</span> <span class="o">*</span><span class="n">shcs</span> <span class="o">=</span> <span class="n">charm_shc_init</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">myc</span><span class="p">,</span> <span class="n">mys</span><span class="p">);</span>
+<span class="c1">// Next, create the &quot;charm_shc&quot; structure from the &quot;myc&quot; and &quot;mys&quot;</span>
+<span class="c1">// coefficients:</span>
+<span class="n">charm_shc</span> <span class="o">*</span><span class="n">shcs</span> <span class="o">=</span> <span class="n">charm_shc_init</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">myc</span><span class="p">,</span> <span class="n">mys</span><span class="p">);</span>
 
- <span class="c1">// Do some cool things here with &quot;shcs&quot;, but remember that</span>
- <span class="c1">// &quot;shcs-&gt;c&quot; and &quot;shcs-&gt;s&quot; share the memory space with &quot;myc&quot; and</span>
- <span class="c1">// &quot;mys&quot;, respectively.</span>
- <span class="c1">// [Here goes your code]</span>
+<span class="c1">// Do some cool things here with &quot;shcs&quot;, but remember that</span>
+<span class="c1">// &quot;shcs-&gt;c&quot; and &quot;shcs-&gt;s&quot; share the memory space with &quot;myc&quot; and</span>
+<span class="c1">// &quot;mys&quot;, respectively.</span>
+<span class="c1">// [Here goes your code]</span>
 
- <span class="c1">// At this point, we did everything we needed to do with &quot;shcs&quot;, so</span>
- <span class="c1">// let&#39;s release the memory associated with it.</span>
- <span class="n">charm_shc_free</span><span class="p">(</span><span class="n">shcs</span><span class="p">);</span> <span class="c1">// The &quot;shcs&quot; structure is now properly</span>
-<span class="n">released</span><span class="p">.</span> <span class="n">But</span> <span class="c1">// since &quot;shcs&quot; was created by &quot;charm_shc_init&quot;, which</span>
-<span class="n">does</span> <span class="n">not</span> <span class="c1">// perform a deep copy of the coefficients in &quot;myc&quot; and</span>
-<span class="s">&quot;mys&quot;</span><span class="p">,</span> <span class="n">the</span> <span class="c1">// memory associated with &quot;myc&quot; and &quot;mys&quot; was not freed.</span>
-<span class="n">At</span> <span class="n">this</span> <span class="c1">// point, you may therefore still use &quot;myc&quot; and &quot;mys&quot;.</span>
- <span class="c1">// [Here goes your code]</span>
+<span class="c1">// At this point, we did everything we needed to do with &quot;shcs&quot;, so</span>
+<span class="c1">// let&#39;s release the memory associated with it.</span>
+<span class="n">charm_shc_free</span><span class="p">(</span><span class="n">shcs</span><span class="p">);</span>
+<span class="c1">// The &quot;shcs&quot; structure is now properly released. But</span>
+<span class="c1">// since &quot;shcs&quot; was created by &quot;charm_shc_init&quot;, which does not</span>
+<span class="c1">// perform a deep copy of the coefficients in &quot;myc&quot; and &quot;mys&quot;, the</span>
+<span class="c1">// memory associated with &quot;myc&quot; and &quot;mys&quot; was not freed.  At this</span>
+<span class="c1">// point, you may therefore still use &quot;myc&quot; and &quot;mys&quot;.</span>
+<span class="c1">// [Here goes your code]</span>
 
- <span class="c1">// Once you are done with &quot;myc&quot; and &quot;mys&quot;, release the memory as</span>
- <span class="c1">// usually with:</span>
- <span class="n">free</span><span class="p">(</span><span class="n">myc</span><span class="p">);</span>
- <span class="n">free</span><span class="p">(</span><span class="n">mys</span><span class="p">);</span>
+<span class="c1">// Once you are done with &quot;myc&quot; and &quot;mys&quot;, release the memory as</span>
+<span class="c1">// usually with:</span>
+<span class="n">free</span><span class="p">(</span><span class="n">myc</span><span class="p">);</span>
+<span class="n">free</span><span class="p">(</span><span class="n">mys</span><span class="p">);</span>
 </pre></div>
 </div>
 </p>
