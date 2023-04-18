@@ -409,9 +409,9 @@ extern charm@P@_point *charm@P@_crd_point_calloc(int type,
  * arrays must be treated in the same fashion as shown therein with the ``c``
  * and ``s`` arrays.
  *
- * @warning The ``charm@P@_point`` structure created by this function *must* be
- * deallocated using ``charm@P@_crd_point_free()``. The usual deallocation with
- * ``free`` will lead to memory leaks.
+ * @warning The structure returned *must* be deallocated using
+ * ``charm@P@_crd_point_free()``. The usual deallocation with ``free`` will
+ * lead to memory leaks.
  *
  * @returns On success, returned is a pointer to the ``charm@P@_point``
  * structure. On error, ``NULL`` is returned. Errors include memory allocation
@@ -485,6 +485,10 @@ extern void charm@P@_crd_point_free(charm@P@_point *pnt);
  * or so. The overflow check is *not* performed if the output from
  * ``charm@P@_misc_buildopt_isfinite()`` is zero.
  *
+ * @warning The structure returned *must* be deallocated by calling
+ * ``charm@P@_crd_point_free()``. The usual deallocation with ``free`` will
+ * lead to memory leaks.
+ *
  * */
 extern charm@P@_point *charm@P@_crd_point_gl(unsigned long nmax,
                                              @RDT@ r);
@@ -502,7 +506,13 @@ extern charm@P@_point *charm@P@_crd_point_gl(unsigned long nmax,
  * @details Loops are parallelized using OpenMP.
  *
  * @returns On success, returned is a pointer to the ``charm@P@_point``
- * structure. On error, ``NULL`` is returned.  */
+ * structure. On error, ``NULL`` is returned.
+ *
+ * @warning The structure returned *must* be deallocated by calling
+ * ``charm@P@_crd_point_free()``. The usual deallocation with ``free`` will
+ * lead to memory leaks.
+ *
+ * */
 extern charm@P@_point *charm@P@_crd_point_dh1(unsigned long nmax,
                                               @RDT@ r);
 
@@ -639,9 +649,9 @@ extern charm@P@_cell *charm@P@_crd_cell_calloc(int type,
  * ``r``. The memory of these arrays must be treated in the same fashion as
  * shown therein with the ``c`` and ``s`` arrays.
  *
- * @warning The ``charm@P@_cell`` structure created by this function *must* be
- * deallocated using ``charm@P@_crd_cell_free()``. The usual deallocation with
- * ``free`` will lead to memory leaks.
+ * @warning The structure created by this function *must* be deallocated using
+ * ``charm@P@_crd_cell_free()``. The usual deallocation with ``free`` will lead
+ * to memory leaks.
  *
  * @returns On success, returned is a pointer to the ``charm@P@_cell``
  * structure. On error, ``NULL`` is returned. Errors include memory allocation

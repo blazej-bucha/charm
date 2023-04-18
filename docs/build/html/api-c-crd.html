@@ -285,7 +285,7 @@
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure created by this function <em>must</em> be deallocated using <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a74d3a0f9144c9db18230507d38cbcbee"><span class="std std-ref"><span class="pre">charm_crd_point_free()</span></span></a></code>. The usual deallocation with <code class="docutils literal notranslate"><span class="pre">free</span></code> will lead to memory leaks.</p>
+<p>The structure returned <em>must</em> be deallocated using <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a74d3a0f9144c9db18230507d38cbcbee"><span class="std std-ref"><span class="pre">charm_crd_point_free()</span></span></a></code>. The usual deallocation with <code class="docutils literal notranslate"><span class="pre">free</span></code> will lead to memory leaks.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -315,9 +315,13 @@
 <p>The Gauss-Legendre grid is non-equiangular in latitude. The
 longitudinal step is constant.</p>
 </div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The structure returned <em>must</em> be deallocated by calling <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a74d3a0f9144c9db18230507d38cbcbee"><span class="std std-ref"><span class="pre">charm_crd_point_free()</span></span></a></code>. The usual deallocation with <code class="docutils literal notranslate"><span class="pre">free</span></code> will lead to memory leaks. </p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>On success, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure. On error, <code class="docutils literal notranslate"><span class="pre">NULL</span></code> is returned. In addition to the memory allocation failure, the error may be due to the exceeded maximum number of iterations to compute the latitudes or due to the overflow problem. The latter may happen in <em>single</em> precision if <code class="docutils literal notranslate"><span class="pre">nmax</span></code> is larger than <code class="docutils literal notranslate"><span class="pre">7200</span></code> or so. The overflow check is <em>not</em> performed if the output from <code class="docutils literal notranslate"><a class="reference internal" href="api-c-misc.html#charm__misc_8h_1a39d6ec21ee423b8fae3f36a4a7851663"><span class="std std-ref"><span class="pre">charm_misc_buildopt_isfinite()</span></span></a></code> is zero. </p>
+<dd class="field-odd"><p>On success, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure. On error, <code class="docutils literal notranslate"><span class="pre">NULL</span></code> is returned. In addition to the memory allocation failure, the error may be due to the exceeded maximum number of iterations to compute the latitudes or due to the overflow problem. The latter may happen in <em>single</em> precision if <code class="docutils literal notranslate"><span class="pre">nmax</span></code> is larger than <code class="docutils literal notranslate"><span class="pre">7200</span></code> or so. The overflow check is <em>not</em> performed if the output from <code class="docutils literal notranslate"><a class="reference internal" href="api-c-misc.html#charm__misc_8h_1a39d6ec21ee423b8fae3f36a4a7851663"><span class="std std-ref"><span class="pre">charm_misc_buildopt_isfinite()</span></span></a></code> is zero.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -327,9 +331,13 @@ longitudinal step is constant.</p>
 <span id="_CPPv319charm_crd_point_dh1md"></span><span id="_CPPv219charm_crd_point_dh1md"></span><span id="charm_crd_point_dh1__unsigned-l.double"></span><span class="target" id="charm__crd_8h_1a3c695af1812dbd2be8e2a7a42dece1d0"></span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point">charm_point</a> *<code class="sig-name descname">charm_crd_point_dh1</code><span class="sig-paren">(</span>unsigned long <em>nmax</em>, double <em>r</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_crd_point_dh1md" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Computes the non-equiangular Driscoll-Healy grid (as defined by Driscoll and Healy, 1994) associated with the maximum spherical harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code> on the sphere with the radius <code class="docutils literal notranslate"><span class="pre">r</span></code>. The integration weights are computed on the <em>unit</em> sphere. </p>
 <p>Loops are parallelized using OpenMP.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The structure returned <em>must</em> be deallocated by calling <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a74d3a0f9144c9db18230507d38cbcbee"><span class="std std-ref"><span class="pre">charm_crd_point_free()</span></span></a></code>. The usual deallocation with <code class="docutils literal notranslate"><span class="pre">free</span></code> will lead to memory leaks. </p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>On success, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure. On error, <code class="docutils literal notranslate"><span class="pre">NULL</span></code> is returned. </p>
+<dd class="field-odd"><p>On success, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure. On error, <code class="docutils literal notranslate"><span class="pre">NULL</span></code> is returned.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -418,7 +426,7 @@ longitudinal step is constant.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code> structure created by this function <em>must</em> be deallocated using <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a321c2e629b86feebcb3210dbd881610f"><span class="std std-ref"><span class="pre">charm_crd_cell_free()</span></span></a></code>. The usual deallocation with <code class="docutils literal notranslate"><span class="pre">free</span></code> will lead to memory leaks.</p>
+<p>The structure created by this function <em>must</em> be deallocated using <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a321c2e629b86feebcb3210dbd881610f"><span class="std std-ref"><span class="pre">charm_crd_cell_free()</span></span></a></code>. The usual deallocation with <code class="docutils literal notranslate"><span class="pre">free</span></code> will lead to memory leaks.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
