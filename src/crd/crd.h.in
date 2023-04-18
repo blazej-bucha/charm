@@ -553,8 +553,8 @@ extern charm@P@_point *charm@P@_crd_point_dh2(unsigned long nmax,
  * spherical radii. The memory of all array elements is uninitialized, so their
  * values are undefined.
  *
- * @details Valid values of ``type`` are all constants
- * ``::CHARM_CRD_CELL_GRID`` and ``::CHARM_CRD_CELL_SCATTERED``.
+ * @details Valid values of ``type`` are constants ``::CHARM_CRD_CELL_GRID``
+ * and ``::CHARM_CRD_CELL_SCATTERED``.
  *
  * * For ``charm@P@_cell *cell`` returned by this function with ``type`` being
  *   ``::CHARM_CRD_CELL_GRID``, the coordinates of the grid cell on the
