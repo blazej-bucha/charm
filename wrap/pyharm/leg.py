@@ -1,8 +1,8 @@
 """
-Module to work with the fully-normalized associated Legendre functions of the 
+Module to work with the fully-normalized associated Legendre functions of the
 first kind:
 
-    * defines the :class:`pyharm.leg.Pnmj` class to store Fourier coefficients 
+    * defines the :class:`pyharm.leg.Pnmj` class to store Fourier coefficients
       of the Legendre functions,
 
     * computes Fourier coefficients of Legendre functions.
@@ -77,7 +77,7 @@ class Pnmj:
     nmax : integer
         Maximum harmonic degree
     ordering : integer
-        Ordering scheme of Fourier coefficients.  Use 
+        Ordering scheme of Fourier coefficients.  Use
         :meth:`get_ordering_types` to get all supported ordering schemes.
     coeffs : None or :obj:`0`
         Determines the way of initializing Fourier coefficients:
@@ -107,7 +107,8 @@ class Pnmj:
     def ordering(self):
         """
         Ordering scheme of the Fourier coefficients.  Use the
-        :meth:`get_ordering_str` method to get all supported values.
+        :meth:`get_ordering_str` method to transform the attribute to a pretty
+        string.
         """
         return self._ordering
 
@@ -336,7 +337,7 @@ class Pnmj:
         :obj:`k` of a Fourier coefficient of fully-normalized associated
         Legendre function of degree :obj:`n`.
 
-        For further details, see the references at `charm_leg 
+        For further details, see the references at `charm_leg
         <./api-c-leg.html>`_.
 
         Parameters
@@ -369,7 +370,7 @@ class Pnmj:
         fully-normalized associated Legendre functions to the
         wave-number-related variable :obj:`j`.
 
-        For further details, see the references at `charm_leg 
+        For further details, see the references at `charm_leg
         <./api-c-leg.html>`_.
 
         Parameters
@@ -491,7 +492,7 @@ def fourier_coeffs(nmax, ordering=PNMJ_ORDER_MNJ):
         Maximum harmonic degree
     ordering : integer
         Ordering scheme of Fourier coefficients, optional.  Default value is
-        :obj:`PNMJ_ORDER_MNJ`.  Use :meth:`Pnmj.get_ordering_types()` to get 
+        :obj:`PNMJ_ORDER_MNJ`.  Use :meth:`Pnmj.get_ordering_types()` to get
         all supported ordering schemes.
 
     Returns
