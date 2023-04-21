@@ -65,7 +65,7 @@ CHARM(point) *CHARM(crd_point_gl)(unsigned long nmax, REAL r)
     unsigned int ERROR_glob = 0;
 
 
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp parallel default(none) shared(glg, L, L_fp, m, c, ERROR_glob)
 #endif
     {
@@ -74,7 +74,7 @@ CHARM(point) *CHARM(crd_point_gl)(unsigned long nmax, REAL r)
     unsigned int ERROR = 0;
 
 
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp for
 #endif
     for (unsigned long i = 0; i < m; i++)
@@ -133,7 +133,7 @@ CHARM(point) *CHARM(crd_point_gl)(unsigned long nmax, REAL r)
     }
 
 
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp critical
 #endif
     {
@@ -156,7 +156,7 @@ CHARM(point) *CHARM(crd_point_gl)(unsigned long nmax, REAL r)
     c = PI / L_fp;
 
 
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp parallel for default(none) shared(glg, L, c)
 #endif
     for (unsigned long j = 0; j < (2 * L); j++)
@@ -166,7 +166,7 @@ CHARM(point) *CHARM(crd_point_gl)(unsigned long nmax, REAL r)
 
     /* Spherical radii */
     /* --------------------------------------------------------------------- */
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp parallel for default(none) shared(glg, L, r)
 #endif
     for (unsigned long i = 0; i < L; i++)

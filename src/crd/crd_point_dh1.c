@@ -37,7 +37,7 @@ CHARM(point) *CHARM(crd_point_dh1)(unsigned long nmax, REAL r)
     REAL c = PI / (REAL)L;
 
 
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp parallel for default(none) shared(dhg, L, c)
 #endif
     for (unsigned long i = 0; i < (2 * L); i++)
@@ -47,7 +47,7 @@ CHARM(point) *CHARM(crd_point_dh1)(unsigned long nmax, REAL r)
 
     /* Spherical radii */
     /* --------------------------------------------------------------------- */
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp parallel for default(none) shared(dhg, L, r)
 #endif
     for (unsigned long i = 0; i < (2 * L); i++)

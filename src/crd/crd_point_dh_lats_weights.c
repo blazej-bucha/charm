@@ -23,14 +23,14 @@ void CHARM(crd_point_dh_lats_weights)(CHARM(point) *dh, unsigned long nmax)
     REAL M_PI_2L     = PI / (PREC(2.0) * L_fp);
 
 
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp parallel default(none) shared(nmax, dh, c, L, L2, M_PI_2L)
 #endif
     {
     REAL sclti, sclti0, sclti1, cclti2, sclti2, w_tmp, clti;
 
 
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp for
 #endif
     for (unsigned long i = 0; i < L2; i++)

@@ -13,7 +13,7 @@
 
 int CHARM(misc_buildopt_omp_charm)(void)
 {
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
     return BUILDOPT_OMP_CHARM;
 #else
     return 0;

@@ -192,7 +192,7 @@ void CHARM(shs_cell_isurf)(const CHARM(cell) *cell,
     size = (nmax1 + 1) * (nmax3 + 1) * SIMD_SIZE;
 
 
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp parallel default(none) \
 shared(cell, DELTAlon, lon0, dlon, cell_nlat, cell_nlon) \
 shared(nmax1, nmax3, f, cnm1cnm3, cnm1snm3, snm1cnm3, snm1snm3) \
@@ -281,7 +281,7 @@ shared(FAILURE_glob, mur, size, err)
 
 
 FAILURE_1_parallel:
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp critical
 #endif
     {
@@ -296,7 +296,7 @@ FAILURE_1_parallel:
 
 
     /* Now we have to wait until all the threads get here. */
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp barrier
 #endif
     /* OK, now let's check on each thread whether there is at least one failed
@@ -305,7 +305,7 @@ FAILURE_1_parallel:
     {
         /* Ooops, there was indeed a memory allocation failure.  So let the
          * master thread write down the error to the "err" variable. */
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp master
 #endif
         if (CHARM(err_isempty)(err))
@@ -335,7 +335,7 @@ FAILURE_1_parallel:
 
 
     /* Loop over the latitude cells */
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp for schedule(dynamic)
 #endif
     for (size_t i = 0; i < SIMD_GET_MULTIPLE(cell_nlat); i += SIMD_SIZE)

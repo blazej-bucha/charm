@@ -19,7 +19,7 @@
 #include "../misc/misc_is_nearly_equal.h"
 #include "../misc/misc_polar_optimization_threshold.h"
 #include "../misc/misc_polar_optimization_apply.h"
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #   include <omp.h>
 #endif
 #include "../simd/simd.h"
@@ -232,7 +232,7 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
 
     /* Create a plan for FFT */
     /* --------------------------------------------------------------------- */
-#if CHARM_PARALLEL && FFTW3_OMP
+#if CHARM_OPENMP && FFTW3_OMP
     if (FFTW(init_threads)() == 0)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFFTWINIT,
@@ -314,7 +314,7 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
         /* ................................................................. */
         int *ips  = NULL;
         REAL *ps  = NULL;
-#if !(CHARM_PARALLEL)
+#if !(CHARM_OPENMP)
         REAL *anm = NULL;
         REAL *bnm = NULL;
 #endif
@@ -344,7 +344,7 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-#if !(CHARM_PARALLEL)
+#if !(CHARM_OPENMP)
         anm = (REAL *)calloc(nmax + 1, sizeof(REAL));
         if (anm == NULL)
         {
@@ -517,7 +517,7 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
 
 
             /* ------------------------------------------------------------- */
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #   ifdef SIMD
         #pragma omp parallel default(none) \
             shared(nmax, symm, r, ri, a, b, a2, b2, shcs, t, u, ps, ips) \
@@ -790,7 +790,7 @@ FAILURE_1_parallel:
             } /* End of the loop over harmonic orders */
 
 
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 FAILURE_2_parallel:
             free(anm); free(bnm);
             }
@@ -814,7 +814,7 @@ FAILURE_1:
         CHARM(free_aligned)(ips);   CHARM(free_aligned)(ps);
         CHARM(free_aligned)(a);     CHARM(free_aligned)(b);
         CHARM(free_aligned)(a2);    CHARM(free_aligned)(b2);
-#if !(CHARM_PARALLEL)
+#if !(CHARM_OPENMP)
         free(anm); free(bnm);
 #endif
 
@@ -837,7 +837,7 @@ FAILURE:
 
     free(r); free(ri); free(dm);
     FFTW(destroy_plan)(plan);
-#if CHARM_PARALLEL && FFTW3_OMP
+#if CHARM_OPENMP && FFTW3_OMP
     FFTW(cleanup_threads)();
 #else
     FFTW(cleanup)();
@@ -859,7 +859,7 @@ FAILURE:
     /* Normalize the coefficients */
     /* ..................................................................... */
     REAL c2 = PREC(1.0) / (PREC(4.0) * PI) * (r0 / shcs->mu);
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
     #pragma omp parallel for default(none) shared(shcs, nmax, c2)
 #endif
     for (unsigned long m = 0; m <= nmax; m++)

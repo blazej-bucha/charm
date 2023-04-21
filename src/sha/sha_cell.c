@@ -23,7 +23,7 @@
 #include "../misc/misc_is_nearly_equal.h"
 #include "../misc/misc_polar_optimization_threshold.h"
 #include "../misc/misc_polar_optimization_apply.h"
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #   include <omp.h>
 #endif
 #include "../simd/simd.h"
@@ -410,7 +410,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
 
     /* Create a plan for FFT */
     /* --------------------------------------------------------------------- */
-#if CHARM_PARALLEL && FFTW3_OMP
+#if CHARM_OPENMP && FFTW3_OMP
     int err_fftw = FFTW(init_threads)();
     if (err_fftw == 0)
     {
@@ -519,7 +519,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
         REAL *b       = NULL;
         REAL *a2      = NULL;
         REAL *b2      = NULL;
-#if !(CHARM_PARALLEL)
+#if !(CHARM_OPENMP)
         REAL *anm     = NULL;
         REAL *bnm     = NULL;
 #endif
@@ -644,7 +644,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-#if !(CHARM_PARALLEL)
+#if !(CHARM_OPENMP)
         anm = (REAL *)calloc(nmax + 1, sizeof(REAL));
         if (anm == NULL)
         {
@@ -765,7 +765,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
 
 
             /* Pre-compute the sectorial "imm" integrals.  This is necessary
-             * for the "defined(CHARM_PARALLEL)" parallelization strategy, but
+             * for the "defined(CHARM_OPENMP)" parallelization strategy, but
              * can be used (and in fact it is) also with the other
              * parallelization strategies. */
             /* ------------------------------------------------------------- */
@@ -837,7 +837,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
 
             /* Loop over harmonic orders */
             /* ------------------------------------------------------------- */
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #   ifdef SIMD
         #pragma omp parallel default(none) \
             shared(nmax, t1, t2, u1, u2, symm_simd) \
@@ -1333,7 +1333,7 @@ FAILURE_1_parallel:
 
 
             } /* End of the loop over harmonic orders */
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 FAILURE_2_parallel:
             free(anm);  free(bnm);
             }
@@ -1358,7 +1358,7 @@ FAILURE_1:
         CHARM(free_aligned)(ips1);    CHARM(free_aligned)(ps1);
         CHARM(free_aligned)(ips2);    CHARM(free_aligned)(ps2);
         CHARM(free_aligned)(latminv); CHARM(free_aligned)(latmaxv);
-#if !(CHARM_PARALLEL)
+#if !(CHARM_OPENMP)
         free(anm);  free(bnm);
 #endif
         CHARM(free_aligned)(a);    CHARM(free_aligned)(b);
@@ -1385,7 +1385,7 @@ FAILURE:
     free(r); free(ri); free(dm); free(en); free(fn); free(gm); free(hm);
     FFTW(destroy_plan)(plan);
     FFTW(cleanup)();
-#if CHARM_PARALLEL && FFTW3_OMP
+#if CHARM_OPENMP && FFTW3_OMP
     FFTW(cleanup_threads)();
 #else
     FFTW(cleanup)();
@@ -1409,7 +1409,7 @@ FAILURE:
     REAL c2 = PREC(1.0) / (PREC(4.0) * PI) * (r0 / shcs->mu);
 
 
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
     #pragma omp parallel for default(none) shared(shcs, nmax, c2)
 #endif
     for (unsigned long m = 0; m <= nmax; m++)

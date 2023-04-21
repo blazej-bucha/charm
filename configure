@@ -14431,7 +14431,7 @@ fi
 
 
 
-printf "%s\n" "#define CHARM_PARALLEL 1" >>confdefs.h
+printf "%s\n" "#define CHARM_OPENMP 1" >>confdefs.h
 
     ac_fn_c_check_header_compile "$LINENO" "omp.h" "ac_cv_header_omp_h" "$ac_includes_default"
 if test "x$ac_cv_header_omp_h" = xyes

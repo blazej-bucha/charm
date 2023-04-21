@@ -251,7 +251,7 @@ dnl ---------------------------------------------------------------------------
 if test "$avx" = "yes"; then
 
     AC_MSG_NOTICE([compiling with AVX instructions enabled])
-    AC_DEFINE([HAVE_AVX_INSTRUCTIONS], [1], [Define if avx instructions are supported])
+    AC_DEFINE([HAVE_AVX_INSTRUCTIONS], [1], [Define to 1 to enable avx instructions])
     AX_CHECK_COMPILE_FLAG([-mavx], [CFLAGS_SIMD="-mavx"], [AC_MSG_ERROR([unrecognized -mavx compiler flag.  Try using the gcc compiler.])])
 
 fi
@@ -263,7 +263,7 @@ dnl ---------------------------------------------------------------------------
 if test "$avx2" = "yes"; then
 
     AC_MSG_NOTICE([compiling with AVX2 instructions enabled])
-    AC_DEFINE([HAVE_AVX2_INSTRUCTIONS], [1], [Define if avx2 instructions are supported])
+    AC_DEFINE([HAVE_AVX2_INSTRUCTIONS], [1], [Define to 1 to enable avx2 instructions])
     AX_CHECK_COMPILE_FLAG([-mavx2], [CFLAGS_SIMD="-mavx2"], [AC_MSG_ERROR([unrecognized -mavx2 compiler flag.  Try using the gcc compiler.])])
 
 fi
@@ -275,7 +275,7 @@ dnl ---------------------------------------------------------------------------
 if test "$avx512" = "yes"; then
 
     AC_MSG_NOTICE([compiling with AVX-512 instructions enabled])
-    AC_DEFINE([HAVE_AVX512F_INSTRUCTIONS], [1], [Define if avx512f instructions are supported])
+    AC_DEFINE([HAVE_AVX512F_INSTRUCTIONS], [1], [Define to 1 to enable avx512f instructions])
     AX_CHECK_COMPILE_FLAG([-mavx512f], [CFLAGS_SIMD="-mavx512f"], [AC_MSG_ERROR([unrecognized -mavx512f compiler flag.  Try using the gcc compiler.])])
     AX_CHECK_COMPILE_FLAG([-mavx512dq], [CFLAGS_SIMD="-mavx512dq"], [AC_MSG_ERROR([unrecognized -mavx512dq compiler flag.  Try using the gcc compiler.])])
 
@@ -333,7 +333,7 @@ if test "$enable_openmp" = "yes"; then
     CFLAGS="$CFLAGS $OPENMP_CFLAGS"
 
 
-    AC_DEFINE([CHARM_PARALLEL], [1], [Define to 1 to parallelize CHarm.])
+    AC_DEFINE([CHARM_OPENMP], [1], [Define to 1 to parallelize CHarm using OpenMP.])
     AC_CHECK_HEADER([omp.h], [], [AC_MSG_ERROR([omp.h not found])])
 
 

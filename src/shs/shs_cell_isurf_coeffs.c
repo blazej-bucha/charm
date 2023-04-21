@@ -111,7 +111,7 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
 
 
     /* "shcs1->r / r" */
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp parallel for default(shared)
 #endif
     for (size_t i = 0; i < glg_nlat; i++)
@@ -128,7 +128,7 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
                        CHARM_ERR_MALLOC_FAILURE);
         goto FAILURE;
     }
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp parallel for default(shared)
 #endif
     for (size_t i = 0; i < glg_nlat; i++)
@@ -259,7 +259,7 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
 
     /* The actual computation of the coefficients */
     /* --------------------------------------------------------------------- */
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp parallel for default(none) \
 shared(shcs1, cnm1pnmj, snm1pnmj, pnmj, nmax1) \
 private(cnm1pnmj_m1, cnm1pnmj_m1_j1, snm1pnmj_m1, snm1pnmj_m1_j1) \
@@ -301,7 +301,7 @@ private(pnmj_m1_j1, max_m1_j1)
         /* Compute the "n1 + 1"th power of the topographic surface and its
          * spherical harmonic coefficients */
         /* ................................................................. */
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp parallel for default(shared)
 #endif
         for (size_t i = 0; i < glg_nlat; i++)
@@ -320,7 +320,7 @@ private(pnmj_m1_j1, max_m1_j1)
 
         /* Pre-compute the summation over "n3" */
         /* ................................................................. */
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp parallel for default(none) \
 shared(nmax3, nmax3_2, pnmj, shcs3, cnm3pnmj_sum, snm3pnmj_sum) \
 private(j3pj3, max_m3_j3, idx, pnmj_m3_j3, c_sum1, c_sum2, s_sum1, s_sum2) \
@@ -379,7 +379,7 @@ private(cnm3_m3, snm3_m3)
         /* Compute the contribution of "n1" to coefficients and add it to the
          * contribution from "n1 - 1" */
         /* ................................................................. */
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp parallel for default(none) \
 shared(n1, n1_2, n1_rem_2, nmax3, nmax3_2, nmax1p1, nmax3p1) \
 shared(cnm1pnmj, snm1pnmj, cnm3pnmj_sum, snm3pnmj_sum) \
