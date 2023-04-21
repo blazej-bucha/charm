@@ -1,8 +1,8 @@
 /* This header file is not a part of API. */
 
 
-#ifndef __ABS_R_H__
-#define __ABS_R_H__
+#ifndef __CHECK_OUTCOME_H__
+#define __CHECK_OUTCOME_H__
 
 
 #include <config.h>
@@ -14,7 +14,7 @@ extern "C"
 #endif
 
 
-extern int abs_r(void);
+extern void check_outcome(long int);
 
 
 #ifdef __cplusplus

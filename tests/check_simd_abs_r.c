@@ -13,9 +13,9 @@
 
 
 /* Check the "ABS_R" macro from "../src/simd/simd.h". */
-int abs_r(void)
+long int check_simd_abs_r(void)
 {
-    int errnum = 0;
+    long int e = 0;
 
 
     /* Tested value */
@@ -32,7 +32,7 @@ int abs_r(void)
     {
         printf("        WARNING: The \"ABS_R\" macro does not work "
                "correctly with negative floating point numbers!\n");
-        errnum += 1;
+        e += 1;
     }
 
 
@@ -42,9 +42,9 @@ int abs_r(void)
     {
         printf("        WARNING: The \"ABS_R\" macro does not work "
                "correctly with positive floating point numbers!\n");
-        errnum += 1;
+        e += 1;
     }
 
 
-    return errnum;
+    return e;
 }

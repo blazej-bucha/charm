@@ -6,6 +6,7 @@
 
 
 #include <config.h>
+#include "../src/prec.h"
 
 
 #ifdef __cplusplus
@@ -14,7 +15,9 @@ extern "C"
 #endif
 
 
-extern int cmp_vals(REAL, REAL, REAL);
+extern long int cmp_vals(REAL,
+                         REAL,
+                         REAL);
 
 
 #ifdef __cplusplus

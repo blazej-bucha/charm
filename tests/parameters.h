@@ -1,6 +1,6 @@
 /* This header file is not a part of API.
  *
- * Defines some constants used throughout the tests. */
+ * Defines some symbolic constants used throughout the tests. */
 
 
 #ifndef __PARAMETERS_H__
@@ -10,17 +10,91 @@
 #include <config.h>
 
 
-/* Size of char arrays to store file names to be imported, etc. */
-#undef NSTR
-#define NSTR (2024)
+/* Maximum harmonic degree of the input topography in "SHCS_IN_PATH_TOPO_MTX" 
+ * */
+#undef SHCS_NMAX_TOPO
+#define SHCS_NMAX_TOPO (4)
 
 
-/* Size of some small char arrays. */
-#undef NSTR2
-#define NSTR2 (20)
+/* Path to input spherical harmonic coefficients of the topography in the 
+ * matrix format */
+#undef SHCS_IN_PATH_TOPO_MTX
+#define SHCS_IN_PATH_TOPO_MTX "../data/input/Earth2014-RET2014-degree4-mtx.txt"
 
 
-/* Suffix of the refenrece data files to be loaded. */
+/* Path to output spherical harmonic coefficients of the topography in the bin 
+ * format. */
+#undef SHCS_OUT_PATH_TOPO_BIN
+#define SHCS_OUT_PATH_TOPO_BIN "../data/output/Earth2014-RET2014-degree4" \
+                               ".shcs"
+
+
+/* Path to output spherical harmonic coefficients of the topography in the mtx 
+ * format. */
+#undef SHCS_OUT_PATH_TOPO_MTX
+#define SHCS_OUT_PATH_TOPO_MTX "../data/output/Earth2014-RET2014-degree4" \
+                               "-mtx.txt"
+
+
+/* Maximum harmonic degree of the input potential in "SHCS_IN_PATH_POT_MTX", 
+ * "SHCS_IN_PATH_POT_GFC" and "SHCS_IN_PATH_POT_TBL" */
+#undef SHCS_NMAX_POT
+#define SHCS_NMAX_POT (10)
+
+
+/* Path to input spherical harmonic coefficients of the potential in the matrix 
+ * format */
+#undef SHCS_IN_PATH_POT_MTX
+#define SHCS_IN_PATH_POT_MTX "../data/input/EGM96-degree10-mtx.txt"
+
+
+/* Path to input spherical harmonic coefficients of the potential in the gfc 
+ * format */
+#undef SHCS_IN_PATH_POT_GFC
+#define SHCS_IN_PATH_POT_GFC "../data/input/EGM96-degree10.gfc"
+
+
+/* Path to input spherical harmonic coefficients of the potential in the tbl 
+ * format */
+#undef SHCS_IN_PATH_POT_TBL
+#define SHCS_IN_PATH_POT_TBL "../data/input/EGM96-degree10-tbl.txt"
+
+
+/* Path to input spherical harmonic coefficients of the potential in the binary 
+ * format */
+#undef SHCS_OUT_PATH_POT_BIN
+#define SHCS_OUT_PATH_POT_BIN "../data/output/EGM96-degree10.shcs"
+
+
+/* Path to input spherical harmonic coefficients of the potential in the mtx 
+ * format */
+#undef SHCS_OUT_PATH_POT_MTX
+#define SHCS_OUT_PATH_POT_MTX "../data/output/EGM96-degree10-mtx.txt"
+
+
+/* Path to output spherical harmonic coefficients of the potential in the tbl 
+ * n format */
+#undef SHCS_OUT_PATH_POT_TBL_N
+#define SHCS_OUT_PATH_POT_TBL_N "../data/output/EGM96-degree10-tbl-n.txt"
+
+
+/* Path to output spherical harmonic coefficients of the potential in the tbl 
+ * m format */
+#undef SHCS_OUT_PATH_POT_TBL_M
+#define SHCS_OUT_PATH_POT_TBL_M "../data/output/EGM96-degree10-tbl-m.txt"
+
+
+/* Size of char arrays for long string */
+#undef NSTR_LONG
+#define NSTR_LONG (2024)
+
+
+/* Size of char arrays for short string */
+#undef NSTR_SHORT
+#define NSTR_SHORT (64)
+
+
+/* Suffix of the reference data files to be loaded. */
 #undef FTYPE
 #define FTYPE ".txt"
 
@@ -42,7 +116,7 @@
 #define NDELTAR (2)
 
 
-/* Distances between the radial layers. */
+/* Distances between the radial layers in metres. */
 #undef DELTAR
 #define DELTAR (1000.0)
 
@@ -72,6 +146,16 @@
 #   define FOLDER "../data/tests/quad"
 #else
 #   define FOLDER "../data/tests/double"
+#endif
+
+
+/* Format to print/write floating points */
+#if CHARM_FLOAT
+#   define FORMAT "%0.7e"
+#elif CHARM_QUAD
+#   define FORMAT "%0.34Qe"
+#else
+#   define FORMAT "%0.16e"
 #endif
 
 
@@ -123,6 +207,25 @@
 #undef BUF_QUAD
 #define BUF_QUAD (256)
 
+
+/* Logical value representing "equal" */
+#undef EQ
+#define EQ 1
+
+
+/* Logical value representing "not equal" */
+#undef NEQ
+#define NEQ 0
+
+
+/* A part of the string to be printed for valid function calls */
+#undef VALID
+#define VALID "valid"
+
+
+/* A part of the string to be printed for invalid function calls */
+#undef INVALID
+#define INVALID "invalid"
 
 
 #endif

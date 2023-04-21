@@ -1,8 +1,8 @@
 /* This header file is not a part of API. */
 
 
-#ifndef __CRD_H__
-#define __CRD_H__
+#ifndef __CHECK_SHC_WRITE_TYPE_H__
+#define __CHECK_SHC_WRITE_TYPE_H__
 
 
 #include <config.h>
@@ -14,7 +14,7 @@ extern "C"
 #endif
 
 
-extern int crd(void);
+extern long int check_shc_write_type(int);
 
 
 #ifdef __cplusplus

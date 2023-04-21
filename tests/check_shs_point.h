@@ -1,8 +1,8 @@
 /* This header file is not a part of API. */
 
 
-#ifndef __SHA_H__
-#define __SHA_H__
+#ifndef __CHECK_SHS_POINT_H__
+#define __CHECK_SHS_POINT_H__
 
 
 #include <config.h>
@@ -14,7 +14,7 @@ extern "C"
 #endif
 
 
-extern int sha(unsigned long, char *);
+extern long int check_shs_point(void);
 
 
 #ifdef __cplusplus

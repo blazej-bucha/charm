@@ -14,21 +14,21 @@
 
 /* Checks "integ_yi1n1m1yi2n2m2" using the orthogonality of spherical
  * harmonics. */
-int check_integ_yi1n1m1yi2n2m2(unsigned long nmax)
+long int check_integ_yi1n1m1yi2n2m2(void)
 {
     /* --------------------------------------------------------------------- */
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
         printf("Failed to initialize the \"err\" structure.\n");
-        exit(1);
+        exit(CHARM_FAILURE);
     }
 
 
     CHARM(pnmj) *pnmj;
 
 
-    int errnum = 0;
+    long int e = 0;
     REAL iy, iy_ref;
     REAL delta_i1i2, delta_m1m2, delta_n1n2;
     /* --------------------------------------------------------------------- */
@@ -36,6 +36,9 @@ int check_integ_yi1n1m1yi2n2m2(unsigned long nmax)
 
     /* Loop over the two ordering schemes of the Fourier coefficients */
     /* --------------------------------------------------------------------- */
+    unsigned long nmax = 8;
+
+
     for (int o = 0; o < 2; o++)
     {
         /* Compute the Fourier coefficients */
@@ -107,8 +110,8 @@ int check_integ_yi1n1m1yi2n2m2(unsigned long nmax)
                     CHARM(err_handler)(err, 1);
 
 
-                    errnum += cmp_vals(iy, iy_ref, PREC(10.0) *
-                                                   CHARM(glob_threshold));
+                    e += cmp_vals(iy, iy_ref,
+                                  PREC(10.0) * CHARM(glob_threshold));
                     /* ................................................. */
 
 
@@ -149,8 +152,8 @@ int check_integ_yi1n1m1yi2n2m2(unsigned long nmax)
                     CHARM(err_handler)(err, 1);
 
 
-                    errnum += cmp_vals(iy, iy_ref, PREC(10.0) *
-                                                   CHARM(glob_threshold));
+                    e += cmp_vals(iy, iy_ref,
+                                  PREC(10.0) * CHARM(glob_threshold));
                     /* ..................................................... */
                 }
                 }
@@ -169,6 +172,6 @@ int check_integ_yi1n1m1yi2n2m2(unsigned long nmax)
     CHARM(err_free)(err);
 
 
-    return errnum;
+    return e;
     /* --------------------------------------------------------------------- */
 }

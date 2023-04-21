@@ -17,21 +17,21 @@
  * Because of the orthogonality test, the checks are done only for Legendre
  * functions of equal orders.  This test therefore does not cover all possible
  * variations of "n1", "m1", "n2" and "m2". */
-int check_integ_pn1m1pn2m2(unsigned long nmax)
+long int check_integ_pn1m1pn2m2(void)
 {
     /* --------------------------------------------------------------------- */
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
         printf("Failed to initialize the \"err\" structure.\n");
-        exit(1);
+        exit(CHARM_FAILURE);
     }
 
 
     CHARM(pnmj) *pnmj;
 
 
-    int errnum = 0;
+    long int e = 0;
     REAL ip, ip_ref;
     REAL delta_0m, delta_n1n2;
     /* --------------------------------------------------------------------- */
@@ -39,6 +39,9 @@ int check_integ_pn1m1pn2m2(unsigned long nmax)
 
     /* Loop over the two ordering schemes of the Fourier coefficients */
     /* --------------------------------------------------------------------- */
+    unsigned long nmax = 8;
+
+
     for (int o = 0; o < 2; o++)
     {
         /* Compute the Fourier coefficients */
@@ -48,8 +51,7 @@ int check_integ_pn1m1pn2m2(unsigned long nmax)
                                                  CHARM_LEG_PNMJ_ORDER_MJN);
         if (pnmj == NULL)
         {
-            fprintf(stderr, "Failed to initialize the \"pnmj\" "
-                            "structure.\n");
+            fprintf(stderr, "Failed to initialize the \"pnmj\" structure.\n");
             exit(CHARM_FAILURE);
         }
 
@@ -86,8 +88,8 @@ int check_integ_pn1m1pn2m2(unsigned long nmax)
                     CHARM(err_handler)(err, 1);
 
 
-                    errnum += cmp_vals(ip, ip_ref,
-                                       PREC(10.0) * CHARM(glob_threshold));
+                    e += cmp_vals(ip, ip_ref,
+                                  PREC(10.0) * CHARM(glob_threshold));
                     /* ..................................................... */
 
 
@@ -106,8 +108,8 @@ int check_integ_pn1m1pn2m2(unsigned long nmax)
                     CHARM(err_handler)(err, 1);
 
 
-                    errnum += cmp_vals(ip, ip_ref,
-                                       PREC(10.0) * CHARM(glob_threshold));
+                    e += cmp_vals(ip, ip_ref,
+                                  PREC(10.0) * CHARM(glob_threshold));
                     /* ..................................................... */
                 }
             }
@@ -123,6 +125,6 @@ int check_integ_pn1m1pn2m2(unsigned long nmax)
     CHARM(err_free)(err);
 
 
-    return errnum;
+    return e;
     /* --------------------------------------------------------------------- */
 }

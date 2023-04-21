@@ -14,7 +14,7 @@ extern "C"
 #endif
 
 
-extern int check_integ_yi1n1m1yi2n2m2(unsigned long);
+extern long int check_integ_yi1n1m1yi2n2m2(void);
 
 
 #ifdef __cplusplus

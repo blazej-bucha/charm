@@ -14,7 +14,7 @@ extern "C"
 #endif
 
 
-extern int misc(void);
+extern long int misc(void);
 
 
 #ifdef __cplusplus

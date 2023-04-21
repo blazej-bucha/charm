@@ -15,7 +15,10 @@ extern "C"
 #endif
 
 
-extern void CHARM(generate_point)(CHARM(point) *, REAL, REAL, REAL);
+extern void CHARM(generate_point)(CHARM(point) *,
+                                  REAL,
+                                  REAL,
+                                  REAL);
 
 
 #ifdef __cplusplus

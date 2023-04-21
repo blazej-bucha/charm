@@ -1,8 +1,8 @@
 /* This header file is not a part of API. */
 
 
-#ifndef __INTEG_H__
-#define __INTEG_H__
+#ifndef __CHECK_SHS_CELL_H__
+#define __CHECK_SHS_CELL_H__
 
 
 #include <config.h>
@@ -14,7 +14,7 @@ extern "C"
 #endif
 
 
-extern int integ(void);
+extern long int check_shs_cell(void);
 
 
 #ifdef __cplusplus

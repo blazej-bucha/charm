@@ -14,9 +14,9 @@
 
 /* Compares two values up to some threshold */
 /* ------------------------------------------------------------------------- */
-int cmp_vals(REAL val1, REAL val2, REAL eps)
+long int cmp_vals(REAL val1, REAL val2, REAL eps)
 {
-    int ret = 0;
+    long int ret = 0;
 #if defined(CHARM_QUAD)
     int flt128_n;
     char buf1[BUF_QUAD];
@@ -60,10 +60,6 @@ int cmp_vals(REAL val1, REAL val2, REAL eps)
 
         ret = 1;
     }
-
-
-    if (ret == 1)
-        printf("\n");
 
 
     return ret;

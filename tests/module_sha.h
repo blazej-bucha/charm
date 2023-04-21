@@ -1,8 +1,8 @@
 /* This header file is not a part of API. */
 
 
-#ifndef __LEG_H__
-#define __LEG_H__
+#ifndef __MODULE_SHA_H__
+#define __MODULE_SHA_H__
 
 
 #include <config.h>
@@ -14,7 +14,7 @@ extern "C"
 #endif
 
 
-extern int leg(void);
+extern long int module_sha(void);
 
 
 #ifdef __cplusplus
