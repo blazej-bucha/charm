@@ -3,6 +3,7 @@
 #include <config.h>
 #include <stdio.h>
 #include "check_simd_abs_r.h"
+#include "check_simd_neg_r.h"
 #include "check_func.h"
 #include "check_outcome.h"
 /* ------------------------------------------------------------------------- */
@@ -21,6 +22,12 @@ long int misc(void)
 
     check_func("ABS_R");
     e = check_simd_abs_r();
+    check_outcome(e);
+    esum += e;
+
+
+    check_func("NEG_R");
+    e = check_simd_neg_r();
     check_outcome(e);
     esum += e;
 

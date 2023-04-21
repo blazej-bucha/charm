@@ -143,7 +143,8 @@ am_test_run@P@@OMP@_OBJECTS = test_run@P@@OMP@-run.$(OBJEXT) \
 	test_run@P@@OMP@-check_shc_rescale.$(OBJEXT) \
 	test_run@P@@OMP@-check_shc_alloc.$(OBJEXT) \
 	test_run@P@@OMP@-check_shc_init.$(OBJEXT) \
-	test_run@P@@OMP@-check_simd_abs_r.$(OBJEXT)
+	test_run@P@@OMP@-check_simd_abs_r.$(OBJEXT) \
+	test_run@P@@OMP@-check_simd_neg_r.$(OBJEXT)
 test_run@P@@OMP@_OBJECTS = $(am_test_run@P@@OMP@_OBJECTS)
 test_run@P@@OMP@_DEPENDENCIES = $(top_builddir)/libcharm@P@@OMP@.la
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -194,6 +195,7 @@ am__depfiles_remade =  \
 	./$(DEPDIR)/test_run@P@@OMP@-check_shs_cell_isurf.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-check_shs_point.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-check_simd_abs_r.Po \
+	./$(DEPDIR)/test_run@P@@OMP@-check_simd_neg_r.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-check_struct.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-cmp_arrays.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-cmp_vals.Po \
@@ -421,7 +423,8 @@ test_run@P@@OMP@_SOURCES = run.c \
 						   check_shc_rescale.c \
 						   check_shc_alloc.c \
 						   check_shc_init.c \
-						   check_simd_abs_r.c
+						   check_simd_abs_r.c \
+						   check_simd_neg_r.c
 
 
 # Path to header files
@@ -512,6 +515,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-check_shs_cell_isurf.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-check_shs_point.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-check_simd_abs_r.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-check_simd_neg_r.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-check_struct.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-cmp_arrays.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-cmp_vals.Po@am__quote@ # am--include-marker
@@ -1086,6 +1090,20 @@ test_run@P@@OMP@-check_simd_abs_r.obj: check_simd_abs_r.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-check_simd_abs_r.obj `if test -f 'check_simd_abs_r.c'; then $(CYGPATH_W) 'check_simd_abs_r.c'; else $(CYGPATH_W) '$(srcdir)/check_simd_abs_r.c'; fi`
 
+test_run@P@@OMP@-check_simd_neg_r.o: check_simd_neg_r.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-check_simd_neg_r.o -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-check_simd_neg_r.Tpo -c -o test_run@P@@OMP@-check_simd_neg_r.o `test -f 'check_simd_neg_r.c' || echo '$(srcdir)/'`check_simd_neg_r.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-check_simd_neg_r.Tpo $(DEPDIR)/test_run@P@@OMP@-check_simd_neg_r.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_simd_neg_r.c' object='test_run@P@@OMP@-check_simd_neg_r.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-check_simd_neg_r.o `test -f 'check_simd_neg_r.c' || echo '$(srcdir)/'`check_simd_neg_r.c
+
+test_run@P@@OMP@-check_simd_neg_r.obj: check_simd_neg_r.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-check_simd_neg_r.obj -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-check_simd_neg_r.Tpo -c -o test_run@P@@OMP@-check_simd_neg_r.obj `if test -f 'check_simd_neg_r.c'; then $(CYGPATH_W) 'check_simd_neg_r.c'; else $(CYGPATH_W) '$(srcdir)/check_simd_neg_r.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-check_simd_neg_r.Tpo $(DEPDIR)/test_run@P@@OMP@-check_simd_neg_r.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_simd_neg_r.c' object='test_run@P@@OMP@-check_simd_neg_r.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-check_simd_neg_r.obj `if test -f 'check_simd_neg_r.c'; then $(CYGPATH_W) 'check_simd_neg_r.c'; else $(CYGPATH_W) '$(srcdir)/check_simd_neg_r.c'; fi`
+
 mostlyclean-libtool:
 	-rm -f *.lo
 
@@ -1196,6 +1214,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shs_cell_isurf.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shs_point.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_simd_abs_r.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_simd_neg_r.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_struct.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-cmp_arrays.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-cmp_vals.Po
@@ -1279,6 +1298,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shs_cell_isurf.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shs_point.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_simd_abs_r.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_simd_neg_r.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_struct.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-cmp_arrays.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-cmp_vals.Po

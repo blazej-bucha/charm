@@ -428,7 +428,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
         FAILURE_glob = 1;
         goto FAILURE;
     }
-    ftmp_out = (FFTW(complex) *)FFTW(malloc)(sizeof(FFTW(complex)) * 
+    ftmp_out = (FFTW(complex) *)FFTW(malloc)(sizeof(FFTW(complex)) *
                                              cell_nlon_fft);
     if (ftmp_out == NULL)
     {
@@ -487,6 +487,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
         MASK_SIMD  mask1, mask2;
         MASK2_SIMD mask3;
         ABS_R_INIT;
+        NEG_R_INIT;
 #endif
         REAL_SIMD symm_simd, latsin;
         REAL_SIMD am, bm, a2m, b2m;
@@ -527,28 +528,28 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
         FFTW(complex) *ftmp_out = NULL;
 
 
-        ips1 = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax, 
+        ips1 = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax,
                                             sizeof(int));
         if (ips1 == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        ips2 = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax, 
+        ips2 = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax,
                                             sizeof(int));
         if (ips2 == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        ps1 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax, 
+        ps1 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax,
                                             sizeof(REAL));
         if (ps1 == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        ps2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax, 
+        ps2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax,
                                             sizeof(REAL));
         if (ps2 == NULL)
         {
@@ -597,46 +598,46 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        symmv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE, 
+        symmv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
                                               sizeof(REAL));
         if (symmv == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        latsinv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE, 
+        latsinv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
                                                 sizeof(REAL));
         if (latsinv == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        a = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, 
-                                          SIMD_SIZE * cell_nlon_fft, 
+        a = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                          SIMD_SIZE * cell_nlon_fft,
                                           sizeof(REAL));
         if (a == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        b = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, 
-                                          SIMD_SIZE * cell_nlon_fft, 
+        b = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                          SIMD_SIZE * cell_nlon_fft,
                                           sizeof(REAL));
         if (b == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        a2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, 
-                                           SIMD_SIZE * cell_nlon_fft, 
+        a2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                           SIMD_SIZE * cell_nlon_fft,
                                            sizeof(REAL));
         if (a2 == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        b2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, 
-                                           SIMD_SIZE * cell_nlon_fft, 
+        b2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                           SIMD_SIZE * cell_nlon_fft,
                                            sizeof(REAL));
         if (b2 == NULL)
         {
@@ -657,8 +658,8 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
             goto FAILURE_1;
         }
 #endif
-        imm = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, 
-                                            SIMD_SIZE * (nmax + 1), 
+        imm = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                            SIMD_SIZE * (nmax + 1),
                                             sizeof(REAL));
         if (imm == NULL)
         {
@@ -705,7 +706,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
                 }
                 else
                 {
-                    latminv[v] = latmaxv[v] = t1v[v] = u1v[v] = t2v[v] = 
+                    latminv[v] = latmaxv[v] = t1v[v] = u1v[v] = t2v[v] =
                         u2v[v] = PREC(0.0);
                     continue;
                 }
@@ -809,7 +810,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
                 }
                 else if (m == 2) /* I22 */
                 {
-                    STORE_R(&imm[m * SIMD_SIZE], 
+                    STORE_R(&imm[m * SIMD_SIZE],
                             MUL_R(SET1_R(SQRT(PREC(15.0)) / PREC(6.0)),
                                   SUB_R(MUL_R(t2, SUB_R(SET1_R(PREC(3.0)),
                                                         MUL_R(t2, t2))),
@@ -818,7 +819,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
                 }
                 else /* I33, I44, ..., Inmax,nmax */
                 {
-                    STORE_R(&imm[m * SIMD_SIZE], 
+                    STORE_R(&imm[m * SIMD_SIZE],
                             ADD_R(MUL_R(SET1_R(gm[m]),
                                         LOAD_R(&imm[(m - 2) * SIMD_SIZE])),
                                   MUL_R(SET1_R(PREC(1.0) / (REAL)(m + 1)),
@@ -851,7 +852,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
             private(pnm2_latmin, pnm2_latmax, in0, inm0, inm1, inm2) \
             private(npm_even, nmm, ds1, ds2) \
             shared(zero_ri, one_ri, mone_ri, zero_r) \
-            shared(BIG_r, BIGI_r, BIGS_r, BIGSI_r, ABS_R_MASK) \
+            shared(BIG_r, BIGI_r, BIGS_r, BIGSI_r, NONSIGNBITS_R, SIGNBIT_R) \
             private(tmp1_r, tmp2_r, mask1, mask2, mask3)
 #   else
         #pragma omp parallel default(none) \
@@ -1172,10 +1173,10 @@ FAILURE_1_parallel:
 
                         /* Pm+1,m for "latmin" */
 #ifdef SIMD
-                        PNM_SEMISECTORIAL_XNUM_SIMD(x1, y1, ix1, iy1, w, t1, 
-                                                    anm[m + 1], pnm1_latmin, 
-                                                    mask1, mask2, mask3, 
-                                                    zero_r, zero_ri, mone_ri, 
+                        PNM_SEMISECTORIAL_XNUM_SIMD(x1, y1, ix1, iy1, w, t1,
+                                                    anm[m + 1], pnm1_latmin,
+                                                    mask1, mask2, mask3,
+                                                    zero_r, zero_ri, mone_ri,
                                                     BIG_r, BIGS_r,  BIGI_r,
                                                     SEMISECTORIALS1);
 #else
@@ -1186,10 +1187,10 @@ FAILURE_1_parallel:
 
                         /* Pm+1,m for "latmax" */
 #ifdef SIMD
-                        PNM_SEMISECTORIAL_XNUM_SIMD(x2, y2, ix2, iy2, w, t2, 
-                                                    anm[m + 1], pnm1_latmax, 
-                                                    mask1, mask2, mask3, 
-                                                    zero_r, zero_ri, mone_ri, 
+                        PNM_SEMISECTORIAL_XNUM_SIMD(x2, y2, ix2, iy2, w, t2,
+                                                    anm[m + 1], pnm1_latmax,
+                                                    mask1, mask2, mask3,
+                                                    zero_r, zero_ri, mone_ri,
                                                     BIG_r, BIGS_r,  BIGI_r,
                                                     SEMISECTORIALS2);
 #else
@@ -1202,10 +1203,11 @@ FAILURE_1_parallel:
                         /* ................................................. */
                         /* This is not a typo, "pnm0" are indeed required here
                          * */
-                        inm1 = -MUL_R(SET1_R(anm[m + 1] / (REAL)(m + 2)),
-                                      SUB_R(MUL_R(MUL_R(u2, u2), pnm0_latmax),
-                                            MUL_R(MUL_R(u1, u1), 
-                                                  pnm0_latmin)));
+                        inm1 = NEG_R(MUL_R(SET1_R(anm[m + 1] / (REAL)(m + 2)),
+                                           SUB_R(MUL_R(MUL_R(u2, u2),
+                                                       pnm0_latmax),
+                                                 MUL_R(MUL_R(u1, u1),
+                                                       pnm0_latmin))));
                         /* ................................................. */
 
 
@@ -1234,12 +1236,12 @@ FAILURE_1_parallel:
 
                             /* Pm+2,m, Pm+3,m, ..., Pnmax,m for "latmin" */
 #ifdef SIMD
-                            PNM_TESSERAL_XNUM_SIMD(x1, y1, z1, ix1, iy1, iz1, 
+                            PNM_TESSERAL_XNUM_SIMD(x1, y1, z1, ix1, iy1, iz1,
                                                    ixy1,
-                                                   w, t1, anm[n], bnm[n], 
+                                                   w, t1, anm[n], bnm[n],
                                                    pnm2_latmin,
                                                    tmp1_r, tmp2_r,
-                                                   mask1, mask2, 
+                                                   mask1, mask2,
                                                    mask3, zero_r,
                                                    zero_ri, one_ri,
                                                    BIG_r, BIGI_r,
@@ -1258,12 +1260,12 @@ FAILURE_1_parallel:
 
                             /* Pm+2,m, Pm+3,m, ..., Pnmax,m for "latmax" */
 #ifdef SIMD
-                            PNM_TESSERAL_XNUM_SIMD(x2, y2, z2, ix2, iy2, iz2, 
+                            PNM_TESSERAL_XNUM_SIMD(x2, y2, z2, ix2, iy2, iz2,
                                                    ixy2,
-                                                   w, t2, anm[n], bnm[n], 
+                                                   w, t2, anm[n], bnm[n],
                                                    pnm2_latmax,
                                                    tmp1_r, tmp2_r,
-                                                   mask1, mask2, 
+                                                   mask1, mask2,
                                                    mask3, zero_r,
                                                    zero_ri, one_ri,
                                                    BIG_r, BIGI_r,

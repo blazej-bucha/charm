@@ -51,6 +51,7 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
     MASK_SIMD  mask1, mask2;
     MASK2_SIMD mask3;
     ABS_R_INIT;
+    NEG_R_INIT;
 #endif
 
 
@@ -307,10 +308,10 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
             /* Im+1,m */
             /* ............................................................. */
             /* This is not a typo, "pnm0" are indeed required here */
-            inm1 = -MUL_R(SET1_R(anm[m + 1] / (REAL)(m + 2)),
-                          SUB_R(MUL_R(MUL_R(u2, u2), pnm0_latmax),
-                                MUL_R(MUL_R(u1, u1),
-                                      pnm0_latmin)));
+            inm1 = NEG_R(MUL_R(SET1_R(anm[m + 1] / (REAL)(m + 2)),
+                               SUB_R(MUL_R(MUL_R(u2, u2), pnm0_latmax),
+                                     MUL_R(MUL_R(u1, u1),
+                                           pnm0_latmin))));
             /* ............................................................. */
 
 

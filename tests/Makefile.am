@@ -43,7 +43,8 @@ test_run@P@@OMP@_SOURCES = run.c \
 						   check_shc_rescale.c \
 						   check_shc_alloc.c \
 						   check_shc_init.c \
-						   check_simd_abs_r.c
+						   check_simd_abs_r.c \
+						   check_simd_neg_r.c
 
 
 # Path to header files

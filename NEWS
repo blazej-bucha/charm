@@ -44,6 +44,8 @@ Upcoming release:
     * `charm_misc_buildopt_simd`,
     * `charm_misc_buildopt_isfinite`.
 
+* Introduced `NEG_R` macro to properly switch the sign of SIMD vectors.
+
 * Improved test suite.  The functions are now smaller and cleaner.  Some new 
   tests were also added, mostly to check various custom allocation functions.
 

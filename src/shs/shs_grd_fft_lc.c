@@ -23,6 +23,9 @@ void CHARM(shs_grd_fft_lc)(unsigned long m, REAL dlon,
     REAL_SIMD c = (m == 0) ? SET1_R(PREC(1.0)) : SET1_R(PREC(0.5));
     size_t idx  = m * 2 * SIMD_SIZE;
     size_t idx2 = idx + SIMD_SIZE;
+#ifdef SIMD
+    NEG_R_INIT;
+#endif
 
 
     if (grd_type == CHARM_CRD_CELL_GRID)
@@ -45,8 +48,8 @@ void CHARM(shs_grd_fft_lc)(unsigned long m, REAL dlon,
 
 
         STORE_R(&lc_tmp[idx], MUL_R(SUB_R(MUL_R(a, sm), MUL_R(b, cm)), c));
-        STORE_R(&lc_tmp[idx2], -MUL_R(ADD_R(MUL_R(a, cm),
-                                                 MUL_R(b, sm)), c));
+        STORE_R(&lc_tmp[idx2], NEG_R(MUL_R(ADD_R(MUL_R(a, cm),
+                                                 MUL_R(b, sm)), c)));
 
 
         if (symm)
@@ -55,8 +58,8 @@ void CHARM(shs_grd_fft_lc)(unsigned long m, REAL dlon,
                                                                 MUL_R(b2, cm)),
                                                           c)));
             STORE_R(&lc2_tmp[idx2],
-                    -MUL_R(symm_simd, MUL_R(ADD_R(MUL_R(a2, cm),
-                                                  MUL_R(b2, sm)), c)));
+                    NEG_R(MUL_R(symm_simd, MUL_R(ADD_R(MUL_R(a2, cm),
+                                                       MUL_R(b2, sm)), c))));
         }
 
 
@@ -69,13 +72,13 @@ void CHARM(shs_grd_fft_lc)(unsigned long m, REAL dlon,
     {
         /* Let's prepare the complex Fourier coefficients */
         STORE_R(&lc_tmp[idx], MUL_R(a, c));
-        STORE_R(&lc_tmp[idx2], -MUL_R(b, c));
+        STORE_R(&lc_tmp[idx2], NEG_R(MUL_R(b, c)));
 
 
         if (symm)
         {
             STORE_R(&lc2_tmp[idx], MUL_R(a2, c));
-            STORE_R(&lc2_tmp[idx2], -MUL_R(b2, c));
+            STORE_R(&lc2_tmp[idx2], NEG_R(MUL_R(b2, c)));
         }
     }
 

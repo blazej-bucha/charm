@@ -330,14 +330,14 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
         FFTW(complex) *ftmp_out = NULL;
 
 
-        ips = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax, 
+        ips = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax,
                                            sizeof(int));
         if (ips == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        ps = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax, 
+        ps = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax,
                                            sizeof(REAL));
         if (ps == NULL)
         {
@@ -372,46 +372,46 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        symmv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE, 
+        symmv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
                                               sizeof(REAL));
         if (symmv == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        latsinv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE, 
+        latsinv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
                                                 sizeof(REAL));
         if (latsinv == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        a = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, 
-                                          SIMD_SIZE * pnt_nlon_fft, 
+        a = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                          SIMD_SIZE * pnt_nlon_fft,
                                           sizeof(REAL));
         if (a == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        b = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, 
-                                          SIMD_SIZE * pnt_nlon_fft, 
+        b = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                          SIMD_SIZE * pnt_nlon_fft,
                                           sizeof(REAL));
         if (b == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        a2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, 
-                                           SIMD_SIZE * pnt_nlon_fft, 
+        a2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                           SIMD_SIZE * pnt_nlon_fft,
                                            sizeof(REAL));
         if (a2 == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        b2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, 
-                                           SIMD_SIZE * pnt_nlon_fft, 
+        b2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                           SIMD_SIZE * pnt_nlon_fft,
                                            sizeof(REAL));
         if (b2 == NULL)
         {
@@ -526,7 +526,7 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
             private(x, ix, y, iy, wlf, ixy, z, iz) \
             private(pnm0, pnm1, pnm2, npm_even, nmm, ds) \
             shared(zero_ri, one_ri, mone_ri, zero_r) \
-            shared(BIG_r, BIGI_r, BIGS_r, BIGSI_r, ABS_R_MASK) \
+            shared(BIG_r, BIGI_r, BIGS_r, BIGSI_r, NONSIGNBITS_R) \
             private(tmp1_r, tmp2_r, mask1, mask2, mask3)
 #   else
         #pragma omp parallel default(none) \
@@ -707,10 +707,10 @@ FAILURE_1_parallel:
                     if (m < nmax)
                     {
 #ifdef SIMD
-                        PNM_SEMISECTORIAL_XNUM_SIMD(x, y, ix, iy, wlf, t, 
-                                                    anm[m + 1], pnm1, 
-                                                    mask1, mask2, mask3, 
-                                                    zero_r, zero_ri, mone_ri, 
+                        PNM_SEMISECTORIAL_XNUM_SIMD(x, y, ix, iy, wlf, t,
+                                                    anm[m + 1], pnm1,
+                                                    mask1, mask2, mask3,
+                                                    zero_r, zero_ri, mone_ri,
                                                     BIG_r, BIGS_r,  BIGI_r,
                                                     SEMISECTORIALS);
 #else
@@ -745,7 +745,7 @@ FAILURE_1_parallel:
                                                    wlf, t, anm[n], bnm[n],
                                                    pnm2,
                                                    tmp1_r, tmp2_r,
-                                                   mask1, mask2, 
+                                                   mask1, mask2,
                                                    mask3, zero_r,
                                                    zero_ri, one_ri,
                                                    BIG_r, BIGI_r,
