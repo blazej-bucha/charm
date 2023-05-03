@@ -1,8 +1,5 @@
 * Add unit tests for PyHarm.
 
-* Rewrite CHarm tests with smaller and cleaner functions.  Define all input 
-  parameters related to the tests in "./tests/parameters.h".
-
 * Add note in docs that "sudo make install" installs PyHarm as a root, too, 
   even if in virtual environment.  It seems that the uninstallation must then 
   be manual instead of using just "pip uninstall pyharm".  For now, the best 
@@ -20,7 +17,6 @@
 
 * Add a global variable to control the verbosity.
 
-* Parallelize "./src/leg/charm_leg_pnmj_coeffs_dp.c" and 
-  "./src/leg/charm_leg_pnmj_coeffs_qp.c".
+* Parallelize "leg_pnmj_coeffs.c".
 
 * Alternatively build CHarm with CMake on Windows.
