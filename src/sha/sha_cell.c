@@ -838,36 +838,31 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
             /* Loop over harmonic orders */
             /* ------------------------------------------------------------- */
 #if CHARM_OPENMP
+
+
+#   undef SIMD_VARS
 #   ifdef SIMD
-        #pragma omp parallel default(none) \
-            shared(nmax, t1, t2, u1, u2, symm_simd) \
-            shared(shcs, en, fn, gm, hm, imm, ps1, ps2, ips1, ips2, r, ri) \
-            shared(a, b, a2, b2, dlon, latsin, pt) \
-            shared(FAILURE_glob, err) \
-            private(am, bm, a2m, b2m) \
-            private(cm, sm, x1, x2, ix1, ix2, y1, y2, iy1, iy2, w, mr) \
-            private(z1, z2, iz1, iz2, ixy1, ixy2) \
-            private(amp, amm, bmp, bmm, cm_simd, sm_simd) \
-            private(pnm0_latmin, pnm0_latmax, pnm1_latmin, pnm1_latmax) \
-            private(pnm2_latmin, pnm2_latmax, in0, inm0, inm1, inm2) \
-            private(npm_even, nmm, ds1, ds2) \
-            shared(zero_ri, one_ri, mone_ri, zero_r) \
-            shared(BIG_r, BIGI_r, BIGS_r, BIGSI_r, NONSIGNBITS_R, SIGNBIT_R) \
-            private(tmp1_r, tmp2_r, mask1, mask2, mask3)
+#       define SIMD_VARS shared(zero_ri, one_ri, mone_ri, zero_r) \
+                         shared(BIG_r, BIGI_r, BIGS_r, BIGSI_r) \
+                         shared(NONSIGNBITS_R, SIGNBIT_R) \
+                         private(tmp1_r, tmp2_r, mask1, mask2, mask3)
 #   else
-        #pragma omp parallel default(none) \
-            shared(nmax, t1, t2, u1, u2, symm_simd) \
-            shared(shcs, en, fn, gm, hm, imm, ps1, ps2, ips1, ips2, r, ri) \
-            shared(a, b, a2, b2, dlon, latsin, pt) \
-            shared(FAILURE_glob, err) \
-            private(am, bm, a2m, b2m) \
-            private(cm, sm, x1, x2, ix1, ix2, y1, y2, iy1, iy2, w, mr) \
-            private(z1, z2, iz1, iz2, ixy1, ixy2) \
-            private(amp, amm, bmp, bmm, cm_simd, sm_simd) \
-            private(pnm0_latmin, pnm0_latmax, pnm1_latmin, pnm1_latmax) \
-            private(pnm2_latmin, pnm2_latmax, in0, inm0, inm1, inm2) \
-            private(npm_even, nmm, ds1, ds2)
+#       define SIMD_VARS
 #   endif
+
+
+#pragma omp parallel default(none) \
+shared(nmax, t1, t2, u1, u2, symm_simd) \
+shared(shcs, en, fn, gm, hm, imm, ps1, ps2, ips1, ips2, r, ri) \
+shared(a, b, a2, b2, dlon, latsin, pt) \
+shared(FAILURE_glob, err) \
+private(am, bm, a2m, b2m) \
+private(cm, sm, x1, x2, ix1, ix2, y1, y2, iy1, iy2, w, mr) \
+private(z1, z2, iz1, iz2, ixy1, ixy2) \
+private(amp, amm, bmp, bmm, cm_simd, sm_simd) \
+private(pnm0_latmin, pnm0_latmax, pnm1_latmin, pnm1_latmax) \
+private(pnm2_latmin, pnm2_latmax, in0, inm0, inm1, inm2) \
+private(npm_even, nmm, ds1, ds2) SIMD_VARS
             {
             /* ............................................................. */
             /* An indicator for failed memory initializations on each

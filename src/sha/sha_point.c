@@ -518,24 +518,25 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
 
             /* ------------------------------------------------------------- */
 #if CHARM_OPENMP
+
+
+#   undef SIMD_VARS
 #   ifdef SIMD
-        #pragma omp parallel default(none) \
-            shared(nmax, symm, r, ri, a, b, a2, b2, shcs, t, u, ps, ips) \
-            shared(latsin, pt, ROOT3_r, FAILURE_glob, err) \
-            private(am, bm, a2m, b2m, amp, amm, bmp, bmm) \
-            private(x, ix, y, iy, wlf, ixy, z, iz) \
-            private(pnm0, pnm1, pnm2, npm_even, nmm, ds) \
-            shared(zero_ri, one_ri, mone_ri, zero_r) \
-            shared(BIG_r, BIGI_r, BIGS_r, BIGSI_r, NONSIGNBITS_R) \
-            private(tmp1_r, tmp2_r, mask1, mask2, mask3)
+#       define SIMD_VARS shared(zero_ri, one_ri, mone_ri, zero_r) \
+                         shared(BIG_r, BIGI_r, BIGS_r, BIGSI_r) \
+                         shared(NONSIGNBITS_R) \
+                         private(tmp1_r, tmp2_r, mask1, mask2, mask3)
 #   else
-        #pragma omp parallel default(none) \
-            shared(nmax, symm, r, ri, a, b, a2, b2, shcs, t, u, ps, ips) \
-            shared(latsin, pt, ROOT3_r, FAILURE_glob, err) \
-            private(am, bm, a2m, b2m, amp, amm, bmp, bmm) \
-            private(x, ix, y, iy, wlf, ixy, z, iz) \
-            private(pnm0, pnm1, pnm2, npm_even, nmm, ds)
+#       define SIMD_VARS
 #   endif
+
+
+#pragma omp parallel default(none) \
+shared(nmax, symm, r, ri, a, b, a2, b2, shcs, t, u, ps, ips) \
+shared(latsin, pt, ROOT3_r, FAILURE_glob, err) \
+private(am, bm, a2m, b2m, amp, amm, bmp, bmm) \
+private(x, ix, y, iy, wlf, ixy, z, iz) \
+private(pnm0, pnm1, pnm2, npm_even, nmm, ds) SIMD_VARS
             {
             /* ............................................................. */
             /* An indicator for failed memory initializations on each thread,
