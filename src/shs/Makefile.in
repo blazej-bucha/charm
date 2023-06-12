@@ -116,7 +116,7 @@ am_libcharm@P@_shs@OMP@_la_OBJECTS = shs_cell.lo shs_cell_grd.lo \
 	shs_point_sctr.lo shs_grd_lr.lo shs_grd_lr2.lo \
 	shs_grd_point_fft_check.lo shs_grd_cell_fft_check.lo \
 	shs_grd_fft_lc.lo shs_grd_fft.lo shs_sctr_mulc.lo \
-	shs_check_symm.lo shs_check_symm_simd.lo
+	shs_check_symm_simd.lo shs_r_eq_rref.lo
 libcharm@P@_shs@OMP@_la_OBJECTS =  \
 	$(am_libcharm@P@_shs@OMP@_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -145,7 +145,6 @@ am__depfiles_remade = ./$(DEPDIR)/shs_cell.Plo \
 	./$(DEPDIR)/shs_cell_isurf_lr.Plo \
 	./$(DEPDIR)/shs_cell_isurf_offset.Plo \
 	./$(DEPDIR)/shs_cell_kernel.Plo ./$(DEPDIR)/shs_cell_sctr.Plo \
-	./$(DEPDIR)/shs_check_symm.Plo \
 	./$(DEPDIR)/shs_check_symm_simd.Plo \
 	./$(DEPDIR)/shs_grd_cell_fft_check.Plo \
 	./$(DEPDIR)/shs_grd_fft.Plo ./$(DEPDIR)/shs_grd_fft_lc.Plo \
@@ -153,7 +152,8 @@ am__depfiles_remade = ./$(DEPDIR)/shs_cell.Plo \
 	./$(DEPDIR)/shs_grd_point_fft_check.Plo \
 	./$(DEPDIR)/shs_point.Plo ./$(DEPDIR)/shs_point_grd.Plo \
 	./$(DEPDIR)/shs_point_kernel.Plo \
-	./$(DEPDIR)/shs_point_sctr.Plo ./$(DEPDIR)/shs_sctr_mulc.Plo
+	./$(DEPDIR)/shs_point_sctr.Plo ./$(DEPDIR)/shs_r_eq_rref.Plo \
+	./$(DEPDIR)/shs_sctr_mulc.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -217,6 +217,7 @@ EGREP = @EGREP@
 ETAGS = @ETAGS@
 EXEEXT = @EXEEXT@
 FGREP = @FGREP@
+FILECMD = @FILECMD@
 GREP = @GREP@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -349,8 +350,8 @@ libcharm@P@_shs@OMP@_la_SOURCES = shs_cell.c \
 								  shs_grd_fft_lc.c \
 								  shs_grd_fft.c \
 								  shs_sctr_mulc.c \
-								  shs_check_symm.c \
-								  shs_check_symm_simd.c
+								  shs_check_symm_simd.c \
+								  shs_r_eq_rref.c
 
 EXTRA_DIST = *.h
 all: all-am
@@ -416,7 +417,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_cell_isurf_offset.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_cell_kernel.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_cell_sctr.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_check_symm.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_check_symm_simd.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_grd_cell_fft_check.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_grd_fft.Plo@am__quote@ # am--include-marker
@@ -428,6 +428,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_point_grd.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_point_kernel.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_point_sctr.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_r_eq_rref.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_sctr_mulc.Plo@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
@@ -550,7 +551,6 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/shs_cell_isurf_offset.Plo
 	-rm -f ./$(DEPDIR)/shs_cell_kernel.Plo
 	-rm -f ./$(DEPDIR)/shs_cell_sctr.Plo
-	-rm -f ./$(DEPDIR)/shs_check_symm.Plo
 	-rm -f ./$(DEPDIR)/shs_check_symm_simd.Plo
 	-rm -f ./$(DEPDIR)/shs_grd_cell_fft_check.Plo
 	-rm -f ./$(DEPDIR)/shs_grd_fft.Plo
@@ -562,6 +562,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/shs_point_grd.Plo
 	-rm -f ./$(DEPDIR)/shs_point_kernel.Plo
 	-rm -f ./$(DEPDIR)/shs_point_sctr.Plo
+	-rm -f ./$(DEPDIR)/shs_r_eq_rref.Plo
 	-rm -f ./$(DEPDIR)/shs_sctr_mulc.Plo
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic
@@ -616,7 +617,6 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/shs_cell_isurf_offset.Plo
 	-rm -f ./$(DEPDIR)/shs_cell_kernel.Plo
 	-rm -f ./$(DEPDIR)/shs_cell_sctr.Plo
-	-rm -f ./$(DEPDIR)/shs_check_symm.Plo
 	-rm -f ./$(DEPDIR)/shs_check_symm_simd.Plo
 	-rm -f ./$(DEPDIR)/shs_grd_cell_fft_check.Plo
 	-rm -f ./$(DEPDIR)/shs_grd_fft.Plo
@@ -628,6 +628,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/shs_point_grd.Plo
 	-rm -f ./$(DEPDIR)/shs_point_kernel.Plo
 	-rm -f ./$(DEPDIR)/shs_point_sctr.Plo
+	-rm -f ./$(DEPDIR)/shs_r_eq_rref.Plo
 	-rm -f ./$(DEPDIR)/shs_sctr_mulc.Plo
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic

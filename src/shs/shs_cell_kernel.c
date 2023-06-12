@@ -39,14 +39,14 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
     REAL_SIMD x1, x2, y1, y2, z1, z2;
     RI_SIMD ix1, ix2, iy1, iy2, iz1, iz2, ixy1, ixy2;
 #ifdef SIMD
-    RI_SIMD    zero_ri = SET_ZERO_RI;
-    RI_SIMD    one_ri  = SET1_RI(1);
-    RI_SIMD    mone_ri = SET1_RI(-1);
-    REAL_SIMD  zero_r  = SET_ZERO_R;
-    REAL_SIMD  BIG_r   = SET1_R(BIG);
-    REAL_SIMD  BIGI_r  = SET1_R(BIGI);
-    REAL_SIMD  BIGS_r  = SET1_R(BIGS);
-    REAL_SIMD  BIGSI_r = SET1_R(BIGSI);
+    const RI_SIMD    zero_ri = SET_ZERO_RI;
+    const RI_SIMD    one_ri  = SET1_RI(1);
+    const RI_SIMD    mone_ri = SET1_RI(-1);
+    const REAL_SIMD  zero_r  = SET_ZERO_R;
+    const REAL_SIMD  BIG_r   = SET1_R(BIG);
+    const REAL_SIMD  BIGI_r  = SET1_R(BIGI);
+    const REAL_SIMD  BIGS_r  = SET1_R(BIGS);
+    const REAL_SIMD  BIGSI_r = SET1_R(BIGSI);
     REAL_SIMD  tmp1_r,  tmp2_r;
     MASK_SIMD  mask1, mask2;
     MASK2_SIMD mask3;
@@ -69,6 +69,9 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
     unsigned long nmm; /* "n - m" */
     _Bool symm = CHARM(shs_check_symm_simd)(symm_simd);
     _Bool ds1, ds2; /* Dynamical switching */
+
+
+    REAL_SIMD anms, bnms;
 
 
     iy1 = iy2 = iz1 = iz2 = ixy1 = ixy2 = SET_ZERO_RI;
@@ -280,27 +283,30 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
         /* ----------------------------------------------------------------- */
         if (m < nmax)
         {
+            anms = SET1_R(anm[m + 1]);
+            bnms = SET1_R(bnm[m + 1]);
+
 
             /* Pm+1,m for "latmin" */
 #ifdef SIMD
-            PNM_SEMISECTORIAL_XNUM_SIMD(x1, y1, ix1, iy1, w, t1, anm[m + 1],
+            PNM_SEMISECTORIAL_XNUM_SIMD(x1, y1, ix1, iy1, w, t1, anms,
                                         pnm1_latmin, mask1, mask2, mask3,
                                         zero_r, zero_ri, mone_ri, BIG_r,
                                         BIGS_r,  BIGI_r, SEMISECTORIALS1);
 #else
-            PNM_SEMISECTORIAL_XNUM(x1, y1, ix1, iy1, w, t1, anm[m + 1],
+            PNM_SEMISECTORIAL_XNUM(x1, y1, ix1, iy1, w, t1, anms,
                                    pnm1_latmin);
 #endif
 
 
             /* Pm+1,m for "latmax" */
 #ifdef SIMD
-            PNM_SEMISECTORIAL_XNUM_SIMD(x2, y2, ix2, iy2, w, t2, anm[m + 1],
+            PNM_SEMISECTORIAL_XNUM_SIMD(x2, y2, ix2, iy2, w, t2, anms,
                                         pnm1_latmax, mask1, mask2, mask3,
                                         zero_r, zero_ri, mone_ri, BIG_r,
                                         BIGS_r,  BIGI_r, SEMISECTORIALS2);
 #else
-            PNM_SEMISECTORIAL_XNUM(x2, y2, ix2, iy2, w, t2, anm[m + 1],
+            PNM_SEMISECTORIAL_XNUM(x2, y2, ix2, iy2, w, t2, anms,
                                    pnm1_latmax);
 #endif
 
@@ -349,34 +355,37 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
             for (unsigned long n = (m + 2); n <= nmax;
                  n++, npm_even = !npm_even)
             {
+                anms = SET1_R(anm[n]);
+                bnms = SET1_R(bnm[n]);
+
 
                 /* Pm+2,m, Pm+3,m, ..., Pnmax,m for "latmin" */
 #ifdef SIMD
                 PNM_TESSERAL_XNUM_SIMD(x1, y1, z1, ix1, iy1, iz1, ixy1,
-                                       w, t1, anm[n], bnm[n], pnm2_latmin,
+                                       w, t1, anms, bnms, pnm2_latmin,
                                        tmp1_r, tmp2_r, mask1, mask2,
                                        mask3, zero_r, zero_ri, one_ri,
                                        BIG_r, BIGI_r, BIGS_r, BIGSI_r,
                                        TESSERALS1, TESSERALS2, ds1);
 #else
                 PNM_TESSERAL_XNUM(x1, y1, z1, ix1, iy1, iz1,
-                                  ixy1, w, t1, anm[n], bnm[n],
-                                  pnm2_latmin, pnm2_latmin = PREC(0.0), ds1);
+                                  ixy1, w, t1, anms, bnms,
+                                  pnm2_latmin, ds1);
 #endif
 
 
                 /* Pm+2,m, Pm+3,m, ..., Pnmax,m for "latmax" */
 #ifdef SIMD
                 PNM_TESSERAL_XNUM_SIMD(x2, y2, z2, ix2, iy2, iz2, ixy2,
-                                       w, t2, anm[n], bnm[n], pnm2_latmax,
+                                       w, t2, anms, bnms, pnm2_latmax,
                                        tmp1_r, tmp2_r, mask1, mask2,
                                        mask3, zero_r, zero_ri, one_ri,
                                        BIG_r, BIGI_r, BIGS_r, BIGSI_r,
                                        TESSERALS3, TESSERALS4, ds2);
 #else
                 PNM_TESSERAL_XNUM(x2, y2, z2, ix2, iy2, iz2,
-                                  ixy2, w, t2, anm[n], bnm[n],
-                                  pnm2_latmax, pnm2_latmax = PREC(0.0), ds2);
+                                  ixy2, w, t2, anms, bnms,
+                                  pnm2_latmax, ds2);
 #endif
 
 
@@ -384,7 +393,7 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
                 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
                 /* This is not a typo, "pnm1" are indeed required here */
                 inm2 = SUB_R(MUL_R(MUL_R(SET1_R(hm[n]),
-                                         SET1_R(bnm[n])), inm0),
+                                         bnms), inm0),
                              MUL_R(SET1_R(anm[n] / (REAL)(n + 1)),
                                    SUB_R(MUL_R(MUL_R(u2, u2),
                                                pnm1_latmax),

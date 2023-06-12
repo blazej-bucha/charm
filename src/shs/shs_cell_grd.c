@@ -611,7 +611,7 @@ FAILURE_1_parallel:
         REAL_SIMD a, b, a2, b2;
         a = b = a2 = b2 = SET_ZERO_R;
         REAL_SIMD imm0, imm1, imm2;
-        REAL dsigma, mur_dsigma;
+
 
         size_t ipv;
 
@@ -619,7 +619,8 @@ FAILURE_1_parallel:
 #if CHARM_OPENMP
 #pragma omp for schedule(dynamic)
 #endif
-        for (size_t i = 0; i < SIMD_GET_MULTIPLE(nlatdo); i += SIMD_SIZE)
+        for (size_t i = 0; i < SIMD_MULTIPLE(nlatdo, SIMD_SIZE);
+             i += SIMD_SIZE)
         {
             for (size_t v = 0; v < SIMD_SIZE; v++)
             {
@@ -725,7 +726,7 @@ FAILURE_1_parallel:
                  * check "u1" only.  In other words, if the polar optimization
                  * can be applied for "u1", it can surely be applied for
                  * "u2". */
-                if (CHARM(misc_polar_optimization_apply)(m, nmax, u1, pt))
+                if (CHARM(misc_polar_optimization_apply)(m, nmax, &u1, 1, pt))
                     goto UPDATE_RATIOS;
 
 
@@ -750,12 +751,12 @@ FAILURE_1_parallel:
 
 
                 if (use_fft)
-                    CHARM(shs_grd_fft_lc)(m, dlon, a, b, a2, b2, symm,
-                                          symm_simd, cell_type,
+                    CHARM(shs_grd_fft_lc)(m, dlon, &a, &b, &a2, &b2, symm,
+                                          &symm_simd, cell_type,
                                           lc_simd, lc2_simd);
                 else
                     CHARM(shs_grd_lr)(m, lon0, dlon, cell_nlon, cell_type,
-                                      a, b, a2, b2, symm, fi, fi2);
+                                      &a, &b, &a2, &b2, symm, fi, fi2);
 
 
 UPDATE_RATIOS:
@@ -769,48 +770,17 @@ UPDATE_RATIOS:
 
 
             if (use_fft)
-            {
                 /* Fourier transform along the latitude parallels */
-                /* --------------------------------------------------------- */
-                for (size_t v = 0; v < SIMD_SIZE; v++)
-                {
-                    if (latsinv[v] == 0)
-                        continue;
-
-
-                    /* Cell area on the unit sphere and some useful constants
-                     * */
-                    dsigma     = (SIN(latmaxv[v]) - SIN(latminv[v])) * dlon;
-                    mur_dsigma = mur / dsigma;
-
-
-                    CHARM(shs_grd_fft)(i, v, cell_nlat, cell_nlon, lc, lc2,
-                                       nlc, lc_simd, lc2_simd, mur_dsigma,
-                                       plan, symmv, ftmp, ftmp2, f);
-                }
-                /* --------------------------------------------------------- */
-            }
+                CHARM(shs_grd_fft)(i, cell_type, cell_nlat, cell_nlon,
+                                   latsinv, latminv, latmaxv, dlon,
+                                   lc, lc2, nlc, lc_simd, lc2_simd,
+                                   mur, plan, symmv, ftmp, ftmp2,
+                                   f);
             else
-            {
-                /* Final synthesis */
-                /* --------------------------------------------------------- */
-                for (size_t v = 0; v < SIMD_SIZE; v++)
-                {
-                    if (latsinv[v] == 0)
-                        continue;
-
-
-                    /* Cell area on the unit sphere and some useful constants
-                     * */
-                    dsigma     = (SIN(latmaxv[v]) - SIN(latminv[v])) * dlon;
-                    mur_dsigma = mur / dsigma;
-
-
-                    CHARM(shs_grd_lr2)(i, v, cell_nlat, cell_nlon, symmv,
-                                       mur_dsigma, fi, fi2, f);
-                }
-                /* --------------------------------------------------------- */
-            }
+                CHARM(shs_grd_lr2)(i, latsinv,
+                                   cell_type, cell_nlat, cell_nlon,
+                                   symmv, mur, latminv, latmaxv, dlon,
+                                   fi, fi2, f);
 
 
         } /* End of the loop over latitude parallels */

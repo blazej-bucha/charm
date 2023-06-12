@@ -13,6 +13,7 @@
 #include "shs_grd_lr.h"
 #include "shs_grd_lr2.h"
 #include "shs_point_kernel.h"
+#include "shs_r_eq_rref.h"
 #include "../leg/leg_func_anm_bnm.h"
 #include "../leg/leg_func_dm.h"
 #include "../leg/leg_func_r_ri.h"
@@ -124,13 +125,7 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
      * obtained by exploiting the symmetry property of Legendre functions. This
      * reduces the number of Legendre functions that need to be evaluated by
      * a factor of ~2, so saves some computational time */
-    /* ..................................................................... */
-    size_t nlatdo;
-    if (symm)
-        nlatdo = (pnt_nlat + 1 - even) / 2;
-    else
-        nlatdo = pnt_nlat;
-    /* ..................................................................... */
+    size_t nlatdo = (symm) ? (pnt_nlat + 1 - even) / 2 : pnt_nlat;
     /* --------------------------------------------------------------------- */
 
 
@@ -197,6 +192,17 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
          * later for the PSLR algorithm) */
         lon0 = pnt->lon[0];
     }
+    /* --------------------------------------------------------------------- */
+
+
+
+
+
+
+    /* Check whether all values of "pnt->r" are equal to "shcs->r".  If true,
+     * a faster code can be used inside "shs_point_kernel".  */
+    /* --------------------------------------------------------------------- */
+    _Bool r_eq_rref = CHARM(shs_r_eq_rref)(pnt, shcs);
     /* --------------------------------------------------------------------- */
 
 
@@ -312,7 +318,7 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
 #pragma omp parallel default(none) \
 shared(f, shcs, nmax, pnt, pnt_nlat, pnt_nlon, dm, r, ri, nlatdo, pnt_type) \
 shared(lon0, dlon, even, symm, FAILURE_glob, mur, err, nlc, plan, use_fft) \
-shared(pt, rref)
+shared(pt, rref, r_eq_rref)
 #endif
     {
         /* ................................................................. */
@@ -342,14 +348,16 @@ shared(pt, rref)
         REAL *fi2          = NULL;
 
 
-        ips = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, nmax * SIMD_SIZE,
+        ips = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                           nmax * SIMD_SIZE * SIMD_BLOCK,
                                            sizeof(int));
         if (ips == NULL)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-        ps = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, nmax * SIMD_SIZE,
+        ps = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                           nmax * SIMD_SIZE * SIMD_BLOCK,
                                            sizeof(REAL));
         if (ps == NULL)
         {
@@ -377,14 +385,16 @@ shared(pt, rref)
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-        symmv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+        symmv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                              SIMD_SIZE * SIMD_BLOCK,
                                               sizeof(REAL));
         if (symmv == NULL)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-        latsinv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+        latsinv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                                SIMD_SIZE * SIMD_BLOCK,
                                                 sizeof(REAL));
         if (latsinv == NULL)
         {
@@ -420,16 +430,16 @@ shared(pt, rref)
                 FAILURE_priv = 1;
                 goto FAILURE_1_parallel;
             }
-            lc = (FFTW(complex) *)FFTW(malloc)(nlc * SIMD_SIZE *
-                                               sizeof(FFTW(complex)));
+            lc = (FFTW(complex) *)FFTW(malloc)(nlc * sizeof(FFTW(complex)));
             if (lc == NULL)
             {
                 FAILURE_priv = 1;
                 goto FAILURE_1_parallel;
             }
-            memset(lc, 0, nlc * SIMD_SIZE * sizeof(FFTW(complex)));
+            memset(lc, 0, nlc * sizeof(FFTW(complex)));
             lc_simd = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                                    nlc * SIMD_SIZE * 2,
+                                                    nlc * SIMD_SIZE *
+                                                    SIMD_BLOCK * 2,
                                                     sizeof(REAL));
             if (lc_simd == NULL)
             {
@@ -440,8 +450,8 @@ shared(pt, rref)
         else
         {
             fi = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                               pnt_nlon * SIMD_SIZE,
-                                               sizeof(REAL));
+                                               pnt_nlon * SIMD_SIZE *
+                                               SIMD_BLOCK, sizeof(REAL));
             if (fi == NULL)
             {
                 FAILURE_priv = 1;
@@ -452,8 +462,8 @@ shared(pt, rref)
 
         if (symm)
         {
-            pnt_r2v = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
-                                                    sizeof(REAL));
+            pnt_r2v = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                                    SIMD_SIZE, sizeof(REAL));
             if (pnt_r2v == NULL)
             {
                 FAILURE_priv = 1;
@@ -469,16 +479,17 @@ shared(pt, rref)
                     FAILURE_priv = 1;
                     goto FAILURE_1_parallel;
                 }
-                lc2 = (FFTW(complex) *)FFTW(malloc)(nlc * SIMD_SIZE *
+                lc2 = (FFTW(complex) *)FFTW(malloc)(nlc *
                                                     sizeof(FFTW(complex)));
                 if (lc2 == NULL)
                 {
                     FAILURE_priv = 1;
                     goto FAILURE_1_parallel;
                 }
-                memset(lc2, 0, nlc * SIMD_SIZE * sizeof(FFTW(complex)));
+                memset(lc2, 0, nlc * sizeof(FFTW(complex)));
                 lc2_simd = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                                         nlc * SIMD_SIZE * 2,
+                                                         nlc * SIMD_SIZE *
+                                                         SIMD_BLOCK * 2,
                                                          sizeof(REAL));
                 if (lc2_simd == NULL)
                 {
@@ -489,8 +500,8 @@ shared(pt, rref)
             else
             {
                 fi2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                                    pnt_nlon * SIMD_SIZE,
-                                                    sizeof(REAL));
+                                                    pnt_nlon * SIMD_SIZE *
+                                                    SIMD_BLOCK, sizeof(REAL));
                 if (fi2 == NULL)
                 {
                     FAILURE_priv = 1;
@@ -542,99 +553,115 @@ FAILURE_1_parallel:
         /* ................................................................. */
 
 
-        REAL_SIMD t, u, symm_simd;
-        REAL_SIMD pnt_r, pnt_r2;
-        REAL_SIMD ratio, ratio2, ratiom, ratio2m;
-        REAL_SIMD a, b, a2, b2;
-        a = b = a2 = b2 = ratio = ratio2 = ratiom = ratio2m = SET_ZERO_R;
+        size_t ipv, l;
 
-        size_t ipv;
+
+        REAL_SIMD t[SIMD_BLOCK], u[SIMD_BLOCK], symm_simd[SIMD_BLOCK];
+        REAL_SIMD pnt_r[SIMD_BLOCK], pnt_r2[SIMD_BLOCK];
+        REAL_SIMD ratio[SIMD_BLOCK], ratio2[SIMD_BLOCK];
+        REAL_SIMD ratiom[SIMD_BLOCK], ratio2m[SIMD_BLOCK];
+        REAL_SIMD a[SIMD_BLOCK], b[SIMD_BLOCK], a2[SIMD_BLOCK], b2[SIMD_BLOCK];
+        for (l = 0; l < SIMD_BLOCK; l++)
+        {
+            a[l] = b[l] = a2[l] = b2[l] = ratio[l] = ratio2[l] = ratiom[l] =
+                ratio2m[l] = SET_ZERO_R;
+        }
 
 
 #if CHARM_OPENMP
 #pragma omp for schedule(dynamic)
 #endif
-        for (size_t i = 0; i < SIMD_GET_MULTIPLE(nlatdo); i += SIMD_SIZE)
+        for (size_t i = 0; i < SIMD_MULTIPLE(nlatdo, SIMD_SIZE * SIMD_BLOCK);
+             i += SIMD_SIZE * SIMD_BLOCK)
         {
-            for (size_t v = 0; v < SIMD_SIZE; v++)
+            for (l = 0; l < SIMD_BLOCK; l++)
             {
-                /* Check whether the symmetry property of LFs can be applied */
-                /* --------------------------------------------------------- */
-                ipv = i + v;
-                CHARM(crd_grd_check_symm)(ipv, v, pnt_type, nlatdo, symm, even,
-                                          symmv, latsinv);
-
-
-                if (latsinv[v] == 1)
+                for (size_t v = 0; v < SIMD_SIZE; v++)
                 {
-                    latv[v]   = pnt->lat[ipv];
-                    tv[v]     = SIN(pnt->lat[ipv]);
-                    uv[v]     = COS(pnt->lat[ipv]);
-                    pnt_rv[v] = pnt->r[ipv];
+                    /* Check whether the symmetry property of LFs can be
+                     * applied */
+                    /* ----------------------------------------------------- */
+                    ipv = i + l * SIMD_SIZE + v;
+                    CHARM(crd_grd_check_symm)(ipv, v, pnt_type, nlatdo, symm,
+                                              even, symmv + l * SIMD_SIZE,
+                                              latsinv + l * SIMD_SIZE);
+
+
+                    if (latsinv[l * SIMD_SIZE + v] == 1)
+                    {
+                        latv[v]   = pnt->lat[ipv];
+                        tv[v]     = SIN(pnt->lat[ipv]);
+                        uv[v]     = COS(pnt->lat[ipv]);
+                        pnt_rv[v] = pnt->r[ipv];
+
+
+                        if (symm)
+                            pnt_r2v[v] = pnt->r[pnt_nlat - ipv - 1];
+                    }
+                    else
+                    {
+                        latv[v] = tv[v] = uv[v] = pnt_rv[v] = PREC(0.0);
+                        if (symm)
+                            pnt_r2v[v] = PREC(0.0);
+
+
+                        continue;
+                    }
+                    /* ----------------------------------------------------- */
+                }
+
+
+                t[l]         = LOAD_R(&tv[0]);
+                u[l]         = LOAD_R(&uv[0]);
+                pnt_r[l]     = LOAD_R(&pnt_rv[0]);
+                symm_simd[l] = LOAD_R(&symmv[l * SIMD_SIZE]);
+
+
+                ratio[l]  = DIV_R(rref, pnt_r[l]);
+                ratiom[l] = ratio[l];
+                if (symm)
+                {
+                    pnt_r2[l]  = LOAD_R(&pnt_r2v[0]);
+                    ratio2[l]  = DIV_R(rref, pnt_r2[l]);
+                    ratio2m[l] = ratio2[l];
+                }
+
+
+                /* Prepare arrays for sectorial Legendre functions */
+                /* --------------------------------------------------------- */
+                CHARM(leg_func_prepare)(uv, ps + l * SIMD_SIZE * nmax,
+                                        ips + l * SIMD_SIZE * nmax, dm, nmax);
+                /* --------------------------------------------------------- */
+
+
+                if (use_fft)
+                {
+                    /* Reset the lumped coefficients.  Required in some
+                     * cases. */
+                    /* ----------------------------------------------------- */
+                    memset(lc, 0, nlc * sizeof(FFTW(complex)));
 
 
                     if (symm)
-                        pnt_r2v[v] = pnt->r[pnt_nlat - ipv - 1];
+                        memset(lc2, 0, nlc * sizeof(FFTW(complex)));
+                    /* ----------------------------------------------------- */
                 }
                 else
                 {
-                    latv[v] = tv[v] = uv[v] = pnt_rv[v] = PREC(0.0);
+                    /* The "fi" vector represents the synthesized quantity "f"
+                     * for the "ipv"th latitude parallel. Therefore, it needs
+                     * to be reinitialized to zero for each "ith" latitude. The
+                     * same holds true for "fi2" in case of symmetric grids. */
+                    /* ----------------------------------------------------- */
+                    memset(fi, 0, pnt_nlon * SIMD_SIZE * SIMD_BLOCK *
+                           sizeof(REAL));
+
+
                     if (symm)
-                        pnt_r2v[v] = PREC(0.0);
-
-
-                    continue;
+                        memset(fi2, 0, pnt_nlon * SIMD_SIZE * SIMD_BLOCK *
+                               sizeof(REAL));
+                    /* ----------------------------------------------------- */
                 }
-                /* --------------------------------------------------------- */
-            }
-
-
-            t         = LOAD_R(&tv[0]);
-            u         = LOAD_R(&uv[0]);
-            pnt_r     = LOAD_R(&pnt_rv[0]);
-            symm_simd = LOAD_R(&symmv[0]);
-
-
-            ratio  = DIV_R(rref, pnt_r);
-            ratiom = ratio;
-            if (symm)
-            {
-                pnt_r2  = LOAD_R(&pnt_r2v[0]);
-                ratio2  = DIV_R(rref, pnt_r2);
-                ratio2m = ratio2;
-            }
-
-
-            /* Prepare arrays for sectorial Legendre functions */
-            /* ------------------------------------------------------------- */
-            CHARM(leg_func_prepare)(uv, ps, ips, dm, nmax);
-            /* ------------------------------------------------------------- */
-
-
-            if (use_fft)
-            {
-                /* Reset the lumped coefficients.  Required in some cases. */
-                /* --------------------------------------------------------- */
-                memset(lc, 0, nlc * SIMD_SIZE * sizeof(FFTW(complex)));
-
-
-                if (symm)
-                    memset(lc2, 0, nlc * SIMD_SIZE * sizeof(FFTW(complex)));
-                /* --------------------------------------------------------- */
-            }
-            else
-            {
-                /* The "fi" vector represents the synthesized quantity "f" for
-                 * the "ipv"th latitude parallel. Therefore, it needs to be
-                 * reinitialized to zero for each "ith" latitude. The same
-                 * holds true for "fi2" in case of symmetric grids. */
-                /* --------------------------------------------------------- */
-                memset(fi, 0, pnt_nlon * SIMD_SIZE * sizeof(REAL));
-
-
-                if (symm)
-                    memset(fi2, 0, pnt_nlon * SIMD_SIZE * sizeof(REAL));
-                /* --------------------------------------------------------- */
             }
 
 
@@ -644,7 +671,8 @@ FAILURE_1_parallel:
             {
 
                 /* Apply polar optimization if asked to do so */
-                if (CHARM(misc_polar_optimization_apply)(m, nmax, u, pt))
+                if (CHARM(misc_polar_optimization_apply)(m, nmax, &u[0],
+                                                         SIMD_BLOCK, pt))
                     goto UPDATE_RATIOS;
 
 
@@ -654,28 +682,34 @@ FAILURE_1_parallel:
 
 
                 /* Computation of the lumped coefficients */
-                CHARM(shs_point_kernel)(nmax, m, shcs, anm, bnm,
-                                        t, ps, ips,
-                                        ratio, ratio2,
-                                        ratiom, ratio2m,
-                                        symm_simd, &a, &b, &a2, &b2);
+                CHARM(shs_point_kernel)(nmax, m, shcs, r_eq_rref, anm, bnm,
+                                        &t[0], ps, ips,
+                                        &ratio[0], &ratio2[0],
+                                        &ratiom[0], &ratio2m[0],
+                                        &symm_simd[0],
+                                        &a[0], &b[0], &a2[0], &b2[0]);
 
 
                 /* --------------------------------------------------------- */
                 if (use_fft)
-                    CHARM(shs_grd_fft_lc)(m, dlon, a, b, a2, b2, symm,
-                                          symm_simd, pnt_type,
+                    CHARM(shs_grd_fft_lc)(m, dlon,
+                                          &a[0], &b[0], &a2[0], &b2[0],
+                                          symm, &symm_simd[0], pnt_type,
                                           lc_simd, lc2_simd);
                 else
                     CHARM(shs_grd_lr)(m, lon0, dlon, pnt_nlon, pnt_type,
-                                      a, b, a2, b2, symm, fi, fi2);
+                                      &a[0], &b[0], &a2[0], &b2[0],
+                                      symm, fi, fi2);
                 /* --------------------------------------------------------- */
 
 
 UPDATE_RATIOS:
-                ratiom = MUL_R(ratiom, ratio);
-                if (symm)
-                    ratio2m = MUL_R(ratio2m, ratio2);
+                for (l = 0; l < SIMD_BLOCK; l++)
+                {
+                    ratiom[l] = MUL_R(ratiom[l], ratio[l]);
+                    if (symm)
+                        ratio2m[l] = MUL_R(ratio2m[l], ratio2[l]);
+                }
 
 
             } /* End of the loop over harmonic orders */
@@ -683,32 +717,17 @@ UPDATE_RATIOS:
 
 
             if (use_fft)
-            {
                 /* Fourier transform along the latitude parallels */
-                for (size_t v = 0; v < SIMD_SIZE; v++)
-                {
-                    if (latsinv[v] == 0)
-                        continue;
-
-
-                    CHARM(shs_grd_fft)(i, v, pnt_nlat, pnt_nlon, lc, lc2, nlc,
-                                       lc_simd, lc2_simd, mur, plan, symmv,
-                                       ftmp, ftmp2, f);
-                }
-            }
+                CHARM(shs_grd_fft)(i, pnt_type, pnt_nlat, pnt_nlon,
+                                   latsinv, NULL, NULL, PREC(0.0),
+                                   lc, lc2, nlc,
+                                   lc_simd, lc2_simd,
+                                   mur, plan, symmv,
+                                   ftmp, ftmp2, f);
             else
-            {
-                for (size_t v = 0; v < SIMD_SIZE; v++)
-                {
-                    if (latsinv[v] == 0)
-                        continue;
-
-
-                    CHARM(shs_grd_lr2)(i, v, pnt_nlat, pnt_nlon, symmv, mur,
-                                       fi, fi2, f);
-                }
-                /* --------------------------------------------------------- */
-            }
+                CHARM(shs_grd_lr2)(i, latsinv, pnt_type, pnt_nlat, pnt_nlon,
+                                   symmv, mur, NULL, NULL, PREC(0.0),
+                                   fi, fi2, f);
 
 
         } /* End of the loop over latitude parallels */

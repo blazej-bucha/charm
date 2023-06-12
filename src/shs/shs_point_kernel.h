@@ -17,13 +17,14 @@ extern "C"
 
 
 extern void CHARM(shs_point_kernel)(unsigned long, unsigned long,
-                                    const CHARM(shc) *, const REAL *,
-                                    const REAL *, REAL_SIMD, const REAL *,
+                                    const CHARM(shc) *, _Bool,
+                                    const REAL *, const REAL *,
+                                    REAL_SIMD *, const REAL *,
                                     const int *,
-                                    REAL_SIMD, REAL_SIMD,
-                                    REAL_SIMD, REAL_SIMD,
-                                    REAL_SIMD, REAL_SIMD *, REAL_SIMD *,
-                                    REAL_SIMD *, REAL_SIMD *);
+                                    REAL_SIMD *, REAL_SIMD *,
+                                    REAL_SIMD *, REAL_SIMD *,
+                                    REAL_SIMD *, REAL_SIMD *,
+                                    REAL_SIMD *, REAL_SIMD *, REAL_SIMD *);
 
 
 #ifdef __cplusplus

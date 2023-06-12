@@ -4,7 +4,11 @@
 #include <stdio.h>
 #include "../src/prec.h"
 #include "parameters.h"
-#include "validate.h"
+#ifdef GENREF
+#   include "write.h"
+#else
+#   include "validate.h"
+#endif
 /* ------------------------------------------------------------------------- */
 
 
@@ -64,7 +68,11 @@ long int check_shc_dav(void (*shc_dav)(const CHARM(shc) *,
         CHARM(err_handler)(err, 1);
 
 
+#ifdef GENREF
+        e += write(file, f, nmax + 1);
+#else
         e += validate(file, f, nmax + 1, PREC(10.0) * CHARM(glob_threshold));
+#endif
 
 
         free(f);

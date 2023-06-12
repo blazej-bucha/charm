@@ -9,6 +9,7 @@ libcharm@P@_leg@OMP@_la_SOURCES = leg_func_anm_bnm.c \
 								  leg_func_gm_hm.c \
 								  leg_func_prepare.c \
 								  leg_func_r_ri.c \
+								  leg_func_use_xnum.c \
 								  leg_pnmj_coeffs.c \
 								  leg_pnmj_dpeven.c \
 								  leg_pnmj_dpodd.c \

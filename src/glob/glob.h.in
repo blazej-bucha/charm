@@ -110,13 +110,16 @@ extern @RDT@ charm@P@_glob_threshold2;
  * harmonics are evaluated, regardless of their smallness in magnitude.  If it
  * is non-negative, the polar optimization is applied.
  *
- * The following values of the tuning parameters improve the computation speed
- * and, in most cases, can safely be used without deteriorating the accuracy
- * (Reinecke and Seljebotn, 2013):
+ * In **double** precision, the following values of the tuning parameters
+ * improve the computation speed and, in most cases, can safely be used without
+ * deteriorating the accuracy (Reinecke and Seljebotn, 2013):
  *
  * * ``::charm@P@_glob_polar_optimization_a1 = 100`` and
  *
  * * ``::charm@P@_glob_polar_optimization_a2 = 0.01``.
+ *
+ * In single and quadruple precision, different values of the tuning parameters
+ * are needed.  Currently, we do not provide any recommendations, though.
  *
  * **References**:
  *

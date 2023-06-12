@@ -6,7 +6,11 @@
 #include "../src/prec.h"
 #include "generate_cell.h"
 #include "parameters.h"
-#include "validate.h"
+#ifdef GENREF
+#   include "write.h"
+#else
+#   include "validate.h"
+#endif
 /* ------------------------------------------------------------------------- */
 
 
@@ -53,7 +57,7 @@ long int check_shs_cell(void)
 
 
 
-    /* Custom grid of points and cells */
+    /* Custom cell grids */
     /* ..................................................................... */
     long int e            = 0;
     REAL *f               = NULL;
@@ -138,8 +142,12 @@ long int check_shs_cell(void)
 
                         CHARM(shs_cell)(grd_cell, shcs_pot, nmax, f, err);
                         CHARM(err_handler)(err, 1);
+#ifdef GENREF
+                        e += write(file, f, grd_cell->nlat * grd_cell->nlon);
+#else
                         e += validate(file, f, grd_cell->nlat * grd_cell->nlon,
                                       CHARM(glob_threshold2));
+#endif
 
 
                         CHARM(crd_cell_free)(grd_cell);
@@ -159,7 +167,7 @@ long int check_shs_cell(void)
 
 
 
-    /* Scattered points/cells */
+    /* Scattered cells */
     /* ..................................................................... */
     {
     size_t nlat[NSCTR] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
@@ -204,8 +212,12 @@ long int check_shs_cell(void)
 
                 CHARM(shs_cell)(sctr_cell, shcs_pot, nmax, f, err);
                 CHARM(err_handler)(err, 1);
+#ifdef GENREF
+                e += write(file, f, sctr_cell->nlat);
+#else
                 e += validate(file, f, sctr_cell->nlat,
                               CHARM(glob_threshold2));
+#endif
 
 
                 CHARM(crd_cell_free)(sctr_cell);

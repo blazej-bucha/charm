@@ -4,7 +4,11 @@
 #include <stdio.h>
 #include "../src/prec.h"
 #include "parameters.h"
-#include "validate.h"
+#ifdef GENREF
+#   include "write.h"
+#else
+#   include "validate.h"
+#endif
 /* ------------------------------------------------------------------------- */
 
 
@@ -70,8 +74,12 @@ long int check_leg_pnmj_coeffs(void)
                                 FTYPE);
 
 
+#ifdef GENREF
+                        e += write(file, pnmj->pnmj[m][n - m], (n / 2) + 1);
+#else
                         e += validate(file, pnmj->pnmj[m][n - m], (n / 2) + 1,
                                       PREC(10.0) * CHARM(glob_threshold));
+#endif
                     }
             }
             else
@@ -84,9 +92,14 @@ long int check_leg_pnmj_coeffs(void)
                                 FTYPE);
 
 
+#ifdef GENREF
+                        e += write(file, pnmj->pnmj[m][j],
+                                   nmax2 - CHARM_MAX(m, 2 * j) + 1);
+#else
                         e += validate(file, pnmj->pnmj[m][j],
                                       nmax2 - CHARM_MAX(m, 2 * j) + 1,
                                       PREC(10.0) * CHARM(glob_threshold));
+#endif
                     }
             }
 

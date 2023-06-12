@@ -5,8 +5,12 @@
 #include <stdlib.h>
 #include "../src/prec.h"
 #include "parameters.h"
-#include "validate.h"
 #include "generate_cell.h"
+#ifdef GENREF
+#   include "write.h"
+#else
+#   include "validate.h"
+#endif
 /* ------------------------------------------------------------------------- */
 
 
@@ -166,12 +170,19 @@ long int check_sha_cell(void)
                                 (s == 0) ? 0 : 1, FTYPE);
 
 
+#ifdef GENREF
+                        e += write(file_c, shcs_out->c[0],
+                                      ((nmax + 2) * (nmax + 1)) / 2);
+                        e += write(file_s, shcs_out->s[0],
+                                      ((nmax + 2) * (nmax + 1)) / 2);
+#else
                         e += validate(file_c, shcs_out->c[0],
                                       ((nmax + 2) * (nmax + 1)) / 2,
                                       PREC(10.0) * CHARM(glob_threshold2));
                         e += validate(file_s, shcs_out->s[0],
                                       ((nmax + 2) * (nmax + 1)) / 2,
                                       PREC(10.0) * CHARM(glob_threshold2));
+#endif
 
 
                         CHARM(shc_free)(shcs_out);

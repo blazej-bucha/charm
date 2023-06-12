@@ -14,7 +14,8 @@
 
 _Bool CHARM(misc_polar_optimization_apply)(unsigned long m,
                                            unsigned long nmax,
-                                           REAL_SIMD sinlat,
+                                           REAL_SIMD *sinlat,
+                                           size_t nsinlat,
                                            REAL_SIMD threshold)
 {
     /* If "glob_polar_optimization_a2" is negative, the polar optimization is
@@ -26,10 +27,14 @@ _Bool CHARM(misc_polar_optimization_apply)(unsigned long m,
     /* Do the test */
     REAL_SIMD nmax_simd = SET1_R(nmax);
     REAL_SIMD m_simd    = SET1_R(m);
-    MASK2_SIMD test     = LT_R(threshold,
-                               SUB_R(m_simd, MUL_R(nmax_simd, sinlat)));
+    for (size_t i = 0; i < nsinlat; i++)
+    {
+        MASK2_SIMD test  = LT_R(threshold,
+                                SUB_R(m_simd, MUL_R(nmax_simd, sinlat[i])));
+        if (MOVEMASK((test)) != SIMD_TRUE)
+            return 0;
+    }
 
 
-    /* Apply the polar optimization only if "test" is true for all "sinlat". */
-    return MOVEMASK((test)) == SIMD_TRUE;
+    return 1;
 }

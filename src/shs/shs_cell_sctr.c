@@ -394,7 +394,8 @@ FAILURE_1_parallel:
 #if CHARM_OPENMP
 #pragma omp for schedule(dynamic)
 #endif
-        for (size_t i = 0; i < SIMD_GET_MULTIPLE(ncell); i += SIMD_SIZE)
+        for (size_t i = 0; i < SIMD_MULTIPLE(ncell, SIMD_SIZE);
+             i += SIMD_SIZE)
         {
             for (size_t v = 0; v < SIMD_SIZE; v++)
             {
@@ -451,7 +452,7 @@ FAILURE_1_parallel:
                  * check "u1" only.  In other words, if the polar optimization
                  * can be applied for "u1", it can surely be applied for
                  * "u2". */
-                if (CHARM(misc_polar_optimization_apply)(m, nmax, u1, pt))
+                if (CHARM(misc_polar_optimization_apply)(m, nmax, &u1, 1, pt))
                     goto UPDATE_RATIOS;
 
 
@@ -521,8 +522,8 @@ UPDATE_RATIOS:
             dsigma = MUL_R(SUB_R(t2, t1), dlon);
 
 
-            CHARM(shs_sctr_mulc)(i, ncell, mur, tmp, tmpv, DIV_R(fi, dsigma),
-                                 f);
+            fi = DIV_R(fi, dsigma);
+            CHARM(shs_sctr_mulc)(i, ncell, cell->type, mur, tmp, tmpv, &fi, f);
             /* ------------------------------------------------------------- */
 
 

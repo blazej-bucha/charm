@@ -102,13 +102,21 @@
 /* Maximum degree for harmonic analysis and synthesis (except for the area-mean
  * values on irregular surfaces) */
 #undef NMAX
-#define NMAX (3)
+#define NMAX (4)
 
 
 /* Auxiliary maximum degree to synthesize area-mean values on irregular
  * surfaces */
 #undef NMAX2
 #define NMAX2 (15)
+
+
+/* Maximum degrees to test dynamical switching and loop unrolling in point
+ * synthesis and analysis */
+#undef NMAX_DS_MIN
+#define NMAX_DS_MIN (150)
+#undef NMAX_DS_MAX
+#define NMAX_DS_MAX (154)
 
 
 /* Number of radial layers to test for the solid synthesis and analysis. */
@@ -140,12 +148,22 @@
 
 /* Path to the folder with the reference test data */
 #undef FOLDER
-#if CHARM_FLOAT
-#   define FOLDER "../data/tests/single"
-#elif CHARM_QUAD
-#   define FOLDER "../data/tests/quad"
+#if GENREF
+#   if CHARM_FLOAT
+#      define FOLDER "./genref-output/single"
+#   elif CHARM_QUAD
+#      define FOLDER "./genref-output/quad"
+#   else
+#      define FOLDER "./genref-output/double"
+#   endif
 #else
-#   define FOLDER "../data/tests/double"
+#   if CHARM_FLOAT
+#      define FOLDER "../data/tests/single"
+#   elif CHARM_QUAD
+#      define FOLDER "../data/tests/quad"
+#   else
+#      define FOLDER "../data/tests/double"
+#   endif
 #endif
 
 

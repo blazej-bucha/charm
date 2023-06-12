@@ -30,6 +30,11 @@ tests/test_run
 tests/test_run_omp
 tests/test_run[fq]
 tests/test_run[fq]_omp
+tests/genref_run
+tests/genref_run_omp
+tests/genref_run[fq]
+tests/genref_run[fq]_omp
+tests/genref-output
 wrap/pyharm/_data_types.py
 wrap/pyharm/__init__.py
 wrap/pyharm/lib/*

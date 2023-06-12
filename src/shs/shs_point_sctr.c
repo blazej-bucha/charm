@@ -7,6 +7,7 @@
 #include "../prec.h"
 #include "shs_point_kernel.h"
 #include "shs_sctr_mulc.h"
+#include "shs_r_eq_rref.h"
 #include "../leg/leg_func_anm_bnm.h"
 #include "../leg/leg_func_dm.h"
 #include "../leg/leg_func_r_ri.h"
@@ -86,6 +87,17 @@ void CHARM(shs_point_sctr)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
 
 
 
+    /* Check whether all values of "pnt->r" are equal to "shcs->r".  If true, 
+     * a faster code can be used inside "shs_point_kernel".  */
+    /* --------------------------------------------------------------------- */
+    _Bool r_eq_rref = CHARM(shs_r_eq_rref)(pnt, shcs);
+    /* --------------------------------------------------------------------- */
+
+
+
+
+
+
     /* --------------------------------------------------------------------- */
     REAL_SIMD mur = SET1_R(shcs->mu / shcs->r);
 
@@ -101,7 +113,8 @@ void CHARM(shs_point_sctr)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
 
 #if CHARM_OPENMP
 #pragma omp parallel default(none) \
-shared(f, shcs, nmax, pnt, npnt, dm, r, ri, FAILURE_glob, mur, err, pt, rref)
+shared(f, shcs, nmax, pnt, npnt, dm, r, ri, FAILURE_glob, mur, err, pt, rref) \
+shared(r_eq_rref)
 #endif
     {
         /* ................................................................. */
@@ -123,14 +136,16 @@ shared(f, shcs, nmax, pnt, npnt, dm, r, ri, FAILURE_glob, mur, err, pt, rref)
         REAL *bnm     = NULL;
 
 
-        ips = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, nmax * SIMD_SIZE,
+        ips = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                           nmax * SIMD_SIZE * SIMD_BLOCK,
                                            sizeof(int));
         if (ips == NULL)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-        ps = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, nmax * SIMD_SIZE,
+        ps = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                           nmax * SIMD_SIZE * SIMD_BLOCK,
                                            sizeof(REAL));
         if (ps == NULL)
         {
@@ -151,7 +166,8 @@ shared(f, shcs, nmax, pnt, npnt, dm, r, ri, FAILURE_glob, mur, err, pt, rref)
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-        lonv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+        lonv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                             SIMD_SIZE * SIMD_BLOCK,
                                              sizeof(REAL));
         if (lonv == NULL)
         {
@@ -241,52 +257,62 @@ FAILURE_1_parallel:
         /* ................................................................. */
 
 
-        REAL_SIMD t, u, fi;
-        REAL_SIMD pnt_r;
-        REAL_SIMD ratio, ratiom;
-        REAL_SIMD a, b, a2, b2;
-        a = b = a2 = b2 = pnt_r = ratio = ratiom = SET_ZERO_R;
+        size_t ipv, l;
+
+
+        REAL_SIMD t[SIMD_BLOCK], u[SIMD_BLOCK], fi[SIMD_BLOCK];
+        REAL_SIMD pnt_r[SIMD_BLOCK];
+        REAL_SIMD ratio[SIMD_BLOCK], ratiom[SIMD_BLOCK];
+        REAL_SIMD a[SIMD_BLOCK], b[SIMD_BLOCK], a2[SIMD_BLOCK], b2[SIMD_BLOCK];
+        for (l = 0; l < SIMD_BLOCK; l++)
+            a[l] = b[l] = a2[l] = b2[l] = ratio[l] = ratiom[l] = SET_ZERO_R;
+        REAL_SIMD zeros;
         REAL_SIMD clonim, slonim;
         REAL_SIMD tmp = SET_ZERO_R;
-        REAL lontmp;
-        size_t ipv;
+        REAL lontmp, m_real;
 
 
 #if CHARM_OPENMP
 #pragma omp for schedule(dynamic)
 #endif
-        for (size_t i = 0; i < SIMD_GET_MULTIPLE(npnt); i += SIMD_SIZE)
+        for (size_t i = 0; i < SIMD_MULTIPLE(npnt, SIMD_SIZE * SIMD_BLOCK);
+             i += SIMD_SIZE * SIMD_BLOCK)
         {
-            for (size_t v = 0; v < SIMD_SIZE; v++)
+            for (l = 0; l < SIMD_BLOCK; l++)
             {
-                ipv = i + v;
-                if (ipv < npnt)
+                for (size_t v = 0; v < SIMD_SIZE; v++)
                 {
-                    tv[v]     = SIN(pnt->lat[ipv]);
-                    uv[v]     = COS(pnt->lat[ipv]);
-                    lonv[v]   = pnt->lon[ipv];
-                    pnt_rv[v] = pnt->r[ipv];
+                    ipv = i + l * SIMD_SIZE + v;
+                    if (ipv < npnt)
+                    {
+                        tv[v]     = SIN(pnt->lat[ipv]);
+                        uv[v]     = COS(pnt->lat[ipv]);
+                        lonv[l * SIMD_SIZE + v]   = pnt->lon[ipv];
+                        pnt_rv[v] = pnt->r[ipv];
+                    }
+                    else
+                    {
+                        tv[v] = uv[v] = lonv[l * SIMD_SIZE + v] = pnt_rv[v] =
+                            PREC(0.0);
+                        continue;
+                    }
                 }
-                else
-                {
-                    tv[v] = uv[v] = lonv[v] = pnt_rv[v] = PREC(0.0);
-                    continue;
-                }
+
+
+                t[l]     = LOAD_R(&tv[0]);
+                u[l]     = LOAD_R(&uv[0]);
+                pnt_r[l] = LOAD_R(&pnt_rv[0]);
+                fi[l]    = SET_ZERO_R;
+
+
+                ratio[l]  = DIV_R(rref, pnt_r[l]);
+                ratiom[l] = ratio[l];
+
+
+                /* Prepare arrays for sectorial Legendre functions */
+                CHARM(leg_func_prepare)(uv, ps + l * SIMD_SIZE * nmax,
+                                        ips + l * SIMD_SIZE * nmax, dm, nmax);
             }
-
-
-            t     = LOAD_R(&tv[0]);
-            u     = LOAD_R(&uv[0]);
-            pnt_r = LOAD_R(&pnt_rv[0]);
-            fi    = SET_ZERO_R;
-
-
-            ratio  = DIV_R(rref, pnt_r);
-            ratiom = ratio;
-
-
-            /* Prepare arrays for sectorial Legendre functions */
-            CHARM(leg_func_prepare)(uv, ps, ips, dm, nmax);
 
 
             /* Loop over harmonic orders */
@@ -295,7 +321,8 @@ FAILURE_1_parallel:
             {
 
                 /* Apply polar optimization if asked to do so */
-                if (CHARM(misc_polar_optimization_apply)(m, nmax, u, pt))
+                if (CHARM(misc_polar_optimization_apply)(m, nmax, &u[0],
+                                                         SIMD_BLOCK, pt))
                     goto UPDATE_RATIOS;
 
 
@@ -308,31 +335,41 @@ FAILURE_1_parallel:
                  * Legendre functions cannot be utilized with scattered points,
                  * hence "SET_ZERO_R".  The output variables "a2" and "b2" are
                  * not used with scattered points. */
-                CHARM(shs_point_kernel)(nmax, m, shcs, anm, bnm,
-                                        t, ps, ips,
-                                        ratio, SET_ZERO_R,
-                                        ratiom, SET_ZERO_R,
-                                        SET_ZERO_R, &a, &b, &a2, &b2);
+                CHARM(shs_point_kernel)(nmax, m, shcs, r_eq_rref, anm, bnm,
+                                        &t[0], ps, ips,
+                                        &ratio[0], &zeros,
+                                        &ratiom[0], &zeros,
+                                        &zeros,
+                                        &a[0], &b[0], &a2[0], &b2[0]);
 
 
                 /* The longitudinal part of the synthesis */
                 /* ......................................................... */
-                for (size_t v = 0; v < SIMD_SIZE; v++)
+                m_real = (REAL)m;
+
+
+                for (l = 0; l < SIMD_BLOCK; l++)
                 {
-                    lontmp = (REAL)m * lonv[v];
-                    clonimv[v] = COS(lontmp);
-                    slonimv[v] = SIN(lontmp);
+                    for (size_t v = 0; v < SIMD_SIZE; v++)
+                    {
+                        lontmp = m_real * lonv[l * SIMD_SIZE + v];
+                        clonimv[v] = COS(lontmp);
+                        slonimv[v] = SIN(lontmp);
+                    }
+                    clonim = LOAD_R(&clonimv[0]);
+                    slonim = LOAD_R(&slonimv[0]);
+
+
+                    fi[l] = ADD_R(fi[l],
+                                  ADD_R(MUL_R(a[l], clonim),
+                                        MUL_R(b[l], slonim)));
                 }
-                clonim = LOAD_R(&clonimv[0]);
-                slonim = LOAD_R(&slonimv[0]);
-
-
-                fi = ADD_R(fi, ADD_R(MUL_R(a, clonim), MUL_R(b, slonim)));
                 /* ......................................................... */
 
 
 UPDATE_RATIOS:
-                ratiom = MUL_R(ratiom, ratio);
+                for (l = 0; l < SIMD_BLOCK; l++)
+                    ratiom[l] = MUL_R(ratiom[l], ratio[l]);
 
 
             } /* End of the loop over harmonic orders */
@@ -340,7 +377,8 @@ UPDATE_RATIOS:
 
 
             /* Final part of the synthesis */
-            CHARM(shs_sctr_mulc)(i, npnt, mur, tmp, tmpv, fi, f);
+            CHARM(shs_sctr_mulc)(i, npnt, pnt->type, mur, tmp, tmpv, &fi[0],
+                                 f);
 
 
         } /* End of the loop over the evaluation points */

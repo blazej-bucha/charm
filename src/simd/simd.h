@@ -38,6 +38,7 @@
 
 #undef SIMD
 #undef SIMD_SIZE
+#undef SIMD_BLOCK
 #undef SIMD_MEMALIGN
 #undef SIMD_TRUE
 #undef REAL_SIMD
@@ -61,10 +62,11 @@
 #undef SET1_R
 #undef SET1_RI
 #undef LOAD_R
+#undef LOADU_R
 #undef SUM_R
 #undef ABS_R
 #undef ABS_R_INIT
-#undef SIMD_GET_MULTIPLE
+#undef SIMD_MULTIPLE
 #undef CAST_RI2R
 #undef CAST_R2RI
 #undef SET_ZERO_R
@@ -196,6 +198,9 @@
 #   endif
 
 
+#   define SIMD_BLOCK 8
+
+
 #   define MUL_R(x, y)         PF(mul)((x), (y))
 #   define DIV_R(x, y)         PF(div)((x), (y))
 #   define ADD_R(x, y)         PF(add)((x), (y))
@@ -204,6 +209,7 @@
 
 #   define SET1_R(x)           PF(set1)((x))
 #   define LOAD_R(x)           PF(load)((x))
+#   define LOADU_R(x)          PF(loadu)((x))
 #   define STORE_R(ptr, x)     PF(store)((ptr), (x))
 #   define STOREU_R(ptr, x)    PF(storeu)((ptr), (x))
 
@@ -359,10 +365,11 @@
     /* ..................................................................... */
 
 
-    /* Get the smallest "SIMD_SIZE" multiple of "x" that is equal to or larger
-     * than "x". */
-#   define SIMD_GET_MULTIPLE(x) ((((x) + SIMD_SIZE - 1) / SIMD_SIZE) * \
-                                 SIMD_SIZE)
+    /* Get the smallest multiple of "x" that is equal to or larger
+     * than "multiple". */
+#   define SIMD_MULTIPLE(x, multiple) ((((x) + \
+                                         (multiple) - 1) / (multiple)) * \
+                                       (multiple))
 
 
     /* Sum all elements of a SIMD vector. */
@@ -388,6 +395,7 @@
 
 
 #   define SIMD_SIZE     1
+#   define SIMD_BLOCK    8
 #   define SIMD_TRUE     1
 #   define SIMD_MEMALIGN 0
 #   define REAL_SIMD     REAL
@@ -409,6 +417,7 @@
 #   define STORE_R(ptr, x)      (*(ptr) = (x))
 #   define STOREU_R             STORE_R
 #   define LOAD_R(x)            (*(x))
+#   define LOADU_R(x)           (*(x))
 #   define SUM_R(x)             (x)
 
 
@@ -423,16 +432,15 @@
 
     /* Absolute value.  The "FABS" macro is defined in "../prec.h". */
 #   define ABS_R_INIT
-#   define ABS_R        FABS
+#   define ABS_R                FABS
 
 
     /* Change the sign. */
 #   define NEG_R_INIT
-#   define NEG_R(x)       (-(x))
+#   define NEG_R(x)             (-(x))
 
 
-    /* Get the smallest "SIMD_SIZE" multiple of "x". */
-#   define SIMD_GET_MULTIPLE(x) (x)
+#   define SIMD_MULTIPLE(x, multiple) (x)
 
 
 #endif

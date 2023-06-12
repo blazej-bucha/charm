@@ -4,9 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "parameters.h"
-#include "cmp_arrays.h"
 #include "../src/prec.h"
 #include "../src/misc/misc_str2real.h"
+#include "cmp_arrays.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -14,7 +14,7 @@
 
 
 
-/* Compares "n" elements from an array pointed to be "f" with respect to
+/* Compares "n" elements from an array pointed to by "f" with respect to
  * reference data from "file" using the "eps" threshold. */
 /* ------------------------------------------------------------------------- */
 long int validate(char *file, REAL *f, size_t n, REAL eps)

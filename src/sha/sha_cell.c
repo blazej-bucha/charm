@@ -475,14 +475,14 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
         REAL_SIMD pnm0_latmax, pnm1_latmax, pnm2_latmax;
         REAL_SIMD latmin, latmax;
 #ifdef SIMD
-        RI_SIMD    zero_ri = SET_ZERO_RI;
-        RI_SIMD    one_ri  = SET1_RI(1);
-        RI_SIMD    mone_ri = SET1_RI(-1);
-        REAL_SIMD  zero_r  = SET_ZERO_R;
-        REAL_SIMD  BIG_r   = SET1_R(BIG);
-        REAL_SIMD  BIGI_r  = SET1_R(BIGI);
-        REAL_SIMD  BIGS_r  = SET1_R(BIGS);
-        REAL_SIMD  BIGSI_r = SET1_R(BIGSI);
+        const RI_SIMD    zero_ri = SET_ZERO_RI;
+        const RI_SIMD    one_ri  = SET1_RI(1);
+        const RI_SIMD    mone_ri = SET1_RI(-1);
+        const REAL_SIMD  zero_r  = SET_ZERO_R;
+        const REAL_SIMD  BIG_r   = SET1_R(BIG);
+        const REAL_SIMD  BIGI_r  = SET1_R(BIGI);
+        const REAL_SIMD  BIGS_r  = SET1_R(BIGS);
+        const REAL_SIMD  BIGSI_r = SET1_R(BIGSI);
         REAL_SIMD  tmp1_r,  tmp2_r;
         MASK_SIMD  mask1, mask2;
         MASK2_SIMD mask3;
@@ -493,6 +493,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
         REAL_SIMD am, bm, a2m, b2m;
         REAL_SIMD cm_simd, sm_simd;
         REAL_SIMD amp, amm, bmp, bmm;
+        REAL_SIMD anms, bnms;
         REAL_SIMD in0, inm0, inm1, inm2;
         REAL_SIMD w;
         REAL cm, sm, mr;
@@ -683,7 +684,8 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
 
 
 
-        for (size_t i = 0; i < SIMD_GET_MULTIPLE(nlatdo); i += SIMD_SIZE)
+        for (size_t i = 0; i < SIMD_MULTIPLE(nlatdo, SIMD_SIZE);
+             i += SIMD_SIZE)
         {
             for (size_t v = 0; v < SIMD_SIZE; v++)
             {
@@ -856,7 +858,7 @@ shared(nmax, t1, t2, u1, u2, symm_simd) \
 shared(shcs, en, fn, gm, hm, imm, ps1, ps2, ips1, ips2, r, ri) \
 shared(a, b, a2, b2, dlon, latsin, pt) \
 shared(FAILURE_glob, err) \
-private(am, bm, a2m, b2m) \
+private(am, bm, a2m, b2m, anms, bnms) \
 private(cm, sm, x1, x2, ix1, ix2, y1, y2, iy1, iy2, w, mr) \
 private(z1, z2, iz1, iz2, ixy1, ixy2) \
 private(amp, amm, bmp, bmm, cm_simd, sm_simd) \
@@ -937,7 +939,7 @@ FAILURE_1_parallel:
                  * check "u1" only.  In other words, if the polar optimization
                  * can be applied for "u1", it can surely be applied for
                  * "u2". */
-                if (CHARM(misc_polar_optimization_apply)(m, nmax, u1, pt))
+                if (CHARM(misc_polar_optimization_apply)(m, nmax, &u1, 1, pt))
                     continue;
 
 
@@ -1165,32 +1167,35 @@ FAILURE_1_parallel:
                     /* ----------------------------------------------------- */
                     if (m < nmax)
                     {
+                        anms = SET1_R(anm[m + 1]);
+                        bnms = SET1_R(bnm[m + 1]);
+
 
                         /* Pm+1,m for "latmin" */
 #ifdef SIMD
                         PNM_SEMISECTORIAL_XNUM_SIMD(x1, y1, ix1, iy1, w, t1,
-                                                    anm[m + 1], pnm1_latmin,
+                                                    anms, pnm1_latmin,
                                                     mask1, mask2, mask3,
                                                     zero_r, zero_ri, mone_ri,
                                                     BIG_r, BIGS_r,  BIGI_r,
                                                     SEMISECTORIALS1);
 #else
                         PNM_SEMISECTORIAL_XNUM(x1, y1, ix1, iy1, w, t1,
-                                               anm[m + 1], pnm1_latmin);
+                                               anms, pnm1_latmin);
 #endif
 
 
                         /* Pm+1,m for "latmax" */
 #ifdef SIMD
                         PNM_SEMISECTORIAL_XNUM_SIMD(x2, y2, ix2, iy2, w, t2,
-                                                    anm[m + 1], pnm1_latmax,
+                                                    anms, pnm1_latmax,
                                                     mask1, mask2, mask3,
                                                     zero_r, zero_ri, mone_ri,
                                                     BIG_r, BIGS_r,  BIGI_r,
                                                     SEMISECTORIALS2);
 #else
                         PNM_SEMISECTORIAL_XNUM(x2, y2, ix2, iy2, w, t2,
-                                               anm[m + 1], pnm1_latmax);
+                                               anms, pnm1_latmax);
 #endif
 
 
@@ -1228,12 +1233,15 @@ FAILURE_1_parallel:
                         for (unsigned long n = (m + 2); n <= nmax;
                              n++, npm_even = !npm_even)
                         {
+                            anms = SET1_R(anm[n]);
+                            bnms = SET1_R(bnm[n]);
+
 
                             /* Pm+2,m, Pm+3,m, ..., Pnmax,m for "latmin" */
 #ifdef SIMD
                             PNM_TESSERAL_XNUM_SIMD(x1, y1, z1, ix1, iy1, iz1,
                                                    ixy1,
-                                                   w, t1, anm[n], bnm[n],
+                                                   w, t1, anms, bnms,
                                                    pnm2_latmin,
                                                    tmp1_r, tmp2_r,
                                                    mask1, mask2,
@@ -1247,9 +1255,8 @@ FAILURE_1_parallel:
                             PNM_TESSERAL_XNUM(x1, y1, z1,
                                               ix1, iy1, iz1,
                                               ixy1, w, t1,
-                                              anm[n], bnm[n],
-                                              pnm2_latmin,
-                                              pnm2_latmin = PREC(0.0), ds1);
+                                              anms, bnms,
+                                              pnm2_latmin, ds1);
 #endif
 
 
@@ -1257,7 +1264,7 @@ FAILURE_1_parallel:
 #ifdef SIMD
                             PNM_TESSERAL_XNUM_SIMD(x2, y2, z2, ix2, iy2, iz2,
                                                    ixy2,
-                                                   w, t2, anm[n], bnm[n],
+                                                   w, t2, anms, bnms,
                                                    pnm2_latmax,
                                                    tmp1_r, tmp2_r,
                                                    mask1, mask2,
@@ -1271,9 +1278,8 @@ FAILURE_1_parallel:
                             PNM_TESSERAL_XNUM(x2, y2, z2,
                                               ix2, iy2, iz2,
                                               ixy2, w, t2,
-                                              anm[n], bnm[n],
-                                              pnm2_latmax,
-                                              pnm2_latmax = PREC(0.0), ds2);
+                                              anms, bnms,
+                                              pnm2_latmax, ds2);
 #endif
 
 

@@ -13,6 +13,7 @@
 #include "../leg/leg_func_r_ri.h"
 #include "../leg/leg_func_prepare.h"
 #include "../leg/leg_func_xnum.h"
+#include "../leg/leg_func_use_xnum.h"
 #include "../crd/crd_grd_check_symm.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
@@ -25,6 +26,39 @@
 #include "../simd/simd.h"
 #include "../simd/calloc_aligned.h"
 #include "../simd/free_aligned.h"
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* Macros */
+/* ------------------------------------------------------------------------- */
+#define LOOP_ITER(n, a, b)                                                    \
+    anms = SET1_R(anm[(n)]);                                                  \
+    bnms = SET1_R(bnm[(n)]);                                                  \
+                                                                              \
+                                                                              \
+    for (l = 0; l < SIMD_BLOCK; l++)                                          \
+    {                                                                         \
+        PNM_TESSERAL(x[l], y[l], pnm2[l], t[l], anms, bnms);                  \
+    }                                                                         \
+                                                                              \
+                                                                              \
+    for (l = 0; l < SIMD_BLOCK; l++)                                          \
+    {                                                                         \
+        shcs->c[m][idx] += SUM_R(MUL_R(pnm2[l], a[l]));                       \
+    }                                                                         \
+                                                                              \
+                                                                              \
+    for (l = 0; l < SIMD_BLOCK; l++)                                          \
+    {                                                                         \
+        shcs->s[m][idx] += SUM_R(MUL_R(pnm2[l], b[l]));                       \
+    }                                                                         \
+                                                                              \
+                                                                              \
+    idx++;
 /* ------------------------------------------------------------------------- */
 
 
@@ -50,7 +84,7 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
 
     /* ..................................................................... */
     size_t pnt_nlat = pnt->nlat;
-    int pnt_type = pnt->type;
+    const int pnt_type = pnt->type;
     unsigned long nmax_grd;
 
 
@@ -104,7 +138,7 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
 
     /* Get the radius of the sphere "r0", on which the analysis will be
      * performed */
-    REAL r0 = pnt->r[0];
+    const REAL r0 = pnt->r[0];
     for (size_t i = 1; i < pnt->nlat; i++)
     /* In the line above, we intentionally used "pnt->nlat" instead of
      * "pnt_nlat", since the latter may have been modified, depending on the
@@ -151,8 +185,8 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
 
     /* Get the number of longitudes in "pnt" */
     /* --------------------------------------------------------------------- */
-    size_t pnt_nlon     = pnt->nlon;
-    size_t pnt_nlon_fft = pnt_nlon / 2 + 1;
+    const size_t pnt_nlon     = pnt->nlon;
+    const size_t pnt_nlon_fft = pnt_nlon / 2 + 1;
     /* --------------------------------------------------------------------- */
 
 
@@ -289,26 +323,29 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
 
 
     {
-        REAL_SIMD pnm0, pnm1, pnm2;
-        REAL_SIMD x, y, z, t, u;
-        RI_SIMD   ix, iy, iz, ixy;
-        REAL_SIMD ROOT3_r = SET1_R(ROOT3);
+        REAL_SIMD pnm0[SIMD_BLOCK], pnm1[SIMD_BLOCK], pnm2[SIMD_BLOCK];
+        REAL_SIMD x[SIMD_BLOCK], y[SIMD_BLOCK], z[SIMD_BLOCK];
+        REAL_SIMD t[SIMD_BLOCK], u[SIMD_BLOCK];
+        RI_SIMD   ix[SIMD_BLOCK], iy[SIMD_BLOCK], iz[SIMD_BLOCK];
+        RI_SIMD   ixy[SIMD_BLOCK];
+        const REAL_SIMD ROOT3_r = SET1_R(ROOT3);
 #ifdef SIMD
-        RI_SIMD    zero_ri = SET_ZERO_RI;
-        RI_SIMD    one_ri  = SET1_RI(1);
-        RI_SIMD    mone_ri = SET1_RI(-1);
-        REAL_SIMD  zero_r  = SET_ZERO_R;
-        REAL_SIMD  BIG_r   = SET1_R(BIG);
-        REAL_SIMD  BIGI_r  = SET1_R(BIGI);
-        REAL_SIMD  BIGS_r  = SET1_R(BIGS);
-        REAL_SIMD  BIGSI_r = SET1_R(BIGSI);
+        const RI_SIMD    zero_ri = SET_ZERO_RI;
+        const RI_SIMD    one_ri  = SET1_RI(1);
+        const RI_SIMD    mone_ri = SET1_RI(-1);
+        const REAL_SIMD  zero_r  = SET_ZERO_R;
+        const REAL_SIMD  BIG_r   = SET1_R(BIG);
+        const REAL_SIMD  BIGI_r  = SET1_R(BIGI);
+        const REAL_SIMD  BIGS_r  = SET1_R(BIGS);
+        const REAL_SIMD  BIGSI_r = SET1_R(BIGSI);
         REAL_SIMD  tmp1_r,  tmp2_r;
         MASK_SIMD  mask1, mask2;
         MASK2_SIMD mask3;
         ABS_R_INIT;
 #endif
-        REAL_SIMD symm, latsin;
-        REAL_SIMD am, bm, a2m, b2m;
+        REAL_SIMD symm[SIMD_BLOCK], latsin[SIMD_BLOCK];
+        REAL_SIMD am[SIMD_BLOCK],   bm[SIMD_BLOCK];
+        REAL_SIMD a2m[SIMD_BLOCK],  b2m[SIMD_BLOCK];
 
 
         /* ................................................................. */
@@ -330,14 +367,16 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
         FFTW(complex) *ftmp_out = NULL;
 
 
-        ips = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax,
+        ips = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                           SIMD_SIZE * SIMD_BLOCK * nmax,
                                            sizeof(int));
         if (ips == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        ps = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax,
+        ps = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                           SIMD_SIZE * SIMD_BLOCK * nmax,
                                            sizeof(REAL));
         if (ps == NULL)
         {
@@ -387,32 +426,32 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
             goto FAILURE_1;
         }
         a = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                          SIMD_SIZE * pnt_nlon_fft,
-                                          sizeof(REAL));
+                                          SIMD_SIZE * SIMD_BLOCK *
+                                          pnt_nlon_fft, sizeof(REAL));
         if (a == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
         b = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                          SIMD_SIZE * pnt_nlon_fft,
-                                          sizeof(REAL));
+                                          SIMD_SIZE * SIMD_BLOCK *
+                                          pnt_nlon_fft, sizeof(REAL));
         if (b == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
         a2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                           SIMD_SIZE * pnt_nlon_fft,
-                                           sizeof(REAL));
+                                           SIMD_SIZE * SIMD_BLOCK *
+                                           pnt_nlon_fft, sizeof(REAL));
         if (a2 == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
         b2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                           SIMD_SIZE * pnt_nlon_fft,
-                                           sizeof(REAL));
+                                           SIMD_SIZE * SIMD_BLOCK *
+                                           pnt_nlon_fft, sizeof(REAL));
         if (b2 == NULL)
         {
             FAILURE_glob = 1;
@@ -435,85 +474,96 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
 
 
 
-        REAL_SIMD amp, amm, bmp, bmm;
+        REAL_SIMD anms, bnms;
+        REAL_SIMD amp[SIMD_BLOCK], amm[SIMD_BLOCK];
+        REAL_SIMD bmp[SIMD_BLOCK], bmm[SIMD_BLOCK];
         REAL cw;
         REAL_SIMD wlf;
         _Bool npm_even; /* True if "n + m" is even */
-        size_t ipv; /* "i + v" */
-        unsigned long nmm; /* "n - m" */
-        _Bool ds; /* Dynamical switching */
+        size_t l, ipv; /* "i + v" */
+        _Bool ds[SIMD_BLOCK]; /* Dynamical switching */
 
 
         /* Loop over latitudes */
-        for (size_t i = 0; i < SIMD_GET_MULTIPLE(nlatdo); i += SIMD_SIZE)
+        for (size_t i = 0; i < SIMD_MULTIPLE(nlatdo, SIMD_SIZE * SIMD_BLOCK);
+             i += SIMD_SIZE * SIMD_BLOCK)
         {
-            for (size_t v = 0; v < SIMD_SIZE; v++)
+            for (l = 0; l < SIMD_BLOCK; l++)
             {
-                /* Check whether the symmetry property of LFs needs to be
-                 * applied */
-                /* --------------------------------------------------------- */
-                ipv = i + v;
-                CHARM(crd_grd_check_symm)(ipv, v, pnt_type, nlatdo, 0, even,
-                                          symmv, latsinv);
-                if (latsinv[v] == 1)
+                for (size_t v = 0; v < SIMD_SIZE; v++)
                 {
-                    tv[v] = SIN(pnt->lat[ipv]);
-                    uv[v] = COS(pnt->lat[ipv]);
-                }
-                else
-                {
-                    tv[v] = uv[v] = PREC(0.0);
-                    continue;
-                }
-                /* --------------------------------------------------------- */
+                    /* Check whether the symmetry property of LFs needs to be
+                     * applied */
+                    /* ----------------------------------------------------- */
+                    ipv = i + l * SIMD_SIZE + v;
+                    CHARM(crd_grd_check_symm)(ipv, v, pnt_type, nlatdo, 0,
+                                              even, symmv, latsinv);
+                    if (latsinv[v] == 1)
+                    {
+                        tv[v] = SIN(pnt->lat[ipv]);
+                        uv[v] = COS(pnt->lat[ipv]);
+                    }
+                    else
+                    {
+                        tv[v] = uv[v] = PREC(0.0);
+                        continue;
+                    }
+                    /* ----------------------------------------------------- */
 
 
-                /* Lumped coefficients for the southern hemisphere (including
-                 * the equator) */
-                /* --------------------------------------------------------- */
-                memcpy(ftmp_in, f + ipv * pnt_nlon, pnt_nlon * sizeof(REAL));
-                FFTW(execute_dft_r2c)(plan, ftmp_in, ftmp_out);
-
-
-                cw = c * pnt->w[ipv];
-                for (size_t j = 0; j < pnt_nlon_fft; j++)
-                {
-                    a[j * SIMD_SIZE + v]  =  cw * ftmp_out[j][0];
-                    b[j * SIMD_SIZE + v]  = -cw * ftmp_out[j][1];
-                }
-                /* --------------------------------------------------------- */
-
-
-                /* Lumped coefficients for the northern hemisphere */
-                /* --------------------------------------------------------- */
-                if (symmv[v])
-                {
-                    memcpy(ftmp_in, f + (pnt_nlat - ipv - 1) * pnt_nlon,
+                    /* Lumped coefficients for the southern hemisphere
+                     * (including the equator) */
+                    /* ----------------------------------------------------- */
+                    memcpy(ftmp_in, f + ipv * pnt_nlon,
                            pnt_nlon * sizeof(REAL));
                     FFTW(execute_dft_r2c)(plan, ftmp_in, ftmp_out);
 
 
-                    cw = c * pnt->w[pnt_nlat - ipv - 1];
+                    cw = c * pnt->w[ipv];
                     for (size_t j = 0; j < pnt_nlon_fft; j++)
                     {
-                        a2[j * SIMD_SIZE + v]  =  cw * ftmp_out[j][0];
-                        b2[j * SIMD_SIZE + v]  = -cw * ftmp_out[j][1];
+                        a[j * (SIMD_SIZE * SIMD_BLOCK) +
+                          l * SIMD_SIZE + v]  =  cw * ftmp_out[j][0];
+                        b[j * (SIMD_SIZE * SIMD_BLOCK) +
+                          l * SIMD_SIZE + v]  = -cw * ftmp_out[j][1];
                     }
+                    /* ----------------------------------------------------- */
+
+
+                    /* Lumped coefficients for the northern hemisphere */
+                    /* ----------------------------------------------------- */
+                    if (symmv[v])
+                    {
+                        memcpy(ftmp_in, f + (pnt_nlat - ipv - 1) * pnt_nlon,
+                               pnt_nlon * sizeof(REAL));
+                        FFTW(execute_dft_r2c)(plan, ftmp_in, ftmp_out);
+
+
+                        cw = c * pnt->w[pnt_nlat - ipv - 1];
+                        for (size_t j = 0; j < pnt_nlon_fft; j++)
+                        {
+                            a2[j * (SIMD_SIZE * SIMD_BLOCK) +
+                               l * SIMD_SIZE + v]  =  cw * ftmp_out[j][0];
+                            b2[j * (SIMD_SIZE * SIMD_BLOCK) +
+                               l * SIMD_SIZE + v]  = -cw * ftmp_out[j][1];
+                        }
+                    }
+                    /* ----------------------------------------------------- */
                 }
+
+
+                t[l]      = LOAD_R(&tv[0]);
+                u[l]      = LOAD_R(&uv[0]);
+                symm[l]   = LOAD_R(&symmv[0]);
+                latsin[l] = LOAD_R(&latsinv[0]);
+
+
+                /* Prepare arrays for sectorial Legendre functions */
+                /* --------------------------------------------------------- */
+                CHARM(leg_func_prepare)(uv, ps + l * SIMD_SIZE * nmax,
+                                        ips + l * SIMD_SIZE * nmax, dm, nmax);
                 /* --------------------------------------------------------- */
             }
-
-
-            t      = LOAD_R(&tv[0]);
-            u      = LOAD_R(&uv[0]);
-            symm   = LOAD_R(&symmv[0]);
-            latsin = LOAD_R(&latsinv[0]);
-
-
-            /* Prepare arrays for sectorial Legendre functions */
-            /* ------------------------------------------------------------- */
-            CHARM(leg_func_prepare)(uv, ps, ips, dm, nmax);
-            /* ------------------------------------------------------------- */
 
 
             /* ------------------------------------------------------------- */
@@ -534,9 +584,9 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
 #pragma omp parallel default(none) \
 shared(nmax, symm, r, ri, a, b, a2, b2, shcs, t, u, ps, ips) \
 shared(latsin, pt, ROOT3_r, FAILURE_glob, err) \
-private(am, bm, a2m, b2m, amp, amm, bmp, bmm) \
+private(am, bm, a2m, b2m, amp, amm, bmp, bmm, anms, bnms) \
 private(x, ix, y, iy, wlf, ixy, z, iz) \
-private(pnm0, pnm1, pnm2, npm_even, nmm, ds) SIMD_VARS
+private(pnm0, pnm1, pnm2, npm_even, ds, l) SIMD_VARS
             {
             /* ............................................................. */
             /* An indicator for failed memory initializations on each thread,
@@ -607,7 +657,8 @@ FAILURE_1_parallel:
             {
 
                 /* Apply polar optimization if asked to do so */
-                if (CHARM(misc_polar_optimization_apply)(m, nmax, u, pt))
+                if (CHARM(misc_polar_optimization_apply)(m, nmax, &u[0],
+                                                         SIMD_BLOCK, pt))
                     continue;
 
 
@@ -618,16 +669,27 @@ FAILURE_1_parallel:
 
                 /* Some useful substitutions */
                 /* --------------------------------------------------------- */
-                am  = LOAD_R(&a[SIMD_SIZE * m]);
-                bm  = LOAD_R(&b[SIMD_SIZE * m]);
-                a2m = LOAD_R(&a2[SIMD_SIZE * m]);
-                b2m = LOAD_R(&b2[SIMD_SIZE * m]);
+                for (l = 0; l < SIMD_BLOCK; l++)
+                {
+                    am[l]  = LOAD_R(&a[(SIMD_SIZE * SIMD_BLOCK) * m +
+                                       l * SIMD_SIZE]);
+                    bm[l]  = LOAD_R(&b[(SIMD_SIZE * SIMD_BLOCK) * m +
+                                       l * SIMD_SIZE]);
+                    a2m[l] = LOAD_R(&a2[(SIMD_SIZE * SIMD_BLOCK) * m +
+                                        l * SIMD_SIZE]);
+                    b2m[l] = LOAD_R(&b2[(SIMD_SIZE * SIMD_BLOCK) * m +
+                                        l * SIMD_SIZE]);
 
 
-                amp = MUL_R(ADD_R(am, MUL_R(symm, a2m)), latsin);
-                amm = MUL_R(SUB_R(am, MUL_R(symm, a2m)), latsin);
-                bmp = MUL_R(ADD_R(bm, MUL_R(symm, b2m)), latsin);
-                bmm = MUL_R(SUB_R(bm, MUL_R(symm, b2m)), latsin);
+                    amp[l] = MUL_R(ADD_R(am[l], MUL_R(symm[l], a2m[l])),
+                                   latsin[l]);
+                    amm[l] = MUL_R(SUB_R(am[l], MUL_R(symm[l], a2m[l])),
+                                   latsin[l]);
+                    bmp[l] = MUL_R(ADD_R(bm[l], MUL_R(symm[l], b2m[l])),
+                                   latsin[l]);
+                    bmm[l] = MUL_R(SUB_R(bm[l], MUL_R(symm[l], b2m[l])),
+                                   latsin[l]);
+                }
                 /* --------------------------------------------------------- */
 
 
@@ -638,17 +700,23 @@ FAILURE_1_parallel:
                     /* ----------------------------------------------------- */
 
                     /* P00 */
-                    pnm0 = SET1_R(PREC(1.0));
-                    /* C00 */
-                    shcs->c[0][0] += SUM_R(MUL_R(pnm0, amp));
+                    for (l = 0; l < SIMD_BLOCK; l++)
+                    {
+                        pnm0[l] = SET1_R(PREC(1.0));
+                        /* C00 */
+                        shcs->c[0][0] += SUM_R(MUL_R(pnm0[l], amp[l]));
+                    }
 
 
                     /* P10 */
                     if (nmax >= 1)
                     {
-                        pnm1 = MUL_R(ROOT3_r, t);
-                        /* C10 */
-                        shcs->c[0][1] += SUM_R(MUL_R(pnm1, amm));
+                        for (l = 0; l < SIMD_BLOCK; l++)
+                        {
+                            pnm1[l] = MUL_R(ROOT3_r, t[l]);
+                            /* C10 */
+                            shcs->c[0][1] += SUM_R(MUL_R(pnm1[l], amm[l]));
+                        }
                     }
 
 
@@ -665,17 +733,28 @@ FAILURE_1_parallel:
                         for (unsigned long n = 2; n <= nmax;
                              n++, npm_even = !npm_even)
                         {
-                            pnm2 = SUB_R(MUL_R(MUL_R(SET1_R(anm[n]), t), pnm1),
-                                         MUL_R(SET1_R(bnm[n]), pnm0));
-                            /* C20, C30, ..., Cnmax,0 */
-                            if (npm_even)
-                                shcs->c[0][n] += SUM_R(MUL_R(pnm2, amp));
-                            else
-                                shcs->c[0][n] += SUM_R(MUL_R(pnm2, amm));
+                            anms = SET1_R(anm[n]);
+                            bnms = SET1_R(bnm[n]);
 
 
-                            pnm0 = pnm1;
-                            pnm1 = pnm2;
+                            for (l = 0; l < SIMD_BLOCK; l++)
+                            {
+                                pnm2[l] = SUB_R(MUL_R(MUL_R(anms,
+                                                            t[l]), pnm1[l]),
+                                                MUL_R(bnms,
+                                                      pnm0[l]));
+                                pnm0[l] = pnm1[l];
+                                pnm1[l] = pnm2[l];
+                            }
+
+
+                            for (l = 0; l < SIMD_BLOCK; l++)
+                            {
+                                /* C20, C30, ..., Cnmax,0 */
+                                shcs->c[0][n] += SUM_R(MUL_R(pnm2[l],
+                                                       (npm_even) ? amp[l] :
+                                                                    amm[l]));
+                            }
                         }
                     }
                     /* ----------------------------------------------------- */
@@ -686,20 +765,35 @@ FAILURE_1_parallel:
 
                     /* Sectorial harmonics */
                     /* ----------------------------------------------------- */
+                    for (l = 0; l < SIMD_BLOCK; l++)
+                    {
 #ifdef SIMD
-                    PNM_SECTORIAL_XNUM_SIMD(x, ix,
-                                            ps[SIMD_SIZE * (m - 1)],
-                                            ips[SIMD_SIZE * (m - 1)],
-                                            pnm0, BIG_r, zero_r, zero_ri,
-                                            mone_ri, mask1, mask2, SECTORIALS);
+                        PNM_SECTORIAL_XNUM_SIMD(x[l], ix[l],
+                                                ps[(SIMD_SIZE * nmax) * l +
+                                                   (m - 1) * SIMD_SIZE],
+                                                ips[(SIMD_SIZE * nmax) * l +
+                                                   (m - 1) * SIMD_SIZE],
+                                                pnm0[l], BIG_r,
+                                                zero_r, zero_ri,
+                                                mone_ri, mask1, mask2,
+                                                SECTORIALS);
 #else
-                    PNM_SECTORIAL_XNUM(x, ix, ps[m - 1], ips[m - 1], pnm0);
+                        PNM_SECTORIAL_XNUM(x[l], ix[l],
+                                           ps[(SIMD_SIZE * nmax) * l +
+                                              (m - 1) * SIMD_SIZE],
+                                           ips[(SIMD_SIZE * nmax) * l +
+                                               (m - 1) * SIMD_SIZE],
+                                           pnm0[l]);
 #endif
+                    }
 
 
                     /* Cm,m; Sm,m */
-                    shcs->c[m][0] += SUM_R(MUL_R(pnm0, amp));
-                    shcs->s[m][0] += SUM_R(MUL_R(pnm0, bmp));
+                    for (l = 0; l < SIMD_BLOCK; l++)
+                    {
+                        shcs->c[m][0] += SUM_R(MUL_R(pnm0[l], amp[l]));
+                        shcs->s[m][0] += SUM_R(MUL_R(pnm0[l], bmp[l]));
+                    }
                     /* ----------------------------------------------------- */
 
 
@@ -707,27 +801,42 @@ FAILURE_1_parallel:
                     /* ----------------------------------------------------- */
                     if (m < nmax)
                     {
+                        anms = SET1_R(anm[m + 1]);
+                        bnms = SET1_R(bnm[m + 1]);
+
+
+                        for (l = 0; l < SIMD_BLOCK; l++)
+                        {
 #ifdef SIMD
-                        PNM_SEMISECTORIAL_XNUM_SIMD(x, y, ix, iy, wlf, t,
-                                                    anm[m + 1], pnm1,
-                                                    mask1, mask2, mask3,
-                                                    zero_r, zero_ri, mone_ri,
-                                                    BIG_r, BIGS_r,  BIGI_r,
-                                                    SEMISECTORIALS);
+                            PNM_SEMISECTORIAL_XNUM_SIMD(x[l], y[l],
+                                                        ix[l], iy[l],
+                                                        wlf, t[l],
+                                                        anms, pnm1[l],
+                                                        mask1, mask2, mask3,
+                                                        zero_r, zero_ri,
+                                                        mone_ri,
+                                                        BIG_r, BIGS_r,  BIGI_r,
+                                                        SEMISECTORIALS);
 #else
-                        PNM_SEMISECTORIAL_XNUM(x, y, ix, iy, wlf, t,
-                                               anm[m + 1], pnm1);
+                            PNM_SEMISECTORIAL_XNUM(x[l], y[l], ix[l], iy[l],
+                                                   wlf, t[l], anms,
+                                                   pnm1[l]);
 #endif
+                        }
 
 
                         /* Cm+1,m; Sm+1,m */
-                        shcs->c[m][1] += SUM_R(MUL_R(pnm1, amm));
-                        shcs->s[m][1] += SUM_R(MUL_R(pnm1, bmm));
+                        for (l = 0; l < SIMD_BLOCK; l++)
+                        {
+                            shcs->c[m][1] += SUM_R(MUL_R(pnm1[l], amm[l]));
+                            shcs->s[m][1] += SUM_R(MUL_R(pnm1[l], bmm[l]));
+                        }
 
 
                         /* Loop over degrees */
                         /* ------------------------------------------------- */
-                        ds = 0;
+                        for (l = 0; l < SIMD_BLOCK; l++)
+                            ds[l] = 0;
 
 
                         /* Is "n + m" even?  Since we start the loop with "n
@@ -737,47 +846,103 @@ FAILURE_1_parallel:
                         npm_even = 1;
 
 
-                        for (unsigned long n = (m + 2); n <= nmax;
-                             n++, npm_even = !npm_even)
+                        unsigned long n;
+                        unsigned long idx = 2;
+                        for (n = (m + 2);
+                             CHARM(leg_func_use_xnum(ds, SIMD_BLOCK)) &&
+                             n <= nmax;
+                             n++, npm_even = !npm_even, idx++)
                         {
+                            anms = SET1_R(anm[n]);
+                            bnms = SET1_R(bnm[n]);
+
+
                             /* Compute tesseral Legendre function */
+                            for (l = 0; l < SIMD_BLOCK; l++)
+                            {
 #ifdef SIMD
-                            PNM_TESSERAL_XNUM_SIMD(x, y, z, ix, iy, iz, ixy,
-                                                   wlf, t, anm[n], bnm[n],
-                                                   pnm2,
-                                                   tmp1_r, tmp2_r,
-                                                   mask1, mask2,
-                                                   mask3, zero_r,
-                                                   zero_ri, one_ri,
-                                                   BIG_r, BIGI_r,
-                                                   BIGS_r, BIGSI_r,
-                                                   TESSERALS1, TESSERALS2, ds);
+                                PNM_TESSERAL_XNUM_SIMD(x[l], y[l], z[l],
+                                                       ix[l], iy[l], iz[l],
+                                                       ixy[l],
+                                                       wlf, t[l],
+                                                       anms, bnms,
+                                                       pnm2[l],
+                                                       tmp1_r, tmp2_r,
+                                                       mask1, mask2,
+                                                       mask3, zero_r,
+                                                       zero_ri, one_ri,
+                                                       BIG_r, BIGI_r,
+                                                       BIGS_r, BIGSI_r,
+                                                       TESSERALS1, TESSERALS2,
+                                                       ds[l]);
 #else
-                            PNM_TESSERAL_XNUM(x, y, z,
-                                              ix, iy, iz,
-                                              ixy, wlf, t,
-                                              anm[n], bnm[n], pnm2, continue,
-                                              ds);
+                                PNM_TESSERAL_XNUM(x[l], y[l], z[l],
+                                                  ix[l], iy[l], iz[l],
+                                                  ixy[l], wlf, t[l],
+                                                  anms, bnms, pnm2[l],
+                                                  ds[l]);
 #endif
+                            }
 
 
-                            /* Cm+2,m, Cm+3,m, ..., Cnmax,m and Sm+2,m, Sm+3,m,
-                             * ..., Snmax,m */
-                            nmm = n - m;
+                            /* Cm+2,m, Cm+3,m, ... and Sm+2,m, Sm+3,m, ... */
                             if (npm_even)
                             {
-                                shcs->c[m][nmm] += SUM_R(MUL_R(pnm2, amp));
-                                shcs->s[m][nmm] += SUM_R(MUL_R(pnm2, bmp));
+                                for (l = 0; l < SIMD_BLOCK; l++)
+                                     shcs->c[m][idx] += SUM_R(MUL_R(pnm2[l],
+                                                                    amp[l]));
+                                for (l = 0; l < SIMD_BLOCK; l++)
+                                     shcs->s[m][idx] += SUM_R(MUL_R(pnm2[l],
+                                                                    bmp[l]));
                             }
                             else
                             {
-                                shcs->c[m][nmm] += SUM_R(MUL_R(pnm2, amm));
-                                shcs->s[m][nmm] += SUM_R(MUL_R(pnm2, bmm));
+                                for (l = 0; l < SIMD_BLOCK; l++)
+                                     shcs->c[m][idx] += SUM_R(MUL_R(pnm2[l],
+                                                                    amm[l]));
+                                for (l = 0; l < SIMD_BLOCK; l++)
+                                     shcs->s[m][idx] += SUM_R(MUL_R(pnm2[l],
+                                                                    bmm[l]));
                             }
 
 
-                        } /* End of the loop over harmonic degrees */
+                        }
+
+
+                        if (n > nmax)
+                            continue;
+
+
+                        /* From now on, "F"-numbers can be used instead of the
+                         * "X"-numbers to gain some speed */
+
+
+                        /* We want to unroll the loop that follows.  To do
+                         * that, we need to make sure that the loop starts with
+                         * an even value of "n + m".  So if "n + m" is odd, we
+                         * need to hard code one iteration. */
+                        if (!npm_even)
+                        {
+                            LOOP_ITER(n, amm, bmm);
+                            n++;
+                        }
+
+
+                        /* Now safely compute the rest of the loop (if any)
+                         * using the "F"-numbers */
+                        for (; (n + 1) <= nmax; n += 2)
+                        {
+                            LOOP_ITER(n,     amp, bmp);
+                            LOOP_ITER(n + 1, amm, bmm);
+                        }
                         /* ------------------------------------------------- */
+
+
+                        if (n > nmax)
+                            continue;
+
+
+                        LOOP_ITER(n, amp, bmp);
 
 
                     } /* End of computation of tesseral harmonics */
@@ -859,7 +1024,7 @@ FAILURE:
     /* --------------------------------------------------------------------- */
     /* Normalize the coefficients */
     /* ..................................................................... */
-    REAL c2 = PREC(1.0) / (PREC(4.0) * PI) * (r0 / shcs->mu);
+    const REAL c2 = PREC(1.0) / (PREC(4.0) * PI) * (r0 / shcs->mu);
 #if CHARM_OPENMP
     #pragma omp parallel for default(none) shared(shcs, nmax, c2)
 #endif
@@ -879,7 +1044,7 @@ FAILURE:
     if (!CHARM(misc_is_nearly_equal)(shcs->r, r0, CHARM(glob_threshold)))
     {
         /* This is the desired radius to scale the output coefficients */
-        REAL rtmp = shcs->r;
+        const REAL rtmp = shcs->r;
 
 
         /* Now set the "shcs->r" to "r0", since the analysis was conducted on

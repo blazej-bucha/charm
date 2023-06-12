@@ -23,6 +23,21 @@ extern "C"
 #endif
 
 
+/* Macros to compute Legendre functions using "F"-numbers */
+/* ------------------------------------------------------------------------- */
+/* Tesseral Legendre functions */
+#define PNM_TESSERAL(x, y, pnm2, t, anms, bnms)                               \
+    pnm2 = SUB_R(MUL_R(MUL_R((anms), (t)), (x)),                              \
+                 MUL_R((bnms), (y)));                                         \
+    y    = x;                                                                 \
+    x    = pnm2;
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
 #ifdef SIMD
     /* Macros to compute sectorial, semisectorial and tesseral Legendre
      * functions using a SIMD code */
@@ -75,9 +90,10 @@ extern "C"
                                        zero_r, zero_ri, mone_ri,              \
                                        BIG_r, BIGS_r,  BIGI_r, goto_label)    \
                                                                               \
+                                                                              \
             (y) =  (x);                                                       \
            (iy) = (ix);                                                       \
-            (x) = MUL_R(MUL_R(SET1_R((anmmp1)), (t)), (y));                   \
+            (x) = MUL_R(MUL_R((anmmp1), (t)), (y));                           \
            (ix) = (iy);                                                       \
                                                                               \
                                                                               \
@@ -133,18 +149,16 @@ extern "C"
 
     /* Macro to compute tesseral Legendre functions. */
 #   define PNM_TESSERAL_XNUM_SIMD(x, y, z, ix, iy, iz, ixy, w, t,             \
-                                  anmn, bnmn, pnm2, tmp1_r, tmp2_r,           \
+                                  anms, bnms, pnm2, tmp1_r, tmp2_r,           \
                                   mask1, mask2, mask3,                        \
                                   zero_r, zero_ri, one_ri,                    \
                                   BIG_r, BIGI_r, BIGS_r, BIGSI_r,             \
                                   goto_label1, goto_label2, ds)               \
                                                                               \
+                                                                              \
            if ((ds))                                                          \
            {                                                                  \
-               (pnm2) = SUB_R(MUL_R(MUL_R(SET1_R((anmn)), (t)), (x)),         \
-                              MUL_R(SET1_R((bnmn)), (y)));                    \
-               (y) = (x);                                                     \
-               (x) = (pnm2);                                                  \
+               PNM_TESSERAL(x, y, pnm2, t, anms, bnms);                       \
            }                                                                  \
            else                                                               \
            {                                                                  \
@@ -193,8 +207,8 @@ extern "C"
                                                                               \
                                                                               \
     goto_label1:                                                              \
-               (z) = SUB_R(MUL_R(MUL_R(SET1_R((anmn)), (t)), (tmp1_r)),       \
-                           MUL_R(SET1_R((bnmn)), (tmp2_r)));                  \
+               (z) = SUB_R(MUL_R(MUL_R((anms), (t)), (tmp1_r)),               \
+                           MUL_R((bnms), (tmp2_r)));                          \
                                                                               \
                                                                               \
                (w)    = ABS_R((z));                                           \
@@ -336,26 +350,14 @@ extern "C"
  *
  * The computed tesseral Legendre function will be stored in "pnm2".
  *
- * The last parameter called "UNDERFLOW" (see below) specifies what to do in
- * case the output of the macro, "pnm2", underflows.  In some cases, it may be
- * safe to use "continue", so that a few unnecessary multiplications by the
- * zero-valued "pnm2" are skipped.  These are usually present after the macro
- * is used in the main code.  In other cases, one can use "pnm2 = PREC(0.0)",
- * where "pnm2" is the name of the variable that is supposed to store the
- * tesseral Legendre function in the main code.  The program will then evaluate
- * the entire macro and subsequently it will continue with commands found after
- * the macro.
- *
  * */
 #define PNM_TESSERAL_XNUM(x, y, z, ix, iy, iz, ixy, w, t,                     \
-                          anm, bnm, pnm2, UNDERFLOW, ds)                      \
+                          anm, bnm, pnm2, ds)                                 \
                                                                               \
                                                                               \
         if ((ds))                                                             \
         {                                                                     \
-            (pnm2) = ((anm) * (t)) * (x) - (bnm) * (y);                       \
-            (y) = (x);                                                        \
-            (x) = (pnm2);                                                     \
+            PNM_TESSERAL(x, y, pnm2, t, anm, bnm);                            \
         }                                                                     \
         else                                                                  \
         {                                                                     \
@@ -411,7 +413,7 @@ extern "C"
             if ((iz) == 0)                                                    \
                 (pnm2) = (z);                                                 \
             else if ((iz) < -1)                                               \
-                UNDERFLOW;                                                    \
+                (pnm2) = PREC(0.0);                                           \
             else if ((iz) < 0)                                                \
                 (pnm2) = (z) * BIGI;                                          \
             else                                                              \

@@ -76,6 +76,10 @@ pyharm-parser:
 	$(PYTHON) pyharm-parser.py
 
 
+generate-reference-data:
+	cd tests && $(MAKE) generate-reference-data-local
+
+
 remove-files:
 	rm -rf __pycache__
 

@@ -24,8 +24,8 @@ libcharm@P@_shs@OMP@_la_SOURCES = shs_cell.c \
 								  shs_grd_fft_lc.c \
 								  shs_grd_fft.c \
 								  shs_sctr_mulc.c \
-								  shs_check_symm.c \
-								  shs_check_symm_simd.c
+								  shs_check_symm_simd.c \
+								  shs_r_eq_rref.c
 
 
 EXTRA_DIST = *.h

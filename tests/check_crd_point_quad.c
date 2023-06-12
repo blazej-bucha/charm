@@ -5,7 +5,11 @@
 #include <string.h>
 #include "../src/prec.h"
 #include "parameters.h"
-#include "validate.h"
+#ifdef GENREF
+#   include "write.h"
+#else
+#   include "validate.h"
+#endif
 /* ------------------------------------------------------------------------- */
 
 
@@ -52,12 +56,18 @@ long int check_crd_point_quad(CHARM(point) *(*quad)(unsigned long, REAL))
                     FOLDER, nmax, deltar, grd_type, FTYPE);
 
 
+#ifdef GENREF
+            e += write(file_lat, grd->lat, grd->nlat);
+            e += write(file_lon, grd->lon, grd->nlon);
+            e += write(file_r,   grd->r,   grd->nlat);
+#else
             e += validate(file_lat, grd->lat, grd->nlat,
                           PREC(10.0) * CHARM(glob_threshold));
             e += validate(file_lon, grd->lon, grd->nlon,
                           PREC(10.0) * CHARM(glob_threshold));
             e += validate(file_r,   grd->r,   grd->nlat,
                           PREC(10.0) * CHARM(glob_threshold));
+#endif
 
 
             CHARM(crd_point_free)(grd);

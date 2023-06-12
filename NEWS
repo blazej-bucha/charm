@@ -17,6 +17,17 @@ Upcoming release:
       transforms revisited.  Astronomy and Astrophysics 554, A112, doi:
       10.1051/0004-6361/201321494.
 
+* Added functions to check various features of CHarm that are determined during 
+  the compilation time:
+
+    * `charm_misc_buildopt_precision`,
+    * `charm_misc_buildopt_omp_charm`,
+    * `charm_misc_buildopt_omp_fftw`,
+    * `charm_misc_buildopt_simd`,
+    * `charm_misc_buildopt_isfinite`.
+
+* Improved caching for point synthesis and analysis by the blocking technique.
+
 * Added automatic dynamical switching to the computation of Legendre functions 
   (Fukushima, 2016).  This slightly improves the performance.
 
@@ -34,15 +45,6 @@ Upcoming release:
   varies across the meridian (mainly due to X-numbers, dynamical switching and, 
   if applied, polar optimization).  In sha, the dynamic scheduling has been in 
   use right from the beginning.
-
-* Added functions to check various features of CHarm that are determined during 
-  the compilation time:
-
-    * `charm_misc_buildopt_precision`,
-    * `charm_misc_buildopt_omp_charm`,
-    * `charm_misc_buildopt_omp_fftw`,
-    * `charm_misc_buildopt_simd`,
-    * `charm_misc_buildopt_isfinite`.
 
 * Introduced `NEG_R` macro to properly switch the sign of SIMD vectors.
 

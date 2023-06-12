@@ -6,7 +6,11 @@
 #include "../src/prec.h"
 #include "generate_cell.h"
 #include "parameters.h"
-#include "validate.h"
+#ifdef GENREF
+#   include "write.h"
+#else
+#   include "validate.h"
+#endif
 /* ------------------------------------------------------------------------- */
 
 
@@ -116,13 +120,12 @@ long int check_shs_cell_isurf(void)
                 CHARM(err_handler)(err, 1);
 
 
-                e += validate(file, f, grd->nlat * grd->nlon,
-#if CHARM_FLOAT
-                              CHARM(glob_threshold2)
+#ifdef GENREF
+                e += write(file, f, grd->nlat * grd->nlon);
 #else
-                              PREC(100.0) * CHARM(glob_threshold)
+                e += validate(file, f, grd->nlat * grd->nlon,
+                              CHARM(glob_threshold2));
 #endif
-                              );
 
 
                 CHARM(crd_cell_free)(grd);

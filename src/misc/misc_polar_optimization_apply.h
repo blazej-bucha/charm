@@ -29,7 +29,8 @@ extern "C"
  * */
 extern _Bool CHARM(misc_polar_optimization_apply)(unsigned long m,
                                                   unsigned long nmax,
-                                                  REAL_SIMD sinlat,
+                                                  REAL_SIMD *sinlat,
+                                                  size_t nsinlat,
                                                   REAL_SIMD threshold);
 
 

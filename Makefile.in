@@ -306,6 +306,7 @@ EGREP = @EGREP@
 ETAGS = @ETAGS@
 EXEEXT = @EXEEXT@
 FGREP = @FGREP@
+FILECMD = @FILECMD@
 GREP = @GREP@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -1052,6 +1053,9 @@ bench:
 
 pyharm-parser:
 	$(PYTHON) pyharm-parser.py
+
+generate-reference-data:
+	cd tests && $(MAKE) generate-reference-data-local
 
 remove-files:
 	rm -rf __pycache__
