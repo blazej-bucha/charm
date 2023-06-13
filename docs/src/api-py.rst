@@ -25,11 +25,11 @@ the differences is given in :ref:`PyHarm_in_single_precision`.
 .. toctree::
    :titlesonly:
 
-   shc <api-py-shc>
-   crd <api-py-crd>
-   shs <api-py-shs>
-   sha <api-py-sha>
-   leg <api-py-leg>
-   integ <api-py-integ>
-   misc <api-py-misc>
-   glob <api-py-glob>
+   pyharm.shc <api-py-shc>
+   pyharm.crd <api-py-crd>
+   pyharm.shs <api-py-shs>
+   pyharm.sha <api-py-sha>
+   pyharm.leg <api-py-leg>
+   pyharm.integ <api-py-integ>
+   pyharm.misc <api-py-misc>
+   pyharm.glob <api-py-glob>
