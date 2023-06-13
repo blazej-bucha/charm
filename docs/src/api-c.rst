@@ -26,7 +26,6 @@ omitted.  The list of the differences is given in
    api-c-leg
    api-c-integ
    api-c-misc
-   api-c-xnum
    api-c-err
    api-c-glob
    api-c-charm

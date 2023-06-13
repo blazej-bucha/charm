@@ -55,17 +55,15 @@ Features
 Source code
 ===========
 
-GitHub: `https://github.com/blazej-bucha/charm
+GitHub: `https://github.com/blazej-bucha/charm 
 <https://github.com/blazej-bucha/charm>`_
 
 * Releases are pushed to ``master`` and the development happens in
-  ``develop``.  If you prefer the most up-to-date version, switch to the
-  ``develop`` branch.
+  ``develop``.
 
-
-Tarball and zip files of releases:
-`https://github.com/blazej-bucha/charm/tags
-<https://github.com/blazej-bucha/charm/tags>`_
+* Tarball and zip files of releases: 
+  `https://github.com/blazej-bucha/charm/releases 
+  <https://github.com/blazej-bucha/charm/releases>`_
 
 
 Documentation

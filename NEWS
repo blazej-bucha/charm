@@ -2,6 +2,15 @@ Upcoming release:
 
 * Fixed memory leak in `charm_integ_pn1m1pn2m2`.
 
+* Removed the `xnum` module from the public API.  It offered only little added 
+  value, as all its functions are easy to implement.  This makes the API 
+  cleaner, especially in long terms, given that much more interesting modules 
+  are yet to come.
+
+* The function `charm_leg_pnmj_length` was removed from the API.  The number of 
+  coefficients stored in the `charm_pnmj` structure is already provided in its 
+  `npnmj` member.
+
 * Added support for polar optimization to increase computational speed
   (Eqs. 7 and 8 of Reinecke and Seljebotn 2013).  As long as the polar
   optimization parameters (see the `glob` module) are chosen appropriately,
@@ -26,10 +35,14 @@ Upcoming release:
     * `charm_misc_buildopt_simd`,
     * `charm_misc_buildopt_isfinite`.
 
-* Improved caching for point synthesis and analysis by the blocking technique.
+* Improved caching for point synthesis and analysis by the blocking technique.  
+  No effort has yet been made to apply the cache blocking also for cell 
+  analysis and synthesis, which therefore offer a sub-optimal implementation.  
+  This might change in the future if the performance of cell transforms becomes 
+  an issue or a limitation.
 
 * Added automatic dynamical switching to the computation of Legendre functions 
-  (Fukushima, 2016).  This slightly improves the performance.
+  (Fukushima, 2016).
 
   References:
 
@@ -50,10 +63,6 @@ Upcoming release:
 
 * Improved test suite.  The functions are now smaller and cleaner.  Some new 
   tests were also added, mostly to check various custom allocation functions.
-
-* The function `charm_leg_pnmj_length` was removed from the API.  The number of 
-  coefficients stored in the `charm_pnmj` structure is already provided in its 
-  `npnmj` member.
 
 CHarm 0.2.0:
 

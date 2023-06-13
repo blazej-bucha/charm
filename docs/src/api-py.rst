@@ -23,6 +23,8 @@ working in single precision, so separate documentation is omitted. The list of
 the differences is given in :ref:`PyHarm_in_single_precision`.
 
 .. toctree::
+   :titlesonly:
+
    shc <api-py-shc>
    crd <api-py-crd>
    shs <api-py-shs>
@@ -30,5 +32,4 @@ the differences is given in :ref:`PyHarm_in_single_precision`.
    leg <api-py-leg>
    integ <api-py-integ>
    misc <api-py-misc>
-   xnum <api-py-xnum>
    glob <api-py-glob>

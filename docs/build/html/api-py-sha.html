@@ -1,98 +1,52 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>pyharm.sha &mdash; CHarm 0.2.0-dev documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/custom_BB.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom_BB.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="pyharm.leg" href="api-py-leg.html" />
     <link rel="prev" title="pyharm.shs" href="api-py-shs.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
 
           
-            <a href="index.html" class="icon icon-home"> CHarm
           
-
-          
-            
-            <img src="_static/charm-logo.png" class="logo" alt="Logo"/>
-          
+          <a href="index.html" class="icon icon-home">
+            CHarm
+              <img src="_static/charm-logo.png" class="logo" alt="Logo"/>
           </a>
-
-          
-            
-            
               <div class="version">
                 0.2.0-dev
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
@@ -104,11 +58,15 @@
 <li class="toctree-l3"><a class="reference internal" href="api-py-shc.html">shc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">shs</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">sha</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">sha</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyharm.sha.CELL_AQ"><code class="docutils literal notranslate"><span class="pre">CELL_AQ</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyharm.sha.point"><code class="docutils literal notranslate"><span class="pre">point()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyharm.sha.cell"><code class="docutils literal notranslate"><span class="pre">cell()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-leg.html">leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">misc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-py-xnum.html">xnum</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-glob.html">glob</a></li>
 </ul>
 </li>
@@ -120,77 +78,34 @@
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">CHarm</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="api.html">Interfaces</a> &raquo;</li>
-        
-          <li><a href="api-py.html">PyHarm (Python API)</a> &raquo;</li>
-        
-      <li>pyharm.sha</li>
-    
-    
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="api.html">Interfaces</a></li>
+          <li class="breadcrumb-item"><a href="api-py.html">PyHarm (Python API)</a></li>
+      <li class="breadcrumb-item active">pyharm.sha</li>
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="_sources/api-py-sha.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="module-pyharm.sha">
-<span id="id1"></span><span id="pyharm-sha"></span><h1>pyharm.sha<a class="headerlink" href="#module-pyharm.sha" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="module-pyharm.sha">
+<span id="id1"></span><span id="pyharm-sha"></span><h1>pyharm.sha<a class="headerlink" href="#module-pyharm.sha" title="Permalink to this heading"></a></h1>
 <p>Module to perform surface spherical harmonic analysis using:</p>
 <blockquote>
 <div><ul class="simple">
@@ -203,27 +118,27 @@
 <p>This documentation is written for double precision version of PyHarm.</p>
 </div>
 <dl class="py data">
-<dt id="pyharm.sha.CELL_AQ">
-<code class="sig-prename descclassname">pyharm.sha.</code><code class="sig-name descname">CELL_AQ</code><em class="property">: int</em><em class="property"> = 0</em><a class="headerlink" href="#pyharm.sha.CELL_AQ" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="pyharm.sha.CELL_AQ">
+<span class="sig-prename descclassname"><span class="pre">pyharm.sha.</span></span><span class="sig-name descname"><span class="pre">CELL_AQ</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#pyharm.sha.CELL_AQ" title="Permalink to this definition"></a></dt>
 <dd><p>Spherical harmonic analysis of cell data using the <cite>approximate</cite>
 quadrature method.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt id="pyharm.sha.point">
-<code class="sig-prename descclassname">pyharm.sha.</code><code class="sig-name descname">point</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pnt</span></em>, <em class="sig-param"><span class="n">f</span></em>, <em class="sig-param"><span class="n">nmax</span></em>, <em class="sig-param"><span class="n">mu</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">r</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.sha.point" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="pyharm.sha.point">
+<span class="sig-prename descclassname"><span class="pre">pyharm.sha.</span></span><span class="sig-name descname"><span class="pre">point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.sha.point" title="Permalink to this definition"></a></dt>
 <dd><p>Performs surface spherical harmonic analysis of point values <code class="xref py py-obj docutils literal notranslate"><span class="pre">f</span></code> at
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">pnt</span></code> up to maximum degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to <a class="reference external" href="./api-c-sha.html">charm_sha</a> for the full documentation.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pnt</strong> (<a class="reference internal" href="api-py-crd.html#pyharm.crd.PointGridDH1" title="pyharm.crd.PointGridDH1"><em>PointGridDH1</em></a><em>, </em><a class="reference internal" href="api-py-crd.html#pyharm.crd.PointGridDH2" title="pyharm.crd.PointGridDH2"><em>PointGridDH2</em></a><em>, </em><a class="reference internal" href="api-py-crd.html#pyharm.crd.PointGridGL" title="pyharm.crd.PointGridGL"><em>PointGridGL</em></a>) – Quadrature grid points at which <code class="xref py py-obj docutils literal notranslate"><span class="pre">f</span></code> is sampled</p></li>
-<li><p><strong>f</strong> (<em>numpy array of floating points</em>) – Signal to be harmonically analysed</p></li>
+<li><p><strong>f</strong> (<em>numpy array</em><em> of </em><em>floating points</em>) – Signal to be harmonically analysed</p></li>
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum degree of the analysis</p></li>
 <li><p><strong>mu</strong> (<em>floating point</em>) – Scaling parameter to be associated with the output spherical harmonic
 coefficients, optional.  Default is <code class="xref py py-obj docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
@@ -231,25 +146,25 @@ coefficients, optional.  Default is <code class="xref py py-obj docutils literal
 spherical harmonic coefficients, optional.  Default is <code class="xref py py-obj docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>out</strong> – Spherical harmonic coefficients of <code class="xref py py-obj docutils literal notranslate"><span class="pre">f</span></code></p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="api-py-shc.html#pyharm.shc.Shc" title="pyharm.shc.Shc">Shc</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt id="pyharm.sha.cell">
-<code class="sig-prename descclassname">pyharm.sha.</code><code class="sig-name descname">cell</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cell</span></em>, <em class="sig-param"><span class="n">f</span></em>, <em class="sig-param"><span class="n">nmax</span></em>, <em class="sig-param"><span class="n">method</span></em>, <em class="sig-param"><span class="n">mu</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">r</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.sha.cell" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="pyharm.sha.cell">
+<span class="sig-prename descclassname"><span class="pre">pyharm.sha.</span></span><span class="sig-name descname"><span class="pre">cell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cell</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.sha.cell" title="Permalink to this definition"></a></dt>
 <dd><p>Performs surface spherical harmonic analysis of point values <code class="xref py py-obj docutils literal notranslate"><span class="pre">f</span></code> at
 <a class="reference internal" href="#pyharm.sha.cell" title="pyharm.sha.cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell</span></code></a> up to maximum degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to <a class="reference external" href="./api-c-sha.html">charm_sha</a> for the full documentation.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>cell</strong> (<a class="reference internal" href="api-py-crd.html#pyharm.crd.CellGrid" title="pyharm.crd.CellGrid"><em>CellGrid</em></a>) – Grid cells at which <code class="xref py py-obj docutils literal notranslate"><span class="pre">f</span></code> is sampled</p></li>
-<li><p><strong>f</strong> (<em>numpy array of floating points</em>) – Signal to be harmonically analysed</p></li>
+<li><p><strong>f</strong> (<em>numpy array</em><em> of </em><em>floating points</em>) – Signal to be harmonically analysed</p></li>
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum degree of the analysis</p></li>
 <li><p><strong>method</strong> (<em>integer</em>) – Method of the spherical harmonic analysis of area-mean values.
 Currently the only accepted value is <a class="reference internal" href="#pyharm.sha.CELL_AQ" title="pyharm.sha.CELL_AQ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyharm.sha.CELL_AQ</span></code></a>.</p></li>
@@ -259,63 +174,46 @@ coefficients, optional.  Default is <code class="xref py py-obj docutils literal
 spherical harmonic coefficients, optional.  Default is <code class="xref py py-obj docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>out</strong> – Spherical harmonic coefficients of <code class="xref py py-obj docutils literal notranslate"><span class="pre">f</span></code></p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="api-py-shc.html#pyharm.shc.Shc" title="pyharm.shc.Shc">Shc</a></p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="api-py-leg.html" class="btn btn-neutral float-right" title="pyharm.leg" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="api-py-shs.html" class="btn btn-neutral float-left" title="pyharm.shs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api-py-leg.html" class="btn btn-neutral float-right" title="pyharm.leg" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2023, Blažej Bucha.
-
-    </p>
+    <p>&#169; Copyright 2023, Blažej Bucha.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
