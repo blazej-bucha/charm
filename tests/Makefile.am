@@ -57,8 +57,6 @@ SOURCES = main.c \
 
 # Source code of the test program
 test_run@P@@OMP@_SOURCES = $(SOURCES)
-
-
 genref_run@P@@OMP@_SOURCES = $(SOURCES)
 
 
