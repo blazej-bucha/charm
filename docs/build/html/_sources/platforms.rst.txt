@@ -38,8 +38,20 @@ Tested platforms
      - Clang 12.0.5, GCC 10.3.0
 
    * - x86_64
-     - Windows 10 (Windows Subsystem for Linux, Debian GNU/Linux (bullseye))
+     - Windows 10 + Windows Subsystem for Linux (Debian GNU/Linux, "bullseye" 
+       release)
      - GCC 10.2.1
+
+   * - x86_64
+     - Windows 10 + Cygwin 3.4
+     - GCC 11.4.0-1 [#f1]_
+
+   * - x86_64
+     - Windows 10 + Cygwin 3.4
+     - Clang 8.0.1-1 [#f2]_
+
+.. [#f1] SIMD instructions disabled (see :ref:`installation_win`).
+.. [#f2] SIMD instructions enabled (see :ref:`installation_win`).
 
 
 We would love to hear your own experience, especially on platforms not listed 

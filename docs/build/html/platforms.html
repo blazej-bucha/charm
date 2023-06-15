@@ -85,8 +85,8 @@
              
   <section id="tested-platforms">
 <span id="id1"></span><h1>Tested platforms<a class="headerlink" href="#tested-platforms" title="Permalink to this heading"></a></h1>
-<span id="platforms"></span><table class="docutils align-default" id="id2">
-<caption><span class="caption-text">Known supported configurations</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<span id="platforms"></span><table class="docutils align-default" id="id4">
+<caption><span class="caption-text">Known supported configurations</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 40%" />
@@ -124,11 +124,30 @@
 <td><p>Clang 12.0.5, GCC 10.3.0</p></td>
 </tr>
 <tr class="row-even"><td><p>x86_64</p></td>
-<td><p>Windows 10 (Windows Subsystem for Linux, Debian GNU/Linux (bullseye))</p></td>
+<td><p>Windows 10 + Windows Subsystem for Linux (Debian GNU/Linux, “bullseye”
+release)</p></td>
 <td><p>GCC 10.2.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>x86_64</p></td>
+<td><p>Windows 10 + Cygwin 3.4</p></td>
+<td><p>GCC 11.4.0-1 <a class="footnote-reference brackets" href="#f1" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>x86_64</p></td>
+<td><p>Windows 10 + Cygwin 3.4</p></td>
+<td><p>Clang 8.0.1-1 <a class="footnote-reference brackets" href="#f2" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p></td>
 </tr>
 </tbody>
 </table>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="f1" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<p>SIMD instructions disabled (see <a class="reference internal" href="install_non_unix.html#installation-win"><span class="std std-ref">Installation on Windows 10</span></a>).</p>
+</aside>
+<aside class="footnote brackets" id="f2" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
+<p>SIMD instructions enabled (see <a class="reference internal" href="install_non_unix.html#installation-win"><span class="std std-ref">Installation on Windows 10</span></a>).</p>
+</aside>
+</aside>
 <p>We would love to hear your own experience, especially on platforms not listed
 in the table!</p>
 </section>

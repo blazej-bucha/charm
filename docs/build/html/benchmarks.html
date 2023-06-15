@@ -96,8 +96,9 @@ requirements of spherical harmonic analysis and synthesis of point data values.
 Applied is the Gauss–Legendre quadrature, which offers the best performance.
 All tests were executed on a PC with the Intel(R) Core(TM) i7-6800K CPU
 &#64; 3.40GHz and 128 GBs of RAM.  CHarm was compiled using <code class="docutils literal notranslate"><span class="pre">GCC</span></code> with
-<code class="docutils literal notranslate"><span class="pre">--enable-openmp</span></code>, <code class="docutils literal notranslate"><span class="pre">--enable-avx</span></code> and <code class="docutils literal notranslate"><span class="pre">CFLAGS=&quot;-O3</span> <span class="pre">-ffast-math&quot;</span></code>
-installation flags.  All 6 CPU cores were employed with hyperthreading enabled.</p>
+<code class="docutils literal notranslate"><span class="pre">--enable-openmp</span></code>, <code class="docutils literal notranslate"><span class="pre">--enable-avx2</span></code> and <code class="docutils literal notranslate"><span class="pre">CFLAGS=&quot;-O3</span> <span class="pre">-ffast-math&quot;</span></code>
+installation flags.  All 6 CPU cores were employed with hyperthreading enabled.
+Polar optimization was disabled unless explicitly stated otherwise.</p>
 <p>The benchmarks can be executed by <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">bench</span></code> after running <code class="docutils literal notranslate"><span class="pre">./configure</span></code>
 and <code class="docutils literal notranslate"><span class="pre">make</span></code>.  The outputs from the benchmark program (the accuracy and
 wall-clock times) can be plotted by a Python script <code class="docutils literal notranslate"><span class="pre">plot-bench.py</span></code> inside
@@ -155,11 +156,12 @@ section.</p>
 <p><strong>Double precision</strong></p>
 <p><em>Polar optimization disabled (default)</em></p>
 <img alt="_images/bench-time.png" src="_images/bench-time.png" />
-<p><em>Using the polar optimization</em> (<code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a1</span> <span class="pre">=</span> <span class="pre">100</span></code>,
-<code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a2</span> <span class="pre">=</span> <span class="pre">0.01</span></code>), the performance improved by about
-25 percent, while the accuracy remains the same (see above).  More aggressive
-polar optimization can further improve the performance, but, after some
-critical point, only at the cost of deteriorated accuracy.</p>
+<p><em>With the polar optimization enabled</em> (<code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a1</span>
+<span class="pre">=</span> <span class="pre">100</span></code>, <code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a2</span> <span class="pre">=</span> <span class="pre">0.01</span></code>), the performance improved
+almost by 40 percent (depending on the maximum degree), while the accuracy
+remained the same (see above).  More aggressive polar optimization can further
+improve the performance, but, after some critical point, only at the cost of
+deteriorated accuracy.</p>
 <img alt="_images/bench-po-time.png" src="_images/bench-po-time.png" />
 <p><strong>Quadruple precision</strong></p>
 <img alt="_images/benchq-time.png" src="_images/benchq-time.png" />

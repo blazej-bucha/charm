@@ -7,8 +7,9 @@ requirements of spherical harmonic analysis and synthesis of point data values.
 Applied is the Gauss--Legendre quadrature, which offers the best performance.  
 All tests were executed on a PC with the Intel(R) Core(TM) i7-6800K CPU 
 @ 3.40GHz and 128 GBs of RAM.  CHarm was compiled using ``GCC`` with 
-``--enable-openmp``, ``--enable-avx`` and ``CFLAGS="-O3 -ffast-math"`` 
-installation flags.  All 6 CPU cores were employed with hyperthreading enabled.
+``--enable-openmp``, ``--enable-avx2`` and ``CFLAGS="-O3 -ffast-math"`` 
+installation flags.  All 6 CPU cores were employed with hyperthreading enabled.  
+Polar optimization was disabled unless explicitly stated otherwise.
 
 The benchmarks can be executed by ``make bench`` after running ``./configure`` 
 and ``make``.  The outputs from the benchmark program (the accuracy and 
@@ -92,11 +93,12 @@ section.
 
 .. image:: ../img/bench-time.png
 
-*Using the polar optimization* (``charm_glob_polar_optimization_a1 = 100``, 
-``charm_glob_polar_optimization_a2 = 0.01``), the performance improved by about 
-25 percent, while the accuracy remains the same (see above).  More aggressive 
-polar optimization can further improve the performance, but, after some 
-critical point, only at the cost of deteriorated accuracy.
+*With the polar optimization enabled* (``charm_glob_polar_optimization_a1 
+= 100``, ``charm_glob_polar_optimization_a2 = 0.01``), the performance improved 
+almost by 40 percent (depending on the maximum degree), while the accuracy 
+remained the same (see above).  More aggressive polar optimization can further 
+improve the performance, but, after some critical point, only at the cost of 
+deteriorated accuracy.
 
 .. image:: ../img/bench-po-time.png
 

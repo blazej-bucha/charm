@@ -185,7 +185,7 @@ following flags to the ``./configure`` call.
 * Other useful variables:
 
   * ``CC`` selects other than your system's default C compiler,
-    e.g. ``CC=clang`` for the ``Clang`` compiler, and
+    e.g. ``CC=clang`` for Clang, and
 
   * ``CFLAGS`` defines user-defined compiler flags, e.g.,  ``CFLAGS="-O3 
     -ffast-math"``
@@ -266,11 +266,11 @@ preferably with GCC.  The latter is strongly recommended on macOS.
 
       ./configure --enable-openmp CC=gcc-10
 
-  Without the ``CC`` flag, the ``Clang`` compiler will most likely be used
-  which may cause an installation failure when using the ``--enable-openmp``
-  and/or ``--enable-quad-precision`` flag(s).  It may **not** be sufficient to
-  add ``CC=gcc`` (GCC version number omitted), as this will still likely call
-  the ``Clang`` compiler.
+  Without the ``CC`` flag, Clang will most likely be used which may cause an 
+  installation failure when using the ``--enable-openmp`` and/or 
+  ``--enable-quad-precision`` flag(s).  It may **not** be sufficient to add 
+  ``CC=gcc`` (GCC version number omitted), as this will still likely call 
+  Clang.
 
 CHarm installation
 """"""""""""""""""

@@ -95,11 +95,14 @@ offers a fully functional Linux distribution that you can run from within
 Windows 10 (no dual boot).  WSL is officially supported by Microsoft and its
 installation is very easy.  Having installed WSL, you may proceed with
 <a class="reference internal" href="install_unix.html#installation-unix"><span class="std std-ref">Installation on Unix-based operating systems</span></a>.</p>
-<p>Other solution is, for instance, <a class="reference external" href="https://en.wikipedia.org/wiki/Cygwin">Cygwin</a>.  We have noticed, however, that when
-combined with SIMD instructions, Cygwin throws segmentation fault errors, even
-for some clearly valid parts of the code.  With SIMD instructions disabled, the
-library seems to work fine, but the performance is suboptimal.  OpenMP
-parallelization also seems to work properly.</p>
+<p>Other solution is, for instance, <a class="reference external" href="https://en.wikipedia.org/wiki/Cygwin">Cygwin</a>.  A note on enabling SIMD instructions
+(<code class="docutils literal notranslate"><span class="pre">--enable-avx</span></code>, <code class="docutils literal notranslate"><span class="pre">--enable-avx2</span></code> or <code class="docutils literal notranslate"><span class="pre">--enable-avx-512</span></code>) under Cygwin is
+necessary here.  To properly compile CHarm under Cygwin with SIMD instructions
+enabled, do <em>not</em> use GCC.  Under Cygwin, GCC doesn’t seem to properly align
+the memory (required to execute SIMD CPU instructions).  You won’t get any
+compilation error, but when running your program or the check program (<code class="docutils literal notranslate"><span class="pre">make</span>
+<span class="pre">check</span></code>), you will most likely get a segfault error.  Clang, for instance, does
+its job properly, even under Cygwin, so is recommended in this case.</p>
 </section>
 
 

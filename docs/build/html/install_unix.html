@@ -252,7 +252,7 @@ is accessible to the compiler).</p></li>
 <li><p>Other useful variables:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">CC</span></code> selects other than your system’s default C compiler,
-e.g. <code class="docutils literal notranslate"><span class="pre">CC=clang</span></code> for the <code class="docutils literal notranslate"><span class="pre">Clang</span></code> compiler, and</p></li>
+e.g. <code class="docutils literal notranslate"><span class="pre">CC=clang</span></code> for Clang, and</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">CFLAGS</span></code> defines user-defined compiler flags, e.g.,  <code class="docutils literal notranslate"><span class="pre">CFLAGS=&quot;-O3</span>
 <span class="pre">-ffast-math&quot;</span></code>
 (GCC).</p></li>
@@ -314,11 +314,11 @@ version number, e.g.:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --enable-openmp CC=gcc-10</span>
 </pre></div>
 </div>
-<p>Without the <code class="docutils literal notranslate"><span class="pre">CC</span></code> flag, the <code class="docutils literal notranslate"><span class="pre">Clang</span></code> compiler will most likely be used
-which may cause an installation failure when using the <code class="docutils literal notranslate"><span class="pre">--enable-openmp</span></code>
-and/or <code class="docutils literal notranslate"><span class="pre">--enable-quad-precision</span></code> flag(s).  It may <strong>not</strong> be sufficient to
-add <code class="docutils literal notranslate"><span class="pre">CC=gcc</span></code> (GCC version number omitted), as this will still likely call
-the <code class="docutils literal notranslate"><span class="pre">Clang</span></code> compiler.</p>
+<p>Without the <code class="docutils literal notranslate"><span class="pre">CC</span></code> flag, Clang will most likely be used which may cause an
+installation failure when using the <code class="docutils literal notranslate"><span class="pre">--enable-openmp</span></code> and/or
+<code class="docutils literal notranslate"><span class="pre">--enable-quad-precision</span></code> flag(s).  It may <strong>not</strong> be sufficient to add
+<code class="docutils literal notranslate"><span class="pre">CC=gcc</span></code> (GCC version number omitted), as this will still likely call
+Clang.</p>
 </li>
 </ul>
 </section>
