@@ -44,8 +44,8 @@ long int check_integ_yi1n1m1yi2n2m2(void)
         /* Compute the Fourier coefficients */
         /* ................................................................. */
         pnmj = CHARM(leg_pnmj_calloc)(nmax,
-                                      (o == 0) ? CHARM_LEG_PNMJ_ORDER_MNJ :
-                                                 CHARM_LEG_PNMJ_ORDER_MJN);
+                                      (o == 0) ? CHARM_LEG_PMNJ :
+                                                 CHARM_LEG_PMJN);
         if (pnmj == NULL)
         {
             fprintf(stderr, "Failed to initialize the \"pnmj\" "

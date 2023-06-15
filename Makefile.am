@@ -72,7 +72,7 @@ bench:
 	cd bench && $(MAKE) bench-local
 
 
-pyharm-parser:
+pyharm-parser: all
 	$(PYTHON) pyharm-parser.py
 
 

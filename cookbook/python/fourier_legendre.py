@@ -8,7 +8,7 @@ nmax = 500
 
 # Create a "ph.leg.Pnmj" class instance using the factory method called
 # "from_zeros"
-pnmj = ph.leg.Pnmj.from_zeros(nmax, ph.leg.PNMJ_ORDER_MNJ)
+pnmj = ph.leg.Pnmj.from_zeros(nmax, ph.leg.PMNJ)
 
 
 # Compute the Fourier coefficients

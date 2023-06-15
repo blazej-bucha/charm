@@ -209,18 +209,18 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin,
 
 
             j2 = CHARM(leg_pnmj_k2j)(k2);
-            if (pnmj->ordering == CHARM_LEG_PNMJ_ORDER_MNJ)
+            if (pnmj->ordering == CHARM_LEG_PMNJ)
                 ip_tmp += pnmj->pnmj[m2][n2 - m2][j2] * itrig[k1_n2p1 + k2];
-            else if (pnmj->ordering == CHARM_LEG_PNMJ_ORDER_MJN)
+            else if (pnmj->ordering == CHARM_LEG_PMJN)
                 ip_tmp += pnmj->pnmj[m2][j2][n2 - CHARM_MAX(m2, 2 * j2)] *
                           itrig[k1_n2p1 + k2];
         }
 
 
         j1 = CHARM(leg_pnmj_k2j)(k1);
-        if (pnmj->ordering == CHARM_LEG_PNMJ_ORDER_MNJ)
+        if (pnmj->ordering == CHARM_LEG_PMNJ)
             ip += pnmj->pnmj[m1][n1 - m1][j1] * ip_tmp;
-        else if (pnmj->ordering == CHARM_LEG_PNMJ_ORDER_MJN)
+        else if (pnmj->ordering == CHARM_LEG_PMJN)
             ip += pnmj->pnmj[m1][j1][n1 - CHARM_MAX(m1, 2 * j1)] * ip_tmp;
     }
     /* --------------------------------------------------------------------- */

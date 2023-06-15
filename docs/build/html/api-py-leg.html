@@ -60,8 +60,8 @@
 <li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">pyharm.sha</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">pyharm.leg</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#pyharm.leg.PNMJ_ORDER_MNJ"><code class="docutils literal notranslate"><span class="pre">PNMJ_ORDER_MNJ</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pyharm.leg.PNMJ_ORDER_MJN"><code class="docutils literal notranslate"><span class="pre">PNMJ_ORDER_MJN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyharm.leg.PMNJ"><code class="docutils literal notranslate"><span class="pre">PMNJ</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyharm.leg.PMJN"><code class="docutils literal notranslate"><span class="pre">PMJN</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pyharm.leg.Pnmj"><code class="docutils literal notranslate"><span class="pre">Pnmj</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pyharm.leg.fourier_coeffs"><code class="docutils literal notranslate"><span class="pre">fourier_coeffs()</span></code></a></li>
 </ul>
@@ -121,8 +121,8 @@ of the Legendre functions,</p></li>
 <p>This documentation is written for double precision version of PyHarm.</p>
 </div>
 <dl class="py data">
-<dt class="sig sig-object py" id="pyharm.leg.PNMJ_ORDER_MNJ">
-<span class="sig-prename descclassname"><span class="pre">pyharm.leg.</span></span><span class="sig-name descname"><span class="pre">PNMJ_ORDER_MNJ</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#pyharm.leg.PNMJ_ORDER_MNJ" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="pyharm.leg.PMNJ">
+<span class="sig-prename descclassname"><span class="pre">pyharm.leg.</span></span><span class="sig-name descname"><span class="pre">PMNJ</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#pyharm.leg.PMNJ" title="Permalink to this definition"></a></dt>
 <dd><p>Ordering scheme of Fourier coefficients of Legendre functions: order
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code>, degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> and wave-number-related variable <code class="xref py py-obj docutils literal notranslate"><span class="pre">j</span></code>.
 For further details, refer to <a class="reference external" href="./api-c-leg.html">charm_leg</a>.</p>
@@ -134,8 +134,8 @@ For further details, refer to <a class="reference external" href="./api-c-leg.ht
 </dd></dl>
 
 <dl class="py data">
-<dt class="sig sig-object py" id="pyharm.leg.PNMJ_ORDER_MJN">
-<span class="sig-prename descclassname"><span class="pre">pyharm.leg.</span></span><span class="sig-name descname"><span class="pre">PNMJ_ORDER_MJN</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#pyharm.leg.PNMJ_ORDER_MJN" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="pyharm.leg.PMJN">
+<span class="sig-prename descclassname"><span class="pre">pyharm.leg.</span></span><span class="sig-name descname"><span class="pre">PMJN</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#pyharm.leg.PMJN" title="Permalink to this definition"></a></dt>
 <dd><p>Ordering scheme of Fourier coefficients of Legendre functions: order
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code>, wave-number-related variable <code class="xref py py-obj docutils literal notranslate"><span class="pre">j</span></code> and degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code>.
 For further details, refer to <a class="reference external" href="./api-c-leg.html">charm_leg</a>.</p>
@@ -219,8 +219,8 @@ coefficients (<cite>malloc</cite> in C).</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree</p></li>
 <li><p><strong>ordering</strong> (<em>integer</em>) – Ordering scheme of Fourier coefficients, optional.  Default value
-is <a class="reference internal" href="#pyharm.leg.PNMJ_ORDER_MNJ" title="pyharm.leg.PNMJ_ORDER_MNJ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PNMJ_ORDER_MNJ</span></code></a>.  Use <a class="reference internal" href="#pyharm.leg.Pnmj.get_ordering_types" title="pyharm.leg.Pnmj.get_ordering_types"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_ordering_types()</span></code></a> to
-get all supported ordering schemes.</p></li>
+is <a class="reference internal" href="#pyharm.leg.PMNJ" title="pyharm.leg.PMNJ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PMNJ</span></code></a>.  Use <a class="reference internal" href="#pyharm.leg.Pnmj.get_ordering_types" title="pyharm.leg.Pnmj.get_ordering_types"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_ordering_types()</span></code></a> to get all
+supported ordering schemes.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -242,8 +242,8 @@ initialized to zero (<cite>calloc</cite> in C).</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree</p></li>
 <li><p><strong>ordering</strong> (<em>integer</em>) – Ordering scheme of Fourier coefficients, optional.  Default value
-is <a class="reference internal" href="#pyharm.leg.PNMJ_ORDER_MNJ" title="pyharm.leg.PNMJ_ORDER_MNJ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PNMJ_ORDER_MNJ</span></code></a>.  Use <a class="reference internal" href="#pyharm.leg.Pnmj.get_ordering_types" title="pyharm.leg.Pnmj.get_ordering_types"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_ordering_types()</span></code></a> to
-get all supported ordering schemes.</p></li>
+is <a class="reference internal" href="#pyharm.leg.PMNJ" title="pyharm.leg.PMNJ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PMNJ</span></code></a>.  Use <a class="reference internal" href="#pyharm.leg.Pnmj.get_ordering_types" title="pyharm.leg.Pnmj.get_ordering_types"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_ordering_types()</span></code></a> to get all
+supported ordering schemes.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -368,8 +368,8 @@ of a Legendre function</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree</p></li>
 <li><p><strong>ordering</strong> (<em>integer</em>) – Ordering scheme of Fourier coefficients, optional.  Default value is
-<a class="reference internal" href="#pyharm.leg.PNMJ_ORDER_MNJ" title="pyharm.leg.PNMJ_ORDER_MNJ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PNMJ_ORDER_MNJ</span></code></a>.  Use <a class="reference internal" href="#pyharm.leg.Pnmj.get_ordering_types" title="pyharm.leg.Pnmj.get_ordering_types"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Pnmj.get_ordering_types()</span></code></a> to get
-all supported ordering schemes.</p></li>
+<a class="reference internal" href="#pyharm.leg.PMNJ" title="pyharm.leg.PMNJ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PMNJ</span></code></a>.  Use <a class="reference internal" href="#pyharm.leg.Pnmj.get_ordering_types" title="pyharm.leg.Pnmj.get_ordering_types"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Pnmj.get_ordering_types()</span></code></a> to get all
+supported ordering schemes.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

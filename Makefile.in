@@ -1051,7 +1051,7 @@ charm@P@@OMP@.pc: charm-tmpl.pc
 bench:
 	cd bench && $(MAKE) bench-local
 
-pyharm-parser:
+pyharm-parser: all
 	$(PYTHON) pyharm-parser.py
 
 generate-reference-data:

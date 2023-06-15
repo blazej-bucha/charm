@@ -69,11 +69,11 @@ enum
     /** Order ``m``, degree ``n``, wave-number-related variable ``j``.  Note
      * that ``j`` is not a wave-number ``k``, but is related to it (see
      * ``charm@P@_leg_pnmj_j2k()`` and ``charm@P@_leg_pnmj_k2j()``). */
-    CHARM_LEG_PNMJ_ORDER_MNJ,
+    CHARM_LEG_PMNJ,
 
 
     /** Order ``m``, wave-number-related variable ``j``, degree ``n``. */
-    CHARM_LEG_PNMJ_ORDER_MJN
+    CHARM_LEG_PMJN
 };
 /* ------------------------------------------------------------------------- */
 
@@ -97,8 +97,7 @@ typedef struct
 
 
     /** Ordering scheme of the Fourier coefficients in ``charm@P@_pnmj.pnmj``:
-     * either ``::CHARM_LEG_PNMJ_ORDER_MNJ`` or ``::CHARM_LEG_PNMJ_ORDER_MJN``.
-     * */
+     * either ``::CHARM_LEG_PMNJ`` or ``::CHARM_LEG_PMJN``.  */
     int ordering;
 
 
@@ -112,14 +111,14 @@ typedef struct
      *
      * The structure of ``charm@P@_pnmj.pnmj`` depends on
      * ``charm@P@_pnmj.ordering``, which takes one of two constants:
-     * ``::CHARM_LEG_PNMJ_ORDER_MNJ`` or ``::CHARM_LEG_PNMJ_ORDER_MJN``.
+     * ``::CHARM_LEG_PMNJ`` or ``::CHARM_LEG_PMJN``.
      *
      * @warning ``j`` does *not* represent the wave-number ``k``, but it is
      * closely related to it (see ``charm@P@_leg_pnmj_j2k()`` and
      * ``charm@P@_leg_pnmj_k2j()``).
      *
      * * Structure of ``charm@P@_pnmj.pnmj`` when ``charm@P@_pnmj.ordering`` is
-     *   ``::CHARM_LEG_PNMJ_ORDER_MNJ``:
+     *   ``::CHARM_LEG_PMNJ``:
      *
      *   The first dimension of ``charm@P@_pnmj.pnmj`` is related to harmonic
      *   orders, the second dimension to harmonic degrees and the third
@@ -142,7 +141,7 @@ typedef struct
      *
      *
      * * Structure of ``charm@P@_pnmj.pnmj`` when ``charm@P@_pnmj.ordering`` is
-     *   ``::CHARM_LEG_PNMJ_ORDER_MJN``:
+     *   ``::CHARM_LEG_PMJN``:
      *
      *   The first dimension of ``charm@P@_pnmj.pnmj`` is related to harmonic
      *   orders, the second dimension to wave-numbers and the third dimension
@@ -165,15 +164,15 @@ typedef struct
      *   Eq. (62) of Fukushima (2018), can therefore be access as follows
      *   ``charm@P@_pnmj.pnmj[m][j][n - CHARM_MAX(m, 2 * j)]``.
      *
-     * If ``charm@P@_pnmj.ordering`` is ``::CHARM_LEG_PNMJ_ORDER_MNJ``, the
-     * following loop order is recommended for fast sequential access to the
+     * If ``charm@P@_pnmj.ordering`` is ``::CHARM_LEG_PMNJ``, the following
+     * loop order is recommended for fast sequential access to the
      * \f$P_{nmj}\f$ coefficients: harmonic order ``m``, harmonic degree ``n``
      * and wave-number-related variable ``j``; e.g.:
      *
      * \verbatim embed:rst:leading-asterisk
      *  .. code-block:: c
      *
-     *      charm@P@_pnmj *pnmj = charm@P@_leg_pnmj_calloc(nmax, CHARM_LEG_PNMJ_ORDER_MNJ)
+     *      charm@P@_pnmj *pnmj = charm@P@_leg_pnmj_calloc(nmax, CHARM_LEG_PMNJ)
      *      for (unsigned long m = 0; m <= nmax; m++)
      *          for (unsigned long n = m; n <= nmax; n++)
      *              for (unsigned long j = 0; j <= (n / 2); j++)
@@ -181,13 +180,13 @@ typedef struct
      *
      * \endverbatim
      *
-     * If ``charm@P@_pnmj.ordering`` is ``::CHARM_LEG_PNMJ_ORDER_MJN``, the
+     * If ``charm@P@_pnmj.ordering`` is ``::CHARM_LEG_PMJN``, the
      * recommended loop order is:
      *
      * \verbatim embed:rst:leading-asterisk
      *  .. code-block:: c
      *
-     *      charm@P@_pnmj *pnmj = charm@P@_leg_pnmj_calloc(nmax, CHARM_LEG_PNMJ_ORDER_MJN)
+     *      charm@P@_pnmj *pnmj = charm@P@_leg_pnmj_calloc(nmax, CHARM_LEG_PMJN)
      *      for (unsigned long m = 0; m <= nmax; m++)
      *          for (unsigned long j = 0; j <= (nmax / 2); j++)
      *              for (unsigned long n = CHARM_MAX(m, 2 * j); n <= nmax; n++)
@@ -225,8 +224,8 @@ typedef struct
  * ``ordering``.  The Fourier coefficients are uninitialized, so their values
  * are undefined.
  *
- * @details ``ordering`` can be set either to ``::CHARM_LEG_PNMJ_ORDER_MNJ`` or
- * ``::CHARM_LEG_PNMJ_ORDER_MJN``.
+ * @details ``ordering`` can be set either to ``::CHARM_LEG_PMNJ`` or
+ * ``::CHARM_LEG_PMJN``.
  *
  * @warning The ``charm@P@_pnmj`` structure created by this function must be
  * deallocated by calling ``charm@P@_leg_pnmj_free()``.  The usual deallocation

@@ -34,7 +34,7 @@ long int check_leg_pnmj_alloc(CHARM(pnmj) *(*pnmj_alloc)(unsigned long,
     /* Check allocation for various maximum harmonic degrees */
     /* --------------------------------------------------------------------- */
     {
-    int ordering[2] = {CHARM_LEG_PNMJ_ORDER_MNJ, CHARM_LEG_PNMJ_ORDER_MJN};
+    int ordering[2] = {CHARM_LEG_PMNJ, CHARM_LEG_PMJN};
 
 
     for (nmax = 0; nmax <= SHCS_NMAX_POT; nmax++)
@@ -77,7 +77,7 @@ long int check_leg_pnmj_alloc(CHARM(pnmj) *(*pnmj_alloc)(unsigned long,
 
     /* Check that the members of "pnmj" are properly set */
     /* --------------------------------------------------------------------- */
-    ordering = CHARM_LEG_PNMJ_ORDER_MNJ;
+    ordering = CHARM_LEG_PMNJ;
 
 
     pnmj = pnmj_alloc(nmax, ordering);

@@ -64,7 +64,7 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax,
     }
 
 
-    if (ordering == CHARM_LEG_PNMJ_ORDER_MNJ)
+    if (ordering == CHARM_LEG_PMNJ)
     {
         for (unsigned long m = 0; m <= nmax; m++)
         {
@@ -82,7 +82,7 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax,
             }
         }
     }
-    else if (ordering == CHARM_LEG_PNMJ_ORDER_MJN)
+    else if (ordering == CHARM_LEG_PMJN)
     {
         for (unsigned long m = 0; m <= nmax; m++)
         {
@@ -108,7 +108,7 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax,
     /* --------------------------------------------------------------------- */
 
 
-    if (ordering == CHARM_LEG_PNMJ_ORDER_MNJ)
+    if (ordering == CHARM_LEG_PMNJ)
     {
         /* Now set the pointers "pnmj->pnmj[m][n - m]" to point to the right
          * elements of the numerical array "pnmj->pnmj[0][0]" */
@@ -122,7 +122,7 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax,
             }
         /* ----------------------------------------------------------------- */
     }
-    else if (ordering == CHARM_LEG_PNMJ_ORDER_MJN)
+    else if (ordering == CHARM_LEG_PMJN)
     {
         /* Now set the pointers "pnmj->pnmj[m][j]" to point to the right
          * elements of the numerical array "pnmj->pnmj[0][0]" */

@@ -493,7 +493,8 @@ cp-lib:
 
 install-exec-local: cp-lib
 @PY_TRUE@@SINGLE_PY_TRUE@	cd $(top_srcdir)/wrap && rm -rf pyharm@P@ && $(LN_S) pyharm pyharm@P@
-@PY_TRUE@	cd $(top_srcdir) && $(PYTHON) -m pip install . --target $(pythondir)
+@PY_TRUE@	cd $(top_srcdir) && $(PYTHON) -m pip install . --use-pep517 \
+@PY_TRUE@												   --target $(pythondir)
 
 uninstall-local:
 @PY_TRUE@	rm -rf $(pythondir)/pyharm@P@

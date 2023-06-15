@@ -1,14 +1,14 @@
 import pyharm as ph
 
 
-# Type of the first spherical harmonic function, its harmonic degree and order, 
+# Type of the first spherical harmonic function, its harmonic degree and order,
 # respectively
 i1 = 0
 n1 = 287
 m1 = 122
 
 
-# Type of the second spherical harmonic function, its harmonic degree and 
+# Type of the second spherical harmonic function, its harmonic degree and
 # order, respectively
 i2 = 1
 n2 = 34
@@ -32,7 +32,7 @@ pnmj = ph.leg.fourier_coeffs(nmax)
 
 # Compute the integral of a product of two spherical harmonics
 iy = ph.integ.yi1n1m1yi2n2m2(cltmin, cltmax, lonmin, lonmax,
-                                 i1, n1, m1, i2, n2, m2, pnmj)
+                             i1, n1, m1, i2, n2, m2, pnmj)
 
 
 # Print the value of the integral
@@ -41,7 +41,7 @@ print(f'The integral of the product of two spherical harmonics '
       f'is {iy}')
 
 
-# Now compute the integral of a product of two Legendre functions over 
+# Now compute the integral of a product of two Legendre functions over
 # a restricted domain
 ip = ph.integ.pn1m1pn2m2(cltmin, cltmax, n1, m1, n2, m2, pnmj)
 

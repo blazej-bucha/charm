@@ -13,6 +13,6 @@
  * the "CHARM(pnmj)" structure and non-zero otherwise. */
 int CHARM(leg_pnmj_check_ordering)(int ordering)
 {
-    return ((ordering == CHARM_LEG_PNMJ_ORDER_MNJ) ||
-            (ordering == CHARM_LEG_PNMJ_ORDER_MJN)) ? 0 : 1;
+    return ((ordering == CHARM_LEG_PMNJ) ||
+            (ordering == CHARM_LEG_PMJN)) ? 0 : 1;
 }

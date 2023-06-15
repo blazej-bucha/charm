@@ -39,9 +39,9 @@ long int check_leg_pnmj_coeffs(void)
 
     /* Loop over the two ordering schemes of the Fourier coefficients:
      *
-     * * "o == 0" for "CHARM_LEG_PNMJ_ORDER_MNJ", and
+     * * "o == 0" for "CHARM_LEG_PMNJ", and
      *
-     * * "o == 1" for "CHARM_LEG_PNMJ_ORDER_MJN". */
+     * * "o == 1" for "CHARM_LEG_PMJN". */
     /* --------------------------------------------------------------------- */
     for (int o = 0; o < 2; o++)
     {
@@ -49,8 +49,8 @@ long int check_leg_pnmj_coeffs(void)
         {
             /* Initialize a structure to store the Fourier coefficients */
             pnmj = CHARM(leg_pnmj_calloc)(nmax2,
-                                          (o == 0) ? CHARM_LEG_PNMJ_ORDER_MNJ :
-                                                     CHARM_LEG_PNMJ_ORDER_MJN);
+                                          (o == 0) ? CHARM_LEG_PMNJ :
+                                                     CHARM_LEG_PMJN);
             if (pnmj == NULL)
             {
                 fprintf(stderr, "Failed to initialize the \"pnmj\" "

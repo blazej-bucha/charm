@@ -166,7 +166,7 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
     unsigned long nmax = CHARM_MAX(nmax1, nmax3);
 
 
-    pnmj = CHARM(leg_pnmj_calloc)(nmax, CHARM_LEG_PNMJ_ORDER_MJN);
+    pnmj = CHARM(leg_pnmj_calloc)(nmax, CHARM_LEG_PMJN);
     if (pnmj == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -205,7 +205,7 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
      * therefore, the "CHARM(leg_pnmj_calloc)" function can be employed to
      * initialize the two variables. */
     /* ..................................................................... */
-    cnm1pnmj = CHARM(leg_pnmj_calloc)(nmax1, CHARM_LEG_PNMJ_ORDER_MJN);
+    cnm1pnmj = CHARM(leg_pnmj_calloc)(nmax1, CHARM_LEG_PMJN);
     if (cnm1pnmj == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -214,7 +214,7 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
     }
 
 
-    snm1pnmj = CHARM(leg_pnmj_calloc)(nmax1, CHARM_LEG_PNMJ_ORDER_MJN);
+    snm1pnmj = CHARM(leg_pnmj_calloc)(nmax1, CHARM_LEG_PMJN);
     if (snm1pnmj == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,

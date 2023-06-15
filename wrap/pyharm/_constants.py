@@ -28,7 +28,7 @@ _globals = {
     'CHARM_VERSION_MINOR': 2,
     'CHARM_VERSION_PATCH': 0,
     'CHARM_VERSION_STRING': '0.2.0-dev',
-    'CHARM_LEG_PNMJ_ORDER_MNJ': 0,
-    'CHARM_LEG_PNMJ_ORDER_MJN': 1,
+    'CHARM_LEG_PMNJ': 0,
+    'CHARM_LEG_PMJN': 1,
 }
 

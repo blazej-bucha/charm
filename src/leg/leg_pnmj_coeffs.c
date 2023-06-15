@@ -175,9 +175,9 @@ void CHARM(leg_pnmj_coeffs)(CHARM(pnmj) *pnmj,
 
 
                 tmp1 = CHARM(xnum_x2f)(xp[j], ip[j]);
-                if (pnmj->ordering == CHARM_LEG_PNMJ_ORDER_MNJ)
+                if (pnmj->ordering == CHARM_LEG_PMNJ)
                     pnmj->pnmj[m][n - m][j] = tmp1;
-                else if (pnmj->ordering == CHARM_LEG_PNMJ_ORDER_MJN)
+                else if (pnmj->ordering == CHARM_LEG_PMJN)
                     pnmj->pnmj[m][j][n - CHARM_MAX(m, 2 * j)] = tmp1;
             }
         }
@@ -214,12 +214,12 @@ void CHARM(leg_pnmj_coeffs)(CHARM(pnmj) *pnmj,
         {
             tmp1 = CHARM(xnum_x2f)(xp[j],  ip[j]);
             tmp2 = CHARM(xnum_x2f)(xp1[j], ip1[j]);
-            if (pnmj->ordering == CHARM_LEG_PNMJ_ORDER_MNJ)
+            if (pnmj->ordering == CHARM_LEG_PMNJ)
             {
                 pnmj->pnmj[n][0][j]     = tmp1;
                 pnmj->pnmj[n - 1][1][j] = tmp2;
             }
-            else if (pnmj->ordering == CHARM_LEG_PNMJ_ORDER_MJN)
+            else if (pnmj->ordering == CHARM_LEG_PMJN)
             {
                 pnmj->pnmj[n][j][0]                               = tmp1;
                 pnmj->pnmj[n - 1][j][n - CHARM_MAX(2 * j, n - 1)] = tmp2;
@@ -250,9 +250,9 @@ void CHARM(leg_pnmj_coeffs)(CHARM(pnmj) *pnmj,
             for (unsigned long j = 0; j <= jmax; j++)
             {
                 tmp1 = CHARM(xnum_x2f)(xp0[j], ip0[j]);
-                if (pnmj->ordering == CHARM_LEG_PNMJ_ORDER_MNJ)
+                if (pnmj->ordering == CHARM_LEG_PMNJ)
                     pnmj->pnmj[m][n - m][j] = tmp1;
-                else if (pnmj->ordering == CHARM_LEG_PNMJ_ORDER_MJN)
+                else if (pnmj->ordering == CHARM_LEG_PMJN)
                     pnmj->pnmj[m][j][n - CHARM_MAX(m, 2 * j)] = tmp1;
 
 
@@ -294,9 +294,9 @@ void CHARM(leg_pnmj_coeffs)(CHARM(pnmj) *pnmj,
             {
                 ip[j] = 0;
                 tmp1 = CHARM(xnum_x2f)(xp[j], ip[j]);
-                if (pnmj->ordering == CHARM_LEG_PNMJ_ORDER_MNJ)
+                if (pnmj->ordering == CHARM_LEG_PMNJ)
                     pnmj->pnmj[m][n - m][j] = tmp1;
-                else if (pnmj->ordering == CHARM_LEG_PNMJ_ORDER_MJN)
+                else if (pnmj->ordering == CHARM_LEG_PMJN)
                     pnmj->pnmj[m][j][n - CHARM_MAX(m, 2 * j)] = tmp1;
             }
         }
@@ -332,12 +332,12 @@ void CHARM(leg_pnmj_coeffs)(CHARM(pnmj) *pnmj,
         {
             tmp1 = CHARM(xnum_x2f)(xp[j],  ip[j]);
             tmp2 = CHARM(xnum_x2f)(xp1[j], ip1[j]);
-            if (pnmj->ordering == CHARM_LEG_PNMJ_ORDER_MNJ)
+            if (pnmj->ordering == CHARM_LEG_PMNJ)
             {
                 pnmj->pnmj[n][0][j]     = tmp1;
                 pnmj->pnmj[n - 1][1][j] = tmp2;
             }
-            else if (pnmj->ordering == CHARM_LEG_PNMJ_ORDER_MJN)
+            else if (pnmj->ordering == CHARM_LEG_PMJN)
             {
                 pnmj->pnmj[n][j][0]                               = tmp1;
                 pnmj->pnmj[n - 1][j][n - CHARM_MAX(2 * j, n - 1)] = tmp2;
@@ -368,9 +368,9 @@ void CHARM(leg_pnmj_coeffs)(CHARM(pnmj) *pnmj,
             for (unsigned long j = 0; j <= jmax; j++)
             {
                 tmp1 = CHARM(xnum_x2f)(xp0[j], ip0[j]);
-                if (pnmj->ordering == CHARM_LEG_PNMJ_ORDER_MNJ)
+                if (pnmj->ordering == CHARM_LEG_PMNJ)
                     pnmj->pnmj[m][n - m][j] = tmp1;
-                else if (pnmj->ordering == CHARM_LEG_PNMJ_ORDER_MJN)
+                else if (pnmj->ordering == CHARM_LEG_PMJN)
                     pnmj->pnmj[m][j][n - CHARM_MAX(m, 2 * j)] = tmp1;
 
 

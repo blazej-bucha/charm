@@ -22,7 +22,8 @@ if PY
 if SINGLE_PY
 	cd $(top_srcdir)/wrap && rm -rf pyharm@P@ && $(LN_S) pyharm pyharm@P@
 endif
-	cd $(top_srcdir) && $(PYTHON) -m pip install . --target $(pythondir)
+	cd $(top_srcdir) && $(PYTHON) -m pip install . --use-pep517 \
+												   --target $(pythondir)
 endif
 
 

@@ -30,19 +30,19 @@ _get_module_constants('CHARM_LEG_')
 
 # All possible ordering schemes of Fourier coefficients in "Pnmj" class
 # instances
-_ORDERING = [PNMJ_ORDER_MNJ, PNMJ_ORDER_MJN]
+_ORDERING = [PMNJ, PMJN]
 
 
 #: int: Ordering scheme of Fourier coefficients of Legendre functions: order
 #: :obj:`m`, degree :obj:`n` and wave-number-related variable :obj:`j`.
 #: For further details, refer to `charm_leg <./api-c-leg.html>`_.
-PNMJ_ORDER_MNJ: int
+PMNJ: int
 
 
 #: int: Ordering scheme of Fourier coefficients of Legendre functions: order
 #: :obj:`m`, wave-number-related variable :obj:`j` and degree :obj:`n`.
 #: For further details, refer to `charm_leg <./api-c-leg.html>`_.
-PNMJ_ORDER_MJN: int
+PMJN: int
 
 
 class _Pnmj(_ct.Structure):
@@ -188,7 +188,7 @@ class Pnmj:
 
 
     @classmethod
-    def from_garbage(cls, nmax, ordering=PNMJ_ORDER_MNJ):
+    def from_garbage(cls, nmax, ordering=PMNJ):
         """
         Returns a :class:`Pnmj` class instance with uninitialized Fourier
         coefficients (`malloc` in C).
@@ -199,8 +199,8 @@ class Pnmj:
             Maximum harmonic degree
         ordering : integer
             Ordering scheme of Fourier coefficients, optional.  Default value
-            is :obj:`PNMJ_ORDER_MNJ`.  Use :meth:`get_ordering_types` to
-            get all supported ordering schemes.
+            is :obj:`PMNJ`.  Use :meth:`get_ordering_types` to get all
+            supported ordering schemes.
 
         Returns
         -------
@@ -212,7 +212,7 @@ class Pnmj:
 
 
     @classmethod
-    def from_zeros(cls, nmax, ordering=PNMJ_ORDER_MNJ):
+    def from_zeros(cls, nmax, ordering=PMNJ):
         """
         Returns a :class:`Pnmj` class instance with all Fourier coefficients
         initialized to zero (`calloc` in C).
@@ -223,8 +223,8 @@ class Pnmj:
             Maximum harmonic degree
         ordering : integer
             Ordering scheme of Fourier coefficients, optional.  Default value
-            is :obj:`PNMJ_ORDER_MNJ`.  Use :meth:`get_ordering_types` to
-            get all supported ordering schemes.
+            is :obj:`PMNJ`.  Use :meth:`get_ordering_types` to get all
+            supported ordering schemes.
 
         Returns
         -------
@@ -310,9 +310,9 @@ class Pnmj:
             raise ValueError(msg)
 
 
-        if self.ordering == PNMJ_ORDER_MNJ:
+        if self.ordering == PMNJ:
             return _pyharm_flt(self._Pnmj.contents.pnmj[m][n - m][j])
-        elif self.ordering == PNMJ_ORDER_MJN:
+        elif self.ordering == PMJN:
             return _pyharm_flt(\
                             self._Pnmj.contents.pnmj[m][j][n - max(m, 2 * j)])
 
@@ -481,7 +481,7 @@ class Pnmj:
                              'not be negative.')
 
 
-def fourier_coeffs(nmax, ordering=PNMJ_ORDER_MNJ):
+def fourier_coeffs(nmax, ordering=PMNJ):
     """
     Computes Fourier coefficients of Legendre functions up to degree
     :obj:`nmax` using the :obj:`ordering` ordering scheme of coefficients.
@@ -492,8 +492,8 @@ def fourier_coeffs(nmax, ordering=PNMJ_ORDER_MNJ):
         Maximum harmonic degree
     ordering : integer
         Ordering scheme of Fourier coefficients, optional.  Default value is
-        :obj:`PNMJ_ORDER_MNJ`.  Use :meth:`Pnmj.get_ordering_types()` to get
-        all supported ordering schemes.
+        :obj:`PMNJ`.  Use :meth:`Pnmj.get_ordering_types()` to get all
+        supported ordering schemes.
 
     Returns
     -------
@@ -518,10 +518,10 @@ def _get_pnmj_ordering_str(ordering):
         Pretty name of the :attr:`ordering` attribute
     """
 
-    if ordering == PNMJ_ORDER_MNJ:
-        return f'{_pyharm}.leg.PNMJ_ORDER_MNJ'
-    elif ordering == PNMJ_ORDER_MJN:
-        return f'{_pyharm}.leg.PNMJ_ORDER_MJN'
+    if ordering == PMNJ:
+        return f'{_pyharm}.leg.PMNJ'
+    elif ordering == PMJN:
+        return f'{_pyharm}.leg.PMJN'
     elif ordering is None:
         return None
 
