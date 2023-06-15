@@ -5,6 +5,11 @@
 #include "../src/prec.h"
 #include "parameters.h"
 #include "cmp_arrays.h"
+#ifdef GENREF
+#   include "write.h"
+#else
+#   include "validate.h"
+#endif
 /* ------------------------------------------------------------------------- */
 
 
@@ -45,52 +50,27 @@ long int check_shc_rescale(void)
     CHARM(err_handler)(err, 1);
 
 
-    CHARM(point) *grd = CHARM(crd_point_gl)(SHCS_NMAX_POT,
-                                            shcs->r + (REAL)DELTAR);
-    if (grd == NULL)
-    {
-        fprintf(stderr, "Failed to compute the Gauss--Legendre grid.\n");
-        exit(CHARM_FAILURE);
-    }
-
-
-    REAL *f1 = (REAL *)malloc((grd->nlat * grd->nlon) * sizeof(REAL));
-    if (f1 == NULL)
-    {
-        fprintf(stderr, "Failed to allocate the input signal.\n");
-        exit(CHARM_FAILURE);
-    }
-
-
-    REAL *f2 = (REAL *)malloc((grd->nlat * grd->nlon) * sizeof(REAL));
-    if (f2 == NULL)
-    {
-        fprintf(stderr, "Failed to allocate the input signal.\n");
-        exit(CHARM_FAILURE);
-    }
-
-
-    CHARM(shs_point)(grd, shcs, SHCS_NMAX_POT, f1, err);
+    CHARM(shc_rescale)(shcs, shcs->mu * SHCS_RESCALE_MU_FACTOR,
+                       shcs->r * SHCS_RESCALE_R_FACTOR, err);
     CHARM(err_handler)(err, 1);
 
 
-    CHARM(shc_rescale)(shcs, shcs->mu * PREC(1.1), shcs->r * PREC(1.1), err);
-    CHARM(err_handler)(err, 1);
+    long int e = 0;
+    char filec[NSTR_LONG];
+    char files[NSTR_LONG];
+    sprintf(filec, "%s/shc_rescale_c%s", FOLDER, FTYPE);
+    sprintf(files, "%s/shc_rescale_s%s", FOLDER, FTYPE);
+#ifdef GENREF
+    e += write(filec, shcs->c[0], shcs->nc);
+    e += write(files, shcs->s[0], shcs->ns);
+#else
+    e += validate(filec, shcs->c[0], shcs->nc, CHARM(glob_threshold));
+    e += validate(files, shcs->s[0], shcs->ns, CHARM(glob_threshold));
+#endif
 
 
-    CHARM(shs_point)(grd, shcs, SHCS_NMAX_POT, f2, err);
-    CHARM(err_handler)(err, 1);
-
-
-    long int e = cmp_arrays(f1, f2, grd->nlat * grd->nlon,
-                            PREC(10.0) * CHARM(glob_threshold));
-
-
-    CHARM(crd_point_free)(grd);
     CHARM(err_free)(err);
     CHARM(shc_free)(shcs);
-    free(f1);
-    free(f2);
 
 
     return e;

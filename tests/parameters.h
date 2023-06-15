@@ -84,6 +84,14 @@
 #define SHCS_OUT_PATH_POT_TBL_M "../data/output/EGM96-degree10-tbl-m.txt"
 
 
+/* Multiplication factors to test rescaling of spherical harmonics coefficients
+ * */
+#undef SHCS_RESCALE_MU_FACTOR
+#define SHCS_RESCALE_MU_FACTOR (PREC(1.1))
+#undef SHCS_RESCALE_R_FACTOR
+#define SHCS_RESCALE_R_FACTOR (PREC(1.5))
+
+
 /* Size of char arrays for long string */
 #undef NSTR_LONG
 #define NSTR_LONG (2024)
