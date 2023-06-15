@@ -2,6 +2,16 @@ Upcoming release:
 
 * Fixed memory leak in `charm_integ_pn1m1pn2m2`.
 
+* Renamed symbolic constants
+
+    * `CHARM_LEG_PNMJ_ORDER_MNJ`,
+    * `CHARM_LEG_PNMJ_ORDER_MJN`
+
+  to
+
+    * `CHARM_LEG_PMNJ`,
+    * `CHARM_LEG_PMJN`.
+
 * Removed the `xnum` module from the public API.  It offered only little added 
   value, as all its functions are easy to implement.  This makes the API 
   cleaner, especially in long terms, given that much more interesting modules 
