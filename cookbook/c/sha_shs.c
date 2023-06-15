@@ -12,7 +12,7 @@ int main(void)
      * coefficients.  For details on the structure of the text file, see the
      * description of the "charm_shc_read_mtx" function in the "charm_shc"
      * module. */
-    char shcs_in_file[] = "../data/input/EGM96-degree10-mtx.txt";
+    char shcs_in_file[] = "../../data/input/EGM96-degree10-mtx.txt";
 
 
     /* Maximum harmonic degree of coefficients to read.  The same degree is

@@ -12,7 +12,7 @@ int main(void)
      * coefficients.  For details on the structure of the "gfc" file, see the
      * description of the "charm_shc_read_gfc" function in the "charm_shc"
      * module. */
-    char shcs_in_file[] = "../data/input/EGM96-degree10.gfc";
+    char shcs_in_file[] = "../../data/input/EGM96-degree10.gfc";
 
 
     /* Maximum harmonic degree to initialize, read and write spherical harmonic
@@ -24,7 +24,7 @@ int main(void)
      * coefficients.  For details on the structure of the output binary file,
      * see the description of the "charmq_shc_write_bin" function in the
      * "charmq_shc" module. */
-    char shcs_out_file[] = "../data/output/EGM96-degree10-mtx.shcs";
+    char shcs_out_file[] = "../../data/output/EGM96-degree10-mtx.shcs";
     /* ===================================================================== */
 
 
