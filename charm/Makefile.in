@@ -108,7 +108,7 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES = charm${P}.h charm${P}_crd.h charm${P}_err.h \
 	charm${P}_integ.h charm${P}_leg.h charm${P}_misc.h \
 	charm${P}_sha.h charm${P}_shc.h charm${P}_shs.h \
-	charm${P}_xnum.h charm${P}_glob.h
+	charm${P}_glob.h
 CONFIG_CLEAN_VPATH_FILES =
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -182,8 +182,7 @@ am__DIST_COMMON = $(srcdir)/Makefile.in $(top_srcdir)/src/charm.h.in \
 	$(top_srcdir)/src/leg/leg.h.in \
 	$(top_srcdir)/src/misc/misc.h.in \
 	$(top_srcdir)/src/sha/sha.h.in $(top_srcdir)/src/shc/shc.h.in \
-	$(top_srcdir)/src/shs/shs.h.in \
-	$(top_srcdir)/src/xnum/xnum.h.in
+	$(top_srcdir)/src/shs/shs.h.in
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
@@ -390,8 +389,6 @@ charm${P}_sha.h: $(top_builddir)/config.status $(top_srcdir)/src/sha/sha.h.in
 charm${P}_shc.h: $(top_builddir)/config.status $(top_srcdir)/src/shc/shc.h.in
 	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
 charm${P}_shs.h: $(top_builddir)/config.status $(top_srcdir)/src/shs/shs.h.in
-	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
-charm${P}_xnum.h: $(top_builddir)/config.status $(top_srcdir)/src/xnum/xnum.h.in
 	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
 charm${P}_glob.h: $(top_builddir)/config.status $(top_srcdir)/src/glob/glob.h.in
 	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@

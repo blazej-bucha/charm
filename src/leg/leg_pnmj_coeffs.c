@@ -10,6 +10,7 @@
 #include "leg_pnmj_dpodd.h"
 #include "leg_pnmj_gpodd.h"
 #include "leg_pnmj_check_ordering.h"
+#include "../xnum/xnum_x2f.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
 /* ------------------------------------------------------------------------- */

@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include "../prec.h"
+#include "../xnum/xnum_xlsum2.h"
+#include "../xnum/xnum_xnorm.h"
 #include "../err/err_set.h"
 /* ------------------------------------------------------------------------- */
 

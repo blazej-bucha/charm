@@ -12,7 +12,7 @@ int main(void)
 
     /* Initialize a structure to store the Fourier coefficients of Legendre
      * functions */
-    charm_pnmj *pnmj = charm_leg_pnmj_calloc(nmax, CHARM_LEG_PNMJ_ORDER_MNJ);
+    charm_pnmj *pnmj = charm_leg_pnmj_calloc(nmax, CHARM_LEG_PMNJ);
     if (pnmj == NULL)
     {
         fprintf(stderr, "Failed to initialize the \"charm_pnmj\" "

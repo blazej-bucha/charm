@@ -15256,7 +15256,7 @@ fi
 
 
 
-ac_config_files="$ac_config_files Makefile charm/charm${P}.h:src/charm.h.in charm/charm${P}_crd.h:src/crd/crd.h.in charm/charm${P}_err.h:src/err/err.h.in charm/charm${P}_integ.h:src/integ/integ.h.in charm/charm${P}_leg.h:src/leg/leg.h.in charm/charm${P}_misc.h:src/misc/misc.h.in charm/charm${P}_sha.h:src/sha/sha.h.in charm/charm${P}_shc.h:src/shc/shc.h.in charm/charm${P}_shs.h:src/shs/shs.h.in charm/charm${P}_xnum.h:src/xnum/xnum.h.in charm/charm${P}_glob.h:src/glob/glob.h.in charm/Makefile src/Makefile src/crd/Makefile src/err/Makefile src/integ/Makefile src/leg/Makefile src/misc/Makefile src/sha/Makefile src/shc/Makefile src/shs/Makefile src/xnum/Makefile src/glob/Makefile src/simd/Makefile tests/Makefile bench/Makefile docs/Makefile m4/Makefile cookbook/Makefile data/Makefile wrap/pyharm/Makefile charm-tmpl.pc setup.py wrap/pyharm/__init__.py wrap/pyharm/_data_types.py"
+ac_config_files="$ac_config_files Makefile charm/charm${P}.h:src/charm.h.in charm/charm${P}_crd.h:src/crd/crd.h.in charm/charm${P}_err.h:src/err/err.h.in charm/charm${P}_integ.h:src/integ/integ.h.in charm/charm${P}_leg.h:src/leg/leg.h.in charm/charm${P}_misc.h:src/misc/misc.h.in charm/charm${P}_sha.h:src/sha/sha.h.in charm/charm${P}_shc.h:src/shc/shc.h.in charm/charm${P}_shs.h:src/shs/shs.h.in charm/charm${P}_glob.h:src/glob/glob.h.in charm/Makefile src/Makefile src/crd/Makefile src/err/Makefile src/integ/Makefile src/leg/Makefile src/misc/Makefile src/sha/Makefile src/shc/Makefile src/shs/Makefile src/xnum/Makefile src/glob/Makefile src/simd/Makefile tests/Makefile bench/Makefile docs/Makefile m4/Makefile cookbook/Makefile data/Makefile wrap/pyharm/Makefile charm-tmpl.pc setup.py wrap/pyharm/__init__.py wrap/pyharm/_data_types.py"
 
 
 
@@ -16304,7 +16304,6 @@ do
     "charm/charm${P}_sha.h") CONFIG_FILES="$CONFIG_FILES charm/charm${P}_sha.h:src/sha/sha.h.in" ;;
     "charm/charm${P}_shc.h") CONFIG_FILES="$CONFIG_FILES charm/charm${P}_shc.h:src/shc/shc.h.in" ;;
     "charm/charm${P}_shs.h") CONFIG_FILES="$CONFIG_FILES charm/charm${P}_shs.h:src/shs/shs.h.in" ;;
-    "charm/charm${P}_xnum.h") CONFIG_FILES="$CONFIG_FILES charm/charm${P}_xnum.h:src/xnum/xnum.h.in" ;;
     "charm/charm${P}_glob.h") CONFIG_FILES="$CONFIG_FILES charm/charm${P}_glob.h:src/glob/glob.h.in" ;;
     "charm/Makefile") CONFIG_FILES="$CONFIG_FILES charm/Makefile" ;;
     "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;

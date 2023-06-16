@@ -449,7 +449,6 @@ AC_CONFIG_FILES([Makefile \
                  charm/charm${P}_sha.h:src/sha/sha.h.in \
                  charm/charm${P}_shc.h:src/shc/shc.h.in \
                  charm/charm${P}_shs.h:src/shs/shs.h.in \
-                 charm/charm${P}_xnum.h:src/xnum/xnum.h.in \
                  charm/charm${P}_glob.h:src/glob/glob.h.in \
                  charm/Makefile \
                  src/Makefile \
