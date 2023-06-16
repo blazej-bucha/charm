@@ -2,6 +2,7 @@
 /* ------------------------------------------------------------------------- */
 #include <config.h>
 #include <stdio.h>
+#include <math.h>
 #include <fftw3.h>
 #include "../prec.h"
 #include "../simd/simd.h"
