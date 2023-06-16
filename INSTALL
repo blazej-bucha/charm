@@ -104,8 +104,8 @@ source.
   as a shared library (mandatory to install CHarm).  To install CHarm
   in single or quadruple precision, add also the "--enable-single" or
   "--enable-quad-precision" flag, respectively, when calling the
-  "configure" script.  If you do not want to parallelize CHarm, you
-  may omit the "--enable-openmp" flag.
+  "configure" script.  If you do not want to parallelize FFTW, you may
+  omit the "--enable-openmp" flag.
 
 
 Default CHarm installation
@@ -192,7 +192,7 @@ the following flags to the "./configure" call.
 * Other useful variables:
 
   * "CC" selects other than your system’s default C compiler, e.g.
-    "CC=clang" for the "Clang" compiler, and
+    "CC=clang" for Clang, and
 
   * "CFLAGS" defines user-defined compiler flags, e.g.,  "CFLAGS="-O3
     -ffast-math"" (GCC).
@@ -265,11 +265,11 @@ macOS.
 
      ./configure --enable-openmp CC=gcc-10
 
-  Without the "CC" flag, the "Clang" compiler will most likely be used
-  which may cause an installation failure when using the "--enable-
-  openmp" and/or "--enable-quad-precision" flag(s).  It may **not** be
+  Without the "CC" flag, Clang will most likely be used which may
+  cause an installation failure when using the "--enable-openmp"
+  and/or "--enable-quad-precision" flag(s).  It may **not** be
   sufficient to add "CC=gcc" (GCC version number omitted), as this
-  will still likely call the "Clang" compiler.
+  will still likely call Clang.
 
 
 CHarm installation
@@ -324,11 +324,11 @@ Requirements
 
 *Additional* prerequisites when compared with requirements:
 
-* Python interpreter 3.6 or newer.
+* Python interpreter 3.6 or newer,
 
-* Python module pip.
+* Python module pip,
 
-* Python module numpy (reasonably old version).
+* Python module numpy (reasonably old version),
 
 * Python module ctypes (reasonably old version).
 
@@ -391,7 +391,7 @@ The following flags may be used in addition to "--enable-python".
   * If you want to install PyHarm next to your system Python packages,
     you must specify neither "--prefix" nor "--with-python_prefix".
 
-  Note that if you use custom a path in "--prefix" but do not specify
+  Note that if you use a custom path in "--prefix" but do not specify
   "--with-python_prefix", you will most likely not be able to (easily)
   import PyHarm.
 
@@ -443,4 +443,12 @@ supported by Microsoft and its installation is very easy.  Having
 installed WSL, you may proceed with Installation on Unix-based
 operating systems.
 
-Other good solution is, for instance, Cygwin.
+Other solution is, for instance, Cygwin.  A note on enabling SIMD
+instructions ("--enable-avx", "--enable-avx2" or "--enable-avx-512")
+under Cygwin is necessary here.  To properly compile CHarm under
+Cygwin with SIMD instructions enabled, do *not* use GCC.  Under
+Cygwin, GCC doesn’t seem to properly align the memory (required to
+execute SIMD CPU instructions).  You won’t get any compilation error,
+but when running your program or the check program ("make check"), you
+will most likely get a segfault error.  Clang, for instance, does its
+job properly, even under Cygwin, so is recommended in this case.

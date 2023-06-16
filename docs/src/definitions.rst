@@ -176,8 +176,8 @@ and Moritz, 2005)
 .. math::
    \bar{Y}_{nm}(\varphi, \lambda) = \bar{P}_{nm}(\sin \varphi)
    \begin{cases}
-   \cos(m\, \lambda)\, {,}\\
-   \sin(m\, \lambda)\, {.}
+   \cos(m\, \lambda){,}\\
+   \sin(m\, \lambda){.}
    \end{cases}
 
 Here,

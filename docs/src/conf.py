@@ -49,7 +49,6 @@ release = ver
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx_rtd_theme',
     'breathe',
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon'
@@ -80,7 +79,7 @@ language = 'en'
 exclude_patterns = []
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = None
+pygments_style = 'default'
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -88,18 +87,29 @@ pygments_style = None
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'sphinx_book_theme'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-#
-# html_theme_options = {}
+
+html_theme_options = {
+        'repository_url': 'https://github.com/blazej-bucha/charm',
+        'repository_branch': 'master',
+        'path_to_docs': 'docs/src',
+        'use_edit_page_button': True,
+        'use_issues_button': True,
+        'use_repository_button': True,
+        'use_download_button': True,
+        'pygment_light_style': 'default',
+        'pygment_dark_style': 'gruvbox-dark'
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = []
+
 
 # Logo
 html_logo = "../logo/charm-logo.png"
@@ -113,6 +123,9 @@ html_logo = "../logo/charm-logo.png"
 # 'searchbox.html']``.
 #
 # html_sidebars = {}
+
+
+html_last_updated_fmt = "%b %d, %Y"
 
 
 # -- Options for HTMLHelp output ---------------------------------------------

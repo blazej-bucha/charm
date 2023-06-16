@@ -1,61 +1,150 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>charm_shc &mdash; CHarm 0.2.0-dev documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/custom_BB.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>charm_shc &#8212; CHarm 0.2.0-dev documentation</title>
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script src="_static/js/theme.js"></script>
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api-c-shc';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="charm_crd" href="api-c-crd.html" />
-    <link rel="prev" title="CHarm (C API)" href="api-c.html" /> 
-</head>
+    <link rel="prev" title="CHarm (C API)" href="api-c.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
 
-          
-          
-          <a href="index.html" class="icon icon-home">
-            CHarm
-              <img src="_static/charm-logo.png" class="logo" alt="Logo"/>
-          </a>
-              <div class="version">
-                0.2.0-dev
-              </div>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/charm-logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="install.html">Installing</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="install_unix.html">Installation on Unix-based operating systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install_non_unix.html">Installation on Windows 10</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="api.html">Interfaces</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="api-c.html">CHarm (C API)</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">charm_shc</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="cookbook.html">Cookbook</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="cookbook-c.html">CHarm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cookbook-py.html">PyHarm</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="api.html">Interfaces</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="api-c.html">CHarm (C API)</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">charm_shc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-sha.html">charm_sha</a></li>
@@ -67,7 +156,17 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="api-py-shc.html">pyharm.shc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">pyharm.sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-leg.html">pyharm.leg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">pyharm.integ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-glob.html">pyharm.glob</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
@@ -76,34 +175,218 @@
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 
-        </div>
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
       </div>
-    </nav>
+      
+      <main id="main-content" class="bd-main">
+        
+        
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">CHarm</a>
-      </nav>
+<div class="sbt-scroll-pixel-helper"></div>
 
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="api.html">Interfaces</a></li>
-          <li class="breadcrumb-item"><a href="api-c.html">CHarm (C API)</a></li>
-      <li class="breadcrumb-item active">charm_shc</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/api-c-shc.rst.txt" rel="nofollow"> View page source</a>
-      </li>
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm/edit/master/docs/src/api-c-shc.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm/issues/new?title=Issue%20on%20page%20%2Fapi-c-shc.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
   </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/api-c-shc.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>charm_shc</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section id="charm-shc">
-<span id="id1"></span><h1>charm_shc<a class="headerlink" href="#charm-shc" title="Permalink to this heading"></a></h1>
+<span id="id1"></span><h1>charm_shc<a class="headerlink" href="#charm-shc" title="Permalink to this heading">#</a></h1>
 <p>Module to work with spherical harmonic coefficients:</p>
 <p><ul class="simple">
 <li><p>defines the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure to store spherical harmonic coefficients,</p></li>
@@ -122,7 +405,7 @@
 <p>These functions allocate, initialize and free the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure, which is designed to store spherical harmonic coefficients and some associated data such as the maximum degree of the coefficients, scaling constant, etc. </p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv416charm_shc_mallocmdd">
-<span id="_CPPv316charm_shc_mallocmdd"></span><span id="_CPPv216charm_shc_mallocmdd"></span><span id="charm_shc_malloc__unsigned-l.double.double"></span><span class="target" id="charm__shc_8h_1a4895f2b307f1ce52ed05804ab6db9df8"></span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_malloc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">mu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416charm_shc_mallocmdd" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv316charm_shc_mallocmdd"></span><span id="_CPPv216charm_shc_mallocmdd"></span><span id="charm_shc_malloc__unsigned-l.double.double"></span><span class="target" id="charm__shc_8h_1a4895f2b307f1ce52ed05804ab6db9df8"></span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_malloc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">mu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416charm_shc_mallocmdd" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Allocates spherical harmonic coefficients up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>. The <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1a241fa5b0edae9a1574e948e5a6269b68"><span class="std std-ref"><span class="pre">charm_shc.mu</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1a847dadddf26eeffc5b5060f4f745d20a"><span class="std std-ref"><span class="pre">charm_shc.r</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1afa2a47ef5dfb21b8c01fa506b17859af"><span class="std std-ref"><span class="pre">charm_shc.owner</span></span></a></code> members are set to <code class="docutils literal notranslate"><span class="pre">mu</span></code>, <code class="docutils literal notranslate"><span class="pre">r</span></code> and <code class="docutils literal notranslate"><span class="pre">1</span></code>, respectively. The spherical harmonic coefficients are uninitialized, so their values are undefined. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -141,13 +424,13 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv416charm_shc_callocmdd">
-<span id="_CPPv316charm_shc_callocmdd"></span><span id="_CPPv216charm_shc_callocmdd"></span><span id="charm_shc_calloc__unsigned-l.double.double"></span><span class="target" id="charm__shc_8h_1abc13dd997021be52d8f317562738ad14"></span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_calloc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">mu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416charm_shc_callocmdd" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv316charm_shc_callocmdd"></span><span id="_CPPv216charm_shc_callocmdd"></span><span id="charm_shc_calloc__unsigned-l.double.double"></span><span class="target" id="charm__shc_8h_1abc13dd997021be52d8f317562738ad14"></span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_calloc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">mu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416charm_shc_callocmdd" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a4895f2b307f1ce52ed05804ab6db9df8"><span class="std std-ref"><span class="pre">charm_shc_malloc()</span></span></a></code> but all spherical harmonic coefficients are initialized to zero. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv414charm_shc_initmddPdPd">
-<span id="_CPPv314charm_shc_initmddPdPd"></span><span id="_CPPv214charm_shc_initmddPdPd"></span><span id="charm_shc_init__unsigned-l.double.double.doubleP.doubleP"></span><span class="target" id="charm__shc_8h_1a634b6af02cca801de4e51c2248d72b20"></span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_init</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">mu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">c</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414charm_shc_initmddPdPd" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv314charm_shc_initmddPdPd"></span><span id="_CPPv214charm_shc_initmddPdPd"></span><span id="charm_shc_init__unsigned-l.double.double.doubleP.doubleP"></span><span class="target" id="charm__shc_8h_1a634b6af02cca801de4e51c2248d72b20"></span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_init</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">mu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">c</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414charm_shc_initmddPdPd" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Takes spherical harmonic coefficients up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code> from the arrays pointed to by <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> (shallow copy). The <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1a241fa5b0edae9a1574e948e5a6269b68"><span class="std std-ref"><span class="pre">charm_shc.mu</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1a847dadddf26eeffc5b5060f4f745d20a"><span class="std std-ref"><span class="pre">charm_shc.r</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1afa2a47ef5dfb21b8c01fa506b17859af"><span class="std std-ref"><span class="pre">charm_shc.owner</span></span></a></code> members are set to <code class="docutils literal notranslate"><span class="pre">mu</span></code>, <code class="docutils literal notranslate"><span class="pre">r</span></code> and <code class="docutils literal notranslate"><span class="pre">0</span></code>, respectively. </p>
 <p>
 The <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> pointers must have access to <code class="docutils literal notranslate"><span class="pre">((nmax</span> <span class="pre">+</span> <span class="pre">2)</span> <span class="pre">*</span> <span class="pre">(nmax</span> <span class="pre">+</span> <span class="pre">1))</span> <span class="pre">/</span> <span class="pre">2</span></code> array elements. The ordering of coefficients in <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> must follow the pattern:</p>
@@ -223,7 +506,7 @@ The <code class="docutils literal notranslate"><span class="pre">c</span></code>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv414charm_shc_freeP9charm_shc">
-<span id="_CPPv314charm_shc_freeP9charm_shc"></span><span id="_CPPv214charm_shc_freeP9charm_shc"></span><span id="charm_shc_free__charm_shcP"></span><span class="target" id="charm__shc_8h_1ac787c43697c5383d38c392d427b78669"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_free</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414charm_shc_freeP9charm_shc" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv314charm_shc_freeP9charm_shc"></span><span id="_CPPv214charm_shc_freeP9charm_shc"></span><span id="charm_shc_free__charm_shcP"></span><span class="target" id="charm__shc_8h_1ac787c43697c5383d38c392d427b78669"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_free</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414charm_shc_freeP9charm_shc" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Frees the memory associated with <code class="docutils literal notranslate"><span class="pre">shcs</span></code>. No operation is performed if <code class="docutils literal notranslate"><span class="pre">shcs</span></code> is <code class="docutils literal notranslate"><span class="pre">NULL</span></code>. </p>
 <p>If <code class="docutils literal notranslate"><span class="pre">shcs-&gt;owner</span></code> is <code class="docutils literal notranslate"><span class="pre">1</span></code>, the function releases all the memory that is associated with <code class="docutils literal notranslate"><span class="pre">shcs</span></code>, including the arrays of spherical harmonic coefficients. If <code class="docutils literal notranslate"><span class="pre">shcs-&gt;owner</span></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code>, the coefficients are not released from the memory, because they were not allocated by CHarm. </p>
 </dd></dl>
@@ -234,7 +517,7 @@ The <code class="docutils literal notranslate"><span class="pre">c</span></code>
 <p>These functions read/write the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure from/to various text and binary data files. </p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv418charm_shc_read_binPKcmP9charm_shcP9charm_err">
-<span id="_CPPv318charm_shc_read_binPKcmP9charm_shcP9charm_err"></span><span id="_CPPv218charm_shc_read_binPKcmP9charm_shcP9charm_err"></span><span id="charm_shc_read_bin__cCP.unsigned-l.charm_shcP.charm_errP"></span><span class="target" id="charm__shc_8h_1a6edbd6078d34e1ad3a9186be8ddc3066"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_read_bin</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pathname</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418charm_shc_read_binPKcmP9charm_shcP9charm_err" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv318charm_shc_read_binPKcmP9charm_shcP9charm_err"></span><span id="_CPPv218charm_shc_read_binPKcmP9charm_shcP9charm_err"></span><span id="charm_shc_read_bin__cCP.unsigned-l.charm_shcP.charm_errP"></span><span class="target" id="charm__shc_8h_1a6edbd6078d34e1ad3a9186be8ddc3066"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_read_bin</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pathname</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418charm_shc_read_binPKcmP9charm_shcP9charm_err" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Reads the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure to <code class="docutils literal notranslate"><span class="pre">shcs</span></code> from a binary file whose name is the string pointed to by <code class="docutils literal notranslate"><span class="pre">pathname</span></code>. The spherical harmonic coefficients are loaded up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>. The file is assumed to has been created by <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1acd4b855357c012625ddf89a6625970dd"><span class="std std-ref"><span class="pre">charm_shc_write_bin()</span></span></a></code> on the same architecture. Error reported by the function (if any) is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
 <p>The input file is a binary representation of the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure in the following order:</p>
 <p><div class="math notranslate nohighlight">
@@ -258,7 +541,7 @@ The <code class="docutils literal notranslate"><span class="pre">c</span></code>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv418charm_shc_read_gfcPKcmP9charm_shcP9charm_err">
-<span id="_CPPv318charm_shc_read_gfcPKcmP9charm_shcP9charm_err"></span><span id="_CPPv218charm_shc_read_gfcPKcmP9charm_shcP9charm_err"></span><span id="charm_shc_read_gfc__cCP.unsigned-l.charm_shcP.charm_errP"></span><span class="target" id="charm__shc_8h_1adc9a327091c92f2bc9f7a5ba52df6d08"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_read_gfc</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pathname</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418charm_shc_read_gfcPKcmP9charm_shcP9charm_err" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv318charm_shc_read_gfcPKcmP9charm_shcP9charm_err"></span><span id="_CPPv218charm_shc_read_gfcPKcmP9charm_shcP9charm_err"></span><span id="charm_shc_read_gfc__cCP.unsigned-l.charm_shcP.charm_errP"></span><span class="target" id="charm__shc_8h_1adc9a327091c92f2bc9f7a5ba52df6d08"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_read_gfc</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pathname</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418charm_shc_read_gfcPKcmP9charm_shcP9charm_err" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Reads the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure to <code class="docutils literal notranslate"><span class="pre">shcs</span></code> from a gfc file whose name is the string pointed to by <code class="docutils literal notranslate"><span class="pre">pathname</span></code>. The coefficients are loaded up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>. Error reported by the function (if any) is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>.</p>
 <p>The structure of the <em>gfc</em> file is defined by ICGEM at <a class="reference external" href="http://icgem.gfz-potsdam.de/ICGEM-Format-2011.pdf">http://icgem.gfz-potsdam.de/ICGEM-Format-2011.pdf</a>. It must hold that <code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">&lt;=</span> <span class="pre">nmax2</span></code>, where <code class="docutils literal notranslate"><span class="pre">nmax2</span></code> is taken from the <code class="docutils literal notranslate"><span class="pre">max_degree</span></code> keyword of the <em>gfc</em> file. From all coefficients up to degree <code class="docutils literal notranslate"><span class="pre">nmax2</span></code> that are stored in the file, properly loaded can be any subset up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">&lt;=</span> <span class="pre">nmax2</span></code>. Lines specifying spherical harmonic coefficients can be sorted <em>arbitrarily</em>. The non-existing coefficients <span class="math notranslate nohighlight">\(\bar{S}_{n,0}\)</span> of order <code class="docutils literal notranslate"><span class="pre">0</span></code> do not need to be present in the file.</p>
 <p>The condition <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span> <span class="pre">&gt;=</span> <span class="pre">nmax</span></code> must be satisfied.</p>
@@ -270,7 +553,7 @@ The <code class="docutils literal notranslate"><span class="pre">c</span></code>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv418charm_shc_read_tblPKcmP9charm_shcP9charm_err">
-<span id="_CPPv318charm_shc_read_tblPKcmP9charm_shcP9charm_err"></span><span id="_CPPv218charm_shc_read_tblPKcmP9charm_shcP9charm_err"></span><span id="charm_shc_read_tbl__cCP.unsigned-l.charm_shcP.charm_errP"></span><span class="target" id="charm__shc_8h_1ae4f1cc7f812a2e248a0b527f5e805dab"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_read_tbl</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pathname</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418charm_shc_read_tblPKcmP9charm_shcP9charm_err" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv318charm_shc_read_tblPKcmP9charm_shcP9charm_err"></span><span id="_CPPv218charm_shc_read_tblPKcmP9charm_shcP9charm_err"></span><span id="charm_shc_read_tbl__cCP.unsigned-l.charm_shcP.charm_errP"></span><span class="target" id="charm__shc_8h_1ae4f1cc7f812a2e248a0b527f5e805dab"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_read_tbl</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pathname</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418charm_shc_read_tblPKcmP9charm_shcP9charm_err" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Reads the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure to <code class="docutils literal notranslate"><span class="pre">shcs</span></code> from a text file whose name is the string pointed to by <code class="docutils literal notranslate"><span class="pre">pathname</span></code>. The structure is loaded up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>. The file is assumed to has been created by <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a3c07c4596ea8f3ce9692c6efa13a7dd9"><span class="std std-ref"><span class="pre">charm_shc_write_tbl()</span></span></a></code>. Error reported by the function (if any) is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
 <p>The first line of the input file must specify the maximum harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax2</span></code> of the coefficients stored in the file, their scaling parameter <code class="docutils literal notranslate"><span class="pre">mu</span></code> and the radius of the reference sphere <code class="docutils literal notranslate"><span class="pre">r</span></code>. Then, starting at a new line, provided must be a harmonic degree, harmonic order and the respective pair of coefficients per each line of the file. The entire file structure can be summarized as:</p>
 <p><div class="math notranslate nohighlight">
@@ -298,7 +581,7 @@ The <code class="docutils literal notranslate"><span class="pre">c</span></code>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv418charm_shc_read_mtxPKcmP9charm_shcP9charm_err">
-<span id="_CPPv318charm_shc_read_mtxPKcmP9charm_shcP9charm_err"></span><span id="_CPPv218charm_shc_read_mtxPKcmP9charm_shcP9charm_err"></span><span id="charm_shc_read_mtx__cCP.unsigned-l.charm_shcP.charm_errP"></span><span class="target" id="charm__shc_8h_1aef7b38038556d7a8d1dbc7380968fe82"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_read_mtx</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pathname</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418charm_shc_read_mtxPKcmP9charm_shcP9charm_err" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv318charm_shc_read_mtxPKcmP9charm_shcP9charm_err"></span><span id="_CPPv218charm_shc_read_mtxPKcmP9charm_shcP9charm_err"></span><span id="charm_shc_read_mtx__cCP.unsigned-l.charm_shcP.charm_errP"></span><span class="target" id="charm__shc_8h_1aef7b38038556d7a8d1dbc7380968fe82"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_read_mtx</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pathname</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418charm_shc_read_mtxPKcmP9charm_shcP9charm_err" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Reads the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure to <code class="docutils literal notranslate"><span class="pre">shcs</span></code> from a text file whose name is the string pointed to by <code class="docutils literal notranslate"><span class="pre">pathname</span></code>. The structure is loaded up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>. The file is assumed to has been created by <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1ac10bad7b9e1f8db98dbfc0f64ea1224c"><span class="std std-ref"><span class="pre">charm_shc_write_mtx()</span></span></a></code>. Error reported by the function (if any) is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
 <p>The first line of the input file must specify the maximum harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax2</span></code> of the coefficients stored in the file, their scaling parameter <code class="docutils literal notranslate"><span class="pre">mu</span></code> and the radius of the reference sphere <code class="docutils literal notranslate"><span class="pre">r</span></code>. Then, starting at a new line, a matrix with a predefined structured specifying the coefficients must follow. The entire file structure can be summarized as:</p>
 <p><div class="math notranslate nohighlight">
@@ -328,7 +611,7 @@ The <code class="docutils literal notranslate"><span class="pre">c</span></code>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv419charm_shc_write_binPK9charm_shcmPKcP9charm_err">
-<span id="_CPPv319charm_shc_write_binPK9charm_shcmPKcP9charm_err"></span><span id="_CPPv219charm_shc_write_binPK9charm_shcmPKcP9charm_err"></span><span id="charm_shc_write_bin__charm_shcCP.unsigned-l.cCP.charm_errP"></span><span class="target" id="charm__shc_8h_1acd4b855357c012625ddf89a6625970dd"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_write_bin</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pathname</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_shc_write_binPK9charm_shcmPKcP9charm_err" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv319charm_shc_write_binPK9charm_shcmPKcP9charm_err"></span><span id="_CPPv219charm_shc_write_binPK9charm_shcmPKcP9charm_err"></span><span id="charm_shc_write_bin__charm_shcCP.unsigned-l.cCP.charm_errP"></span><span class="target" id="charm__shc_8h_1acd4b855357c012625ddf89a6625970dd"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_write_bin</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pathname</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_shc_write_binPK9charm_shcmPKcP9charm_err" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Writes <code class="docutils literal notranslate"><span class="pre">shcs</span></code> up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code> to a binary file whose name is the string pointed to by <code class="docutils literal notranslate"><span class="pre">pathname</span></code>. Error reported by the function (if any) is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
 <p>The output file is a binary representation of <code class="docutils literal notranslate"><span class="pre">shcs</span></code> up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code> in the following order:</p>
 <p><div class="math notranslate nohighlight">
@@ -348,7 +631,7 @@ The <code class="docutils literal notranslate"><span class="pre">c</span></code>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv419charm_shc_write_tblPK9charm_shcmPKciPKcP9charm_err">
-<span id="_CPPv319charm_shc_write_tblPK9charm_shcmPKciPKcP9charm_err"></span><span id="_CPPv219charm_shc_write_tblPK9charm_shcmPKciPKcP9charm_err"></span><span id="charm_shc_write_tbl__charm_shcCP.unsigned-l.cCP.i.cCP.charm_errP"></span><span class="target" id="charm__shc_8h_1a3c07c4596ea8f3ce9692c6efa13a7dd9"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_write_tbl</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">format</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ordering</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pathname</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_shc_write_tblPK9charm_shcmPKciPKcP9charm_err" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv319charm_shc_write_tblPK9charm_shcmPKciPKcP9charm_err"></span><span id="_CPPv219charm_shc_write_tblPK9charm_shcmPKciPKcP9charm_err"></span><span id="charm_shc_write_tbl__charm_shcCP.unsigned-l.cCP.i.cCP.charm_errP"></span><span class="target" id="charm__shc_8h_1a3c07c4596ea8f3ce9692c6efa13a7dd9"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_write_tbl</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">format</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ordering</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pathname</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_shc_write_tblPK9charm_shcmPKciPKcP9charm_err" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Writes <code class="docutils literal notranslate"><span class="pre">shcs</span></code> up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code> to a text file whose name is the string pointed to by <code class="docutils literal notranslate"><span class="pre">pathname</span></code> using the <code class="docutils literal notranslate"><span class="pre">format</span></code> specifier and the <code class="docutils literal notranslate"><span class="pre">ordering</span></code> scheme for ordering spherical harmonic coefficients. Error reported by the function (if any) is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
 <p>The <code class="docutils literal notranslate"><span class="pre">format</span></code> specifier is used for all <em>floating point</em> data of <code class="docutils literal notranslate"><span class="pre">shcs</span></code>. No extra characters before or after the format specifier are expected, not even the space (no internal check). Examples of valid <code class="docutils literal notranslate"><span class="pre">format</span></code> specifiers in double precision are <code class="docutils literal notranslate"><span class="pre">%0.16e</span></code>, <code class="docutils literal notranslate"><span class="pre">%24.16e</span></code> or <code class="docutils literal notranslate"><span class="pre">%0.16f</span></code>. The <code class="docutils literal notranslate"><span class="pre">format</span></code> specifiers may vary with the precision of the library (single, double or quadruple).</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">ordering</span></code> is <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1adc29c2ff13d900c2f185ee95427fb06ca568ef3b65f0010facadea02c2ee20b32"><span class="std std-ref"><span class="pre">CHARM_SHC_WRITE_TBL_N</span></span></a></code>, the output file has the following structure:</p>
@@ -398,7 +681,7 @@ The path to the output file in <code class="docutils literal notranslate"><span 
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv419charm_shc_write_mtxPK9charm_shcmPKcPKcP9charm_err">
-<span id="_CPPv319charm_shc_write_mtxPK9charm_shcmPKcPKcP9charm_err"></span><span id="_CPPv219charm_shc_write_mtxPK9charm_shcmPKcPKcP9charm_err"></span><span id="charm_shc_write_mtx__charm_shcCP.unsigned-l.cCP.cCP.charm_errP"></span><span class="target" id="charm__shc_8h_1ac10bad7b9e1f8db98dbfc0f64ea1224c"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_write_mtx</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">format</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pathname</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_shc_write_mtxPK9charm_shcmPKcPKcP9charm_err" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv319charm_shc_write_mtxPK9charm_shcmPKcPKcP9charm_err"></span><span id="_CPPv219charm_shc_write_mtxPK9charm_shcmPKcPKcP9charm_err"></span><span id="charm_shc_write_mtx__charm_shcCP.unsigned-l.cCP.cCP.charm_errP"></span><span class="target" id="charm__shc_8h_1ac10bad7b9e1f8db98dbfc0f64ea1224c"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_write_mtx</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">format</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pathname</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_shc_write_mtxPK9charm_shcmPKcPKcP9charm_err" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Writes <code class="docutils literal notranslate"><span class="pre">shcs</span></code> up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code> to a text file whose name is the string pointed to by <code class="docutils literal notranslate"><span class="pre">pathname</span></code> using the <code class="docutils literal notranslate"><span class="pre">format</span></code> specifier. Error reported by the function (if any) is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
 <p>The <code class="docutils literal notranslate"><span class="pre">format</span></code> specifier is used for all <em>floating point</em> data of <code class="docutils literal notranslate"><span class="pre">shcs</span></code>. No extra characters before or after the format specifier are expected, not even the space (no internal check). Examples of valid <code class="docutils literal notranslate"><span class="pre">format</span></code> specifiers in double precision are <code class="docutils literal notranslate"><span class="pre">%0.16e</span></code>, <code class="docutils literal notranslate"><span class="pre">%24.16e</span></code> or <code class="docutils literal notranslate"><span class="pre">%0.16f</span></code>. The <code class="docutils literal notranslate"><span class="pre">format</span></code> specifiers may vary with the precision of the library (single, double or quadruple).</p>
 <p>The output file has the following structure:</p>
@@ -433,7 +716,7 @@ The path to the output file in <code class="docutils literal notranslate"><span 
 <p>These functions compute the spectrum from the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure in the form of (difference) degree variances and (difference) degree amplitudes. </p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv412charm_shc_dvPK9charm_shcmPdP9charm_err">
-<span id="_CPPv312charm_shc_dvPK9charm_shcmPdP9charm_err"></span><span id="_CPPv212charm_shc_dvPK9charm_shcmPdP9charm_err"></span><span id="charm_shc_dv__charm_shcCP.unsigned-l.doubleP.charm_errP"></span><span class="target" id="charm__shc_8h_1a5949c61d37a35de181d4eb13e3abb38c"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_dv</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">dv</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv412charm_shc_dvPK9charm_shcmPdP9charm_err" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv312charm_shc_dvPK9charm_shcmPdP9charm_err"></span><span id="_CPPv212charm_shc_dvPK9charm_shcmPdP9charm_err"></span><span id="charm_shc_dv__charm_shcCP.unsigned-l.doubleP.charm_errP"></span><span class="target" id="charm__shc_8h_1a5949c61d37a35de181d4eb13e3abb38c"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_dv</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">dv</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv412charm_shc_dvPK9charm_shcmPdP9charm_err" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Computes degree variances (spectrum) <code class="docutils literal notranslate"><span class="pre">dv</span></code> up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code> of a signal given by spherical harmonic coefficients in <code class="docutils literal notranslate"><span class="pre">shcs</span></code>. Each array index of <code class="docutils literal notranslate"><span class="pre">dv</span></code>, <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, …, <code class="docutils literal notranslate"><span class="pre">nmax</span></code>, corresponds to the degree variance of the respective degree <code class="docutils literal notranslate"><span class="pre">n</span></code>. Error reported by the function (if any) is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
 <p>The degree variances are given as</p>
 <p><div class="math notranslate nohighlight">
@@ -447,7 +730,7 @@ The path to the output file in <code class="docutils literal notranslate"><span 
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv412charm_shc_daPK9charm_shcmPdP9charm_err">
-<span id="_CPPv312charm_shc_daPK9charm_shcmPdP9charm_err"></span><span id="_CPPv212charm_shc_daPK9charm_shcmPdP9charm_err"></span><span id="charm_shc_da__charm_shcCP.unsigned-l.doubleP.charm_errP"></span><span class="target" id="charm__shc_8h_1ad468f56a0cc7cc1b0bc18c762f9feb3e"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_da</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">da</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv412charm_shc_daPK9charm_shcmPdP9charm_err" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv312charm_shc_daPK9charm_shcmPdP9charm_err"></span><span id="_CPPv212charm_shc_daPK9charm_shcmPdP9charm_err"></span><span id="charm_shc_da__charm_shcCP.unsigned-l.doubleP.charm_errP"></span><span class="target" id="charm__shc_8h_1ad468f56a0cc7cc1b0bc18c762f9feb3e"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_da</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">da</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv412charm_shc_daPK9charm_shcmPdP9charm_err" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Computes degree amplitudes (square root of degree variances) <code class="docutils literal notranslate"><span class="pre">da</span></code> up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code> of a signal given by spherical harmonic coefficients in <code class="docutils literal notranslate"><span class="pre">shcs</span></code>. Each array index of <code class="docutils literal notranslate"><span class="pre">da</span></code>, <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, …, <code class="docutils literal notranslate"><span class="pre">nmax</span></code>, corresponds to the degree amplitude of the respective degree <code class="docutils literal notranslate"><span class="pre">n</span></code>. Error reported by the function (if any) is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
 <p>The degree amplitudes are given as</p>
 <p><div class="math notranslate nohighlight">
@@ -462,7 +745,7 @@ The path to the output file in <code class="docutils literal notranslate"><span 
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv413charm_shc_ddvPK9charm_shcPK9charm_shcmPdP9charm_err">
-<span id="_CPPv313charm_shc_ddvPK9charm_shcPK9charm_shcmPdP9charm_err"></span><span id="_CPPv213charm_shc_ddvPK9charm_shcPK9charm_shcmPdP9charm_err"></span><span id="charm_shc_ddv__charm_shcCP.charm_shcCP.unsigned-l.doubleP.charm_errP"></span><span class="target" id="charm__shc_8h_1ab593fb4ffa422cb66ce24f3bfb47210f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_ddv</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs2</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ddv</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv413charm_shc_ddvPK9charm_shcPK9charm_shcmPdP9charm_err" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv313charm_shc_ddvPK9charm_shcPK9charm_shcmPdP9charm_err"></span><span id="_CPPv213charm_shc_ddvPK9charm_shcPK9charm_shcmPdP9charm_err"></span><span id="charm_shc_ddv__charm_shcCP.charm_shcCP.unsigned-l.doubleP.charm_errP"></span><span class="target" id="charm__shc_8h_1ab593fb4ffa422cb66ce24f3bfb47210f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_ddv</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs2</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ddv</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv413charm_shc_ddvPK9charm_shcPK9charm_shcmPdP9charm_err" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Computes difference degree variances (difference spectrum) <code class="docutils literal notranslate"><span class="pre">ddv</span></code> up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code> between a signal given by spherical harmonic coefficients in <code class="docutils literal notranslate"><span class="pre">shcs1</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs2</span></code>. Each array index of <code class="docutils literal notranslate"><span class="pre">ddv</span></code>, <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, …, <code class="docutils literal notranslate"><span class="pre">nmax</span></code>, corresponds to the difference degree variance of the respective degree <code class="docutils literal notranslate"><span class="pre">n</span></code>. Error reported by the function (if any) is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
 <p>The difference degree variances are given as</p>
 <p><div class="math notranslate nohighlight">
@@ -478,7 +761,7 @@ The path to the output file in <code class="docutils literal notranslate"><span 
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv413charm_shc_ddaPK9charm_shcPK9charm_shcmPdP9charm_err">
-<span id="_CPPv313charm_shc_ddaPK9charm_shcPK9charm_shcmPdP9charm_err"></span><span id="_CPPv213charm_shc_ddaPK9charm_shcPK9charm_shcmPdP9charm_err"></span><span id="charm_shc_dda__charm_shcCP.charm_shcCP.unsigned-l.doubleP.charm_errP"></span><span class="target" id="charm__shc_8h_1ad49ab54172a113f5bf7fbf9e4a58f22a"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_dda</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs2</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">da</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv413charm_shc_ddaPK9charm_shcPK9charm_shcmPdP9charm_err" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv313charm_shc_ddaPK9charm_shcPK9charm_shcmPdP9charm_err"></span><span id="_CPPv213charm_shc_ddaPK9charm_shcPK9charm_shcmPdP9charm_err"></span><span id="charm_shc_dda__charm_shcCP.charm_shcCP.unsigned-l.doubleP.charm_errP"></span><span class="target" id="charm__shc_8h_1ad49ab54172a113f5bf7fbf9e4a58f22a"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_dda</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs2</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">da</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv413charm_shc_ddaPK9charm_shcPK9charm_shcmPdP9charm_err" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Computes difference degree amplitudes (square root of difference degree variances) <code class="docutils literal notranslate"><span class="pre">dda</span></code> up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code> between a signal given by spherical harmonic coefficients in <code class="docutils literal notranslate"><span class="pre">shcs1</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs2</span></code>. Each array index of <code class="docutils literal notranslate"><span class="pre">dda</span></code>, <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, …, <code class="docutils literal notranslate"><span class="pre">nmax</span></code>, corresponds to the difference degree amplitude of the respective degree <code class="docutils literal notranslate"><span class="pre">n</span></code>. Error reported by the function (if any) is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
 <p>The difference degree amplitudes are given as</p>
 <p><div class="math notranslate nohighlight">
@@ -497,7 +780,7 @@ The path to the output file in <code class="docutils literal notranslate"><span 
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-miscellaneous-functions">Miscellaneous functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv417charm_shc_rescaleP9charm_shcddP9charm_err">
-<span id="_CPPv317charm_shc_rescaleP9charm_shcddP9charm_err"></span><span id="_CPPv217charm_shc_rescaleP9charm_shcddP9charm_err"></span><span id="charm_shc_rescale__charm_shcP.double.double.charm_errP"></span><span class="target" id="charm__shc_8h_1a1d014b8a7da1bd76d4ea49df16ec9cb5"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_rescale</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">munew</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rnew</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv417charm_shc_rescaleP9charm_shcddP9charm_err" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv317charm_shc_rescaleP9charm_shcddP9charm_err"></span><span id="_CPPv217charm_shc_rescaleP9charm_shcddP9charm_err"></span><span id="charm_shc_rescale__charm_shcP.double.double.charm_errP"></span><span class="target" id="charm__shc_8h_1a1d014b8a7da1bd76d4ea49df16ec9cb5"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc_rescale</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">munew</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rnew</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv417charm_shc_rescaleP9charm_shcddP9charm_err" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Rescales spherical harmonic coefficients in <code class="docutils literal notranslate"><span class="pre">shcs</span></code> to a new scaling parameter <code class="docutils literal notranslate"><span class="pre">munew</span></code> and a new radius of the reference sphere <code class="docutils literal notranslate"><span class="pre">rnew</span></code>: </p>
 <p><div class="math notranslate nohighlight">
 \[ \begin{align}\begin{aligned}\begin{split}\bar{C}_{nm}^{\mathrm{new}} = \frac{\mu}{\mu_{\mathrm{new}}} \, \left(
@@ -514,18 +797,18 @@ The path to the output file in <code class="docutils literal notranslate"><span 
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-enums">Enums</p>
 <dl class="cpp enum">
 <dt class="sig sig-object cpp" id="_CPPv4Ut1_4">
-<span id="_CPPv3Ut1_4"></span><span class="target" id="charm__shc_8h_1adc29c2ff13d900c2f185ee95427fb06c"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">[anonymous]</span></span></span><a class="headerlink" href="#_CPPv4Ut1_4" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3Ut1_4"></span><span class="target" id="charm__shc_8h_1adc29c2ff13d900c2f185ee95427fb06c"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">[anonymous]</span></span></span><a class="headerlink" href="#_CPPv4Ut1_4" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Ordering scheme to write spherical harmonic coefficients with <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a3c07c4596ea8f3ce9692c6efa13a7dd9"><span class="std std-ref"><span class="pre">charm_shc_write_tbl()</span></span></a></code>. </p>
 <p><em>Values:</em></p>
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4NUt1_421CHARM_SHC_WRITE_TBL_NE">
-<span id="_CPPv3NUt1_421CHARM_SHC_WRITE_TBL_NE"></span><span class="target" id="charm__shc_8h_1adc29c2ff13d900c2f185ee95427fb06ca568ef3b65f0010facadea02c2ee20b32"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_SHC_WRITE_TBL_N</span></span></span><a class="headerlink" href="#_CPPv4NUt1_421CHARM_SHC_WRITE_TBL_NE" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3NUt1_421CHARM_SHC_WRITE_TBL_NE"></span><span class="target" id="charm__shc_8h_1adc29c2ff13d900c2f185ee95427fb06ca568ef3b65f0010facadea02c2ee20b32"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_SHC_WRITE_TBL_N</span></span></span><a class="headerlink" href="#_CPPv4NUt1_421CHARM_SHC_WRITE_TBL_NE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Harmonic degree varies fastest. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4NUt1_421CHARM_SHC_WRITE_TBL_ME">
-<span id="_CPPv3NUt1_421CHARM_SHC_WRITE_TBL_ME"></span><span class="target" id="charm__shc_8h_1adc29c2ff13d900c2f185ee95427fb06ca5dfe73c24668441aaeebe2b3cb9991e0"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_SHC_WRITE_TBL_M</span></span></span><a class="headerlink" href="#_CPPv4NUt1_421CHARM_SHC_WRITE_TBL_ME" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3NUt1_421CHARM_SHC_WRITE_TBL_ME"></span><span class="target" id="charm__shc_8h_1adc29c2ff13d900c2f185ee95427fb06ca5dfe73c24668441aaeebe2b3cb9991e0"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_SHC_WRITE_TBL_M</span></span></span><a class="headerlink" href="#_CPPv4NUt1_421CHARM_SHC_WRITE_TBL_ME" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Harmonic order varies fastest. </p>
 </dd></dl>
 
@@ -534,43 +817,43 @@ The path to the output file in <code class="docutils literal notranslate"><span 
 </div>
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv49charm_shc">
-<span id="_CPPv39charm_shc"></span><span id="_CPPv29charm_shc"></span><span id="charm_shc"></span><span class="target" id="structcharm__shc"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc</span></span></span><a class="headerlink" href="#_CPPv49charm_shc" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv39charm_shc"></span><span id="_CPPv29charm_shc"></span><span id="charm_shc"></span><span class="target" id="structcharm__shc"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc</span></span></span><a class="headerlink" href="#_CPPv49charm_shc" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Structure to store spherical harmonic coefficients and some associated data. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N9charm_shc4nmaxE">
-<span id="_CPPv3N9charm_shc4nmaxE"></span><span id="_CPPv2N9charm_shc4nmaxE"></span><span id="charm_shc::nmax__unsigned-l"></span><span class="target" id="structcharm__shc_1a1eb06a3601467c3a4d11d09527ca5c7d"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nmax</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc4nmaxE" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3N9charm_shc4nmaxE"></span><span id="_CPPv2N9charm_shc4nmaxE"></span><span id="charm_shc::nmax__unsigned-l"></span><span class="target" id="structcharm__shc_1a1eb06a3601467c3a4d11d09527ca5c7d"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nmax</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc4nmaxE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Maximum harmonic degree of the spherical harmonic coefficients. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N9charm_shc2muE">
-<span id="_CPPv3N9charm_shc2muE"></span><span id="_CPPv2N9charm_shc2muE"></span><span id="charm_shc::mu__double"></span><span class="target" id="structcharm__shc_1a241fa5b0edae9a1574e948e5a6269b68"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mu</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc2muE" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3N9charm_shc2muE"></span><span id="_CPPv2N9charm_shc2muE"></span><span id="charm_shc::mu__double"></span><span class="target" id="structcharm__shc_1a241fa5b0edae9a1574e948e5a6269b68"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mu</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc2muE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Scaling parameter <span class="math notranslate nohighlight">\(\mu\)</span> associated with the spherical harmonic coefficients, for instance, the geocentric gravitational constant. In case the coefficients are not associated with any scaling parameter (as it is, for instance, with planetary topographies), simply set this variable to <code class="docutils literal notranslate"><span class="pre">1.0</span></code> (not to <code class="docutils literal notranslate"><span class="pre">0.0</span></code>!). </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N9charm_shc1rE">
-<span id="_CPPv3N9charm_shc1rE"></span><span id="_CPPv2N9charm_shc1rE"></span><span id="charm_shc::r__double"></span><span class="target" id="structcharm__shc_1a847dadddf26eeffc5b5060f4f745d20a"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">r</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc1rE" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3N9charm_shc1rE"></span><span id="_CPPv2N9charm_shc1rE"></span><span id="charm_shc::r__double"></span><span class="target" id="structcharm__shc_1a847dadddf26eeffc5b5060f4f745d20a"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">r</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc1rE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Radius of the reference sphere <span class="math notranslate nohighlight">\(R\)</span>, to which the spherical harmonic coefficients refer (are scaled). The value must be greater than zero. To get the unit sphere, as needed, for instance, when working with planetary topographies, set this variable to <code class="docutils literal notranslate"><span class="pre">1.0</span></code>. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N9charm_shc2ncE">
-<span id="_CPPv3N9charm_shc2ncE"></span><span id="_CPPv2N9charm_shc2ncE"></span><span id="charm_shc::nc__s"></span><span class="target" id="structcharm__shc_1ad185b3c1c7ef5d327fb7c382f6d4f486"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nc</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc2ncE" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3N9charm_shc2ncE"></span><span id="_CPPv2N9charm_shc2ncE"></span><span id="charm_shc::nc__s"></span><span class="target" id="structcharm__shc_1ad185b3c1c7ef5d327fb7c382f6d4f486"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nc</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc2ncE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Total number of spherical harmonic coefficients <span class="math notranslate nohighlight">\(\bar{C}_{nm}\)</span>. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N9charm_shc2nsE">
-<span id="_CPPv3N9charm_shc2nsE"></span><span id="_CPPv2N9charm_shc2nsE"></span><span id="charm_shc::ns__s"></span><span class="target" id="structcharm__shc_1a36033e975da459d60220cbb32560848a"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ns</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc2nsE" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3N9charm_shc2nsE"></span><span id="_CPPv2N9charm_shc2nsE"></span><span id="charm_shc::ns__s"></span><span class="target" id="structcharm__shc_1a36033e975da459d60220cbb32560848a"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ns</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc2nsE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Total number of spherical harmonic coefficients <span class="math notranslate nohighlight">\(\bar{S}_{nm}\)</span>. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N9charm_shc1cE">
-<span id="_CPPv3N9charm_shc1cE"></span><span id="_CPPv2N9charm_shc1cE"></span><span id="charm_shc::c__doublePP"></span><span class="target" id="structcharm__shc_1aec89546b6e791b22c41e47531cae878f"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">c</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc1cE" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3N9charm_shc1cE"></span><span id="_CPPv2N9charm_shc1cE"></span><span id="charm_shc::c__doublePP"></span><span class="target" id="structcharm__shc_1aec89546b6e791b22c41e47531cae878f"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">c</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc1cE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Spherical harmonic coefficients <span class="math notranslate nohighlight">\(\bar{C}_{nm}\)</span> stored as a 2D array. The first dimension is related to harmonic orders and the second one to harmonic degrees. Importantly, the number of columns varies for each row as follows:</p>
 <p><ul class="simple">
 <li><p>Order <code class="docutils literal notranslate"><span class="pre">0</span></code>: <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1aec89546b6e791b22c41e47531cae878f"><span class="std std-ref"><span class="pre">charm_shc.c</span></span></a><span class="pre">[0]</span></code> has <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1a1eb06a3601467c3a4d11d09527ca5c7d"><span class="std std-ref"><span class="pre">charm_shc.nmax</span></span></a> <span class="pre">+</span> <span class="pre">1</span></code> columns for degrees <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, …, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1a1eb06a3601467c3a4d11d09527ca5c7d"><span class="std std-ref"><span class="pre">charm_shc.nmax</span></span></a></code> (respectively),</p></li>
@@ -607,13 +890,13 @@ Assuming the <code class="docutils literal notranslate"><a class="reference inte
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N9charm_shc1sE">
-<span id="_CPPv3N9charm_shc1sE"></span><span id="_CPPv2N9charm_shc1sE"></span><span id="charm_shc::s__doublePP"></span><span class="target" id="structcharm__shc_1a6818b02906586ec66ddf28095c779558"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">s</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc1sE" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3N9charm_shc1sE"></span><span id="_CPPv2N9charm_shc1sE"></span><span id="charm_shc::s__doublePP"></span><span class="target" id="structcharm__shc_1a6818b02906586ec66ddf28095c779558"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">s</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc1sE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Spherical harmonic coefficients <span class="math notranslate nohighlight">\(\bar{S}_{nm}\)</span>. The same comments as for <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1aec89546b6e791b22c41e47531cae878f"><span class="std std-ref"><span class="pre">charm_shc.c</span></span></a></code> apply to <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1a6818b02906586ec66ddf28095c779558"><span class="std std-ref"><span class="pre">charm_shc.s</span></span></a></code>, too. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N9charm_shc5ownerE">
-<span id="_CPPv3N9charm_shc5ownerE"></span><span id="_CPPv2N9charm_shc5ownerE"></span><span id="charm_shc::owner___Bool"></span><span class="target" id="structcharm__shc_1afa2a47ef5dfb21b8c01fa506b17859af"></span><span class="n"><span class="pre">_Bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">owner</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc5ownerE" title="Permalink to this definition"></a><br /></dt>
+<span id="_CPPv3N9charm_shc5ownerE"></span><span id="_CPPv2N9charm_shc5ownerE"></span><span id="charm_shc::owner___Bool"></span><span class="target" id="structcharm__shc_1afa2a47ef5dfb21b8c01fa506b17859af"></span><span class="n"><span class="pre">_Bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">owner</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc5ownerE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>If <code class="docutils literal notranslate"><span class="pre">1</span></code>, the spherical harmonic coefficients in <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1aec89546b6e791b22c41e47531cae878f"><span class="std std-ref"><span class="pre">charm_shc.c</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1a6818b02906586ec66ddf28095c779558"><span class="std std-ref"><span class="pre">charm_shc.s</span></span></a></code> were allocated by CHarm, so <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1ac787c43697c5383d38c392d427b78669"><span class="std std-ref"><span class="pre">charm_shc_free()</span></span></a></code> deallocates them. If <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1afa2a47ef5dfb21b8c01fa506b17859af"><span class="std std-ref"><span class="pre">charm_shc.owner</span></span></a></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code>, the coefficients in <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1aec89546b6e791b22c41e47531cae878f"><span class="std std-ref"><span class="pre">charm_shc.c</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1a6818b02906586ec66ddf28095c779558"><span class="std std-ref"><span class="pre">charm_shc.s</span></span></a></code> were allocated outside CHarm, so <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1ac787c43697c5383d38c392d427b78669"><span class="std std-ref"><span class="pre">charm_shc_free()</span></span></a></code> does <em>not</em> deallocate them (the user allocated this memory outside CHarm, so the user should free the memory outside CHarm as well).</p>
 <p><code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1afa2a47ef5dfb21b8c01fa506b17859af"><span class="std std-ref"><span class="pre">charm_shc.owner</span></span></a></code> is set to <code class="docutils literal notranslate"><span class="pre">1</span></code> for <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> returned by <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a4895f2b307f1ce52ed05804ab6db9df8"><span class="std std-ref"><span class="pre">charm_shc_malloc()</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1abc13dd997021be52d8f317562738ad14"><span class="std std-ref"><span class="pre">charm_shc_calloc()</span></span></a></code>. <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a634b6af02cca801de4e51c2248d72b20"><span class="std std-ref"><span class="pre">charm_shc_init()</span></span></a></code> returns <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> with <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1afa2a47ef5dfb21b8c01fa506b17859af"><span class="std std-ref"><span class="pre">charm_shc.owner</span></span></a></code> set to <code class="docutils literal notranslate"><span class="pre">0</span></code>. </p>
 </dd></dl>
@@ -624,34 +907,94 @@ Assuming the <code class="docutils literal notranslate"><a class="reference inte
 </section>
 
 
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="api-c.html" class="btn btn-neutral float-left" title="CHarm (C API)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="api-c-crd.html" class="btn btn-neutral float-right" title="charm_crd" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+                </article>
+              
 
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2023, Blažej Bucha.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
-        </div>
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="api-c.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">CHarm (C API)</p>
       </div>
-    </section>
-  </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
+    </a>
+    <a class="right-next"
+       href="api-c-crd.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">charm_crd</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
 
-</body>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Blažej Bucha
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, Blažej Bucha.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+  Last updated on Jun 16, 2023.
+  <br/>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
 </html>
