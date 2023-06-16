@@ -1,119 +1,173 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" />
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>charm_crd &#8212; CHarm 0.3.0 documentation</title>
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>charm_crd &mdash; CHarm 0.2.0 documentation</title>
   
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/custom_BB.css" type="text/css" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
   
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api-c-crd';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="charm_shs" href="api-c-shs.html" />
-    <link rel="prev" title="charm_shc" href="api-c-shc.html" /> 
-</head>
+    <link rel="prev" title="charm_shc" href="api-c-shc.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="index.html" class="icon icon-home"> CHarm
-          
-
-          
-            
-            <img src="_static/charm-logo.png" class="logo" alt="Logo"/>
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                0.2.0
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <ul class="current">
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/charm-logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+    <p class="title logo__title">CHarm v0.3.0</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="install.html">Installing</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="install_unix.html">Installation on Unix-based operating systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install_non_unix.html">Installation on Windows 10</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="api.html">Interfaces</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="api-c.html">CHarm (C API)</a><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="cookbook.html">Cookbook</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="cookbook-c.html">CHarm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cookbook-py.html">PyHarm</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="api.html">Interfaces</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="api-c.html">CHarm (C API)</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="api-c-shc.html">charm_shc</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">charm_crd</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">charm_crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-sha.html">charm_sha</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-leg.html">charm_leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-xnum.html">charm_xnum</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html">charm_err</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-glob.html">charm_glob</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="api-py-shc.html">pyharm.shc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">pyharm.sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-leg.html">pyharm.leg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">pyharm.integ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-glob.html">pyharm.glob</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
@@ -122,77 +176,218 @@
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">CHarm</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="api.html">Interfaces</a> &raquo;</li>
-        
-          <li><a href="api-c.html">CHarm (C API)</a> &raquo;</li>
-        
-      <li>charm_crd</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="_sources/api-c-crd.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
+    </div>
+</nav></div>
+    </div>
   
-  <hr/>
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm/edit/master/docs/src/api-c-crd.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm/issues/new?title=Issue%20on%20page%20%2Fapi-c-crd.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/api-c-crd.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>charm_crd</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
             
-  <div class="section" id="charm-crd">
-<span id="id1"></span><h1>charm_crd<a class="headerlink" href="#charm-crd" title="Permalink to this headline">¶</a></h1>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="charm-crd">
+<span id="id1"></span><h1>charm_crd<a class="headerlink" href="#charm-crd" title="Permalink to this heading">#</a></h1>
 <p>Module to work with the coordinates of evaluation points/cells:</p>
 <p><ul class="simple">
 <li><p>defines <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code> structures,</p></li>
@@ -200,125 +395,73 @@
 <li><p>computes <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> for a few pre-defined grid types.</p></li>
 </ul>
 </p>
-<p><strong>References</strong>:<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This documentation is written for double precision version of CHarm.</p>
-</div>
-</p>
+<p><strong>References</strong>:</p>
 <p><ul class="simple">
 <li><p>Sneeuw, N. (1994) Global spherical harmonic analysis by least-squares and numerical quadrature methods in historical perspective. Geophysical Journal International 118:707-716</p></li>
 <li><p>Driscoll, J. R., Healy, D. M. (1994) Computing Fourier transforms and convolutions on the 2-sphere. Advances in Applied Mathematics 15:202-250</p></li>
-<li><p>Wieczorek, M. A., Meschede, M. (2018) SHTools: Tools for Working with Spherical Harmonics. Geochemistry, Geophysics, Geosystems 19:2574-2592 </p></li>
+<li><p>Wieczorek, M. A., Meschede, M. (2018) SHTools: Tools for Working with Spherical Harmonics. Geochemistry, Geophysics, Geosystems 19:2574-2592</p></li>
 </ul>
 </p>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-enums">Enums</p>
-<dl class="cpp enum">
-<dt id="_CPPv4Ut1_0">
-<span id="_CPPv3Ut1_0"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55b"></span><em class="property">enum </em><strong>[anonymous]</strong><a class="headerlink" href="#_CPPv4Ut1_0" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Supported values of <code class="docutils literal notranslate"><span class="pre">type</span></code> in <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> (<code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_*</span></code>) and in <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code> (<code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_*</span></code>). </p>
-<p><em>Values:</em></p>
-<dl class="cpp enumerator">
-<dt id="_CPPv4NUt1_019CHARM_CRD_CELL_GRIDE">
-<span id="_CPPv3NUt1_019CHARM_CRD_CELL_GRIDE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba66aff589c459da043f1c2cf320c49768"></span><em class="property">enumerator </em><code class="sig-name descname">CHARM_CRD_CELL_GRID</code> = -2<a class="headerlink" href="#_CPPv4NUt1_019CHARM_CRD_CELL_GRIDE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Custom grid of cells. </p>
-</dd></dl>
-
-<dl class="cpp enumerator">
-<dt id="_CPPv4NUt1_024CHARM_CRD_CELL_SCATTEREDE">
-<span id="_CPPv3NUt1_024CHARM_CRD_CELL_SCATTEREDE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bafb6b3c1a3904ae4db02d4ab932893ec2"></span><em class="property">enumerator </em><code class="sig-name descname">CHARM_CRD_CELL_SCATTERED</code><a class="headerlink" href="#_CPPv4NUt1_024CHARM_CRD_CELL_SCATTEREDE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Scattered cells. </p>
-</dd></dl>
-
-<dl class="cpp enumerator">
-<dt id="_CPPv4NUt1_025CHARM_CRD_POINT_SCATTEREDE">
-<span id="_CPPv3NUt1_025CHARM_CRD_POINT_SCATTEREDE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba6b99f8561350326841b455125b2820f9"></span><em class="property">enumerator </em><code class="sig-name descname">CHARM_CRD_POINT_SCATTERED</code> = 1<a class="headerlink" href="#_CPPv4NUt1_025CHARM_CRD_POINT_SCATTEREDE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Scattered points. </p>
-</dd></dl>
-
-<dl class="cpp enumerator">
-<dt id="_CPPv4NUt1_020CHARM_CRD_POINT_GRIDE">
-<span id="_CPPv3NUt1_020CHARM_CRD_POINT_GRIDE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bae65b0ee9dba031d62ff7758344ace23c"></span><em class="property">enumerator </em><code class="sig-name descname">CHARM_CRD_POINT_GRID</code><a class="headerlink" href="#_CPPv4NUt1_020CHARM_CRD_POINT_GRIDE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Custom point grid. </p>
-</dd></dl>
-
-<dl class="cpp enumerator">
-<dt id="_CPPv4NUt1_023CHARM_CRD_POINT_GRID_GLE">
-<span id="_CPPv3NUt1_023CHARM_CRD_POINT_GRID_GLE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bab4d94ce6d422441b136e7a4c1004fe60"></span><em class="property">enumerator </em><code class="sig-name descname">CHARM_CRD_POINT_GRID_GL</code><a class="headerlink" href="#_CPPv4NUt1_023CHARM_CRD_POINT_GRID_GLE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Gauss-Legendre point grid. </p>
-</dd></dl>
-
-<dl class="cpp enumerator">
-<dt id="_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH1E">
-<span id="_CPPv3NUt1_024CHARM_CRD_POINT_GRID_DH1E"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba7b6b9df94846ef66a06576f859b33490"></span><em class="property">enumerator </em><code class="sig-name descname">CHARM_CRD_POINT_GRID_DH1</code><a class="headerlink" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH1E" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Driscoll-Healy point grid as defined by Driscoll and Healy (1994) (non-equiangular). </p>
-</dd></dl>
-
-<dl class="cpp enumerator">
-<dt id="_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH2E">
-<span id="_CPPv3NUt1_024CHARM_CRD_POINT_GRID_DH2E"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bac257fe0b50a555185faec82d04a70ee6"></span><em class="property">enumerator </em><code class="sig-name descname">CHARM_CRD_POINT_GRID_DH2</code><a class="headerlink" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH2E" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>The equiangular modification of the Driscoll-Healy point grid after Wieczorek and Meschede (2018). </p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
-<dl class="cpp function">
-<dt id="_CPPv422charm_crd_point_malloci6size_t6size_t">
-<span id="_CPPv322charm_crd_point_malloci6size_t6size_t"></span><span id="_CPPv222charm_crd_point_malloci6size_t6size_t"></span><span id="charm_crd_point_malloc__i.s.s"></span><span class="target" id="charm__crd_8h_1a73567eaa1ee378832ab24592e4b8e8c1"></span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point">charm_point</a> *<code class="sig-name descname">charm_crd_point_malloc</code><span class="sig-paren">(</span>int <em>type</em>, size_t <em>nlat</em>, size_t <em>nlon</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv422charm_crd_point_malloci6size_t6size_t" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure that is created for a given <code class="docutils literal notranslate"><span class="pre">type</span></code> with <code class="docutils literal notranslate"><span class="pre">nlat</span></code> latitudes, <code class="docutils literal notranslate"><span class="pre">nlon</span></code> longitudes and <code class="docutils literal notranslate"><span class="pre">nlat</span></code> spherical radii. If <code class="docutils literal notranslate"><span class="pre">type</span></code> is one of <code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID_*</span></code>, memory for <code class="docutils literal notranslate"><span class="pre">nlat</span></code> integration weights is allocated in addition. The memory of all arrays is uninitialized.</p>
-<p>Valid values of <code class="docutils literal notranslate"><span class="pre">type</span></code> are all symbolic constants <code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_*</span></code>.</p>
-<p>On success, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure. On error, <code class="docutils literal notranslate"><span class="pre">NULL</span></code> is returned. Errors include memory allocation failures and incorrect input arguments (e.g., <code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">&lt;</span> <span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">nlon</span> <span class="pre">&lt;</span> <span class="pre">1</span></code> or unsupported value of <code class="docutils literal notranslate"><span class="pre">type</span></code>).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<ul>
-<li><p>For <code class="docutils literal notranslate"><span class="pre">charm_point</span> <span class="pre">*pnt</span></code> returned by this function with <code class="docutils literal notranslate"><span class="pre">type</span></code>
-being equal to one of <code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID*</span></code>, the coordinates of
-the grid point on the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th latitude parallel and the <code class="docutils literal notranslate"><span class="pre">j</span></code>-th
-meridian have to be accessed as</p>
-<ul class="simple">
+<p>This documentation is written for double precision version of CHarm. </p>
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-allocate,-initialize-and-free-the-charm_point-structure">Allocate, initialize and free the charm_point structure</p>
+<p>These functions allocate, initialize and free the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure, which is designed to store evaluation points. </p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv422charm_crd_point_malloci6size_t6size_t">
+<span id="_CPPv322charm_crd_point_malloci6size_t6size_t"></span><span id="_CPPv222charm_crd_point_malloci6size_t6size_t"></span><span id="charm_crd_point_malloc__i.s.s"></span><span class="target" id="charm__crd_8h_1a506d61d454256ca01b9ae64690fd6c8b"></span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_point_malloc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlat</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlon</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv422charm_crd_point_malloci6size_t6size_t" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Allocates evaluation points of a given <code class="docutils literal notranslate"><span class="pre">type</span></code> with <code class="docutils literal notranslate"><span class="pre">nlat</span></code> latitudes, <code class="docutils literal notranslate"><span class="pre">nlon</span></code> longitudes and <code class="docutils literal notranslate"><span class="pre">nlat</span></code> spherical radii. If <code class="docutils literal notranslate"><span class="pre">type</span></code> is <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bab4d94ce6d422441b136e7a4c1004fe60"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba7b6b9df94846ef66a06576f859b33490"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></span></a></code> or <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bac257fe0b50a555185faec82d04a70ee6"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></span></a></code>, <code class="docutils literal notranslate"><span class="pre">nlat</span></code> integration weights are allocated in addition. The memory of all array elements is uninitialized, so their values are undefined. </p>
+<p>Valid values of <code class="docutils literal notranslate"><span class="pre">type</span></code> are constants <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba6b99f8561350326841b455125b2820f9"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_SCATTERED</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bae65b0ee9dba031d62ff7758344ace23c"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bab4d94ce6d422441b136e7a4c1004fe60"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba7b6b9df94846ef66a06576f859b33490"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bac257fe0b50a555185faec82d04a70ee6"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></span></a></code>.</p>
+<p><ul>
+<li><p>For <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a> <span class="pre">*pnt</span></code> returned by this function with <code class="docutils literal notranslate"><span class="pre">type</span></code> being <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bae65b0ee9dba031d62ff7758344ace23c"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bab4d94ce6d422441b136e7a4c1004fe60"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba7b6b9df94846ef66a06576f859b33490"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></span></a></code> or <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bac257fe0b50a555185faec82d04a70ee6"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></span></a></code>, the coordinates of the grid point on the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th latitude parallel and the <code class="docutils literal notranslate"><span class="pre">j</span></code>-th meridian have to be accessed as<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">pnt-&gt;lat[i]</span></code> for the grid latitude,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">pnt-&gt;lon[j]</span></code> for the grid longitude, and</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">pnt-&gt;r[i]</span></code> for the spherical radii</p></li>
 </ul>
+</p>
 <p>with <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">nlat</span> <span class="pre">-</span> <span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">nlon</span> <span class="pre">-</span> <span class="pre">1</span></code>.</p>
 </li>
-<li><p>For <code class="docutils literal notranslate"><span class="pre">type</span></code> set to <code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_SCATTERED</span></code>, the coordinates
-of the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th point have to be accessed as</p>
-<ul class="simple">
+<li><p>For <code class="docutils literal notranslate"><span class="pre">type</span></code> set to <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba6b99f8561350326841b455125b2820f9"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_SCATTERED</span></span></a></code>, the coordinates of the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th point have to be accessed as<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">pnt-&gt;lat[i]</span></code> for the grid latitude,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">pnt-&gt;lon[i]</span></code> for the grid longitude, and</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">pnt-&gt;r[i]</span></code> for the spherical radii</p></li>
 </ul>
+</p>
 <p>with <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">nlat</span> <span class="pre">-</span> <span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">==</span> <span class="pre">nlon</span></code>.</p>
 </li>
 </ul>
-</div>
+</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The structure returned <em>must</em> be deallocated by calling <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a74d3a0f9144c9db18230507d38cbcbee"><span class="std std-ref"><span class="pre">charm_crd_point_free()</span></span></a></code>. The usual deallocation with <code class="docutils literal notranslate"><span class="pre">free</span></code> will lead to memory leaks. </p>
+<p>The structure returned <em>must</em> be deallocated by calling <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a74d3a0f9144c9db18230507d38cbcbee"><span class="std std-ref"><span class="pre">charm_crd_point_free()</span></span></a></code>. The usual deallocation with <code class="docutils literal notranslate"><span class="pre">free</span></code> will lead to memory leaks.</p>
 </div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>On success, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure. On error, <code class="docutils literal notranslate"><span class="pre">NULL</span></code> is returned. Errors include memory allocation failures and incorrect input arguments (e.g., <code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">&lt;</span> <span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">nlon</span> <span class="pre">&lt;</span> <span class="pre">1</span></code> or unsupported value of <code class="docutils literal notranslate"><span class="pre">type</span></code>). </p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv422charm_crd_point_calloci6size_t6size_t">
-<span id="_CPPv322charm_crd_point_calloci6size_t6size_t"></span><span id="_CPPv222charm_crd_point_calloci6size_t6size_t"></span><span id="charm_crd_point_calloc__i.s.s"></span><span class="target" id="charm__crd_8h_1ab97c707897b649fc63627c2efd0e5260"></span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point">charm_point</a> *<code class="sig-name descname">charm_crd_point_calloc</code><span class="sig-paren">(</span>int <em>type</em>, size_t <em>nlat</em>, size_t <em>nlon</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv422charm_crd_point_calloci6size_t6size_t" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a73567eaa1ee378832ab24592e4b8e8c1"><span class="std std-ref"><span class="pre">charm_crd_point_malloc()</span></span></a></code> but the memory of all arrays is initialized to zero. </p>
+<dt class="sig sig-object cpp" id="_CPPv422charm_crd_point_calloci6size_t6size_t">
+<span id="_CPPv322charm_crd_point_calloci6size_t6size_t"></span><span id="_CPPv222charm_crd_point_calloci6size_t6size_t"></span><span id="charm_crd_point_calloc__i.s.s"></span><span class="target" id="charm__crd_8h_1a90f7e9d5f31cfb95bfe77d1d43fb5b22"></span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_point_calloc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlat</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlon</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv422charm_crd_point_calloci6size_t6size_t" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a506d61d454256ca01b9ae64690fd6c8b"><span class="std std-ref"><span class="pre">charm_crd_point_malloc()</span></span></a></code> but all array elements are initialized to zero. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv420charm_crd_point_initi6size_t6size_tPdPdPd">
-<span id="_CPPv320charm_crd_point_initi6size_t6size_tPdPdPd"></span><span id="_CPPv220charm_crd_point_initi6size_t6size_tPdPdPd"></span><span id="charm_crd_point_init__i.s.s.doubleP.doubleP.doubleP"></span><span class="target" id="charm__crd_8h_1ad493cf7b33634b34859d08887ef6ecc2"></span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point">charm_point</a> *<code class="sig-name descname">charm_crd_point_init</code><span class="sig-paren">(</span>int <em>type</em>, size_t <em>nlat</em>, size_t <em>nlon</em>, double *<em>lat</em>, double *<em>lon</em>, double *<em>r</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv420charm_crd_point_initi6size_t6size_tPdPdPd" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure that is created for a given <code class="docutils literal notranslate"><span class="pre">type</span></code> from user-defined data (shallow copy). Accepted values of <code class="docutils literal notranslate"><span class="pre">type</span></code> are <code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_*</span></code>.</p>
+<dt class="sig sig-object cpp" id="_CPPv420charm_crd_point_initi6size_t6size_tPdPdPd">
+<span id="_CPPv320charm_crd_point_initi6size_t6size_tPdPdPd"></span><span id="_CPPv220charm_crd_point_initi6size_t6size_tPdPdPd"></span><span id="charm_crd_point_init__i.s.s.doubleP.doubleP.doubleP"></span><span class="target" id="charm__crd_8h_1acb9cd413acb07ef1e3a18f48baa101a2"></span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_point_init</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlat</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlon</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">lat</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">lon</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">r</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv420charm_crd_point_initi6size_t6size_tPdPdPd" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>For a given point <code class="docutils literal notranslate"><span class="pre">type</span></code>, takes <code class="docutils literal notranslate"><span class="pre">nlat</span></code> spherical latitudes from the array pointed to by <code class="docutils literal notranslate"><span class="pre">lat</span></code>, <code class="docutils literal notranslate"><span class="pre">nlon</span></code> spherical longitudes from <code class="docutils literal notranslate"><span class="pre">lon</span></code> and <code class="docutils literal notranslate"><span class="pre">nlat</span></code> spherical radii from <code class="docutils literal notranslate"><span class="pre">r</span></code> (shallow copy). </p>
+<p>Valid values of <code class="docutils literal notranslate"><span class="pre">type</span></code> are constants <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba6b99f8561350326841b455125b2820f9"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_SCATTERED</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bae65b0ee9dba031d62ff7758344ace23c"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bab4d94ce6d422441b136e7a4c1004fe60"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba7b6b9df94846ef66a06576f859b33490"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bac257fe0b50a555185faec82d04a70ee6"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></span></a></code>.</p>
 <p><ul class="simple">
-<li><p>If <code class="docutils literal notranslate"><span class="pre">type</span> <span class="pre">==</span> <span class="pre">CHARM_CRD_POINT_SCATTERED</span></code>,<ul>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">type</span></code> is <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba6b99f8561350326841b455125b2820f9"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_SCATTERED</span></span></a></code>,<ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">nlat</span></code> must be equal to <code class="docutils literal notranslate"><span class="pre">nlon</span></code> and</p></li>
 <li><p>each of <code class="docutils literal notranslate"><span class="pre">lat</span></code>, <code class="docutils literal notranslate"><span class="pre">lon</span></code> and <code class="docutils literal notranslate"><span class="pre">r</span></code> must have access to <code class="docutils literal notranslate"><span class="pre">nlat</span></code> elements.</p></li>
 </ul>
 </p></li>
-<li><p>If <code class="docutils literal notranslate"><span class="pre">type</span> <span class="pre">==</span> <span class="pre">CHARM_CRD_POINT_GRID*</span></code>,<ul>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">type</span></code> is <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bae65b0ee9dba031d62ff7758344ace23c"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bab4d94ce6d422441b136e7a4c1004fe60"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba7b6b9df94846ef66a06576f859b33490"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></span></a></code> or <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bac257fe0b50a555185faec82d04a70ee6"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></span></a></code>,<ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">lat</span></code> must have access to <code class="docutils literal notranslate"><span class="pre">nlat</span></code> elements,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">lon</span></code> must have access to <code class="docutils literal notranslate"><span class="pre">nlon</span></code> elements, and</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">r</span></code> must have access to <code class="docutils literal notranslate"><span class="pre">nlat</span></code> elements.</p></li>
@@ -326,115 +469,140 @@ of the <code class="docutils literal notranslate"><span class="pre">i</span></co
 </p></li>
 </ul>
 </p>
-<p>On success, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure. On error, <code class="docutils literal notranslate"><span class="pre">NULL</span></code> is returned. Errors include memory allocation failures and incorrect input arguments (e.g., <code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">&lt;</span> <span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">nlon</span> <span class="pre">&lt;</span> <span class="pre">1</span></code> or unsupported value of <code class="docutils literal notranslate"><span class="pre">type</span></code>).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>See <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a73567eaa1ee378832ab24592e4b8e8c1"><span class="std std-ref"><span class="pre">charm_crd_point_malloc()</span></span></a></code> to find out how to access the coordinates stored in the returned <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure.</p>
+<p>See <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a506d61d454256ca01b9ae64690fd6c8b"><span class="std std-ref"><span class="pre">charm_crd_point_malloc()</span></span></a></code> to find out how to access the coordinates stored in the returned <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>See <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#charm__shc_8h_1a0c8915c03242005b436f30a06ab091ce"><span class="std std-ref"><span class="pre">charm_shc_init()</span></span></a></code> for the rationale behind the shallow copies of input arrays <code class="docutils literal notranslate"><span class="pre">lat</span></code>, <code class="docutils literal notranslate"><span class="pre">lon</span></code> and <code class="docutils literal notranslate"><span class="pre">r</span></code>. The memory of these arrays must be treated in the same fashion as shown therein with the <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> arrays.</p>
+<p>See <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#charm__shc_8h_1a634b6af02cca801de4e51c2248d72b20"><span class="std std-ref"><span class="pre">charm_shc_init()</span></span></a></code> for the rationale behind the shallow copies of input arrays <code class="docutils literal notranslate"><span class="pre">lat</span></code>, <code class="docutils literal notranslate"><span class="pre">lon</span></code> and <code class="docutils literal notranslate"><span class="pre">r</span></code>. The memory of these arrays must be treated in the same fashion as shown therein with the <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> arrays.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure created by this function <em>must</em> be deallocated using <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a74d3a0f9144c9db18230507d38cbcbee"><span class="std std-ref"><span class="pre">charm_crd_point_free()</span></span></a></code>. The usual deallocation with <code class="docutils literal notranslate"><span class="pre">free</span></code> will lead to memory leaks. </p>
+<p>The structure returned <em>must</em> be deallocated using <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a74d3a0f9144c9db18230507d38cbcbee"><span class="std std-ref"><span class="pre">charm_crd_point_free()</span></span></a></code>. The usual deallocation with <code class="docutils literal notranslate"><span class="pre">free</span></code> will lead to memory leaks.</p>
 </div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>On success, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure. On error, <code class="docutils literal notranslate"><span class="pre">NULL</span></code> is returned. Errors include memory allocation failures and incorrect input arguments (e.g., <code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">&lt;</span> <span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">nlon</span> <span class="pre">&lt;</span> <span class="pre">1</span></code> or unsupported value of <code class="docutils literal notranslate"><span class="pre">type</span></code>). </p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv420charm_crd_point_freeP11charm_point">
-<span id="_CPPv320charm_crd_point_freeP11charm_point"></span><span id="_CPPv220charm_crd_point_freeP11charm_point"></span><span id="charm_crd_point_free__charm_pointP"></span><span class="target" id="charm__crd_8h_1a74d3a0f9144c9db18230507d38cbcbee"></span>void <code class="sig-name descname">charm_crd_point_free</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point">charm_point</a> *<em>pnt</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv420charm_crd_point_freeP11charm_point" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Frees the memory associated with <code class="docutils literal notranslate"><span class="pre">pnt</span></code>. No operation is performed if <code class="docutils literal notranslate"><span class="pre">pnt</span></code> is <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+<dt class="sig sig-object cpp" id="_CPPv420charm_crd_point_freeP11charm_point">
+<span id="_CPPv320charm_crd_point_freeP11charm_point"></span><span id="_CPPv220charm_crd_point_freeP11charm_point"></span><span id="charm_crd_point_free__charm_pointP"></span><span class="target" id="charm__crd_8h_1a74d3a0f9144c9db18230507d38cbcbee"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_point_free</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pnt</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv420charm_crd_point_freeP11charm_point" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Frees the memory associated with <code class="docutils literal notranslate"><span class="pre">pnt</span></code>. No operation is performed if <code class="docutils literal notranslate"><span class="pre">pnt</span></code> is <code class="docutils literal notranslate"><span class="pre">NULL</span></code>. </p>
 <p>If <code class="docutils literal notranslate"><span class="pre">pnt-&gt;owner</span></code> is <code class="docutils literal notranslate"><span class="pre">1</span></code>, the function releases all the memory that is associated with <code class="docutils literal notranslate"><span class="pre">pnt</span></code>, including that of its array members. If <code class="docutils literal notranslate"><span class="pre">pnt-&gt;owner</span></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code>, the arrays are not released from the memory, because they were not allocated by CHarm. </p>
 </dd></dl>
 
-<dl class="cpp function">
-<dt id="_CPPv418charm_crd_point_glmd">
-<span id="_CPPv318charm_crd_point_glmd"></span><span id="_CPPv218charm_crd_point_glmd"></span><span id="charm_crd_point_gl__unsigned-l.double"></span><span class="target" id="charm__crd_8h_1a2f25d2e7fcfbd5950b3b8c41de1330c9"></span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point">charm_point</a> *<code class="sig-name descname">charm_crd_point_gl</code><span class="sig-paren">(</span>unsigned long <em>nmax</em>, double <em>r</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418charm_crd_point_glmd" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Prepares a <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure of the Gauss-Legendre grid that is associated with the maximum harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code> (Sneeuw, 1994) and resides on the sphere with the radius <code class="docutils literal notranslate"><span class="pre">r</span></code>. The integration weights are computed on the <em>unit</em> sphere.</p>
-<p>On success, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure. On error, <code class="docutils literal notranslate"><span class="pre">NULL</span></code> is returned. In addition to the memory allocation failure, the error may be due to the exceeded maximum number of iterations to compute the latitudes or due to the overflow problem. The latter may happen in <em>single</em> precision if <code class="docutils literal notranslate"><span class="pre">nmax</span></code> is larger than <code class="docutils literal notranslate"><span class="pre">7200</span></code> or so. The overflow check is <em>not</em> performed if your <code class="docutils literal notranslate"><span class="pre">math.h</span></code> system header file does not define the <code class="docutils literal notranslate"><span class="pre">isfinite</span></code> macro or if the macro is present, but it does not work properly with the specified floating point data type (particularly <code class="docutils literal notranslate"><span class="pre">__float128</span></code>). You may want to inspect the output of the <code class="docutils literal notranslate"><span class="pre">charm_misc_print_version</span></code> function to see if CHarm utilizes the <code class="docutils literal notranslate"><span class="pre">isfinite</span></code> macro.</p>
-<p>Loops are parallelized using OpenMP.</p>
-<p><p></p>
- </p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The Gauss-Legendre grid is non-equiangular in terms of the 
-latitude.  The longitudinal step is constant.</p>
 </div>
-</dd></dl>
-
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-quadrature-point-grids">Quadrature point grids</p>
+<p>These functions compute the Gauss-Legendre and Driscoll-Healy quadrature grids and the associated integration weights. </p>
 <dl class="cpp function">
-<dt id="_CPPv419charm_crd_point_dh1md">
-<span id="_CPPv319charm_crd_point_dh1md"></span><span id="_CPPv219charm_crd_point_dh1md"></span><span id="charm_crd_point_dh1__unsigned-l.double"></span><span class="target" id="charm__crd_8h_1a3c695af1812dbd2be8e2a7a42dece1d0"></span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point">charm_point</a> *<code class="sig-name descname">charm_crd_point_dh1</code><span class="sig-paren">(</span>unsigned long <em>nmax</em>, double <em>r</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_crd_point_dh1md" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Prepares a <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure of the non-equiangular Driscoll-Healy grid (as defined by Driscoll and Healy, 1994) that is associated with the maximum spherical harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code> and resides on the sphere with the radius <code class="docutils literal notranslate"><span class="pre">r</span></code>. The integration weights are computed on the <em>unit</em> sphere.</p>
-<p>On success, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure. On error, <code class="docutils literal notranslate"><span class="pre">NULL</span></code> is returned.</p>
-<p>Loops are parallelized using OpenMP. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv419charm_crd_point_dh2md">
-<span id="_CPPv319charm_crd_point_dh2md"></span><span id="_CPPv219charm_crd_point_dh2md"></span><span id="charm_crd_point_dh2__unsigned-l.double"></span><span class="target" id="charm__crd_8h_1ad78de03b5329e9e4d7bf241eb61fb063"></span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point">charm_point</a> *<code class="sig-name descname">charm_crd_point_dh2</code><span class="sig-paren">(</span>unsigned long <em>nmax</em>, double <em>r</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_crd_point_dh2md" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a3c695af1812dbd2be8e2a7a42dece1d0"><span class="std std-ref"><span class="pre">charm_crd_point_dh1()</span></span></a></code> but for an equiangular modification of the Driscoll-Healy grid after Wieczorek and Meschede (2018). </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv421charm_crd_cell_malloci6size_t6size_t">
-<span id="_CPPv321charm_crd_cell_malloci6size_t6size_t"></span><span id="_CPPv221charm_crd_cell_malloci6size_t6size_t"></span><span id="charm_crd_cell_malloc__i.s.s"></span><span class="target" id="charm__crd_8h_1ad6a68a698dab897ee59fb609b1f35fb8"></span><a class="reference internal" href="#_CPPv410charm_cell" title="charm_cell">charm_cell</a> *<code class="sig-name descname">charm_crd_cell_malloc</code><span class="sig-paren">(</span>int <em>type</em>, size_t <em>nlat</em>, size_t <em>nlon</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421charm_crd_cell_malloci6size_t6size_t" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code> structure that is created for a given <code class="docutils literal notranslate"><span class="pre">type</span></code> with <code class="docutils literal notranslate"><span class="pre">nlat</span></code> minimum and maximum latitudes, <code class="docutils literal notranslate"><span class="pre">nlon</span></code> minimum and maximum longitudes and <code class="docutils literal notranslate"><span class="pre">nlat</span></code> spherical radii and. The memory of all array members of <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code> is uninitialized.</p>
-<p>Valid values of <code class="docutils literal notranslate"><span class="pre">type</span></code> are all symbolic constants <code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_*</span></code>.</p>
-<p>On success, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code> structure. On error, <code class="docutils literal notranslate"><span class="pre">NULL</span></code> is returned. Errors include memory allocation failures and incorrect input arguments (e.g., <code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">&lt;</span> <span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">nlon</span> <span class="pre">&lt;</span> <span class="pre">1</span></code> or unsupported value of <code class="docutils literal notranslate"><span class="pre">type</span></code>).</p>
+<dt class="sig sig-object cpp" id="_CPPv418charm_crd_point_glmd">
+<span id="_CPPv318charm_crd_point_glmd"></span><span id="_CPPv218charm_crd_point_glmd"></span><span id="charm_crd_point_gl__unsigned-l.double"></span><span class="target" id="charm__crd_8h_1a43011764a620cbea682983d31a5e202f"></span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_point_gl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418charm_crd_point_glmd" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Computes the Gauss-Legendre grid associated with the harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code> (Sneeuw, 1994) on the sphere with the radius <code class="docutils literal notranslate"><span class="pre">r</span></code>. The integration weights are computed on the <em>unit</em> sphere. </p>
+<p>Loops are parallelized using OpenMP.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<ul>
-<li><p>For <code class="docutils literal notranslate"><span class="pre">charm_cell</span> <span class="pre">*cell</span></code> returned by this function with <code class="docutils literal notranslate"><span class="pre">type</span></code>
-being equal to <code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_GRID*</span></code>, the coordinates of the grid
-cell on the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th latitude parallel and the <code class="docutils literal notranslate"><span class="pre">j</span></code>-th meridian have
-to be accessed as</p>
-<ul class="simple">
+<p>The Gauss-Legendre grid is non-equiangular in latitude. The
+longitudinal step is constant.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The structure returned <em>must</em> be deallocated by calling <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a74d3a0f9144c9db18230507d38cbcbee"><span class="std std-ref"><span class="pre">charm_crd_point_free()</span></span></a></code>. The usual deallocation with <code class="docutils literal notranslate"><span class="pre">free</span></code> will lead to memory leaks. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>On success, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure. On error, <code class="docutils literal notranslate"><span class="pre">NULL</span></code> is returned. In addition to the memory allocation failure, the error may be due to the exceeded maximum number of iterations to compute the latitudes or due to the overflow problem. The latter may happen in <em>single</em> precision if <code class="docutils literal notranslate"><span class="pre">nmax</span></code> is larger than <code class="docutils literal notranslate"><span class="pre">7200</span></code> or so. The overflow check is <em>not</em> performed if the output from <code class="docutils literal notranslate"><a class="reference internal" href="api-c-misc.html#charm__misc_8h_1a39d6ec21ee423b8fae3f36a4a7851663"><span class="std std-ref"><span class="pre">charm_misc_buildopt_isfinite()</span></span></a></code> is zero.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv419charm_crd_point_dh1md">
+<span id="_CPPv319charm_crd_point_dh1md"></span><span id="_CPPv219charm_crd_point_dh1md"></span><span id="charm_crd_point_dh1__unsigned-l.double"></span><span class="target" id="charm__crd_8h_1a74dd8465b52f35d4e7dca5205c5b3eb5"></span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_point_dh1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_crd_point_dh1md" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Computes the non-equiangular Driscoll-Healy grid (as defined by Driscoll and Healy, 1994) associated with the maximum spherical harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code> on the sphere with the radius <code class="docutils literal notranslate"><span class="pre">r</span></code>. The integration weights are computed on the <em>unit</em> sphere. </p>
+<p>Loops are parallelized using OpenMP.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The structure returned <em>must</em> be deallocated by calling <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a74d3a0f9144c9db18230507d38cbcbee"><span class="std std-ref"><span class="pre">charm_crd_point_free()</span></span></a></code>. The usual deallocation with <code class="docutils literal notranslate"><span class="pre">free</span></code> will lead to memory leaks. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>On success, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure. On error, <code class="docutils literal notranslate"><span class="pre">NULL</span></code> is returned.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv419charm_crd_point_dh2md">
+<span id="_CPPv319charm_crd_point_dh2md"></span><span id="_CPPv219charm_crd_point_dh2md"></span><span id="charm_crd_point_dh2__unsigned-l.double"></span><span class="target" id="charm__crd_8h_1a60c2bc69dee5a06f2be9f0a89bf04da3"></span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_point_dh2</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_crd_point_dh2md" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a74dd8465b52f35d4e7dca5205c5b3eb5"><span class="std std-ref"><span class="pre">charm_crd_point_dh1()</span></span></a></code> but for the equiangular modification of the Driscoll-Healy grid after Wieczorek and Meschede (2018). </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-allocate,-initialize-and-free-the-charm_cell-structure">Allocate, initialize and free the charm_cell structure</p>
+<p>These functions allocate, initialize and free the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code> structure, which is designed to store evaluation cells. </p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv421charm_crd_cell_malloci6size_t6size_t">
+<span id="_CPPv321charm_crd_cell_malloci6size_t6size_t"></span><span id="_CPPv221charm_crd_cell_malloci6size_t6size_t"></span><span id="charm_crd_cell_malloc__i.s.s"></span><span class="target" id="charm__crd_8h_1aa6b35f3c72196d66a6ad6738457fe300"></span><a class="reference internal" href="#_CPPv410charm_cell" title="charm_cell"><span class="n"><span class="pre">charm_cell</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_cell_malloc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlat</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlon</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421charm_crd_cell_malloci6size_t6size_t" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Allocates evaluation cells of a given <code class="docutils literal notranslate"><span class="pre">type</span></code> with <code class="docutils literal notranslate"><span class="pre">nlat</span></code> minimum and maximum latitudes, <code class="docutils literal notranslate"><span class="pre">nlon</span></code> minimum and maximum longitudes and <code class="docutils literal notranslate"><span class="pre">nlat</span></code> spherical radii. The memory of all array elements is uninitialized, so their values are undefined. </p>
+<p>Valid values of <code class="docutils literal notranslate"><span class="pre">type</span></code> are constants <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba66aff589c459da043f1c2cf320c49768"><span class="std std-ref"><span class="pre">CHARM_CRD_CELL_GRID</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bafb6b3c1a3904ae4db02d4ab932893ec2"><span class="std std-ref"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></span></a></code>.</p>
+<p><ul>
+<li><p>For <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a> <span class="pre">*cell</span></code> returned by this function with <code class="docutils literal notranslate"><span class="pre">type</span></code> being <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba66aff589c459da043f1c2cf320c49768"><span class="std std-ref"><span class="pre">CHARM_CRD_CELL_GRID</span></span></a></code>, the coordinates of the grid cell on the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th latitude parallel and the <code class="docutils literal notranslate"><span class="pre">j</span></code>-th meridian have to be accessed as<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;latmin[i]</span></code> for the minimum cell latitude,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;latmax[i]</span></code> for the maximum cell latitude,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;lonmin[j]</span></code> for the minimum cell longitude,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;lonmax[j]</span></code> for the maximum cell longitude,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;r[i]</span></code> for the spherical radii</p></li>
 </ul>
+</p>
 <p>with <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">nlat</span> <span class="pre">-</span> <span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">nlon</span> <span class="pre">-</span> <span class="pre">1</span></code>.</p>
 </li>
-<li><p>For <code class="docutils literal notranslate"><span class="pre">type</span></code> set to <code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></code>, the coordinates of
-the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th cell have to be accessed as</p>
-<ul class="simple">
+<li><p>For <code class="docutils literal notranslate"><span class="pre">type</span></code> set to <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bafb6b3c1a3904ae4db02d4ab932893ec2"><span class="std std-ref"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></span></a></code>, the coordinates of the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th cell have to be accessed as<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;latmin[i]</span></code> for the minimum cell latitude,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;latmax[i]</span></code> for the maximum cell latitude,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;lonmin[i]</span></code> for the minimum cell longitude,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;lonmax[i]</span></code> for the maximum cell longitude,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;r[i]</span></code> for the spherical radii</p></li>
 </ul>
+</p>
 <p>with <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">nlat</span> <span class="pre">-</span> <span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">==</span> <span class="pre">nlon</span></code>.</p>
 </li>
 </ul>
-</div>
+</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The structure returned <em>must</em> be deallocated by calling <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a321c2e629b86feebcb3210dbd881610f"><span class="std std-ref"><span class="pre">charm_crd_cell_free()</span></span></a></code>. The usual deallocation with <code class="docutils literal notranslate"><span class="pre">free</span></code> will lead to memory leaks. </p>
+<p>The structure returned <em>must</em> be deallocated by calling <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a321c2e629b86feebcb3210dbd881610f"><span class="std std-ref"><span class="pre">charm_crd_cell_free()</span></span></a></code>. The usual deallocation with <code class="docutils literal notranslate"><span class="pre">free</span></code> will lead to memory leaks.</p>
 </div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>On success, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code> structure. On error, <code class="docutils literal notranslate"><span class="pre">NULL</span></code> is returned. Errors include memory allocation failures and incorrect input arguments (e.g., <code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">&lt;</span> <span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">nlon</span> <span class="pre">&lt;</span> <span class="pre">1</span></code> or unsupported value of <code class="docutils literal notranslate"><span class="pre">type</span></code>). </p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv421charm_crd_cell_calloci6size_t6size_t">
-<span id="_CPPv321charm_crd_cell_calloci6size_t6size_t"></span><span id="_CPPv221charm_crd_cell_calloci6size_t6size_t"></span><span id="charm_crd_cell_calloc__i.s.s"></span><span class="target" id="charm__crd_8h_1a50485a79a4ad3979a203fff585d1b7f6"></span><a class="reference internal" href="#_CPPv410charm_cell" title="charm_cell">charm_cell</a> *<code class="sig-name descname">charm_crd_cell_calloc</code><span class="sig-paren">(</span>int <em>type</em>, size_t <em>nlat</em>, size_t <em>nlon</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421charm_crd_cell_calloci6size_t6size_t" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1ad6a68a698dab897ee59fb609b1f35fb8"><span class="std std-ref"><span class="pre">charm_crd_cell_malloc()</span></span></a></code> but the memory of all arrays is initialized to zero. </p>
+<dt class="sig sig-object cpp" id="_CPPv421charm_crd_cell_calloci6size_t6size_t">
+<span id="_CPPv321charm_crd_cell_calloci6size_t6size_t"></span><span id="_CPPv221charm_crd_cell_calloci6size_t6size_t"></span><span id="charm_crd_cell_calloc__i.s.s"></span><span class="target" id="charm__crd_8h_1ab4d8da51ed28735494116bc15d02e5bd"></span><a class="reference internal" href="#_CPPv410charm_cell" title="charm_cell"><span class="n"><span class="pre">charm_cell</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_cell_calloc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlat</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlon</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421charm_crd_cell_calloci6size_t6size_t" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1aa6b35f3c72196d66a6ad6738457fe300"><span class="std std-ref"><span class="pre">charm_crd_cell_malloc()</span></span></a></code> but the memory of all array elements is initialized to zero. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv419charm_crd_cell_initi6size_t6size_tPdPdPdPdPd">
-<span id="_CPPv319charm_crd_cell_initi6size_t6size_tPdPdPdPdPd"></span><span id="_CPPv219charm_crd_cell_initi6size_t6size_tPdPdPdPdPd"></span><span id="charm_crd_cell_init__i.s.s.doubleP.doubleP.doubleP.doubleP.doubleP"></span><span class="target" id="charm__crd_8h_1a8ad16b0db48fe3d654bcc8729e28c188"></span><a class="reference internal" href="#_CPPv410charm_cell" title="charm_cell">charm_cell</a> *<code class="sig-name descname">charm_crd_cell_init</code><span class="sig-paren">(</span>int <em>type</em>, size_t <em>nlat</em>, size_t <em>nlon</em>, double *<em>latmin</em>, double *<em>latmax</em>, double *<em>lonmin</em>, double *<em>lonmax</em>, double *<em>r</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_crd_cell_initi6size_t6size_tPdPdPdPdPd" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code> structure that is created for a given <code class="docutils literal notranslate"><span class="pre">type</span></code> from user-defined data (shallow copy). Accepted values of <code class="docutils literal notranslate"><span class="pre">type</span></code> are <code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_*</span></code>.</p>
+<dt class="sig sig-object cpp" id="_CPPv419charm_crd_cell_initi6size_t6size_tPdPdPdPdPd">
+<span id="_CPPv319charm_crd_cell_initi6size_t6size_tPdPdPdPdPd"></span><span id="_CPPv219charm_crd_cell_initi6size_t6size_tPdPdPdPdPd"></span><span id="charm_crd_cell_init__i.s.s.doubleP.doubleP.doubleP.doubleP.doubleP"></span><span class="target" id="charm__crd_8h_1a34dadebfdbdc3f7697bbab00b8c52885"></span><a class="reference internal" href="#_CPPv410charm_cell" title="charm_cell"><span class="n"><span class="pre">charm_cell</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_cell_init</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlat</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlon</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">latmin</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">latmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">lonmin</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">lonmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">r</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_crd_cell_initi6size_t6size_tPdPdPdPdPd" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>For a given <code class="docutils literal notranslate"><span class="pre">type</span></code>, takes <code class="docutils literal notranslate"><span class="pre">nlat</span></code> minimum and maximum spherical latitudes from the arrays pointed to by <code class="docutils literal notranslate"><span class="pre">latmin</span></code> and <code class="docutils literal notranslate"><span class="pre">latmax</span></code>, <code class="docutils literal notranslate"><span class="pre">nlon</span></code> minimum and maximum spherical longitudes from <code class="docutils literal notranslate"><span class="pre">lonmin</span></code> and <code class="docutils literal notranslate"><span class="pre">lonmax</span></code> and <code class="docutils literal notranslate"><span class="pre">nlat</span></code> spherical radii from <code class="docutils literal notranslate"><span class="pre">r</span></code>, respectively (shallow copy). </p>
+<p>Accepted values of <code class="docutils literal notranslate"><span class="pre">type</span></code> are <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba66aff589c459da043f1c2cf320c49768"><span class="std std-ref"><span class="pre">CHARM_CRD_CELL_GRID</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bafb6b3c1a3904ae4db02d4ab932893ec2"><span class="std std-ref"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></span></a></code>.</p>
 <p><ul class="simple">
-<li><p>If <code class="docutils literal notranslate"><span class="pre">type</span> <span class="pre">==</span> <span class="pre">CHARM_CRD_CELL_SCATTERED</span></code>,<ul>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">type</span></code> is <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bafb6b3c1a3904ae4db02d4ab932893ec2"><span class="std std-ref"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></span></a></code>,<ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">nlat</span></code> must be equal to <code class="docutils literal notranslate"><span class="pre">nlon</span></code> and</p></li>
 <li><p>each of <code class="docutils literal notranslate"><span class="pre">latmin</span></code>, <code class="docutils literal notranslate"><span class="pre">latmax</span></code>, <code class="docutils literal notranslate"><span class="pre">lonmin</span></code>, <code class="docutils literal notranslate"><span class="pre">lonmax</span></code> and <code class="docutils literal notranslate"><span class="pre">r</span></code> must have access to <code class="docutils literal notranslate"><span class="pre">nlat</span></code> elements.</p></li>
 </ul>
 </p></li>
-<li><p>If <code class="docutils literal notranslate"><span class="pre">type</span> <span class="pre">==</span> <span class="pre">CHARM_CRD_CELL_GRID</span></code>,<ul>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">type</span></code> is <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba66aff589c459da043f1c2cf320c49768"><span class="std std-ref"><span class="pre">CHARM_CRD_CELL_GRID</span></span></a></code>,<ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">latmin</span></code> and <code class="docutils literal notranslate"><span class="pre">latmax</span></code> must each have access to <code class="docutils literal notranslate"><span class="pre">nlat</span></code> elements,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">lonmin</span></code> and <code class="docutils literal notranslate"><span class="pre">lonmax</span></code> must each have access to <code class="docutils literal notranslate"><span class="pre">nlon</span></code> elements,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">r</span></code> must have access to <code class="docutils literal notranslate"><span class="pre">nlat</span></code> elements.</p></li>
@@ -442,240 +610,333 @@ the <code class="docutils literal notranslate"><span class="pre">i</span></code>
 </p></li>
 </ul>
 </p>
-<p>On success, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code> structure. On error, <code class="docutils literal notranslate"><span class="pre">NULL</span></code> is returned. Errors include memory allocation failures and incorrect input arguments (e.g., <code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">&lt;</span> <span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">nlon</span> <span class="pre">&lt;</span> <span class="pre">1</span></code> or unsupported value of <code class="docutils literal notranslate"><span class="pre">type</span></code>).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>See <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1ad6a68a698dab897ee59fb609b1f35fb8"><span class="std std-ref"><span class="pre">charm_crd_cell_malloc()</span></span></a></code> to find out how to access the coordinates stored in the returned <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code> structure.</p>
+<p>See <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1aa6b35f3c72196d66a6ad6738457fe300"><span class="std std-ref"><span class="pre">charm_crd_cell_malloc()</span></span></a></code> to find out how to access the coordinates stored in the returned <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code> structure.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>See <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#charm__shc_8h_1a0c8915c03242005b436f30a06ab091ce"><span class="std std-ref"><span class="pre">charm_shc_init()</span></span></a></code> for the rationale behind the shallow copies of input arrays <code class="docutils literal notranslate"><span class="pre">latmin</span></code>, <code class="docutils literal notranslate"><span class="pre">latmax</span></code>, <code class="docutils literal notranslate"><span class="pre">lonmin</span></code>, <code class="docutils literal notranslate"><span class="pre">lonmax</span></code> and <code class="docutils literal notranslate"><span class="pre">r</span></code>. The memory of these arrays must be treated in the same fashion as shown therein with the <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> arrays.</p>
+<p>See <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#charm__shc_8h_1a634b6af02cca801de4e51c2248d72b20"><span class="std std-ref"><span class="pre">charm_shc_init()</span></span></a></code> for the rationale behind the shallow copies of input arrays <code class="docutils literal notranslate"><span class="pre">latmin</span></code>, <code class="docutils literal notranslate"><span class="pre">latmax</span></code>, <code class="docutils literal notranslate"><span class="pre">lonmin</span></code>, <code class="docutils literal notranslate"><span class="pre">lonmax</span></code> and <code class="docutils literal notranslate"><span class="pre">r</span></code>. The memory of these arrays must be treated in the same fashion as shown therein with the <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> arrays.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code> structure created by this function <em>must</em> be deallocated using <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a321c2e629b86feebcb3210dbd881610f"><span class="std std-ref"><span class="pre">charm_crd_cell_free()</span></span></a></code>. The usual deallocation with <code class="docutils literal notranslate"><span class="pre">free</span></code> will lead to memory leaks. </p>
+<p>The structure created by this function <em>must</em> be deallocated using <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a321c2e629b86feebcb3210dbd881610f"><span class="std std-ref"><span class="pre">charm_crd_cell_free()</span></span></a></code>. The usual deallocation with <code class="docutils literal notranslate"><span class="pre">free</span></code> will lead to memory leaks.</p>
 </div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>On success, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code> structure. On error, <code class="docutils literal notranslate"><span class="pre">NULL</span></code> is returned. Errors include memory allocation failures and incorrect input arguments (e.g., <code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">&lt;</span> <span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">nlon</span> <span class="pre">&lt;</span> <span class="pre">1</span></code> or unsupported value of <code class="docutils literal notranslate"><span class="pre">type</span></code>). </p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv419charm_crd_cell_freeP10charm_cell">
-<span id="_CPPv319charm_crd_cell_freeP10charm_cell"></span><span id="_CPPv219charm_crd_cell_freeP10charm_cell"></span><span id="charm_crd_cell_free__charm_cellP"></span><span class="target" id="charm__crd_8h_1a321c2e629b86feebcb3210dbd881610f"></span>void <code class="sig-name descname">charm_crd_cell_free</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv410charm_cell" title="charm_cell">charm_cell</a> *<em>cell</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_crd_cell_freeP10charm_cell" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Frees the memory associated with <code class="docutils literal notranslate"><span class="pre">cell</span></code>. No operation is performed if <code class="docutils literal notranslate"><span class="pre">cell</span></code> is <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+<dt class="sig sig-object cpp" id="_CPPv419charm_crd_cell_freeP10charm_cell">
+<span id="_CPPv319charm_crd_cell_freeP10charm_cell"></span><span id="_CPPv219charm_crd_cell_freeP10charm_cell"></span><span id="charm_crd_cell_free__charm_cellP"></span><span class="target" id="charm__crd_8h_1a321c2e629b86feebcb3210dbd881610f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_cell_free</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv410charm_cell" title="charm_cell"><span class="n"><span class="pre">charm_cell</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">cell</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_crd_cell_freeP10charm_cell" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Frees the memory associated with <code class="docutils literal notranslate"><span class="pre">cell</span></code>. No operation is performed if <code class="docutils literal notranslate"><span class="pre">cell</span></code> is <code class="docutils literal notranslate"><span class="pre">NULL</span></code>. </p>
 <p>If <code class="docutils literal notranslate"><span class="pre">cell-&gt;owner</span></code> is <code class="docutils literal notranslate"><span class="pre">1</span></code>, the function releases all the memory that is associated with <code class="docutils literal notranslate"><span class="pre">cell</span></code>, including that of its array members. If <code class="docutils literal notranslate"><span class="pre">cell-&gt;owner</span></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code>, the arrays are not released from the memory, because they were not allocated by CHarm. </p>
 </dd></dl>
 
 </div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-enums">Enums</p>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4Ut1_0">
+<span id="_CPPv3Ut1_0"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55b"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">[anonymous]</span></span></span><a class="headerlink" href="#_CPPv4Ut1_0" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Defines supported values of <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1aa35333657beaf178363c136623b0473d"><span class="std std-ref"><span class="pre">charm_point.type</span></span></a></code> to <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba6b99f8561350326841b455125b2820f9"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_SCATTERED</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bae65b0ee9dba031d62ff7758344ace23c"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bab4d94ce6d422441b136e7a4c1004fe60"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba7b6b9df94846ef66a06576f859b33490"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bac257fe0b50a555185faec82d04a70ee6"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></span></a></code>. For <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a6f1a65bcfb966a604f080f4a1db87fe9"><span class="std std-ref"><span class="pre">charm_cell.type</span></span></a></code>, valid constants are <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bafb6b3c1a3904ae4db02d4ab932893ec2"><span class="std std-ref"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba66aff589c459da043f1c2cf320c49768"><span class="std std-ref"><span class="pre">CHARM_CRD_CELL_GRID</span></span></a></code>. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4NUt1_019CHARM_CRD_CELL_GRIDE">
+<span id="_CPPv3NUt1_019CHARM_CRD_CELL_GRIDE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba66aff589c459da043f1c2cf320c49768"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_CELL_GRID</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">2</span></span><a class="headerlink" href="#_CPPv4NUt1_019CHARM_CRD_CELL_GRIDE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Custom grid of cells. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4NUt1_024CHARM_CRD_CELL_SCATTEREDE">
+<span id="_CPPv3NUt1_024CHARM_CRD_CELL_SCATTEREDE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bafb6b3c1a3904ae4db02d4ab932893ec2"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></span></span><a class="headerlink" href="#_CPPv4NUt1_024CHARM_CRD_CELL_SCATTEREDE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Scattered cells. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4NUt1_025CHARM_CRD_POINT_SCATTEREDE">
+<span id="_CPPv3NUt1_025CHARM_CRD_POINT_SCATTEREDE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba6b99f8561350326841b455125b2820f9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_POINT_SCATTERED</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><a class="headerlink" href="#_CPPv4NUt1_025CHARM_CRD_POINT_SCATTEREDE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Scattered points. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4NUt1_020CHARM_CRD_POINT_GRIDE">
+<span id="_CPPv3NUt1_020CHARM_CRD_POINT_GRIDE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bae65b0ee9dba031d62ff7758344ace23c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_POINT_GRID</span></span></span><a class="headerlink" href="#_CPPv4NUt1_020CHARM_CRD_POINT_GRIDE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Custom point grid. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4NUt1_023CHARM_CRD_POINT_GRID_GLE">
+<span id="_CPPv3NUt1_023CHARM_CRD_POINT_GRID_GLE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bab4d94ce6d422441b136e7a4c1004fe60"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></span></span><a class="headerlink" href="#_CPPv4NUt1_023CHARM_CRD_POINT_GRID_GLE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Gauss-Legendre point grid. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH1E">
+<span id="_CPPv3NUt1_024CHARM_CRD_POINT_GRID_DH1E"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba7b6b9df94846ef66a06576f859b33490"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></span></span><a class="headerlink" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH1E" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Driscoll-Healy point grid as defined by Driscoll and Healy (1994) (non-equiangular). </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH2E">
+<span id="_CPPv3NUt1_024CHARM_CRD_POINT_GRID_DH2E"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bac257fe0b50a555185faec82d04a70ee6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></span></span><a class="headerlink" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH2E" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>The equiangular modification of the Driscoll-Healy point grid after Wieczorek and Meschede (2018). </p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <dl class="cpp struct">
-<dt id="_CPPv411charm_point">
-<span id="_CPPv311charm_point"></span><span id="_CPPv211charm_point"></span><span id="charm_point"></span><span class="target" id="structcharm__point"></span><em class="property">struct </em><code class="sig-name descname">charm_point</code><a class="headerlink" href="#_CPPv411charm_point" title="Permalink to this definition">¶</a><br /></dt>
-<dd><em>#include &lt;charm_crd.h&gt;</em><p>Structure to store evaluation points. </p>
+<dt class="sig sig-object cpp" id="_CPPv411charm_point">
+<span id="_CPPv311charm_point"></span><span id="_CPPv211charm_point"></span><span id="charm_point"></span><span class="target" id="structcharm__point"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_point</span></span></span><a class="headerlink" href="#_CPPv411charm_point" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Structure to store evaluation points. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
 <dl class="cpp var">
-<dt id="_CPPv4N11charm_point4typeE">
-<span id="_CPPv3N11charm_point4typeE"></span><span id="_CPPv2N11charm_point4typeE"></span><span id="charm_point::type__i"></span><span class="target" id="structcharm__point_1aa35333657beaf178363c136623b0473d"></span>int <code class="sig-name descname">type</code><a class="headerlink" href="#_CPPv4N11charm_point4typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N11charm_point4typeE">
+<span id="_CPPv3N11charm_point4typeE"></span><span id="_CPPv2N11charm_point4typeE"></span><span id="charm_point::type__i"></span><span class="target" id="structcharm__point_1aa35333657beaf178363c136623b0473d"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">type</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point4typeE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Defines whether the points are organized as a grid or are scattered.</p>
-<p><code class="docutils literal notranslate"><span class="pre">type</span></code> takes the following symbolic constants:</p>
+<p><code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1aa35333657beaf178363c136623b0473d"><span class="std std-ref"><span class="pre">charm_point.type</span></span></a></code> takes the following constants:</p>
 <p><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_SCATTERED</span></code> for user-defined scattered points,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID</span></code> for a user-defined grid,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></code> for the Gauss-Legendre grid (Sneeuw, 1994) with <code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">+</span> <span class="pre">1</span></code> latitudes and <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">nmax</span> <span class="pre">+</span> <span class="pre">2</span></code> longitudes (<code class="docutils literal notranslate"><span class="pre">nmax</span></code> is maximum harmonic degree),</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></code> for the non-equiangular Driscoll-Healy grid as defined by Driscoll and Healy (1994) with <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">nmax</span> <span class="pre">+</span> <span class="pre">2</span></code> latitudes and <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">nmax</span> <span class="pre">+</span> <span class="pre">2</span></code> longitudes, and</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></code> for an equiangular modification of the Driscoll-Healy grid (Wieczorek and Meschede, 2018) with <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">nmax</span> <span class="pre">+</span> <span class="pre">2</span></code> latitudes and <code class="docutils literal notranslate"><span class="pre">4</span> <span class="pre">*</span> <span class="pre">nmax</span> <span class="pre">+</span> <span class="pre">4</span></code> longitudes. </p></li>
+<li><p><code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba6b99f8561350326841b455125b2820f9"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_SCATTERED</span></span></a></code> for user-defined scattered points,</p></li>
+<li><p><code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bae65b0ee9dba031d62ff7758344ace23c"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID</span></span></a></code> for a user-defined grid,</p></li>
+<li><p><code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bab4d94ce6d422441b136e7a4c1004fe60"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></span></a></code> for the Gauss-Legendre grid (Sneeuw, 1994) with <code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">+</span> <span class="pre">1</span></code> latitudes and <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">nmax</span> <span class="pre">+</span> <span class="pre">2</span></code> longitudes (<code class="docutils literal notranslate"><span class="pre">nmax</span></code> is maximum harmonic degree),</p></li>
+<li><p><code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba7b6b9df94846ef66a06576f859b33490"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></span></a></code> for the non-equiangular Driscoll-Healy grid as defined by Driscoll and Healy (1994) with <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">nmax</span> <span class="pre">+</span> <span class="pre">2</span></code> latitudes and <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">nmax</span> <span class="pre">+</span> <span class="pre">2</span></code> longitudes, and</p></li>
+<li><p><code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bac257fe0b50a555185faec82d04a70ee6"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></span></a></code> for an equiangular modification of the Driscoll-Healy grid (Wieczorek and Meschede, 2018) with <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">nmax</span> <span class="pre">+</span> <span class="pre">2</span></code> latitudes and <code class="docutils literal notranslate"><span class="pre">4</span> <span class="pre">*</span> <span class="pre">nmax</span> <span class="pre">+</span> <span class="pre">4</span></code> longitudes. </p></li>
 </ul>
 </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N11charm_point4nlatE">
-<span id="_CPPv3N11charm_point4nlatE"></span><span id="_CPPv2N11charm_point4nlatE"></span><span id="charm_point::nlat__s"></span><span class="target" id="structcharm__point_1a0e1e42423c1f91fc48c64fa78778f161"></span>size_t <code class="sig-name descname">nlat</code><a class="headerlink" href="#_CPPv4N11charm_point4nlatE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N11charm_point4nlatE">
+<span id="_CPPv3N11charm_point4nlatE"></span><span id="_CPPv2N11charm_point4nlatE"></span><span id="charm_point::nlat__s"></span><span class="target" id="structcharm__point_1a0e1e42423c1f91fc48c64fa78778f161"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nlat</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point4nlatE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Number of latitudes.</p>
 <p><ul class="simple">
-<li><p>For <strong>scattered</strong> points (<code class="docutils literal notranslate"><span class="pre">type</span> <span class="pre">==</span> <span class="pre">CHARM_CRD_POINT_SCATTERED</span></code>), <code class="docutils literal notranslate"><span class="pre">nlat</span></code> represents the total number of points in the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure.</p></li>
-<li><p>For <strong>grids</strong> (<code class="docutils literal notranslate"><span class="pre">type</span> <span class="pre">==</span> <span class="pre">CHARM_CRD_POINT_GRID*</span></code>), <code class="docutils literal notranslate"><span class="pre">nlat</span></code> stands for the numbers of points in the latitudinal direction of the grid. </p></li>
+<li><p>For <strong>scattered</strong> points (<code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1aa35333657beaf178363c136623b0473d"><span class="std std-ref"><span class="pre">charm_point.type</span></span></a></code> is <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba6b99f8561350326841b455125b2820f9"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_SCATTERED</span></span></a></code>), <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a0e1e42423c1f91fc48c64fa78778f161"><span class="std std-ref"><span class="pre">charm_point.nlat</span></span></a></code> represents the total number of points in the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure.</p></li>
+<li><p>For <strong>grids</strong> (<code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1aa35333657beaf178363c136623b0473d"><span class="std std-ref"><span class="pre">charm_point.type</span></span></a></code> is <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bae65b0ee9dba031d62ff7758344ace23c"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bab4d94ce6d422441b136e7a4c1004fe60"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba7b6b9df94846ef66a06576f859b33490"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></span></a></code> or <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bac257fe0b50a555185faec82d04a70ee6"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></span></a></code>), <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a0e1e42423c1f91fc48c64fa78778f161"><span class="std std-ref"><span class="pre">charm_point.nlat</span></span></a></code> stands for the numbers of points in the latitudinal direction of the grid. </p></li>
 </ul>
 </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N11charm_point4nlonE">
-<span id="_CPPv3N11charm_point4nlonE"></span><span id="_CPPv2N11charm_point4nlonE"></span><span id="charm_point::nlon__s"></span><span class="target" id="structcharm__point_1a02380017e214d456417521491507fa08"></span>size_t <code class="sig-name descname">nlon</code><a class="headerlink" href="#_CPPv4N11charm_point4nlonE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N11charm_point4nlonE">
+<span id="_CPPv3N11charm_point4nlonE"></span><span id="_CPPv2N11charm_point4nlonE"></span><span id="charm_point::nlon__s"></span><span class="target" id="structcharm__point_1a02380017e214d456417521491507fa08"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nlon</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point4nlonE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Number of longitudes.</p>
 <p><ul class="simple">
-<li><p>For <strong>scattered</strong> points, <code class="docutils literal notranslate"><span class="pre">nlon</span></code> represents the total number of points in the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure. <code class="docutils literal notranslate"><span class="pre">nlon</span></code> must be equal to <code class="docutils literal notranslate"><span class="pre">nlat</span></code>. The total number of points is <code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">==</span> <span class="pre">nlon</span></code>.</p></li>
-<li><p>For <strong>grids</strong>, <code class="docutils literal notranslate"><span class="pre">nlon</span></code> stands for the numbers of points in the longitudinal direction of the grid. <code class="docutils literal notranslate"><span class="pre">nlat</span></code> and <code class="docutils literal notranslate"><span class="pre">nlon</span></code> may be different. The total number of grid points is <code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">*</span> <span class="pre">nlon</span></code>. </p></li>
+<li><p>For <strong>scattered</strong> points, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a02380017e214d456417521491507fa08"><span class="std std-ref"><span class="pre">charm_point.nlon</span></span></a></code> represents the total number of points in the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure. <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a02380017e214d456417521491507fa08"><span class="std std-ref"><span class="pre">charm_point.nlon</span></span></a></code> must be equal to <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a0e1e42423c1f91fc48c64fa78778f161"><span class="std std-ref"><span class="pre">charm_point.nlat</span></span></a></code>. The total number of points is <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a0e1e42423c1f91fc48c64fa78778f161"><span class="std std-ref"><span class="pre">charm_point.nlat</span></span></a> <span class="pre">==</span> <a class="reference internal" href="#structcharm__point_1a02380017e214d456417521491507fa08"><span class="std std-ref"><span class="pre">charm_point.nlon</span></span></a></code>.</p></li>
+<li><p>For <strong>grids</strong>, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a02380017e214d456417521491507fa08"><span class="std std-ref"><span class="pre">charm_point.nlon</span></span></a></code> stands for the numbers of points in the longitudinal direction of the grid. <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a0e1e42423c1f91fc48c64fa78778f161"><span class="std std-ref"><span class="pre">charm_point.nlat</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a02380017e214d456417521491507fa08"><span class="std std-ref"><span class="pre">charm_point.nlon</span></span></a></code> may be different. The total number of grid points is <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a0e1e42423c1f91fc48c64fa78778f161"><span class="std std-ref"><span class="pre">charm_point.nlat</span></span></a> <span class="pre">*</span> <a class="reference internal" href="#structcharm__point_1a02380017e214d456417521491507fa08"><span class="std std-ref"><span class="pre">charm_point.nlon</span></span></a></code>. </p></li>
 </ul>
 </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N11charm_point3latE">
-<span id="_CPPv3N11charm_point3latE"></span><span id="_CPPv2N11charm_point3latE"></span><span id="charm_point::lat__doubleP"></span><span class="target" id="structcharm__point_1a1bca253be877755c4cfa49557668a435"></span>double *<code class="sig-name descname">lat</code><a class="headerlink" href="#_CPPv4N11charm_point3latE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Pointer to an array of latitudes in radians. <code class="docutils literal notranslate"><span class="pre">nlat</span></code> array elements are associated with <code class="docutils literal notranslate"><span class="pre">lat</span></code>. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N11charm_point3latE">
+<span id="_CPPv3N11charm_point3latE"></span><span id="_CPPv2N11charm_point3latE"></span><span id="charm_point::lat__doubleP"></span><span class="target" id="structcharm__point_1a1bca253be877755c4cfa49557668a435"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">lat</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point3latE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Pointer to an array of latitudes in radians. <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a0e1e42423c1f91fc48c64fa78778f161"><span class="std std-ref"><span class="pre">charm_point.nlat</span></span></a></code> array elements are associated with <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a1bca253be877755c4cfa49557668a435"><span class="std std-ref"><span class="pre">charm_point.lat</span></span></a></code>. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N11charm_point3lonE">
-<span id="_CPPv3N11charm_point3lonE"></span><span id="_CPPv2N11charm_point3lonE"></span><span id="charm_point::lon__doubleP"></span><span class="target" id="structcharm__point_1a93f0426f7005caa8ecebf01ff910c332"></span>double *<code class="sig-name descname">lon</code><a class="headerlink" href="#_CPPv4N11charm_point3lonE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Pointer to an array of longitudes in radians. <code class="docutils literal notranslate"><span class="pre">nlon</span></code> array elements are associated with <code class="docutils literal notranslate"><span class="pre">lon</span></code>. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N11charm_point3lonE">
+<span id="_CPPv3N11charm_point3lonE"></span><span id="_CPPv2N11charm_point3lonE"></span><span id="charm_point::lon__doubleP"></span><span class="target" id="structcharm__point_1a93f0426f7005caa8ecebf01ff910c332"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">lon</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point3lonE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Pointer to an array of longitudes in radians. <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a02380017e214d456417521491507fa08"><span class="std std-ref"><span class="pre">charm_point.nlon</span></span></a></code> array elements are associated with <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a93f0426f7005caa8ecebf01ff910c332"><span class="std std-ref"><span class="pre">charm_point.lon</span></span></a></code>. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N11charm_point1rE">
-<span id="_CPPv3N11charm_point1rE"></span><span id="_CPPv2N11charm_point1rE"></span><span id="charm_point::r__doubleP"></span><span class="target" id="structcharm__point_1aa3f23516d42d1f896af66f167d410fc0"></span>double *<code class="sig-name descname">r</code><a class="headerlink" href="#_CPPv4N11charm_point1rE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Pointer to an array of spherical radii in metres. <code class="docutils literal notranslate"><span class="pre">nlat</span></code> array elements are associated with <code class="docutils literal notranslate"><span class="pre">r</span></code>. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N11charm_point1rE">
+<span id="_CPPv3N11charm_point1rE"></span><span id="_CPPv2N11charm_point1rE"></span><span id="charm_point::r__doubleP"></span><span class="target" id="structcharm__point_1aa3f23516d42d1f896af66f167d410fc0"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">r</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point1rE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Pointer to an array of spherical radii in metres. <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a0e1e42423c1f91fc48c64fa78778f161"><span class="std std-ref"><span class="pre">charm_point.nlat</span></span></a></code> array elements are associated with <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1aa3f23516d42d1f896af66f167d410fc0"><span class="std std-ref"><span class="pre">charm_point.r</span></span></a></code>. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N11charm_point1wE">
-<span id="_CPPv3N11charm_point1wE"></span><span id="_CPPv2N11charm_point1wE"></span><span id="charm_point::w__doubleP"></span><span class="target" id="structcharm__point_1adb584de4defe51ad089a2f770e0e15f8"></span>double *<code class="sig-name descname">w</code><a class="headerlink" href="#_CPPv4N11charm_point1wE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Pointer to an array of integration weights on the <em>unit</em> sphere. The pointer is used (i.e. is not <code class="docutils literal notranslate"><span class="pre">NULL</span></code>) only for <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structures returned by the <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a2f25d2e7fcfbd5950b3b8c41de1330c9"><span class="std std-ref"><span class="pre">charm_crd_point_gl()</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a3c695af1812dbd2be8e2a7a42dece1d0"><span class="std std-ref"><span class="pre">charm_crd_point_dh1()</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1ad78de03b5329e9e4d7bf241eb61fb063"><span class="std std-ref"><span class="pre">charm_crd_point_dh2()</span></span></a></code> functions, that is, if</p>
-<p><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">type</span> <span class="pre">==</span> <span class="pre">CHARM_CRD_POINT_GRID_GL</span></code>,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">type</span> <span class="pre">==</span> <span class="pre">CHARM_CRD_POINT_GRID_DH1</span></code>, or</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">type</span> <span class="pre">==</span> <span class="pre">CHARM_CRD_POINT_GRID_DH2</span></code>.</p></li>
-</ul>
-</p>
-<p><code class="docutils literal notranslate"><span class="pre">nlat</span></code> array elements are associated with <code class="docutils literal notranslate"><span class="pre">w</span></code>.</p>
-<p>For all other values of <code class="docutils literal notranslate"><span class="pre">type</span></code>, <code class="docutils literal notranslate"><span class="pre">w</span></code> is <code class="docutils literal notranslate"><span class="pre">NULL</span></code> and is never used. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N11charm_point1wE">
+<span id="_CPPv3N11charm_point1wE"></span><span id="_CPPv2N11charm_point1wE"></span><span id="charm_point::w__doubleP"></span><span class="target" id="structcharm__point_1adb584de4defe51ad089a2f770e0e15f8"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">w</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point1wE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Pointer to an array of integration weights on the <em>unit</em> sphere. The pointer is used (i.e. is not <code class="docutils literal notranslate"><span class="pre">NULL</span></code>) only for <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structures returned by the <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a43011764a620cbea682983d31a5e202f"><span class="std std-ref"><span class="pre">charm_crd_point_gl()</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a74dd8465b52f35d4e7dca5205c5b3eb5"><span class="std std-ref"><span class="pre">charm_crd_point_dh1()</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a60c2bc69dee5a06f2be9f0a89bf04da3"><span class="std std-ref"><span class="pre">charm_crd_point_dh2()</span></span></a></code> functions, that is, if <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1aa35333657beaf178363c136623b0473d"><span class="std std-ref"><span class="pre">charm_point.type</span></span></a></code> is <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bab4d94ce6d422441b136e7a4c1004fe60"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba7b6b9df94846ef66a06576f859b33490"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></span></a></code>, or <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bac257fe0b50a555185faec82d04a70ee6"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></span></a></code>.</p>
+<p><code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a0e1e42423c1f91fc48c64fa78778f161"><span class="std std-ref"><span class="pre">charm_point.nlat</span></span></a></code> array elements are associated with <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1adb584de4defe51ad089a2f770e0e15f8"><span class="std std-ref"><span class="pre">charm_point.w</span></span></a></code>.</p>
+<p>For all other values of <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1aa35333657beaf178363c136623b0473d"><span class="std std-ref"><span class="pre">charm_point.type</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1adb584de4defe51ad089a2f770e0e15f8"><span class="std std-ref"><span class="pre">charm_point.w</span></span></a></code> is <code class="docutils literal notranslate"><span class="pre">NULL</span></code> and is never used. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N11charm_point5ownerE">
-<span id="_CPPv3N11charm_point5ownerE"></span><span id="_CPPv2N11charm_point5ownerE"></span><span id="charm_point::owner___Bool"></span><span class="target" id="structcharm__point_1ac0cf181aca43ea91487562628e642cb4"></span>_Bool <code class="sig-name descname">owner</code><a class="headerlink" href="#_CPPv4N11charm_point5ownerE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>If <code class="docutils literal notranslate"><span class="pre">1</span></code>, the memory associated with <code class="docutils literal notranslate"><span class="pre">lat</span></code>, <code class="docutils literal notranslate"><span class="pre">lon</span></code>, <code class="docutils literal notranslate"><span class="pre">r</span></code> and <code class="docutils literal notranslate"><span class="pre">w</span></code> was allocated by CHarm, so <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a74d3a0f9144c9db18230507d38cbcbee"><span class="std std-ref"><span class="pre">charm_crd_point_free()</span></span></a></code> deallocates it. If <code class="docutils literal notranslate"><span class="pre">owner</span></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code>, the memory associated with these arrays was allocated outside CHarm, so <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a74d3a0f9144c9db18230507d38cbcbee"><span class="std std-ref"><span class="pre">charm_crd_point_free()</span></span></a></code> does <em>not</em> deallocate it (the user allocated this memory outside CHarm, so the user should free the memory outside CHarm as well). </p>
+<dt class="sig sig-object cpp" id="_CPPv4N11charm_point5ownerE">
+<span id="_CPPv3N11charm_point5ownerE"></span><span id="_CPPv2N11charm_point5ownerE"></span><span id="charm_point::owner___Bool"></span><span class="target" id="structcharm__point_1ac0cf181aca43ea91487562628e642cb4"></span><span class="n"><span class="pre">_Bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">owner</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point5ownerE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>If <code class="docutils literal notranslate"><span class="pre">1</span></code>, the memory associated with <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a1bca253be877755c4cfa49557668a435"><span class="std std-ref"><span class="pre">charm_point.lat</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a93f0426f7005caa8ecebf01ff910c332"><span class="std std-ref"><span class="pre">charm_point.lon</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1aa3f23516d42d1f896af66f167d410fc0"><span class="std std-ref"><span class="pre">charm_point.r</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1adb584de4defe51ad089a2f770e0e15f8"><span class="std std-ref"><span class="pre">charm_point.w</span></span></a></code> was allocated by CHarm, so <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a74d3a0f9144c9db18230507d38cbcbee"><span class="std std-ref"><span class="pre">charm_crd_point_free()</span></span></a></code> deallocates it. If <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1ac0cf181aca43ea91487562628e642cb4"><span class="std std-ref"><span class="pre">charm_point.owner</span></span></a></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code>, the memory associated with these arrays was allocated outside CHarm, so <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a74d3a0f9144c9db18230507d38cbcbee"><span class="std std-ref"><span class="pre">charm_crd_point_free()</span></span></a></code> does <em>not</em> deallocate it (the user allocated this memory outside CHarm, so the user should free the memory outside CHarm as well). </p>
 </dd></dl>
 
 </div>
 </dd></dl>
 
 <dl class="cpp struct">
-<dt id="_CPPv410charm_cell">
-<span id="_CPPv310charm_cell"></span><span id="_CPPv210charm_cell"></span><span id="charm_cell"></span><span class="target" id="structcharm__cell"></span><em class="property">struct </em><code class="sig-name descname">charm_cell</code><a class="headerlink" href="#_CPPv410charm_cell" title="Permalink to this definition">¶</a><br /></dt>
-<dd><em>#include &lt;charm_crd.h&gt;</em><p>Structure to store evaluation cells. </p>
+<dt class="sig sig-object cpp" id="_CPPv410charm_cell">
+<span id="_CPPv310charm_cell"></span><span id="_CPPv210charm_cell"></span><span id="charm_cell"></span><span class="target" id="structcharm__cell"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_cell</span></span></span><a class="headerlink" href="#_CPPv410charm_cell" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Structure to store evaluation cells. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
 <dl class="cpp var">
-<dt id="_CPPv4N10charm_cell4typeE">
-<span id="_CPPv3N10charm_cell4typeE"></span><span id="_CPPv2N10charm_cell4typeE"></span><span id="charm_cell::type__i"></span><span class="target" id="structcharm__cell_1a6f1a65bcfb966a604f080f4a1db87fe9"></span>int <code class="sig-name descname">type</code><a class="headerlink" href="#_CPPv4N10charm_cell4typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N10charm_cell4typeE">
+<span id="_CPPv3N10charm_cell4typeE"></span><span id="_CPPv2N10charm_cell4typeE"></span><span id="charm_cell::type__i"></span><span class="target" id="structcharm__cell_1a6f1a65bcfb966a604f080f4a1db87fe9"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">type</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell4typeE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Defines whether the cells are organized as a regular grid or are scattered.</p>
-<p><code class="docutils literal notranslate"><span class="pre">type</span></code> takes the following symbolic constants:</p>
+<p><code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a6f1a65bcfb966a604f080f4a1db87fe9"><span class="std std-ref"><span class="pre">charm_cell.type</span></span></a></code> takes the following constants:</p>
 <p><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_GRID</span></code> for a user-defined grid of cells,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></code> for a user-defined set of scattered cells. </p></li>
+<li><p><code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba66aff589c459da043f1c2cf320c49768"><span class="std std-ref"><span class="pre">CHARM_CRD_CELL_GRID</span></span></a></code> for a user-defined grid of cells,</p></li>
+<li><p><code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bafb6b3c1a3904ae4db02d4ab932893ec2"><span class="std std-ref"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></span></a></code> for a user-defined set of scattered cells. </p></li>
 </ul>
 </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N10charm_cell4nlatE">
-<span id="_CPPv3N10charm_cell4nlatE"></span><span id="_CPPv2N10charm_cell4nlatE"></span><span id="charm_cell::nlat__s"></span><span class="target" id="structcharm__cell_1a2c5772a0dc8d14f5fe5083fa477306b5"></span>size_t <code class="sig-name descname">nlat</code><a class="headerlink" href="#_CPPv4N10charm_cell4nlatE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N10charm_cell4nlatE">
+<span id="_CPPv3N10charm_cell4nlatE"></span><span id="_CPPv2N10charm_cell4nlatE"></span><span id="charm_cell::nlat__s"></span><span class="target" id="structcharm__cell_1a2c5772a0dc8d14f5fe5083fa477306b5"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nlat</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell4nlatE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Number of latitudes.</p>
 <p><ul class="simple">
-<li><p>For <strong>scattered</strong> cells (<code class="docutils literal notranslate"><span class="pre">type</span></code> set to <code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></code>), <code class="docutils literal notranslate"><span class="pre">nlat</span></code> represents the total number of cells in the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code> structure.</p></li>
-<li><p>For <strong>grids</strong> (<code class="docutils literal notranslate"><span class="pre">type</span></code> set to <code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_GRID</span></code>), <code class="docutils literal notranslate"><span class="pre">nlat</span></code> stands for the numbers of cells in the latitudinal direction of the grid. </p></li>
+<li><p>For <strong>scattered</strong> cells (<code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a6f1a65bcfb966a604f080f4a1db87fe9"><span class="std std-ref"><span class="pre">charm_cell.type</span></span></a></code> set to <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bafb6b3c1a3904ae4db02d4ab932893ec2"><span class="std std-ref"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></span></a></code>), <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a2c5772a0dc8d14f5fe5083fa477306b5"><span class="std std-ref"><span class="pre">charm_cell.nlat</span></span></a></code> represents the total number of cells in the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code> structure.</p></li>
+<li><p>For <strong>grids</strong> (<code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a6f1a65bcfb966a604f080f4a1db87fe9"><span class="std std-ref"><span class="pre">charm_cell.type</span></span></a></code> set to <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba66aff589c459da043f1c2cf320c49768"><span class="std std-ref"><span class="pre">CHARM_CRD_CELL_GRID</span></span></a></code>), <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a2c5772a0dc8d14f5fe5083fa477306b5"><span class="std std-ref"><span class="pre">charm_cell.nlat</span></span></a></code> stands for the numbers of cells in the latitudinal direction of the grid. </p></li>
 </ul>
 </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N10charm_cell4nlonE">
-<span id="_CPPv3N10charm_cell4nlonE"></span><span id="_CPPv2N10charm_cell4nlonE"></span><span id="charm_cell::nlon__s"></span><span class="target" id="structcharm__cell_1addfe8c449d13a413a9039496863b9a22"></span>size_t <code class="sig-name descname">nlon</code><a class="headerlink" href="#_CPPv4N10charm_cell4nlonE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N10charm_cell4nlonE">
+<span id="_CPPv3N10charm_cell4nlonE"></span><span id="_CPPv2N10charm_cell4nlonE"></span><span id="charm_cell::nlon__s"></span><span class="target" id="structcharm__cell_1addfe8c449d13a413a9039496863b9a22"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nlon</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell4nlonE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Number of longitudes.</p>
 <p><ul class="simple">
-<li><p>For <strong>scattered</strong> cells, <code class="docutils literal notranslate"><span class="pre">nlon</span></code> represents the total number of cells in the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code> structure. <code class="docutils literal notranslate"><span class="pre">nlon</span></code> must be equal to <code class="docutils literal notranslate"><span class="pre">nlat</span></code>. The total number of cells is equal to <code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">==</span> <span class="pre">nlon</span></code>.</p></li>
-<li><p>For <strong>grids</strong>, <code class="docutils literal notranslate"><span class="pre">nlon</span></code> stands for the numbers of cells in the longitudinal direction of the grid. <code class="docutils literal notranslate"><span class="pre">nlat</span></code> and <code class="docutils literal notranslate"><span class="pre">nlon</span></code> may be different. The total number of grid cells is <code class="docutils literal notranslate"><span class="pre">nlat</span> <span class="pre">*</span> <span class="pre">nlon</span></code>. </p></li>
+<li><p>For <strong>scattered</strong> cells, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1addfe8c449d13a413a9039496863b9a22"><span class="std std-ref"><span class="pre">charm_cell.nlon</span></span></a></code> represents the total number of cells in the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code> structure. <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1addfe8c449d13a413a9039496863b9a22"><span class="std std-ref"><span class="pre">charm_cell.nlon</span></span></a></code> must be equal to <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a2c5772a0dc8d14f5fe5083fa477306b5"><span class="std std-ref"><span class="pre">charm_cell.nlat</span></span></a></code>. The total number of cells is equal to <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a2c5772a0dc8d14f5fe5083fa477306b5"><span class="std std-ref"><span class="pre">charm_cell.nlat</span></span></a> <span class="pre">==</span> <a class="reference internal" href="#structcharm__cell_1addfe8c449d13a413a9039496863b9a22"><span class="std std-ref"><span class="pre">charm_cell.nlon</span></span></a></code>.</p></li>
+<li><p>For <strong>grids</strong>, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1addfe8c449d13a413a9039496863b9a22"><span class="std std-ref"><span class="pre">charm_cell.nlon</span></span></a></code> stands for the numbers of cells in the longitudinal direction of the grid. <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a2c5772a0dc8d14f5fe5083fa477306b5"><span class="std std-ref"><span class="pre">charm_cell.nlat</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1addfe8c449d13a413a9039496863b9a22"><span class="std std-ref"><span class="pre">charm_cell.nlon</span></span></a></code> may be different. The total number of grid cells is <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a2c5772a0dc8d14f5fe5083fa477306b5"><span class="std std-ref"><span class="pre">charm_cell.nlat</span></span></a> <span class="pre">*</span> <a class="reference internal" href="#structcharm__cell_1addfe8c449d13a413a9039496863b9a22"><span class="std std-ref"><span class="pre">charm_cell.nlon</span></span></a></code>. </p></li>
 </ul>
 </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N10charm_cell6latminE">
-<span id="_CPPv3N10charm_cell6latminE"></span><span id="_CPPv2N10charm_cell6latminE"></span><span id="charm_cell::latmin__doubleP"></span><span class="target" id="structcharm__cell_1a5503fb0498f585c40f3bc15a83945842"></span>double *<code class="sig-name descname">latmin</code><a class="headerlink" href="#_CPPv4N10charm_cell6latminE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Pointer to an array of minimum cell latitudes in radians. <code class="docutils literal notranslate"><span class="pre">nlat</span></code> array elements are associated with <code class="docutils literal notranslate"><span class="pre">latmin</span></code> </p>
+<dt class="sig sig-object cpp" id="_CPPv4N10charm_cell6latminE">
+<span id="_CPPv3N10charm_cell6latminE"></span><span id="_CPPv2N10charm_cell6latminE"></span><span id="charm_cell::latmin__doubleP"></span><span class="target" id="structcharm__cell_1a5503fb0498f585c40f3bc15a83945842"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">latmin</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell6latminE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Pointer to an array of minimum cell latitudes in radians. <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a2c5772a0dc8d14f5fe5083fa477306b5"><span class="std std-ref"><span class="pre">charm_cell.nlat</span></span></a></code> array elements are associated with <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a5503fb0498f585c40f3bc15a83945842"><span class="std std-ref"><span class="pre">charm_cell.latmin</span></span></a></code></p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N10charm_cell6latmaxE">
-<span id="_CPPv3N10charm_cell6latmaxE"></span><span id="_CPPv2N10charm_cell6latmaxE"></span><span id="charm_cell::latmax__doubleP"></span><span class="target" id="structcharm__cell_1a2be55ed7ced4e688fb01624afefbd33b"></span>double *<code class="sig-name descname">latmax</code><a class="headerlink" href="#_CPPv4N10charm_cell6latmaxE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Pointer to an array of maximum cell latitudes in radians. <code class="docutils literal notranslate"><span class="pre">nlat</span></code> array elements are associated with <code class="docutils literal notranslate"><span class="pre">latmax</span></code> </p>
+<dt class="sig sig-object cpp" id="_CPPv4N10charm_cell6latmaxE">
+<span id="_CPPv3N10charm_cell6latmaxE"></span><span id="_CPPv2N10charm_cell6latmaxE"></span><span id="charm_cell::latmax__doubleP"></span><span class="target" id="structcharm__cell_1a2be55ed7ced4e688fb01624afefbd33b"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">latmax</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell6latmaxE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Pointer to an array of maximum cell latitudes in radians. <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a2c5772a0dc8d14f5fe5083fa477306b5"><span class="std std-ref"><span class="pre">charm_cell.nlat</span></span></a></code> array elements are associated with <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a2be55ed7ced4e688fb01624afefbd33b"><span class="std std-ref"><span class="pre">charm_cell.latmax</span></span></a></code></p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N10charm_cell6lonminE">
-<span id="_CPPv3N10charm_cell6lonminE"></span><span id="_CPPv2N10charm_cell6lonminE"></span><span id="charm_cell::lonmin__doubleP"></span><span class="target" id="structcharm__cell_1ac0cbf9ad2adfa785346cb07b54c62fde"></span>double *<code class="sig-name descname">lonmin</code><a class="headerlink" href="#_CPPv4N10charm_cell6lonminE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Pointer to an array of minimum cell longitudes in radians. <code class="docutils literal notranslate"><span class="pre">nlon</span></code> array elements are associated with <code class="docutils literal notranslate"><span class="pre">lonmin</span></code> </p>
+<dt class="sig sig-object cpp" id="_CPPv4N10charm_cell6lonminE">
+<span id="_CPPv3N10charm_cell6lonminE"></span><span id="_CPPv2N10charm_cell6lonminE"></span><span id="charm_cell::lonmin__doubleP"></span><span class="target" id="structcharm__cell_1ac0cbf9ad2adfa785346cb07b54c62fde"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">lonmin</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell6lonminE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Pointer to an array of minimum cell longitudes in radians. <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1addfe8c449d13a413a9039496863b9a22"><span class="std std-ref"><span class="pre">charm_cell.nlon</span></span></a></code> array elements are associated with <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1ac0cbf9ad2adfa785346cb07b54c62fde"><span class="std std-ref"><span class="pre">charm_cell.lonmin</span></span></a></code></p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N10charm_cell6lonmaxE">
-<span id="_CPPv3N10charm_cell6lonmaxE"></span><span id="_CPPv2N10charm_cell6lonmaxE"></span><span id="charm_cell::lonmax__doubleP"></span><span class="target" id="structcharm__cell_1a4f9f0676a9e18c795712247753ee30d9"></span>double *<code class="sig-name descname">lonmax</code><a class="headerlink" href="#_CPPv4N10charm_cell6lonmaxE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Pointer to an array of maximum cell longitudes in radians. <code class="docutils literal notranslate"><span class="pre">nlon</span></code> array elements are associated with <code class="docutils literal notranslate"><span class="pre">lonmax</span></code> </p>
+<dt class="sig sig-object cpp" id="_CPPv4N10charm_cell6lonmaxE">
+<span id="_CPPv3N10charm_cell6lonmaxE"></span><span id="_CPPv2N10charm_cell6lonmaxE"></span><span id="charm_cell::lonmax__doubleP"></span><span class="target" id="structcharm__cell_1a4f9f0676a9e18c795712247753ee30d9"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">lonmax</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell6lonmaxE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Pointer to an array of maximum cell longitudes in radians. <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1addfe8c449d13a413a9039496863b9a22"><span class="std std-ref"><span class="pre">charm_cell.nlon</span></span></a></code> array elements are associated with <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a4f9f0676a9e18c795712247753ee30d9"><span class="std std-ref"><span class="pre">charm_cell.lonmax</span></span></a></code></p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N10charm_cell1rE">
-<span id="_CPPv3N10charm_cell1rE"></span><span id="_CPPv2N10charm_cell1rE"></span><span id="charm_cell::r__doubleP"></span><span class="target" id="structcharm__cell_1aa8252f6e124a3a47cf4d5da73af51434"></span>double *<code class="sig-name descname">r</code><a class="headerlink" href="#_CPPv4N10charm_cell1rE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Pointer to an array of spherical radii in metres. <code class="docutils literal notranslate"><span class="pre">nlat</span></code> array elements are associated with <code class="docutils literal notranslate"><span class="pre">r</span></code>. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N10charm_cell1rE">
+<span id="_CPPv3N10charm_cell1rE"></span><span id="_CPPv2N10charm_cell1rE"></span><span id="charm_cell::r__doubleP"></span><span class="target" id="structcharm__cell_1aa8252f6e124a3a47cf4d5da73af51434"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">r</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell1rE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Pointer to an array of spherical radii in metres. <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a2c5772a0dc8d14f5fe5083fa477306b5"><span class="std std-ref"><span class="pre">charm_cell.nlat</span></span></a></code> array elements are associated with <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1aa8252f6e124a3a47cf4d5da73af51434"><span class="std std-ref"><span class="pre">charm_cell.r</span></span></a></code>. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N10charm_cell5ownerE">
-<span id="_CPPv3N10charm_cell5ownerE"></span><span id="_CPPv2N10charm_cell5ownerE"></span><span id="charm_cell::owner___Bool"></span><span class="target" id="structcharm__cell_1a9f141c763b7728edd837ba3028394d14"></span>_Bool <code class="sig-name descname">owner</code><a class="headerlink" href="#_CPPv4N10charm_cell5ownerE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>If <code class="docutils literal notranslate"><span class="pre">1</span></code>, the memory associated with <code class="docutils literal notranslate"><span class="pre">latmin</span></code>, <code class="docutils literal notranslate"><span class="pre">latmax</span></code>, <code class="docutils literal notranslate"><span class="pre">lonmin</span></code>, <code class="docutils literal notranslate"><span class="pre">lonmax</span></code> and <code class="docutils literal notranslate"><span class="pre">r</span></code> was allocated by CHarm, so <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a321c2e629b86feebcb3210dbd881610f"><span class="std std-ref"><span class="pre">charm_crd_cell_free()</span></span></a></code> deallocates it. If <code class="docutils literal notranslate"><span class="pre">owner</span></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code>, the memory associated with these arrays was allocated outside CHarm, so <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a321c2e629b86feebcb3210dbd881610f"><span class="std std-ref"><span class="pre">charm_crd_cell_free()</span></span></a></code> does <em>not</em> deallocate it (the user allocated this memory outside CHarm, so the user should free the memory outside CHarm as well). </p>
+<dt class="sig sig-object cpp" id="_CPPv4N10charm_cell5ownerE">
+<span id="_CPPv3N10charm_cell5ownerE"></span><span id="_CPPv2N10charm_cell5ownerE"></span><span id="charm_cell::owner___Bool"></span><span class="target" id="structcharm__cell_1a9f141c763b7728edd837ba3028394d14"></span><span class="n"><span class="pre">_Bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">owner</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell5ownerE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>If <code class="docutils literal notranslate"><span class="pre">1</span></code>, the memory associated with <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a5503fb0498f585c40f3bc15a83945842"><span class="std std-ref"><span class="pre">charm_cell.latmin</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a2be55ed7ced4e688fb01624afefbd33b"><span class="std std-ref"><span class="pre">charm_cell.latmax</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1ac0cbf9ad2adfa785346cb07b54c62fde"><span class="std std-ref"><span class="pre">charm_cell.lonmin</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a4f9f0676a9e18c795712247753ee30d9"><span class="std std-ref"><span class="pre">charm_cell.lonmax</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1aa8252f6e124a3a47cf4d5da73af51434"><span class="std std-ref"><span class="pre">charm_cell.r</span></span></a></code> was allocated by CHarm, so <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a321c2e629b86feebcb3210dbd881610f"><span class="std std-ref"><span class="pre">charm_crd_cell_free()</span></span></a></code> deallocates it. If <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a9f141c763b7728edd837ba3028394d14"><span class="std std-ref"><span class="pre">charm_cell.owner</span></span></a></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code>, the memory associated with these arrays was allocated outside CHarm, so <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a321c2e629b86feebcb3210dbd881610f"><span class="std std-ref"><span class="pre">charm_crd_cell_free()</span></span></a></code> does <em>not</em> deallocate it (the user allocated this memory outside CHarm, so the user should free the memory outside CHarm as well). </p>
 </dd></dl>
 
 </div>
 </dd></dl>
 
-</div>
+</section>
 
 
-           </div>
-           
-          </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="api-c-shs.html" class="btn btn-neutral float-right" title="charm_shs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="api-c-shc.html" class="btn btn-neutral float-left" title="charm_shc" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
+                </article>
+              
 
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &#169; Copyright 2022, Blažej Bucha.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-        </div>
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="api-c-shc.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">charm_shc</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="api-c-shs.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">charm_shs</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
 
-    </section>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Blažej Bucha
+</p>
 
   </div>
   
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
+  <div class="footer-item">
     
-   
+  <p class="copyright">
+    
+      © Copyright 2023, Blažej Bucha.
+      <br/>
+    
+  </p>
 
-</body>
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+  Last updated on Jun 16, 2023.
+  <br/>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
 </html>

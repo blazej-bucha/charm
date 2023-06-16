@@ -23,6 +23,21 @@ extern "C"
 #endif
 
 
+/* Macros to compute Legendre functions using "F"-numbers */
+/* ------------------------------------------------------------------------- */
+/* Tesseral Legendre functions */
+#define PNM_TESSERAL(x, y, pnm2, t, anms, bnms)                               \
+    pnm2 = SUB_R(MUL_R(MUL_R((anms), (t)), (x)),                              \
+                 MUL_R((bnms), (y)));                                         \
+    y    = x;                                                                 \
+    x    = pnm2;
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
 #ifdef SIMD
     /* Macros to compute sectorial, semisectorial and tesseral Legendre
      * functions using a SIMD code */
@@ -32,34 +47,34 @@ extern "C"
                                    zero_r, zero_ri, mone_ri, mask1, mask2,    \
                                    goto_label)                                \
                                                                               \
-           (x) = LOAD_R(  &(psmm1));                                          \
-          (ix) = LOAD_RI(&(ipsmm1));                                          \
+            (x) = LOAD_R(  &(psmm1));                                         \
+           (ix) = LOAD_RI(&(ipsmm1));                                         \
                                                                               \
                                                                               \
-          (mask1) = EQ_RI((ix), (zero_ri));                                   \
-          (pnm0)  = BLEND_R((zero_r), (x), CAST_RI2R((mask1)));               \
-          (mask2) = (mask1);                                                  \
-          if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                      \
-              goto goto_label;                                                \
+           (mask1) = EQ_RI((ix), (zero_ri));                                  \
+           (pnm0)  = BLEND_R((zero_r), (x), CAST_RI2R((mask1)));              \
+           (mask2) = (mask1);                                                 \
+           if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                     \
+               goto goto_label;                                               \
                                                                               \
                                                                               \
-          (mask1) = GT_RI((mone_ri), (ix));                                   \
-          (pnm0)  = BLEND_R((pnm0), (zero_r), CAST_RI2R((mask1)));            \
-          (mask2) = OR_MASK((mask1), (mask2));                                \
-          if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                      \
-              goto goto_label;                                                \
+           (mask1) = GT_RI((mone_ri), (ix));                                  \
+           (pnm0)  = BLEND_R((pnm0), (zero_r), CAST_RI2R((mask1)));           \
+           (mask2) = OR_MASK((mask1), (mask2));                               \
+           if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                     \
+               goto goto_label;                                               \
                                                                               \
                                                                               \
-          (mask1) = EQ_RI((ix), (mone_ri));                                   \
-          (pnm0)  = BLEND_R((pnm0), MUL_R((x), (BIGI_r)),                     \
-                            CAST_RI2R((mask1)));                              \
-          (mask2) = OR_MASK((mask1), (mask2));                                \
-          if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                      \
-              goto goto_label;                                                \
+           (mask1) = EQ_RI((ix), (mone_ri));                                  \
+           (pnm0)  = BLEND_R((pnm0), MUL_R((x), (BIGI_r)),                    \
+                             CAST_RI2R((mask1)));                             \
+           (mask2) = OR_MASK((mask1), (mask2));                               \
+           if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                     \
+               goto goto_label;                                               \
                                                                               \
                                                                               \
-          (pnm0) = BLEND_R((pnm0), MUL_R((x), (BIG_r)),                       \
-                           CAST_RI2R(ANDNOT_MASK((mask2))));                  \
+           (pnm0) = BLEND_R((pnm0), MUL_R((x), (BIG_r)),                      \
+                            CAST_RI2R(ANDNOT_MASK((mask2))));                 \
                                                                               \
                                                                               \
     goto_label:
@@ -75,53 +90,54 @@ extern "C"
                                        zero_r, zero_ri, mone_ri,              \
                                        BIG_r, BIGS_r,  BIGI_r, goto_label)    \
                                                                               \
-               (y) =  (x);                                                    \
-              (iy) = (ix);                                                    \
-               (x) = MUL_R(MUL_R(SET1_R((anmmp1)), (t)), (y));                \
-              (ix) = (iy);                                                    \
+                                                                              \
+            (y) =  (x);                                                       \
+           (iy) = (ix);                                                       \
+            (x) = MUL_R(MUL_R((anmmp1), (t)), (y));                           \
+           (ix) = (iy);                                                       \
                                                                               \
                                                                               \
-              (w)    = ABS_R((x));                                            \
-              (mask3) = GE_R((w), (BIGS_r));                                  \
-              if (MOVEMASK((mask3)) != 0)                                     \
-              {                                                               \
-                   (x) = BLEND_R((x), MUL_R((x), (BIGI_r)), (mask3));         \
-                  (ix) = BLEND_RI((ix), ADD_RI((ix), (one_ri)),               \
-                                  CAST_R2RI((mask3)));                        \
-              }                                                               \
-              (mask3) = LT_R((w), (BIGSI_r));                                 \
-              if (MOVEMASK((mask3)) != 0)                                     \
-              {                                                               \
-                   (x) = BLEND_R((x), MUL_R((x), (BIG_r)), (mask3));          \
-                  (ix) = BLEND_RI((ix), SUB_RI((ix), (one_ri)),               \
-                                  CAST_R2RI((mask3)));                        \
-              }                                                               \
+           (w)    = ABS_R((x));                                               \
+           (mask3) = GE_R((w), (BIGS_r));                                     \
+           if (MOVEMASK((mask3)) != 0)                                        \
+           {                                                                  \
+                (x) = BLEND_R((x), MUL_R((x), (BIGI_r)), (mask3));            \
+               (ix) = BLEND_RI((ix), ADD_RI((ix), (one_ri)),                  \
+                               CAST_R2RI((mask3)));                           \
+           }                                                                  \
+           (mask3) = LT_R((w), (BIGSI_r));                                    \
+           if (MOVEMASK((mask3)) != 0)                                        \
+           {                                                                  \
+                (x) = BLEND_R((x), MUL_R((x), (BIG_r)), (mask3));             \
+               (ix) = BLEND_RI((ix), SUB_RI((ix), (one_ri)),                  \
+                               CAST_R2RI((mask3)));                           \
+           }                                                                  \
                                                                               \
                                                                               \
-              (mask1) = EQ_RI((ix), (zero_ri));                               \
-              (pnm1)  = BLEND_R((zero_r), (x), CAST_RI2R((mask1)));           \
-              (mask2) = (mask1);                                              \
-              if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                  \
-                  goto goto_label;                                            \
+           (mask1) = EQ_RI((ix), (zero_ri));                                  \
+           (pnm1)  = BLEND_R((zero_r), (x), CAST_RI2R((mask1)));              \
+           (mask2) = (mask1);                                                 \
+           if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                     \
+               goto goto_label;                                               \
                                                                               \
                                                                               \
-              (mask1) = GT_RI((mone_ri), (ix));                               \
-              (pnm1)  = BLEND_R((pnm1), (zero_r), CAST_RI2R((mask1)));        \
-              (mask2) = OR_MASK((mask1), (mask2));                            \
-              if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                  \
-                  goto goto_label;                                            \
+           (mask1) = GT_RI((mone_ri), (ix));                                  \
+           (pnm1)  = BLEND_R((pnm1), (zero_r), CAST_RI2R((mask1)));           \
+           (mask2) = OR_MASK((mask1), (mask2));                               \
+           if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                     \
+               goto goto_label;                                               \
                                                                               \
                                                                               \
-              (mask1) = EQ_RI((ix), (mone_ri));                               \
-              (pnm1)  = BLEND_R((pnm1), MUL_R((x), (BIGI_r)),                 \
-                                CAST_RI2R((mask1)));                          \
-              (mask2) = OR_MASK((mask1), (mask2));                            \
-              if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                  \
-                  goto goto_label;                                            \
+           (mask1) = EQ_RI((ix), (mone_ri));                                  \
+           (pnm1)  = BLEND_R((pnm1), MUL_R((x), (BIGI_r)),                    \
+                             CAST_RI2R((mask1)));                             \
+           (mask2) = OR_MASK((mask1), (mask2));                               \
+           if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                     \
+               goto goto_label;                                               \
                                                                               \
                                                                               \
-              (pnm1) = BLEND_R((pnm1), MUL_R((x), (BIG_r)),                   \
-                               CAST_RI2R(ANDNOT_MASK((mask2))));              \
+           (pnm1) = BLEND_R((pnm1), MUL_R((x), (BIG_r)),                      \
+                            CAST_RI2R(ANDNOT_MASK((mask2))));                 \
                                                                               \
                                                                               \
     goto_label:
@@ -133,111 +149,129 @@ extern "C"
 
     /* Macro to compute tesseral Legendre functions. */
 #   define PNM_TESSERAL_XNUM_SIMD(x, y, z, ix, iy, iz, ixy, w, t,             \
-                                  anmn, bnmn, pnm2, tmp1_r, tmp2_r,           \
+                                  anms, bnms, pnm2, tmp1_r, tmp2_r,           \
                                   mask1, mask2, mask3,                        \
                                   zero_r, zero_ri, one_ri,                    \
                                   BIG_r, BIGI_r, BIGS_r, BIGSI_r,             \
-                                  goto_label1, goto_label2)                   \
-                                                                              \
-              (ixy) = SUB_RI((ix), (iy));                                     \
+                                  goto_label1, goto_label2, ds)               \
                                                                               \
                                                                               \
-              (mask1)  = EQ_RI((ixy), (zero_ri));                             \
-              (tmp1_r) = BLEND_R((zero_r), (x), CAST_RI2R((mask1)));          \
-              (tmp2_r) = BLEND_R((y), (y), CAST_RI2R((mask1)));               \
-              (iz)     = BLEND_RI((zero_ri), (ix), (mask1));                  \
-              (mask2)  = (mask1);                                             \
-              if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                  \
-                  goto goto_label1;                                           \
+           if ((ds))                                                          \
+           {                                                                  \
+               PNM_TESSERAL(x, y, pnm2, t, anms, bnms);                       \
+           }                                                                  \
+           else                                                               \
+           {                                                                  \
+               (ixy) = SUB_RI((ix), (iy));                                    \
                                                                               \
                                                                               \
-              (mask1)  = EQ_RI((ixy), (one_ri));                              \
-              (tmp1_r) = BLEND_R((tmp1_r), (x), CAST_RI2R((mask1)));          \
-              (tmp2_r) = BLEND_R((tmp2_r), MUL_R((y), (BIGI_r)),              \
-                                 CAST_RI2R((mask1)));                         \
-              (iz)     = BLEND_RI((iz), (ix), (mask1));                       \
-              (mask2)  = OR_MASK((mask1), (mask2));                           \
-              if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                  \
-                  goto goto_label1;                                           \
+               (mask1)  = EQ_RI((ixy), (zero_ri));                            \
+               (tmp1_r) = BLEND_R((zero_r), (x), CAST_RI2R((mask1)));         \
+               (tmp2_r) = BLEND_R((y), (y), CAST_RI2R((mask1)));              \
+               (iz)     = BLEND_RI((zero_ri), (ix), (mask1));                 \
+               (mask2)  = (mask1);                                            \
+               if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                 \
+                   goto goto_label1;                                          \
                                                                               \
                                                                               \
-              (mask1)  = EQ_RI((ixy), (mone_ri));                             \
-              (tmp1_r) = BLEND_R((tmp1_r), MUL_R((x), (BIGI_r)),              \
-                                 CAST_RI2R((mask1)));                         \
-              (tmp2_r) = BLEND_R((tmp2_r), (y), CAST_RI2R((mask1)));          \
-              (iz)     = BLEND_RI((iz), (iy), (mask1));                       \
-              (mask2)  = OR_MASK((mask1), (mask2));                           \
-              if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                  \
-                  goto goto_label1;                                           \
+               (mask1)  = EQ_RI((ixy), (one_ri));                             \
+               (tmp1_r) = BLEND_R((tmp1_r), (x), CAST_RI2R((mask1)));         \
+               (tmp2_r) = BLEND_R((tmp2_r), MUL_R((y), (BIGI_r)),             \
+                                  CAST_RI2R((mask1)));                        \
+               (iz)     = BLEND_RI((iz), (ix), (mask1));                      \
+               (mask2)  = OR_MASK((mask1), (mask2));                          \
+               if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                 \
+                   goto goto_label1;                                          \
                                                                               \
                                                                               \
-              (mask1)  = GT_RI((ixy), (one_ri));                              \
-              (tmp1_r) = BLEND_R((tmp1_r), (x), CAST_RI2R((mask1)));          \
-              (tmp2_r) = BLEND_R((tmp2_r), (zero_r), CAST_RI2R((mask1)));     \
-              (iz)     = BLEND_RI((iz), (ix), (mask1));                       \
-              (mask2)  = OR_MASK((mask1), (mask2));                           \
-              if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                  \
-                  goto goto_label1;                                           \
+               (mask1)  = EQ_RI((ixy), (mone_ri));                            \
+               (tmp1_r) = BLEND_R((tmp1_r), MUL_R((x), (BIGI_r)),             \
+                                  CAST_RI2R((mask1)));                        \
+               (tmp2_r) = BLEND_R((tmp2_r), (y), CAST_RI2R((mask1)));         \
+               (iz)     = BLEND_RI((iz), (iy), (mask1));                      \
+               (mask2)  = OR_MASK((mask1), (mask2));                          \
+               if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                 \
+                   goto goto_label1;                                          \
                                                                               \
                                                                               \
-              (iz) = BLEND_RI((iz), (iy), ANDNOT_MASK((mask2)));              \
+               (mask1)  = GT_RI((ixy), (one_ri));                             \
+               (tmp1_r) = BLEND_R((tmp1_r), (x), CAST_RI2R((mask1)));         \
+               (tmp2_r) = BLEND_R((tmp2_r), (zero_r), CAST_RI2R((mask1)));    \
+               (iz)     = BLEND_RI((iz), (ix), (mask1));                      \
+               (mask2)  = OR_MASK((mask1), (mask2));                          \
+               if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                 \
+                   goto goto_label1;                                          \
+                                                                              \
+                                                                              \
+               (iz) = BLEND_RI((iz), (iy), ANDNOT_MASK((mask2)));             \
                                                                               \
                                                                               \
     goto_label1:                                                              \
-              (z) = SUB_R(MUL_R(MUL_R(SET1_R((anmn)), (t)), (tmp1_r)),        \
-                          MUL_R(SET1_R((bnmn)), (tmp2_r)));                   \
+               (z) = SUB_R(MUL_R(MUL_R((anms), (t)), (tmp1_r)),               \
+                           MUL_R((bnms), (tmp2_r)));                          \
                                                                               \
                                                                               \
-              (w)    = ABS_R((z));                                            \
-              (mask3) = GE_R((w), (BIGS_r));                                  \
-              if (MOVEMASK((mask3)) != 0)                                     \
-              {                                                               \
-                   (z) = BLEND_R((z), MUL_R((z), (BIGI_r)), (mask3));         \
-                  (iz) = BLEND_RI((iz), ADD_RI((iz), (one_ri)),               \
-                                  CAST_R2RI((mask3)));                        \
-              }                                                               \
-              (mask3) = LT_R((w), (BIGSI_r));                                 \
-              if (MOVEMASK((mask3)) != 0)                                     \
-              {                                                               \
-                   (z) = BLEND_R((z), MUL_R((z), (BIG_r)), (mask3));          \
-                  (iz) = BLEND_RI((iz), SUB_RI((iz), (one_ri)),               \
-                                  CAST_R2RI((mask3)));                        \
-              }                                                               \
+               (w)    = ABS_R((z));                                           \
+               (mask3) = GE_R((w), (BIGS_r));                                 \
+               if (MOVEMASK((mask3)) != 0)                                    \
+               {                                                              \
+                    (z) = BLEND_R((z), MUL_R((z), (BIGI_r)), (mask3));        \
+                   (iz) = BLEND_RI((iz), ADD_RI((iz), (one_ri)),              \
+                                   CAST_R2RI((mask3)));                       \
+               }                                                              \
+               (mask3) = LT_R((w), (BIGSI_r));                                \
+               if (MOVEMASK((mask3)) != 0)                                    \
+               {                                                              \
+                    (z) = BLEND_R((z), MUL_R((z), (BIG_r)), (mask3));         \
+                   (iz) = BLEND_RI((iz), SUB_RI((iz), (one_ri)),              \
+                                   CAST_R2RI((mask3)));                       \
+               }                                                              \
                                                                               \
                                                                               \
-               (y) =  (x);                                                    \
-              (iy) = (ix);                                                    \
-               (x) =  (z);                                                    \
-              (ix) = (iz);                                                    \
+                (y) =  (x);                                                   \
+               (iy) = (ix);                                                   \
+                (x) =  (z);                                                   \
+               (ix) = (iz);                                                   \
                                                                               \
                                                                               \
-              (mask1) = EQ_RI((iz), (zero_ri));                               \
-              (pnm2)  = BLEND_R((zero_r), (z), CAST_RI2R((mask1)));           \
-              (mask2) = (mask1);                                              \
-              if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                  \
-                  goto goto_label2;                                           \
+               (mask1) = EQ_RI((iz), (zero_ri));                              \
+               (pnm2)  = BLEND_R((zero_r), (z), CAST_RI2R((mask1)));          \
+               (mask2) = (mask1);                                             \
+               if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                 \
+                   goto goto_label2;                                          \
                                                                               \
                                                                               \
-              (mask1) = GT_RI((mone_ri), (iz));                               \
-              (pnm2)  = BLEND_R((pnm2), (zero_r), CAST_RI2R((mask1)));        \
-              (mask2) = OR_MASK((mask1), (mask2));                            \
-              if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                  \
-                  goto goto_label2;                                           \
+               (mask1) = GT_RI((mone_ri), (iz));                              \
+               (pnm2)  = BLEND_R((pnm2), (zero_r), CAST_RI2R((mask1)));       \
+               (mask2) = OR_MASK((mask1), (mask2));                           \
+               if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                 \
+                   goto goto_label2;                                          \
                                                                               \
                                                                               \
-              (mask1) = EQ_RI((iz), (mone_ri));                               \
-              (pnm2)  = BLEND_R((pnm2), MUL_R((z), (BIGI_r)),                 \
-                                CAST_RI2R((mask1)));                          \
-              (mask2) = OR_MASK((mask1), (mask2));                            \
-              if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                  \
-                  goto goto_label2;                                           \
+               (mask1) = EQ_RI((iz), (mone_ri));                              \
+               (pnm2)  = BLEND_R((pnm2), MUL_R((z), (BIGI_r)),                \
+                                 CAST_RI2R((mask1)));                         \
+               (mask2) = OR_MASK((mask1), (mask2));                           \
+               if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                 \
+                   goto goto_label2;                                          \
                                                                               \
                                                                               \
-              (pnm2) = BLEND_R((pnm2), MUL_R((z), (BIG_r)),                   \
-                               CAST_RI2R(ANDNOT_MASK((mask2))));              \
+               (pnm2) = BLEND_R((pnm2), MUL_R((z), (BIG_r)),                  \
+                                CAST_RI2R(ANDNOT_MASK((mask2))));             \
                                                                               \
                                                                               \
-    goto_label2:
+    goto_label2:                                                              \
+               if ((MOVEMASK(CAST_RI2R(EQ_RI((ix), (zero_ri)))) ==            \
+                    SIMD_TRUE) &&                                             \
+                   (MOVEMASK(CAST_RI2R(EQ_RI((iy), (zero_ri)))) ==            \
+                    SIMD_TRUE))                                               \
+                   /* Excellent, dynamical switching can be applied from */   \
+                   /* now on for all degrees, so no X-numbers! */             \
+                   /* IMPORTANTLY, this may not work with other */            \
+                   /* normalization schemes that may be added in the */       \
+                   /* future. */                                              \
+                   (ds) = 1;                                                  \
+        }
 #endif
 /* ------------------------------------------------------------------------- */
 
@@ -250,20 +284,20 @@ extern "C"
  * using a scalar code */
 /* ------------------------------------------------------------------------- */
 /* Macro to compute sectorial Legendre functions. */
-#define PNM_SECTORIAL_XNUM(x, ix, psmm1, ipsmm1, pnm0)                    \
-                                                                          \
-                                                                          \
-         (x) = (psmm1);                                                   \
-        (ix) = (ipsmm1);                                                  \
-                                                                          \
-                                                                          \
-        if ((ix) == 0)                                                    \
-            (pnm0) = (x);                                                 \
-        else if ((ix) < -1)                                               \
-            (pnm0) = PREC(0.0);                                           \
-        else if ((ix) < 0)                                                \
-            (pnm0) = (x) * BIGI;                                          \
-        else                                                              \
+#define PNM_SECTORIAL_XNUM(x, ix, psmm1, ipsmm1, pnm0)                        \
+                                                                              \
+                                                                              \
+         (x) = (psmm1);                                                       \
+        (ix) = (ipsmm1);                                                      \
+                                                                              \
+                                                                              \
+        if ((ix) == 0)                                                        \
+            (pnm0) = (x);                                                     \
+        else if ((ix) < -1)                                                   \
+            (pnm0) = PREC(0.0);                                               \
+        else if ((ix) < 0)                                                    \
+            (pnm0) = (x) * BIGI;                                              \
+        else                                                                  \
             (pnm0) = (x) * BIG;
 
 
@@ -272,35 +306,35 @@ extern "C"
 
 
 /* Macro to compute semi-sectorial Legendre functions. */
-#define PNM_SEMISECTORIAL_XNUM(x, y, ix, iy, w, t, anm, pnm1)             \
-                                                                          \
-                                                                          \
-         (y) =  (x);                                                      \
-        (iy) = (ix);                                                      \
-         (x) = ((anm) * (t)) * (y);                                       \
-        (ix) = (iy);                                                      \
-                                                                          \
-                                                                          \
-        (w) = FABS((x));                                                  \
-        if ((w) >= BIGS)                                                  \
-        {                                                                 \
-             (x) *= BIGI;                                                 \
-            (ix) += 1;                                                    \
-        }                                                                 \
-        else if ((w) < BIGSI)                                             \
-        {                                                                 \
-             (x) *= BIG;                                                  \
-            (ix) -= 1;                                                    \
-        }                                                                 \
-                                                                          \
-                                                                          \
-        if ((ix) == 0)                                                    \
-            (pnm1) = (x);                                                 \
-        else if ((ix) < -1)                                               \
-            (pnm1) = PREC(0.0);                                           \
-        else if ((ix) < 0)                                                \
-            (pnm1) = (x) * BIGI;                                          \
-        else                                                              \
+#define PNM_SEMISECTORIAL_XNUM(x, y, ix, iy, w, t, anm, pnm1)                 \
+                                                                              \
+                                                                              \
+         (y) =  (x);                                                          \
+        (iy) = (ix);                                                          \
+         (x) = ((anm) * (t)) * (y);                                           \
+        (ix) = (iy);                                                          \
+                                                                              \
+                                                                              \
+        (w) = FABS((x));                                                      \
+        if ((w) >= BIGS)                                                      \
+        {                                                                     \
+             (x) *= BIGI;                                                     \
+            (ix) += 1;                                                        \
+        }                                                                     \
+        else if ((w) < BIGSI)                                                 \
+        {                                                                     \
+             (x) *= BIG;                                                      \
+            (ix) -= 1;                                                        \
+        }                                                                     \
+                                                                              \
+                                                                              \
+        if ((ix) == 0)                                                        \
+            (pnm1) = (x);                                                     \
+        else if ((ix) < -1)                                                   \
+            (pnm1) = PREC(0.0);                                               \
+        else if ((ix) < 0)                                                    \
+            (pnm1) = (x) * BIGI;                                              \
+        else                                                                  \
             (pnm1) = (x) * BIG;
 
 
@@ -316,78 +350,84 @@ extern "C"
  *
  * The computed tesseral Legendre function will be stored in "pnm2".
  *
- * The last parameter called "UNDERFLOW" (see below) specifies what to do in
- * case the output of the macro, "pnm2", underflows.  In some cases, it may be
- * safe to use "continue", so that a few unnecessary multiplications by the
- * zero-valued "pnm2" are skipped.  These are usually present after the macro
- * is used in the main code.  In other cases, one can use "pnm2 = PREC(0.0)",
- * where "pnm2" is the name of the variable that is supposed to store the
- * tesseral Legendre function in the main code.  The program will then evaluate
- * the entire macro and subsequently it will continue with commands found after
- * the macro.
- *
  * */
-#define PNM_TESSERAL_XNUM(x, y, z, ix, iy, iz, ixy, w, t,                 \
-                          anm, bnm, pnm2, UNDERFLOW)                      \
-                                                                          \
-                                                                          \
-        (ixy) = (ix) - (iy);                                              \
-                                                                          \
-                                                                          \
-        if ((ixy) == 0)                                                   \
-        {                                                                 \
-             (z) = ((anm) * (t)) * (x) - (bnm) * (y);                     \
-            (iz) = (ix);                                                  \
-        }                                                                 \
-        else if ((ixy) == 1)                                              \
-        {                                                                 \
-             (z) = ((anm) * (t)) * (x) - (bnm) * ((y) * BIGI);            \
-            (iz) = (ix);                                                  \
-        }                                                                 \
-        else if ((ixy) == -1)                                             \
-        {                                                                 \
-             (z) = ((anm) * (t)) * ((x) * BIGI) - (bnm) * (y);            \
-            (iz) = (iy);                                                  \
-        }                                                                 \
-        else if ((ixy) > 1)                                               \
-        {                                                                 \
-             (z) = ((anm) * (t)) * (x);                                   \
-            (iz) = (ix);                                                  \
-        }                                                                 \
-        else                                                              \
-        {                                                                 \
-             (z) = -(bnm) * (y);                                          \
-            (iz) = (iy);                                                  \
-        }                                                                 \
-                                                                          \
-                                                                          \
-        (w) = FABS((z));                                                  \
-        if ((w) >= BIGS)                                                  \
-        {                                                                 \
-             (z) *= BIGI;                                                 \
-            (iz) += 1;                                                    \
-        }                                                                 \
-        else if ((w) < BIGSI)                                             \
-        {                                                                 \
-             (z) *= BIG;                                                  \
-            (iz) -= 1;                                                    \
-        }                                                                 \
-                                                                          \
-                                                                          \
-         (y) =  (x);                                                      \
-        (iy) = (ix);                                                      \
-         (x) =  (z);                                                      \
-        (ix) = (iz);                                                      \
-                                                                          \
-                                                                          \
-        if ((iz) == 0)                                                    \
-            (pnm2) = (z);                                                 \
-        else if ((iz) < -1)                                               \
-            UNDERFLOW;                                                    \
-        else if ((iz) < 0)                                                \
-            (pnm2) = (z) * BIGI;                                          \
-        else                                                              \
-            (pnm2) = (z) * BIG;
+#define PNM_TESSERAL_XNUM(x, y, z, ix, iy, iz, ixy, w, t,                     \
+                          anm, bnm, pnm2, ds)                                 \
+                                                                              \
+                                                                              \
+        if ((ds))                                                             \
+        {                                                                     \
+            PNM_TESSERAL(x, y, pnm2, t, anm, bnm);                            \
+        }                                                                     \
+        else                                                                  \
+        {                                                                     \
+            (ixy) = (ix) - (iy);                                              \
+                                                                              \
+                                                                              \
+            if ((ixy) == 0)                                                   \
+            {                                                                 \
+                 (z) = ((anm) * (t)) * (x) - (bnm) * (y);                     \
+                (iz) = (ix);                                                  \
+            }                                                                 \
+            else if ((ixy) == 1)                                              \
+            {                                                                 \
+                 (z) = ((anm) * (t)) * (x) - (bnm) * ((y) * BIGI);            \
+                (iz) = (ix);                                                  \
+            }                                                                 \
+            else if ((ixy) == -1)                                             \
+            {                                                                 \
+                 (z) = ((anm) * (t)) * ((x) * BIGI) - (bnm) * (y);            \
+                (iz) = (iy);                                                  \
+            }                                                                 \
+            else if ((ixy) > 1)                                               \
+            {                                                                 \
+                 (z) = ((anm) * (t)) * (x);                                   \
+                (iz) = (ix);                                                  \
+            }                                                                 \
+            else                                                              \
+            {                                                                 \
+                 (z) = -(bnm) * (y);                                          \
+                (iz) = (iy);                                                  \
+            }                                                                 \
+                                                                              \
+                                                                              \
+            (w) = FABS((z));                                                  \
+            if ((w) >= BIGS)                                                  \
+            {                                                                 \
+                 (z) *= BIGI;                                                 \
+                (iz) += 1;                                                    \
+            }                                                                 \
+            else if ((w) < BIGSI)                                             \
+            {                                                                 \
+                 (z) *= BIG;                                                  \
+                (iz) -= 1;                                                    \
+            }                                                                 \
+                                                                              \
+                                                                              \
+             (y) =  (x);                                                      \
+            (iy) = (ix);                                                      \
+             (x) =  (z);                                                      \
+            (ix) = (iz);                                                      \
+                                                                              \
+                                                                              \
+            if ((iz) == 0)                                                    \
+                (pnm2) = (z);                                                 \
+            else if ((iz) < -1)                                               \
+                (pnm2) = PREC(0.0);                                           \
+            else if ((iz) < 0)                                                \
+                (pnm2) = (z) * BIGI;                                          \
+            else                                                              \
+                (pnm2) = (z) * BIG;                                           \
+                                                                              \
+                                                                              \
+            if (((ix) == 0) && ((iy) == 0))                                   \
+                /* Excellent, dynamical switching can be applied from */      \
+                /* now on for all degrees, so no X-numbers! */                \
+                /* IMPORTANTLY, this may not work with other */               \
+                /* normalization schemes that may be added in the */          \
+                /* future. */                                                 \
+                (ds) = 1;                                                     \
+        }
 /* ------------------------------------------------------------------------- */
 
 

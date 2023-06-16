@@ -6,6 +6,7 @@
 
 
 #include <config.h>
+#include "../src/prec.h"
 
 
 #ifdef __cplusplus
@@ -14,7 +15,10 @@ extern "C"
 #endif
 
 
-extern int validate(char *, REAL *, size_t, REAL);
+extern long int validate(char *,
+                         REAL *,
+                         size_t,
+                         REAL);
 
 
 #ifdef __cplusplus

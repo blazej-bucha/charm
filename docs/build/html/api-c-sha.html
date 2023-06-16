@@ -1,119 +1,174 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" />
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>charm_sha &#8212; CHarm 0.3.0 documentation</title>
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>charm_sha &mdash; CHarm 0.2.0 documentation</title>
   
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/custom_BB.css" type="text/css" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
   
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api-c-sha';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="charm_leg" href="api-c-leg.html" />
-    <link rel="prev" title="charm_shs" href="api-c-shs.html" /> 
-</head>
+    <link rel="prev" title="charm_shs" href="api-c-shs.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="index.html" class="icon icon-home"> CHarm
-          
-
-          
-            
-            <img src="_static/charm-logo.png" class="logo" alt="Logo"/>
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                0.2.0
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <ul class="current">
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/charm-logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+    <p class="title logo__title">CHarm v0.3.0</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="install.html">Installing</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="install_unix.html">Installation on Unix-based operating systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install_non_unix.html">Installation on Windows 10</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="api.html">Interfaces</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="api-c.html">CHarm (C API)</a><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="cookbook.html">Cookbook</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="cookbook-c.html">CHarm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cookbook-py.html">PyHarm</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="api.html">Interfaces</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="api-c.html">CHarm (C API)</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="api-c-shc.html">charm_shc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">charm_sha</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">charm_sha</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-leg.html">charm_leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-xnum.html">charm_xnum</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html">charm_err</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-glob.html">charm_glob</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="api-py-shc.html">pyharm.shc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">pyharm.sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-leg.html">pyharm.leg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">pyharm.integ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-glob.html">pyharm.glob</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
@@ -122,112 +177,236 @@
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">CHarm</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="api.html">Interfaces</a> &raquo;</li>
-        
-          <li><a href="api-c.html">CHarm (C API)</a> &raquo;</li>
-        
-      <li>charm_sha</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="_sources/api-c-sha.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
+    </div>
+</nav></div>
+    </div>
   
-  <hr/>
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm/edit/master/docs/src/api-c-sha.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm/issues/new?title=Issue%20on%20page%20%2Fapi-c-sha.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/api-c-sha.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>charm_sha</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
             
-  <div class="section" id="charm-sha">
-<span id="id1"></span><h1>charm_sha<a class="headerlink" href="#charm-sha" title="Permalink to this headline">¶</a></h1>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="charm-sha">
+<span id="id1"></span><h1>charm_sha<a class="headerlink" href="#charm-sha" title="Permalink to this heading">#</a></h1>
 <p>Module to perform surface spherical harmonic analysis using:</p>
 <p><ul class="simple">
 <li><p>point data values,</p></li>
 <li><p>mean data values.</p></li>
 </ul>
 </p>
-<p><p><div class="admonition note">
+<div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This documentation is written for double precision version of 
 CHarm.</p>
 </div>
-</p>
- </p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-enums">Enums</p>
-<dl class="cpp enum">
-<dt id="_CPPv4Ut1_3">
-<span id="_CPPv3Ut1_3"></span><span class="target" id="charm__sha_8h_1abc6126af1d45847bc59afa0aa3216b04"></span><em class="property">enum </em><strong>[anonymous]</strong><a class="headerlink" href="#_CPPv4Ut1_3" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Harmonic analysis methods using evaluation cells. </p>
-<p><em>Values:</em></p>
-<dl class="cpp enumerator">
-<dt id="_CPPv4NUt1_317CHARM_SHA_CELL_AQE">
-<span id="_CPPv3NUt1_317CHARM_SHA_CELL_AQE"></span><span class="target" id="charm__sha_8h_1abc6126af1d45847bc59afa0aa3216b04ac5edf8164d412c4f07f63ad008ad12f8"></span><em class="property">enumerator </em><code class="sig-name descname">CHARM_SHA_CELL_AQ</code><a class="headerlink" href="#_CPPv4NUt1_317CHARM_SHA_CELL_AQE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Spherical harmonic analysis of cell data using the <em>approximate</em> quadrature method. </p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-analysis-of-point-values">Analysis of point values</p>
+<p>Functions to perform spherical harmonic analysis of point values. </p>
 <dl class="cpp function">
-<dt id="_CPPv415charm_sha_pointPK11charm_pointPKdmP9charm_shcP9charm_err">
-<span id="_CPPv315charm_sha_pointPK11charm_pointPKdmP9charm_shcP9charm_err"></span><span id="_CPPv215charm_sha_pointPK11charm_pointPKdmP9charm_shcP9charm_err"></span><span id="charm_sha_point__charm_pointCP.doubleCP.unsigned-l.charm_shcP.charm_errP"></span><span class="target" id="charm__sha_8h_1ae98177417defe2a6344b7fb62a1c74a7"></span>void <code class="sig-name descname">charm_sha_point</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="api-c-crd.html#_CPPv411charm_point" title="charm_point">charm_point</a> *<em>pnt</em>, <em class="property">const</em> double *<em>f</em>, unsigned long <em>nmax</em>, <a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc">charm_shc</a> *<em>shcs</em>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err">charm_err</a> *<em>err</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415charm_sha_pointPK11charm_pointPKdmP9charm_shcP9charm_err" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Performs the exact surface spherical harmonic analysis based on point data values:</p>
+<dt class="sig sig-object cpp" id="_CPPv415charm_sha_pointPK11charm_pointPKdmP9charm_shcP9charm_err">
+<span id="_CPPv315charm_sha_pointPK11charm_pointPKdmP9charm_shcP9charm_err"></span><span id="_CPPv215charm_sha_pointPK11charm_pointPKdmP9charm_shcP9charm_err"></span><span id="charm_sha_point__charm_pointCP.doubleCP.unsigned-l.charm_shcP.charm_errP"></span><span class="target" id="charm__sha_8h_1ae98177417defe2a6344b7fb62a1c74a7"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_sha_point</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="api-c-crd.html#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pnt</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">f</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415charm_sha_pointPK11charm_pointPKdmP9charm_shcP9charm_err" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Performs the exact surface spherical harmonic analysis based on point data values: </p>
 <p><div class="math notranslate nohighlight">
 \[\begin{split}\left.\begin{aligned}
 \bar{C}_{nm} \\
@@ -254,9 +433,9 @@ CHarm.</p>
 <p>The function modifies <code class="docutils literal notranslate"><span class="pre">shcs-&gt;c</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;s</span></code>, but it does not touch the remaining members of <code class="docutils literal notranslate"><span class="pre">shcs</span></code>. If <code class="docutils literal notranslate"><span class="pre">shcs-&gt;nmax</span> <span class="pre">&gt;</span> <span class="pre">nmax</span></code>, the coefficients beyond <code class="docutils literal notranslate"><span class="pre">nmax</span></code> are set to zero.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>pnt</strong> – <strong>[in]</strong> Structure defining grid points and integration weights (see <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code>). The <code class="docutils literal notranslate"><span class="pre">pnt</span></code> structure must be prepared by calling the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#charm__crd_8h_1a2f25d2e7fcfbd5950b3b8c41de1330c9"><span class="std std-ref"><span class="pre">charm_crd_point_gl()</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#charm__crd_8h_1a3c695af1812dbd2be8e2a7a42dece1d0"><span class="std std-ref"><span class="pre">charm_crd_point_dh1()</span></span></a></code> or <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#charm__crd_8h_1ad78de03b5329e9e4d7bf241eb61fb063"><span class="std std-ref"><span class="pre">charm_crd_point_dh2()</span></span></a></code> with some <code class="docutils literal notranslate"><span class="pre">nmax_signal</span></code>. Importantly, it is assumed that <strong>no</strong> harmonics (frequencies) are present in the input signal beyond <code class="docutils literal notranslate"><span class="pre">nmax_signal</span></code>. Otherwise, the output spherical harmonic coefficients will suffer from the alliasing effect.</p></li>
+<li><p><strong>pnt</strong> – <strong>[in]</strong> Structure defining grid points and integration weights (see <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code>). The <code class="docutils literal notranslate"><span class="pre">pnt</span></code> structure must be prepared by calling the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#charm__crd_8h_1a43011764a620cbea682983d31a5e202f"><span class="std std-ref"><span class="pre">charm_crd_point_gl()</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#charm__crd_8h_1a74dd8465b52f35d4e7dca5205c5b3eb5"><span class="std std-ref"><span class="pre">charm_crd_point_dh1()</span></span></a></code> or <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#charm__crd_8h_1a60c2bc69dee5a06f2be9f0a89bf04da3"><span class="std std-ref"><span class="pre">charm_crd_point_dh2()</span></span></a></code> with some <code class="docutils literal notranslate"><span class="pre">nmax_signal</span></code>. Importantly, it is assumed that <strong>no</strong> harmonics (frequencies) are present in the input signal beyond <code class="docutils literal notranslate"><span class="pre">nmax_signal</span></code>. Otherwise, the output spherical harmonic coefficients will suffer from the alliasing effect.</p></li>
 <li><p><strong>f</strong> – <strong>[in]</strong> Input signal with point data given at the nodes of the <code class="docutils literal notranslate"><span class="pre">pnt</span></code> structure and containing harmonics up to degree <code class="docutils literal notranslate"><span class="pre">nmax_signal</span></code> at most. The pointer <code class="docutils literal notranslate"><span class="pre">f</span></code> must have an access to <code class="docutils literal notranslate"><span class="pre">pnt-&gt;nlat</span> <span class="pre">*</span> <span class="pre">pnt-&gt;nlon</span></code> array elements. The value of <code class="docutils literal notranslate"><span class="pre">f</span></code> at <code class="docutils literal notranslate"><span class="pre">pnt-&gt;lat[i]</span></code> and <code class="docutils literal notranslate"><span class="pre">pnt-&gt;lon[j]</span></code> must be stored as <code class="docutils literal notranslate"><span class="pre">f[i</span> <span class="pre">*</span> <span class="pre">pnt-&gt;nlon</span> <span class="pre">+</span> <span class="pre">j]</span></code> with <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">pnt-&gt;nlat</span> <span class="pre">-</span> <span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">pnt-&gt;nlon</span> <span class="pre">-</span> <span class="pre">1</span></code>.</p></li>
 <li><p><strong>nmax</strong> – <strong>[in]</strong> Maximum harmonic degree of the output spherical harmonic coefficients. If <code class="docutils literal notranslate"><span class="pre">f</span></code> is properly given at the nodes of the Gauss-Legendre or the Driscoll-Healy grid for <code class="docutils literal notranslate"><span class="pre">nmax_signal</span></code> and no harmonics are present beyond <code class="docutils literal notranslate"><span class="pre">nmax_signal</span></code> in <code class="docutils literal notranslate"><span class="pre">f</span></code>, than the output coefficients are computed exactly for all <code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">&lt;=</span> <span class="pre">nmax_signal</span></code>.</p></li>
 <li><p><strong>shcs</strong> – <strong>[out]</strong> Output spherical harmonic coefficients (see <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code>).</p></li>
@@ -266,10 +445,14 @@ CHarm.</p>
 </dl>
 </dd></dl>
 
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-analysis-of-mean-values">Analysis of mean values</p>
+<p>Functions to perform spherical harmonic analysis of mean values. </p>
 <dl class="cpp function">
-<dt id="_CPPv414charm_sha_cellPK10charm_cellPKdmiP9charm_shcP9charm_err">
-<span id="_CPPv314charm_sha_cellPK10charm_cellPKdmiP9charm_shcP9charm_err"></span><span id="_CPPv214charm_sha_cellPK10charm_cellPKdmiP9charm_shcP9charm_err"></span><span id="charm_sha_cell__charm_cellCP.doubleCP.unsigned-l.i.charm_shcP.charm_errP"></span><span class="target" id="charm__sha_8h_1a0cfef83c12175c434125d39f2a100080"></span>void <code class="sig-name descname">charm_sha_cell</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="api-c-crd.html#_CPPv410charm_cell" title="charm_cell">charm_cell</a> *<em>cell</em>, <em class="property">const</em> double *<em>f</em>, unsigned long <em>nmax</em>, int <em>method</em>, <a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc">charm_shc</a> *<em>shcs</em>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err">charm_err</a> *<em>err</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414charm_sha_cellPK10charm_cellPKdmiP9charm_shcP9charm_err" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Performs an approximate surface spherical harmonic analysis based on mean data values (area means, block-means) given over grid cells:</p>
+<dt class="sig sig-object cpp" id="_CPPv414charm_sha_cellPK10charm_cellPKdmiP9charm_shcP9charm_err">
+<span id="_CPPv314charm_sha_cellPK10charm_cellPKdmiP9charm_shcP9charm_err"></span><span id="_CPPv214charm_sha_cellPK10charm_cellPKdmiP9charm_shcP9charm_err"></span><span id="charm_sha_cell__charm_cellCP.doubleCP.unsigned-l.i.charm_shcP.charm_errP"></span><span class="target" id="charm__sha_8h_1a0cfef83c12175c434125d39f2a100080"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_sha_cell</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="api-c-crd.html#_CPPv410charm_cell" title="charm_cell"><span class="n"><span class="pre">charm_cell</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">cell</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">f</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">method</span></span>, <a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414charm_sha_cellPK10charm_cellPKdmiP9charm_shcP9charm_err" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Performs an approximate surface spherical harmonic analysis based on mean data values (area means, block-means) given over grid cells: </p>
 <p><div class="math notranslate nohighlight">
 \[\begin{split}\left.\begin{aligned}
 \bar{C}_{nm} \\
@@ -293,11 +476,11 @@ CHarm.</p>
 <p><ul class="simple">
 <li><p>at least <code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">+</span> <span class="pre">1</span></code> data values in <code class="docutils literal notranslate"><span class="pre">f</span></code> are required in the latitudinal direction,</p></li>
 <li><p>at least <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">nmax</span> <span class="pre">+</span> <span class="pre">1</span></code> data values in <code class="docutils literal notranslate"><span class="pre">f</span></code> are required in the longitudinal direction,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;latmax[0]</span></code> has to be equal to <code class="docutils literal notranslate"><span class="pre">PI</span> <span class="pre">/</span> <span class="pre">2.0</span></code> (within the <code class="docutils literal notranslate"><span class="pre">charm_glob_threshold</span></code> limit, see the <code class="docutils literal notranslate"><span class="pre">charm_glob</span></code> module),</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;latmin[cell-&gt;nlat</span> <span class="pre">-</span> <span class="pre">1]</span></code> has to be equal to <code class="docutils literal notranslate"><span class="pre">-PI</span> <span class="pre">/</span> <span class="pre">2.0</span></code> (again, within the <code class="docutils literal notranslate"><span class="pre">charm_glob_threshold</span></code> limit),</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;lonmin[0]</span></code> has to be equal to <code class="docutils literal notranslate"><span class="pre">0.0</span></code> (still within the <code class="docutils literal notranslate"><span class="pre">charm_glob_threshold</span></code> limit),</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;lonmax[cell-&gt;nlon</span> <span class="pre">-</span> <span class="pre">1]</span></code> has to be equal to <code class="docutils literal notranslate"><span class="pre">2.0</span> <span class="pre">*</span> <span class="pre">PI</span></code> (still within the <code class="docutils literal notranslate"><span class="pre">charm_glob_threshold</span></code> limit),</p></li>
-<li><p>the maximum latitude of one cell has to be equal to the minimum latitude of the next cell that follows (the same holds also for the longitudes; both within the <code class="docutils literal notranslate"><span class="pre">charm_glob_threshold</span></code> limit).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;latmax[0]</span></code> has to be equal to <code class="docutils literal notranslate"><span class="pre">PI</span> <span class="pre">/</span> <span class="pre">2.0</span></code> (within the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1ab38bfd45ebf0f622c892ec1d0045c601"><span class="std std-ref"><span class="pre">charm_glob_threshold</span></span></a></code> limit, see <a class="reference external" href="./api-c-glob.html">charm_glob</a>),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;latmin[cell-&gt;nlat</span> <span class="pre">-</span> <span class="pre">1]</span></code> has to be equal to <code class="docutils literal notranslate"><span class="pre">-PI</span> <span class="pre">/</span> <span class="pre">2.0</span></code> (again, within the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1ab38bfd45ebf0f622c892ec1d0045c601"><span class="std std-ref"><span class="pre">charm_glob_threshold</span></span></a></code> limit),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;lonmin[0]</span></code> has to be equal to <code class="docutils literal notranslate"><span class="pre">0.0</span></code> (still within the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1ab38bfd45ebf0f622c892ec1d0045c601"><span class="std std-ref"><span class="pre">charm_glob_threshold</span></span></a></code> limit),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cell-&gt;lonmax[cell-&gt;nlon</span> <span class="pre">-</span> <span class="pre">1]</span></code> has to be equal to <code class="docutils literal notranslate"><span class="pre">2.0</span> <span class="pre">*</span> <span class="pre">PI</span></code> (still within the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1ab38bfd45ebf0f622c892ec1d0045c601"><span class="std std-ref"><span class="pre">charm_glob_threshold</span></span></a></code> limit),</p></li>
+<li><p>the maximum latitude of one cell has to be equal to the minimum latitude of the next cell that follows (the same holds also for the longitudes; both within the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1ab38bfd45ebf0f622c892ec1d0045c601"><span class="std std-ref"><span class="pre">charm_glob_threshold</span></span></a></code> limit).</p></li>
 </ul>
 </p>
 <p>If possible, the function exploits the symmetry property of Legendre functions and their integrals with respect to the equator, thereby improving its performance (see <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shs.html#charm__shs_8h_1add861cfba63c63d85c613ffe68af5c98"><span class="std std-ref"><span class="pre">charm_shs_cell()</span></span></a></code>).</p>
@@ -318,12 +501,12 @@ touch the remaining members of <code class="docutils literal notranslate"><span 
 coefficients beyond <code class="docutils literal notranslate"><span class="pre">nmax</span></code> are set to zero.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>cell</strong> – <strong>[in]</strong> Structure defining grid cells (see <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code>).</p></li>
 <li><p><strong>f</strong> – <strong>[in]</strong> Input signal with block mean data given at the nodes of the <code class="docutils literal notranslate"><span class="pre">cell</span></code> structure. The pointer <code class="docutils literal notranslate"><span class="pre">f</span></code> must have an access to <code class="docutils literal notranslate"><span class="pre">cell-&gt;nlat</span> <span class="pre">*</span> <span class="pre">cell-&gt;nlon</span></code> array elements. The mean value of the signal at the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th cell in the latitudinal direction and the <code class="docutils literal notranslate"><span class="pre">j</span></code>-th cell in the longitudinal direction must be stored as <code class="docutils literal notranslate"><span class="pre">f[i</span> <span class="pre">*</span> <span class="pre">cell-&gt;nlon</span> <span class="pre">+</span> <span class="pre">j]</span></code> with <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">cell-&gt;nlat</span> <span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">pnt-&gt;nlon</span> <span class="pre">1</span></code>.</p></li>
 <li><p><strong>nmax</strong> – <strong>[in]</strong> Maximum harmonic degree of the output spherical harmonic coefficients.</p></li>
-<li><p><strong>method</strong> – <strong>[in]</strong> Method of spherical harmonic analysis of cell data. The only method currently supported is the approximate quadrature <code class="docutils literal notranslate"><span class="pre">CHARM_SHA_CELL_AQ</span></code> (described above).</p></li>
+<li><p><strong>method</strong> – <strong>[in]</strong> Method of spherical harmonic analysis of cell data. The only method currently supported is the approximate quadrature <code class="docutils literal notranslate"><a class="reference internal" href="#charm__sha_8h_1abc6126af1d45847bc59afa0aa3216b04ac5edf8164d412c4f07f63ad008ad12f8"><span class="std std-ref"><span class="pre">CHARM_SHA_CELL_AQ</span></span></a></code>.</p></li>
 <li><p><strong>shcs</strong> – <strong>[out]</strong> Output spherical harmonic coefficients (see <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code>).</p></li>
 <li><p><strong>err</strong> – <strong>[out]</strong> Error reported by the function (if any). </p></li>
 </ul>
@@ -332,54 +515,113 @@ coefficients beyond <code class="docutils literal notranslate"><span class="pre"
 </dd></dl>
 
 </div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-enums">Enums</p>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4Ut1_3">
+<span id="_CPPv3Ut1_3"></span><span class="target" id="charm__sha_8h_1abc6126af1d45847bc59afa0aa3216b04"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">[anonymous]</span></span></span><a class="headerlink" href="#_CPPv4Ut1_3" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Harmonic analysis methods using evaluation cells. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4NUt1_317CHARM_SHA_CELL_AQE">
+<span id="_CPPv3NUt1_317CHARM_SHA_CELL_AQE"></span><span class="target" id="charm__sha_8h_1abc6126af1d45847bc59afa0aa3216b04ac5edf8164d412c4f07f63ad008ad12f8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_SHA_CELL_AQ</span></span></span><a class="headerlink" href="#_CPPv4NUt1_317CHARM_SHA_CELL_AQE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Spherical harmonic analysis of cell data using the <em>approximate</em> quadrature method. </p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="api-c-shs.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">charm_shs</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="api-c-leg.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">charm_leg</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
 </div>
 
-
-           </div>
-           
+                </footer>
+              
+            </div>
+            
+            
+              
+            
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="api-c-leg.html" class="btn btn-neutral float-right" title="charm_leg" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="api-c-shs.html" class="btn btn-neutral float-left" title="charm_shs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Blažej Bucha
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, Blažej Bucha.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+  Last updated on Jun 16, 2023.
+  <br/>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &#169; Copyright 2022, Blažej Bucha.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-        </div>
-      </div>
-
-    </section>
-
   </div>
   
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
-    
-   
-
-</body>
+  <footer class="bd-footer">
+  </footer>
+  </body>
 </html>

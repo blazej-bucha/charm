@@ -1,5 +1,5 @@
 # Name of the benchmark program (will not be installed)
-check_PROGRAMS = bench_run@P@@OMP@
+noinst_PROGRAMS = bench_run@P@@OMP@
 
 
 EXTRA_DIST = plot-bench.py \

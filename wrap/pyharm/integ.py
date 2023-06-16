@@ -1,22 +1,27 @@
 """
 Module to compute the following integrals:
 
-* a product of two fully-normalized associated Legendre functions and a sine of 
-  a co-latitude over a restricted domain of co-latitudes,
+* a product of two fully-normalized associated Legendre functions and a sine
+  of a co-latitude,
 
   .. math::
 
-    \int_{\\theta_1}^{\\theta_2} \\bar{P}_{nm}(\cos\\theta) \, 
-    \\bar{P}_{nm}(\cos\\theta) \, \sin(\\theta) \, \mathrm{d}\\theta \,,
+      \int\limits_{\\theta_1}^{\\theta_2} \\bar{P}_{n_1,m_1}(\cos\\theta) \,
+      \\bar{P}_{n_2,m_2}(\cos\\theta) \, \sin(\\theta) \,
+      \mathrm{d}\\theta{,} \quad \\theta_1 \leq \\theta_2{,}
 
-* a product of two :obj:`4pi` fully-normalized surface spherical harmonic 
+
+* a product of two :obj:`4pi` fully-normalized surface spherical harmonic
   functions over a rectangular cell on the unit sphere,
 
   .. math::
 
-    \int_{\\theta_1}^{\\theta_2} \int_{\lambda_1}^{\lambda_2} 
-    \\bar{Y}_{nm}(\\theta, \lambda) \, \\bar{Y}_{nm}(\\theta, \lambda) \, 
-    \mathrm{d}\lambda \, \sin(\\theta) \, \mathrm{d}\\theta \,.
+      \int\limits_{\\theta_1}^{\\theta_2}
+      \int\limits_{\lambda_1}^{\lambda_2} \\bar{Y}_{n_1,m_1}(\\theta,
+      \lambda) \, \\bar{Y}_{n_2,m_2}(\\theta, \lambda) \, \mathrm{d}\lambda
+      \, \sin(\\theta) \, \mathrm{d}\\theta{,} \quad \\theta_1 \leq
+      \\theta_2{,} \quad \lambda_1 \leq \lambda_2{.}
+
 
 Note
 ----
@@ -38,20 +43,18 @@ def pn1m1pn2m2(cltmin, cltmax, n1, m1, n2, m2, pnmj):
 
     .. math::
 
-                \mathrm{ip} = 
-                     \int_{\\theta_{\mathrm{min}}}^{\\theta_{\mathrm{max}}} 
-                     \\bar{P}_{n_1, m_1}(\cos\\theta) \, \\bar{P}_{n_2, 
-                     m_2}(\cos\\theta) \, \sin\\theta \, \mathrm{d}\\theta
+        \mathrm{ip} = \int\limits_{\\theta_{\mathrm{min}}}^{\\theta_{\mathrm{max}}}
+        \\bar{P}_{n_1, m_1}(\cos\\theta) \, \\bar{P}_{n_2, m_2}(\cos\\theta) \,
+        \sin\\theta \, \mathrm{d}\\theta{,} \quad \\theta_{\mathrm{min}} \leq
+        \\theta_{\mathrm{max}}{.}
 
-    over a restricted domain of co-latitudes.
-
-    The computation is based on the Fourier coefficients of the associated 
+    The computation is based on the Fourier coefficients of the associated
     Legendre functions (see Eq. 33 of Pail and Plank, 2001).
 
-    **References**: 
+    **References**:
 
-    * Pail, R., Plank, G., Schuh, W.-D. (2001) Spatially restricted data 
-      distributions on the sphere: the method of orthonormalized functions and 
+    * Pail, R., Plank, G., Schuh, W.-D. (2001) Spatially restricted data
+      distributions on the sphere: the method of orthonormalized functions and
       applications. Journal of Geodesy 75:44--56
 
     Parameters
@@ -107,14 +110,23 @@ def yi1n1m1yi2n2m2(cltmin, cltmax, lonmin, lonmax, i1, n1, m1, i2, n2, m2,
 
     .. math::
 
-                \mathrm{iy} = 
-                     \int_{\\theta_{\mathrm{min}}}^{\\theta_{\mathrm{max}}} 
-                     \int_{\lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}} 
-                     \\bar{Y}_{i_1,n_1,m_1}(\\theta, \lambda) \, 
-                     \\bar{Y}_{i_2,n_2,m_2}(\\theta, \lambda) \, \mathrm{d} 
-                     \lambda \, \sin(\\theta) \, \mathrm{d}\\theta \, 
+        \mathrm{iy} =
+             \int\limits_{\\theta_{\mathrm{min}}}^{\\theta_{\mathrm{max}}}
+             \int\limits_{\lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}}
+             \\bar{Y}_{i_1,n_1,m_1}(\\theta, \lambda) \,
+             \\bar{Y}_{i_2,n_2,m_2}(\\theta, \lambda) \, \mathrm{d}
+             \lambda \, \sin(\\theta) \, \mathrm{d}\\theta{,} \quad
+             \\theta_{\mathrm{min}} \leq \\theta_{\mathrm{max}}{,} \quad
+             \lambda_{\mathrm{min}} \leq \lambda_{\mathrm{max}}{,}
 
-    over a rectangular cell on the unit sphere.
+    where
+
+    .. math::
+
+        \\bar{Y}_{i,n,m}(\\theta, \lambda) = \\begin{cases}
+        \\bar{P}_{nm}(\cos\\theta) \, \cos(m \, \lambda) \quad &\\textrm{if}
+        \quad i = 0{,}\\\\ \\bar{P}_{nm}(\cos\\theta) \, \sin(m \, \lambda)
+        \quad &\\textrm{if} \quad i = 1{.} \end{cases}
 
     Parameters
     ----------
@@ -140,13 +152,13 @@ def yi1n1m1yi2n2m2(cltmin, cltmax, lonmin, lonmax, i1, n1, m1, i2, n2, m2,
     m2 : integer
         Harmonic order of the second spherical harmonic function
     pnmj : Pnmj
-        Fourier coefficients of Legendre functions up to degree :obj:`max(n1,
-        n2)`.
+        Fourier coefficients of Legendre functions at least up to degree
+        :obj:`max(n1, n2)`.
 
     Returns
     -------
     out : floating point
-        The output value :obj:`iy` of the integral.
+        The value :obj:`iy` of the integral.
     """
 
     _check_pn1m1pn2m2_inputs(cltmin, cltmax, n1, m1, n2, m2, pnmj)
@@ -209,10 +221,10 @@ def _check_pn1m1pn2m2_inputs(cltmin, cltmax, n1, m1, n2, m2, pnmj):
         Harmonic order of the second spherical harmonic function
     pnmj : Pnmj
         A `pyharm.leg.Pnmj` structure with the Fourier coefficients of
-        associated Legendre functions up to degree :obj:`max(n1, n2)`.  It is
-        assumed that the instance is prepared beforehand.  Note that :obj:`j`
-        is related to wave-numbers, but is *not* a wave-number (refer to
-        `charm_leg <./api-c-leg.html>`_ for the full documentation).
+        associated Legendre functions at least up to degree :obj:`max(n1, n2)`.
+        It is assumed that the instance is prepared beforehand.  Note that
+        :obj:`j` is related to wave-numbers, but is *not* a wave-number (refer
+        to `charm_leg <./api-c-leg.html>`_ for the full documentation).
     """
 
     _check_flt_scalar(cltmin, 'The minimum co-latitude')

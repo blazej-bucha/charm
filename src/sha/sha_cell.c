@@ -4,9 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#ifdef _MSC_VER
-#   define _USE_MATH_DEFINES
-#endif
 #include <math.h>
 #include <fftw3.h>
 #include "../prec.h"
@@ -24,7 +21,9 @@
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
 #include "../misc/misc_is_nearly_equal.h"
-#if CHARM_PARALLEL
+#include "../misc/misc_polar_optimization_threshold.h"
+#include "../misc/misc_polar_optimization_apply.h"
+#if CHARM_OPENMP
 #   include <omp.h>
 #endif
 #include "../simd/simd.h"
@@ -159,14 +158,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
     /* Check whether the number of cells in the latitudinal direction is even
      * or odd */
     /* ..................................................................... */
-    _Bool even;
-    if ((cell_nlat % 2) == 0)
-        /* The number of cells in the latitudinal direction is an even number
-         * */
-        even = 1;
-    else
-        /* The number of cells in the latitudinal direction is an odd number */
-        even = 0;
+    _Bool even = (cell_nlat % 2) == 0;
     /* ..................................................................... */
 
 
@@ -177,16 +169,15 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
      * otherwise "symm = 0". If "symm == 1", the function automatically
      * exploits the symmetry property of Legendre functions in order to
      * accelerate the computation */
-    _Bool symm;
-    if (cell_nlat == 1)
-        /* If there is only one cell in the latitudinal direction within the
-         * grid, the grid is automatically considered as not symmetric */
-        symm = 0;
-    else
-        /* If there is more than one cell in the latitudinal direction in the
-         * grid, let's start by assuming that the grid is symmetric with
-         * respect to the equator and check whether this is indeed true */
-        symm = 1;
+
+
+    /* If there is only one cell in the latitudinal direction, the grid is
+     * automatically considered as not symmetric.
+     *
+     * If there is more than one cell, let's start by assuming that the grid is
+     * symmetric with respect to the equator and check whether this is indeed
+     * true */
+    _Bool symm = cell_nlat > 1;
 
 
     for (size_t i = 0; i < cell_nlat; i++)
@@ -417,17 +408,9 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
 
 
 
-    /* Set all coefficients in "shcs" to zero */
-    CHARM(shc_reset_coeffs)(shcs);
-
-
-
-
-
-
     /* Create a plan for FFT */
     /* --------------------------------------------------------------------- */
-#if CHARM_PARALLEL && FFTW3_OMP
+#if CHARM_OPENMP && FFTW3_OMP
     int err_fftw = FFTW(init_threads)();
     if (err_fftw == 0)
     {
@@ -445,7 +428,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
         FAILURE_glob = 1;
         goto FAILURE;
     }
-    ftmp_out = (FFTW(complex) *)FFTW(malloc)(sizeof(FFTW(complex)) * 
+    ftmp_out = (FFTW(complex) *)FFTW(malloc)(sizeof(FFTW(complex)) *
                                              cell_nlon_fft);
     if (ftmp_out == NULL)
     {
@@ -474,8 +457,15 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
 
 
 
-    /* Loop over latitudes */
     /* --------------------------------------------------------------------- */
+    /* Set all coefficients in "shcs" to zero */
+    CHARM(shc_reset_coeffs)(shcs);
+
+
+    /* Get the polar optimization threshold */
+    REAL_SIMD pt = CHARM(misc_polar_optimization_threshold)(nmax);
+
+
     {
         REAL_SIMD x1, y1, z1, t1, u1;
         REAL_SIMD x2, y2, z2, t2, u2;
@@ -485,29 +475,32 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
         REAL_SIMD pnm0_latmax, pnm1_latmax, pnm2_latmax;
         REAL_SIMD latmin, latmax;
 #ifdef SIMD
-        RI_SIMD    zero_ri = SET_ZERO_RI;
-        RI_SIMD    one_ri  = SET1_RI(1);
-        RI_SIMD    mone_ri = SET1_RI(-1);
-        REAL_SIMD  zero_r  = SET_ZERO_R;
-        REAL_SIMD  BIG_r   = SET1_R(BIG);
-        REAL_SIMD  BIGI_r  = SET1_R(BIGI);
-        REAL_SIMD  BIGS_r  = SET1_R(BIGS);
-        REAL_SIMD  BIGSI_r = SET1_R(BIGSI);
+        const RI_SIMD    zero_ri = SET_ZERO_RI;
+        const RI_SIMD    one_ri  = SET1_RI(1);
+        const RI_SIMD    mone_ri = SET1_RI(-1);
+        const REAL_SIMD  zero_r  = SET_ZERO_R;
+        const REAL_SIMD  BIG_r   = SET1_R(BIG);
+        const REAL_SIMD  BIGI_r  = SET1_R(BIGI);
+        const REAL_SIMD  BIGS_r  = SET1_R(BIGS);
+        const REAL_SIMD  BIGSI_r = SET1_R(BIGSI);
         REAL_SIMD  tmp1_r,  tmp2_r;
         MASK_SIMD  mask1, mask2;
         MASK2_SIMD mask3;
         ABS_R_INIT;
+        NEG_R_INIT;
 #endif
         REAL_SIMD symm_simd, latsin;
         REAL_SIMD am, bm, a2m, b2m;
         REAL_SIMD cm_simd, sm_simd;
         REAL_SIMD amp, amm, bmp, bmm;
+        REAL_SIMD anms, bnms;
         REAL_SIMD in0, inm0, inm1, inm2;
         REAL_SIMD w;
         REAL cm, sm, mr;
         _Bool npm_even; /* True if "n + m" is even */
         size_t ipv; /* "i + v" */
         unsigned long nmm; /* "n - m" */
+        _Bool ds1, ds2; /* Dynamical switching */
 
 
         /* ................................................................. */
@@ -527,7 +520,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
         REAL *b       = NULL;
         REAL *a2      = NULL;
         REAL *b2      = NULL;
-#if !(CHARM_PARALLEL)
+#if !(CHARM_OPENMP)
         REAL *anm     = NULL;
         REAL *bnm     = NULL;
 #endif
@@ -536,28 +529,28 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
         FFTW(complex) *ftmp_out = NULL;
 
 
-        ips1 = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax, 
+        ips1 = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax,
                                             sizeof(int));
         if (ips1 == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        ips2 = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax, 
+        ips2 = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax,
                                             sizeof(int));
         if (ips2 == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        ps1 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax, 
+        ps1 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax,
                                             sizeof(REAL));
         if (ps1 == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        ps2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax, 
+        ps2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax,
                                             sizeof(REAL));
         if (ps2 == NULL)
         {
@@ -606,53 +599,53 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        symmv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE, 
+        symmv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
                                               sizeof(REAL));
         if (symmv == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        latsinv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE, 
+        latsinv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
                                                 sizeof(REAL));
         if (latsinv == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        a = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, 
-                                          SIMD_SIZE * cell_nlon_fft, 
+        a = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                          SIMD_SIZE * cell_nlon_fft,
                                           sizeof(REAL));
         if (a == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        b = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, 
-                                          SIMD_SIZE * cell_nlon_fft, 
+        b = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                          SIMD_SIZE * cell_nlon_fft,
                                           sizeof(REAL));
         if (b == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        a2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, 
-                                           SIMD_SIZE * cell_nlon_fft, 
+        a2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                           SIMD_SIZE * cell_nlon_fft,
                                            sizeof(REAL));
         if (a2 == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        b2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, 
-                                           SIMD_SIZE * cell_nlon_fft, 
+        b2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                           SIMD_SIZE * cell_nlon_fft,
                                            sizeof(REAL));
         if (b2 == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-#if !(CHARM_PARALLEL)
+#if !(CHARM_OPENMP)
         anm = (REAL *)calloc(nmax + 1, sizeof(REAL));
         if (anm == NULL)
         {
@@ -666,8 +659,8 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
             goto FAILURE_1;
         }
 #endif
-        imm = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, 
-                                            SIMD_SIZE * (nmax + 1), 
+        imm = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                            SIMD_SIZE * (nmax + 1),
                                             sizeof(REAL));
         if (imm == NULL)
         {
@@ -691,7 +684,8 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
 
 
 
-        for (size_t i = 0; i < SIMD_GET_MULTIPLE(nlatdo); i += SIMD_SIZE)
+        for (size_t i = 0; i < SIMD_MULTIPLE(nlatdo, SIMD_SIZE);
+             i += SIMD_SIZE)
         {
             for (size_t v = 0; v < SIMD_SIZE; v++)
             {
@@ -714,7 +708,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
                 }
                 else
                 {
-                    latminv[v] = latmaxv[v] = t1v[v] = u1v[v] = t2v[v] = 
+                    latminv[v] = latmaxv[v] = t1v[v] = u1v[v] = t2v[v] =
                         u2v[v] = PREC(0.0);
                     continue;
                 }
@@ -773,7 +767,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
 
 
             /* Pre-compute the sectorial "imm" integrals.  This is necessary
-             * for the "defined(CHARM_PARALLEL)" parallelization strategy, but
+             * for the "defined(CHARM_OPENMP)" parallelization strategy, but
              * can be used (and in fact it is) also with the other
              * parallelization strategies. */
             /* ------------------------------------------------------------- */
@@ -818,7 +812,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
                 }
                 else if (m == 2) /* I22 */
                 {
-                    STORE_R(&imm[m * SIMD_SIZE], 
+                    STORE_R(&imm[m * SIMD_SIZE],
                             MUL_R(SET1_R(SQRT(PREC(15.0)) / PREC(6.0)),
                                   SUB_R(MUL_R(t2, SUB_R(SET1_R(PREC(3.0)),
                                                         MUL_R(t2, t2))),
@@ -827,7 +821,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
                 }
                 else /* I33, I44, ..., Inmax,nmax */
                 {
-                    STORE_R(&imm[m * SIMD_SIZE], 
+                    STORE_R(&imm[m * SIMD_SIZE],
                             ADD_R(MUL_R(SET1_R(gm[m]),
                                         LOAD_R(&imm[(m - 2) * SIMD_SIZE])),
                                   MUL_R(SET1_R(PREC(1.0) / (REAL)(m + 1)),
@@ -845,37 +839,32 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
 
             /* Loop over harmonic orders */
             /* ------------------------------------------------------------- */
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
+
+
+#   undef SIMD_VARS
 #   ifdef SIMD
-        #pragma omp parallel default(none) \
-            shared(nmax, t1, t2, u1, u2, symm_simd) \
-            shared(shcs, en, fn, gm, hm, imm, ps1, ps2, ips1, ips2, r, ri) \
-            shared(a, b, a2, b2, dlon, latsin) \
-            shared(FAILURE_glob, err) \
-            private(am, bm, a2m, b2m) \
-            private(cm, sm, x1, x2, ix1, ix2, y1, y2, iy1, iy2, w, mr) \
-            private(z1, z2, iz1, iz2, ixy1, ixy2) \
-            private(amp, amm, bmp, bmm, cm_simd, sm_simd) \
-            private(pnm0_latmin, pnm0_latmax, pnm1_latmin, pnm1_latmax) \
-            private(pnm2_latmin, pnm2_latmax, in0, inm0, inm1, inm2) \
-            private(npm_even, nmm) \
-            shared(zero_ri, one_ri, mone_ri, zero_r) \
-            shared(BIG_r, BIGI_r, BIGS_r, BIGSI_r, ABS_R_MASK) \
-            private(tmp1_r, tmp2_r, mask1, mask2, mask3)
+#       define SIMD_VARS shared(zero_ri, one_ri, mone_ri, zero_r) \
+                         shared(BIG_r, BIGI_r, BIGS_r, BIGSI_r) \
+                         shared(NONSIGNBITS_R, SIGNBIT_R) \
+                         private(tmp1_r, tmp2_r, mask1, mask2, mask3)
 #   else
-        #pragma omp parallel default(none) \
-            shared(nmax, t1, t2, u1, u2, symm_simd) \
-            shared(shcs, en, fn, gm, hm, imm, ps1, ps2, ips1, ips2, r, ri) \
-            shared(a, b, a2, b2, dlon, latsin) \
-            shared(FAILURE_glob, err) \
-            private(am, bm, a2m, b2m) \
-            private(cm, sm, x1, x2, ix1, ix2, y1, y2, iy1, iy2, w, mr) \
-            private(z1, z2, iz1, iz2, ixy1, ixy2) \
-            private(amp, amm, bmp, bmm, cm_simd, sm_simd) \
-            private(pnm0_latmin, pnm0_latmax, pnm1_latmin, pnm1_latmax) \
-            private(pnm2_latmin, pnm2_latmax, in0, inm0, inm1, inm2) \
-            private(npm_even, nmm)
+#       define SIMD_VARS
 #   endif
+
+
+#pragma omp parallel default(none) \
+shared(nmax, t1, t2, u1, u2, symm_simd) \
+shared(shcs, en, fn, gm, hm, imm, ps1, ps2, ips1, ips2, r, ri) \
+shared(a, b, a2, b2, dlon, latsin, pt) \
+shared(FAILURE_glob, err) \
+private(am, bm, a2m, b2m, anms, bnms) \
+private(cm, sm, x1, x2, ix1, ix2, y1, y2, iy1, iy2, w, mr) \
+private(z1, z2, iz1, iz2, ixy1, ixy2) \
+private(amp, amm, bmp, bmm, cm_simd, sm_simd) \
+private(pnm0_latmin, pnm0_latmax, pnm1_latmin, pnm1_latmax) \
+private(pnm2_latmin, pnm2_latmax, in0, inm0, inm1, inm2) \
+private(npm_even, nmm, ds1, ds2) SIMD_VARS
             {
             /* ............................................................. */
             /* An indicator for failed memory initializations on each
@@ -944,6 +933,14 @@ FAILURE_1_parallel:
 #endif
             for (unsigned long m = 0; m <= nmax; m++)
             {
+
+                /* Apply polar optimization if asked to do so.  Since "u1
+                 * = sin(latmin)" and "u2 = sin(latmax)", it is sufficient to
+                 * check "u1" only.  In other words, if the polar optimization
+                 * can be applied for "u1", it can surely be applied for
+                 * "u2". */
+                if (CHARM(misc_polar_optimization_apply)(m, nmax, &u1, 1, pt))
+                    continue;
 
 
                 /* Due to the use of the mean values, some additional terms
@@ -1044,6 +1041,8 @@ FAILURE_1_parallel:
                          * + m" is always odd.  Then, it changes with every
                          * loop iteration. */
                         npm_even = 0;
+
+
                         for (unsigned long n = 1; n <= nmax;
                              n++, npm_even = !npm_even)
                         {
@@ -1168,32 +1167,35 @@ FAILURE_1_parallel:
                     /* ----------------------------------------------------- */
                     if (m < nmax)
                     {
+                        anms = SET1_R(anm[m + 1]);
+                        bnms = SET1_R(bnm[m + 1]);
+
 
                         /* Pm+1,m for "latmin" */
 #ifdef SIMD
-                        PNM_SEMISECTORIAL_XNUM_SIMD(x1, y1, ix1, iy1, w, t1, 
-                                                    anm[m + 1], pnm1_latmin, 
-                                                    mask1, mask2, mask3, 
-                                                    zero_r, zero_ri, mone_ri, 
+                        PNM_SEMISECTORIAL_XNUM_SIMD(x1, y1, ix1, iy1, w, t1,
+                                                    anms, pnm1_latmin,
+                                                    mask1, mask2, mask3,
+                                                    zero_r, zero_ri, mone_ri,
                                                     BIG_r, BIGS_r,  BIGI_r,
                                                     SEMISECTORIALS1);
 #else
                         PNM_SEMISECTORIAL_XNUM(x1, y1, ix1, iy1, w, t1,
-                                               anm[m + 1], pnm1_latmin);
+                                               anms, pnm1_latmin);
 #endif
 
 
                         /* Pm+1,m for "latmax" */
 #ifdef SIMD
-                        PNM_SEMISECTORIAL_XNUM_SIMD(x2, y2, ix2, iy2, w, t2, 
-                                                    anm[m + 1], pnm1_latmax, 
-                                                    mask1, mask2, mask3, 
-                                                    zero_r, zero_ri, mone_ri, 
+                        PNM_SEMISECTORIAL_XNUM_SIMD(x2, y2, ix2, iy2, w, t2,
+                                                    anms, pnm1_latmax,
+                                                    mask1, mask2, mask3,
+                                                    zero_r, zero_ri, mone_ri,
                                                     BIG_r, BIGS_r,  BIGI_r,
                                                     SEMISECTORIALS2);
 #else
                         PNM_SEMISECTORIAL_XNUM(x2, y2, ix2, iy2, w, t2,
-                                               anm[m + 1], pnm1_latmax);
+                                               anms, pnm1_latmax);
 #endif
 
 
@@ -1201,10 +1203,11 @@ FAILURE_1_parallel:
                         /* ................................................. */
                         /* This is not a typo, "pnm0" are indeed required here
                          * */
-                        inm1 = -MUL_R(SET1_R(anm[m + 1] / (REAL)(m + 2)),
-                                      SUB_R(MUL_R(MUL_R(u2, u2), pnm0_latmax),
-                                            MUL_R(MUL_R(u1, u1), 
-                                                  pnm0_latmin)));
+                        inm1 = NEG_R(MUL_R(SET1_R(anm[m + 1] / (REAL)(m + 2)),
+                                           SUB_R(MUL_R(MUL_R(u2, u2),
+                                                       pnm0_latmax),
+                                                 MUL_R(MUL_R(u1, u1),
+                                                       pnm0_latmin))));
                         /* ................................................. */
 
 
@@ -1217,58 +1220,66 @@ FAILURE_1_parallel:
 
                         /* Pm+2,m, Pm+3,m, ..., Pnmax,m and their integrals */
                         /* ................................................. */
+                        ds1 = ds2 = 0;
+
+
                         /* Is "n + m" even?  Since we start the loop with "n
                          * = m + 2", then the parity of the first "m + 2 + m"
                          * is always even.  Then, it changes with every loop
                          * iteration. */
                         npm_even = 1;
+
+
                         for (unsigned long n = (m + 2); n <= nmax;
                              n++, npm_even = !npm_even)
                         {
+                            anms = SET1_R(anm[n]);
+                            bnms = SET1_R(bnm[n]);
+
 
                             /* Pm+2,m, Pm+3,m, ..., Pnmax,m for "latmin" */
 #ifdef SIMD
-                            PNM_TESSERAL_XNUM_SIMD(x1, y1, z1, ix1, iy1, iz1, 
+                            PNM_TESSERAL_XNUM_SIMD(x1, y1, z1, ix1, iy1, iz1,
                                                    ixy1,
-                                                   w, t1, anm[n], bnm[n], 
+                                                   w, t1, anms, bnms,
                                                    pnm2_latmin,
                                                    tmp1_r, tmp2_r,
-                                                   mask1, mask2, 
+                                                   mask1, mask2,
                                                    mask3, zero_r,
                                                    zero_ri, one_ri,
                                                    BIG_r, BIGI_r,
                                                    BIGS_r, BIGSI_r,
-                                                   TESSERALS1, TESSERALS2);
+                                                   TESSERALS1, TESSERALS2,
+                                                   ds1);
 #else
                             PNM_TESSERAL_XNUM(x1, y1, z1,
                                               ix1, iy1, iz1,
                                               ixy1, w, t1,
-                                              anm[n], bnm[n],
-                                              pnm2_latmin,
-                                              pnm2_latmin = PREC(0.0));
+                                              anms, bnms,
+                                              pnm2_latmin, ds1);
 #endif
 
 
                             /* Pm+2,m, Pm+3,m, ..., Pnmax,m for "latmax" */
 #ifdef SIMD
-                            PNM_TESSERAL_XNUM_SIMD(x2, y2, z2, ix2, iy2, iz2, 
+                            PNM_TESSERAL_XNUM_SIMD(x2, y2, z2, ix2, iy2, iz2,
                                                    ixy2,
-                                                   w, t2, anm[n], bnm[n], 
+                                                   w, t2, anms, bnms,
                                                    pnm2_latmax,
                                                    tmp1_r, tmp2_r,
-                                                   mask1, mask2, 
+                                                   mask1, mask2,
                                                    mask3, zero_r,
                                                    zero_ri, one_ri,
                                                    BIG_r, BIGI_r,
                                                    BIGS_r, BIGSI_r,
-                                                   TESSERALS3, TESSERALS4);
+                                                   TESSERALS3, TESSERALS4,
+                                                   ds2);
 #else
                             PNM_TESSERAL_XNUM(x2, y2, z2,
                                               ix2, iy2, iz2,
                                               ixy2, w, t2,
-                                              anm[n], bnm[n],
-                                              pnm2_latmax,
-                                              pnm2_latmax = PREC(0.0));
+                                              anms, bnms,
+                                              pnm2_latmax, ds2);
 #endif
 
 
@@ -1323,7 +1334,7 @@ FAILURE_1_parallel:
 
 
             } /* End of the loop over harmonic orders */
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 FAILURE_2_parallel:
             free(anm);  free(bnm);
             }
@@ -1348,7 +1359,7 @@ FAILURE_1:
         CHARM(free_aligned)(ips1);    CHARM(free_aligned)(ps1);
         CHARM(free_aligned)(ips2);    CHARM(free_aligned)(ps2);
         CHARM(free_aligned)(latminv); CHARM(free_aligned)(latmaxv);
-#if !(CHARM_PARALLEL)
+#if !(CHARM_OPENMP)
         free(anm);  free(bnm);
 #endif
         CHARM(free_aligned)(a);    CHARM(free_aligned)(b);
@@ -1375,7 +1386,7 @@ FAILURE:
     free(r); free(ri); free(dm); free(en); free(fn); free(gm); free(hm);
     FFTW(destroy_plan)(plan);
     FFTW(cleanup)();
-#if CHARM_PARALLEL && FFTW3_OMP
+#if CHARM_OPENMP && FFTW3_OMP
     FFTW(cleanup_threads)();
 #else
     FFTW(cleanup)();
@@ -1399,7 +1410,7 @@ FAILURE:
     REAL c2 = PREC(1.0) / (PREC(4.0) * PI) * (r0 / shcs->mu);
 
 
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
     #pragma omp parallel for default(none) shared(shcs, nmax, c2)
 #endif
     for (unsigned long m = 0; m <= nmax; m++)

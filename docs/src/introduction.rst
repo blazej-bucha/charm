@@ -55,32 +55,29 @@ Features
 Source code
 ===========
 
-GitHub: `https://github.com/blazej-bucha/charm
+GitHub: `https://github.com/blazej-bucha/charm 
 <https://github.com/blazej-bucha/charm>`_
 
 * Releases are pushed to ``master`` and the development happens in
-  ``develop``.  If you prefer the most up-to-date version, switch to the
-  ``develop`` branch.
+  ``develop``.
 
-
-Tarball and zip files of releases:
-`https://github.com/blazej-bucha/charm/tags
-<https://github.com/blazej-bucha/charm/tags>`_
+* Tarball and zip files of releases: 
+  `https://github.com/blazej-bucha/charm/releases 
+  <https://github.com/blazej-bucha/charm/releases>`_
 
 
 Documentation
 =============
 
 The documentation of the latest version from the ``master`` branch is available 
-at `https://blazej-bucha.github.io/charm/index.html 
-<https://blazej-bucha.github.io/charm/index.html>`_.
+at `https://www.charmlib.org <https://www.charmlib.org>`_.
 
 A pre-compiled HTML documentation is also available in ``docs/build/html``.  
 Alternatively, it can be built by executing ``make html`` after the 
 ``configure`` call (requires ``doxygen`` and Python modules ``sphinx``, 
-``sphinx_rtd_theme`` and ``breathe``).  Other formats of the documentation, for 
-instance, a PDF file, can be built with ``cd docs && make latexpdf``, etc.  To 
-list all available formats, execute ``cd docs && make help``.
+``sphinx_book_theme`` and ``breathe``).  Other formats of the documentation, 
+for instance, a PDF file, can be built with ``cd docs && make latexpdf``, etc.  
+To list all available formats, execute ``cd docs && make help``.
 
 
 .. _contact:

@@ -2,7 +2,6 @@
 /* ------------------------------------------------------------------------- */
 #include <config.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include "../prec.h"
 #include "crd_point_alloc.h"
 #include "../misc/misc_calloc.h"

@@ -2,9 +2,6 @@
 /* ------------------------------------------------------------------------- */
 #include <config.h>
 #include <stdlib.h>
-#ifdef _MSC_VER
-#   define _USE_MATH_DEFINES
-#endif
 #include <math.h>
 #include "../prec.h"
 #include "../err/err_set.h"
@@ -45,8 +42,6 @@ void CHARM(leg_pnmj_leq4)(unsigned long n, unsigned long m, REAL *p,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"n\" cannot be larger than \"4\".");
-
-
         return;
     }
 
@@ -56,8 +51,6 @@ void CHARM(leg_pnmj_leq4)(unsigned long n, unsigned long m, REAL *p,
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Harmonic order \"m\" cannot be larger "
                        "than harmonic degree \"n\".");
-
-
         return;
     }
 
@@ -97,7 +90,7 @@ void CHARM(leg_pnmj_leq4)(unsigned long n, unsigned long m, REAL *p,
         else if (m == 1)
         {
             REAL tmp = SQRT(PREC(42.0)) / PREC(16.0);
-            p[0] =       tmp;
+            p[0] = tmp;
             p[1] = PREC(5.0) * tmp;
         }
         else if (m == 2)
@@ -110,7 +103,7 @@ void CHARM(leg_pnmj_leq4)(unsigned long n, unsigned long m, REAL *p,
         {
             REAL tmp = SQRT(PREC(70.0)) / PREC(16.0);
             p[0] = PREC(3.0) * tmp;
-            p[1] =      -tmp;
+            p[1] = -tmp;
         }
     }
     else if (n == 4)

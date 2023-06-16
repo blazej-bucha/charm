@@ -4,9 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#ifdef _MSC_VER
-#   define _USE_MATH_DEFINES
-#endif
 #include <math.h>
 #include <fftw3.h>
 #include "../prec.h"
@@ -16,7 +13,6 @@
 #include "shs_grd_cell_fft_check.h"
 #include "shs_grd_fft_lc.h"
 #include "shs_cell_check_grd_lons.h"
-#include "shs_rpows.h"
 #include "shs_grd_fft.h"
 #include "../leg/leg_func_anm_bnm.h"
 #include "../leg/leg_func_dm.h"
@@ -29,6 +25,8 @@
 #include "../crd/crd_grd_check_symm.h"
 #include "../crd/crd_check_cells.h"
 #include "../misc/misc_is_nearly_equal.h"
+#include "../misc/misc_polar_optimization_threshold.h"
+#include "../misc/misc_polar_optimization_apply.h"
 #include "../simd/simd.h"
 #include "../simd/calloc_aligned.h"
 #include "../simd/free_aligned.h"
@@ -52,26 +50,26 @@ void CHARM(shs_cell_grd)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
 
 
     /* If the number is even, then "even = 1", otherwise "even = 0" */
-    _Bool even = ((cell_nlat % 2) == 0) ? 1 : 0;
+    _Bool even = (cell_nlat % 2) == 0;
     /* ..................................................................... */
 
 
     /* Determine whether the cells are symmetric with respect to the
      * equator in the latitudinal direction */
     /* ..................................................................... */
-    _Bool symm; /* If the grid is symmetric with respect to the equator, then
-                 * "symm = 1", otherwise "symm = 0". If "symm == 1", the
-                 * function automatically exploits the symmetry property of
-                 * Legendre functions in order to accelerate the computation */
-    if (cell_nlat == 1)
-        /* If there is only one cell in the latitudinal direction within the
-         * grid, the grid is automatically considered as not symmetric */
-        symm = 0;
-    else
-        /* If there is more than one cell in the latitudinal direction in the
-         * grid, let's start by assuming that the grid is symmetric with
-         * respect to the equator and check whether this is indeed true */
-        symm = 1;
+    /* If the grid is symmetric with respect to the equator, then "symm = 1",
+     * otherwise "symm = 0". If "symm == 1", the function automatically
+     * exploits the symmetry property of Legendre functions in order to
+     * accelerate the computation. */
+
+
+     /* If there is only one cell in the latitudinal direction within the grid,
+      * the grid is automatically considered as not symmetric.
+      *
+      * If there is more than one cell in the latitudinal direction in the
+      * grid, let's start by assuming that the grid is symmetric with respect
+      * to the equator and check whether this is indeed true */
+    _Bool symm = cell_nlat > 1;
 
 
     for (size_t i = 0; i < cell_nlat; i++)
@@ -99,7 +97,7 @@ void CHARM(shs_cell_grd)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
      * ~2, so saves some computational time. */
     /* ..................................................................... */
     size_t nlatdo;
-    if (symm == 1)
+    if (symm)
         nlatdo = (cell_nlat + 1 - even) / 2;
     else
         nlatdo = cell_nlat;
@@ -136,7 +134,7 @@ void CHARM(shs_cell_grd)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
 
 
     /* If true, FFT is applied along the latitude parallels */
-    _Bool use_fft = CHARM(shs_grd_cell_fft_check)(cell, dlon, nmax);
+    _Bool use_fft = CHARM(shs_grd_cell_fft_check)(cell, nmax);
     if (!use_fft)
     {
         /* OK, so no FFT and the longitudinal step is constant */
@@ -271,7 +269,7 @@ void CHARM(shs_cell_grd)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
     /* --------------------------------------------------------------------- */
     if (use_fft)
     {
-        lc  = (FFTW(complex) *)FFTW(malloc)(nlc * SIMD_SIZE * 
+        lc  = (FFTW(complex) *)FFTW(malloc)(nlc * SIMD_SIZE *
                                             sizeof(FFTW(complex)));
         if (lc == NULL)
         {
@@ -308,16 +306,24 @@ void CHARM(shs_cell_grd)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
 
 
 
-    /* Loop over grid latitudes */
     /* --------------------------------------------------------------------- */
     REAL mur = shcs->mu / shcs->r;
 
 
-#if CHARM_PARALLEL
+    /* Get the polar optimization threshold */
+    REAL_SIMD pt = CHARM(misc_polar_optimization_threshold)(nmax);
+
+
+    /* Radius of the reference sphere that is associated with the spherical
+     * harmonic coefficients */
+    REAL_SIMD rref = SET1_R(shcs->r);
+
+
+#if CHARM_OPENMP
 #pragma omp parallel default(none) \
 shared(f, shcs, nmax, cell, cell_nlat, cell_nlon, dm, en, fn, gm, hm, r, ri) \
-shared(nlatdo, lon0, dlon, even, symm, FAILURE_glob, mur, err, cell_type) \
-shared(nlc, plan, use_fft)
+shared(nlatdo, lon0, dlon, even, symm, FAILURE_glob, mur, err, cell_type, pt) \
+shared(nlc, plan, use_fft, rref)
 #endif
     {
         /* ................................................................. */
@@ -348,8 +354,8 @@ shared(nlc, plan, use_fft)
         REAL *ftmp2        = NULL;
         FFTW(complex) *lc  = NULL;
         FFTW(complex) *lc2 = NULL;
-        REAL *rpows        = NULL;
-        REAL *rpows2       = NULL;
+        REAL *cell_rv      = NULL;
+        REAL *cell_r2v     = NULL;
 
 
         ips1 = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, nmax * SIMD_SIZE,
@@ -422,14 +428,14 @@ shared(nlc, plan, use_fft)
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-        symmv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE, 
+        symmv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
                                               sizeof(REAL));
         if (symmv == NULL)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-        latsinv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE, 
+        latsinv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
                                                 sizeof(REAL));
         if (latsinv == NULL)
         {
@@ -488,10 +494,9 @@ shared(nlc, plan, use_fft)
         }
 
 
-        rpows = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                              (nmax + 1) * SIMD_SIZE,
-                                              sizeof(REAL));
-        if (rpows == NULL)
+        cell_rv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                                sizeof(REAL));
+        if (cell_rv == NULL)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
@@ -538,10 +543,9 @@ shared(nlc, plan, use_fft)
             }
 
 
-            rpows2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                                   (nmax + 1) * SIMD_SIZE,
-                                                   sizeof(REAL));
-            if (rpows2 == NULL)
+            cell_r2v = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                                     sizeof(REAL));
+            if (cell_r2v == NULL)
             {
                 FAILURE_priv = 1;
                 goto FAILURE_1_parallel;
@@ -550,7 +554,7 @@ shared(nlc, plan, use_fft)
 
 
 FAILURE_1_parallel:
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp critical
 #endif
         {
@@ -566,7 +570,7 @@ FAILURE_1_parallel:
 
 
         /* Now we have to wait until all the threads get here. */
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp barrier
 #endif
         /* OK, now let's check on each thread whether there is at least one
@@ -575,7 +579,7 @@ FAILURE_1_parallel:
         {
             /* Ooops, there was indeed a memory allocation failure.  So let the
              * master thread write down the error to the "err" variable. */
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp master
 #endif
             if (CHARM(err_isempty)(err))
@@ -596,18 +600,27 @@ FAILURE_1_parallel:
         REAL_SIMD symm_simd;
 
 
+        /* Here, we have pairs of radii-related variables (e.g., "ratio" and
+         * "ratio2") not because of the cell boundaries (constant "cell->r" is
+         * assumed for each cell), but because of the possible grid symmetry */
+        REAL_SIMD cell_r, cell_r2;
+        REAL_SIMD ratio, ratio2, ratiom, ratio2m;
+        ratio = ratio2 = ratiom = ratio2m = SET_ZERO_R;
+
+
         REAL_SIMD a, b, a2, b2;
         a = b = a2 = b2 = SET_ZERO_R;
         REAL_SIMD imm0, imm1, imm2;
-        REAL dsigma, mur_dsigma;
+
 
         size_t ipv;
 
 
-#if CHARM_PARALLEL
-#pragma omp for
+#if CHARM_OPENMP
+#pragma omp for schedule(dynamic)
 #endif
-        for (size_t i = 0; i < SIMD_GET_MULTIPLE(nlatdo); i += SIMD_SIZE)
+        for (size_t i = 0; i < SIMD_MULTIPLE(nlatdo, SIMD_SIZE);
+             i += SIMD_SIZE)
         {
             for (size_t v = 0; v < SIMD_SIZE; v++)
             {
@@ -627,24 +640,22 @@ FAILURE_1_parallel:
                     u1v[v]     = COS(latminv[v]);
                     t2v[v]     = SIN(latmaxv[v]);
                     u2v[v]     = COS(latmaxv[v]);
+                    cell_rv[v] = cell->r[ipv];
+
+
+                    if (symm)
+                        cell_r2v[v] = cell->r[cell_nlat - ipv - 1];
                 }
                 else
                 {
-                    latminv[v] = latmaxv[v] = t1v[v] = u1v[v] = t2v[v] = 
-                        u2v[v] = PREC(0.0);
+                    latminv[v] = latmaxv[v] = t1v[v] = u1v[v] = t2v[v] =
+                        u2v[v] = cell_rv[v] = PREC(0.0);
+                    if (symm)
+                        cell_r2v[v] = PREC(0.0);
+
+
                     continue;
                 }
-                /* --------------------------------------------------------- */
-
-
-                /* Pre-compute the powers of "shcs->r / cell->r[i + v]" */
-                /* --------------------------------------------------------- */
-                CHARM(shs_rpows)(v, shcs->r, cell->r[ipv], rpows, nmax);
-
-
-                if (symmv[v])
-                    CHARM(shs_rpows)(v, shcs->r, cell->r[cell_nlat - ipv - 1],
-                                     rpows2, nmax);
                 /* --------------------------------------------------------- */
             }
 
@@ -655,7 +666,18 @@ FAILURE_1_parallel:
             u2        = LOAD_R(&u2v[0]);
             latmin    = LOAD_R(&latminv[0]);
             latmax    = LOAD_R(&latmaxv[0]);
+            cell_r    = LOAD_R(&cell_rv[0]);
             symm_simd = LOAD_R(&symmv[0]);
+
+
+            ratio  = DIV_R(rref, cell_r);
+            ratiom = ratio;
+            if (symm)
+            {
+                cell_r2 = LOAD_R(&cell_r2v[0]);
+                ratio2  = DIV_R(rref, cell_r2);
+                ratio2m = ratio2;
+            }
 
 
             /* Prepare arrays for sectorial Legendre functions */
@@ -699,6 +721,15 @@ FAILURE_1_parallel:
             for (unsigned long m = 0; m <= nmax; m++)
             {
 
+                /* Apply polar optimization if asked to do so.  Since "u1
+                 * = sin(latmin)" and "u2 = sin(latmax)", it is sufficient to
+                 * check "u1" only.  In other words, if the polar optimization
+                 * can be applied for "u1", it can surely be applied for
+                 * "u2". */
+                if (CHARM(misc_polar_optimization_apply)(m, nmax, &u1, 1, pt))
+                    goto UPDATE_RATIOS;
+
+
                 /* Computation of "anm" and "bnm" coefficients for Legendre
                  * recurrence relations */
                 CHARM(leg_func_anm_bnm)(nmax, m, r, ri, anm, bnm);
@@ -712,66 +743,44 @@ FAILURE_1_parallel:
                                        ps1, ps2,
                                        ips1, ips2,
                                        &imm0, &imm1, &imm2,
-                                       en, fn, gm, hm, ri, rpows, rpows2,
+                                       en, fn, gm, hm, ri,
+                                       ratio, ratio2,
+                                       ratiom, ratio2m,
                                        symm_simd,
                                        &a, &b, &a2, &b2);
 
 
                 if (use_fft)
-                    CHARM(shs_grd_fft_lc)(m, dlon, a, b, a2, b2, symm,
-                                          symm_simd, cell_type,
+                    CHARM(shs_grd_fft_lc)(m, dlon, &a, &b, &a2, &b2, symm,
+                                          &symm_simd, cell_type,
                                           lc_simd, lc2_simd);
                 else
                     CHARM(shs_grd_lr)(m, lon0, dlon, cell_nlon, cell_type,
-                                      a, b, a2, b2, symm, fi, fi2);
+                                      &a, &b, &a2, &b2, symm, fi, fi2);
+
+
+UPDATE_RATIOS:
+                ratiom = MUL_R(ratiom, ratio);
+                if (symm)
+                    ratio2m = MUL_R(ratio2m, ratio2);
+
 
             } /* End of the loop over harmonic orders */
             /* ------------------------------------------------------------- */
 
 
             if (use_fft)
-            {
                 /* Fourier transform along the latitude parallels */
-                /* --------------------------------------------------------- */
-                for (size_t v = 0; v < SIMD_SIZE; v++)
-                {
-                    if (latsinv[v] == 0)
-                        continue;
-
-
-                    /* Cell area on the unit sphere and some useful constants
-                     * */
-                    dsigma     = (SIN(latmaxv[v]) - SIN(latminv[v])) * dlon;
-                    mur_dsigma = mur / dsigma;
-
-
-                    CHARM(shs_grd_fft)(i, v, cell_nlat, cell_nlon, lc, lc2,
-                                       nlc, lc_simd, lc2_simd, mur_dsigma,
-                                       plan, symmv, ftmp, ftmp2, f);
-                }
-                /* --------------------------------------------------------- */
-            }
+                CHARM(shs_grd_fft)(i, cell_type, cell_nlat, cell_nlon,
+                                   latsinv, latminv, latmaxv, dlon,
+                                   lc, lc2, nlc, lc_simd, lc2_simd,
+                                   mur, plan, symmv, ftmp, ftmp2,
+                                   f);
             else
-            {
-                /* Final synthesis */
-                /* --------------------------------------------------------- */
-                for (size_t v = 0; v < SIMD_SIZE; v++)
-                {
-                    if (latsinv[v] == 0)
-                        continue;
-
-
-                    /* Cell area on the unit sphere and some useful constants
-                     * */
-                    dsigma     = (SIN(latmaxv[v]) - SIN(latminv[v])) * dlon;
-                    mur_dsigma = mur / dsigma;
-
-
-                    CHARM(shs_grd_lr2)(i, v, cell_nlat, cell_nlon, symmv,
-                                       mur_dsigma, fi, fi2, f);
-                }
-                /* --------------------------------------------------------- */
-            }
+                CHARM(shs_grd_lr2)(i, latsinv,
+                                   cell_type, cell_nlat, cell_nlon,
+                                   symmv, mur, latminv, latmaxv, dlon,
+                                   fi, fi2, f);
 
 
         } /* End of the loop over latitude parallels */
@@ -783,7 +792,7 @@ FAILURE_2_parallel:
         CHARM(free_aligned)(ips2);     CHARM(free_aligned)(ps2);
         CHARM(free_aligned)(t1v);      CHARM(free_aligned)(t2v);
         CHARM(free_aligned)(u1v);      CHARM(free_aligned)(u2v);
-        CHARM(free_aligned)(rpows);    CHARM(free_aligned)(rpows2);
+        CHARM(free_aligned)(cell_rv);  CHARM(free_aligned)(cell_r2v);
         CHARM(free_aligned)(symmv);    CHARM(free_aligned)(latsinv);
         CHARM(free_aligned)(latminv);  CHARM(free_aligned)(latmaxv);
         CHARM(free_aligned)(fi);       CHARM(free_aligned)(fi2);

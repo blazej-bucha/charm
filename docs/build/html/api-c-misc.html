@@ -1,119 +1,173 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" />
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>charm_misc &#8212; CHarm 0.3.0 documentation</title>
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>charm_misc &mdash; CHarm 0.2.0 documentation</title>
   
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/custom_BB.css" type="text/css" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
   
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api-c-misc';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="charm_xnum" href="api-c-xnum.html" />
-    <link rel="prev" title="charm_integ" href="api-c-integ.html" /> 
-</head>
+    <link rel="next" title="charm_err" href="api-c-err.html" />
+    <link rel="prev" title="charm_integ" href="api-c-integ.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="index.html" class="icon icon-home"> CHarm
-          
-
-          
-            
-            <img src="_static/charm-logo.png" class="logo" alt="Logo"/>
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                0.2.0
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <ul class="current">
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/charm-logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+    <p class="title logo__title">CHarm v0.3.0</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="install.html">Installing</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="install_unix.html">Installation on Unix-based operating systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install_non_unix.html">Installation on Windows 10</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="api.html">Interfaces</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="api-c.html">CHarm (C API)</a><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="cookbook.html">Cookbook</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="cookbook-c.html">CHarm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cookbook-py.html">PyHarm</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="api.html">Interfaces</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="api-c.html">CHarm (C API)</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="api-c-shc.html">charm_shc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-sha.html">charm_sha</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-leg.html">charm_leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">charm_misc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-xnum.html">charm_xnum</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">charm_misc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html">charm_err</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-glob.html">charm_glob</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="api-py-shc.html">pyharm.shc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">pyharm.sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-leg.html">pyharm.leg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">pyharm.integ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-glob.html">pyharm.glob</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
@@ -122,120 +176,259 @@
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">CHarm</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="api.html">Interfaces</a> &raquo;</li>
-        
-          <li><a href="api-c.html">CHarm (C API)</a> &raquo;</li>
-        
-      <li>charm_misc</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="_sources/api-c-misc.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
+    </div>
+</nav></div>
+    </div>
   
-  <hr/>
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm/edit/master/docs/src/api-c-misc.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm/issues/new?title=Issue%20on%20page%20%2Fapi-c-misc.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/api-c-misc.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>charm_misc</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
             
-  <div class="section" id="charm-misc">
-<h1>charm_misc<a class="headerlink" href="#charm-misc" title="Permalink to this headline">¶</a></h1>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="charm-misc">
+<h1>charm_misc<a class="headerlink" href="#charm-misc" title="Permalink to this heading">#</a></h1>
 <p>Module defining some miscellaneous functions, macros, constants, etc.</p>
-<p><p><div class="admonition note">
+<div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>All functions that deal with numerics are written in double 
 precision.</p>
 </div>
-</p>
- </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-defines">Defines</p>
 <dl class="cpp macro">
-<dt id="c.CHARM_VERSION_MAJOR">
-<span class="target" id="charm__misc_8h_1ac1f12ed1a4247d1d264dcf4e6fb5b680"></span><code class="sig-name descname">CHARM_VERSION_MAJOR</code> &quot;0&quot;<a class="headerlink" href="#c.CHARM_VERSION_MAJOR" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="c.CHARM_VERSION_MAJOR">
+<span class="target" id="charm__misc_8h_1ac1f12ed1a4247d1d264dcf4e6fb5b680"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_VERSION_MAJOR</span></span></span> <span class="pre">0</span><a class="headerlink" href="#c.CHARM_VERSION_MAJOR" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Major version number of CHarm. </p>
 </dd></dl>
 
 <dl class="cpp macro">
-<dt id="c.CHARM_VERSION_MINOR">
-<span class="target" id="charm__misc_8h_1a56fc0a805aec64e438dccb4c99336fad"></span><code class="sig-name descname">CHARM_VERSION_MINOR</code> &quot;2&quot;<a class="headerlink" href="#c.CHARM_VERSION_MINOR" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="c.CHARM_VERSION_MINOR">
+<span class="target" id="charm__misc_8h_1a56fc0a805aec64e438dccb4c99336fad"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_VERSION_MINOR</span></span></span> <span class="pre">3</span><a class="headerlink" href="#c.CHARM_VERSION_MINOR" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Minor version number of CHarm. </p>
 </dd></dl>
 
 <dl class="cpp macro">
-<dt id="c.CHARM_VERSION_PATCH">
-<span class="target" id="charm__misc_8h_1ae357fec8d63b5118bf7bb30d4f987029"></span><code class="sig-name descname">CHARM_VERSION_PATCH</code> &quot;0&quot;<a class="headerlink" href="#c.CHARM_VERSION_PATCH" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="c.CHARM_VERSION_PATCH">
+<span class="target" id="charm__misc_8h_1ae357fec8d63b5118bf7bb30d4f987029"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_VERSION_PATCH</span></span></span> <span class="pre">0</span><a class="headerlink" href="#c.CHARM_VERSION_PATCH" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Patch number of CHarm. </p>
 </dd></dl>
 
 <dl class="cpp macro">
-<dt id="c.CHARM_VERSION">
-<span class="target" id="charm__misc_8h_1a0be276a879f843906df389d999afb3d9"></span><code class="sig-name descname">CHARM_VERSION</code> &quot;0.2.0&quot;<a class="headerlink" href="#c.CHARM_VERSION" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="c.CHARM_VERSION_STRING">
+<span class="target" id="charm__misc_8h_1a36ebf3672df1a097e2476b797116aa31"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_VERSION_STRING</span></span></span> <span class="pre">&quot;0.3.0&quot;</span><a class="headerlink" href="#c.CHARM_VERSION_STRING" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Version of CHarm. </p>
 </dd></dl>
 
 <dl class="cpp macro">
-<dt id="c.CHARM_MIN">
-<span class="target" id="charm__misc_8h_1adc01d0949eb7e16a991a3f3e1bcfb9f8"></span><code class="sig-name descname">CHARM_MIN</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span> (((a) &lt; (b)) ? (a) : (b))<a class="headerlink" href="#c.CHARM_MIN" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="c.CHARM_MIN">
+<span class="target" id="charm__misc_8h_1adc01d0949eb7e16a991a3f3e1bcfb9f8"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_MIN</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">a</span></span>, <span class="n"><span class="pre">b</span></span><span class="sig-paren">)</span> <span class="pre">(((a)</span> <span class="pre">&lt;</span> <span class="pre">(b))</span> <span class="pre">?</span> <span class="pre">(a)</span> <span class="pre">:</span> <span class="pre">(b))</span><a class="headerlink" href="#c.CHARM_MIN" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Returns the minimum of <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>. </p>
 </dd></dl>
 
 <dl class="cpp macro">
-<dt id="c.CHARM_MAX">
-<span class="target" id="charm__misc_8h_1ab2f2b89babc5ac3cdc71cd3eaeafe7a1"></span><code class="sig-name descname">CHARM_MAX</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span> (((a) &gt; (b)) ? (a) : (b))<a class="headerlink" href="#c.CHARM_MAX" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="c.CHARM_MAX">
+<span class="target" id="charm__misc_8h_1ab2f2b89babc5ac3cdc71cd3eaeafe7a1"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_MAX</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">a</span></span>, <span class="n"><span class="pre">b</span></span><span class="sig-paren">)</span> <span class="pre">(((a)</span> <span class="pre">&gt;</span> <span class="pre">(b))</span> <span class="pre">?</span> <span class="pre">(a)</span> <span class="pre">:</span> <span class="pre">(b))</span><a class="headerlink" href="#c.CHARM_MAX" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Returns the maximum of <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>. </p>
 </dd></dl>
 
@@ -243,60 +436,148 @@ precision.</p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv424charm_misc_print_versionv">
-<span id="_CPPv324charm_misc_print_versionv"></span><span id="_CPPv224charm_misc_print_versionv"></span><span id="charm_misc_print_version__void"></span><span class="target" id="charm__misc_8h_1aac665bfb6e91541c8af076432652fa6d"></span>void <code class="sig-name descname">charm_misc_print_version</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424charm_misc_print_versionv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv424charm_misc_print_versionv">
+<span id="_CPPv324charm_misc_print_versionv"></span><span id="_CPPv224charm_misc_print_versionv"></span><span id="charm_misc_print_version__void"></span><span class="target" id="charm__misc_8h_1aac665bfb6e91541c8af076432652fa6d"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_misc_print_version</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424charm_misc_print_versionv" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Prints library info to <code class="docutils literal notranslate"><span class="pre">stdout</span></code> (library name, version, compilation date, precision, etc). </p>
 </dd></dl>
 
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv429charm_misc_buildopt_precisionv">
+<span id="_CPPv329charm_misc_buildopt_precisionv"></span><span id="_CPPv229charm_misc_buildopt_precisionv"></span><span id="charm_misc_buildopt_precision__void"></span><span class="target" id="charm__misc_8h_1a8f7b05e914c623dbfcc864d6e38420c0"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_misc_buildopt_precision</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv429charm_misc_buildopt_precisionv" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Returns: </p>
+<p><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code> if CHarm was compiled in single precision (<code class="docutils literal notranslate"><span class="pre">--enable-single-precision</span></code>),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2</span></code> if CHarm was compiled in double precision (<code class="docutils literal notranslate"><span class="pre">--enable-double-precision</span></code> or no precision flag),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">3</span></code> if CHarm was compiled quadruple precision (<code class="docutils literal notranslate"><span class="pre">--enable-quad-precision</span></code>). </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv429charm_misc_buildopt_omp_charmv">
+<span id="_CPPv329charm_misc_buildopt_omp_charmv"></span><span id="_CPPv229charm_misc_buildopt_omp_charmv"></span><span id="charm_misc_buildopt_omp_charm__void"></span><span class="target" id="charm__misc_8h_1a379e12f8631a38effa96c917732dee18"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_misc_buildopt_omp_charm</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv429charm_misc_buildopt_omp_charmv" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Returns a non-zero value if CHarm was compiled with the OpenMP parallelization enabled (<code class="docutils literal notranslate"><span class="pre">--enable-openmp</span></code>). Otherwise, zero is returned. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv428charm_misc_buildopt_omp_fftwv">
+<span id="_CPPv328charm_misc_buildopt_omp_fftwv"></span><span id="_CPPv228charm_misc_buildopt_omp_fftwv"></span><span id="charm_misc_buildopt_omp_fftw__void"></span><span class="target" id="charm__misc_8h_1ac869ccc00d2ef189bd93f256c7d67848"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_misc_buildopt_omp_fftw</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv428charm_misc_buildopt_omp_fftwv" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Returns a non-zero value if the host’s FFTW library supports OpenMP parallelization. Otherwise, zero is returned. </p>
+<p>If non-zero, all FFTW computations are parallelized. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv424charm_misc_buildopt_simdv">
+<span id="_CPPv324charm_misc_buildopt_simdv"></span><span id="_CPPv224charm_misc_buildopt_simdv"></span><span id="charm_misc_buildopt_simd__void"></span><span class="target" id="charm__misc_8h_1a415dfa0c054083fe821ab89b6a0e4348"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_misc_buildopt_simd</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424charm_misc_buildopt_simdv" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Returns: </p>
+<p><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code> if CHarm was compiled with SIMD instructions disabled,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code> if CHarm was compiled with AVX instructions enabled (<code class="docutils literal notranslate"><span class="pre">--enable-avx</span></code>),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2</span></code> if CHarm was compiled with AVX2 instructions enabled (<code class="docutils literal notranslate"><span class="pre">--enable-avx2</span></code>),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">3</span></code> if CHarm was compiled with AVX-512 instructions enabled (<code class="docutils literal notranslate"><span class="pre">--enable-avx-512</span></code>). </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv428charm_misc_buildopt_isfinitev">
+<span id="_CPPv328charm_misc_buildopt_isfinitev"></span><span id="_CPPv228charm_misc_buildopt_isfinitev"></span><span id="charm_misc_buildopt_isfinite__void"></span><span class="target" id="charm__misc_8h_1a39d6ec21ee423b8fae3f36a4a7851663"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_misc_buildopt_isfinite</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv428charm_misc_buildopt_isfinitev" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Returns a non-zero value if correctly working <code class="docutils literal notranslate"><span class="pre">isfinite</span></code> macro was found in the system’s <code class="docutils literal notranslate"><span class="pre">math.h</span></code> header file before the compilation. Otherwise, zero is returned. </p>
+<p>On some systems, the <code class="docutils literal notranslate"><span class="pre">isfinite</span></code> macro is available in <code class="docutils literal notranslate"><span class="pre">math.h</span></code> but is not working correctly with <code class="docutils literal notranslate"><span class="pre">__float128</span></code> floating point data type (quadruple precision). In that case, zero is returned. </p>
+</dd></dl>
+
 </div>
-</div>
+</section>
 
 
-           </div>
-           
-          </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="api-c-xnum.html" class="btn btn-neutral float-right" title="charm_xnum" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="api-c-integ.html" class="btn btn-neutral float-left" title="charm_integ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
+                </article>
+              
 
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &#169; Copyright 2022, Blažej Bucha.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-        </div>
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="api-c-integ.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">charm_integ</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="api-c-err.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">charm_err</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
 
-    </section>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Blažej Bucha
+</p>
 
   </div>
   
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
+  <div class="footer-item">
     
-   
+  <p class="copyright">
+    
+      © Copyright 2023, Blažej Bucha.
+      <br/>
+    
+  </p>
 
-</body>
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+  Last updated on Jun 16, 2023.
+  <br/>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
 </html>

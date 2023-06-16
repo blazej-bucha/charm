@@ -1,9 +1,14 @@
 /**
  * \file charm@P@_glob.h
  *
- * Module defining global CHarm variables ``charm@P@_glob_threshold`` and 
- * ``charm@P@_glob_threshold2``.
+ * Module defining global CHarm variables.
  *
+ * The global variables are declared in ``charm@P@_glob.h`` and are initialized
+ * to safe values.  Should you need to modify them for some reason, simply
+ * include ``charm@P@_glob.h`` (or ``charm@P@.h``) in your code and set
+ * (without definition) the variables to whatever values you prefer. After
+ * that, whenever you call a CHarm routine that uses the global variables, the
+ * routine will use your own values instead of the default ones.
  *
  * \verbatim embed:rst:leading-asterisk
  *  .. warning::
@@ -13,6 +18,7 @@
  *
  * \endverbatim
  *
+ * @note This documentation is written for double precision version of CHarm.
  *
  * */
 
@@ -36,36 +42,108 @@ extern "C"
 /* Thresholds to compare floating point numbers */
 /* ------------------------------------------------------------------------- */
 
-/**
- * Threshold to judge whether two floating point numbers are equal,
- * ``100.0 * EPS``, where ``EPS`` is the machine epsilon of the floating point
- * data type (``float``, ``double`` or ``__float128``).
+/* ......................................................................... */
+/** @name Thresholds used to compare floating point numbers
  *
- * Experienced users may (under some very specific circumstances) need the
- * possibility to tighten or relax the threshold after the library is
- * compiled. To this end, simply set ``charm@P@_glob_threshold`` to whatever
- * value you need (the variable is already declared in
- * ``charm@P@_glob.h``). After that, whenever you call a CHarm routine, it will
- * use your own value instead of the default one.  Use wisely!  */
+ * @{
+ * */
+
+
+/** @brief Threshold to judge whether two floating point numbers are equal,
+ * ``100.0 * EPS``, where ``EPS`` is the machine epsilon of the floating point
+ * data type (``float``, ``double`` or ``__float128``).  Experienced users may
+ * (under some very specific circumstances) need the possibility to tighten or
+ * relax the threshold. */
 extern @RDT@ charm@P@_glob_threshold;
 
 
-/**
- * A more relaxed threshold to judge whether two floating point numbers are 
- * equal, ``100000.0 * EPS``.  It is used to check longitudes of *custom* 
- * user-defined grids for a constant longitudinal step (required by the 
- * FFT-based algorithms).  To this end, we use double differences.  For 
- * high-resolution grids, the longitudinal step may be very small, so that two 
- * consecutive longitudes are very similar.  Since double differences increase 
- * numerical errors, the threshold needs to be sufficiently large in such 
- * situations (yet narrow enough).  The current value was found to be 
- * sufficient for quadrature grids associated with degrees as high as 
- * ``70,000``.
- *
- * The same comment on modifying this value applies as for 
- * ``charm@P@_glob_threshold``.
- * */
+/** @brief A more relaxed threshold to judge whether two floating point numbers
+ * are equal, ``100000.0 * EPS``.  It is used to check longitudes of *custom*
+ * user-defined grids for a constant longitudinal step (required by the
+ * FFT-based algorithms).  To this end, we use double differences.  For
+ * high-resolution grids, the longitudinal step may be very small, so that two
+ * consecutive longitudes are very similar.  Since double differences increase
+ * numerical errors, the threshold needs to be sufficiently large in such
+ * situations (yet narrow enough).  The current value was found to be
+ * sufficient for quadrature grids associated with degrees as high as
+ * ``70,000``. */
 extern @RDT@ charm@P@_glob_threshold2;
+
+
+/**
+ * @}
+ * */
+/* ......................................................................... */
+/* ------------------------------------------------------------------------- */
+
+
+/* Polar optimization */
+/* ------------------------------------------------------------------------- */
+
+
+/* ......................................................................... */
+/** @name Parameters defining the polar optimization
+ *
+ * CHarm can be told to skip the computation of all spherical harmonics during
+ * spherical harmonic synthesis/analysis for which
+ *
+ * \verbatim embed:rst:leading-asterisk 
+ *
+ *  .. math::
+ *
+ *      m - n_{\max} \, \cos\varphi > \max(a_1, a_2 \, n_{\max}){.}
+ *
+ * \endverbatim
+ *
+ * If the parameters ``a1`` and ``a2`` (see
+ * ``::charm@P@_glob_polar_optimization_a1`` and
+ * ``::charm@P@_glob_polar_optimization_a2``) are tuned reasonably, the polar
+ * optimization can improve the computation speed while *not* deteriorating the
+ * output accuracy.  This is because the inequality filters out spherical
+ * harmonics that are of such small magnitudes in the polar areas that they do
+ * not contribute to the result (within the numerical precision).  However, if
+ * the parameters are set unwisely, the accuracy can be compromised.
+ *
+ * If the second polar optimization parameter
+ * ``::charm@P@_glob_polar_optimization_a2`` is negative (which is the
+ * default), *no* polar optimization is applied, that is, all spherical
+ * harmonics are evaluated, regardless of their smallness in magnitude.  If it
+ * is non-negative, the polar optimization is applied.
+ *
+ * In **double** precision, the following values of the tuning parameters
+ * improve the computation speed and, in most cases, can safely be used without
+ * deteriorating the accuracy (Reinecke and Seljebotn, 2013):
+ *
+ * * ``::charm@P@_glob_polar_optimization_a1 = 100`` and
+ *
+ * * ``::charm@P@_glob_polar_optimization_a2 = 0.01``.
+ *
+ * In single and quadruple precision, different values of the tuning parameters
+ * are needed.  Currently, we do not provide any recommendations, though.
+ *
+ * **References**:
+ *
+ * * Reinecke, M., Seljebotn, D. S. (2013) Libsharp -- spherical harmonic
+ *   transforms revisited.  Astronomy and Astrophysics 554, A112, doi:
+ *   10.1051/0004-6361/201321494.
+ *
+ * */
+/**@{*/
+
+
+/** @brief Polar optimization parameter (default is ``100``) */
+extern unsigned long charm@P@_glob_polar_optimization_a1;
+
+
+/** @brief Polar optimization parameter (default is ``-1.0``, that is, no polar
+ * optimization) */
+extern @RDT@ charm@P@_glob_polar_optimization_a2;
+
+
+/**
+ * @}
+ * */
+/* ......................................................................... */
 /* ------------------------------------------------------------------------- */
 
 

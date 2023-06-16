@@ -72,8 +72,12 @@ bench:
 	cd bench && $(MAKE) bench-local
 
 
-pyharm-parser:
+pyharm-parser: all
 	$(PYTHON) pyharm-parser.py
+
+
+generate-reference-data:
+	cd tests && $(MAKE) generate-reference-data-local
 
 
 remove-files:

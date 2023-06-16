@@ -1,14 +1,14 @@
 import pyharm as ph
 
 
-# Maximum harmonic degree to compute the Fourier coefficients of Legendre 
+# Maximum harmonic degree to compute the Fourier coefficients of Legendre
 # functions
 nmax = 500
 
 
-# Create a "ph.leg.Pnmj" class instance using the factory method called 
+# Create a "ph.leg.Pnmj" class instance using the factory method called
 # "from_zeros"
-pnmj = ph.leg.Pnmj.from_zeros(nmax, ph.leg.PNMJ_ORDER_MNJ)
+pnmj = ph.leg.Pnmj.from_zeros(nmax, ph.leg.PMNJ)
 
 
 # Compute the Fourier coefficients
@@ -32,6 +32,7 @@ n = 360
 m = 358
 j = 101
 k = pnmj.j2k(j, k)
+c = pnmj.get_coeff(n, m, j)
 print(f'Fourier coefficients for degree {n}, order {m} and wave-number {k} = '
       f'{c}')
 

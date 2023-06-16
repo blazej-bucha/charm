@@ -15,7 +15,10 @@ extern "C"
 #endif
 
 
-extern int cmp_arrays(REAL *, REAL *, size_t, REAL);
+extern long int cmp_arrays(REAL *,
+                           REAL *,
+                           size_t,
+                           REAL);
 
 
 #ifdef __cplusplus

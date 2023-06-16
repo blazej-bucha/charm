@@ -7,7 +7,6 @@ pkginclude_HEADERS = charm@P@.h \
 					 charm@P@_sha.h \
 					 charm@P@_shc.h \
 					 charm@P@_shs.h \
-					 charm@P@_xnum.h \
 					 charm@P@_glob.h
 
 

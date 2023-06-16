@@ -8,8 +8,8 @@
 /* Define to 1 to compile in single precision. */
 #undef CHARM_FLOAT
 
-/* Define to 1 to parallelize CHarm. */
-#undef CHARM_PARALLEL
+/* Define to 1 to parallelize CHarm using OpenMP. */
+#undef CHARM_OPENMP
 
 /* Define to 1 to compile in quadruple precision. */
 #undef CHARM_QUAD
@@ -17,13 +17,13 @@
 /* Define to 1 if you have the `aligned_alloc' function. */
 #undef HAVE_ALIGNED_ALLOC
 
-/* Define if avx2 instructions are supported */
+/* Define to 1 to enable avx2 instructions */
 #undef HAVE_AVX2_INSTRUCTIONS
 
-/* Define if avx512f instructions are supported */
+/* Define to 1 to enable avx512f instructions */
 #undef HAVE_AVX512F_INSTRUCTIONS
 
-/* Define if avx instructions are supported */
+/* Define to 1 to enable avx instructions */
 #undef HAVE_AVX_INSTRUCTIONS
 
 /* Define to 1 if you have the clock_gettime function. */

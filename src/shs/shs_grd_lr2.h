@@ -15,7 +15,8 @@ extern "C"
 #endif
 
 
-extern void CHARM(shs_grd_lr2)(size_t, size_t, size_t, size_t, const REAL *,
+extern void CHARM(shs_grd_lr2)(size_t, const REAL *, int, size_t, size_t,
+                               const REAL *, REAL, const REAL *, const REAL *,
                                REAL, const REAL *, const REAL *, REAL *);
 
 

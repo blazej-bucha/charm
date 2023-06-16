@@ -143,6 +143,7 @@ CHARM_LIB = @CHARM_LIB@
 CHARM_MAJOR = @CHARM_MAJOR@
 CHARM_MINOR = @CHARM_MINOR@
 CHARM_PATCH = @CHARM_PATCH@
+CHARM_PATCH_NUMBER = @CHARM_PATCH_NUMBER@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CSCOPE = @CSCOPE@
@@ -161,6 +162,7 @@ EGREP = @EGREP@
 ETAGS = @ETAGS@
 EXEEXT = @EXEEXT@
 FGREP = @FGREP@
+FILECMD = @FILECMD@
 GREP = @GREP@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -491,7 +493,8 @@ cp-lib:
 
 install-exec-local: cp-lib
 @PY_TRUE@@SINGLE_PY_TRUE@	cd $(top_srcdir)/wrap && rm -rf pyharm@P@ && $(LN_S) pyharm pyharm@P@
-@PY_TRUE@	cd $(top_srcdir) && $(PYTHON) -m pip install . --target $(pythondir)
+@PY_TRUE@	cd $(top_srcdir) && $(PYTHON) -m pip install . --use-pep517 \
+@PY_TRUE@												   --target $(pythondir)
 
 uninstall-local:
 @PY_TRUE@	rm -rf $(pythondir)/pyharm@P@

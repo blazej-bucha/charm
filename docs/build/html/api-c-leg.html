@@ -1,119 +1,174 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" />
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>charm_leg &#8212; CHarm 0.3.0 documentation</title>
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>charm_leg &mdash; CHarm 0.2.0 documentation</title>
   
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/custom_BB.css" type="text/css" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
   
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api-c-leg';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="charm_integ" href="api-c-integ.html" />
-    <link rel="prev" title="charm_sha" href="api-c-sha.html" /> 
-</head>
+    <link rel="prev" title="charm_sha" href="api-c-sha.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="index.html" class="icon icon-home"> CHarm
-          
-
-          
-            
-            <img src="_static/charm-logo.png" class="logo" alt="Logo"/>
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                0.2.0
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <ul class="current">
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/charm-logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+    <p class="title logo__title">CHarm v0.3.0</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="install.html">Installing</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="install_unix.html">Installation on Unix-based operating systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install_non_unix.html">Installation on Windows 10</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="api.html">Interfaces</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="api-c.html">CHarm (C API)</a><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="cookbook.html">Cookbook</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="cookbook-c.html">CHarm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cookbook-py.html">PyHarm</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="api.html">Interfaces</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="api-c.html">CHarm (C API)</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="api-c-shc.html">charm_shc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-sha.html">charm_sha</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">charm_leg</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">charm_leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-xnum.html">charm_xnum</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html">charm_err</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-glob.html">charm_glob</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="api-py-shc.html">pyharm.shc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">pyharm.sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-leg.html">pyharm.leg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">pyharm.integ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-glob.html">pyharm.glob</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
@@ -122,77 +177,218 @@
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">CHarm</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="api.html">Interfaces</a> &raquo;</li>
-        
-          <li><a href="api-c.html">CHarm (C API)</a> &raquo;</li>
-        
-      <li>charm_leg</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="_sources/api-c-leg.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
+    </div>
+</nav></div>
+    </div>
   
-  <hr/>
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm/edit/master/docs/src/api-c-leg.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm/issues/new?title=Issue%20on%20page%20%2Fapi-c-leg.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/api-c-leg.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>charm_leg</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
             
-  <div class="section" id="charm-leg">
-<h1>charm_leg<a class="headerlink" href="#charm-leg" title="Permalink to this headline">¶</a></h1>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="charm-leg">
+<h1>charm_leg<a class="headerlink" href="#charm-leg" title="Permalink to this heading">#</a></h1>
 <p>Module to work with the fully-normalized associated Legendre functions of the first kind:</p>
 <p><ul class="simple">
 <li><p>defines the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj"><span class="std std-ref"><span class="pre">charm_pnmj</span></span></a></code> structure to store Fourier coefficients of the Legendre functions,</p></li>
@@ -200,69 +396,55 @@
 <li><p>computes Fourier coefficients of Legendre functions after Fukushima (2018).</p></li>
 </ul>
 </p>
-<p><strong>References</strong>:<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This documentation is written for double precision version of CHarm.</p>
-</div>
-</p>
+<p><strong>References</strong>:</p>
 <p><ul class="simple">
 <li><p>Fukushima, T. (2018) Fast computation of sine/cosine series coefficients of associated Legendre functions of arbitrary high degree and order</p></li>
-<li><p>Fukushima T (2014) Numerical computation of spherical harmonics of arbitrary degree and order by extending exponent of floating point numbers. Computers and Geosciences 63, 17-21, doi: 10.1016/j.cageo.2013.10.010 </p></li>
+<li><p>Fukushima T (2014) Numerical computation of spherical harmonics of arbitrary degree and order by extending exponent of floating point numbers. Computers and Geosciences 63, 17-21, doi: 10.1016/j.cageo.2013.10.010</p></li>
 </ul>
 </p>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-enums">Enums</p>
-<dl class="cpp enum">
-<dt id="_CPPv4Ut1_2">
-<span id="_CPPv3Ut1_2"></span><span class="target" id="charm__leg_8h_1a99fb83031ce9923c84392b4e92f956b5"></span><em class="property">enum </em><strong>[anonymous]</strong><a class="headerlink" href="#_CPPv4Ut1_2" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Ordering scheme of the <code class="docutils literal notranslate"><span class="pre">pnmj</span></code> member (a 3D array) of the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj"><span class="std std-ref"><span class="pre">charm_pnmj</span></span></a></code> structure. </p>
-<p><em>Values:</em></p>
-<dl class="cpp enumerator">
-<dt id="_CPPv4NUt1_224CHARM_LEG_PNMJ_ORDER_MNJE">
-<span id="_CPPv3NUt1_224CHARM_LEG_PNMJ_ORDER_MNJE"></span><span class="target" id="charm__leg_8h_1a99fb83031ce9923c84392b4e92f956b5a7cef2c5f427dfaa96661598300601cd2"></span><em class="property">enumerator </em><code class="sig-name descname">CHARM_LEG_PNMJ_ORDER_MNJ</code><a class="headerlink" href="#_CPPv4NUt1_224CHARM_LEG_PNMJ_ORDER_MNJE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Order <code class="docutils literal notranslate"><span class="pre">m</span></code>, degree <code class="docutils literal notranslate"><span class="pre">n</span></code>, wave-number-related variable <code class="docutils literal notranslate"><span class="pre">j</span></code>. Note that <code class="docutils literal notranslate"><span class="pre">j</span></code> is not a wave-number <code class="docutils literal notranslate"><span class="pre">k</span></code>, but is related to it (see <code class="docutils literal notranslate"><a class="reference internal" href="#charm__leg_8h_1a3f46273eec58821966fe0b5c6385d3ee"><span class="std std-ref"><span class="pre">charm_leg_pnmj_j2k()</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__leg_8h_1a27eeccebdcaa957851cc5f0c7412a2f4"><span class="std std-ref"><span class="pre">charm_leg_pnmj_k2j()</span></span></a></code>). </p>
-</dd></dl>
-
-<dl class="cpp enumerator">
-<dt id="_CPPv4NUt1_224CHARM_LEG_PNMJ_ORDER_MJNE">
-<span id="_CPPv3NUt1_224CHARM_LEG_PNMJ_ORDER_MJNE"></span><span class="target" id="charm__leg_8h_1a99fb83031ce9923c84392b4e92f956b5a39beec377d56d562a94a44cba2c7dc40"></span><em class="property">enumerator </em><code class="sig-name descname">CHARM_LEG_PNMJ_ORDER_MJN</code><a class="headerlink" href="#_CPPv4NUt1_224CHARM_LEG_PNMJ_ORDER_MJNE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Order <code class="docutils literal notranslate"><span class="pre">m</span></code>, wave-number-related variable <code class="docutils literal notranslate"><span class="pre">j</span></code>, degree <code class="docutils literal notranslate"><span class="pre">n</span></code>. </p>
-</dd></dl>
-
-</dd></dl>
-
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This documentation is written for double precision version of CHarm. </p>
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-allocate-and-free-the-charm_pnmj-structure">Allocate and free the charm_pnmj structure</p>
+<p>Functions to allocate and free <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj"><span class="std std-ref"><span class="pre">charm_pnmj</span></span></a></code>. </p>
 <dl class="cpp function">
-<dt id="_CPPv421charm_leg_pnmj_mallocmi">
-<span id="_CPPv321charm_leg_pnmj_mallocmi"></span><span id="_CPPv221charm_leg_pnmj_mallocmi"></span><span id="charm_leg_pnmj_malloc__unsigned-l.i"></span><span class="target" id="charm__leg_8h_1ae48370b6421600c44ed8b1dd6c1398d8"></span><a class="reference internal" href="#_CPPv410charm_pnmj" title="charm_pnmj">charm_pnmj</a> *<code class="sig-name descname">charm_leg_pnmj_malloc</code><span class="sig-paren">(</span>unsigned long <em>nmax</em>, int <em>ordering</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421charm_leg_pnmj_mallocmi" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj"><span class="std std-ref"><span class="pre">charm_pnmj</span></span></a></code> structure that is created with maximum harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>, ordering scheme <code class="docutils literal notranslate"><span class="pre">ordering</span></code> and uninitialized Fourier coefficients. The <code class="docutils literal notranslate"><span class="pre">ordering</span></code> variable takes one of two symbolic constants: <code class="docutils literal notranslate"><span class="pre">CHARM_LEG_PNMJ_ORDER_MNJ</span></code> or <code class="docutils literal notranslate"><span class="pre">CHARM_LEG_PNMJ_ORDER_MJN</span></code> (see the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj"><span class="std std-ref"><span class="pre">charm_pnmj</span></span></a></code> structure).</p>
-<p>On success, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj"><span class="std std-ref"><span class="pre">charm_pnmj</span></span></a></code> structure. On error, <code class="docutils literal notranslate"><span class="pre">NULL</span></code> is returned.</p>
+<dt class="sig sig-object cpp" id="_CPPv421charm_leg_pnmj_mallocmi">
+<span id="_CPPv321charm_leg_pnmj_mallocmi"></span><span id="_CPPv221charm_leg_pnmj_mallocmi"></span><span id="charm_leg_pnmj_malloc__unsigned-l.i"></span><span class="target" id="charm__leg_8h_1a7889549ffd38062e922aa18b82add2f4"></span><a class="reference internal" href="#_CPPv410charm_pnmj" title="charm_pnmj"><span class="n"><span class="pre">charm_pnmj</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_leg_pnmj_malloc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ordering</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421charm_leg_pnmj_mallocmi" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Allocates Fourier coefficients of the fully-normalized associated Legendre functions up to harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code> using the ordering scheme <code class="docutils literal notranslate"><span class="pre">ordering</span></code>. The Fourier coefficients are uninitialized, so their values are undefined. </p>
+<p><code class="docutils literal notranslate"><span class="pre">ordering</span></code> can be set either to <code class="docutils literal notranslate"><a class="reference internal" href="#charm__leg_8h_1a99fb83031ce9923c84392b4e92f956b5a84f15dbcd4746ccae38dc2b14310bb1b"><span class="std std-ref"><span class="pre">CHARM_LEG_PMNJ</span></span></a></code> or <code class="docutils literal notranslate"><a class="reference internal" href="#charm__leg_8h_1a99fb83031ce9923c84392b4e92f956b5a5ec9f4ee46cf0ec6dcb8cc68cae922b0"><span class="std std-ref"><span class="pre">CHARM_LEG_PMJN</span></span></a></code>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>A <code class="docutils literal notranslate"><span class="pre">pnmj</span></code> structure created by this function must be deallocated by calling <code class="docutils literal notranslate"><a class="reference internal" href="#charm__leg_8h_1ac5b4727f2d4b733d2ea0cf4367607860"><span class="std std-ref"><span class="pre">charm_leg_pnmj_free()</span></span></a></code>. The usual deallocation <code class="docutils literal notranslate"><span class="pre">free</span></code> will <em>not</em> deallocate the memory and will lead to memory leaks. </p>
+<p>The <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj"><span class="std std-ref"><span class="pre">charm_pnmj</span></span></a></code> structure created by this function must be deallocated by calling <code class="docutils literal notranslate"><a class="reference internal" href="#charm__leg_8h_1ac5b4727f2d4b733d2ea0cf4367607860"><span class="std std-ref"><span class="pre">charm_leg_pnmj_free()</span></span></a></code>. The usual deallocation <code class="docutils literal notranslate"><span class="pre">free</span></code> will <em>not</em> deallocate the memory and will lead to memory leaks.</p>
 </div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>On success, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj"><span class="std std-ref"><span class="pre">charm_pnmj</span></span></a></code> structure. On error, <code class="docutils literal notranslate"><span class="pre">NULL</span></code> is returned. </p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv421charm_leg_pnmj_callocmi">
-<span id="_CPPv321charm_leg_pnmj_callocmi"></span><span id="_CPPv221charm_leg_pnmj_callocmi"></span><span id="charm_leg_pnmj_calloc__unsigned-l.i"></span><span class="target" id="charm__leg_8h_1ad4dfce9313a7fd3123b5a66eb81017ea"></span><a class="reference internal" href="#_CPPv410charm_pnmj" title="charm_pnmj">charm_pnmj</a> *<code class="sig-name descname">charm_leg_pnmj_calloc</code><span class="sig-paren">(</span>unsigned long <em>nmax</em>, int <em>ordering</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421charm_leg_pnmj_callocmi" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="#charm__leg_8h_1ae48370b6421600c44ed8b1dd6c1398d8"><span class="std std-ref"><span class="pre">charm_leg_pnmj_malloc()</span></span></a></code> but all Fourier coefficients are initialized to zero. </p>
+<dt class="sig sig-object cpp" id="_CPPv421charm_leg_pnmj_callocmi">
+<span id="_CPPv321charm_leg_pnmj_callocmi"></span><span id="_CPPv221charm_leg_pnmj_callocmi"></span><span id="charm_leg_pnmj_calloc__unsigned-l.i"></span><span class="target" id="charm__leg_8h_1a76355332199de237f8c4a3ca9285f739"></span><a class="reference internal" href="#_CPPv410charm_pnmj" title="charm_pnmj"><span class="n"><span class="pre">charm_pnmj</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_leg_pnmj_calloc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ordering</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421charm_leg_pnmj_callocmi" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="#charm__leg_8h_1a7889549ffd38062e922aa18b82add2f4"><span class="std std-ref"><span class="pre">charm_leg_pnmj_malloc()</span></span></a></code> but all Fourier coefficients are initialized to zero. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv419charm_leg_pnmj_freeP10charm_pnmj">
-<span id="_CPPv319charm_leg_pnmj_freeP10charm_pnmj"></span><span id="_CPPv219charm_leg_pnmj_freeP10charm_pnmj"></span><span id="charm_leg_pnmj_free__charm_pnmjP"></span><span class="target" id="charm__leg_8h_1ac5b4727f2d4b733d2ea0cf4367607860"></span>void <code class="sig-name descname">charm_leg_pnmj_free</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv410charm_pnmj" title="charm_pnmj">charm_pnmj</a> *<em>pnmj</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_leg_pnmj_freeP10charm_pnmj" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv419charm_leg_pnmj_freeP10charm_pnmj">
+<span id="_CPPv319charm_leg_pnmj_freeP10charm_pnmj"></span><span id="_CPPv219charm_leg_pnmj_freeP10charm_pnmj"></span><span id="charm_leg_pnmj_free__charm_pnmjP"></span><span class="target" id="charm__leg_8h_1ac5b4727f2d4b733d2ea0cf4367607860"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_leg_pnmj_free</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv410charm_pnmj" title="charm_pnmj"><span class="n"><span class="pre">charm_pnmj</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pnmj</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_leg_pnmj_freeP10charm_pnmj" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Frees the memory associated with <code class="docutils literal notranslate"><span class="pre">pnmj</span></code>. No operation is performed if <code class="docutils literal notranslate"><span class="pre">pnmj</span></code> is <code class="docutils literal notranslate"><span class="pre">NULL</span></code>. </p>
 </dd></dl>
 
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-fourier-coefficients-of-legendre-functions">Fourier coefficients of Legendre functions</p>
+<p>Functions to compute the Fourier coefficients of Legendre functions and some associated useful functions. </p>
 <dl class="cpp function">
-<dt id="_CPPv421charm_leg_pnmj_coeffsP10charm_pnmjmP9charm_err">
-<span id="_CPPv321charm_leg_pnmj_coeffsP10charm_pnmjmP9charm_err"></span><span id="_CPPv221charm_leg_pnmj_coeffsP10charm_pnmjmP9charm_err"></span><span id="charm_leg_pnmj_coeffs__charm_pnmjP.unsigned-l.charm_errP"></span><span class="target" id="charm__leg_8h_1a128cee73dc61b72516bbb00191d85b92"></span>void <code class="sig-name descname">charm_leg_pnmj_coeffs</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv410charm_pnmj" title="charm_pnmj">charm_pnmj</a> *<em>pnmj</em>, unsigned long <em>nmax</em>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err">charm_err</a> *<em>err</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421charm_leg_pnmj_coeffsP10charm_pnmjmP9charm_err" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Computes Fourier coefficients of fully normalized associated Legendre functions up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code> and saves them to <code class="docutils literal notranslate"><span class="pre">pnmj</span></code>. The structure of <code class="docutils literal notranslate"><span class="pre">pnmj-&gt;pnmj</span></code> depends on <code class="docutils literal notranslate"><span class="pre">pnmj-&gt;ordering</span></code>. If <code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">&lt;</span> <span class="pre">pnmj-&gt;nmax</span></code>, all Fourier coefficients in <code class="docutils literal notranslate"><span class="pre">pnmj-&gt;pnmj</span></code> beyond <code class="docutils literal notranslate"><span class="pre">nmax</span></code> are set to zero.</p>
-<p>In case of failure, the error is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>.</p>
-<p>Before calling this function, the <code class="docutils literal notranslate"><span class="pre">pnmj</span></code> structure has to be created by <code class="docutils literal notranslate"><a class="reference internal" href="#charm__leg_8h_1ad4dfce9313a7fd3123b5a66eb81017ea"><span class="std std-ref"><span class="pre">charm_leg_pnmj_calloc()</span></span></a></code> or <code class="docutils literal notranslate"><a class="reference internal" href="#charm__leg_8h_1ae48370b6421600c44ed8b1dd6c1398d8"><span class="std std-ref"><span class="pre">charm_leg_pnmj_malloc()</span></span></a></code> and later deallocated by <code class="docutils literal notranslate"><a class="reference internal" href="#charm__leg_8h_1ac5b4727f2d4b733d2ea0cf4367607860"><span class="std std-ref"><span class="pre">charm_leg_pnmj_free()</span></span></a></code>.</p>
+<dt class="sig sig-object cpp" id="_CPPv421charm_leg_pnmj_coeffsP10charm_pnmjmP9charm_err">
+<span id="_CPPv321charm_leg_pnmj_coeffsP10charm_pnmjmP9charm_err"></span><span id="_CPPv221charm_leg_pnmj_coeffsP10charm_pnmjmP9charm_err"></span><span id="charm_leg_pnmj_coeffs__charm_pnmjP.unsigned-l.charm_errP"></span><span class="target" id="charm__leg_8h_1a128cee73dc61b72516bbb00191d85b92"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_leg_pnmj_coeffs</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv410charm_pnmj" title="charm_pnmj"><span class="n"><span class="pre">charm_pnmj</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pnmj</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421charm_leg_pnmj_coeffsP10charm_pnmjmP9charm_err" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Computes Fourier coefficients of fully normalized associated Legendre functions up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code> and saves them to <code class="docutils literal notranslate"><span class="pre">pnmj</span></code>. The structure of <code class="docutils literal notranslate"><span class="pre">pnmj-&gt;pnmj</span></code> depends on <code class="docutils literal notranslate"><span class="pre">pnmj-&gt;ordering</span></code>. If <code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">&lt;</span> <span class="pre">pnmj-&gt;nmax</span></code>, all Fourier coefficients in <code class="docutils literal notranslate"><span class="pre">pnmj-&gt;pnmj</span></code> beyond <code class="docutils literal notranslate"><span class="pre">nmax</span></code> are set to zero. In case of failure, the error is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
 <p>The algorithm of Fukushima (2018) is employed.</p>
 <p><strong>References</strong>:</p>
 <p><ul class="simple">
@@ -272,116 +454,132 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv421charm_leg_pnmj_lengthm">
-<span id="_CPPv321charm_leg_pnmj_lengthm"></span><span id="_CPPv221charm_leg_pnmj_lengthm"></span><span id="charm_leg_pnmj_length__unsigned-l"></span><span class="target" id="charm__leg_8h_1a997a65123c126814c47a0455161919d5"></span>size_t <code class="sig-name descname">charm_leg_pnmj_length</code><span class="sig-paren">(</span>unsigned long <em>nmax</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421charm_leg_pnmj_lengthm" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns the total number of Fourier coefficients (to be) initialized by the <code class="docutils literal notranslate"><a class="reference internal" href="#charm__leg_8h_1ad4dfce9313a7fd3123b5a66eb81017ea"><span class="std std-ref"><span class="pre">charm_leg_pnmj_calloc()</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__leg_8h_1ae48370b6421600c44ed8b1dd6c1398d8"><span class="std std-ref"><span class="pre">charm_leg_pnmj_malloc()</span></span></a></code> functions for a maximum harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv418charm_leg_pnmj_j2kmm">
-<span id="_CPPv318charm_leg_pnmj_j2kmm"></span><span id="_CPPv218charm_leg_pnmj_j2kmm"></span><span id="charm_leg_pnmj_j2k__unsigned-l.unsigned-l"></span><span class="target" id="charm__leg_8h_1a3f46273eec58821966fe0b5c6385d3ee"></span>unsigned long <code class="sig-name descname">charm_leg_pnmj_j2k</code><span class="sig-paren">(</span>unsigned long <em>n</em>, unsigned long <em>j</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418charm_leg_pnmj_j2kmm" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Transforms a wave-number-related variable <code class="docutils literal notranslate"><span class="pre">j</span></code> to the wave-number <code class="docutils literal notranslate"><span class="pre">k</span></code> of a Fourier coefficient of fully-normalized associated Legendre function of degree <code class="docutils literal notranslate"><span class="pre">n</span></code> (see Section C.1 of Fukushima, 2018),</p>
+<dt class="sig sig-object cpp" id="_CPPv418charm_leg_pnmj_j2kmm">
+<span id="_CPPv318charm_leg_pnmj_j2kmm"></span><span id="_CPPv218charm_leg_pnmj_j2kmm"></span><span id="charm_leg_pnmj_j2k__unsigned-l.unsigned-l"></span><span class="target" id="charm__leg_8h_1a3f46273eec58821966fe0b5c6385d3ee"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_leg_pnmj_j2k</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">j</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418charm_leg_pnmj_j2kmm" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Transforms a wave-number-related variable <code class="docutils literal notranslate"><span class="pre">j</span></code> to the wave-number <code class="docutils literal notranslate"><span class="pre">k</span></code> of a Fourier coefficient of fully-normalized associated Legendre function of degree <code class="docutils literal notranslate"><span class="pre">n</span></code> (see Section C.1 of Fukushima, 2018),. </p>
 <p><div class="math notranslate nohighlight">
 \[k = \left[ 1 - (-1)^n \right] / 2 + 2 j{.}\]</div>
 </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>n</strong> – <strong>[in]</strong> Harmonic degree of the Legendre function. </p></li>
 <li><p><strong>j</strong> – <strong>[in]</strong> Variable related to the wave-number <code class="docutils literal notranslate"><span class="pre">k</span></code>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Wave-number <code class="docutils literal notranslate"><span class="pre">k</span></code> of the Fourier coefficient of a Legendre function. </p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv418charm_leg_pnmj_k2jm">
-<span id="_CPPv318charm_leg_pnmj_k2jm"></span><span id="_CPPv218charm_leg_pnmj_k2jm"></span><span id="charm_leg_pnmj_k2j__unsigned-l"></span><span class="target" id="charm__leg_8h_1a27eeccebdcaa957851cc5f0c7412a2f4"></span>unsigned long <code class="sig-name descname">charm_leg_pnmj_k2j</code><span class="sig-paren">(</span>unsigned long <em>k</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418charm_leg_pnmj_k2jm" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Transforms a wave-number <code class="docutils literal notranslate"><span class="pre">k</span></code> of a Fourier coefficient of fully-normalized associated Legendre function to the wave-number-related variable <code class="docutils literal notranslate"><span class="pre">j</span></code> (see Section C.1 of Fukushima, 2018),</p>
+<dt class="sig sig-object cpp" id="_CPPv418charm_leg_pnmj_k2jm">
+<span id="_CPPv318charm_leg_pnmj_k2jm"></span><span id="_CPPv218charm_leg_pnmj_k2jm"></span><span id="charm_leg_pnmj_k2j__unsigned-l"></span><span class="target" id="charm__leg_8h_1a27eeccebdcaa957851cc5f0c7412a2f4"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_leg_pnmj_k2j</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">k</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418charm_leg_pnmj_k2jm" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Transforms a wave-number <code class="docutils literal notranslate"><span class="pre">k</span></code> of a Fourier coefficient of fully-normalized associated Legendre function to the wave-number-related variable <code class="docutils literal notranslate"><span class="pre">j</span></code> (see Section C.1 of Fukushima, 2018),. </p>
 <p><div class="math notranslate nohighlight">
 \[j = \left[ k / 2 \right]_{\mathrm{floor}}{.}\]</div>
 </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>k</strong> – <strong>[in]</strong> Wave-number of a Fourier coefficients of Legendre function.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Wave-number-related variable <code class="docutils literal notranslate"><span class="pre">j</span></code> of the Fourier coefficient of a Legendre function. </p>
 </dd>
 </dl>
 </dd></dl>
 
 </div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-enums">Enums</p>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4Ut1_2">
+<span id="_CPPv3Ut1_2"></span><span class="target" id="charm__leg_8h_1a99fb83031ce9923c84392b4e92f956b5"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">[anonymous]</span></span></span><a class="headerlink" href="#_CPPv4Ut1_2" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Ordering scheme of <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1a2ff09bbfc88b5a7d86dbd01d4b817369"><span class="std std-ref"><span class="pre">charm_pnmj.pnmj</span></span></a></code> (a 3D array). </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4NUt1_214CHARM_LEG_PMNJE">
+<span id="_CPPv3NUt1_214CHARM_LEG_PMNJE"></span><span class="target" id="charm__leg_8h_1a99fb83031ce9923c84392b4e92f956b5a84f15dbcd4746ccae38dc2b14310bb1b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_LEG_PMNJ</span></span></span><a class="headerlink" href="#_CPPv4NUt1_214CHARM_LEG_PMNJE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Order <code class="docutils literal notranslate"><span class="pre">m</span></code>, degree <code class="docutils literal notranslate"><span class="pre">n</span></code>, wave-number-related variable <code class="docutils literal notranslate"><span class="pre">j</span></code>. Note that <code class="docutils literal notranslate"><span class="pre">j</span></code> is not a wave-number <code class="docutils literal notranslate"><span class="pre">k</span></code>, but is related to it (see <code class="docutils literal notranslate"><a class="reference internal" href="#charm__leg_8h_1a3f46273eec58821966fe0b5c6385d3ee"><span class="std std-ref"><span class="pre">charm_leg_pnmj_j2k()</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__leg_8h_1a27eeccebdcaa957851cc5f0c7412a2f4"><span class="std std-ref"><span class="pre">charm_leg_pnmj_k2j()</span></span></a></code>). </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4NUt1_214CHARM_LEG_PMJNE">
+<span id="_CPPv3NUt1_214CHARM_LEG_PMJNE"></span><span class="target" id="charm__leg_8h_1a99fb83031ce9923c84392b4e92f956b5a5ec9f4ee46cf0ec6dcb8cc68cae922b0"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_LEG_PMJN</span></span></span><a class="headerlink" href="#_CPPv4NUt1_214CHARM_LEG_PMJNE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Order <code class="docutils literal notranslate"><span class="pre">m</span></code>, wave-number-related variable <code class="docutils literal notranslate"><span class="pre">j</span></code>, degree <code class="docutils literal notranslate"><span class="pre">n</span></code>. </p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <dl class="cpp struct">
-<dt id="_CPPv410charm_pnmj">
-<span id="_CPPv310charm_pnmj"></span><span id="_CPPv210charm_pnmj"></span><span id="charm_pnmj"></span><span class="target" id="structcharm__pnmj"></span><em class="property">struct </em><code class="sig-name descname">charm_pnmj</code><a class="headerlink" href="#_CPPv410charm_pnmj" title="Permalink to this definition">¶</a><br /></dt>
-<dd><em>#include &lt;charm_leg.h&gt;</em><p>Structure to store Fourier coefficients of the fully-normalized associated Legendre functions. </p>
+<dt class="sig sig-object cpp" id="_CPPv410charm_pnmj">
+<span id="_CPPv310charm_pnmj"></span><span id="_CPPv210charm_pnmj"></span><span id="charm_pnmj"></span><span class="target" id="structcharm__pnmj"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_pnmj</span></span></span><a class="headerlink" href="#_CPPv410charm_pnmj" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Structure to store Fourier coefficients of the fully-normalized associated Legendre functions. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
 <dl class="cpp var">
-<dt id="_CPPv4N10charm_pnmj4nmaxE">
-<span id="_CPPv3N10charm_pnmj4nmaxE"></span><span id="_CPPv2N10charm_pnmj4nmaxE"></span><span id="charm_pnmj::nmax__unsigned-l"></span><span class="target" id="structcharm__pnmj_1ac5f3288ff6337032011ecd195dcf7d6a"></span>unsigned long <code class="sig-name descname">nmax</code><a class="headerlink" href="#_CPPv4N10charm_pnmj4nmaxE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N10charm_pnmj4nmaxE">
+<span id="_CPPv3N10charm_pnmj4nmaxE"></span><span id="_CPPv2N10charm_pnmj4nmaxE"></span><span id="charm_pnmj::nmax__unsigned-l"></span><span class="target" id="structcharm__pnmj_1ac5f3288ff6337032011ecd195dcf7d6a"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nmax</span></span></span><a class="headerlink" href="#_CPPv4N10charm_pnmj4nmaxE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Maximum harmonic degree of the Fourier coefficients. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N10charm_pnmj8orderingE">
-<span id="_CPPv3N10charm_pnmj8orderingE"></span><span id="_CPPv2N10charm_pnmj8orderingE"></span><span id="charm_pnmj::ordering__i"></span><span class="target" id="structcharm__pnmj_1a9e1286b8ed04e0c1f054962dbf9fea3b"></span>int <code class="sig-name descname">ordering</code><a class="headerlink" href="#_CPPv4N10charm_pnmj8orderingE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Ordering scheme of the Fourier coefficients in the <code class="docutils literal notranslate"><span class="pre">pnmj</span></code> member of <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj"><span class="std std-ref"><span class="pre">charm_pnmj</span></span></a></code>: either <code class="docutils literal notranslate"><span class="pre">CHARM_LEG_PNMJ_ORDER_MNJ</span></code> or <code class="docutils literal notranslate"><span class="pre">CHARM_LEG_PNMJ_ORDER_MJN</span></code>. For details, see the description of <code class="docutils literal notranslate"><span class="pre">pnmj</span></code> below. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N10charm_pnmj8orderingE">
+<span id="_CPPv3N10charm_pnmj8orderingE"></span><span id="_CPPv2N10charm_pnmj8orderingE"></span><span id="charm_pnmj::ordering__i"></span><span class="target" id="structcharm__pnmj_1a9e1286b8ed04e0c1f054962dbf9fea3b"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ordering</span></span></span><a class="headerlink" href="#_CPPv4N10charm_pnmj8orderingE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Ordering scheme of the Fourier coefficients in <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1a2ff09bbfc88b5a7d86dbd01d4b817369"><span class="std std-ref"><span class="pre">charm_pnmj.pnmj</span></span></a></code>: either <code class="docutils literal notranslate"><a class="reference internal" href="#charm__leg_8h_1a99fb83031ce9923c84392b4e92f956b5a84f15dbcd4746ccae38dc2b14310bb1b"><span class="std std-ref"><span class="pre">CHARM_LEG_PMNJ</span></span></a></code> or <code class="docutils literal notranslate"><a class="reference internal" href="#charm__leg_8h_1a99fb83031ce9923c84392b4e92f956b5a5ec9f4ee46cf0ec6dcb8cc68cae922b0"><span class="std std-ref"><span class="pre">CHARM_LEG_PMJN</span></span></a></code>. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N10charm_pnmj5npnmjE">
-<span id="_CPPv3N10charm_pnmj5npnmjE"></span><span id="_CPPv2N10charm_pnmj5npnmjE"></span><span id="charm_pnmj::npnmj__s"></span><span class="target" id="structcharm__pnmj_1a6699fc72366d044a586730a73340587e"></span>size_t <code class="sig-name descname">npnmj</code><a class="headerlink" href="#_CPPv4N10charm_pnmj5npnmjE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Total number of Fourier coefficients <span class="math notranslate nohighlight">\(P_{nmj}\)</span>. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N10charm_pnmj5npnmjE">
+<span id="_CPPv3N10charm_pnmj5npnmjE"></span><span id="_CPPv2N10charm_pnmj5npnmjE"></span><span id="charm_pnmj::npnmj__s"></span><span class="target" id="structcharm__pnmj_1a6699fc72366d044a586730a73340587e"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">npnmj</span></span></span><a class="headerlink" href="#_CPPv4N10charm_pnmj5npnmjE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Total number of Fourier coefficients <span class="math notranslate nohighlight">\(P_{nmj}\)</span> in <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1a2ff09bbfc88b5a7d86dbd01d4b817369"><span class="std std-ref"><span class="pre">charm_pnmj.pnmj</span></span></a></code>. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N10charm_pnmj4pnmjE">
-<span id="_CPPv3N10charm_pnmj4pnmjE"></span><span id="_CPPv2N10charm_pnmj4pnmjE"></span><span id="charm_pnmj::pnmj__doublePPP"></span><span class="target" id="structcharm__pnmj_1a2ff09bbfc88b5a7d86dbd01d4b817369"></span>double ***<code class="sig-name descname">pnmj</code><a class="headerlink" href="#_CPPv4N10charm_pnmj4pnmjE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N10charm_pnmj4pnmjE">
+<span id="_CPPv3N10charm_pnmj4pnmjE"></span><span id="_CPPv2N10charm_pnmj4pnmjE"></span><span id="charm_pnmj::pnmj__doublePPP"></span><span class="target" id="structcharm__pnmj_1a2ff09bbfc88b5a7d86dbd01d4b817369"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">pnmj</span></span></span><a class="headerlink" href="#_CPPv4N10charm_pnmj4pnmjE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Fourier coefficients.</p>
-<p>The structure of <code class="docutils literal notranslate"><span class="pre">pnmj</span></code> depends on the <code class="docutils literal notranslate"><span class="pre">ordering</span></code> variable, which takes one of two symbolic constants: <code class="docutils literal notranslate"><span class="pre">CHARM_LEG_PNMJ_ORDER_MNJ</span></code> or <code class="docutils literal notranslate"><span class="pre">CHARM_LEG_PNMJ_ORDER_MJN</span></code>.</p>
+<p>The structure of <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1a2ff09bbfc88b5a7d86dbd01d4b817369"><span class="std std-ref"><span class="pre">charm_pnmj.pnmj</span></span></a></code> depends on <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1a9e1286b8ed04e0c1f054962dbf9fea3b"><span class="std std-ref"><span class="pre">charm_pnmj.ordering</span></span></a></code>, which takes one of two constants: <code class="docutils literal notranslate"><a class="reference internal" href="#charm__leg_8h_1a99fb83031ce9923c84392b4e92f956b5a84f15dbcd4746ccae38dc2b14310bb1b"><span class="std std-ref"><span class="pre">CHARM_LEG_PMNJ</span></span></a></code> or <code class="docutils literal notranslate"><a class="reference internal" href="#charm__leg_8h_1a99fb83031ce9923c84392b4e92f956b5a5ec9f4ee46cf0ec6dcb8cc68cae922b0"><span class="std std-ref"><span class="pre">CHARM_LEG_PMJN</span></span></a></code>.</p>
 <p><ul>
-<li><p>Structure of <code class="docutils literal notranslate"><span class="pre">pnmj</span></code> when <code class="docutils literal notranslate"><span class="pre">ordering</span> <span class="pre">==</span> <span class="pre">CHARM_LEG_PNMJ_ORDER_MNJ</span></code>:</p>
-<p>The first dimension of <code class="docutils literal notranslate"><span class="pre">pnmj</span></code> is related to harmonic orders, the second dimension to harmonic degrees and the third dimension to wave-numbers. Importantly, <code class="docutils literal notranslate"><span class="pre">pnmj</span></code> is <em>not</em> a regular 3D array, as the number of elements in the second and the third dimension varies based on the first dimension. The following scheme is applied:<ul class="simple">
-<li><p>each <code class="docutils literal notranslate"><span class="pre">pnmj[m]</span></code>, with <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">=</span> <span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, …, <code class="docutils literal notranslate"><span class="pre">nmax</span></code>, has <code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">-</span> <span class="pre">m</span> <span class="pre">+</span> <span class="pre">1</span></code> elements for harmonic degrees <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">m</span></code>, <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">+</span> <span class="pre">1</span></code>, …, <code class="docutils literal notranslate"><span class="pre">nmax</span></code> (respectively),</p></li>
-<li><p>each <code class="docutils literal notranslate"><span class="pre">pnmj[m][n</span> <span class="pre">-</span> <span class="pre">m]</span></code> has <code class="docutils literal notranslate"><span class="pre">floor(n</span> <span class="pre">/</span> <span class="pre">2)</span> <span class="pre">+</span> <span class="pre">1</span></code> elements for wave-numbers.</p></li>
+<li><p>Structure of <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1a2ff09bbfc88b5a7d86dbd01d4b817369"><span class="std std-ref"><span class="pre">charm_pnmj.pnmj</span></span></a></code> when <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1a9e1286b8ed04e0c1f054962dbf9fea3b"><span class="std std-ref"><span class="pre">charm_pnmj.ordering</span></span></a></code> is <code class="docutils literal notranslate"><a class="reference internal" href="#charm__leg_8h_1a99fb83031ce9923c84392b4e92f956b5a84f15dbcd4746ccae38dc2b14310bb1b"><span class="std std-ref"><span class="pre">CHARM_LEG_PMNJ</span></span></a></code>:</p>
+<p>The first dimension of <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1a2ff09bbfc88b5a7d86dbd01d4b817369"><span class="std std-ref"><span class="pre">charm_pnmj.pnmj</span></span></a></code> is related to harmonic orders, the second dimension to harmonic degrees and the third dimension to wave-numbers. Importantly, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1a2ff09bbfc88b5a7d86dbd01d4b817369"><span class="std std-ref"><span class="pre">charm_pnmj.pnmj</span></span></a></code> is <em>not</em> a regular 3D array, as the number of elements in the second and the third dimension varies based on the first dimension. The following scheme is applied:<ul class="simple">
+<li><p>each <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1a2ff09bbfc88b5a7d86dbd01d4b817369"><span class="std std-ref"><span class="pre">charm_pnmj.pnmj</span></span></a><span class="pre">[m]</span></code>, with <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">=</span> <span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, …, <code class="docutils literal notranslate"><span class="pre">nmax</span></code>, has <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1ac5f3288ff6337032011ecd195dcf7d6a"><span class="std std-ref"><span class="pre">charm_pnmj.nmax</span></span></a> <span class="pre">-</span> <span class="pre">m</span> <span class="pre">+</span> <span class="pre">1</span></code> elements for harmonic degrees <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">m</span></code>, <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">+</span> <span class="pre">1</span></code>, …, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1ac5f3288ff6337032011ecd195dcf7d6a"><span class="std std-ref"><span class="pre">charm_pnmj.nmax</span></span></a></code> (respectively),</p></li>
+<li><p>each <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1a2ff09bbfc88b5a7d86dbd01d4b817369"><span class="std std-ref"><span class="pre">charm_pnmj.pnmj</span></span></a><span class="pre">[m][n</span> <span class="pre">-</span> <span class="pre">m]</span></code> has <code class="docutils literal notranslate"><span class="pre">floor(n</span> <span class="pre">/</span> <span class="pre">2)</span> <span class="pre">+</span> <span class="pre">1</span></code> elements for wave-numbers.</p></li>
 </ul>
 </p>
-<p>The Fourier coefficient <span class="math notranslate nohighlight">\(P_{nmj}\)</span>, using the notation from Eq. (62) of Fukushima (2018), can therefore be access as follows <code class="docutils literal notranslate"><span class="pre">Pnmj</span> <span class="pre">=</span> <span class="pre">pnmj[m][n</span> <span class="pre">-</span> <span class="pre">m][j]</span></code>.</p>
+<p>The Fourier coefficient <span class="math notranslate nohighlight">\(P_{nmj}\)</span>, using the notation from Eq. (62) of Fukushima (2018), can therefore be access as follows <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1a2ff09bbfc88b5a7d86dbd01d4b817369"><span class="std std-ref"><span class="pre">charm_pnmj.pnmj</span></span></a><span class="pre">[m][n</span> <span class="pre">-</span> <span class="pre">m][j]</span></code>.</p>
 </li>
-<li><p>Structure of <code class="docutils literal notranslate"><span class="pre">pnmj</span></code> when <code class="docutils literal notranslate"><span class="pre">ordering</span> <span class="pre">==</span> <span class="pre">CHARM_LEG_PNMJ_ORDER_MJN</span></code>:</p>
-<p>The first dimension of <code class="docutils literal notranslate"><span class="pre">pnmj</span></code> is related to harmonic orders, the second dimension to wave-numbers and the third dimension to harmonic degrees. Importantly, <code class="docutils literal notranslate"><span class="pre">pnmj</span></code> is <em>not</em> a regular 3D array, as the number of elements in the third dimension varies based on the <code class="docutils literal notranslate"><span class="pre">m</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span></code> variables. The following scheme is applied:<ul class="simple">
-<li><p>each <code class="docutils literal notranslate"><span class="pre">pnmj[m]</span></code>, with <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">=</span> <span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, …, <code class="docutils literal notranslate"><span class="pre">nmax</span></code>, has <code class="docutils literal notranslate"><span class="pre">floor(nmax</span> <span class="pre">/</span> <span class="pre">2)</span> <span class="pre">+</span> <span class="pre">1</span></code> elements for wave-number-related variable <code class="docutils literal notranslate"><span class="pre">j</span> <span class="pre">=</span> <span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, …, floor(nmax / 2)``,</p></li>
-<li><p>each <code class="docutils literal notranslate"><span class="pre">pnmj[m][j]</span></code> has <code class="docutils literal notranslate"><span class="pre">(nmax</span> <span class="pre">-</span> <span class="pre">max(2</span> <span class="pre">*</span> <span class="pre">j,</span> <span class="pre">m)</span> <span class="pre">+</span> <span class="pre">1)</span></code> elements for harmonic degrees <code class="docutils literal notranslate"><span class="pre">max(2</span> <span class="pre">*</span> <span class="pre">j,</span> <span class="pre">m)</span></code>, <code class="docutils literal notranslate"><span class="pre">max(2</span> <span class="pre">*</span> <span class="pre">j,</span> <span class="pre">m)</span> <span class="pre">+</span> <span class="pre">1</span></code>, …, <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.</p></li>
+<li><p>Structure of <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1a2ff09bbfc88b5a7d86dbd01d4b817369"><span class="std std-ref"><span class="pre">charm_pnmj.pnmj</span></span></a></code> when <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1a9e1286b8ed04e0c1f054962dbf9fea3b"><span class="std std-ref"><span class="pre">charm_pnmj.ordering</span></span></a></code> is <code class="docutils literal notranslate"><a class="reference internal" href="#charm__leg_8h_1a99fb83031ce9923c84392b4e92f956b5a5ec9f4ee46cf0ec6dcb8cc68cae922b0"><span class="std std-ref"><span class="pre">CHARM_LEG_PMJN</span></span></a></code>:</p>
+<p>The first dimension of <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1a2ff09bbfc88b5a7d86dbd01d4b817369"><span class="std std-ref"><span class="pre">charm_pnmj.pnmj</span></span></a></code> is related to harmonic orders, the second dimension to wave-numbers and the third dimension to harmonic degrees. Importantly, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1a2ff09bbfc88b5a7d86dbd01d4b817369"><span class="std std-ref"><span class="pre">charm_pnmj.pnmj</span></span></a></code> is <em>not</em> a regular 3D array, as the number of elements in the third dimension varies based on the <code class="docutils literal notranslate"><span class="pre">m</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span></code> variables. The following scheme is applied:<ul class="simple">
+<li><p>each <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1a2ff09bbfc88b5a7d86dbd01d4b817369"><span class="std std-ref"><span class="pre">charm_pnmj.pnmj</span></span></a><span class="pre">[m]</span></code>, with <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">=</span> <span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, …, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1ac5f3288ff6337032011ecd195dcf7d6a"><span class="std std-ref"><span class="pre">charm_pnmj.nmax</span></span></a></code>, has <code class="docutils literal notranslate"><span class="pre">floor(</span><a class="reference internal" href="#structcharm__pnmj_1ac5f3288ff6337032011ecd195dcf7d6a"><span class="std std-ref"><span class="pre">charm_pnmj.nmax</span></span></a> <span class="pre">/</span> <span class="pre">2)</span> <span class="pre">+</span> <span class="pre">1</span></code> elements for wave-number-related variable <code class="docutils literal notranslate"><span class="pre">j</span> <span class="pre">=</span> <span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, …, <code class="docutils literal notranslate"><span class="pre">floor(</span><a class="reference internal" href="#structcharm__pnmj_1ac5f3288ff6337032011ecd195dcf7d6a"><span class="std std-ref"><span class="pre">charm_pnmj.nmax</span></span></a> <span class="pre">/</span> <span class="pre">2)</span></code>,</p></li>
+<li><p>each <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1a2ff09bbfc88b5a7d86dbd01d4b817369"><span class="std std-ref"><span class="pre">charm_pnmj.pnmj</span></span></a><span class="pre">[m][j]</span></code> has <code class="docutils literal notranslate"><span class="pre">(</span><a class="reference internal" href="#structcharm__pnmj_1ac5f3288ff6337032011ecd195dcf7d6a"><span class="std std-ref"><span class="pre">charm_pnmj.nmax</span></span></a> <span class="pre">-</span> <a class="reference internal" href="api-c-misc.html#charm__misc_8h_1ab2f2b89babc5ac3cdc71cd3eaeafe7a1"><span class="std std-ref"><span class="pre">CHARM_MAX(2</span> <span class="pre">*</span> <span class="pre">j,</span> <span class="pre">m)</span></span></a> <span class="pre">+</span> <span class="pre">1)</span></code> elements for harmonic degrees <code class="docutils literal notranslate"><a class="reference internal" href="api-c-misc.html#charm__misc_8h_1ab2f2b89babc5ac3cdc71cd3eaeafe7a1"><span class="std std-ref"><span class="pre">CHARM_MAX(2</span> <span class="pre">*</span> <span class="pre">j,</span> <span class="pre">m)</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="api-c-misc.html#charm__misc_8h_1ab2f2b89babc5ac3cdc71cd3eaeafe7a1"><span class="std std-ref"><span class="pre">CHARM_MAX(2</span> <span class="pre">*</span> <span class="pre">j,</span> <span class="pre">m)</span></span></a> <span class="pre">+</span> <span class="pre">1</span></code>, …, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1ac5f3288ff6337032011ecd195dcf7d6a"><span class="std std-ref"><span class="pre">charm_pnmj.nmax</span></span></a></code>.</p></li>
 </ul>
 </p>
-<p>The Fourier coefficient <span class="math notranslate nohighlight">\(P_{nmj}\)</span>, using the notation from Eq. (62) of Fukushima (2018), can therefore be access as follows <code class="docutils literal notranslate"><span class="pre">pnmj[m][j][n</span> <span class="pre">-</span> <a class="reference internal" href="api-c-misc.html#charm__misc_8h_1ab2f2b89babc5ac3cdc71cd3eaeafe7a1"><span class="std std-ref"><span class="pre">CHARM_MAX(m,</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">j)</span></span></a><span class="pre">]</span></code>.</p>
+<p>The Fourier coefficient <span class="math notranslate nohighlight">\(P_{nmj}\)</span>, using the notation from Eq. (62) of Fukushima (2018), can therefore be access as follows <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1a2ff09bbfc88b5a7d86dbd01d4b817369"><span class="std std-ref"><span class="pre">charm_pnmj.pnmj</span></span></a><span class="pre">[m][j][n</span> <span class="pre">-</span> <a class="reference internal" href="api-c-misc.html#charm__misc_8h_1ab2f2b89babc5ac3cdc71cd3eaeafe7a1"><span class="std std-ref"><span class="pre">CHARM_MAX(m,</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">j)</span></span></a><span class="pre">]</span></code>.</p>
 </li>
 </ul>
 </p>
-<p>When <code class="docutils literal notranslate"><span class="pre">ordering</span> <span class="pre">==</span> <span class="pre">CHARM_LEG_PNMJ_ORDER_MNJ</span></code>, the following order of loops is recommended for fast sequential access to the <span class="math notranslate nohighlight">\(P_{nmj}\)</span> coefficients: harmonic order <code class="docutils literal notranslate"><span class="pre">m</span></code>, harmonic degree <code class="docutils literal notranslate"><span class="pre">n</span></code> and wave-number-related variable <code class="docutils literal notranslate"><span class="pre">j</span></code>; e.g.:</p>
-<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">charm_pnmj</span> <span class="o">*</span><span class="n">pnmj</span> <span class="o">=</span> <span class="n">charm_leg_pnmj_calloc</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">CHARM_LEG_PNMJ_ORDER_MNJ</span><span class="p">)</span>
-<span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">m</span> <span class="o">&lt;=</span> <span class="n">nmax</span><span class="p">;</span> <span class="n">m</span><span class="o">++</span><span class="p">)</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">n</span> <span class="o">=</span> <span class="n">m</span><span class="p">;</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="n">nmax</span><span class="p">;</span> <span class="n">n</span><span class="o">++</span><span class="p">)</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">n</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
-            <span class="n">pnmj</span><span class="o">-&gt;</span><span class="n">pnmj</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+<p>If <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1a9e1286b8ed04e0c1f054962dbf9fea3b"><span class="std std-ref"><span class="pre">charm_pnmj.ordering</span></span></a></code> is <code class="docutils literal notranslate"><a class="reference internal" href="#charm__leg_8h_1a99fb83031ce9923c84392b4e92f956b5a84f15dbcd4746ccae38dc2b14310bb1b"><span class="std std-ref"><span class="pre">CHARM_LEG_PMNJ</span></span></a></code>, the following loop order is recommended for fast sequential access to the <span class="math notranslate nohighlight">\(P_{nmj}\)</span> coefficients: harmonic order <code class="docutils literal notranslate"><span class="pre">m</span></code>, harmonic degree <code class="docutils literal notranslate"><span class="pre">n</span></code> and wave-number-related variable <code class="docutils literal notranslate"><span class="pre">j</span></code>; e.g.:</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">charm_pnmj</span><span class="w"> </span><span class="o">*</span><span class="n">pnmj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">charm_leg_pnmj_calloc</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span><span class="w"> </span><span class="n">CHARM_LEG_PMNJ</span><span class="p">)</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">nmax</span><span class="p">;</span><span class="w"> </span><span class="n">m</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">nmax</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="o">++</span><span class="p">)</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+<span class="w">            </span><span class="n">pnmj</span><span class="o">-&gt;</span><span class="n">pnmj</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">m</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
 </pre></div>
 </div>
 </p>
-<p>For <code class="docutils literal notranslate"><span class="pre">ordering</span> <span class="pre">==</span> <span class="pre">CHARM_LEG_PNMJ_ORDER_MJN</span></code>, the recommended loop order is:</p>
-<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">charm_pnmj</span> <span class="o">*</span><span class="n">pnmj</span> <span class="o">=</span> <span class="n">charm_leg_pnmj_calloc</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">CHARM_LEG_PNMJ_ORDER_MJN</span><span class="p">)</span>
-<span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">m</span> <span class="o">&lt;=</span> <span class="n">nmax</span><span class="p">;</span> <span class="n">m</span><span class="o">++</span><span class="p">)</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">nmax</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">n</span> <span class="o">=</span> <span class="n">CHARM_MAX</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">j</span><span class="p">);</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="n">nmax</span><span class="p">;</span> <span class="n">n</span><span class="o">++</span><span class="p">)</span>
-            <span class="n">pnmj</span><span class="o">-&gt;</span><span class="n">pnmj</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="n">n</span> <span class="o">-</span> <span class="n">CHARM_MAX</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">j</span><span class="p">)];</span>
+<p>If <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1a9e1286b8ed04e0c1f054962dbf9fea3b"><span class="std std-ref"><span class="pre">charm_pnmj.ordering</span></span></a></code> is <code class="docutils literal notranslate"><a class="reference internal" href="#charm__leg_8h_1a99fb83031ce9923c84392b4e92f956b5a5ec9f4ee46cf0ec6dcb8cc68cae922b0"><span class="std std-ref"><span class="pre">CHARM_LEG_PMJN</span></span></a></code>, the recommended loop order is:</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">charm_pnmj</span><span class="w"> </span><span class="o">*</span><span class="n">pnmj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">charm_leg_pnmj_calloc</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span><span class="w"> </span><span class="n">CHARM_LEG_PMJN</span><span class="p">)</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">nmax</span><span class="p">;</span><span class="w"> </span><span class="n">m</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="p">(</span><span class="n">nmax</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CHARM_MAX</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">j</span><span class="p">);</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">nmax</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="o">++</span><span class="p">)</span>
+<span class="w">            </span><span class="n">pnmj</span><span class="o">-&gt;</span><span class="n">pnmj</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">CHARM_MAX</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">j</span><span class="p">)];</span>
 </pre></div>
 </div>
 </p>
-<p>The coefficients (elements) in <code class="docutils literal notranslate"><span class="pre">charm_pnmj-&gt;pnmj</span></code> are stored in a single <em>contiguous</em> block of memory. </p>
+<p>The coefficients (elements) in <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__pnmj_1a2ff09bbfc88b5a7d86dbd01d4b817369"><span class="std std-ref"><span class="pre">charm_pnmj.pnmj</span></span></a></code> are stored in a single <em>contiguous</em> block of memory. </p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p><code class="docutils literal notranslate"><span class="pre">j</span></code> does <em>not</em> represent the wave-number <code class="docutils literal notranslate"><span class="pre">k</span></code>, but it is closely related to it (see <code class="docutils literal notranslate"><a class="reference internal" href="#charm__leg_8h_1a3f46273eec58821966fe0b5c6385d3ee"><span class="std std-ref"><span class="pre">charm_leg_pnmj_j2k()</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__leg_8h_1a27eeccebdcaa957851cc5f0c7412a2f4"><span class="std std-ref"><span class="pre">charm_leg_pnmj_k2j()</span></span></a></code>).</p>
@@ -391,54 +589,97 @@
 </div>
 </dd></dl>
 
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="api-c-sha.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">charm_sha</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="api-c-integ.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">charm_integ</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
 </div>
 
-
-           </div>
-           
+                </footer>
+              
+            </div>
+            
+            
+              
+            
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="api-c-integ.html" class="btn btn-neutral float-right" title="charm_integ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="api-c-sha.html" class="btn btn-neutral float-left" title="charm_sha" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Blažej Bucha
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, Blažej Bucha.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+  Last updated on Jun 16, 2023.
+  <br/>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &#169; Copyright 2022, Blažej Bucha.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-        </div>
-      </div>
-
-    </section>
-
   </div>
   
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
-    
-   
-
-</body>
+  <footer class="bd-footer">
+  </footer>
+  </body>
 </html>

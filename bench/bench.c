@@ -4,9 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#ifdef _MSC_VER
-#   define _USE_MATH_DEFINES
-#endif
 #include <math.h>
 #include "../src/prec.h"
 #include "../src/misc/misc_fprintf_real.h"
@@ -203,10 +200,10 @@ int main(void)
             {
                 /* Generate some more or less random spherical harmonic
                  * coefficients from "-1.0" to "1.0" */
-                shcs_ref->c[m][n - m] = PREC(-1.0) + (REAL)rand() / 
+                shcs_ref->c[m][n - m] = PREC(-1.0) + (REAL)rand() /
                                         ((REAL)RAND_MAX / PREC(2.0));
                 if (m > 0)
-                    shcs_ref->s[m][n - m] = PREC(-1.0) + (REAL)rand() / 
+                    shcs_ref->s[m][n - m] = PREC(-1.0) + (REAL)rand() /
                                             ((REAL)RAND_MAX / PREC(2.0));
             }
         }

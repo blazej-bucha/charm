@@ -2,11 +2,10 @@
 /* ------------------------------------------------------------------------- */
 #include <config.h>
 #include <stdlib.h>
-#ifdef _MSC_VER
-#   define _USE_MATH_DEFINES
-#endif
 #include <math.h>
 #include "../prec.h"
+#include "../xnum/xnum_xlsum2.h"
+#include "../xnum/xnum_xnorm.h"
 #include "../err/err_set.h"
 /* ------------------------------------------------------------------------- */
 

@@ -3,26 +3,21 @@
 #include <config.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "cmp_arrays.h"
+#include "parameters.h"
 #include "../src/prec.h"
 #include "../src/misc/misc_str2real.h"
+#include "cmp_arrays.h"
 /* ------------------------------------------------------------------------- */
 
 
 
 
 
-#define NCHARS 256
 
-
-
-
-
-
-/* Compares "n" elements from an array pointed to be "f" with respect to
+/* Compares "n" elements from an array pointed to by "f" with respect to
  * reference data from "file" using the "eps" threshold. */
 /* ------------------------------------------------------------------------- */
-int validate(char *file, REAL *f, size_t n, REAL eps)
+long int validate(char *file, REAL *f, size_t n, REAL eps)
 {
     /* Read the reference data from "file" */
     /* --------------------------------------------------------------------- */
@@ -43,7 +38,7 @@ int validate(char *file, REAL *f, size_t n, REAL eps)
 
 
     /* A string to be loaded from the input file */
-    char str[NCHARS];
+    char str[NSTR_LONG];
     int num_entries;
     REAL entry_d;
 
@@ -62,12 +57,12 @@ int validate(char *file, REAL *f, size_t n, REAL eps)
         if (num_entries == EOF)
         {
             fprintf(stderr, "Too few data in \"%s\".", file);
-            exit(1);
+            exit(CHARM_FAILURE);
         }
-        if (num_entries < 1)
+        else if (num_entries < 1)
         {
             fprintf(stderr, "Failed to read an entry from \"%s\".", file);
-            exit(1);
+            exit(CHARM_FAILURE);
         }
 
 
@@ -76,7 +71,7 @@ int validate(char *file, REAL *f, size_t n, REAL eps)
         {
             fprintf(stderr, "Failed to convert \"%s\" to a floating point "
                             "data type.", str);
-            exit(1);
+            exit(CHARM_FAILURE);
         }
 
 
@@ -95,12 +90,12 @@ int validate(char *file, REAL *f, size_t n, REAL eps)
 
     /* Compare "f" with respect to "fref" */
     /* --------------------------------------------------------------------- */
-    int errnum = cmp_arrays(f, fref, n, eps);
+    long int e = cmp_arrays(f, fref, n, eps);
     free(fref);
 
 
-    if (errnum)
-        printf("        Reference file \"%s\"\n", file);
+    if (e)
+        printf("\n        Reference file \"%s\"\n", file);
     /* --------------------------------------------------------------------- */
 
 
@@ -108,6 +103,6 @@ int validate(char *file, REAL *f, size_t n, REAL eps)
 
 
 
-    return errnum;
+    return e;
 }
 /* ------------------------------------------------------------------------- */

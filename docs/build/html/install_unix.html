@@ -1,207 +1,436 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" />
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Installation on Unix-based operating systems &#8212; CHarm 0.3.0 documentation</title>
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Installation on Unix-based operating systems &mdash; CHarm 0.2.0 documentation</title>
   
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/custom_BB.css" type="text/css" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
   
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'install_unix';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Installation on Windows 10" href="install_non_unix.html" />
-    <link rel="prev" title="Installing" href="install.html" /> 
-</head>
+    <link rel="prev" title="Installing" href="install.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="index.html" class="icon icon-home"> CHarm
-          
-
-          
-            
-            <img src="_static/charm-logo.png" class="logo" alt="Logo"/>
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                0.2.0
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <ul class="current">
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/charm-logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+    <p class="title logo__title">CHarm v0.3.0</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="install.html">Installing</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Installation on Unix-based operating systems</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#charm-the-c-library">CHarm (the C library)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#requirements">Requirements</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#installation-on-linux">Installation on Linux</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#installation-on-macos">Installation on macOS</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#a-few-installation-notes">A few installation notes</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#uninstallation">Uninstallation</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#pyharm-the-python-wrapper">PyHarm (the Python wrapper)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id3">Requirements</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#building-pyharm">Building PyHarm</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id4">Uninstallation</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="install.html">Installing</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Installation on Unix-based operating systems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="install_non_unix.html">Installation on Windows 10</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">Interfaces</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="cookbook.html">Cookbook</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="cookbook-c.html">CHarm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cookbook-py.html">PyHarm</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api.html">Interfaces</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="api-c.html">CHarm (C API)</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html">charm_shc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-sha.html">charm_sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-leg.html">charm_leg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html">charm_err</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-glob.html">charm_glob</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="api-py-shc.html">pyharm.shc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">pyharm.sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-leg.html">pyharm.leg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">pyharm.integ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-glob.html">pyharm.glob</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">CHarm</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="install.html">Installing</a> &raquo;</li>
-        
-      <li>Installation on Unix-based operating systems</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="_sources/install_unix.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
+    </div>
+</nav></div>
+    </div>
   
-  <hr/>
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm/edit/master/docs/src/install_unix.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm/issues/new?title=Issue%20on%20page%20%2Finstall_unix.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/install_unix.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Installation on Unix-based operating systems</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
             
-  <div class="section" id="installation-on-unix-based-operating-systems">
-<span id="installation-unix"></span><h1>Installation on Unix-based operating systems<a class="headerlink" href="#installation-on-unix-based-operating-systems" title="Permalink to this headline">¶</a></h1>
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#charm-the-c-library">CHarm (the C library)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#requirements">Requirements</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-on-linux">Installation on Linux</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fftw-installation">FFTW installation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#default-charm-installation">Default CHarm installation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#customized-charm-installation">Customized CHarm installation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-on-macos">Installation on macOS</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">FFTW installation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">CHarm installation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-few-installation-notes">A few installation notes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uninstallation">Uninstallation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm-the-python-wrapper">PyHarm (the Python wrapper)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Requirements</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-pyharm">Building PyHarm</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-installation">Example installation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Uninstallation</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="installation-on-unix-based-operating-systems">
+<span id="installation-unix"></span><h1>Installation on Unix-based operating systems<a class="headerlink" href="#installation-on-unix-based-operating-systems" title="Permalink to this heading">#</a></h1>
 <p>This section provides an installation guide for Unix-based operating systems,
 particularly <a class="reference internal" href="#installation-linux"><span class="std std-ref">Linux</span></a> and <a class="reference internal" href="#installation-mac"><span class="std std-ref">macOS</span></a>.  First, discussed is the installation of <a class="reference internal" href="#charm-installation"><span class="std std-ref">CHarm (the
 C library)</span></a> and then follow instructions on how to build
 <a class="reference internal" href="#pyharm-installation"><span class="std std-ref">PyHarm (the Python wrapper)</span></a>.</p>
-<div class="section" id="charm-the-c-library">
-<span id="charm-installation"></span><h2>CHarm (the C library)<a class="headerlink" href="#charm-the-c-library" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="requirements">
-<span id="charm-requirements"></span><h3>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>
+<section id="charm-the-c-library">
+<span id="charm-installation"></span><h2>CHarm (the C library)<a class="headerlink" href="#charm-the-c-library" title="Permalink to this heading">#</a></h2>
+<section id="requirements">
+<span id="charm-requirements"></span><h3>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">#</a></h3>
 <ul>
 <li><p>C compiler supporting C99.  <a class="reference external" href="https://gcc.gnu.org/">GCC</a> is recommended
 (available by default on most Linux distributions).  Other compilers that are
@@ -217,13 +446,13 @@ managing library compile and link flags (available by default on most Linux
 distributions).</p></li>
 <li><p><a class="reference external" href="http://www.fftw.org/">FFTW</a> for discrete fast Fourier transforms.</p></li>
 </ul>
-</div>
-<div class="section" id="installation-on-linux">
-<span id="installation-linux"></span><h3>Installation on Linux<a class="headerlink" href="#installation-on-linux" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="installation-on-linux">
+<span id="installation-linux"></span><h3>Installation on Linux<a class="headerlink" href="#installation-on-linux" title="Permalink to this heading">#</a></h3>
 <p>At first, we will install FFTW and then we will proceed with the installation
 of CHarm.</p>
-<div class="section" id="fftw-installation">
-<span id="installation-fftw-linux"></span><h4>FFTW installation<a class="headerlink" href="#fftw-installation" title="Permalink to this headline">¶</a></h4>
+<section id="fftw-installation">
+<span id="installation-fftw-linux"></span><h4>FFTW installation<a class="headerlink" href="#fftw-installation" title="Permalink to this heading">#</a></h4>
 <p>FFTW can either be installed via you package manager or built from the source.</p>
 <ul>
 <li><p><em>Using your package manager</em></p>
@@ -268,13 +497,13 @@ Example FFTW installation could be:</p>
 a shared library (mandatory to install CHarm).  To install CHarm in single or
 quadruple precision, add also the <code class="docutils literal notranslate"><span class="pre">--enable-single</span></code> or
 <code class="docutils literal notranslate"><span class="pre">--enable-quad-precision</span></code> flag, respectively, when calling the
-<code class="docutils literal notranslate"><span class="pre">configure</span></code> script.  If you do not want to parallelize CHarm, you may omit
+<code class="docutils literal notranslate"><span class="pre">configure</span></code> script.  If you do not want to parallelize FFTW, you may omit
 the <code class="docutils literal notranslate"><span class="pre">--enable-openmp</span></code> flag.</p>
 </li>
 </ul>
-</div>
-<div class="section" id="default-charm-installation">
-<span id="default-installation-charm-linux"></span><h4>Default CHarm installation<a class="headerlink" href="#default-charm-installation" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="default-charm-installation">
+<span id="default-installation-charm-linux"></span><h4>Default CHarm installation<a class="headerlink" href="#default-charm-installation" title="Permalink to this heading">#</a></h4>
 <p>If you</p>
 <ul class="simple">
 <li><p>want to install CHarm to <code class="docutils literal notranslate"><span class="pre">/usr/local</span></code>,</p></li>
@@ -296,9 +525,9 @@ compiler,</p></li>
 build CHarm and prepares makefiles and a few other files.  <code class="docutils literal notranslate"><span class="pre">make</span></code> compiles
 the library.  <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">check</span></code> compiles and executes a test program.  <code class="docutils literal notranslate"><span class="pre">make</span>
 <span class="pre">install</span></code> installs the library.</p>
-</div>
-<div class="section" id="customized-charm-installation">
-<span id="customized-installation-charm-linux"></span><h4>Customized CHarm installation<a class="headerlink" href="#customized-charm-installation" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="customized-charm-installation">
+<span id="customized-installation-charm-linux"></span><h4>Customized CHarm installation<a class="headerlink" href="#customized-charm-installation" title="Permalink to this heading">#</a></h4>
 <p>The installation process can be tailored by appending one or more of the
 following flags to the <code class="docutils literal notranslate"><span class="pre">./configure</span></code> call.</p>
 <ul>
@@ -340,7 +569,7 @@ is accessible to the compiler).</p></li>
 <li><p>Other useful variables:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">CC</span></code> selects other than your system’s default C compiler,
-e.g. <code class="docutils literal notranslate"><span class="pre">CC=clang</span></code> for the <code class="docutils literal notranslate"><span class="pre">Clang</span></code> compiler, and</p></li>
+e.g. <code class="docutils literal notranslate"><span class="pre">CC=clang</span></code> for Clang, and</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">CFLAGS</span></code> defines user-defined compiler flags, e.g.,  <code class="docutils literal notranslate"><span class="pre">CFLAGS=&quot;-O3</span>
 <span class="pre">-ffast-math&quot;</span></code>
 (GCC).</p></li>
@@ -365,14 +594,14 @@ e.g. <code class="docutils literal notranslate"><span class="pre">CC=clang</span
 <span class="go">sudo make install</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="installation-on-macos">
-<span id="installation-mac"></span><h3>Installation on macOS<a class="headerlink" href="#installation-on-macos" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="installation-on-macos">
+<span id="installation-mac"></span><h3>Installation on macOS<a class="headerlink" href="#installation-on-macos" title="Permalink to this heading">#</a></h3>
 <p>At first, we will install FFTW and then we will proceed with the installation
 of CHarm.</p>
-<div class="section" id="id1">
-<h4>FFTW installation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<section id="id1">
+<h4>FFTW installation<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
 <p>FFTW can either be installed via you package manager or built from the source,
 preferably with GCC.  The latter is strongly recommended on macOS.</p>
 <ul>
@@ -402,25 +631,25 @@ version number, e.g.:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --enable-openmp CC=gcc-10</span>
 </pre></div>
 </div>
-<p>Without the <code class="docutils literal notranslate"><span class="pre">CC</span></code> flag, the <code class="docutils literal notranslate"><span class="pre">Clang</span></code> compiler will most likely be used
-which may cause an installation failure when using the <code class="docutils literal notranslate"><span class="pre">--enable-openmp</span></code>
-and/or <code class="docutils literal notranslate"><span class="pre">--enable-quad-precision</span></code> flag(s).  It may <strong>not</strong> be sufficient to
-add <code class="docutils literal notranslate"><span class="pre">CC=gcc</span></code> (GCC version number omitted), as this will still likely call
-the <code class="docutils literal notranslate"><span class="pre">Clang</span></code> compiler.</p>
+<p>Without the <code class="docutils literal notranslate"><span class="pre">CC</span></code> flag, Clang will most likely be used which may cause an
+installation failure when using the <code class="docutils literal notranslate"><span class="pre">--enable-openmp</span></code> and/or
+<code class="docutils literal notranslate"><span class="pre">--enable-quad-precision</span></code> flag(s).  It may <strong>not</strong> be sufficient to add
+<code class="docutils literal notranslate"><span class="pre">CC=gcc</span></code> (GCC version number omitted), as this will still likely call
+Clang.</p>
 </li>
 </ul>
-</div>
-<div class="section" id="id2">
-<h4>CHarm installation<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id2">
+<h4>CHarm installation<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
 <p>Having installed FFTW, you may proceed with the same instructions as given in
 the <a class="reference internal" href="#default-installation-charm-linux"><span class="std std-ref">Default CHarm installation</span></a> and
 <a class="reference internal" href="#customized-installation-charm-linux"><span class="std std-ref">Customized CHarm installation</span></a> chapters for Linux.  Similarly as
 when installing FFTW, it is recommended to use the GCC compiler via the <code class="docutils literal notranslate"><span class="pre">CC</span></code>
 variable when calling the <code class="docutils literal notranslate"><span class="pre">./configure</span></code> script from the CHarm installation.</p>
-</div>
-</div>
-<div class="section" id="a-few-installation-notes">
-<h3>A few installation notes<a class="headerlink" href="#a-few-installation-notes" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="a-few-installation-notes">
+<h3>A few installation notes<a class="headerlink" href="#a-few-installation-notes" title="Permalink to this heading">#</a></h3>
 <ul>
 <li><p>The output lib names depend on the user-defined compilation settings and
 follow the pattern:</p>
@@ -439,28 +668,28 @@ follow the pattern:</p>
 OpenMP enabled and disabled, to the same installation path.  You don’t have
 to worry about overwriting the header and lib files.</p></li>
 </ul>
-</div>
-<div class="section" id="uninstallation">
-<span id="charm-uninstallation"></span><h3>Uninstallation<a class="headerlink" href="#uninstallation" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="uninstallation">
+<span id="charm-uninstallation"></span><h3>Uninstallation<a class="headerlink" href="#uninstallation" title="Permalink to this heading">#</a></h3>
 <p>Execute <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">make</span> <span class="pre">uninstall</span></code>.</p>
-</div>
-</div>
-<div class="section" id="pyharm-the-python-wrapper">
-<span id="pyharm-installation"></span><h2>PyHarm (the Python wrapper)<a class="headerlink" href="#pyharm-the-python-wrapper" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="pyharm-the-python-wrapper">
+<span id="pyharm-installation"></span><h2>PyHarm (the Python wrapper)<a class="headerlink" href="#pyharm-the-python-wrapper" title="Permalink to this heading">#</a></h2>
 <p>Before reading this chapter, make sure you know how to compile <a class="reference internal" href="#charm-installation"><span class="std std-ref">CHarm</span></a>.  Otherwise, you won’t be able to build PyHarm.</p>
-<div class="section" id="id3">
-<h3>Requirements<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<section id="id3">
+<h3>Requirements<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <p><em>Additional</em> prerequisites when compared with <a class="reference internal" href="#charm-requirements"><span class="std std-ref">requirements</span></a>:</p>
 <ul class="simple">
-<li><p>Python interpreter 3.6 or newer.</p></li>
-<li><p>Python module <a class="reference external" href="https://docs.python.org/3/installing/index.html">pip</a>.</p></li>
-<li><p>Python module <a class="reference external" href="https://numpy.org/">numpy</a> (reasonably old version).</p></li>
+<li><p>Python interpreter 3.6 or newer,</p></li>
+<li><p>Python module <a class="reference external" href="https://docs.python.org/3/installing/index.html">pip</a>,</p></li>
+<li><p>Python module <a class="reference external" href="https://numpy.org/">numpy</a> (reasonably old version),</p></li>
 <li><p>Python module <a class="reference external" href="https://docs.python.org/3/library/ctypes.html">ctypes</a>
 (reasonably old version).</p></li>
 </ul>
-</div>
-<div class="section" id="building-pyharm">
-<h3>Building PyHarm<a class="headerlink" href="#building-pyharm" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="building-pyharm">
+<h3>Building PyHarm<a class="headerlink" href="#building-pyharm" title="Permalink to this heading">#</a></h3>
 <p>Installation of PyHarm is disabled by default.  To enable it, you have to add
 the <code class="docutils literal notranslate"><span class="pre">--enable-python</span></code> flag to the <code class="docutils literal notranslate"><span class="pre">configure</span></code> call <em>in addition</em> to the
 flags discussed in the <a class="reference internal" href="#charm-installation"><span class="std std-ref">CHarm (the C library)</span></a>
@@ -487,8 +716,8 @@ be thrown.</p>
 <ul>
 <li><p>If you are not really confident with all this, create and activate a Python
 virtual environment:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 -m venv /path/to/your/virtual/environment/
-<span class="nb">source</span> /path/to/your/virtual/environment/bin/activate
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>/path/to/your/virtual/environment/
+<span class="nb">source</span><span class="w"> </span>/path/to/your/virtual/environment/bin/activate
 </pre></div>
 </div>
 <p>Then use <code class="docutils literal notranslate"><span class="pre">--with-python_prefix=/path/to/your/virtual/environment</span></code> when
@@ -501,7 +730,7 @@ script:</p>
 </li>
 <li><p>If you want to install PyHarm as a user, find the lib path of your Python
 user packages, for instance,</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 -m site --user-site
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>site<span class="w"> </span>--user-site
 </pre></div>
 </div>
 <p>The output might like <code class="docutils literal notranslate"><span class="pre">/home/isaac/.local/lib/python3.9/site-packages</span></code>,
@@ -514,23 +743,23 @@ added to the installation path automatically.</p>
 <li><p>If you want to install PyHarm next to your system Python packages, you must
 specify neither <code class="docutils literal notranslate"><span class="pre">--prefix</span></code> nor <code class="docutils literal notranslate"><span class="pre">--with-python_prefix</span></code>.</p></li>
 </ul>
-<p>Note that if you use custom a path in <code class="docutils literal notranslate"><span class="pre">--prefix</span></code> but do not specify
+<p>Note that if you use a custom path in <code class="docutils literal notranslate"><span class="pre">--prefix</span></code> but do not specify
 <code class="docutils literal notranslate"><span class="pre">--with-python_prefix</span></code>, you will most likely not be able to (easily) import
 PyHarm.</p>
 </li>
 </ul>
-<div class="section" id="example-installation">
-<h4>Example installation<a class="headerlink" href="#example-installation" title="Permalink to this headline">¶</a></h4>
+<section id="example-installation">
+<h4>Example installation<a class="headerlink" href="#example-installation" title="Permalink to this heading">#</a></h4>
 <p>A typical installation of PyHarm to a Python virtual environment looks like
 this:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 -m venv /tmp/python-venv
-<span class="nb">source</span> /tmp/python-venv/bin/activate
-./configure --prefix<span class="o">=</span>/tmp/charm --enable-openmp <span class="se">\</span>
-   <span class="nv">LDFLAGS</span><span class="o">=</span>-L/opt/fftw-3.3.9/lib <span class="nv">CPPFLAGS</span><span class="o">=</span>-I/opt/fftw-3.3.9/include <span class="se">\</span>
-   --enable-python <span class="nv">PYTHON</span><span class="o">=</span>python3.9 --with-python_prefix<span class="o">=</span>/tmp/python-venv
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>/tmp/python-venv
+<span class="nb">source</span><span class="w"> </span>/tmp/python-venv/bin/activate
+./configure<span class="w"> </span>--prefix<span class="o">=</span>/tmp/charm<span class="w"> </span>--enable-openmp<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span><span class="nv">LDFLAGS</span><span class="o">=</span>-L/opt/fftw-3.3.9/lib<span class="w"> </span><span class="nv">CPPFLAGS</span><span class="o">=</span>-I/opt/fftw-3.3.9/include<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--enable-python<span class="w"> </span><span class="nv">PYTHON</span><span class="o">=</span>python3.9<span class="w"> </span>--with-python_prefix<span class="o">=</span>/tmp/python-venv
 make
-make check
-make install
+make<span class="w"> </span>check
+make<span class="w"> </span>install
 </pre></div>
 </div>
 <p>Open Python:</p>
@@ -547,61 +776,143 @@ make install
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>deactivate
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="id4">
-<h3>Uninstallation<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id4">
+<h3>Uninstallation<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <p>See <a class="reference internal" href="#charm-uninstallation"><span class="std std-ref">Uninstallation</span></a>.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
-           </div>
-           
-          </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="install_non_unix.html" class="btn btn-neutral float-right" title="Installation on Windows 10" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="install.html" class="btn btn-neutral float-left" title="Installing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
+                </article>
+              
 
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &#169; Copyright 2022, Blažej Bucha.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-        </div>
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="install.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Installing</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="install_non_unix.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Installation on Windows 10</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
 
-    </section>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#charm-the-c-library">CHarm (the C library)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#requirements">Requirements</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-on-linux">Installation on Linux</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fftw-installation">FFTW installation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#default-charm-installation">Default CHarm installation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#customized-charm-installation">Customized CHarm installation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-on-macos">Installation on macOS</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">FFTW installation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">CHarm installation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-few-installation-notes">A few installation notes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uninstallation">Uninstallation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm-the-python-wrapper">PyHarm (the Python wrapper)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Requirements</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-pyharm">Building PyHarm</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-installation">Example installation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Uninstallation</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Blažej Bucha
+</p>
 
   </div>
   
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
+  <div class="footer-item">
     
-   
+  <p class="copyright">
+    
+      © Copyright 2023, Blažej Bucha.
+      <br/>
+    
+  </p>
 
-</body>
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+  Last updated on Jun 16, 2023.
+  <br/>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
 </html>

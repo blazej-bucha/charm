@@ -8,6 +8,7 @@
 #include "integ_css.h"
 #include "integ_scs.h"
 #include "integ_sss.h"
+#include "../leg/leg_pnmj_check_ordering.h"
 #include "../err/err_set.h"
 /* ------------------------------------------------------------------------- */
 
@@ -16,10 +17,14 @@
 
 
 
-REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin, REAL cltmax,
-                             unsigned long n1, unsigned long m1,
-                             unsigned long n2, unsigned long m2,
-                             const CHARM(pnmj) *pnmj, CHARM(err) *err)
+REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin,
+                             REAL cltmax,
+                             unsigned long n1,
+                             unsigned long m1,
+                             unsigned long n2,
+                             unsigned long m2,
+                             const CHARM(pnmj) *pnmj,
+                             CHARM(err) *err)
 {
     /* Some simple error checks */
     /* --------------------------------------------------------------------- */
@@ -27,8 +32,6 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin, REAL cltmax,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"cltmin\" cannot be larger than \"cltmax\".");
-
-
         return (PREC(0.0) / PREC(0.0));
     }
 
@@ -37,8 +40,6 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin, REAL cltmax,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"n1\" cannot be larger than \"pnmj->nmax\".");
-
-
         return (PREC(0.0) / PREC(0.0));
     }
 
@@ -47,8 +48,6 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin, REAL cltmax,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"n2\" cannot be larger than \"pnmj->nmax\".");
-
-
         return (PREC(0.0) / PREC(0.0));
     }
 
@@ -58,8 +57,6 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin, REAL cltmax,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"m1\" cannot be larger than \"n1\".");
-
-
         return (PREC(0.0) / PREC(0.0));
     }
 
@@ -68,8 +65,14 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin, REAL cltmax,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"m2\" cannot be larger than \"n2\".");
+        return (PREC(0.0) / PREC(0.0));
+    }
 
 
+    if (CHARM(leg_pnmj_check_ordering)(pnmj->ordering))
+    {
+        CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
+                       "Unsupported value of \"pnmj->ordering\".");
         return (PREC(0.0) / PREC(0.0));
     }
     /* --------------------------------------------------------------------- */
@@ -206,18 +209,18 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin, REAL cltmax,
 
 
             j2 = CHARM(leg_pnmj_k2j)(k2);
-            if (pnmj->ordering == CHARM_LEG_PNMJ_ORDER_MNJ)
+            if (pnmj->ordering == CHARM_LEG_PMNJ)
                 ip_tmp += pnmj->pnmj[m2][n2 - m2][j2] * itrig[k1_n2p1 + k2];
-            else if (pnmj->ordering == CHARM_LEG_PNMJ_ORDER_MJN)
+            else if (pnmj->ordering == CHARM_LEG_PMJN)
                 ip_tmp += pnmj->pnmj[m2][j2][n2 - CHARM_MAX(m2, 2 * j2)] *
                           itrig[k1_n2p1 + k2];
         }
 
 
         j1 = CHARM(leg_pnmj_k2j)(k1);
-        if (pnmj->ordering == CHARM_LEG_PNMJ_ORDER_MNJ)
+        if (pnmj->ordering == CHARM_LEG_PMNJ)
             ip += pnmj->pnmj[m1][n1 - m1][j1] * ip_tmp;
-        else if (pnmj->ordering == CHARM_LEG_PNMJ_ORDER_MJN)
+        else if (pnmj->ordering == CHARM_LEG_PMJN)
             ip += pnmj->pnmj[m1][j1][n1 - CHARM_MAX(m1, 2 * j1)] * ip_tmp;
     }
     /* --------------------------------------------------------------------- */
@@ -227,5 +230,10 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin, REAL cltmax,
 
 
 
+    /* --------------------------------------------------------------------- */
+    free(itrig);
+
+
     return ip;
+    /* --------------------------------------------------------------------- */
 }

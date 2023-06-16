@@ -1,19 +1,22 @@
 * Add unit tests for PyHarm.
 
+* Add note in docs that "sudo make install" installs PyHarm as a root, too, 
+  even if in virtual environment.  It seems that the uninstallation must then 
+  be manual instead of using just "pip uninstall pyharm".  For now, the best 
+  solution therefore seems to be to install both CHarm and PyHarm either as 
+  a user or as a root and not combine the two.
+
 * Add support for fused multiply-add instructions.
 
 * Add the Condon--Shortley phase factor.
 
 * Add other normalization schemes.
 
-* Add polar optimization.
-
 * Check coordinates for the [-pi / 2, pi / 2] and [0, 2 * pi] intervals in sha 
   and shs functions.
 
 * Add a global variable to control the verbosity.
 
-* Parallelize "./src/leg/charm_leg_pnmj_coeffs_dp.c" and 
-  "./src/leg/charm_leg_pnmj_coeffs_qp.c".
+* Parallelize "leg_pnmj_coeffs.c".
 
 * Alternatively build CHarm with CMake on Windows.

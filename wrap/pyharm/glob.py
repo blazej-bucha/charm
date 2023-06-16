@@ -7,8 +7,8 @@ variables.
 import ctypes as _ct
 import numpy as _np
 from . import _libcharm, _CHARM
-from ._check_types import _check_flt_scalar
-from ._data_types import _charm_flt, _pyharm_flt
+from ._check_types import _check_flt_scalar, _check_int_scalar
+from ._data_types import _charm_flt, _pyharm_flt, _ct_int
 
 
 class Constants:
@@ -26,6 +26,12 @@ class Constants:
                                        _CHARM + 'glob_threshold'))
         self._threshold2 = _pyharm_flt(_ct.c_double.in_dll(_libcharm,
                                        _CHARM + 'glob_threshold2'))
+        self._polar_optimization_a1 = \
+                _ct.c_ulong.in_dll(_libcharm,
+                                   _CHARM + 'glob_polar_optimization_a1').value
+        self._polar_optimization_a2 = \
+                _pyharm_flt(_ct.c_double.in_dll(_libcharm,
+                            _CHARM + 'glob_polar_optimization_a2'))
 
 
     @property
@@ -36,8 +42,8 @@ class Constants:
     @threshold.getter
     def threshold(self):
         """
-        The CHarm's :obj:`glob_threshold` variable.  To change its default
-        value to, say, :obj:`1e-12`, use the following command
+        The CHarm's :obj:`charm_glob_threshold` variable.  To change its 
+        default value to, say, :obj:`1e-12`, use the following command:
 
         >>> pyharm.glob.Constants().threshold = 1e-12
 
@@ -64,8 +70,8 @@ class Constants:
     @threshold2.getter
     def threshold2(self):
         """
-        The CHarm's :obj:`glob_threshold2` variable.  To change its default
-        value to, say, :obj:`1e-11`, use the following command
+        The CHarm's :obj:`charm_glob_threshold2` variable.  To change its 
+        default value to, say, :obj:`1e-11`, use the following command:
 
         >>> pyharm.glob.Constants().threshold2 = 1e-11
 
@@ -82,4 +88,60 @@ class Constants:
         _ct.c_double.in_dll(_libcharm, _CHARM + 'glob_threshold2').value = \
             _charm_flt(c)
         self._threshold2 = _charm_flt(c)
+
+
+    @property
+    def polar_optimization_a1(self):
+        return self._polar_optimization_a1
+
+
+    @polar_optimization_a1.getter
+    def polar_optimization_a1(self):
+        """
+        The CHarm's :obj:`charm_glob_polar_optimization_a1` variable.  To 
+        change its default value to, say, :obj:`50`, use the following command:
+
+        >>> pyharm.glob.Constants().polar_optimization_a1 = 50
+
+        """
+        return self._polar_optimization_a1
+
+
+    @polar_optimization_a1.setter
+    def polar_optimization_a1(self, c):
+        _check_int_scalar(c, '\'polar_optimization_a1\'')
+        if c < 0:
+            raise ValueError('\'polar_optimization_a1\' must not be negative.')
+
+        _ct.c_ulong.in_dll(_libcharm,
+                            _CHARM + 'glob_polar_optimization_a1').value = c
+        self._polar_optimization_a1 = c
+
+
+    @property
+    def polar_optimization_a2(self):
+        return self._polar_optimization_a2
+
+
+    @polar_optimization_a2.getter
+    def polar_optimization_a2(self):
+        """
+        The CHarm's :obj:`charm_glob_polar_optimization_a2` variable.  To 
+        change its default value to, say, :obj:`0.02`, use the following 
+        command:
+
+        >>> pyharm.glob.Constants().polar_optimization_a2 = 0.02
+
+        """
+        return self._polar_optimization_a2
+
+
+    @polar_optimization_a2.setter
+    def polar_optimization_a2(self, c):
+        _check_flt_scalar(c, '\'polar_optimization_a2\'')
+
+        _ct.c_double.in_dll(_libcharm,
+                            _CHARM + 'glob_polar_optimization_a2').value = \
+            _charm_flt(c)
+        self._polar_optimization_a2 = _charm_flt(c)
 

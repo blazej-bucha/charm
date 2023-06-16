@@ -16,9 +16,17 @@ extern "C"
 #endif
 
 
-extern void CHARM(shs_grd_fft_lc)(unsigned long, REAL, REAL_SIMD, REAL_SIMD,
-                                  REAL_SIMD, REAL_SIMD, _Bool, REAL_SIMD, int,
-                                  REAL *, REAL *);
+extern void CHARM(shs_grd_fft_lc)(unsigned long,
+                                  REAL,
+                                  REAL_SIMD *,
+                                  REAL_SIMD *,
+                                  REAL_SIMD *,
+                                  REAL_SIMD *,
+                                  _Bool,
+                                  REAL_SIMD *,
+                                  int,
+                                  REAL *,
+                                  REAL *);
 
 
 #ifdef __cplusplus

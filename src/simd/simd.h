@@ -38,12 +38,14 @@
 
 #undef SIMD
 #undef SIMD_SIZE
+#undef SIMD_BLOCK
 #undef SIMD_MEMALIGN
 #undef SIMD_TRUE
 #undef REAL_SIMD
 #undef INT_SIMD
 #undef RI_SIMD
 #undef MASK_SIMD
+#undef MASK2_SIMD
 #undef P
 #undef PF
 #undef PINT
@@ -55,13 +57,16 @@
 #undef ADD_RI
 #undef SUB_R
 #undef SUB_RI
+#undef NEG_R_INIT
+#undef NEG_R
 #undef SET1_R
 #undef SET1_RI
 #undef LOAD_R
+#undef LOADU_R
 #undef SUM_R
 #undef ABS_R
 #undef ABS_R_INIT
-#undef SIMD_GET_MULTIPLE
+#undef SIMD_MULTIPLE
 #undef CAST_RI2R
 #undef CAST_R2RI
 #undef SET_ZERO_R
@@ -193,6 +198,12 @@
 #   endif
 
 
+    /* The "SIMD_BLOCK" value can be played with.  It has no effect on the
+     * accuracy, but affects the performance.  Too low or too high values can
+     * decrease the computation speed. */
+#   define SIMD_BLOCK 8
+
+
 #   define MUL_R(x, y)         PF(mul)((x), (y))
 #   define DIV_R(x, y)         PF(div)((x), (y))
 #   define ADD_R(x, y)         PF(add)((x), (y))
@@ -201,6 +212,7 @@
 
 #   define SET1_R(x)           PF(set1)((x))
 #   define LOAD_R(x)           PF(load)((x))
+#   define LOADU_R(x)          PF(loadu)((x))
 #   define STORE_R(ptr, x)     PF(store)((ptr), (x))
 #   define STOREU_R(ptr, x)    PF(storeu)((ptr), (x))
 
@@ -325,22 +337,42 @@
 #       define NONSIGNBITS 0x7FFFFFFFFFFFFFFFLL
 #   endif
 #   if HAVE_AVX_INSTRUCTIONS || HAVE_AVX2_INSTRUCTIONS
-#       define ABS_R_INIT   REAL_SIMD ABS_R_MASK = \
+#       define ABS_R_INIT   REAL_SIMD NONSIGNBITS_R = \
                                         PF(castsi256)(PINT2(set1)(NONSIGNBITS))
 #   elif HAVE_AVX512F_INSTRUCTIONS
-#       define ABS_R_INIT   REAL_SIMD ABS_R_MASK = \
+#       define ABS_R_INIT   REAL_SIMD NONSIGNBITS_R = \
                                         PF(castsi512)(PINT2(set1)(NONSIGNBITS))
 #   endif
-
-
-#   define ABS_R(x)     PF(and)(ABS_R_MASK, (x))
+#   define ABS_R(x)     PF(and)(NONSIGNBITS_R, (x))
     /* ..................................................................... */
 
 
-    /* Get the smallest "SIMD_SIZE" multiple of "x" that is equal to or larger
-     * than "x". */
-#   define SIMD_GET_MULTIPLE(x) ((((x) + SIMD_SIZE - 1) / SIMD_SIZE) * \
-                                 SIMD_SIZE)
+
+    /* Change the sign of a SIMD vector */
+    /* ..................................................................... */
+    /* Similarly as with the "ABS_R" macro, also "NEG_R_INIT" must be called
+     * before calling "NEG_R", ideally only once outside any loop. */
+#   ifdef CHARM_FLOAT
+#       define SIGNBIT 0x80000000
+#   else
+#       define SIGNBIT 0x8000000000000000LL
+#   endif
+#   if HAVE_AVX_INSTRUCTIONS || HAVE_AVX2_INSTRUCTIONS
+#       define NEG_R_INIT   REAL_SIMD SIGNBIT_R = \
+                                        PF(castsi256)(PINT2(set1)(SIGNBIT))
+#   elif HAVE_AVX512F_INSTRUCTIONS
+#       define NEG_R_INIT   REAL_SIMD SIGNBIT_R = \
+                                        PF(castsi512)(PINT2(set1)(SIGNBIT))
+#   endif
+#   define NEG_R(x)     PF(xor)((x), SIGNBIT_R)
+    /* ..................................................................... */
+
+
+    /* Get the smallest multiple of "x" that is equal to or larger
+     * than "multiple". */
+#   define SIMD_MULTIPLE(x, multiple) ((((x) + \
+                                         (multiple) - 1) / (multiple)) * \
+                                       (multiple))
 
 
     /* Sum all elements of a SIMD vector. */
@@ -366,6 +398,10 @@
 
 
 #   define SIMD_SIZE     1
+    /* The "SIMD_BLOCK" value can be played with.  It has no effect on the
+     * accuracy, but affects the performance.  Too low or too high values can
+     * decrease the computation speed. */
+#   define SIMD_BLOCK    8
 #   define SIMD_TRUE     1
 #   define SIMD_MEMALIGN 0
 #   define REAL_SIMD     REAL
@@ -387,20 +423,30 @@
 #   define STORE_R(ptr, x)      (*(ptr) = (x))
 #   define STOREU_R             STORE_R
 #   define LOAD_R(x)            (*(x))
+#   define LOADU_R(x)           (*(x))
 #   define SUM_R(x)             (x)
 
 
 #   define EQ_R(x, y)           ((x) == (y))
+#   define LT_R(x, y)           ((x) < (y))
 #   define MOVEMASK(x)          (x)
+
+
+#   define MASK_SIMD            int
+#   define MASK2_SIMD           MASK_SIMD
 
 
     /* Absolute value.  The "FABS" macro is defined in "../prec.h". */
 #   define ABS_R_INIT
-#   define ABS_R        FABS
+#   define ABS_R                FABS
 
 
-    /* Get the smallest "SIMD_SIZE" multiple of "x". */
-#   define SIMD_GET_MULTIPLE(x) (x)
+    /* Change the sign. */
+#   define NEG_R_INIT
+#   define NEG_R(x)             (-(x))
+
+
+#   define SIMD_MULTIPLE(x, multiple) (x)
 
 
 #endif

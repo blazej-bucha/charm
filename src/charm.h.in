@@ -26,7 +26,6 @@
 #include <charm/charm@P@_sha.h>
 #include <charm/charm@P@_shc.h>
 #include <charm/charm@P@_shs.h>
-#include <charm/charm@P@_xnum.h>
 #include <charm/charm@P@_glob.h>
 
 

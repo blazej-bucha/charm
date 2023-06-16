@@ -15,7 +15,10 @@ extern "C"
 #endif
 
 
-extern void CHARM(generate_cell)(CHARM(cell) *, REAL, REAL, REAL);
+extern void CHARM(generate_cell)(CHARM(cell) *,
+                                 REAL,
+                                 REAL,
+                                 REAL);
 
 
 #ifdef __cplusplus

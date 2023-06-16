@@ -287,6 +287,7 @@ CHARM_LIB = @CHARM_LIB@
 CHARM_MAJOR = @CHARM_MAJOR@
 CHARM_MINOR = @CHARM_MINOR@
 CHARM_PATCH = @CHARM_PATCH@
+CHARM_PATCH_NUMBER = @CHARM_PATCH_NUMBER@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CSCOPE = @CSCOPE@
@@ -305,6 +306,7 @@ EGREP = @EGREP@
 ETAGS = @ETAGS@
 EXEEXT = @EXEEXT@
 FGREP = @FGREP@
+FILECMD = @FILECMD@
 GREP = @GREP@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -1049,8 +1051,11 @@ charm@P@@OMP@.pc: charm-tmpl.pc
 bench:
 	cd bench && $(MAKE) bench-local
 
-pyharm-parser:
+pyharm-parser: all
 	$(PYTHON) pyharm-parser.py
+
+generate-reference-data:
+	cd tests && $(MAKE) generate-reference-data-local
 
 remove-files:
 	rm -rf __pycache__

@@ -3,13 +3,9 @@
 #include <config.h>
 #include <stdio.h>
 #include <stdlib.h>
-#ifdef _MSC_VER
-#   define _USE_MATH_DEFINES
-#endif
 #include <math.h>
 #include "../prec.h"
 #include "shs_cell_kernel.h"
-#include "shs_rpows.h"
 #include "shs_sctr_mulc.h"
 #include "../leg/leg_func_anm_bnm.h"
 #include "../leg/leg_func_dm.h"
@@ -20,6 +16,8 @@
 #include "../crd/crd_check_cells.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
+#include "../misc/misc_polar_optimization_threshold.h"
+#include "../misc/misc_polar_optimization_apply.h"
 #include "../simd/simd.h"
 #include "../simd/calloc_aligned.h"
 #include "../simd/free_aligned.h"
@@ -154,15 +152,23 @@ void CHARM(shs_cell_sctr)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
 
 
 
-    /* Loop over grid latitudes */
     /* --------------------------------------------------------------------- */
     REAL_SIMD mur = SET1_R(shcs->mu / shcs->r);
 
 
-#if CHARM_PARALLEL
+    /* Get the polar optimization threshold */
+    REAL_SIMD pt = CHARM(misc_polar_optimization_threshold)(nmax);
+
+
+    /* Radius of the reference sphere that is associated with the spherical
+     * harmonic coefficients */
+    REAL_SIMD rref = SET1_R(shcs->r);
+
+
+#if CHARM_OPENMP
 #pragma omp parallel default(none) \
-shared(f, shcs, nmax, cell, dm, en, fn, gm, hm, r, ri) \
-shared(ncell, FAILURE_glob, mur, err)
+shared(f, shcs, nmax, cell, dm, en, fn, gm, hm, r, ri, pt) \
+shared(ncell, FAILURE_glob, mur, err, rref)
 #endif
     {
         /* ................................................................. */
@@ -189,7 +195,7 @@ shared(ncell, FAILURE_glob, mur, err)
         REAL *tmpv    = NULL;
         REAL *anm     = NULL;
         REAL *bnm     = NULL;
-        REAL *rpows   = NULL;
+        REAL *cell_rv = NULL;
 
 
         ips1 = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, nmax * SIMD_SIZE,
@@ -316,10 +322,9 @@ shared(ncell, FAILURE_glob, mur, err)
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-        rpows = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                              (nmax + 1) * SIMD_SIZE,
-                                              sizeof(REAL));
-        if (rpows == NULL)
+        cell_rv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                                sizeof(REAL));
+        if (cell_rv == NULL)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
@@ -327,7 +332,7 @@ shared(ncell, FAILURE_glob, mur, err)
 
 
 FAILURE_1_parallel:
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp critical
 #endif
         {
@@ -343,7 +348,7 @@ FAILURE_1_parallel:
 
 
         /* Now we have to wait until all the threads get here. */
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp barrier
 #endif
         /* OK, now let's check on each thread whether there is at least one
@@ -352,7 +357,7 @@ FAILURE_1_parallel:
         {
             /* Ooops, there was indeed a memory allocation failure.  So let the
              * master thread write down the error to the "err" variable. */
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp master
 #endif
             if (CHARM(err_isempty)(err))
@@ -370,6 +375,11 @@ FAILURE_1_parallel:
 
         REAL_SIMD latmin, latmax, dlon, t1, u1, t2, u2;
 
+
+        REAL_SIMD cell_r, ratio, ratiom;
+        ratio = ratiom = SET_ZERO_R;
+
+
         REAL_SIMD a, b, a2, b2;
         a = b = a2 = b2 = SET_ZERO_R;
         REAL_SIMD imm0, imm1, imm2;
@@ -381,10 +391,11 @@ FAILURE_1_parallel:
         size_t ipv;
 
 
-#if CHARM_PARALLEL
-#pragma omp for
+#if CHARM_OPENMP
+#pragma omp for schedule(dynamic)
 #endif
-        for (size_t i = 0; i < SIMD_GET_MULTIPLE(ncell); i += SIMD_SIZE)
+        for (size_t i = 0; i < SIMD_MULTIPLE(ncell, SIMD_SIZE);
+             i += SIMD_SIZE)
         {
             for (size_t v = 0; v < SIMD_SIZE; v++)
             {
@@ -393,31 +404,22 @@ FAILURE_1_parallel:
                 {
                     latmaxv[v] = cell->latmax[ipv];
                     latminv[v] = cell->latmin[ipv];
-
-
-                    t1v[v] = SIN(latminv[v]);
-                    u1v[v] = COS(latminv[v]);
-
-
-                    t2v[v] = SIN(latmaxv[v]);
-                    u2v[v] = COS(latmaxv[v]);
-
-
+                    t1v[v]     = SIN(latminv[v]);
+                    u1v[v]     = COS(latminv[v]);
+                    t2v[v]     = SIN(latmaxv[v]);
+                    u2v[v]     = COS(latmaxv[v]);
                     lonminv[v] = cell->lonmin[ipv];
                     lonmaxv[v] = cell->lonmax[ipv];
                     dlonv[v]   = lonmaxv[v] - lonminv[v];
+                    cell_rv[v] = cell->r[ipv];
                 }
                 else
                 {
-                    latminv[v] = latmaxv[v] = t1v[v] = u1v[v] = 
-                        t2v[v] = u2v[v] = lonminv[v] = lonmaxv[v] = 
-                        dlonv[v] = PREC(0.0);
+                    latminv[v] = latmaxv[v] = t1v[v] = u1v[v] =
+                        t2v[v] = u2v[v] = lonminv[v] = lonmaxv[v] =
+                        dlonv[v] = cell_rv[v] = PREC(0.0);
                     continue;
                 }
-
-
-                /* Pre-compute the powers of "shcs->r / pnt->r[ipv]" */
-                CHARM(shs_rpows)(v, shcs->r, cell->r[ipv], rpows, nmax);
             }
 
 
@@ -428,7 +430,12 @@ FAILURE_1_parallel:
             latmin = LOAD_R(&latminv[0]);
             latmax = LOAD_R(&latmaxv[0]);
             dlon   = LOAD_R(&dlonv[0]);
+            cell_r = LOAD_R(&cell_rv[0]);
             fi     = SET_ZERO_R;
+
+
+            ratio  = DIV_R(rref, cell_r);
+            ratiom = ratio;
 
 
             CHARM(leg_func_prepare)(u1v, ps1, ips1, dm, nmax);
@@ -439,6 +446,14 @@ FAILURE_1_parallel:
             /* ------------------------------------------------------------- */
             for (unsigned long m = 0; m <= nmax; m++)
             {
+
+                /* Apply polar optimization if asked to do so.  Since "u1
+                 * = sin(latmin)" and "u2 = sin(latmax)", it is sufficient to
+                 * check "u1" only.  In other words, if the polar optimization
+                 * can be applied for "u1", it can surely be applied for
+                 * "u2". */
+                if (CHARM(misc_polar_optimization_apply)(m, nmax, &u1, 1, pt))
+                    goto UPDATE_RATIOS;
 
 
                 /* Computation of "anm" and "bnm" coefficients for Legendre
@@ -454,7 +469,9 @@ FAILURE_1_parallel:
                                        ps1, ps2,
                                        ips1, ips2,
                                        &imm0, &imm1, &imm2,
-                                       en, fn, gm, hm, ri, rpows, NULL,
+                                       en, fn, gm, hm, ri,
+                                       ratio, SET_ZERO_R,
+                                       ratiom, SET_ZERO_R,
                                        SET_ZERO_R,
                                        &a, &b, &a2, &b2);
 
@@ -491,6 +508,10 @@ FAILURE_1_parallel:
                 /* --------------------------------------------------------- */
 
 
+UPDATE_RATIOS:
+                ratiom = MUL_R(ratiom, ratio);
+
+
             } /* End of the loop over harmonic orders */
             /* ------------------------------------------------------------- */
 
@@ -501,8 +522,8 @@ FAILURE_1_parallel:
             dsigma = MUL_R(SUB_R(t2, t1), dlon);
 
 
-            CHARM(shs_sctr_mulc)(i, ncell, mur, tmp, tmpv, DIV_R(fi, dsigma),
-                                 f);
+            fi = DIV_R(fi, dsigma);
+            CHARM(shs_sctr_mulc)(i, ncell, cell->type, mur, tmp, tmpv, &fi, f);
             /* ------------------------------------------------------------- */
 
 
@@ -519,7 +540,7 @@ FAILURE_2_parallel:
         CHARM(free_aligned)(lonminv); CHARM(free_aligned)(lonmaxv);
         CHARM(free_aligned)(dlonv);   CHARM(free_aligned)(tmpv);
         CHARM(free_aligned)(clonv);   CHARM(free_aligned)(slonv);
-        CHARM(free_aligned)(rpows);
+        CHARM(free_aligned)(cell_rv);
         free(anm); free(bnm);
 
 

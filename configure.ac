@@ -15,10 +15,18 @@ AC_CANONICAL_HOST
 
 
 dnl Get the current version number of CHarm
+AC_PROG_SED
 AX_SPLIT_VERSION
 AC_SUBST([CHARM_MAJOR], ["$AX_MAJOR_VERSION"])
 AC_SUBST([CHARM_MINOR], ["$AX_MINOR_VERSION"])
 AC_SUBST([CHARM_PATCH], ["$AX_POINT_VERSION"])
+dnl If "-" is found in "AX_POINT_VERSION", remove all characters that follow
+dnl it, including the "-" character itself.  This is useful to get the
+dnl patch version number without the "-dev" string.
+AC_MSG_CHECKING([Point version number])
+AX_POINT_VERSION_NUMBER=`echo "$AX_POINT_VERSION" | $SED 's/-.*//'`
+AC_MSG_RESULT([$AX_POINT_VERSION_NUMBER])
+AC_SUBST([CHARM_PATCH_NUMBER], ["$AX_POINT_VERSION_NUMBER"])
 dnl ===========================================================================
 
 
@@ -233,7 +241,7 @@ if test "$avx" = "yes" -a "$avx512" = "yes"; then
 fi
 if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes"; then
     if test "$dp" != "yes" -a "$sp" != "yes"; then
-        AC_MSG_ERROR([SIMD instructions can be enabled in single and double precision only])
+        AC_MSG_ERROR([SIMD instructions are not supported in quadruple precision])
     fi
 fi
 
@@ -243,7 +251,7 @@ dnl ---------------------------------------------------------------------------
 if test "$avx" = "yes"; then
 
     AC_MSG_NOTICE([compiling with AVX instructions enabled])
-    AC_DEFINE([HAVE_AVX_INSTRUCTIONS], [1], [Define if avx instructions are supported])
+    AC_DEFINE([HAVE_AVX_INSTRUCTIONS], [1], [Define to 1 to enable avx instructions])
     AX_CHECK_COMPILE_FLAG([-mavx], [CFLAGS_SIMD="-mavx"], [AC_MSG_ERROR([unrecognized -mavx compiler flag.  Try using the gcc compiler.])])
 
 fi
@@ -255,7 +263,7 @@ dnl ---------------------------------------------------------------------------
 if test "$avx2" = "yes"; then
 
     AC_MSG_NOTICE([compiling with AVX2 instructions enabled])
-    AC_DEFINE([HAVE_AVX2_INSTRUCTIONS], [1], [Define if avx2 instructions are supported])
+    AC_DEFINE([HAVE_AVX2_INSTRUCTIONS], [1], [Define to 1 to enable avx2 instructions])
     AX_CHECK_COMPILE_FLAG([-mavx2], [CFLAGS_SIMD="-mavx2"], [AC_MSG_ERROR([unrecognized -mavx2 compiler flag.  Try using the gcc compiler.])])
 
 fi
@@ -267,7 +275,7 @@ dnl ---------------------------------------------------------------------------
 if test "$avx512" = "yes"; then
 
     AC_MSG_NOTICE([compiling with AVX-512 instructions enabled])
-    AC_DEFINE([HAVE_AVX512F_INSTRUCTIONS], [1], [Define if avx512f instructions are supported])
+    AC_DEFINE([HAVE_AVX512F_INSTRUCTIONS], [1], [Define to 1 to enable avx512f instructions])
     AX_CHECK_COMPILE_FLAG([-mavx512f], [CFLAGS_SIMD="-mavx512f"], [AC_MSG_ERROR([unrecognized -mavx512f compiler flag.  Try using the gcc compiler.])])
     AX_CHECK_COMPILE_FLAG([-mavx512dq], [CFLAGS_SIMD="-mavx512dq"], [AC_MSG_ERROR([unrecognized -mavx512dq compiler flag.  Try using the gcc compiler.])])
 
@@ -325,7 +333,7 @@ if test "$enable_openmp" = "yes"; then
     CFLAGS="$CFLAGS $OPENMP_CFLAGS"
 
 
-    AC_DEFINE([CHARM_PARALLEL], [1], [Define to 1 to parallelize CHarm.])
+    AC_DEFINE([CHARM_OPENMP], [1], [Define to 1 to parallelize CHarm using OpenMP.])
     AC_CHECK_HEADER([omp.h], [], [AC_MSG_ERROR([omp.h not found])])
 
 
@@ -441,7 +449,6 @@ AC_CONFIG_FILES([Makefile \
                  charm/charm${P}_sha.h:src/sha/sha.h.in \
                  charm/charm${P}_shc.h:src/shc/shc.h.in \
                  charm/charm${P}_shs.h:src/shs/shs.h.in \
-                 charm/charm${P}_xnum.h:src/xnum/xnum.h.in \
                  charm/charm${P}_glob.h:src/glob/glob.h.in \
                  charm/Makefile \
                  src/Makefile \

@@ -2,7 +2,6 @@
 /* ------------------------------------------------------------------------- */
 #include <config.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include "../src/prec.h"
 /* ------------------------------------------------------------------------- */
 
@@ -37,7 +36,7 @@ void CHARM(generate_cell)(CHARM(cell) *grd, REAL r, REAL lat_rng, REAL lon_rng)
     else
     {
         fprintf(stderr, "Wrong grid type.\n");
-        exit(1);
+        exit(CHARM_FAILURE);
     }
 
 

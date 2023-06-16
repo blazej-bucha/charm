@@ -142,6 +142,7 @@ CHARM_LIB = @CHARM_LIB@
 CHARM_MAJOR = @CHARM_MAJOR@
 CHARM_MINOR = @CHARM_MINOR@
 CHARM_PATCH = @CHARM_PATCH@
+CHARM_PATCH_NUMBER = @CHARM_PATCH_NUMBER@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CSCOPE = @CSCOPE@
@@ -160,6 +161,7 @@ EGREP = @EGREP@
 ETAGS = @ETAGS@
 EXEEXT = @EXEEXT@
 FGREP = @FGREP@
+FILECMD = @FILECMD@
 GREP = @GREP@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -523,9 +525,17 @@ doxygen:
 $(SPHINXTARGETS) $(SPHINXTARGETS_DEL): doxygen lib-file
 @DOC_PY_TRUE@@DOC_TRUE@	rm -rf build/$@
 @DOC_PY_TRUE@@DOC_TRUE@	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+@DOC_PY_FALSE@@DOC_TRUE@	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@DOC_PY_FALSE@@DOC_TRUE@	@echo
 @DOC_PY_FALSE@@DOC_TRUE@	@echo ERROR: Python interface is required to build the documentation
+@DOC_PY_FALSE@@DOC_TRUE@	@echo
+@DOC_PY_FALSE@@DOC_TRUE@	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@DOC_FALSE@	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@DOC_FALSE@	@echo
 @DOC_FALSE@	@echo ERROR: Documentation can only be built if CHarm is compiled in \
 @DOC_FALSE@		  double precision
+@DOC_FALSE@	@echo
+@DOC_FALSE@	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 remove-doc-files:
 	rm -rf xml

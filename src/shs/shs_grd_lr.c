@@ -15,9 +15,14 @@
 /* An internal function to perform the recursion over grid longitudes of the
  * "i"th latitude parallel (the "LR" part of the "PSLR" algorithm). */
 void CHARM(shs_grd_lr)(unsigned long m, REAL lon0, REAL dlon, size_t nlon,
-                       int grd_type, REAL_SIMD a, REAL_SIMD b, REAL_SIMD a2,
-                       REAL_SIMD b2, _Bool symm, REAL *fi, REAL *fi2)
+                       int grd_type, REAL_SIMD *a, REAL_SIMD *b, REAL_SIMD *a2,
+                       REAL_SIMD *b2, _Bool symm, REAL *fi, REAL *fi2)
 {
+    size_t simd_blk = (grd_type == CHARM_CRD_CELL_GRID) ? 1 : SIMD_BLOCK;
+    size_t size_blk = SIMD_SIZE * simd_blk;
+    size_t lss, jsize_blk;
+
+
     if (grd_type == CHARM_CRD_CELL_GRID)
     {
         /* Before applying the PSLR algorithm from Balmino et al. (2012), the
@@ -35,18 +40,18 @@ void CHARM(shs_grd_lr)(unsigned long m, REAL lon0, REAL dlon, size_t nlon,
         }
 
 
-        a = MUL_R(a, SET1_R(m2sm2dl));
-        b = MUL_R(b, SET1_R(m2sm2dl)); /* Remember that "b = 0.0"
-                                        * for "m == 0.0", so it can safely be
-                                        * multiplied by "m2sm2dl * = dlon" */
+        *a = MUL_R(*a, SET1_R(m2sm2dl));
+        *b = MUL_R(*b, SET1_R(m2sm2dl)); /* Remember that "b = 0.0"
+                                          * for "m == 0.0", so it can safely be
+                                          * multiplied by "m2sm2dl * = dlon" */
 
         if (symm)
         {
-            a2 = MUL_R(a2, SET1_R(m2sm2dl));
-            b2 = MUL_R(b2, SET1_R(m2sm2dl));  /* Remember that "b2
-                                               * = 0.0" for "m == 0.0", so it
-                                               * can safely be multiplied * by
-                                               * "m2sm2dl = dlon" */
+            *a2 = MUL_R(*a2, SET1_R(m2sm2dl));
+            *b2 = MUL_R(*b2, SET1_R(m2sm2dl));  /* Remember that "b2
+                                                 * = 0.0" for "m == 0.0", so it
+                                                 * can safely be multiplied
+                                                 * * by "m2sm2dl = dlon" */
         }
     }
 
@@ -58,15 +63,24 @@ void CHARM(shs_grd_lr)(unsigned long m, REAL lon0, REAL dlon, size_t nlon,
     REAL       lontmp = (REAL)m * lon0;
     REAL_SIMD clontmp = SET1_R(COS(lontmp));
     REAL_SIMD slontmp = SET1_R(SIN(lontmp));
-    REAL_SIMD     dm0 = ADD_R(MUL_R(a, clontmp), MUL_R(b, slontmp));
-    STORE_R(&fi[0], ADD_R(LOAD_R(&fi[0]), dm0));
+    REAL_SIMD dm0[simd_blk];
+    for (size_t l = 0; l < simd_blk; l++)
+    {
+        lss = l * SIMD_SIZE;
+        dm0[l] = ADD_R(MUL_R(a[l], clontmp), MUL_R(b[l], slontmp));
+        STORE_R(&fi[lss], ADD_R(LOAD_R(&fi[lss]), dm0[l]));
+    }
 
 
-    REAL_SIMD dm02;
+    REAL_SIMD dm02[simd_blk];
     if (symm)
     {
-        dm02 = ADD_R(MUL_R(a2, clontmp), MUL_R(b2, slontmp));
-        STORE_R(&fi2[0], ADD_R(LOAD_R(&fi2[0]), dm02));
+        for (size_t l = 0; l < simd_blk; l++)
+        {
+            lss = l * SIMD_SIZE;
+            dm02[l] = ADD_R(MUL_R(a2[l], clontmp), MUL_R(b2[l], slontmp));
+            STORE_R(&fi2[lss], ADD_R(LOAD_R(&fi2[lss]), dm02[l]));
+        }
     }
 
 
@@ -80,15 +94,28 @@ void CHARM(shs_grd_lr)(unsigned long m, REAL lon0, REAL dlon, size_t nlon,
      lontmp       = (REAL)m * (lon0 + dlon);
     clontmp       = SET1_R(COS(lontmp));
     slontmp       = SET1_R(SIN(lontmp));
-    REAL_SIMD dm1 = ADD_R(MUL_R(a, clontmp), MUL_R(b, slontmp));
-    STORE_R(&fi[SIMD_SIZE], ADD_R(LOAD_R(&fi[SIMD_SIZE]), dm1));
+    REAL_SIMD dm1[simd_blk];
+    for (size_t l = 0; l < simd_blk; l++)
+    {
+        lss = l * SIMD_SIZE;
+        dm1[l] = ADD_R(MUL_R(a[l], clontmp), MUL_R(b[l], slontmp));
+        STORE_R(&fi[size_blk + lss],
+                ADD_R(LOAD_R(&fi[size_blk + lss]),
+                      dm1[l]));
+    }
 
 
-    REAL_SIMD dm12;
+    REAL_SIMD dm12[simd_blk];
     if (symm)
     {
-        dm12 = ADD_R(MUL_R(a2, clontmp), MUL_R(b2, slontmp));
-        STORE_R(&fi2[SIMD_SIZE], ADD_R(LOAD_R(&fi2[SIMD_SIZE]), dm12));
+        for (size_t l = 0; l < simd_blk; l++)
+        {
+            lss = l * SIMD_SIZE;
+            dm12[l] = ADD_R(MUL_R(a2[l], clontmp), MUL_R(b2[l], slontmp));
+            STORE_R(&fi2[size_blk + lss],
+                    ADD_R(LOAD_R(&fi2[size_blk + lss]),
+                          dm12[l]));
+        }
     }
 
 
@@ -97,29 +124,46 @@ void CHARM(shs_grd_lr)(unsigned long m, REAL lon0, REAL dlon, size_t nlon,
     /* ..................................................................... */
 
 
-    /* The third and all the remaining longitude point/cells */
+    /* The third and all the remaining longitude points/cells */
     /* ..................................................................... */
     REAL_SIMD cmdlon2 = SET1_R(PREC(2.0) * COS((REAL)m * dlon));
-    REAL_SIMD dm2;
+    REAL_SIMD dm2[simd_blk];
     for (size_t j = 2; j < nlon; j++)
     {
-        dm2 = SUB_R(MUL_R(cmdlon2, dm1), dm0);
-        STORE_R(&fi[j * SIMD_SIZE], ADD_R(LOAD_R(&fi[j * SIMD_SIZE]), dm2));
-        dm0 = dm1;
-        dm1 = dm2;
+        jsize_blk = j * size_blk;
+
+
+        for (size_t l = 0; l < simd_blk; l++)
+        {
+            lss = l * SIMD_SIZE;
+            dm2[l] = SUB_R(MUL_R(cmdlon2, dm1[l]), dm0[l]);
+            STORE_R(&fi[jsize_blk + lss],
+                    ADD_R(LOAD_R(&fi[jsize_blk + lss]),
+                          dm2[l]));
+            dm0[l] = dm1[l];
+            dm1[l] = dm2[l];
+        }
     }
 
 
-    REAL_SIMD dm22;
+    REAL_SIMD dm22[simd_blk];
     if (symm)
     {
         for (size_t j = 2; j < nlon; j++)
         {
-            dm22 = SUB_R(MUL_R(cmdlon2, dm12), dm02);
-            STORE_R(&fi2[j * SIMD_SIZE],
-                    ADD_R(LOAD_R(&fi2[j * SIMD_SIZE]), dm22));
-            dm02 = dm12;
-            dm12 = dm22;
+            jsize_blk = j * size_blk;
+
+
+            for (size_t l = 0; l < simd_blk; l++)
+            {
+                lss = l * SIMD_SIZE;
+                dm22[l] = SUB_R(MUL_R(cmdlon2, dm12[l]), dm02[l]);
+                    STORE_R(&fi2[jsize_blk + lss],
+                            ADD_R(LOAD_R(&fi2[jsize_blk + lss]),
+                                  dm22[l]));
+                dm02[l] = dm12[l];
+                dm12[l] = dm22[l];
+            }
         }
     }
 

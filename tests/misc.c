@@ -2,10 +2,10 @@
 /* ------------------------------------------------------------------------- */
 #include <config.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include "../src/prec.h"
-#include "../src/simd/simd.h"
-#include "abs_r.h"
+#include "check_simd_abs_r.h"
+#include "check_simd_neg_r.h"
+#include "check_func.h"
+#include "check_outcome.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -14,15 +14,24 @@
 
 
 /* Tests for various features of CHarm */
-int misc(void)
+long int misc(void)
 {
-    int errnum = 0;
+    long int e    = 0;
+    long int esum = 0;
 
 
-    /* "ABS_R" macro */
-    errnum += abs_r();
+    check_func("ABS_R");
+    e = check_simd_abs_r();
+    check_outcome(e);
+    esum += e;
 
 
-    return errnum;
+    check_func("NEG_R");
+    e = check_simd_neg_r();
+    check_outcome(e);
+    esum += e;
+
+
+    return esum;
 }
 

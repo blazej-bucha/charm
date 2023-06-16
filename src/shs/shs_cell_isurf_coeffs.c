@@ -111,7 +111,7 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
 
 
     /* "shcs1->r / r" */
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp parallel for default(shared)
 #endif
     for (size_t i = 0; i < glg_nlat; i++)
@@ -128,7 +128,7 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
                        CHARM_ERR_MALLOC_FAILURE);
         goto FAILURE;
     }
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp parallel for default(shared)
 #endif
     for (size_t i = 0; i < glg_nlat; i++)
@@ -166,7 +166,7 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
     unsigned long nmax = CHARM_MAX(nmax1, nmax3);
 
 
-    pnmj = CHARM(leg_pnmj_calloc)(nmax, CHARM_LEG_PNMJ_ORDER_MJN);
+    pnmj = CHARM(leg_pnmj_calloc)(nmax, CHARM_LEG_PMJN);
     if (pnmj == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -205,7 +205,7 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
      * therefore, the "CHARM(leg_pnmj_calloc)" function can be employed to
      * initialize the two variables. */
     /* ..................................................................... */
-    cnm1pnmj = CHARM(leg_pnmj_calloc)(nmax1, CHARM_LEG_PNMJ_ORDER_MJN);
+    cnm1pnmj = CHARM(leg_pnmj_calloc)(nmax1, CHARM_LEG_PMJN);
     if (cnm1pnmj == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -214,7 +214,7 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
     }
 
 
-    snm1pnmj = CHARM(leg_pnmj_calloc)(nmax1, CHARM_LEG_PNMJ_ORDER_MJN);
+    snm1pnmj = CHARM(leg_pnmj_calloc)(nmax1, CHARM_LEG_PMJN);
     if (snm1pnmj == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -259,7 +259,7 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
 
     /* The actual computation of the coefficients */
     /* --------------------------------------------------------------------- */
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp parallel for default(none) \
 shared(shcs1, cnm1pnmj, snm1pnmj, pnmj, nmax1) \
 private(cnm1pnmj_m1, cnm1pnmj_m1_j1, snm1pnmj_m1, snm1pnmj_m1_j1) \
@@ -301,7 +301,7 @@ private(pnmj_m1_j1, max_m1_j1)
         /* Compute the "n1 + 1"th power of the topographic surface and its
          * spherical harmonic coefficients */
         /* ................................................................. */
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp parallel for default(shared)
 #endif
         for (size_t i = 0; i < glg_nlat; i++)
@@ -320,7 +320,7 @@ private(pnmj_m1_j1, max_m1_j1)
 
         /* Pre-compute the summation over "n3" */
         /* ................................................................. */
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp parallel for default(none) \
 shared(nmax3, nmax3_2, pnmj, shcs3, cnm3pnmj_sum, snm3pnmj_sum) \
 private(j3pj3, max_m3_j3, idx, pnmj_m3_j3, c_sum1, c_sum2, s_sum1, s_sum2) \
@@ -379,7 +379,7 @@ private(cnm3_m3, snm3_m3)
         /* Compute the contribution of "n1" to coefficients and add it to the
          * contribution from "n1 - 1" */
         /* ................................................................. */
-#if CHARM_PARALLEL
+#if CHARM_OPENMP
 #pragma omp parallel for default(none) \
 shared(n1, n1_2, n1_rem_2, nmax3, nmax3_2, nmax1p1, nmax3p1) \
 shared(cnm1pnmj, snm1pnmj, cnm3pnmj_sum, snm3pnmj_sum) \

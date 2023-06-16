@@ -15,7 +15,7 @@ extern "C"
 #endif
 
 
-extern _Bool CHARM(shs_grd_cell_fft_check)(const CHARM(cell) *, REAL,
+extern _Bool CHARM(shs_grd_cell_fft_check)(const CHARM(cell) *,
                                            unsigned long);
 
 

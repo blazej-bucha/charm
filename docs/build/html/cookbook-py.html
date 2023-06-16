@@ -1,194 +1,411 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" />
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>PyHarm &#8212; CHarm 0.3.0 documentation</title>
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>PyHarm &mdash; CHarm 0.2.0 documentation</title>
   
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/custom_BB.css" type="text/css" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
   
-  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'cookbook-py';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Interfaces" href="api.html" />
-    <link rel="prev" title="CHarm" href="cookbook-c.html" /> 
-</head>
+    <link rel="prev" title="CHarm" href="cookbook-c.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="index.html" class="icon icon-home"> CHarm
-          
-
-          
-            
-            <img src="_static/charm-logo.png" class="logo" alt="Logo"/>
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                0.2.0
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <ul class="current">
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/charm-logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+    <p class="title logo__title">CHarm v0.3.0</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="install.html">Installing</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="install_unix.html">Installation on Unix-based operating systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install_non_unix.html">Installation on Windows 10</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="cookbook.html">Cookbook</a><ul class="current">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="cookbook.html">Cookbook</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="cookbook-c.html">CHarm</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">PyHarm</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#pyharm-in-double-precision">PyHarm in double precision</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#integration-with-numpy">Integration with NumPy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#working-with-spherical-harmonic-coefficients">Working with spherical harmonic coefficients</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#spherical-harmonic-synthesis-and-analysis">Spherical harmonic synthesis and analysis</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#fourier-coefficients-of-legendre-functions">Fourier coefficients of Legendre functions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#integrals">Integrals</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">PyHarm</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#pyharm-in-single-precision">PyHarm in single precision</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api.html">Interfaces</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="api-c.html">CHarm (C API)</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html">charm_shc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-sha.html">charm_sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-leg.html">charm_leg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html">charm_err</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-glob.html">charm_glob</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="api-py-shc.html">pyharm.shc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">pyharm.sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-leg.html">pyharm.leg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">pyharm.integ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-glob.html">pyharm.glob</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">Interfaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">CHarm</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="cookbook.html">Cookbook</a> &raquo;</li>
-        
-      <li>PyHarm</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="_sources/cookbook-py.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
+    </div>
+</nav></div>
+    </div>
   
-  <hr/>
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm/edit/master/docs/src/cookbook-py.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm/issues/new?title=Issue%20on%20page%20%2Fcookbook-py.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/cookbook-py.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>PyHarm</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
             
-  <div class="section" id="pyharm">
-<span id="pyharm-cookbook"></span><h1>PyHarm<a class="headerlink" href="#pyharm" title="Permalink to this headline">¶</a></h1>
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm-in-double-precision">PyHarm in double precision</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integration-with-numpy">Integration with NumPy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-spherical-harmonic-coefficients">Working with spherical harmonic coefficients</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spherical-harmonic-synthesis-and-analysis">Spherical harmonic synthesis and analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-coefficients-of-legendre-functions">Fourier coefficients of Legendre functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integrals">Integrals</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm-in-single-precision">PyHarm in single precision</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="pyharm">
+<span id="pyharm-cookbook"></span><h1>PyHarm<a class="headerlink" href="#pyharm" title="Permalink to this heading">#</a></h1>
 <p>This chapter demonstrates how to perform some basic tasks with
 PyHarm.  For a detailed description of the classes, methods, functions, etc. to
 be used, see the <a class="reference internal" href="api-py.html#py-api"><span class="std std-ref">PyHarm (Python API)</span></a> chapter.  The source codes of the examples can
@@ -197,7 +414,7 @@ be found in the <code class="docutils literal notranslate"><span class="pre">coo
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
 </pre></div>
 </div>
-<p>To import PyHarm in single precision, execute:</p>
+<p>To import PyHarm in single precision, use:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharmf</span> <span class="k">as</span> <span class="nn">phf</span>
 </pre></div>
 </div>
@@ -207,21 +424,19 @@ be found in the <code class="docutils literal notranslate"><span class="pre">coo
 </pre></div>
 </div>
 <p>The chapters that follow show how to work with PyHarm in double and single
-precision, respectively.  Note that PyHarm does not support quadruple
-precision.</p>
-<div class="section" id="pyharm-in-double-precision">
-<h2>PyHarm in double precision<a class="headerlink" href="#pyharm-in-double-precision" title="Permalink to this headline">¶</a></h2>
+precision, respectively.  Quadruple precision is not supported in PyHarm.</p>
+<section id="pyharm-in-double-precision">
+<h2>PyHarm in double precision<a class="headerlink" href="#pyharm-in-double-precision" title="Permalink to this heading">#</a></h2>
 <p>PyHarm attempts to follow the rules of the object-oriented programming
 paradigm.  Several classes are introduced to represent spherical harmonic
 coefficients, coordinates of evaluation points/cells and Fourier coefficients
 of Legendre functions.  Most of the classes are accompanied by factory methods
-to instantiate the classes.  Whenever there is a factory method available,
-users should always create class instances with one of the factory methods.
-The factory methods are summarized within the class documentation.
+for instantiation, so users should always instantiate the classes using these
+methods.  The factory methods are summarized within the class documentation.
 Alternatively, they can be found by searching for the <em>classmethod</em> flag that
 precedes the class method names in the documentation.</p>
-<div class="section" id="integration-with-numpy">
-<h3>Integration with NumPy<a class="headerlink" href="#integration-with-numpy" title="Permalink to this headline">¶</a></h3>
+<section id="integration-with-numpy">
+<h3>Integration with NumPy<a class="headerlink" href="#integration-with-numpy" title="Permalink to this heading">#</a></h3>
 <p>PyHarm supports NumPy arrays.  All arrays consisting of floating point data
 must</p>
 <ul class="simple">
@@ -241,8 +456,8 @@ conditions.</p>
 </pre></div>
 </div>
 <p>In this code snippet, we did not specify the <code class="docutils literal notranslate"><span class="pre">dtype</span></code> and <code class="docutils literal notranslate"><span class="pre">order</span></code> flags when
-calling <code class="docutils literal notranslate"><span class="pre">numpy.zeros</span></code>.  Therefore, numpy automatically used their default
-values, namely <code class="docutils literal notranslate"><span class="pre">numpy.float64</span></code> and <code class="docutils literal notranslate"><span class="pre">'C'</span></code>.  In some cases, you might need to
+calling <code class="docutils literal notranslate"><span class="pre">numpy.zeros</span></code>,  so numpy automatically used their default values,
+namely <code class="docutils literal notranslate"><span class="pre">numpy.float64</span></code> and <code class="docutils literal notranslate"><span class="pre">'C'</span></code>.  In some cases, you might need to
 explicitly specify the two flags:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">5</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
@@ -255,9 +470,9 @@ explicitly specify the two flags:</p>
 <p>For further details, see the <a class="reference external" href="https://numpy.org/">NumPy</a> documentation.</p>
 <p>If an array passed to PyHarm does not meet all the required criteria, PyHarm
 will throw an error.</p>
-</div>
-<div class="section" id="working-with-spherical-harmonic-coefficients">
-<h3>Working with spherical harmonic coefficients<a class="headerlink" href="#working-with-spherical-harmonic-coefficients" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="working-with-spherical-harmonic-coefficients">
+<h3>Working with spherical harmonic coefficients<a class="headerlink" href="#working-with-spherical-harmonic-coefficients" title="Permalink to this heading">#</a></h3>
 <p>This example shows how to read/write spherical harmonic coefficients from/to
 files and how to compute (difference) degree variances.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
@@ -318,7 +533,7 @@ files and how to compute (difference) degree variances.</p>
 
 
 <span class="c1"># Now let&#39;s save the coefficients to a binary file and then read them back to </span>
-<span class="c1"># another structure for spherical harmonic coefficients.  Just for the fun...</span>
+<span class="c1"># a new &quot;Shc&quot; class instance.  Just for the fun...</span>
 <span class="c1"># -----------------------------------------------------------------------------</span>
 <span class="n">shcs</span><span class="o">.</span><span class="n">to_file_bin</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">shcs_out_file</span><span class="p">)</span>
 
@@ -328,7 +543,7 @@ files and how to compute (difference) degree variances.</p>
 <span class="c1"># -----------------------------------------------------------------------------</span>
 
 
-<span class="c1"># Compute degree variances from the loaded coefficients</span>
+<span class="c1"># Compute degree variances from &quot;shcs&quot;</span>
 <span class="c1"># -----------------------------------------------------------------------------</span>
 <span class="n">dv</span> <span class="o">=</span> <span class="n">shcs</span><span class="o">.</span><span class="n">dv</span><span class="p">()</span>
 
@@ -363,9 +578,9 @@ files and how to compute (difference) degree variances.</p>
 <span class="c1"># =============================================================================</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="spherical-harmonic-synthesis-and-analysis">
-<h3>Spherical harmonic synthesis and analysis<a class="headerlink" href="#spherical-harmonic-synthesis-and-analysis" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="spherical-harmonic-synthesis-and-analysis">
+<h3>Spherical harmonic synthesis and analysis<a class="headerlink" href="#spherical-harmonic-synthesis-and-analysis" title="Permalink to this heading">#</a></h3>
 <p>This section shows several examples.</p>
 <ul class="simple">
 <li><p>A closed-loop test of analysis and synthesis with point data values.  First,
@@ -387,12 +602,12 @@ points.</p></li>
 
 <span class="c1"># INPUTS</span>
 <span class="c1"># =============================================================================</span>
-<span class="c1"># Define the path to an input text file with spherical harmonic coefficients.  </span>
+<span class="c1"># Define the path to an input text file with spherical harmonic coefficients.</span>
 <span class="c1"># For details on the structure of the text file, see the documentation.</span>
 <span class="n">shcs_in_file</span> <span class="o">=</span> <span class="s1">&#39;../../data/input/EGM96-degree10-mtx.txt&#39;</span>
 
 
-<span class="c1"># Maximum harmonic degree of coefficients to read.  The same degree is used </span>
+<span class="c1"># Maximum harmonic degree of coefficients to read.  The same degree is used</span>
 <span class="c1"># later in the harmonic synthesis and harmonic analysis.</span>
 <span class="n">nmax</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="c1"># =============================================================================</span>
@@ -407,15 +622,15 @@ points.</p></li>
 <span class="n">shcs</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">from_file_mtx</span><span class="p">(</span><span class="n">shcs_in_file</span><span class="p">,</span> <span class="n">nmax</span><span class="p">)</span>
 
 
-<span class="c1"># Now let&#39;s say we do not want to use the zero-degree term.  This can be </span>
+<span class="c1"># Now let&#39;s say we do not want to use the zero-degree term.  This can be</span>
 <span class="c1"># achieved simply by setting the respective &quot;C00&quot; coefficient to zero.</span>
 <span class="n">shcs</span><span class="o">.</span><span class="n">set_coeffs</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
 
 
-<span class="c1"># Compute the Gauss--Legendre grid for a given &quot;nmax&quot; on a sphere that is </span>
-<span class="c1"># &quot;1000.0&quot; metres above the reference sphere of spherical harmonic </span>
-<span class="c1"># coefficients.  PyHarm represents the Gauss--Legendre grid via the </span>
-<span class="c1"># &quot;PointGridGL&quot; class.  For the Driscoll--Healy grids, PyHarm has the </span>
+<span class="c1"># Compute the Gauss--Legendre grid for a given &quot;nmax&quot; on a sphere that is</span>
+<span class="c1"># &quot;1000.0&quot; metres above the reference sphere of spherical harmonic</span>
+<span class="c1"># coefficients.  PyHarm represents the Gauss--Legendre grid via the</span>
+<span class="c1"># &quot;PointGridGL&quot; class.  For the Driscoll--Healy grids, PyHarm has the</span>
 <span class="c1"># &quot;PointGridDH1&quot; and &quot;PointGridDH2&quot; classes (see the documentation).</span>
 <span class="n">grd_pnt</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">crd</span><span class="o">.</span><span class="n">PointGridGL</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">shcs</span><span class="o">.</span><span class="n">r</span> <span class="o">+</span> <span class="mf">1000.0</span><span class="p">)</span>
 
@@ -429,8 +644,8 @@ points.</p></li>
 <span class="c1"># Note on parallelization</span>
 <span class="c1"># -----------------------</span>
 <span class="c1">#</span>
-<span class="c1"># If you compiled the library with OpenMP parallelization enabled, you can </span>
-<span class="c1"># control the number of threads being used either by an environmental variable </span>
+<span class="c1"># If you compiled the library with OpenMP parallelization enabled, you can</span>
+<span class="c1"># control the number of threads being used either by an environmental variable</span>
 <span class="c1"># or in your Python code, for instance, like this:</span>
 <span class="c1">#</span>
 <span class="c1"># from threadpoolctl import threadpool_limits</span>
@@ -442,25 +657,26 @@ points.</p></li>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Print some synthesized values of the signal...&#39;</span><span class="p">)</span>
 <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;f(</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s1">) = </span><span class="si">{</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;f(</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s1">) = </span><span class="si">{</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
 
 <span class="n">i</span> <span class="o">=</span> <span class="n">grd_pnt</span><span class="o">.</span><span class="n">lat</span><span class="o">.</span><span class="n">size</span> <span class="o">//</span> <span class="mi">2</span>
 <span class="n">j</span> <span class="o">=</span> <span class="n">grd_pnt</span><span class="o">.</span><span class="n">lat</span><span class="o">.</span><span class="n">size</span> <span class="o">//</span> <span class="mi">2</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;f(</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s1">) = </span><span class="si">{</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;f(</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s1">) = </span><span class="si">{</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
 
-<span class="c1"># Now use the synthesized signal and compute back its spherical harmonic </span>
-<span class="c1"># coefficients by harmonic analysis.  The output coefficients in &quot;shcs2&quot; should </span>
-<span class="c1"># be the same as the input ones &quot;shcs&quot;.  Note that the signal &quot;f&quot; resides on </span>
-<span class="c1"># a sphere that is &quot;1000.0&quot; metres above the reference sphere.  Therefore, the </span>
-<span class="c1"># coefficients are automatically properly rescaled to the desired sphere </span>
-<span class="c1"># defined by &quot;shcs2.r&quot;.</span>
+<span class="c1"># Now use the synthesized signal and compute back its spherical harmonic</span>
+<span class="c1"># coefficients by harmonic analysis.  The output coefficients in &quot;shcs2&quot; should</span>
+<span class="c1"># be the same as the input ones in &quot;shcs&quot;.  Note that the signal &quot;f&quot; resides on</span>
+<span class="c1"># a sphere that is &quot;1000.0&quot; metres above the reference sphere &quot;shcs.r&quot;.  The</span>
+<span class="c1"># last input parameter therefore allows user to define the reference radius of</span>
+<span class="c1"># the output coefficients.  In this case, this value is set to &quot;shcs.r&quot; to</span>
+<span class="c1"># ensure that &quot;shcs2.r&quot; will be the same as &quot;shcs.r&quot;.</span>
 <span class="n">shcs2</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">sha</span><span class="o">.</span><span class="n">point</span><span class="p">(</span><span class="n">grd_pnt</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">shcs</span><span class="o">.</span><span class="n">mu</span><span class="p">,</span> <span class="n">shcs</span><span class="o">.</span><span class="n">r</span><span class="p">)</span>
 
 
-<span class="c1"># Now check whether &quot;shcs&quot; and &quot;shcs2&quot; are the same by computing their </span>
+<span class="c1"># Now check whether &quot;shcs&quot; and &quot;shcs2&quot; are the same by computing their</span>
 <span class="c1"># difference degree amplitudes</span>
 <span class="n">dda</span> <span class="o">=</span> <span class="n">shcs</span><span class="o">.</span><span class="n">dda</span><span class="p">(</span><span class="n">shcs2</span><span class="p">)</span>
 
@@ -476,7 +692,7 @@ points.</p></li>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Difference degree amplitude for harmonic degree </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1"> = </span><span class="si">{</span><span class="n">dda</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
 
-<span class="c1"># We will not need some of the variables anymore, so let&#39;s free the memory by </span>
+<span class="c1"># We will not need some of the variables anymore, so let&#39;s free the memory by</span>
 <span class="c1"># deleting them</span>
 <span class="k">del</span> <span class="n">grd_pnt</span><span class="p">,</span> <span class="n">shcs2</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">dda</span>
 
@@ -491,8 +707,8 @@ points.</p></li>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===========================&#39;</span><span class="p">)</span>
 
 
-<span class="c1"># Create a &quot;PointSctr&quot; class instance to store three scattered points.  The </span>
-<span class="c1"># instance will be created from three numpy arrays that hold the coordinates of </span>
+<span class="c1"># Create a &quot;PointSctr&quot; class instance to store three scattered points.  The</span>
+<span class="c1"># instance will be created from three numpy arrays that hold the coordinates of</span>
 <span class="c1"># the scattered points.</span>
 <span class="n">lat</span>      <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.436231</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9651</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
 <span class="n">lon</span>      <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.53434</span><span class="p">,</span> <span class="mf">4.2316</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
@@ -521,8 +737,8 @@ points.</p></li>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Solid spherical harmonic synthesis at a custom grid of points&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===========================&#39;</span><span class="p">)</span>
 
-<span class="c1"># Define some grid points as numpy arrays.  Then create a &quot;PointGrid&quot; class </span>
-<span class="c1"># that is designed to store custom point grids.</span>
+<span class="c1"># Define some grid points as numpy arrays.  Then create a &quot;PointGrid&quot; class</span>
+<span class="c1"># instance that is designed to store custom point grids.</span>
 <span class="n">nlat</span>    <span class="o">=</span> <span class="mi">5</span>
 <span class="n">nlon</span>    <span class="o">=</span> <span class="mi">10</span>
 <span class="n">lat</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">nlat</span><span class="p">)</span>
@@ -550,9 +766,9 @@ points.</p></li>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===========================&#39;</span><span class="p">)</span>
 
 
-<span class="c1"># Now we define evaluation cells to synthesize area mean values.  To this end, </span>
-<span class="c1"># we specify numpy arrays of minimum and maximum latitudes and longitudes and </span>
-<span class="c1"># an array of spherical radii.  Using these arrays, we create a &quot;CellSctr&quot; </span>
+<span class="c1"># Now we define evaluation cells to synthesize area mean values.  To this end,</span>
+<span class="c1"># we specify numpy arrays of minimum and maximum latitudes and longitudes and</span>
+<span class="c1"># an array of spherical radii.  Using these arrays, we create a &quot;CellSctr&quot;</span>
 <span class="c1"># class instance.</span>
 <span class="n">latmax</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.323413435</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.90234320952</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
 <span class="n">latmin</span>    <span class="o">=</span> <span class="n">latmax</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.234323</span><span class="p">,</span> <span class="mf">0.4456</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">])</span>
@@ -582,7 +798,7 @@ points.</p></li>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===========================&#39;</span><span class="p">)</span>
 
 
-<span class="c1"># Define the grid cells and create a &quot;CellGrid&quot; class instance from numpy </span>
+<span class="c1"># Define the grid cells and create a &quot;CellGrid&quot; class instance from numpy</span>
 <span class="c1"># arrays.</span>
 <span class="n">nlat</span>     <span class="o">=</span> <span class="mi">15</span>
 <span class="n">nlon</span>     <span class="o">=</span> <span class="mi">30</span>
@@ -602,12 +818,12 @@ points.</p></li>
 <span class="c1"># -----------------------------------------------------------------------------</span>
 <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">j</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;f(</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s1">) = </span><span class="si">{</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;f(</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s1">) = </span><span class="si">{</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
 
 <span class="n">i</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="n">j</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;f(</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s1">) = </span><span class="si">{</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;f(</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s1">) = </span><span class="si">{</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="c1"># -----------------------------------------------------------------------------</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===========================&#39;</span><span class="p">)</span>
@@ -620,7 +836,7 @@ points.</p></li>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===========================&#39;</span><span class="p">)</span>
 
 
-<span class="c1"># In this example, we use the &quot;grd_cell&quot; instance and the signal &quot;f&quot; from the </span>
+<span class="c1"># In this example, we use the &quot;grd_cell&quot; instance and the signal &quot;f&quot; from the</span>
 <span class="c1"># previous example</span>
 
 
@@ -628,9 +844,9 @@ points.</p></li>
 <span class="n">shcs2</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">sha</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">grd_cell</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">ph</span><span class="o">.</span><span class="n">sha</span><span class="o">.</span><span class="n">CELL_AQ</span><span class="p">,</span> <span class="n">shcs</span><span class="o">.</span><span class="n">mu</span><span class="p">,</span> <span class="n">shcs</span><span class="o">.</span><span class="n">r</span><span class="p">)</span>
 
 
-<span class="c1"># Print some of the compute coefficients.  Note that the harmonic analysis with </span>
-<span class="c1"># block-mean values in cells is *not* exact, hence the coefficients will not be </span>
-<span class="c1"># equal to the input ones.</span>
+<span class="c1"># Print some of the computed coefficients.  Note that the harmonic analysis</span>
+<span class="c1"># with block-mean values in cells is *not* exact, hence the coefficients will</span>
+<span class="c1"># not be equal to the input ones.</span>
 <span class="n">n</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>  <span class="c1"># List of harmonic degrees</span>
 <span class="n">m</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>  <span class="c1"># List of harmonic orders</span>
 <span class="n">cnm</span><span class="p">,</span> <span class="n">snm</span> <span class="o">=</span> <span class="n">shcs2</span><span class="o">.</span><span class="n">get_coeffs</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
@@ -646,20 +862,20 @@ points.</p></li>
 <span class="c1"># =============================================================================</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="fourier-coefficients-of-legendre-functions">
-<h3>Fourier coefficients of Legendre functions<a class="headerlink" href="#fourier-coefficients-of-legendre-functions" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="fourier-coefficients-of-legendre-functions">
+<h3>Fourier coefficients of Legendre functions<a class="headerlink" href="#fourier-coefficients-of-legendre-functions" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
 
 
-<span class="c1"># Maximum harmonic degree to compute the Fourier coefficients of Legendre </span>
+<span class="c1"># Maximum harmonic degree to compute the Fourier coefficients of Legendre</span>
 <span class="c1"># functions</span>
 <span class="n">nmax</span> <span class="o">=</span> <span class="mi">500</span>
 
 
-<span class="c1"># Create a &quot;ph.leg.Pnmj&quot; class instance using the factory method called </span>
+<span class="c1"># Create a &quot;ph.leg.Pnmj&quot; class instance using the factory method called</span>
 <span class="c1"># &quot;from_zeros&quot;</span>
-<span class="n">pnmj</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">leg</span><span class="o">.</span><span class="n">Pnmj</span><span class="o">.</span><span class="n">from_zeros</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">ph</span><span class="o">.</span><span class="n">leg</span><span class="o">.</span><span class="n">PNMJ_ORDER_MNJ</span><span class="p">)</span>
+<span class="n">pnmj</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">leg</span><span class="o">.</span><span class="n">Pnmj</span><span class="o">.</span><span class="n">from_zeros</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">ph</span><span class="o">.</span><span class="n">leg</span><span class="o">.</span><span class="n">PMNJ</span><span class="p">)</span>
 
 
 <span class="c1"># Compute the Fourier coefficients</span>
@@ -683,6 +899,7 @@ points.</p></li>
 <span class="n">m</span> <span class="o">=</span> <span class="mi">358</span>
 <span class="n">j</span> <span class="o">=</span> <span class="mi">101</span>
 <span class="n">k</span> <span class="o">=</span> <span class="n">pnmj</span><span class="o">.</span><span class="n">j2k</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">pnmj</span><span class="o">.</span><span class="n">get_coeff</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Fourier coefficients for degree </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">, order </span><span class="si">{</span><span class="n">m</span><span class="si">}</span><span class="s1"> and wave-number </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1"> = &#39;</span>
       <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
@@ -690,23 +907,23 @@ points.</p></li>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Great, all done!&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="integrals">
-<h3>Integrals<a class="headerlink" href="#integrals" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="integrals">
+<h3>Integrals<a class="headerlink" href="#integrals" title="Permalink to this heading">#</a></h3>
 <p>Finally, let’s compute an integral of a product of two spherical harmonics over
 a restricted domain on the unit sphere.  Then, we do the same, but with the
 product of Legendre functions only.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
 
 
-<span class="c1"># Type of the first spherical harmonic function, its harmonic degree and order, </span>
+<span class="c1"># Type of the first spherical harmonic function, its harmonic degree and order,</span>
 <span class="c1"># respectively</span>
 <span class="n">i1</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">n1</span> <span class="o">=</span> <span class="mi">287</span>
 <span class="n">m1</span> <span class="o">=</span> <span class="mi">122</span>
 
 
-<span class="c1"># Type of the second spherical harmonic function, its harmonic degree and </span>
+<span class="c1"># Type of the second spherical harmonic function, its harmonic degree and</span>
 <span class="c1"># order, respectively</span>
 <span class="n">i2</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">n2</span> <span class="o">=</span> <span class="mi">34</span>
@@ -730,7 +947,7 @@ product of Legendre functions only.</p>
 
 <span class="c1"># Compute the integral of a product of two spherical harmonics</span>
 <span class="n">iy</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">integ</span><span class="o">.</span><span class="n">yi1n1m1yi2n2m2</span><span class="p">(</span><span class="n">cltmin</span><span class="p">,</span> <span class="n">cltmax</span><span class="p">,</span> <span class="n">lonmin</span><span class="p">,</span> <span class="n">lonmax</span><span class="p">,</span>
-                                 <span class="n">i1</span><span class="p">,</span> <span class="n">n1</span><span class="p">,</span> <span class="n">m1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">m2</span><span class="p">,</span> <span class="n">pnmj</span><span class="p">)</span>
+                             <span class="n">i1</span><span class="p">,</span> <span class="n">n1</span><span class="p">,</span> <span class="n">m1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">m2</span><span class="p">,</span> <span class="n">pnmj</span><span class="p">)</span>
 
 
 <span class="c1"># Print the value of the integral</span>
@@ -739,7 +956,7 @@ product of Legendre functions only.</p>
       <span class="sa">f</span><span class="s1">&#39;is </span><span class="si">{</span><span class="n">iy</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
 
-<span class="c1"># Now compute the integral of a product of two Legendre functions over </span>
+<span class="c1"># Now compute the integral of a product of two Legendre functions over</span>
 <span class="c1"># a restricted domain</span>
 <span class="n">ip</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">integ</span><span class="o">.</span><span class="n">pn1m1pn2m2</span><span class="p">(</span><span class="n">cltmin</span><span class="p">,</span> <span class="n">cltmax</span><span class="p">,</span> <span class="n">n1</span><span class="p">,</span> <span class="n">m1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">m2</span><span class="p">,</span> <span class="n">pnmj</span><span class="p">)</span>
 
@@ -748,10 +965,10 @@ product of Legendre functions only.</p>
       <span class="sa">f</span><span class="s1">&#39;n1 = </span><span class="si">{</span><span class="n">n1</span><span class="si">}</span><span class="s1">, m1 = </span><span class="si">{</span><span class="n">m1</span><span class="si">}</span><span class="s1">, n2 = </span><span class="si">{</span><span class="n">n2</span><span class="si">}</span><span class="s1">, m2 = </span><span class="si">{</span><span class="n">m2</span><span class="si">}</span><span class="s1"> is </span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="pyharm-in-single-precision">
-<span id="id1"></span><h2>PyHarm in single precision<a class="headerlink" href="#pyharm-in-single-precision" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="pyharm-in-single-precision">
+<span id="id1"></span><h2>PyHarm in single precision<a class="headerlink" href="#pyharm-in-single-precision" title="Permalink to this heading">#</a></h2>
 <p>A few simple rules need to be obeyed when working with PyHarm in single
 precision.</p>
 <ul>
@@ -786,55 +1003,120 @@ So when creating a numpy array to be passed to PyHarm, you must set the
 </div>
 </li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
-           </div>
-           
-          </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="api.html" class="btn btn-neutral float-right" title="Interfaces" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="cookbook-c.html" class="btn btn-neutral float-left" title="CHarm" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
+                </article>
+              
 
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &#169; Copyright 2022, Blažej Bucha.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-        </div>
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="cookbook-c.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">CHarm</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="api.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Interfaces</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
 
-    </section>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm-in-double-precision">PyHarm in double precision</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integration-with-numpy">Integration with NumPy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-spherical-harmonic-coefficients">Working with spherical harmonic coefficients</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spherical-harmonic-synthesis-and-analysis">Spherical harmonic synthesis and analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-coefficients-of-legendre-functions">Fourier coefficients of Legendre functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integrals">Integrals</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm-in-single-precision">PyHarm in single precision</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Blažej Bucha
+</p>
 
   </div>
   
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
+  <div class="footer-item">
     
-   
+  <p class="copyright">
+    
+      © Copyright 2023, Blažej Bucha.
+      <br/>
+    
+  </p>
 
-</body>
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+  Last updated on Jun 16, 2023.
+  <br/>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
 </html>

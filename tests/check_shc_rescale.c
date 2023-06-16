@@ -1,0 +1,77 @@
+/* Header files */
+/* ------------------------------------------------------------------------- */
+#include <config.h>
+#include <stdio.h>
+#include "../src/prec.h"
+#include "parameters.h"
+#include "cmp_arrays.h"
+#ifdef GENREF
+#   include "write.h"
+#else
+#   include "validate.h"
+#endif
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* Checks the routine to rescale spherical harmonic coefficients by
+ *
+ * 1) loading a reference set of coefficients,
+ *
+ * 2) synthesizing the signal from the reference coefficients,
+ *
+ * 3) rescaling the coefficients,
+ *
+ * 4) synthesizing the signal from the rescaled coefficients, and
+ *
+ * 5) comparing the two signals.  */
+long int check_shc_rescale(void)
+{
+    CHARM(err) *err = CHARM(err_init)();
+    if (err == NULL)
+    {
+        printf("Failed to initialize the \"err\" structure.\n");
+        exit(CHARM_FAILURE);
+    }
+
+
+    CHARM(shc) *shcs = CHARM(shc_calloc)(SHCS_NMAX_POT, PREC(1.0), PREC(1.0));
+    if (shcs == NULL)
+    {
+        fprintf(stderr, "Failed to initialize a \"shc\" structure.\n");
+        exit(CHARM_FAILURE);
+    }
+
+
+    CHARM(shc_read_mtx)(SHCS_IN_PATH_POT_MTX, SHCS_NMAX_POT, shcs, err);
+    CHARM(err_handler)(err, 1);
+
+
+    CHARM(shc_rescale)(shcs, shcs->mu * SHCS_RESCALE_MU_FACTOR,
+                       shcs->r * SHCS_RESCALE_R_FACTOR, err);
+    CHARM(err_handler)(err, 1);
+
+
+    long int e = 0;
+    char filec[NSTR_LONG];
+    char files[NSTR_LONG];
+    sprintf(filec, "%s/shc_rescale_c%s", FOLDER, FTYPE);
+    sprintf(files, "%s/shc_rescale_s%s", FOLDER, FTYPE);
+#ifdef GENREF
+    e += write(filec, shcs->c[0], shcs->nc);
+    e += write(files, shcs->s[0], shcs->ns);
+#else
+    e += validate(filec, shcs->c[0], shcs->nc, CHARM(glob_threshold));
+    e += validate(files, shcs->s[0], shcs->ns, CHARM(glob_threshold));
+#endif
+
+
+    CHARM(err_free)(err);
+    CHARM(shc_free)(shcs);
+
+
+    return e;
+}

@@ -1,44 +1,130 @@
+CHarm 0.3.0:
+
+This release significantly improves performance of point synthesis and 
+analysis, fixes a few bugs and makes a few modifications of the API.
+
+* Fixed memory leak in `charm_integ_pn1m1pn2m2`.
+
+* Renamed symbolic constants
+
+    * `CHARM_LEG_PNMJ_ORDER_MNJ`,
+    * `CHARM_LEG_PNMJ_ORDER_MJN`
+
+  to
+
+    * `CHARM_LEG_PMNJ`,
+    * `CHARM_LEG_PMJN`,
+
+  respectively.
+
+* Removed the `xnum` module from the public API.  It offered only little added 
+  value, as all its functions are easy to implement.  This makes the API 
+  cleaner, especially in long terms, given that much more interesting modules 
+  are yet to come.
+
+* The function `charm_leg_pnmj_length` was removed from the API.  The number of 
+  coefficients stored in the `charm_pnmj` structure is already provided in its 
+  `npnmj` member.
+
+* Added functions to check various features of CHarm that are determined during 
+  the compilation time:
+
+    * `charm_misc_buildopt_precision`,
+    * `charm_misc_buildopt_omp_charm`,
+    * `charm_misc_buildopt_omp_fftw`,
+    * `charm_misc_buildopt_simd`,
+    * `charm_misc_buildopt_isfinite`.
+
+* Switched to `sphinx_book_theme` for html docs.
+
+* Added support for polar optimization to increase computational speed
+  (Eqs. 7 and 8 of Reinecke and Seljebotn 2013).  As long as the polar
+  optimization parameters (see the `glob` module) are chosen appropriately,
+  this technique improves the performance and still keeps an excellent
+  accuracy.  However, unwisely chosen tuning parameters may negatively affect
+  the output accuracy.
+
+  By default, the polar optimization is turned off.
+
+  References:
+
+    * Reinecke, M., Seljebotn, D. S. (2013) Libsharp -- spherical harmonic
+      transforms revisited.  Astronomy and Astrophysics 554, A112, doi:
+      10.1051/0004-6361/201321494.
+
+* Improved caching for point synthesis and analysis by the blocking technique.  
+  No effort has yet been made to apply the cache blocking also for cell 
+  analysis and synthesis, which therefore offer a sub-optimal implementation.  
+  This might change in the future if the performance of cell transforms becomes 
+  an issue or a limitation.
+
+* Added automatic dynamical switching to the computation of Legendre functions 
+  (Fukushima, 2016).
+
+  References:
+
+    * Fukushima, T. (2016) Numerical computation of point values, derivatives, 
+      and integrals of associated Legendre function of the first kind and point 
+      values and derivatives of oblate spheroidal harmonics of the second kind 
+      of high degree and order. In: Rizos, C., Willis, P. (eds): IAG 150 Years: 
+      Proceedings of the 2013 IAG Scientific Assembly, Potsdam, Germany, 1--6 
+      September, 2013, 143:193--197. https://doi.org/10.1007/1345_2015_124
+
+* Added dynamic scheduling to parallel for loops in shs.  This slightly 
+  improves the performance, because the computation time of Legendre functions 
+  varies across the meridian (mainly due to X-numbers, dynamical switching and, 
+  if applied, polar optimization).  In sha, the dynamic scheduling has been in 
+  use right from the beginning.
+
+* Introduced `NEG_R` macro to properly switch the sign of SIMD vectors.
+
+* Improved test suite.  The functions are now smaller and cleaner.  Some new 
+  tests were also added, mostly to check various custom allocation functions.
+
+* New benchmarks are available at 
+  https://www.charmlib.org/build/html/benchmarks.html.
+
 CHarm 0.2.0:
 
 * Added Python wrapper called PyHarm.  This step necessitated several 
   modifications of the CHarm API, some of which are not backward compatible.  
   The changes are listed below.
 
-* The "charm_crd" structure was replaced by new structures:
+* The `charm_crd` structure was replaced by new structures:
 
-    * "charm_point" and
-    * "charm_cell",
+    * `charm_point` and
+    * `charm_cell`,
 
   which distinguish between evaluation points and evaluation cells.
 
 * Functions:
 
-    * "charm_shc_init",
-    * "charm_crd_init",
-    * "charm_leg_pnmj_init"
+    * `charm_shc_init`,
+    * `charm_crd_init`,
+    * `charm_leg_pnmj_init`
 
   were replaced by
 
-    * "charm_shc_calloc",
-    * "charm_crd_calloc",
-    * "charm_leg_pnmj_calloc".
+    * `charm_shc_calloc`,
+    * `charm_crd_calloc`,
+    * `charm_leg_pnmj_calloc`.
 
   The new functions behave in the same fashion as the old ones, including their 
   interface.
 
   The following functions have been added:
 
-    * "charm_shc_malloc",
-    * "charm_crd_malloc",
-    * "charm_leg_pnmj_malloc",
+    * `charm_shc_malloc`,
+    * `charm_crd_malloc`,
+    * `charm_leg_pnmj_malloc`,
 
-  which behave similarly as their "*_calloc" counterparts, but provide 
+  which behave similarly as their `*_calloc` counterparts, but provide 
   uninitialized memory.
 
   Functions:
 
-    * "charm_shc_init",
-    * "charm_crd_init"
+    * `charm_shc_init`,
+    * `charm_crd_init`
 
   have now a different meaning.  They can be used to create the respective 
   structures from data arrays provided by the user.
@@ -46,13 +132,13 @@ CHarm 0.2.0:
 * Changed API of the following functions to read/write spherical harmonic 
   coefficients from/to files:
 
-    * "charm_shc_read_bin",
-    * "charm_shc_read_gfc",
-    * "charm_shc_read_mtx",
-    * "charm_shc_read_tbl",
-    * "charm_shc_write_bin",
-    * "charm_shc_write_mtx",
-    * "charm_shc_write_tbl".
+    * `charm_shc_read_bin`,
+    * `charm_shc_read_gfc`,
+    * `charm_shc_read_mtx`,
+    * `charm_shc_read_tbl`,
+    * `charm_shc_write_bin`,
+    * `charm_shc_write_mtx`,
+    * `charm_shc_write_tbl`.
 
   Previously, it was necessary to open the stream for the input/output file, 
   call the CHarm function to read/write the coefficients and, finally, close 
@@ -62,33 +148,17 @@ CHarm 0.2.0:
   done by CHarm.
 
   This should considerably simplify making the Python wrapper, given than 
-  wrapping "TYPE *" pointer with "ctypes" is not that trivial.
+  wrapping `TYPE *` pointer with `ctypes` is not that trivial.
 
-* Changed API for SHA and SHS with cells
+* Symbolic constants `CHARM_CRD_CELLS_*` and `CHARM_CRD_POINTS_*` were renamed 
+  to `CHARM_CRD_CELL_*` and `CHARM_CRD_POINT_*`.
 
-    * "charm_sha_cell",
-    * "charm_shs_cell",
-    * "charm_shs_isurf".
+* The `nmj_order` member of `charm_pnmj` was renamed to `ordering`.
 
-  Cell latitude boundaries must now follow the rule:
-
-    * the "lat[2 * i]" member of "charm_crd" now represents the maximum cell 
-      latitude instead of the minimum latitude,
-    * the "lat[2 * i + 1]" member of "charm_crd" now represents the minimum
-      cell latitude instead of the maximum latitude.
-
-  Area-mean grids are therefore no longer turned upside down.
-
-* Symbolic constants "CHARM_CRD_CELLS_*" and "CHARM_CRD_POINTS_*" were renamed 
-  to "CHARM_CRD_CELL_*" and "CHARM_CRD_POINT_*".
-
-* The "nmj_order" member of "charm_pnmj" was renamed to "ordering".  This 
-  affects the API.
-
-* Bug fix for "integ_pn1m1pn2m2".  The routine now works correctly with both 
+* Bug fix for `integ_pn1m1pn2m2`.  The routine now works correctly with both 
   ordering schemes of Fourier coefficients of Legendre functions.
 
-* Bug fix for "shc_read_bin".  The function no longer throws an error when 
+* Bug fix for `shc_read_bin`.  The function no longer throws an error when 
   reading coefficients up to a maximum degree that is lower than the one in the 
   binary file.
 
@@ -96,21 +166,21 @@ CHarm 0.2.0:
 
 * Fixed use-after-free bug in degree amplitude tests.
 
-* Two members, "nc" and "ns", were added to the "charm_shc" structure to 
-  represent the total number of spherical harmonic coefficients "Cnm" and 
-  "Snm", respectively.  This does not break the previous API.
+* Two members, `nc` and `ns`, were added to the `charm_shc` structure to 
+  represent the total number of spherical harmonic coefficients `Cnm` and 
+  `Snm`, respectively.  This does not break the previous API.
 
-* Added support for Fortran's "D" and "d" decimal exponents when reading from 
+* Added support for Fortran's `D` and `d` decimal exponents when reading from 
   text files.
 
 * Compiling CHarm as a shared library is no longer disabled by default.
 
-* The documentation can now be build with "make html" instead of "make docs".
+* The documentation can now be build with `make html` instead of `make docs`.
 
 CHarm 0.1.2:
 
 * Bug fix for incorrectly included c-file instead of its respective header file 
-  in "integ_cc.c".  The bug was introduced in CHarm 0.1.0.
+  in `integ_cc.c`.  The bug was introduced in CHarm 0.1.0.
 
 CHarm 0.1.1:
 
@@ -121,20 +191,20 @@ CHarm 0.1.0:
 * Added support for AVX, AVX2 and AVX-512 vector CPU instructions.
 
 * Bug fix in synthesis of point/mean values at grids having only a single 
-  point/cell in the longitudinal direction ("shs_point_grd.c", 
-  "shs_cell_grd.c").  The same bug fix applies to the analysis of area-mean 
-  values ("sha_cell.c") and the synthesis of area-mean values on irregular 
-  surfaces ("shs_cell_isurf.c").  Each of the routines returned an error before 
+  point/cell in the longitudinal direction (`shs_point_grd.c`, 
+  `shs_cell_grd.c`).  The same bug fix applies to the analysis of area-mean 
+  values (`sha_cell.c`) and the synthesis of area-mean values on irregular 
+  surfaces (`shs_cell_isurf.c`).  Each of the routines returned an error before 
   the computation could start.
 
 * Removed some functions from API that bring little added value to the users 
-  ("charm_misc_is_nearly_equal", "charm_misc_arr_min", "charm_misc_arr_max", 
-  "charm_misc_arr_mean", "charm_misc_arr_std", "charm_misc_arr_rms", 
-  "charm_misc_arr_chck_lin_incr" and "charm_misc_arr_chck_symm").
+  (`charm_misc_is_nearly_equal`, `charm_misc_arr_min`, `charm_misc_arr_max`, 
+  `charm_misc_arr_mean`, `charm_misc_arr_std`, `charm_misc_arr_rms`, 
+  `charm_misc_arr_chck_lin_incr` and `charm_misc_arr_chck_symm`).
 
 CHarm 0.0.1:
 
-* Fixed data-sharing bug in "shs_cell_isurf_coeffs.c".
+* Fixed data-sharing bug in `shs_cell_isurf_coeffs.c`.
 
 CHarm 0.0.0:
 
