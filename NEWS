@@ -1,4 +1,7 @@
-Upcoming release:
+CHarm 0.3.0:
+
+This release significantly improves performance of point synthesis and 
+analysis, fixes a few bugs and makes a few modifications of the API.
 
 * Fixed memory leak in `charm_integ_pn1m1pn2m2`.
 
@@ -10,7 +13,9 @@ Upcoming release:
   to
 
     * `CHARM_LEG_PMNJ`,
-    * `CHARM_LEG_PMJN`.
+    * `CHARM_LEG_PMJN`,
+
+  respectively.
 
 * Removed the `xnum` module from the public API.  It offered only little added 
   value, as all its functions are easy to implement.  This makes the API 
@@ -20,6 +25,17 @@ Upcoming release:
 * The function `charm_leg_pnmj_length` was removed from the API.  The number of 
   coefficients stored in the `charm_pnmj` structure is already provided in its 
   `npnmj` member.
+
+* Added functions to check various features of CHarm that are determined during 
+  the compilation time:
+
+    * `charm_misc_buildopt_precision`,
+    * `charm_misc_buildopt_omp_charm`,
+    * `charm_misc_buildopt_omp_fftw`,
+    * `charm_misc_buildopt_simd`,
+    * `charm_misc_buildopt_isfinite`.
+
+* Switched to `sphinx_book_theme` for html docs.
 
 * Added support for polar optimization to increase computational speed
   (Eqs. 7 and 8 of Reinecke and Seljebotn 2013).  As long as the polar
@@ -35,15 +51,6 @@ Upcoming release:
     * Reinecke, M., Seljebotn, D. S. (2013) Libsharp -- spherical harmonic
       transforms revisited.  Astronomy and Astrophysics 554, A112, doi:
       10.1051/0004-6361/201321494.
-
-* Added functions to check various features of CHarm that are determined during 
-  the compilation time:
-
-    * `charm_misc_buildopt_precision`,
-    * `charm_misc_buildopt_omp_charm`,
-    * `charm_misc_buildopt_omp_fftw`,
-    * `charm_misc_buildopt_simd`,
-    * `charm_misc_buildopt_isfinite`.
 
 * Improved caching for point synthesis and analysis by the blocking technique.  
   No effort has yet been made to apply the cache blocking also for cell 
