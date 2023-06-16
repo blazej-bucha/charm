@@ -385,8 +385,18 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy">Accuracy</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#speed">Speed</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy">Accuracy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-precision">Single precision</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#double-precision">Double precision</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quadruple-precision">Quadruple precision</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#speed">Speed</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Single precision</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Double precision</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Quadruple precision</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memory">Memory</a></li>
 </ul>
             </nav>
@@ -435,16 +445,22 @@ coefficients:</p>
 <li><p><span class="math notranslate nohighlight">\(\varepsilon_\mathrm{rms} = \sqrt{\frac{2}{(N + 1) (N + 2)} \,
 \sum_{n,m} \left(\bar{Q}_{nm} - \bar{Q}^{(\mathrm{ref})}_{nm} \right)^2}\)</span>.</p></li>
 </ul>
-<p><strong>Single precision</strong></p>
+<section id="single-precision">
+<h3>Single precision<a class="headerlink" href="#single-precision" title="Permalink to this heading">#</a></h3>
 <p>In single precision, the tests are conducted up to <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">=</span> <span class="pre">7200</span></code> only.
 Somewhere beyond that degree, it becomes difficult to compute the nodes of the
 Gauss–Legendre quadrature without an overflow in single precision.  The
 Driscoll–Healy quadrature could be used as an alternative, but this would
 produce heterogeneous tests.</p>
 <img alt="_images/benchf-accuracy.png" src="_images/benchf-accuracy.png" />
-<p><strong>Double precision</strong></p>
-<p><em>Polar optimization disabled (default)</em></p>
+</section>
+<section id="double-precision">
+<h3>Double precision<a class="headerlink" href="#double-precision" title="Permalink to this heading">#</a></h3>
+<p><em>Polar optimization disabled (default)</em>.</p>
 <img alt="_images/bench-accuracy.png" src="_images/bench-accuracy.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 <p><em>Polar optimization enabled</em> (<code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a1</span> <span class="pre">=</span> <span class="pre">100</span></code>,
 <code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a2</span> <span class="pre">=</span> <span class="pre">0.01</span></code>).  Comparing this figure and the
 previous one, it is seen that even though the polar optimization introduces
@@ -453,28 +469,40 @@ the same.  The small differences between the two figures are caused by the fact
 that a new set random spherical harmonic coefficients was generated in both
 experiments.</p>
 <img alt="_images/bench-po-accuracy.png" src="_images/bench-po-accuracy.png" />
-<p><strong>Quadruple precision</strong></p>
+</section>
+<section id="quadruple-precision">
+<h3>Quadruple precision<a class="headerlink" href="#quadruple-precision" title="Permalink to this heading">#</a></h3>
 <img alt="_images/benchq-accuracy.png" src="_images/benchq-accuracy.png" />
+</section>
 </section>
 <section id="speed">
 <h2>Speed<a class="headerlink" href="#speed" title="Permalink to this heading">#</a></h2>
 <p>The figures that follow plot the wall-clock times needed to perform spherical
 harmonic synthesis and analysis in the experiments from the <a class="reference internal" href="#accuracy"><span class="std std-ref">Accuracy</span></a>
 section.</p>
-<p><strong>Single precision</strong></p>
+<section id="id2">
+<h3>Single precision<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <img alt="_images/benchf-time.png" src="_images/benchf-time.png" />
-<p><strong>Double precision</strong></p>
-<p><em>Polar optimization disabled (default)</em></p>
+</section>
+<section id="id3">
+<h3>Double precision<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p><em>Polar optimization disabled (default)</em>.</p>
 <img alt="_images/bench-time.png" src="_images/bench-time.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 <p><em>With the polar optimization enabled</em> (<code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a1</span>
 <span class="pre">=</span> <span class="pre">100</span></code>, <code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a2</span> <span class="pre">=</span> <span class="pre">0.01</span></code>), the performance improved
 almost by 40 percent (depending on the maximum degree), while the accuracy
-remained the same (see above).  More aggressive polar optimization can further
-improve the performance, but, after some critical point, only at the cost of
-deteriorated accuracy.</p>
+remained the same (see <a class="reference internal" href="#accuracy"><span class="std std-ref">Accuracy</span></a>).  More aggressive polar optimization
+can further improve the performance, but, after some critical point, only at
+the cost of deteriorated accuracy.</p>
 <img alt="_images/bench-po-time.png" src="_images/bench-po-time.png" />
-<p><strong>Quadruple precision</strong></p>
+</section>
+<section id="id4">
+<h3>Quadruple precision<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <img alt="_images/benchq-time.png" src="_images/benchq-time.png" />
+</section>
 </section>
 <section id="memory">
 <h2>Memory<a class="headerlink" href="#memory" title="Permalink to this heading">#</a></h2>
@@ -546,8 +574,18 @@ as all the remaining arrays are significantly smaller.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy">Accuracy</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#speed">Speed</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy">Accuracy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-precision">Single precision</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#double-precision">Double precision</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quadruple-precision">Quadruple precision</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#speed">Speed</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Single precision</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Double precision</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Quadruple precision</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memory">Memory</a></li>
 </ul>
   </nav></div>

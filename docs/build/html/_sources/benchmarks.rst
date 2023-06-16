@@ -43,7 +43,8 @@ coefficients:
   \sum_{n,m} \left(\bar{Q}_{nm} - \bar{Q}^{(\mathrm{ref})}_{nm} \right)^2}`.
 
 
-**Single precision**
+Single precision
+----------------
 
 In single precision, the tests are conducted up to ``N = 7200`` only.
 Somewhere beyond that degree, it becomes difficult to compute the nodes of the
@@ -54,11 +55,14 @@ produce heterogeneous tests.
 .. image:: ../img/benchf-accuracy.png
 
 
-**Double precision**
+Double precision
+----------------
 
-*Polar optimization disabled (default)*
+*Polar optimization disabled (default)*.
 
 .. image:: ../img/bench-accuracy.png
+
+|
 
 *Polar optimization enabled* (``charm_glob_polar_optimization_a1 = 100``, 
 ``charm_glob_polar_optimization_a2 = 0.01``).  Comparing this figure and the 
@@ -71,7 +75,8 @@ experiments.
 .. image:: ../img/bench-po-accuracy.png
 
 
-**Quadruple precision**
+Quadruple precision
+-------------------
 
 .. image:: ../img/benchq-accuracy.png
 
@@ -83,26 +88,31 @@ The figures that follow plot the wall-clock times needed to perform spherical
 harmonic synthesis and analysis in the experiments from the :ref:`accuracy`
 section.
 
-**Single precision**
+Single precision
+----------------
 
 .. image:: ../img/benchf-time.png
 
-**Double precision**
+Double precision
+----------------
 
-*Polar optimization disabled (default)*
+*Polar optimization disabled (default)*.
 
 .. image:: ../img/bench-time.png
+
+|
 
 *With the polar optimization enabled* (``charm_glob_polar_optimization_a1 
 = 100``, ``charm_glob_polar_optimization_a2 = 0.01``), the performance improved 
 almost by 40 percent (depending on the maximum degree), while the accuracy 
-remained the same (see above).  More aggressive polar optimization can further 
-improve the performance, but, after some critical point, only at the cost of 
-deteriorated accuracy.
+remained the same (see :ref:`accuracy`).  More aggressive polar optimization 
+can further improve the performance, but, after some critical point, only at 
+the cost of deteriorated accuracy.
 
 .. image:: ../img/bench-po-time.png
 
-**Quadruple precision**
+Quadruple precision
+-------------------
 
 .. image:: ../img/benchq-time.png
 
