@@ -14,12 +14,9 @@
 
 
 
-REAL CHARM(misc_str2real)(char str[], const char *err_msg, CHARM(err) *err)
+REAL CHARM(misc_str2real)(const char *str, const char *err_msg,
+                          CHARM(err) *err)
 {
-    char *end_ptr;
-    errno = 0;
-
-
     /* The "strtod", etc., functions that convert strings to floating point
      * numbers do not consider the Fortran's "d" and "D" decimal exponents.
      * Here, we therefore check for the presence of the first occurrence of the
@@ -35,13 +32,28 @@ REAL CHARM(misc_str2real)(char str[], const char *err_msg, CHARM(err) *err)
         *match = 'e';
 
 
+    char *end_ptr;
+    errno = 0;
     REAL r = STR2REAL(str, &end_ptr);
 
 
-    if ((end_ptr == str) || (errno != 0))
-        CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFILEIO,
-                       err_msg);
+    if ((end_ptr == str) || errno)
+        goto FAILURE;
 
 
+    /* Any character in "str" after the last character used in the conversion
+     * by "STR2REAL" is an error, except for one or more spaces or the
+     * terminating null byte. */
+    while (*end_ptr != '\0')
+        if (*end_ptr++ != ' ')
+            goto FAILURE;
+
+
+EXIT:
     return r;
+
+
+FAILURE:
+    CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFILEIO, err_msg);
+    goto EXIT;
 }
