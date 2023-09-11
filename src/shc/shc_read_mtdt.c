@@ -33,8 +33,11 @@
 /* Reads metadata of a "shc" structure from a text file: the maximum harmonic
  * degree, the scaling constant and the radius of the reference sphere.  This
  * function is not a part of API. */
-void CHARM(shc_read_mtdt)(FILE *stream, unsigned long *nmax, REAL *mu,
-                          REAL *r, CHARM(err) *err)
+void CHARM(shc_read_mtdt)(FILE *stream,
+                          unsigned long *nmax,
+                          REAL *mu,
+                          REAL *r,
+                          CHARM(err) *err)
 {
     /* Char arrays to store the strings to be loaded from the input file */
     /* --------------------------------------------------------------------- */

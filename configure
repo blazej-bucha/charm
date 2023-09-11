@@ -13572,6 +13572,14 @@ else $as_nop
   as_fn_error $? "string.h not found" "$LINENO" 5
 fi
 
+ac_fn_c_check_header_compile "$LINENO" "ctype.h" "ac_cv_header_ctype_h" "$ac_includes_default"
+if test "x$ac_cv_header_ctype_h" = xyes
+then :
+
+else $as_nop
+  as_fn_error $? "ctype.h not found" "$LINENO" 5
+fi
+
 ac_fn_c_check_header_compile "$LINENO" "time.h" "ac_cv_header_time_h" "$ac_includes_default"
 if test "x$ac_cv_header_time_h" = xyes
 then :
@@ -13594,6 +13602,14 @@ then :
 
 else $as_nop
   as_fn_error $? "float.h not found" "$LINENO" 5
+fi
+
+ac_fn_c_check_header_compile "$LINENO" "limits.h" "ac_cv_header_limits_h" "$ac_includes_default"
+if test "x$ac_cv_header_limits_h" = xyes
+then :
+
+else $as_nop
+  as_fn_error $? "limits.h not found" "$LINENO" 5
 fi
 
 ac_fn_c_check_header_compile "$LINENO" "fftw3.h" "ac_cv_header_fftw3_h" "$ac_includes_default"

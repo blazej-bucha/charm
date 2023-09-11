@@ -385,8 +385,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.WRITE_TBL_N"><code class="docutils literal notranslate"><span class="pre">WRITE_TBL_N</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.WRITE_TBL_M"><code class="docutils literal notranslate"><span class="pre">WRITE_TBL_M</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.WRITE_N"><code class="docutils literal notranslate"><span class="pre">WRITE_N</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.WRITE_M"><code class="docutils literal notranslate"><span class="pre">WRITE_M</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc"><code class="docutils literal notranslate"><span class="pre">Shc</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.nmax"><code class="docutils literal notranslate"><span class="pre">Shc.nmax</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.mu"><code class="docutils literal notranslate"><span class="pre">Shc.mu</span></code></a></li>
@@ -397,13 +397,10 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_garbage"><code class="docutils literal notranslate"><span class="pre">Shc.from_garbage()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_zeros"><code class="docutils literal notranslate"><span class="pre">Shc.from_zeros()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_arrays"><code class="docutils literal notranslate"><span class="pre">Shc.from_arrays()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_file_gfc"><code class="docutils literal notranslate"><span class="pre">Shc.from_file_gfc()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_file_mtx"><code class="docutils literal notranslate"><span class="pre">Shc.from_file_mtx()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_file_tbl"><code class="docutils literal notranslate"><span class="pre">Shc.from_file_tbl()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_file_bin"><code class="docutils literal notranslate"><span class="pre">Shc.from_file_bin()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.to_file_mtx"><code class="docutils literal notranslate"><span class="pre">Shc.to_file_mtx()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.to_file_tbl"><code class="docutils literal notranslate"><span class="pre">Shc.to_file_tbl()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.to_file_bin"><code class="docutils literal notranslate"><span class="pre">Shc.to_file_bin()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_file"><code class="docutils literal notranslate"><span class="pre">Shc.from_file()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.to_file"><code class="docutils literal notranslate"><span class="pre">Shc.to_file()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.get_file_types"><code class="docutils literal notranslate"><span class="pre">Shc.get_file_types()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.nmax_from_file"><code class="docutils literal notranslate"><span class="pre">Shc.nmax_from_file()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.get_coeffs"><code class="docutils literal notranslate"><span class="pre">Shc.get_coeffs()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.set_coeffs"><code class="docutils literal notranslate"><span class="pre">Shc.set_coeffs()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.rescale"><code class="docutils literal notranslate"><span class="pre">Shc.rescale()</span></code></a></li>
@@ -440,10 +437,10 @@ class, including its methods that are designed to:</p>
 <p>This documentation is written for double precision version of PyHarm.</p>
 </div>
 <dl class="py data">
-<dt class="sig sig-object py" id="pyharm.shc.WRITE_TBL_N">
-<span class="sig-prename descclassname"><span class="pre">pyharm.shc.</span></span><span class="sig-name descname"><span class="pre">WRITE_TBL_N</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#pyharm.shc.WRITE_TBL_N" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="pyharm.shc.WRITE_N">
+<span class="sig-prename descclassname"><span class="pre">pyharm.shc.</span></span><span class="sig-name descname"><span class="pre">WRITE_N</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#pyharm.shc.WRITE_N" title="Permalink to this definition">#</a></dt>
 <dd><p>Ordering scheme to write spherical harmonic coefficients with
-the <a class="reference internal" href="#pyharm.shc.Shc.to_file_tbl" title="pyharm.shc.Shc.to_file_tbl"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pyharm.shc.Shc.to_file_tbl()</span></code></a> method: harmonic degree varies
+the <a class="reference internal" href="#pyharm.shc.Shc.to_file" title="pyharm.shc.Shc.to_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pyharm.shc.Shc.to_file()</span></code></a> method: harmonic degree varies
 fastest.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -453,10 +450,10 @@ fastest.</p>
 </dd></dl>
 
 <dl class="py data">
-<dt class="sig sig-object py" id="pyharm.shc.WRITE_TBL_M">
-<span class="sig-prename descclassname"><span class="pre">pyharm.shc.</span></span><span class="sig-name descname"><span class="pre">WRITE_TBL_M</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#pyharm.shc.WRITE_TBL_M" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="pyharm.shc.WRITE_M">
+<span class="sig-prename descclassname"><span class="pre">pyharm.shc.</span></span><span class="sig-name descname"><span class="pre">WRITE_M</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#pyharm.shc.WRITE_M" title="Permalink to this definition">#</a></dt>
 <dd><p>Ordering scheme to write spherical harmonic coefficients with
-the <a class="reference internal" href="#pyharm.shc.Shc.to_file_tbl" title="pyharm.shc.Shc.to_file_tbl"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pyharm.shc.Shc.to_file_tbl()</span></code></a> method: harmonic order varies
+the <a class="reference internal" href="#pyharm.shc.Shc.to_file" title="pyharm.shc.Shc.to_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pyharm.shc.Shc.to_file()</span></code></a> method: harmonic order varies
 fastest.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -476,10 +473,7 @@ factory methods:</p>
 <li><p><a class="reference internal" href="#pyharm.shc.Shc.from_garbage" title="pyharm.shc.Shc.from_garbage"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_garbage()</span></code></a>,</p></li>
 <li><p><a class="reference internal" href="#pyharm.shc.Shc.from_zeros" title="pyharm.shc.Shc.from_zeros"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_zeros()</span></code></a>,</p></li>
 <li><p><a class="reference internal" href="#pyharm.shc.Shc.from_arrays" title="pyharm.shc.Shc.from_arrays"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_arrays()</span></code></a>,</p></li>
-<li><p><a class="reference internal" href="#pyharm.shc.Shc.from_file_gfc" title="pyharm.shc.Shc.from_file_gfc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_file_gfc()</span></code></a>,</p></li>
-<li><p><a class="reference internal" href="#pyharm.shc.Shc.from_file_mtx" title="pyharm.shc.Shc.from_file_mtx"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_file_mtx()</span></code></a>,</p></li>
-<li><p><a class="reference internal" href="#pyharm.shc.Shc.from_file_tbl" title="pyharm.shc.Shc.from_file_tbl"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_file_tbl()</span></code></a>,</p></li>
-<li><p><a class="reference internal" href="#pyharm.shc.Shc.from_file_bin" title="pyharm.shc.Shc.from_file_bin"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_file_bin()</span></code></a>.</p></li>
+<li><p><a class="reference internal" href="#pyharm.shc.Shc.from_file" title="pyharm.shc.Shc.from_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_file()</span></code></a>.</p></li>
 </ul>
 </div></blockquote>
 <p class="rubric">Examples</p>
@@ -502,7 +496,7 @@ factory methods:</p>
 (<cite>calloc</cite> in C),</p></li>
 <li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">(c,</span> <span class="pre">s)</span></code> to define spherical harmonic coefficients based on
 two numpy floating point arrays <a class="reference internal" href="#pyharm.shc.Shc.c" title="pyharm.shc.Shc.c"><code class="xref py py-obj docutils literal notranslate"><span class="pre">c</span></code></a> and <a class="reference internal" href="#pyharm.shc.Shc.s" title="pyharm.shc.Shc.s"><code class="xref py py-obj docutils literal notranslate"><span class="pre">s</span></code></a>, each of
-shape <code class="xref py py-obj docutils literal notranslate"><span class="pre">(((nmax</span> <span class="pre">+</span> <span class="pre">2)</span> <span class="pre">*</span> <span class="pre">(nmax</span> <span class="pre">+</span> <span class="pre">1))</span> <span class="pre">/</span> <span class="pre">2,)</span></code>.  For ordering
+shape <code class="xref py py-obj docutils literal notranslate"><span class="pre">(((nmax</span> <span class="pre">+</span> <span class="pre">2)</span> <span class="pre">*</span> <span class="pre">(nmax</span> <span class="pre">+</span> <span class="pre">1))</span> <span class="pre">//</span> <span class="pre">2,)</span></code>.  For ordering
 scheme of the coefficients in the <cite>c</cite> and <cite>s</cite> arrays,
 see the <a class="reference internal" href="#pyharm.shc.Shc.c" title="pyharm.shc.Shc.c"><code class="xref py py-attr docutils literal notranslate"><span class="pre">c</span></code></a> and <a class="reference internal" href="#pyharm.shc.Shc.s" title="pyharm.shc.Shc.s"><code class="xref py py-attr docutils literal notranslate"><span class="pre">s</span></code></a> properties.</p></li>
 </ul>
@@ -676,17 +670,38 @@ structure of the array, see <a class="reference internal" href="#pyharm.shc.Shc.
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pyharm.shc.Shc.from_file_gfc">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_file_gfc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pathname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.from_file_gfc" title="Permalink to this definition">#</a></dt>
-<dd><p>Reads spherical harmonic coefficients up to degree <cite>nmax</cite> from a <cite>gfc</cite>
-file specified in <cite>pathname</cite>.  For the structure of the input file,
-refer to <a class="reference external" href="./api-c-shc.html">charm_shc</a>.</p>
+<dt class="sig sig-object py" id="pyharm.shc.Shc.from_file">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.from_file" title="Permalink to this definition">#</a></dt>
+<dd><p>Reads spherical harmonic coefficients up to degree <cite>nmax</cite> from the
+<cite>pathname</cite> file of a given <cite>file_type</cite>.  For time variable models
+stored in the <cite>gfc</cite> file type, <cite>epoch</cite> additionally transforms the
+coefficients to a given epoch.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To get the maximum harmonic degree stored in <cite>pathname</cite>, use
+<a class="reference internal" href="#pyharm.shc.Shc.nmax_from_file" title="pyharm.shc.Shc.nmax_from_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">nmax_from_file()</span></code></a>.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To print all supported file types, use <a class="reference internal" href="#pyharm.shc.Shc.get_file_types" title="pyharm.shc.Shc.get_file_types"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_file_types()</span></code></a>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">get_file_types</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>For the structure of the file types, refer to <a class="reference external" href="./api-c-shc.html">charm_shc</a>.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>file_type</strong> (<em>str</em>) – Type of the input file</p></li>
 <li><p><strong>pathname</strong> (<em>str</em>) – Input file path</p></li>
-<li><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree to read the spherical harmonic coefficients
-from the input file</p></li>
+<li><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree to read the spherical harmonic coefficients</p></li>
+<li><p><strong>epoch</strong> (<em>str</em>) – <p>Epoch, to which spherical harmonic coefficients from <cite>gfc</cite> file
+types are transformed in case of time variable gravity field
+models; optional.  For the structure of the string, refer to
+<a class="reference external" href="./api-c-shc.html">charm_shc</a>.  This input parameter is used only
+if <cite>file_type</cite> is <cite>gfc</cite>.  Default value is <cite>None</cite>.</p>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -699,126 +714,85 @@ from the input file</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pyharm.shc.Shc.from_file_mtx">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_file_mtx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pathname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.from_file_mtx" title="Permalink to this definition">#</a></dt>
-<dd><p>Reads spherical harmonic coefficients up to degree <cite>nmax</cite> from a <cite>mtx</cite>
-file specified in <cite>pathname</cite>.  For the structure of the input file,
-refer to <a class="reference external" href="./api-c-shc.html">charm_shc</a>.</p>
+<dt class="sig sig-object py" id="pyharm.shc.Shc.to_file">
+<span class="sig-name descname"><span class="pre">to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formatting</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'%0.16e'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.to_file" title="Permalink to this definition">#</a></dt>
+<dd><p>Writes an <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> class instance up to degree <cite>nmax</cite> to a file
+<cite>pathname</cite> of a given <cite>file_type</cite>.  If <cite>file_type</cite> represents a text
+file (<cite>dov</cite>, <cite>tbl</cite> or <cite>mtx</cite>), <cite>formatting</cite> specifies the formatting for
+all floating point numbers.  If <cite>file_type</cite> is <cite>dov</cite> or <cite>tbl</cite>,
+<cite>ordering</cite> defines the ordering of spherical harmonic coefficients in
+the output file.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To print all supported file types, use <a class="reference internal" href="#pyharm.shc.Shc.get_file_types" title="pyharm.shc.Shc.get_file_types"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_file_types()</span></code></a>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">get_file_types</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>For the structure of the file types, refer to <a class="reference external" href="./api-c-shc.html">charm_shc</a>.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>pathname</strong> (<em>str</em>) – Input file path</p></li>
-<li><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree to read the spherical harmonic coefficients
-from the input file</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>out</strong> – An <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> class instance</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc">Shc</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyharm.shc.Shc.from_file_tbl">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_file_tbl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pathname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.from_file_tbl" title="Permalink to this definition">#</a></dt>
-<dd><p>Reads spherical harmonic coefficients up to degree <cite>nmax</cite> from a <cite>tbl</cite>
-file specified in <cite>pathname</cite>.  For the structure of the input file,
-refer to <a class="reference external" href="./api-c-shc.html">charm_shc</a>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>pathname</strong> (<em>str</em>) – Input file path</p></li>
-<li><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree to read the spherical harmonic coefficients
-from the input file</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>out</strong> – An <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> class instance</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc">Shc</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyharm.shc.Shc.from_file_bin">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_file_bin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pathname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.from_file_bin" title="Permalink to this definition">#</a></dt>
-<dd><p>Reads spherical harmonic coefficients up to degree <cite>nmax</cite> from a <cite>bin</cite>
-file specified in <cite>pathname</cite>.  For the structure of the input file,
-refer to <a class="reference external" href="./api-c-shc.html">charm_shc</a>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>pathname</strong> (<em>str</em>) – Input file path</p></li>
-<li><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree to read the spherical harmonic coefficients
-from the input file</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>out</strong> – An <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> class instance</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc">Shc</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyharm.shc.Shc.to_file_mtx">
-<span class="sig-name descname"><span class="pre">to_file_mtx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.to_file_mtx" title="Permalink to this definition">#</a></dt>
-<dd><p>Writes an <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> class instance up to degree <cite>nmax</cite> to a text
-file specified in <cite>pathname</cite> using formatting for floating point
-numbers <cite>format</cite>.  For the structure of the output file, refer to
-<a class="reference external" href="./api-c-shc.html">charm_shc</a>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_type</strong> (<em>str</em>) – Type of the input file</p></li>
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree to write the spherical harmonic coefficients</p></li>
-<li><p><strong>format</strong> (<em>str</em>) – Format to write floating point numbers, e.g., <code class="xref py py-obj docutils literal notranslate"><span class="pre">'%0.16e'</span></code></p></li>
 <li><p><strong>pathname</strong> (<em>str</em>) – Output file path</p></li>
+<li><p><strong>formatting</strong> (<em>str</em>) – Formatting to write floating point numbers to text formats,
+optional.  Default is <code class="xref py py-obj docutils literal notranslate"><span class="pre">'%0.16e'</span></code>.</p></li>
+<li><p><strong>ordering</strong> (<em>integer</em>) – Scheme to sort spherical harmonic coefficients when <cite>file_type</cite> is
+<cite>dov</cite> or <cite>tbl</cite>, optional.  Accepted values are
+<a class="reference internal" href="#pyharm.shc.WRITE_N" title="pyharm.shc.WRITE_N"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyharm.shc.WRITE_N</span></code></a> and <a class="reference internal" href="#pyharm.shc.WRITE_M" title="pyharm.shc.WRITE_M"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyharm.shc.WRITE_M</span></code></a>.  Default
+is <a class="reference internal" href="#pyharm.shc.WRITE_N" title="pyharm.shc.WRITE_N"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyharm.shc.WRITE_N</span></code></a>.</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pyharm.shc.Shc.to_file_tbl">
-<span class="sig-name descname"><span class="pre">to_file_tbl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordering</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.to_file_tbl" title="Permalink to this definition">#</a></dt>
-<dd><p>Writes an <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> class instance up to degree <cite>nmax</cite> to a text
-file specified in <cite>pathname</cite> using formatting for floating point
-numbers <cite>format</cite> and ordering scheme <cite>ordering</cite>.  For the structure of
-the output file, refer to <a class="reference external" href="./api-c-shc.html">charm_shc</a>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree to write the spherical harmonic coefficients</p></li>
-<li><p><strong>format</strong> (<em>str</em>) – Format to write floating point numbers, e.g., <code class="xref py py-obj docutils literal notranslate"><span class="pre">'%0.16e'</span></code></p></li>
-<li><p><strong>ordering</strong> (<em>integer</em>) – Scheme to sort spherical harmonic coefficients,
-either <a class="reference internal" href="#pyharm.shc.WRITE_TBL_N" title="pyharm.shc.WRITE_TBL_N"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyharm.shc.WRITE_TBL_N</span></code></a> or
-<a class="reference internal" href="#pyharm.shc.WRITE_TBL_M" title="pyharm.shc.WRITE_TBL_M"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyharm.shc.WRITE_TBL_M</span></code></a></p></li>
-<li><p><strong>pathname</strong> (<em>str</em>) – Output file path</p></li>
-</ul>
-</dd>
-</dl>
+<dt class="sig sig-object py" id="pyharm.shc.Shc.get_file_types">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_file_types</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.get_file_types" title="Permalink to this definition">#</a></dt>
+<dd><p>Prints all file types supported by the <a class="reference internal" href="#pyharm.shc.Shc.to_file" title="pyharm.shc.Shc.to_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_file()</span></code></a> and
+<a class="reference internal" href="#pyharm.shc.Shc.from_file" title="pyharm.shc.Shc.from_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_file()</span></code></a> methods of the <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> class.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pyharm.shc.Shc.to_file_bin">
-<span class="sig-name descname"><span class="pre">to_file_bin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.to_file_bin" title="Permalink to this definition">#</a></dt>
-<dd><p>Writes an <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> class instance up to degree <cite>nmax</cite> to a binary
-file specified in <cite>pathname</cite>.  For the structure of the output file,
-refer to <a class="reference external" href="./api-c-shc.html">charm_shc</a>.</p>
+<dt class="sig sig-object py" id="pyharm.shc.Shc.nmax_from_file">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nmax_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.nmax_from_file" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns the maximum harmonic degree of coefficients stored in
+the <cite>pathname</cite> file that is of a given <cite>file_type</cite>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Use this method to get the maximum degree of spherical
+harmonic coefficients stored in a file and then load the file
+up to its maximum harmonic degree:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;/some/path/to/gfc&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nmax</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">nmax_from_file</span><span class="p">(</span><span class="s1">&#39;gfc&#39;</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shcs</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="s1">&#39;gfc&#39;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">nmax</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To print all supported file types, use <a class="reference internal" href="#pyharm.shc.Shc.get_file_types" title="pyharm.shc.Shc.get_file_types"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_file_types()</span></code></a>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">get_file_types</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>For the structure of the file types, refer to <a class="reference external" href="./api-c-shc.html">charm_shc</a>.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree to write the spherical harmonic
-coefficients</p></li>
-<li><p><strong>pathname</strong> (<em>str</em>) – Output file path</p></li>
+<li><p><strong>file_type</strong> (<em>str</em>) – Type of the input file</p></li>
+<li><p><strong>pathname</strong> (<em>str</em>) – Input file path</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>out</strong> – Maximum harmonic degree of the model</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>integer</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1108,8 +1082,8 @@ optional.  If not provided, <cite>nmax</cite> is set to the smallest of
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.WRITE_TBL_N"><code class="docutils literal notranslate"><span class="pre">WRITE_TBL_N</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.WRITE_TBL_M"><code class="docutils literal notranslate"><span class="pre">WRITE_TBL_M</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.WRITE_N"><code class="docutils literal notranslate"><span class="pre">WRITE_N</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.WRITE_M"><code class="docutils literal notranslate"><span class="pre">WRITE_M</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc"><code class="docutils literal notranslate"><span class="pre">Shc</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.nmax"><code class="docutils literal notranslate"><span class="pre">Shc.nmax</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.mu"><code class="docutils literal notranslate"><span class="pre">Shc.mu</span></code></a></li>
@@ -1120,13 +1094,10 @@ optional.  If not provided, <cite>nmax</cite> is set to the smallest of
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_garbage"><code class="docutils literal notranslate"><span class="pre">Shc.from_garbage()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_zeros"><code class="docutils literal notranslate"><span class="pre">Shc.from_zeros()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_arrays"><code class="docutils literal notranslate"><span class="pre">Shc.from_arrays()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_file_gfc"><code class="docutils literal notranslate"><span class="pre">Shc.from_file_gfc()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_file_mtx"><code class="docutils literal notranslate"><span class="pre">Shc.from_file_mtx()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_file_tbl"><code class="docutils literal notranslate"><span class="pre">Shc.from_file_tbl()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_file_bin"><code class="docutils literal notranslate"><span class="pre">Shc.from_file_bin()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.to_file_mtx"><code class="docutils literal notranslate"><span class="pre">Shc.to_file_mtx()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.to_file_tbl"><code class="docutils literal notranslate"><span class="pre">Shc.to_file_tbl()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.to_file_bin"><code class="docutils literal notranslate"><span class="pre">Shc.to_file_bin()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_file"><code class="docutils literal notranslate"><span class="pre">Shc.from_file()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.to_file"><code class="docutils literal notranslate"><span class="pre">Shc.to_file()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.get_file_types"><code class="docutils literal notranslate"><span class="pre">Shc.get_file_types()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.nmax_from_file"><code class="docutils literal notranslate"><span class="pre">Shc.nmax_from_file()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.get_coeffs"><code class="docutils literal notranslate"><span class="pre">Shc.get_coeffs()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.set_coeffs"><code class="docutils literal notranslate"><span class="pre">Shc.set_coeffs()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.rescale"><code class="docutils literal notranslate"><span class="pre">Shc.rescale()</span></code></a></li>
@@ -1168,7 +1139,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 16, 2023.
+  Last updated on Sep 11, 2023.
   <br/>
 </p>
   </div>

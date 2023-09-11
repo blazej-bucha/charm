@@ -45,6 +45,7 @@ SOURCES = main.c \
 		  check_sha_point.c \
 		  check_sha_cell.c \
 		  check_shc_read_type.c \
+		  check_shc_read_gfc.c \
 		  check_shc_write_type.c \
 		  check_shc_dav.c \
 		  check_shc_ddav.c \
@@ -66,9 +67,10 @@ genref_run@P@@OMP@_CPPFLAGS = -I$(top_srcdir)/charm
 
 
 # CFLAGS
+genref_run@P@@OMP@_CFLAGS = -DGENREF
 if OPENMP
 test_run@P@@OMP@_CFLAGS = $(OPENMP_CFLAGS)
-genref_run@P@@OMP@_CFLAGS = -DGENREF $(OPENMP_CFLAGS)
+genref_run@P@@OMP@_CFLAGS += $(OPENMP_CFLAGS)
 endif
 
 

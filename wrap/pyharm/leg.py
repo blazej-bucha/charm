@@ -256,11 +256,11 @@ class Pnmj:
         else:
             nmax = self.nmax
 
-        func         = _libcharm[_CHARM + 'leg_pnmj_coeffs']
-        func.restype = None
-        func.argtype = [_ct.POINTER(_Pnmj),
-                        _ct_ulong,
-                        _ct.POINTER(_ph_err._Err)]
+        func          = _libcharm[_CHARM + 'leg_pnmj_coeffs']
+        func.restype  = None
+        func.argtypes = [_ct.POINTER(_Pnmj),
+                         _ct_ulong,
+                         _ct.POINTER(_ph_err._Err)]
 
         err = _ph_err.init()
         func(self._Pnmj, _ct_ulong(nmax), err)

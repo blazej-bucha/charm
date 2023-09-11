@@ -54,10 +54,22 @@
 #define SHCS_IN_PATH_POT_GFC "../data/input/EGM96-degree10.gfc"
 
 
+/* Path to input time variable spherical harmonic coefficients of the potential
+ * in the gfc format */
+#undef SHCS_IN_PATH_POT_GFC_TVG
+#define SHCS_IN_PATH_POT_GFC_TVG "../data/input/ITSG-Grace2018s.gfc"
+
+
 /* Path to input spherical harmonic coefficients of the potential in the tbl 
  * format */
 #undef SHCS_IN_PATH_POT_TBL
 #define SHCS_IN_PATH_POT_TBL "../data/input/EGM96-degree10-tbl.txt"
+
+
+/* Path to input spherical harmonic coefficients of the potential in the dov
+ * format */
+#undef SHCS_IN_PATH_POT_DOV
+#define SHCS_IN_PATH_POT_DOV "../data/input/EGM96-degree10-dov.txt"
 
 
 /* Path to input spherical harmonic coefficients of the potential in the binary 
@@ -82,6 +94,18 @@
  * m format */
 #undef SHCS_OUT_PATH_POT_TBL_M
 #define SHCS_OUT_PATH_POT_TBL_M "../data/output/EGM96-degree10-tbl-m.txt"
+
+
+/* Path to output spherical harmonic coefficients of the potential in the dov
+ * n format */
+#undef SHCS_OUT_PATH_POT_DOV_N
+#define SHCS_OUT_PATH_POT_DOV_N "../data/output/EGM96-degree10-dov-n.txt"
+
+
+/* Path to output spherical harmonic coefficients of the potential in the dov
+ * m format */
+#undef SHCS_OUT_PATH_POT_DOV_M
+#define SHCS_OUT_PATH_POT_DOV_M "../data/output/EGM96-degree10-dov-m.txt"
 
 
 /* Multiplication factors to test rescaling of spherical harmonics coefficients
@@ -252,6 +276,11 @@
 /* A part of the string to be printed for invalid function calls */
 #undef INVALID
 #define INVALID "invalid"
+
+
+/* Epoch for time variable "gfc" models */
+#undef TVG_EPOCH
+#define TVG_EPOCH "20020305.1245"
 
 
 #endif

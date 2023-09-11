@@ -111,9 +111,10 @@ libcharm@P@_shc@OMP@_la_LIBADD =
 am_libcharm@P@_shc@OMP@_la_OBJECTS = shc_da.lo shc_dda.lo shc_ddv.lo \
 	shc_dv.lo shc_alloc.lo shc_malloc.lo shc_calloc.lo shc_init.lo \
 	shc_free.lo shc_read_bin.lo shc_read_mtx.lo shc_read_tbl.lo \
-	shc_read_gfc.lo shc_read_mtdt.lo shc_read_line.lo \
-	shc_write_bin.lo shc_write_mtx.lo shc_write_tbl.lo \
-	shc_write_mtdt.lo shc_rescale.lo shc_reset_coeffs.lo
+	shc_read_dov.lo shc_read_gfc.lo shc_read_mtdt.lo \
+	shc_read_nmax_only.lo shc_write_bin.lo shc_write_mtx.lo \
+	shc_write_tbl.lo shc_write_dov.lo shc_write_mtdt.lo \
+	shc_rescale.lo shc_reset_coeffs.lo shc_get_nmax_model.lo
 libcharm@P@_shc@OMP@_la_OBJECTS =  \
 	$(am_libcharm@P@_shc@OMP@_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -139,12 +140,14 @@ am__depfiles_remade = ./$(DEPDIR)/shc_alloc.Plo \
 	./$(DEPDIR)/shc_calloc.Plo ./$(DEPDIR)/shc_da.Plo \
 	./$(DEPDIR)/shc_dda.Plo ./$(DEPDIR)/shc_ddv.Plo \
 	./$(DEPDIR)/shc_dv.Plo ./$(DEPDIR)/shc_free.Plo \
-	./$(DEPDIR)/shc_init.Plo ./$(DEPDIR)/shc_malloc.Plo \
-	./$(DEPDIR)/shc_read_bin.Plo ./$(DEPDIR)/shc_read_gfc.Plo \
-	./$(DEPDIR)/shc_read_line.Plo ./$(DEPDIR)/shc_read_mtdt.Plo \
-	./$(DEPDIR)/shc_read_mtx.Plo ./$(DEPDIR)/shc_read_tbl.Plo \
-	./$(DEPDIR)/shc_rescale.Plo ./$(DEPDIR)/shc_reset_coeffs.Plo \
-	./$(DEPDIR)/shc_write_bin.Plo ./$(DEPDIR)/shc_write_mtdt.Plo \
+	./$(DEPDIR)/shc_get_nmax_model.Plo ./$(DEPDIR)/shc_init.Plo \
+	./$(DEPDIR)/shc_malloc.Plo ./$(DEPDIR)/shc_read_bin.Plo \
+	./$(DEPDIR)/shc_read_dov.Plo ./$(DEPDIR)/shc_read_gfc.Plo \
+	./$(DEPDIR)/shc_read_mtdt.Plo ./$(DEPDIR)/shc_read_mtx.Plo \
+	./$(DEPDIR)/shc_read_nmax_only.Plo \
+	./$(DEPDIR)/shc_read_tbl.Plo ./$(DEPDIR)/shc_rescale.Plo \
+	./$(DEPDIR)/shc_reset_coeffs.Plo ./$(DEPDIR)/shc_write_bin.Plo \
+	./$(DEPDIR)/shc_write_dov.Plo ./$(DEPDIR)/shc_write_mtdt.Plo \
 	./$(DEPDIR)/shc_write_mtx.Plo ./$(DEPDIR)/shc_write_tbl.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
@@ -334,15 +337,18 @@ libcharm@P@_shc@OMP@_la_SOURCES = shc_da.c \
 								  shc_read_bin.c \
 								  shc_read_mtx.c \
 								  shc_read_tbl.c \
+								  shc_read_dov.c \
 								  shc_read_gfc.c \
 								  shc_read_mtdt.c \
-								  shc_read_line.c \
+								  shc_read_nmax_only.c \
 								  shc_write_bin.c \
 								  shc_write_mtx.c \
 								  shc_write_tbl.c \
+								  shc_write_dov.c \
 								  shc_write_mtdt.c \
 								  shc_rescale.c \
-								  shc_reset_coeffs.c
+								  shc_reset_coeffs.c \
+								  shc_get_nmax_model.c
 
 EXTRA_DIST = *.h
 all: all-am
@@ -406,17 +412,20 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_ddv.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_dv.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_free.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_get_nmax_model.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_init.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_malloc.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_read_bin.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_read_dov.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_read_gfc.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_read_line.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_read_mtdt.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_read_mtx.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_read_nmax_only.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_read_tbl.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_rescale.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_reset_coeffs.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_write_bin.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_write_dov.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_write_mtdt.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_write_mtx.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_write_tbl.Plo@am__quote@ # am--include-marker
@@ -539,17 +548,20 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/shc_ddv.Plo
 	-rm -f ./$(DEPDIR)/shc_dv.Plo
 	-rm -f ./$(DEPDIR)/shc_free.Plo
+	-rm -f ./$(DEPDIR)/shc_get_nmax_model.Plo
 	-rm -f ./$(DEPDIR)/shc_init.Plo
 	-rm -f ./$(DEPDIR)/shc_malloc.Plo
 	-rm -f ./$(DEPDIR)/shc_read_bin.Plo
+	-rm -f ./$(DEPDIR)/shc_read_dov.Plo
 	-rm -f ./$(DEPDIR)/shc_read_gfc.Plo
-	-rm -f ./$(DEPDIR)/shc_read_line.Plo
 	-rm -f ./$(DEPDIR)/shc_read_mtdt.Plo
 	-rm -f ./$(DEPDIR)/shc_read_mtx.Plo
+	-rm -f ./$(DEPDIR)/shc_read_nmax_only.Plo
 	-rm -f ./$(DEPDIR)/shc_read_tbl.Plo
 	-rm -f ./$(DEPDIR)/shc_rescale.Plo
 	-rm -f ./$(DEPDIR)/shc_reset_coeffs.Plo
 	-rm -f ./$(DEPDIR)/shc_write_bin.Plo
+	-rm -f ./$(DEPDIR)/shc_write_dov.Plo
 	-rm -f ./$(DEPDIR)/shc_write_mtdt.Plo
 	-rm -f ./$(DEPDIR)/shc_write_mtx.Plo
 	-rm -f ./$(DEPDIR)/shc_write_tbl.Plo
@@ -604,17 +616,20 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/shc_ddv.Plo
 	-rm -f ./$(DEPDIR)/shc_dv.Plo
 	-rm -f ./$(DEPDIR)/shc_free.Plo
+	-rm -f ./$(DEPDIR)/shc_get_nmax_model.Plo
 	-rm -f ./$(DEPDIR)/shc_init.Plo
 	-rm -f ./$(DEPDIR)/shc_malloc.Plo
 	-rm -f ./$(DEPDIR)/shc_read_bin.Plo
+	-rm -f ./$(DEPDIR)/shc_read_dov.Plo
 	-rm -f ./$(DEPDIR)/shc_read_gfc.Plo
-	-rm -f ./$(DEPDIR)/shc_read_line.Plo
 	-rm -f ./$(DEPDIR)/shc_read_mtdt.Plo
 	-rm -f ./$(DEPDIR)/shc_read_mtx.Plo
+	-rm -f ./$(DEPDIR)/shc_read_nmax_only.Plo
 	-rm -f ./$(DEPDIR)/shc_read_tbl.Plo
 	-rm -f ./$(DEPDIR)/shc_rescale.Plo
 	-rm -f ./$(DEPDIR)/shc_reset_coeffs.Plo
 	-rm -f ./$(DEPDIR)/shc_write_bin.Plo
+	-rm -f ./$(DEPDIR)/shc_write_dov.Plo
 	-rm -f ./$(DEPDIR)/shc_write_mtdt.Plo
 	-rm -f ./$(DEPDIR)/shc_write_mtx.Plo
 	-rm -f ./$(DEPDIR)/shc_write_tbl.Plo

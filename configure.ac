@@ -86,9 +86,11 @@ AC_CHECK_HEADER([math.h], [], [AC_MSG_ERROR([math.h not found])])
 AC_CHECK_HEADER([stdio.h], [], [AC_MSG_ERROR([stdio.h not found])])
 AC_CHECK_HEADER([stdlib.h], [], [AC_MSG_ERROR([stdlib.h not found])])
 AC_CHECK_HEADER([string.h], [], [AC_MSG_ERROR([string.h not found])])
+AC_CHECK_HEADER([ctype.h], [], [AC_MSG_ERROR([ctype.h not found])])
 AC_CHECK_HEADER([time.h], [], [AC_MSG_ERROR([time.h not found])])
 AC_CHECK_HEADER([errno.h], [], [AC_MSG_ERROR([errno.h not found])])
 AC_CHECK_HEADER([float.h], [], [AC_MSG_ERROR([float.h not found])])
+AC_CHECK_HEADER([limits.h], [], [AC_MSG_ERROR([limits.h not found])])
 AC_CHECK_HEADER([fftw3.h], [], [AC_MSG_ERROR([fftw3.h not found])])
 dnl ===========================================================================
 

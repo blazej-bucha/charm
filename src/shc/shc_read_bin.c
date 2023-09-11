@@ -6,6 +6,7 @@
 #include "../prec.h"
 #include "../err/err_set.h"
 #include "shc_reset_coeffs.h"
+#include "shc_read_nmax_only.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -24,8 +25,10 @@ static int read_cnmsnm(FILE *, unsigned long, unsigned long, int,
 
 
 
-void CHARM(shc_read_bin)(const char *pathname, unsigned long nmax,
-                         CHARM(shc) *shcs, CHARM(err) *err)
+unsigned long CHARM(shc_read_bin)(const char *pathname,
+                                  unsigned long nmax,
+                                  CHARM(shc) *shcs,
+                                  CHARM(err) *err)
 {
     /* Open "pathname" to read */
     /* ===================================================================== */
@@ -36,7 +39,7 @@ void CHARM(shc_read_bin)(const char *pathname, unsigned long nmax,
         sprintf(msg, "Couldn't open \"%s\".", pathname);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__,
                        CHARM_EFILEIO, msg);
-        return;
+        return CHARM_SHC_NMAX_ERROR;
     }
     /* ===================================================================== */
 
@@ -52,7 +55,7 @@ void CHARM(shc_read_bin)(const char *pathname, unsigned long nmax,
     int err_tmp;
 
 
-    unsigned long nmax_file;
+    unsigned long nmax_file = CHARM_SHC_NMAX_ERROR;
     err_tmp = fread(&nmax_file, sizeof(unsigned long), 1, fptr);
     if (err_tmp < 1)
     {
@@ -60,6 +63,10 @@ void CHARM(shc_read_bin)(const char *pathname, unsigned long nmax,
                        "Failed to read the maximum harmonic degree.");
         goto EXIT;
     }
+
+
+    if (CHARM(shc_read_nmax_only)(nmax, shcs))
+        goto EXIT;
 
 
     REAL mu;
@@ -165,7 +172,7 @@ void CHARM(shc_read_bin)(const char *pathname, unsigned long nmax,
 
 EXIT:
     fclose(fptr);
-    return;
+    return nmax_file;
 }
 
 

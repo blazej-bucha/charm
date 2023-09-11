@@ -156,9 +156,9 @@ following flags to the ``./configure`` call.
 * ``--enable-avx`` or ``--enable-avx2`` or ``--enable-avx-512`` to enable AVX, 
   AVX2 or AVX-512 CPU instructions, respectively (all disabled by default).
 
-  AVX, AVX2 and AVX-512 are SIMD instructions introduced by Intel in 2011, 2013 
-  and 2017, respectively.  The most critical number crunching parts of CHarm 
-  are hand-written to take advantage of these instructions in order to 
+  AVX, AVX2 and AVX-512 are SIMD instructions were introduced by Intel in 2011, 
+  2013 and 2017, respectively.  The most critical number crunching parts of 
+  CHarm are hand-written to take advantage of these instructions in order to 
   significantly improve the performance.  As a general rule, it is strongly 
   recommended to enable the latest set of AVX instructions that are supported 
   by your processor.  On many Linux distributions, you can find all the 

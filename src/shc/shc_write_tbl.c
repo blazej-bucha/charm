@@ -15,8 +15,11 @@
 
 
 
-void CHARM(shc_write_tbl)(const CHARM(shc) *shcs, unsigned long nmax,
-                          const char *format, int order, const char *pathname,
+void CHARM(shc_write_tbl)(const CHARM(shc) *shcs,
+                          unsigned long nmax,
+                          const char *format,
+                          int ordering,
+                          const char *pathname,
                           CHARM(err) *err)
 {
     /* Open "pathname" to write */
@@ -58,7 +61,7 @@ void CHARM(shc_write_tbl)(const CHARM(shc) *shcs, unsigned long nmax,
 
     /* Write the spherical harmonic coefficients */
     /* --------------------------------------------------------------------- */
-    if (order == CHARM_SHC_WRITE_TBL_N)
+    if (ordering == CHARM_SHC_WRITE_N)
     {
         for (unsigned long m = 0; m <= nmax; m++)
         {
@@ -81,7 +84,7 @@ void CHARM(shc_write_tbl)(const CHARM(shc) *shcs, unsigned long nmax,
             }
         }
     }
-    else if (order == CHARM_SHC_WRITE_TBL_M)
+    else if (ordering == CHARM_SHC_WRITE_M)
     {
         for (unsigned long n = 0; n <= nmax; n++)
         {
@@ -107,7 +110,7 @@ void CHARM(shc_write_tbl)(const CHARM(shc) *shcs, unsigned long nmax,
     else
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__,
-                       CHARM_EFUNCARG, "Failed writing to the output file.");
+                       CHARM_EFUNCARG, "Unsupported value of \"ordering\".");
         goto EXIT;
     }
     /* --------------------------------------------------------------------- */

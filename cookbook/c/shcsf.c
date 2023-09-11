@@ -64,8 +64,10 @@ int main(void)
 
 
     /* Now let's read spherical harmonic coefficients, the scaling constant and
-     * the radius of the reference sphere from the input text file. */
-    charmf_shc_read_gfc(shcs_in_file, nmax, shcs, err);
+     * the radius of the reference sphere from the input text file.  We are
+     * reading a static "gfc" model, so the "epoch" parameter is set to "NULL".
+     * */
+    charmf_shc_read_gfc(shcs_in_file, nmax, NULL, shcs, err);
 
 
     /* At this point, "shcs" should store the loaded spherical harmonic

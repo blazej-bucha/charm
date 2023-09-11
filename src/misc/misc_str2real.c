@@ -14,7 +14,8 @@
 
 
 
-REAL CHARM(misc_str2real)(const char *str, const char *err_msg,
+REAL CHARM(misc_str2real)(const char *str,
+                          const char *err_msg,
                           CHARM(err) *err)
 {
     /* The "strtod", etc., functions that convert strings to floating point
@@ -24,12 +25,12 @@ REAL CHARM(misc_str2real)(const char *str, const char *err_msg,
      * found is replaced by 'E' or 'e', respectively.  It is sufficient to
      * check for the first presence of the characters, as more than one 'D' or
      * 'd' implies an incorrect format anyway. */
-    char *match = strchr(str, 'D');
-    if (match != NULL)
-        *match = 'E';
-    match = strchr(str, 'd');
-    if (match != NULL)
-        *match = 'e';
+    char *match_D = strchr(str, 'D');
+    if (match_D != NULL)
+        *match_D = 'E';
+    char *match_d = strchr(str, 'd');
+    if (match_d != NULL)
+        *match_d = 'e';
 
 
     char *end_ptr;
@@ -50,6 +51,14 @@ REAL CHARM(misc_str2real)(const char *str, const char *err_msg,
 
 
 EXIT:
+    /* Before leaving the routine, set back "E" and "e" to "D" and "d" if
+     * needed */
+    if (match_D != NULL)
+        *match_D = 'D';
+    if (match_d != NULL)
+        *match_d = 'd';
+
+
     return r;
 
 

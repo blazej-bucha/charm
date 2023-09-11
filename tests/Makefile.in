@@ -90,6 +90,7 @@ build_triplet = @build@
 host_triplet = @host@
 check_PROGRAMS = test_run@P@@OMP@$(EXEEXT)
 noinst_PROGRAMS = genref_run@P@@OMP@$(EXEEXT)
+@OPENMP_TRUE@am__append_1 = $(OPENMP_CFLAGS)
 subdir = tests
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_check_compile_flag.m4 \
@@ -143,6 +144,7 @@ am__objects_1 = genref_run@P@@OMP@-main.$(OBJEXT) \
 	genref_run@P@@OMP@-check_sha_point.$(OBJEXT) \
 	genref_run@P@@OMP@-check_sha_cell.$(OBJEXT) \
 	genref_run@P@@OMP@-check_shc_read_type.$(OBJEXT) \
+	genref_run@P@@OMP@-check_shc_read_gfc.$(OBJEXT) \
 	genref_run@P@@OMP@-check_shc_write_type.$(OBJEXT) \
 	genref_run@P@@OMP@-check_shc_dav.$(OBJEXT) \
 	genref_run@P@@OMP@-check_shc_ddav.$(OBJEXT) \
@@ -196,6 +198,7 @@ am__objects_2 = test_run@P@@OMP@-main.$(OBJEXT) \
 	test_run@P@@OMP@-check_sha_point.$(OBJEXT) \
 	test_run@P@@OMP@-check_sha_cell.$(OBJEXT) \
 	test_run@P@@OMP@-check_shc_read_type.$(OBJEXT) \
+	test_run@P@@OMP@-check_shc_read_gfc.$(OBJEXT) \
 	test_run@P@@OMP@-check_shc_write_type.$(OBJEXT) \
 	test_run@P@@OMP@-check_shc_dav.$(OBJEXT) \
 	test_run@P@@OMP@-check_shc_ddav.$(OBJEXT) \
@@ -244,6 +247,7 @@ am__depfiles_remade =  \
 	./$(DEPDIR)/genref_run@P@@OMP@-check_shc_dav.Po \
 	./$(DEPDIR)/genref_run@P@@OMP@-check_shc_ddav.Po \
 	./$(DEPDIR)/genref_run@P@@OMP@-check_shc_init.Po \
+	./$(DEPDIR)/genref_run@P@@OMP@-check_shc_read_gfc.Po \
 	./$(DEPDIR)/genref_run@P@@OMP@-check_shc_read_type.Po \
 	./$(DEPDIR)/genref_run@P@@OMP@-check_shc_rescale.Po \
 	./$(DEPDIR)/genref_run@P@@OMP@-check_shc_write_type.Po \
@@ -286,6 +290,7 @@ am__depfiles_remade =  \
 	./$(DEPDIR)/test_run@P@@OMP@-check_shc_dav.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-check_shc_ddav.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-check_shc_init.Po \
+	./$(DEPDIR)/test_run@P@@OMP@-check_shc_read_gfc.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-check_shc_read_type.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-check_shc_rescale.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-check_shc_write_type.Po \
@@ -538,6 +543,7 @@ SOURCES = main.c \
 		  check_sha_point.c \
 		  check_sha_cell.c \
 		  check_shc_read_type.c \
+		  check_shc_read_gfc.c \
 		  check_shc_write_type.c \
 		  check_shc_dav.c \
 		  check_shc_ddav.c \
@@ -557,8 +563,8 @@ test_run@P@@OMP@_CPPFLAGS = -I$(top_srcdir)/charm
 genref_run@P@@OMP@_CPPFLAGS = -I$(top_srcdir)/charm
 
 # CFLAGS
+genref_run@P@@OMP@_CFLAGS = -DGENREF $(am__append_1)
 @OPENMP_TRUE@test_run@P@@OMP@_CFLAGS = $(OPENMP_CFLAGS)
-@OPENMP_TRUE@genref_run@P@@OMP@_CFLAGS = -DGENREF $(OPENMP_CFLAGS)
 
 # Link CHarm library
 test_run@P@@OMP@_LDADD = $(top_builddir)/libcharm@P@@OMP@.la
@@ -650,6 +656,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@@OMP@-check_shc_dav.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@@OMP@-check_shc_ddav.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@@OMP@-check_shc_init.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@@OMP@-check_shc_read_gfc.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@@OMP@-check_shc_read_type.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@@OMP@-check_shc_rescale.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@@OMP@-check_shc_write_type.Po@am__quote@ # am--include-marker
@@ -692,6 +699,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-check_shc_dav.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-check_shc_ddav.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-check_shc_init.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-check_shc_read_gfc.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-check_shc_read_type.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-check_shc_rescale.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-check_shc_write_type.Po@am__quote@ # am--include-marker
@@ -1220,6 +1228,20 @@ genref_run@P@@OMP@-check_shc_read_type.obj: check_shc_read_type.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shc_read_type.c' object='genref_run@P@@OMP@-check_shc_read_type.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o genref_run@P@@OMP@-check_shc_read_type.obj `if test -f 'check_shc_read_type.c'; then $(CYGPATH_W) 'check_shc_read_type.c'; else $(CYGPATH_W) '$(srcdir)/check_shc_read_type.c'; fi`
+
+genref_run@P@@OMP@-check_shc_read_gfc.o: check_shc_read_gfc.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT genref_run@P@@OMP@-check_shc_read_gfc.o -MD -MP -MF $(DEPDIR)/genref_run@P@@OMP@-check_shc_read_gfc.Tpo -c -o genref_run@P@@OMP@-check_shc_read_gfc.o `test -f 'check_shc_read_gfc.c' || echo '$(srcdir)/'`check_shc_read_gfc.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@@OMP@-check_shc_read_gfc.Tpo $(DEPDIR)/genref_run@P@@OMP@-check_shc_read_gfc.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shc_read_gfc.c' object='genref_run@P@@OMP@-check_shc_read_gfc.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o genref_run@P@@OMP@-check_shc_read_gfc.o `test -f 'check_shc_read_gfc.c' || echo '$(srcdir)/'`check_shc_read_gfc.c
+
+genref_run@P@@OMP@-check_shc_read_gfc.obj: check_shc_read_gfc.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT genref_run@P@@OMP@-check_shc_read_gfc.obj -MD -MP -MF $(DEPDIR)/genref_run@P@@OMP@-check_shc_read_gfc.Tpo -c -o genref_run@P@@OMP@-check_shc_read_gfc.obj `if test -f 'check_shc_read_gfc.c'; then $(CYGPATH_W) 'check_shc_read_gfc.c'; else $(CYGPATH_W) '$(srcdir)/check_shc_read_gfc.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@@OMP@-check_shc_read_gfc.Tpo $(DEPDIR)/genref_run@P@@OMP@-check_shc_read_gfc.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shc_read_gfc.c' object='genref_run@P@@OMP@-check_shc_read_gfc.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o genref_run@P@@OMP@-check_shc_read_gfc.obj `if test -f 'check_shc_read_gfc.c'; then $(CYGPATH_W) 'check_shc_read_gfc.c'; else $(CYGPATH_W) '$(srcdir)/check_shc_read_gfc.c'; fi`
 
 genref_run@P@@OMP@-check_shc_write_type.o: check_shc_write_type.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT genref_run@P@@OMP@-check_shc_write_type.o -MD -MP -MF $(DEPDIR)/genref_run@P@@OMP@-check_shc_write_type.Tpo -c -o genref_run@P@@OMP@-check_shc_write_type.o `test -f 'check_shc_write_type.c' || echo '$(srcdir)/'`check_shc_write_type.c
@@ -1809,6 +1831,20 @@ test_run@P@@OMP@-check_shc_read_type.obj: check_shc_read_type.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-check_shc_read_type.obj `if test -f 'check_shc_read_type.c'; then $(CYGPATH_W) 'check_shc_read_type.c'; else $(CYGPATH_W) '$(srcdir)/check_shc_read_type.c'; fi`
 
+test_run@P@@OMP@-check_shc_read_gfc.o: check_shc_read_gfc.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-check_shc_read_gfc.o -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-check_shc_read_gfc.Tpo -c -o test_run@P@@OMP@-check_shc_read_gfc.o `test -f 'check_shc_read_gfc.c' || echo '$(srcdir)/'`check_shc_read_gfc.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-check_shc_read_gfc.Tpo $(DEPDIR)/test_run@P@@OMP@-check_shc_read_gfc.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shc_read_gfc.c' object='test_run@P@@OMP@-check_shc_read_gfc.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-check_shc_read_gfc.o `test -f 'check_shc_read_gfc.c' || echo '$(srcdir)/'`check_shc_read_gfc.c
+
+test_run@P@@OMP@-check_shc_read_gfc.obj: check_shc_read_gfc.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-check_shc_read_gfc.obj -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-check_shc_read_gfc.Tpo -c -o test_run@P@@OMP@-check_shc_read_gfc.obj `if test -f 'check_shc_read_gfc.c'; then $(CYGPATH_W) 'check_shc_read_gfc.c'; else $(CYGPATH_W) '$(srcdir)/check_shc_read_gfc.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-check_shc_read_gfc.Tpo $(DEPDIR)/test_run@P@@OMP@-check_shc_read_gfc.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shc_read_gfc.c' object='test_run@P@@OMP@-check_shc_read_gfc.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-check_shc_read_gfc.obj `if test -f 'check_shc_read_gfc.c'; then $(CYGPATH_W) 'check_shc_read_gfc.c'; else $(CYGPATH_W) '$(srcdir)/check_shc_read_gfc.c'; fi`
+
 test_run@P@@OMP@-check_shc_write_type.o: check_shc_write_type.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-check_shc_write_type.o -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-check_shc_write_type.Tpo -c -o test_run@P@@OMP@-check_shc_write_type.o `test -f 'check_shc_write_type.c' || echo '$(srcdir)/'`check_shc_write_type.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-check_shc_write_type.Tpo $(DEPDIR)/test_run@P@@OMP@-check_shc_write_type.Po
@@ -2070,6 +2106,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shc_dav.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shc_ddav.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shc_init.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shc_read_gfc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shc_read_type.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shc_rescale.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shc_write_type.Po
@@ -2112,6 +2149,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shc_dav.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shc_ddav.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shc_init.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shc_read_gfc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shc_read_type.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shc_rescale.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shc_write_type.Po
@@ -2199,6 +2237,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shc_dav.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shc_ddav.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shc_init.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shc_read_gfc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shc_read_type.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shc_rescale.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shc_write_type.Po
@@ -2241,6 +2280,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shc_dav.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shc_ddav.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shc_init.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shc_read_gfc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shc_read_type.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shc_rescale.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shc_write_type.Po

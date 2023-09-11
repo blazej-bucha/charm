@@ -41,8 +41,8 @@ def buildopt_precision():
     """
 
     func          = _libcharm[_CHARM + 'misc_buildopt_precision']
-    func.argtype  = None
-    func.restypes = _ct_int
+    func.argtypes = None
+    func.restype  = _ct_int
 
     return func()
 
@@ -55,8 +55,8 @@ def buildopt_omp_charm():
     """
 
     func          = _libcharm[_CHARM + 'misc_buildopt_omp_charm']
-    func.argtype  = None
-    func.restypes = _ct_int
+    func.argtypes = None
+    func.restype  = _ct_int
 
     return func()
 
@@ -70,8 +70,8 @@ def buildopt_omp_fftw():
     """
 
     func          = _libcharm[_CHARM + 'misc_buildopt_omp_fftw']
-    func.argtype  = None
-    func.restypes = _ct_int
+    func.argtypes = None
+    func.restype  = _ct_int
 
     return func()
 
@@ -93,8 +93,8 @@ def buildopt_simd():
     """
 
     func          = _libcharm[_CHARM + 'misc_buildopt_simd']
-    func.argtype  = None
-    func.restypes = _ct_int
+    func.argtypes = None
+    func.restype  = _ct_int
 
     return func()
 
@@ -111,8 +111,8 @@ def buildopt_isfinite():
     """
 
     func          = _libcharm[_CHARM + 'misc_buildopt_isfinite']
-    func.argtype  = None
-    func.restypes = _ct_int
+    func.argtypes = None
+    func.restype  = _ct_int
 
     return func()
 

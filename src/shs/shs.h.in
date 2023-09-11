@@ -111,8 +111,8 @@ extern "C"
  *   non-symmetric grids. (While these examples use the unit degrees for a more 
  *   intuitive understanding, note that the function inputs assume radians.)
  *
- * * Examples of some **symmetric** grids (shown are only latitudes 
- *   ``pnt->lat``, the longitudes ``pnt->lon`` does not affect the grid 
+ * * Examples of some **symmetric** grids (shown are only latitudes
+ *   ``pnt->lat``, the longitudes ``pnt->lon`` do not affect the grid
  *   symmetry):
  *
  *   - Equator included:
