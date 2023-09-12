@@ -1,6 +1,7 @@
-Upcoming release
+CHarm 0.3.1:
 
-* Added support to read the ICGEM's time variable gravity field models.
+* Added support to read the ICGEM's time variable gravity field models.  
+  Supported are both the `icgem1.0` and `icgem2.0` formats.
 
 * Added support to get the maximum harmonic degree of coefficients from data 
   files without the need to initialize a `charm_shc` structure.  In CHarm, this 
