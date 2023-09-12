@@ -101,6 +101,23 @@
         CHARM(err_set)(err, __FILE__, __LINE__, __func__,                     \
                        CHARM_EFILEIO, err_msg);                               \
         goto EXIT;
+
+
+/* In time variable models, checks whether degree and order of coefficients of
+ * the types "SHC_READ_GFC_TRND", "SHC_READ_GFC_DOT", "SHC_READ_GFC_ASIN" and
+ * "SHC_READ_GFC_ACOS" match their expected value. */
+#define EXPECTED_DEGREE_ORDER(type, n, m, pathname, n_tmp, m_tmp, cnm, snm)   \
+        if ((n_tmp != n) || (m_tmp != m))                                     \
+        {                                                                     \
+            sprintf(err_msg, "Expected in file \"%s\" coefficients \"%s\" of "\
+                             "degree \"%lu\" and order \"%lu\", but "         \
+                             "found instead coefficients \"%s\" and \"%s\" "  \
+                             "of degree \"%lu\" and order \"%lu\".",          \
+                    pathname, type, n, m, cnm, snm, n_tmp, m_tmp);            \
+            CHARM(err_set)(err, __FILE__, __LINE__, __func__,                 \
+                           CHARM_EFILEIO, err_msg);                           \
+            goto EXIT;                                                        \
+        }
 /* ------------------------------------------------------------------------- */
 
 
@@ -874,8 +891,8 @@ FAILURE_FORMAT:
     CHARM(shc_reset_coeffs)(shcs);
 
 
-    unsigned long n, m;
-    n = m = 0;
+    unsigned long n, m, n_tmp, m_tmp;
+    n = m = n_tmp = m_tmp = 0;
     REAL cnm, snm;
     cnm = snm = PREC(0.0);
     while (fgets(line, SHC_READ_GFC_NLINE, fptr) != NULL)
@@ -920,6 +937,8 @@ FAILURE_FORMAT:
 
 
             READ_DEG_ORD(n, s1, "degree", pathname);
+            if (n > nmax)
+                continue;
             READ_DEG_ORD(m, s2, "order", pathname);
             READ_CNM_SNM(cnm, s3, SHC_READ_GFC_GFC, n, m, pathname);
             if (m == 0)
@@ -955,6 +974,15 @@ FAILURE_FORMAT:
                     WRONG_NUMBER_OF_ENTRIES;
                 }
             }
+
+
+            /* Get the degree and order values */
+            /* ------------------------------------------------------------- */
+            READ_DEG_ORD(n, s1, "degree", pathname);
+            if (n > nmax)
+                continue;
+            READ_DEG_ORD(m, s2, "order", pathname);
+            /* ------------------------------------------------------------- */
 
 
             /* Get the epochs */
@@ -1028,8 +1056,7 @@ FAILURE_FORMAT:
             }
 
 
-            READ_DEG_ORD(n, s1, "degree", pathname);
-            READ_DEG_ORD(m, s2, "order", pathname);
+            /* Get the coefficients */
             READ_CNM_SNM(cnm, s3, SHC_READ_GFC_GFCT, n, m, pathname);
             READ_CNM_SNM(snm, s4, SHC_READ_GFC_GFCT, n, m, pathname);
 
@@ -1057,6 +1084,16 @@ FAILURE_FORMAT:
                     WRONG_NUMBER_OF_ENTRIES;
                 }
             }
+
+
+            /* Get the degree and order values */
+            /* ------------------------------------------------------------- */
+            READ_DEG_ORD(n_tmp, s1, "degree", pathname);
+            if (n_tmp > nmax)
+                continue;
+            READ_DEG_ORD(m_tmp, s2, "order", pathname);
+            EXPECTED_DEGREE_ORDER(s0, n, m, pathname, n_tmp, m_tmp, s3, s4);
+            /* ------------------------------------------------------------- */
 
 
             /* Get the epoch.  For the "icgem1.0" format, the "t0" value is
@@ -1100,8 +1137,6 @@ FAILURE_FORMAT:
             }
 
 
-            READ_DEG_ORD(n, s1, "degree", pathname);
-            READ_DEG_ORD(m, s2, "order", pathname);
             if (strcmp(s0, SHC_READ_GFC_DOT) == 0)
             {
                 READ_CNM_SNM(cnm, s3, SHC_READ_GFC_DOT, n, m, pathname);
@@ -1155,6 +1190,16 @@ FAILURE_FORMAT:
             }
 
 
+            /* Get the degree and order values */
+            /* ------------------------------------------------------------- */
+            READ_DEG_ORD(n_tmp, s1, "degree", pathname);
+            if (n_tmp > nmax)
+                continue;
+            READ_DEG_ORD(m_tmp, s2, "order", pathname);
+            EXPECTED_DEGREE_ORDER(s0, n, m, pathname, n_tmp, m_tmp, s3, s4);
+            /* ------------------------------------------------------------- */
+
+
             /* Get the epoch.  For the "icgem1.0" format, the "t0" value is
              * taken from the previous loop run.  For "icgem2.0", the "t0" and
              * "t1" values are taken from the current line of the file. */
@@ -1196,8 +1241,6 @@ FAILURE_FORMAT:
             }
 
 
-            READ_DEG_ORD(n, s1, "degree", pathname);
-            READ_DEG_ORD(m, s2, "order", pathname);
             if (strcmp(s0, SHC_READ_GFC_ASIN) == 0)
             {
                 READ_CNM_SNM(cnm, s3, SHC_READ_GFC_ASIN, n, m, pathname);
@@ -1246,7 +1289,7 @@ FAILURE_FORMAT:
             if (icgem1d0_no_epoch)
                 t = t0;
             tmp  = epoch_diff(t, t0);
-            tmp = (twopi * tmp) / p;
+            tmp = (twopi / p) * tmp;
             if (strcmp(s0, SHC_READ_GFC_ASIN) == 0)
             {
                 tmp        = SIN(tmp);
@@ -1263,10 +1306,6 @@ FAILURE_FORMAT:
         else
             /* Lines starting with any other keyword are comments, so should be
              * skipped */
-            continue;
-
-
-        if (n > nmax)
             continue;
 
 
