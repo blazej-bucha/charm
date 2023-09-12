@@ -6,6 +6,7 @@
 #include "../src/prec.h"
 #include "check_func.h"
 #include "check_outcome.h"
+#include "check_shc_read_gfc.h"
 #include "check_shc_read_type.h"
 #include "check_shc_write_type.h"
 #include "check_shc_dav.h"
@@ -44,8 +45,10 @@ long int module_shc(void)
     esum += e;
 
 
+    /* Must run before testing any other reading routine, because they use this
+     * routine as a reference */
     check_func("shc_read_gfc");
-    e = check_shc_read_type(CHARM(shc_read_gfc));
+    e = check_shc_read_gfc();
     check_outcome(e);
     esum += e;
 
@@ -58,6 +61,12 @@ long int module_shc(void)
 
     check_func("shc_read_tbl");
     e = check_shc_read_type(CHARM(shc_read_tbl));
+    check_outcome(e);
+    esum += e;
+
+
+    check_func("shc_read_dov");
+    e = check_shc_read_type(CHARM(shc_read_dov));
     check_outcome(e);
     esum += e;
 
@@ -82,8 +91,15 @@ long int module_shc(void)
 
 
     check_func("shc_write_tbl");
-    e = check_shc_write_type(2);
-    e = check_shc_write_type(3);
+    e  = check_shc_write_type(2);
+    e += check_shc_write_type(3);
+    check_outcome(e);
+    esum += e;
+
+
+    check_func("shc_write_dov");
+    e  = check_shc_write_type(4);
+    e += check_shc_write_type(5);
     check_outcome(e);
     esum += e;
 

@@ -1,3 +1,50 @@
+CHarm 0.3.1:
+
+* Added support to read the ICGEM's time variable gravity field models.  
+  Supported are both the `icgem1.0` and `icgem2.0` formats.
+
+* Added support to get the maximum harmonic degree of coefficients from data 
+  files without the need to initialize a `charm_shc` structure.  In CHarm, this 
+  can be done using the functions to read spherical harmonic coefficients from 
+  data files.  In PyHarm, a new method `nmax_from_file` was added to the `Shc` 
+  class to this end.
+
+* Added support to read and write spherical harmonic coefficients in the `dov` 
+  text format (degree, order, value).
+
+* PyHarm functions to read spherical harmonic coefficients
+
+    * `pyharm.shc.Shc.from_file_gfc`,
+    * `pyharm.shc.Shc.from_file_tbl`,
+    * `pyharm.shc.Shc.from_file_bin`,
+    * `pyharm.shc.Shc.from_file_mtx`
+
+  were merged into a single function
+
+    * `pyharm.shc.Shc.from_file`.
+
+  PyHarm functions to write spherical harmonic coefficients
+
+    * `pyharm.shc.Shc.to_file_tbl`,
+    * `pyharm.shc.Shc.to_file_bin`,
+    * `pyharm.shc.Shc.to_file_mtx`
+
+  were merged into a single function
+
+    * `pyharm.shc.Shc.to_file`.
+
+* Renamed symbolic constants
+
+    * `CHARM_SHC_WRITE_TBL_N`,
+    * `CHARM_SHC_WRITE_TBL_M`,
+
+  to
+
+    * `CHARM_SHC_WRITE_N`,
+    * `CHARM_SHC_WRITE_M`,
+
+  so that both can be used with the `tbl` and `dov` formats.
+
 CHarm 0.3.0:
 
 This release significantly improves performance of point synthesis and 

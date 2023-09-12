@@ -3,9 +3,11 @@
 #include <config.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
 #include "../prec.h"
 #include "shc_reset_coeffs.h"
 #include "shc_read_mtdt.h"
+#include "shc_read_nmax_only.h"
 #include "../misc/misc_str2real.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
@@ -27,8 +29,10 @@
 
 
 
-void CHARM(shc_read_mtx)(const char *pathname, unsigned long nmax,
-                         CHARM(shc) *shcs, CHARM(err) *err)
+unsigned long CHARM(shc_read_mtx)(const char *pathname,
+                                  unsigned long nmax,
+                                  CHARM(shc) *shcs,
+                                  CHARM(err) *err)
 {
     /* Open "pathname" to read */
     /* ===================================================================== */
@@ -39,7 +43,7 @@ void CHARM(shc_read_mtx)(const char *pathname, unsigned long nmax,
         sprintf(msg, "Couldn't open \"%s\".", pathname);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__,
                        CHARM_EFILEIO, msg);
-        return;
+        return CHARM_SHC_NMAX_ERROR;
     }
     /* ===================================================================== */
 
@@ -73,13 +77,24 @@ void CHARM(shc_read_mtx)(const char *pathname, unsigned long nmax,
 
     /* Read the metadata of spherical harmonic coefficients */
     /* --------------------------------------------------------------------- */
-    unsigned long nmax_file;
-    CHARM(shc_read_mtdt)(fptr, &nmax_file, &(shcs->mu), &(shcs->r), err);
+    unsigned long nmax_file = CHARM_SHC_NMAX_ERROR;
+    REAL r_file, mu_file;
+
+
+    CHARM(shc_read_mtdt)(fptr, &nmax_file, &mu_file, &r_file, err);
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
         goto EXIT;
     }
+
+
+    if (CHARM(shc_read_nmax_only)(nmax, shcs))
+        goto EXIT;
+
+
+    shcs->mu = mu_file;
+    shcs->r  = r_file;
     /* --------------------------------------------------------------------- */
 
 
@@ -126,7 +141,16 @@ void CHARM(shc_read_mtx)(const char *pathname, unsigned long nmax,
         {
             /* Read an entry from the text file and store it as a string */
             /* ------------------------------------------------------------- */
+            errno = 0;
             num_entries = fscanf(fptr, "%s", str);
+            if (errno)
+            {
+                CHARM(err_set)(err, __FILE__, __LINE__, __func__,
+                               CHARM_EFILEIO,
+                               "Couldn't read with \"fscanf\" "
+                               "from the \"mtx\" file.");
+                goto EXIT;
+            }
 
 
             /* Check for EOF */
@@ -153,7 +177,16 @@ void CHARM(shc_read_mtx)(const char *pathname, unsigned long nmax,
 
             /* Read the new line character if any */
             /* ------------------------------------------------------------- */
+            errno = 0;
             num_entries = fscanf(fptr, "%1[\n]", nl);
+            if (errno)
+            {
+                CHARM(err_set)(err, __FILE__, __LINE__, __func__,
+                               CHARM_EFILEIO,
+                               "Couldn't read with \"fscanf\" "
+                               "from the \"mtx\" file.");
+                goto EXIT;
+            }
             if ((num_entries == 1) && (nl[0] == '\n') && (col < nmax))
             {
                 CHARM(err_set)(err, __FILE__, __LINE__, __func__,
@@ -194,7 +227,18 @@ void CHARM(shc_read_mtx)(const char *pathname, unsigned long nmax,
          * continue with reading the next line, since all sought "nmax + 1"
          * values from the "row"th line were read */
         if (nl[0] != '\n')
+        {
+            errno = 0;
             fscanf(fptr, "%*[^\n]\n");
+            if (errno)
+            {
+                CHARM(err_set)(err, __FILE__, __LINE__, __func__,
+                               CHARM_EFILEIO,
+                               "Couldn't read with \"fscanf\" "
+                               "from the \"mtx\" file.");
+                goto EXIT;
+            }
+        }
 
 
         /* Reset "nl" (it may contain the new line character found at the end
@@ -211,6 +255,6 @@ void CHARM(shc_read_mtx)(const char *pathname, unsigned long nmax,
 
 EXIT:
     fclose(fptr);
-    return;
+    return nmax_file;
 }
 

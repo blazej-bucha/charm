@@ -2,6 +2,7 @@
 # "PATH" and saves the constants to a Python "FILE" to be used with PyHarm.
 
 import os
+import ctypes as ct
 import pyclibrary
 
 # Path to read the header files from
@@ -9,6 +10,8 @@ PATH = './charm/'
 
 # Name of the output Python file to save the symbolic constants to
 FILE = './wrap/pyharm/_constants.py'
+
+ULONG_MAX_CTYPES = ct.c_ulong(-1).value
 
 # Create the output file to write the symbolic constants to
 fid = open(FILE, 'w')
@@ -35,7 +38,10 @@ for root, dirs, files in os.walk(PATH):
             print('parsing...')
 
         # Parse the header file "f" in "PATH"
-        parser = pyclibrary.CParser(os.path.join(PATH, f))
+        parser = pyclibrary.CParser(os.path.join(PATH, f),
+                     replace={'ULONG_MAX': '%s' % (1 - ULONG_MAX_CTYPES),
+                              'CHARM_SHC_NMAX_MODEL': 'CHARM_SHC__NMAX_MODEL',
+                              'CHARM_SHC_NMAX_ERROR': 'CHARM_SHC__NMAX_ERROR'})
 
         # List of symbolic constants found
         symbols = list(parser.defs['values'].keys())

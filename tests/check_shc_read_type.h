@@ -15,10 +15,10 @@ extern "C"
 #endif
 
 
-extern long int check_shc_read_type(void (*)(const char *,
-                                             unsigned long,
-                                             CHARM(shc) *,
-                                             CHARM(err) *));
+extern long int check_shc_read_type(unsigned long (*)(const char *,
+                                                      unsigned long,
+                                                      CHARM(shc) *,
+                                                      CHARM(err) *));
 
 
 #ifdef __cplusplus

@@ -15,12 +15,13 @@ This documentation is written for double precision version of PyHarm.
 import os as _os
 import ctypes as _ct
 import numpy as _np
+from warnings import warn as _warn
 from . import _libcharm, _libcharmname, _CHARM, _pyharm
 from ._get_module_constants import _get_module_constants
 from ._data_types import _ct_ulong, _ct_flt, _ct_int, _charm_flt, _pyharm_flt
 from ._get_empty_array import _get_empty_array
 from ._check_types import _check_deg_ord, _check_radius, _check_flt_scalar, \
-                          _check_flt_ndarray, _check_pointer
+                          _check_flt_ndarray, _check_pointer, _check_int_scalar
 from . import _err as _ph_err
 
 
@@ -30,15 +31,15 @@ _get_module_constants('CHARM_SHC_')
 
 
 #: int: Ordering scheme to write spherical harmonic coefficients with
-#: the :meth:`pyharm.shc.Shc.to_file_tbl` method: harmonic degree varies
+#: the :meth:`pyharm.shc.Shc.to_file` method: harmonic degree varies
 #: fastest.
-WRITE_TBL_N: int
+WRITE_N: int
 
 
 #: int: Ordering scheme to write spherical harmonic coefficients with
-#: the :meth:`pyharm.shc.Shc.to_file_tbl` method: harmonic order varies
+#: the :meth:`pyharm.shc.Shc.to_file` method: harmonic order varies
 #: fastest.
-WRITE_TBL_M: int
+WRITE_M: int
 
 
 # If radius of the reference sphere is not specified by the user when creating
@@ -49,6 +50,12 @@ _R = _pyharm_flt(1.0)
 # class instance, this value will be used by default (implying no scaling
 # parameter).
 _MU = _pyharm_flt(1.0)
+
+
+# All possible file types to read and write spherical harmonic coefficients.
+# An exception is that 'gfc' format is not supported to write spherical
+# harmonic coefficients.
+_FILE_TYPES = ['gfc', 'bin', 'mtx', 'tbl', 'dov']
 
 
 class _Shc(_ct.Structure):
@@ -74,10 +81,7 @@ class Shc:
         * :meth:`from_garbage`,
         * :meth:`from_zeros`,
         * :meth:`from_arrays`,
-        * :meth:`from_file_gfc`,
-        * :meth:`from_file_mtx`,
-        * :meth:`from_file_tbl`,
-        * :meth:`from_file_bin`.
+        * :meth:`from_file`.
 
     Examples
     --------
@@ -103,7 +107,7 @@ class Shc:
 
             * :obj:`(c, s)` to define spherical harmonic coefficients based on
               two numpy floating point arrays :obj:`c` and :obj:`s`, each of
-              shape :obj:`(((nmax + 2) * (nmax + 1)) / 2,)`.  For ordering
+              shape :obj:`(((nmax + 2) * (nmax + 1)) // 2,)`.  For ordering
               scheme of the coefficients in the `c` and `s` arrays,
               see the :attr:`c` and :attr:`s` properties.
 
@@ -403,19 +407,38 @@ class Shc:
 
 
     @classmethod
-    def from_file_gfc(cls, pathname, nmax):
+    def from_file(cls, file_type, pathname, nmax, epoch=None):
         """
-        Reads spherical harmonic coefficients up to degree `nmax` from a `gfc`
-        file specified in `pathname`.  For the structure of the input file,
-        refer to `charm_shc <./api-c-shc.html>`_.
+        Reads spherical harmonic coefficients up to degree `nmax` from the
+        `pathname` file of a given `file_type`.  For time variable models
+        stored in the `gfc` file type, `epoch` additionally transforms the
+        coefficients to a given epoch.
+
+        .. tip:: To get the maximum harmonic degree stored in `pathname`, use
+                 :meth:`nmax_from_file`.
+
+        .. tip:: To print all supported file types, use :meth:`get_file_types`:
+
+                 >>> import pyharm as ph
+                 >>> ph.shc.Shc.get_file_types()
+
+                 For the structure of the file types, refer to `charm_shc
+                 <./api-c-shc.html>`_.
 
         Parameters
         ----------
+        file_type : str
+            Type of the input file
         pathname : str
             Input file path
         nmax : integer
             Maximum harmonic degree to read the spherical harmonic coefficients
-            from the input file
+        epoch : str
+            Epoch, to which spherical harmonic coefficients from `gfc` file
+            types are transformed in case of time variable gravity field
+            models; optional.  For the structure of the string, refer to
+            `charm_shc <./api-c-shc.html>`_.  This input parameter is used only
+            if `file_type` is `gfc`.  Default value is `None`.
 
         Returns
         -------
@@ -423,228 +446,101 @@ class Shc:
             An :class:`Shc` class instance
         """
 
-        return Shc._read_shc('gfc', pathname, nmax)
+        # "nmax" needs to be checked already here, because "_read_shc" accepts
+        # also "_NMAX_MODEL"
+        _check_deg_ord(nmax, 'degree')
+        return Shc._read_shc(file_type, pathname, nmax, epoch)
 
 
-    @classmethod
-    def from_file_mtx(cls, pathname, nmax):
+    def to_file(self, file_type, nmax, pathname, formatting='%0.16e',
+                ordering=WRITE_N):
         """
-        Reads spherical harmonic coefficients up to degree `nmax` from a `mtx`
-        file specified in `pathname`.  For the structure of the input file,
-        refer to `charm_shc <./api-c-shc.html>`_.
+        Writes an :class:`Shc` class instance up to degree `nmax` to a file
+        `pathname` of a given `file_type`.  If `file_type` represents a text
+        file (`dov`, `tbl` or `mtx`), `formatting` specifies the formatting for
+        all floating point numbers.  If `file_type` is `dov` or `tbl`,
+        `ordering` defines the ordering of spherical harmonic coefficients in
+        the output file.
+
+        .. tip:: To print all supported file types, use :meth:`get_file_types`:
+
+                 >>> import pyharm as ph
+                 >>> ph.shc.Shc.get_file_types()
+
+                 For the structure of the file types, refer to `charm_shc
+                 <./api-c-shc.html>`_.
 
         Parameters
         ----------
-        pathname : str
-            Input file path
-        nmax : integer
-            Maximum harmonic degree to read the spherical harmonic coefficients
-            from the input file
-
-        Returns
-        -------
-        out : Shc
-            An :class:`Shc` class instance
-        """
-
-        return Shc._read_shc('mtx', pathname, nmax)
-
-
-    @classmethod
-    def from_file_tbl(cls, pathname, nmax):
-        """
-        Reads spherical harmonic coefficients up to degree `nmax` from a `tbl`
-        file specified in `pathname`.  For the structure of the input file,
-        refer to `charm_shc <./api-c-shc.html>`_.
-
-        Parameters
-        ----------
-        pathname : str
-            Input file path
-        nmax : integer
-            Maximum harmonic degree to read the spherical harmonic coefficients
-            from the input file
-
-        Returns
-        -------
-        out : Shc
-            An :class:`Shc` class instance
-        """
-
-        return Shc._read_shc('tbl', pathname, nmax)
-
-
-    @classmethod
-    def from_file_bin(cls, pathname, nmax):
-        """
-        Reads spherical harmonic coefficients up to degree `nmax` from a `bin`
-        file specified in `pathname`.  For the structure of the input file,
-        refer to `charm_shc <./api-c-shc.html>`_.
-
-        Parameters
-        ----------
-        pathname : str
-            Input file path
-        nmax : integer
-            Maximum harmonic degree to read the spherical harmonic coefficients
-            from the input file
-
-        Returns
-        -------
-        out : Shc
-            An :class:`Shc` class instance
-        """
-
-        return Shc._read_shc('bin', pathname, nmax)
-
-
-    def to_file_mtx(self, nmax, format, pathname):
-        """
-        Writes an :class:`Shc` class instance up to degree `nmax` to a text
-        file specified in `pathname` using formatting for floating point
-        numbers `format`.  For the structure of the output file, refer to
-        `charm_shc <./api-c-shc.html>`_.
-
-        Parameters
-        ----------
+        file_type : str
+            Type of the input file
         nmax : integer
             Maximum harmonic degree to write the spherical harmonic coefficients
-        format : str
-            Format to write floating point numbers, e.g., :obj:`'%0.16e'`
         pathname : str
             Output file path
-        """
-
-        self._check_nmax(nmax)
-
-        if not isinstance(format, str):
-            raise TypeError('\'format\' must be a string.')
-
-        if not isinstance(pathname, str):
-            raise TypeError('\'pathname\' must be a string.')
-
-        self._create_path(pathname)
-
-        func_name    = _CHARM + 'shc_write_mtx'
-        func         = _libcharm[func_name]
-        func.restype = None
-        func.argtype = [_ct.POINTER(_Shc),
-                        _ct_ulong,
-                        _ct.c_char_p,
-                        _ct.c_char_p,
-                        _ct.POINTER(_ph_err._Err)]
-
-        err = _ph_err.init()
-        func(self._Shc,
-             _ct_ulong(nmax),
-             _ct.create_string_buffer(format.encode()),
-             _ct.create_string_buffer(pathname.encode()),
-             err)
-        _ph_err.handler(err, 1)
-        _ph_err.free(err)
-
-        return
-
-
-    def to_file_tbl(self, nmax, format, ordering, pathname):
-        """
-        Writes an :class:`Shc` class instance up to degree `nmax` to a text
-        file specified in `pathname` using formatting for floating point
-        numbers `format` and ordering scheme `ordering`.  For the structure of
-        the output file, refer to `charm_shc <./api-c-shc.html>`_.
-
-        Parameters
-        ----------
-        nmax : integer
-            Maximum harmonic degree to write the spherical harmonic coefficients
-        format : str
-            Format to write floating point numbers, e.g., :obj:`'%0.16e'`
+        formatting : str
+            Formatting to write floating point numbers to text formats,
+            optional.  Default is :obj:`'%0.16e'`.
         ordering : integer
-            Scheme to sort spherical harmonic coefficients,
-            either :obj:`pyharm.shc.WRITE_TBL_N` or
-            :obj:`pyharm.shc.WRITE_TBL_M`
-        pathname : str
-            Output file path
+            Scheme to sort spherical harmonic coefficients when `file_type` is
+            `dov` or `tbl`, optional.  Accepted values are
+            :obj:`pyharm.shc.WRITE_N` and :obj:`pyharm.shc.WRITE_M`.  Default
+            is :obj:`pyharm.shc.WRITE_N`.
         """
 
-        self._check_nmax(nmax)
+        self._write_shc(file_type, nmax, pathname, formatting, ordering)
+        return
 
-        if not isinstance(format, str):
-            raise TypeError('\'format\' must be a string.')
 
-        if not isinstance(ordering, int):
-            raise TypeError('\'ordering\' must be an integer.')
+    @staticmethod
+    def get_file_types():
+        """
+        Prints all file types supported by the :meth:`to_file` and
+        :meth:`from_file` methods of the :class:`Shc` class.
+        """
 
-        if ordering not in [WRITE_TBL_N, WRITE_TBL_M]:
-            raise ValueError('Unsupported value of \'ordering\'.')
-
-        if not isinstance(pathname, str):
-            raise TypeError('\'pathname\' must be a string.')
-
-        self._create_path(pathname)
-
-        func_name    = _CHARM + 'shc_write_tbl'
-        func         = _libcharm[func_name]
-        func.restype = None
-        func.argtype = [_ct.POINTER(_Shc),
-                        _ct_ulong,
-                        _ct.c_char_p,
-                        _ct.c_int,
-                        _ct.c_char_p,
-                        _ct.POINTER(_ph_err._Err)]
-
-        err = _ph_err.init()
-        func(self._Shc,
-             _ct_ulong(nmax),
-             _ct.create_string_buffer(format.encode()),
-             _ct_int(ordering),
-             _ct.create_string_buffer(pathname.encode()),
-             err)
-        _ph_err.handler(err, 1)
-        _ph_err.free(err)
+        print(Shc._get_file_types())
 
         return
 
 
-    def to_file_bin(self, nmax, pathname):
+    @staticmethod
+    def nmax_from_file(file_type, pathname):
         """
-        Writes an :class:`Shc` class instance up to degree `nmax` to a binary
-        file specified in `pathname`.  For the structure of the output file,
-        refer to `charm_shc <./api-c-shc.html>`_.
+        Returns the maximum harmonic degree of coefficients stored in
+        the `pathname` file that is of a given `file_type`.
+
+        .. tip:: Use this method to get the maximum degree of spherical
+                 harmonic coefficients stored in a file and then load the file
+                 up to its maximum harmonic degree:
+
+                 >>> import pyharm as ph
+                 >>> path = '/some/path/to/gfc'
+                 >>> nmax = ph.shc.Shc.nmax_from_file('gfc', path)
+                 >>> shcs = ph.shc.Shc.from_file('gfc', path, nmax)
+
+        .. tip:: To print all supported file types, use :meth:`get_file_types`:
+
+                 >>> import pyharm as ph
+                 >>> ph.shc.Shc.get_file_types()
+
+                 For the structure of the file types, refer to `charm_shc
+                 <./api-c-shc.html>`_.
 
         Parameters
         ----------
-        nmax : integer
-            Maximum harmonic degree to write the spherical harmonic
-            coefficients
+        file_type : str
+            Type of the input file
         pathname : str
-            Output file path
+            Input file path
+
+        Returns
+        -------
+        out : integer
+            Maximum harmonic degree of the model
         """
 
-        self._check_nmax(nmax)
-
-        if not isinstance(pathname, str):
-            raise TypeError('\'pathname\' must be a string.')
-
-        self._create_path(pathname)
-
-        func_name    = _CHARM + 'shc_write_bin'
-        func         = _libcharm[func_name]
-        func.restype = None
-        func.argtype = [_ct.POINTER(_Shc),
-                        _ct_ulong,
-                        _ct.c_char_p,
-                        _ct.POINTER(_ph_err._Err)]
-
-        err = _ph_err.init()
-        func(self._Shc,
-             _ct_ulong(nmax),
-             _ct.create_string_buffer(pathname.encode()),
-             err)
-        _ph_err.handler(err, 1)
-        _ph_err.free(err)
-
-        return
+        return Shc._read_shc(file_type, pathname, _NMAX_MODEL)
 
 
     def get_coeffs(self, n=None, m=None):
@@ -971,13 +867,13 @@ class Shc:
         else:
             _check_radius(r)
 
-        func_name    = _CHARM + 'shc_rescale'
-        func         = _libcharm[func_name]
-        func.restype = None
-        func.argtype = [_ct.POINTER(_Shc),
-                        _ct_flt,
-                        _ct_flt,
-                        _ct.POINTER(_ph_err._Err)]
+        func_name     = _CHARM + 'shc_rescale'
+        func          = _libcharm[func_name]
+        func.restype  = None
+        func.argtypes = [_ct.POINTER(_Shc),
+                         _ct_flt,
+                         _ct_flt,
+                         _ct.POINTER(_ph_err._Err)]
 
         err = _ph_err.init()
         func(self._Shc, _ct_flt(mu), _ct_flt(r), err)
@@ -1074,6 +970,27 @@ class Shc:
         return self._dda_ddv(_CHARM + 'shc_dda', shcs, nmax)
 
 
+    @staticmethod
+    def _get_file_types():
+        """
+        Returns a help string on all supported values of the `file_type` input
+        parameter to :meth:`to_file` and :meth:`from_file` methods of the
+        :class:`Shc` class.
+        """
+
+        ret  = f'The following strings are accepted as the \'file_type\' '
+        ret += f'input parameter to \'to_file\' and \'from_file\' methods '
+        ret += f'of the \'Shc\' class:'
+        for ft in _FILE_TYPES:
+            ret += '\n'
+            ret += '\t\'%s\'' % ft
+        ret += '\n'
+        ret += 'Note that \'gfc\' is supported only by the \'from_file\' '
+        ret += 'method.'
+
+        return ret
+
+
     def _Shc2Shc(self):
         """
         Private function to convert an :class:`_Shc` class instance in
@@ -1110,16 +1027,16 @@ class Shc:
         """
 
         if self._Shc is not None:
-            func         = _libcharm[_CHARM + 'shc_free']
-            func.restype = None
-            func.argtype = [_ct.POINTER(_Shc)]
+            func          = _libcharm[_CHARM + 'shc_free']
+            func.restype  = None
+            func.argtypes = [_ct.POINTER(_Shc)]
             func(self._Shc)
 
         return
 
 
     @classmethod
-    def _read_shc(cls, file_type, pathname, nmax):
+    def _read_shc(cls, file_type, pathname, nmax, epoch=None):
         """
         Private function to call CHarm functions to load spherical harmonic
         coefficients up to degree `nmax` from a file of `file_type` specified
@@ -1128,17 +1045,43 @@ class Shc:
         Parameters
         ----------
         file_type : str
-            Either `gfc`, `tbl`, `mtx` or `bin
+            Either `gfc`, `tbl`, `mtx` or `bin`
         pathname : str
             Input file path
         nmax : integer
             Maximum harmonic degree to read spherical harmonic coefficients
+        epoch : str
+            Epoch of the output spherical harmonic coefficients.  Relevant only
+            for "gfc" files with time variable coefficients.  Default is
+            'None'.
 
         Returns
         -------
-        out : Shc
-            An `Shc` class instance
+        out : Shc, integer
+            If `nmax` is a valid maximum harmonic degree, the function returns
+            an `Shc` class instance.  If `nmax` is `_NMAX_MODEL`, the function
+            returns the maximum degree found in ``pathname`` without reading
+            the coefficients inside the file.
         """
+
+        Shc._check_file_type(file_type)
+
+        if file_type != 'gfc' and epoch is not None:
+            _warn(f'The input parameter \'epoch\' is ignored for '
+                  f'\'file_type = {file_type}\'.')
+
+        if not isinstance(pathname, str):
+            raise TypeError('\'pathname\' must be a string.')
+
+        if nmax == _NMAX_MODEL:
+            # In this special case, "nmax" can be negative, so check for
+            # integer only
+            _check_int_scalar(nmax, '_NMAX_MODEL')
+        else:
+            _check_deg_ord(nmax, 'degree')
+
+        if epoch is not None and not isinstance(epoch, str):
+            raise TypeError('\'epoch\' must be a string or \'None\'.')
 
         if file_type == 'gfc':
             func_name = _CHARM + 'shc_read_gfc'
@@ -1148,35 +1091,167 @@ class Shc:
             func_name = _CHARM + 'shc_read_mtx'
         elif file_type == 'bin':
             func_name = _CHARM + 'shc_read_bin'
+        elif file_type == 'dov':
+            func_name = _CHARM + 'shc_read_dov'
+
+        if file_type == 'gfc':
+            func_gfc          = _libcharm[func_name]
+            func_gfc.restype  = _ct_ulong
+            func_gfc.argtypes = [_ct.c_char_p,
+                                 _ct_ulong,
+                                 _ct.c_char_p,
+                                 _ct.POINTER(_Shc),
+                                 _ct.POINTER(_ph_err._Err)]
         else:
-            raise ValueError('Unknown CHarm function to read spherical '
-                             'harmonic coefficients.')
+            func_rest          = _libcharm[func_name]
+            func_rest.restype  = _ct_ulong
+            func_rest.argtypes = [_ct.c_char_p,
+                                  _ct_ulong,
+                                  _ct.POINTER(_Shc),
+                                  _ct.POINTER(_ph_err._Err)]
+
+        if epoch is None:
+            epoch_ptr = None
+        else:
+            epoch_ptr = _ct.create_string_buffer(epoch.encode())
+
+        err = _ph_err.init()
+        if nmax == _NMAX_MODEL:
+            if file_type == 'gfc':
+                ret = func_gfc(_ct.create_string_buffer(pathname.encode()),
+                               _ct_ulong(_get_nmax_model()),
+                               epoch_ptr,
+                               None,
+                               err)
+            else:
+                ret = func_rest(_ct.create_string_buffer(pathname.encode()),
+                                _ct_ulong(_get_nmax_model()),
+                                None,
+                                err)
+        else:
+            shcs = cls.from_garbage(nmax)
+            if file_type == 'gfc':
+                ret = func_gfc(_ct.create_string_buffer(pathname.encode()),
+                               _ct_ulong(nmax),
+                               epoch_ptr,
+                               shcs._Shc,
+                               err)
+            else:
+                ret = func_rest(_ct.create_string_buffer(pathname.encode()),
+                                _ct_ulong(nmax),
+                                shcs._Shc,
+                                err)
+        _ph_err.handler(err, 1)
+        _ph_err.free(err)
+
+        if nmax == _NMAX_MODEL:
+            # Returns maximum harmonic degree of the model
+            return ret
+        else:
+            shcs._Shc2Shc()
+            # Returns "Shc" class instance
+            return shcs
+
+
+    def _write_shc(self, file_type, nmax, pathname, formatting='%0.16e',
+                   ordering=WRITE_N):
+        """
+        Private function to call CHarm functions to write spherical harmonic
+        coefficients up to degree `nmax` to a file `pathname` of a given
+        `file_type`.  Default formatting for floating point numbers in text
+        files is '%0.16e' and the default ordering scheme for `dov` and `tbl`
+        file types is `WRITE_N`.
+
+        Parameters
+        ----------
+        file_type : str
+            Either `tbl`, `mtx` or `bin`
+        nmax : integer
+            Maximum harmonic degree to write the spherical harmonic
+            coefficients
+        pathname : str
+            Output file path
+        formatting : str
+            Formatting to write floating point numbers to text files.  Default
+            is `'%0.16e'`,
+        ordering : int
+            Ordering scheme for `dov` and `tbl` file types.  Default is
+            `WRITE_N`
+        """
+
+        Shc._check_file_type(file_type)
+        if file_type == 'gfc':
+            raise ValueError(f'Writing to the \'gfc\' file type is not '
+                             f'supported.')
+
+        self._check_nmax(nmax)
 
         if not isinstance(pathname, str):
             raise TypeError('\'pathname\' must be a string.')
 
-        _check_deg_ord(nmax, 'degree')
+        if not isinstance(formatting, str):
+            raise TypeError('\'formatting\' must be a string.')
+
+        if file_type == 'dov' and ordering not in [WRITE_N, WRITE_M]:
+            raise ValueError('Unsupported value of \'ordering\'.')
+        elif file_type == 'tbl' and ordering not in [WRITE_N, WRITE_M]:
+            raise ValueError('Unsupported value of \'ordering\'.')
+
+        if file_type == 'tbl':
+            func_name = _CHARM + 'shc_write_tbl'
+        elif file_type == 'mtx':
+            func_name = _CHARM + 'shc_write_mtx'
+        elif file_type == 'bin':
+            func_name = _CHARM + 'shc_write_bin'
+        elif file_type == 'dov':
+            func_name = _CHARM + 'shc_write_dov'
+
+        self._create_path(pathname)
 
         func         = _libcharm[func_name]
         func.restype = None
-        func.argtype = [_ct.c_char_p,
-                        _ct_ulong,
-                        _ct.POINTER(_Shc),
-                        _ct.POINTER(_ph_err._Err)]
-
-        shcs = cls.from_garbage(nmax)
+        if file_type == 'tbl' or file_type == 'dov':
+            func.argtypes = [_ct.POINTER(_Shc),
+                             _ct_ulong,
+                             _ct.c_char_p,
+                             _ct_int,
+                             _ct.c_char_p,
+                             _ct.POINTER(_ph_err._Err)]
+        elif file_type == 'bin':
+            func.argtypes = [_ct.POINTER(_Shc),
+                             _ct_ulong,
+                             _ct.c_char_p,
+                             _ct.POINTER(_ph_err._Err)]
+        else:
+            func.argtypes = [_ct.POINTER(_Shc),
+                             _ct_ulong,
+                             _ct.c_char_p,
+                             _ct.c_char_p,
+                             _ct.POINTER(_ph_err._Err)]
 
         err = _ph_err.init()
-        func(_ct.create_string_buffer(pathname.encode()),
-             _ct_ulong(nmax),
-             shcs._Shc,
-             err)
+        if file_type == 'tbl' or file_type == 'dov':
+            func(self._Shc,
+                 _ct_ulong(nmax),
+                 _ct.create_string_buffer(formatting.encode()),
+                 _ct_int(ordering),
+                 _ct.create_string_buffer(pathname.encode()),
+                 err)
+        elif file_type == 'bin':
+            func(self._Shc,
+                 _ct_ulong(nmax),
+                 _ct.create_string_buffer(pathname.encode()),
+                 err)
+        else:
+            func(self._Shc,
+                 _ct_ulong(nmax),
+                 _ct.create_string_buffer(formatting.encode()),
+                 _ct.create_string_buffer(pathname.encode()),
+                 err)
         _ph_err.handler(err, 1)
         _ph_err.free(err)
 
-        shcs._Shc2Shc()
-
-        return shcs
+        return
 
 
     def _get_m_idx(self, m):
@@ -1249,6 +1324,27 @@ class Shc:
 
 
     @staticmethod
+    def _check_file_type(file_type):
+        """
+        Private function to check file type to read/write spherical harmonic
+        coefficients from/to a file.
+
+        Parameters
+        ----------
+        file_type : str
+            File type
+        """
+
+        if not isinstance(file_type, str):
+            raise TypeError('\'file_type\' must be a string.')
+
+        if file_type not in _FILE_TYPES:
+            raise ValueError(f'Unsupported file type {file_type}.')
+
+        return
+
+
+    @staticmethod
     def _check_mlen(n, m):
         """
         Private function to check whether spherical harmonic degree 'm' is
@@ -1316,12 +1412,12 @@ class Shc:
 
         self._check_nmax(nmax)
 
-        func         = _libcharm[f]
-        func.restype = None
-        func.argtype = [_ct.POINTER(_Shc),
-                        _ct_ulong,
-                        _ct.POINTER(_ct_flt),
-                        _ct.POINTER(_ph_err._Err)]
+        func          = _libcharm[f]
+        func.restype  = None
+        func.argtypes = [_ct.POINTER(_Shc),
+                         _ct_ulong,
+                         _ct.POINTER(_ct_flt),
+                         _ct.POINTER(_ph_err._Err)]
 
         ret = _np.zeros((nmax + 1,), dtype=_pyharm_flt)
 
@@ -1374,13 +1470,13 @@ class Shc:
 
         _check_deg_ord(nmax, 'degree')
 
-        func         = _libcharm[f]
-        func.restype = None
-        func.argtype = [_ct.POINTER(_Shc),
-                        _ct.POINTER(_Shc),
-                        _ct_ulong,
-                        _ct.POINTER(_ct_flt),
-                        _ct.POINTER(_ph_err._Err)]
+        func          = _libcharm[f]
+        func.restype  = None
+        func.argtypes = [_ct.POINTER(_Shc),
+                         _ct.POINTER(_Shc),
+                         _ct_ulong,
+                         _ct.POINTER(_ct_flt),
+                         _ct.POINTER(_ph_err._Err)]
 
         ret = _np.zeros((nmax + 1,), dtype=_pyharm_flt)
 
@@ -1394,4 +1490,16 @@ class Shc:
         _ph_err.free(err)
 
         return ret
+
+
+def _get_nmax_model():
+    """
+    Private function to return the CHarm's ``CHARM_SHC_NMAX_MODEL`` value.
+    """
+
+    func          = _libcharm[_CHARM + 'shc_get_nmax_model']
+    func.argtypes = None
+    func.restype  = _ct_ulong
+
+    return func()
 

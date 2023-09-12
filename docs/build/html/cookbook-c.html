@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>CHarm &#8212; CHarm 0.3.0 documentation</title>
+    <title>CHarm &#8212; CHarm 0.3.1 documentation</title>
   
   
   
@@ -125,7 +125,7 @@
     <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
   
   
-    <p class="title logo__title">CHarm v0.3.0</p>
+    <p class="title logo__title">CHarm v0.3.1</p>
   
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
@@ -545,8 +545,10 @@ files and how to compute (difference) degree variances.</p>
 
 
 <span class="w">    </span><span class="cm">/* Now let&#39;s read spherical harmonic coefficients, the scaling constant and</span>
-<span class="cm">     * the radius of the reference sphere from the input &quot;gfc&quot; file. */</span>
-<span class="w">    </span><span class="n">charm_shc_read_gfc</span><span class="p">(</span><span class="n">shcs_in_file</span><span class="p">,</span><span class="w"> </span><span class="n">nmax</span><span class="p">,</span><span class="w"> </span><span class="n">shcs</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="cm">     * the radius of the reference sphere from the input &quot;gfc&quot; file.  We are</span>
+<span class="cm">     * reading a static &quot;gfc&quot; model, so the &quot;epoch&quot; parameter is set to &quot;NULL&quot;.</span>
+<span class="cm">     * */</span>
+<span class="w">    </span><span class="n">charm_shc_read_gfc</span><span class="p">(</span><span class="n">shcs_in_file</span><span class="p">,</span><span class="w"> </span><span class="n">nmax</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">shcs</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
 
 
 <span class="w">    </span><span class="cm">/* At this point, &quot;shcs&quot; should store the loaded spherical harmonic</span>
@@ -1553,7 +1555,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 16, 2023.
+  Last updated on Sep 12, 2023.
   <br/>
 </p>
   </div>

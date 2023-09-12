@@ -16,15 +16,18 @@ libcharm@P@_shc@OMP@_la_SOURCES = shc_da.c \
 								  shc_read_bin.c \
 								  shc_read_mtx.c \
 								  shc_read_tbl.c \
+								  shc_read_dov.c \
 								  shc_read_gfc.c \
 								  shc_read_mtdt.c \
-								  shc_read_line.c \
+								  shc_read_nmax_only.c \
 								  shc_write_bin.c \
 								  shc_write_mtx.c \
 								  shc_write_tbl.c \
+								  shc_write_dov.c \
 								  shc_write_mtdt.c \
 								  shc_rescale.c \
-								  shc_reset_coeffs.c
+								  shc_reset_coeffs.c \
+								  shc_get_nmax_model.c
 
 
 EXTRA_DIST = *.h

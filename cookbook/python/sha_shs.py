@@ -21,7 +21,7 @@ print('===========================')
 
 
 # Read spherical harmonic coefficients from the input text file.
-shcs = ph.shc.Shc.from_file_mtx(shcs_in_file, nmax)
+shcs = ph.shc.Shc.from_file('mtx', shcs_in_file, nmax)
 
 
 # Now let's say we do not want to use the zero-degree term.  This can be
