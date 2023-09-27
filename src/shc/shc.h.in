@@ -86,7 +86,7 @@ enum
      * read spherical harmonic coefficients.  If ``nmax`` is
      * ``::CHARM_SHC_NMAX_MODEL`` and ``shcs`` is ``NULL``, the functions
      * return the maximum harmonic degree found inside the file and do not read
-     * the rest of the file (see the documentatino to ``charm@P@_shc_read_*``
+     * the rest of the file (see the documentation to ``charm@P@_shc_read_*``
      * function). The value is platform-dependent. */
     CHARM_SHC_NMAX_MODEL = ULONG_MAX - 1,
 
