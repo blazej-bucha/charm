@@ -87,7 +87,7 @@ void CHARM(shs_point_sctr)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
 
 
 
-    /* Check whether all values of "pnt->r" are equal to "shcs->r".  If true, 
+    /* Check whether all values of "pnt->r" are equal to "shcs->r".  If true,
      * a faster code can be used inside "shs_point_kernel".  */
     /* --------------------------------------------------------------------- */
     _Bool r_eq_rref = CHARM(shs_r_eq_rref)(pnt, shcs);

@@ -45,6 +45,10 @@ CHARM(point) *CHARM(crd_point_init)(int type, size_t nlat, size_t nlon,
     /* --------------------------------------------------------------------- */
     pnt->nlat  = nlat;
     pnt->nlon  = nlon;
+    if (type == CHARM_CRD_POINT_SCATTERED)
+        pnt->npoint = nlat;
+    else
+        pnt->npoint = nlat * nlon;
     pnt->type  = type;
     pnt->owner = 0;
     /* --------------------------------------------------------------------- */

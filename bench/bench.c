@@ -229,7 +229,7 @@ int main(void)
 
 
         printf("    Allocating memory for the signal to be synthesized...\n");
-        f = (REAL *)malloc(grd->nlat * grd->nlon * sizeof(REAL));
+        f = (REAL *)malloc(grd->npoint * sizeof(REAL));
         if (f == NULL)
         {
             fprintf(stderr, "malloc failure.\n");

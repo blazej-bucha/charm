@@ -107,7 +107,7 @@ long int check_shs_cell_isurf(void)
                               FOLDER, nmax_p, nmax_t, i, FTYPE);
 
 
-                f = (REAL *)malloc(grd->nlat * grd->nlon * sizeof(REAL));
+                f = (REAL *)malloc(grd->ncell * sizeof(REAL));
                 if (f == NULL)
                 {
                     fprintf(stderr, "malloc failure.\n");
@@ -121,10 +121,9 @@ long int check_shs_cell_isurf(void)
 
 
 #ifdef GENREF
-                e += write(file, f, grd->nlat * grd->nlon);
+                e += write(file, f, grd->ncell);
 #else
-                e += validate(file, f, grd->nlat * grd->nlon,
-                              CHARM(glob_threshold2));
+                e += validate(file, f, grd->ncell, CHARM(glob_threshold2));
 #endif
 
 

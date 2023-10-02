@@ -118,8 +118,7 @@ long int check_sha_cell(void)
                         break_symm = (REAL)(BREAK_SYMM);
 
 
-                    f = (REAL *)malloc(grd_cell->nlat * grd_cell->nlon *
-                                       sizeof(REAL));
+                    f = (REAL *)malloc(grd_cell->ncell * sizeof(REAL));
                     if (f == NULL)
                     {
                         fprintf(stderr, "malloc failure.\n");

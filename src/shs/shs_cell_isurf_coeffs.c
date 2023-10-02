@@ -80,10 +80,6 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
                        "Failed to initialize the Gauss--Legendre grid.");
         goto FAILURE;
     }
-
-
-    size_t glg_nlat = glg->nlat;
-    size_t glg_nlon = glg->nlon;
     /* --------------------------------------------------------------------- */
 
 
@@ -93,7 +89,7 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
 
     /* Synthesize the topography at the nodes of the Gauss--Legendre grid */
     /* --------------------------------------------------------------------- */
-    r = (REAL *)malloc((glg_nlat * glg_nlon) * sizeof(REAL));
+    r = (REAL *)malloc(glg->npoint * sizeof(REAL));
     if (r == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -114,14 +110,13 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
 #if CHARM_OPENMP
 #pragma omp parallel for default(shared)
 #endif
-    for (size_t i = 0; i < glg_nlat; i++)
-        for (size_t j = 0; j < glg_nlon; j++)
-            r[i * glg_nlon + j] = shcs1->r / r[i * glg_nlon + j];
+    for (size_t i = 0; i < glg->npoint; i++)
+        r[i] = shcs1->r / r[i];
 
 
     /* Array to store the "n + 1"th power of "shcs1->r / r" for "n = 0, 1, ...,
      * nmax1" */
-    r_pow = (REAL *)malloc((glg_nlat * glg_nlon) * sizeof(REAL));
+    r_pow = (REAL *)malloc(glg->npoint * sizeof(REAL));
     if (r_pow == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -131,9 +126,8 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
 #if CHARM_OPENMP
 #pragma omp parallel for default(shared)
 #endif
-    for (size_t i = 0; i < glg_nlat; i++)
-        for (size_t j = 0; j < glg_nlon; j++)
-            r_pow[i * glg_nlon + j] = PREC(1.0);
+    for (size_t i = 0; i < glg->npoint; i++)
+        r_pow[i] = PREC(1.0);
     /* --------------------------------------------------------------------- */
 
 
@@ -304,9 +298,8 @@ private(pnmj_m1_j1, max_m1_j1)
 #if CHARM_OPENMP
 #pragma omp parallel for default(shared)
 #endif
-        for (size_t i = 0; i < glg_nlat; i++)
-            for (size_t j = 0; j < glg_nlon; j++)
-                r_pow[i * glg_nlon + j] *= r[i * glg_nlon + j];
+        for (size_t i = 0; i < glg->npoint; i++)
+            r_pow[i] *= r[i];
 
 
         CHARM(sha_point)(glg, r_pow, nmax3, shcs3, err);

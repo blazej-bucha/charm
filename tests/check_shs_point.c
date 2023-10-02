@@ -109,8 +109,7 @@ long int check_shs_point(void)
                         FOLDER, nmax, deltar, grd_str, FTYPE);
 
 
-                f = (REAL *)malloc(grd_pnt->nlat * grd_pnt->nlon *
-                                   sizeof(REAL));
+                f = (REAL *)malloc(grd_pnt->npoint * sizeof(REAL));
                 if (f == NULL)
                 {
                     fprintf(stderr, "malloc failure.\n");
@@ -123,9 +122,9 @@ long int check_shs_point(void)
 
 
 #ifdef GENREF
-                e += write(file, f, grd_pnt->nlat * grd_pnt->nlon);
+                e += write(file, f, grd_pnt->npoint);
 #else
-                e += validate(file, f, grd_pnt->nlat * grd_pnt->nlon,
+                e += validate(file, f, grd_pnt->npoint,
                               PREC(10.0) * CHARM(glob_threshold));
 #endif
 
@@ -210,8 +209,7 @@ long int check_shs_point(void)
                                 (s == 0) ? 0 : 1, FTYPE);
 
 
-                        f = (REAL *)malloc(grd_pnt->nlat * grd_pnt->nlon *
-                                           sizeof(REAL));
+                        f = (REAL *)malloc(grd_pnt->npoint * sizeof(REAL));
                         if (f == NULL)
                         {
                             fprintf(stderr, "malloc failure.\n");
@@ -222,9 +220,9 @@ long int check_shs_point(void)
                         CHARM(shs_point)(grd_pnt, shcs, nmax, f, err);
                         CHARM(err_handler)(err, 1);
 #ifdef GENREF
-                        e += write(file, f, grd_pnt->nlat * grd_pnt->nlon);
+                        e += write(file, f, grd_pnt->npoint);
 #else
-                        e += validate(file, f, grd_pnt->nlat * grd_pnt->nlon,
+                        e += validate(file, f, grd_pnt->npoint,
                                       PREC(100.0) * CHARM(glob_threshold));
 #endif
 
@@ -281,7 +279,7 @@ long int check_shs_point(void)
                         FOLDER, "p", nmax, i, deltar, FTYPE);
 
 
-                f = (REAL *)malloc(sctr_pnt->nlat * sizeof(REAL));
+                f = (REAL *)malloc(sctr_pnt->npoint * sizeof(REAL));
                 if (f == NULL)
                 {
                     fprintf(stderr, "malloc failure.\n");
@@ -292,9 +290,9 @@ long int check_shs_point(void)
                 CHARM(shs_point)(sctr_pnt, shcs, nmax, f, err);
                 CHARM(err_handler)(err, 1);
 #ifdef GENREF
-                e += write(file, f, sctr_pnt->nlat);
+                e += write(file, f, sctr_pnt->npoint);
 #else
-                e += validate(file, f, sctr_pnt->nlat,
+                e += validate(file, f, sctr_pnt->npoint,
                               PREC(10.0) * CHARM(glob_threshold));
 #endif
 
@@ -402,8 +400,7 @@ long int check_shs_point(void)
                                 (s == 0) ? 0 : 1, FTYPE);
 
 
-                        f = (REAL *)malloc(grd_pnt->nlat * grd_pnt->nlon *
-                                           sizeof(REAL));
+                        f = (REAL *)malloc(grd_pnt->npoint * sizeof(REAL));
                         if (f == NULL)
                         {
                             fprintf(stderr, "malloc failure.\n");
@@ -414,8 +411,12 @@ long int check_shs_point(void)
                         CHARM(shs_point)(grd_pnt, shcs, nmax, f, err);
                         CHARM(err_handler)(err, 1);
 #ifdef GENREF
+                        /* Do not use "grd_pnt->npoint" here, because
+                         * "grd_pnt->nlon" has been modified. */
                         e += write(file, f, grd_pnt->nlat * grd_pnt->nlon);
 #else
+                        /* Do not use "grd_pnt->npoint" here, because
+                         * "grd_pnt->nlon" has been modified. */
                         e += validate(file, f, grd_pnt->nlat * grd_pnt->nlon,
                                       CHARM(glob_threshold2));
 #endif

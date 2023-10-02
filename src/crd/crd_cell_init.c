@@ -48,6 +48,10 @@ CHARM(cell) *CHARM(crd_cell_init)(int type, size_t nlat, size_t nlon,
     /* --------------------------------------------------------------------- */
     cell->nlat  = nlat;
     cell->nlon  = nlon;
+    if (type == CHARM_CRD_CELL_SCATTERED)
+        cell->ncell = nlat;
+    else
+        cell->ncell = nlat * nlon;
     cell->type  = type;
     cell->owner = 0;
     /* --------------------------------------------------------------------- */

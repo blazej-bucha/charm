@@ -126,6 +126,11 @@ long int check_crd_cell_alloc(CHARM(cell) *(*crd_cell_alloc)(int,
                              "returned a wrong value of \"nlon\"");
 
 
+    e += check_struct_size_t(cell->ncell, nlat * nlon, NEQ, VALID,
+                             func_call_str,
+                             "returned a wrong value of \"ncell\"");
+
+
     e += check_struct_ptr(cell->latmin, NULL, EQ, VALID, func_call_str,
                           "returned a NULL pointer for \"latmin\"");
 

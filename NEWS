@@ -1,3 +1,11 @@
+Upcoming release:
+
+* Added members `npoint` and `ncell` to the `charm_point` and `charm_cell` 
+  structures, respectively.  The new members represent the total number of 
+  points/cells stored by the structures both for scattered points/cells and 
+  grids.  They are particularly useful when allocating the memory for the 
+  signal to be synthesized at the points/cells represented by the structures.
+
 CHarm 0.3.1:
 
 * Added support to read the ICGEM's time variable gravity field models.  
