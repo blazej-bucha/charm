@@ -18,6 +18,7 @@
 #include "../leg/leg_func_xnum.h"
 #include "../crd/crd_grd_check_symm.h"
 #include "../crd/crd_check_cells.h"
+#include "../crd/crd_cell_isGrid.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
 #include "../misc/misc_is_nearly_equal.h"
@@ -51,7 +52,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
     }
 
 
-    if (cell->type != CHARM_CRD_CELL_GRID)
+    if (!CHARM(crd_cell_isGrid)(cell->type))
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Unsupported \"cell->type\" for spherical "

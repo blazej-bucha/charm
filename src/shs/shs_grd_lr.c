@@ -5,6 +5,7 @@
 #include <math.h>
 #include "../prec.h"
 #include "../simd/simd.h"
+#include "../crd/crd_cell_isGrid.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -18,12 +19,13 @@ void CHARM(shs_grd_lr)(unsigned long m, REAL lon0, REAL dlon, size_t nlon,
                        int grd_type, REAL_SIMD *a, REAL_SIMD *b, REAL_SIMD *a2,
                        REAL_SIMD *b2, _Bool symm, REAL *fi, REAL *fi2)
 {
-    size_t simd_blk = (grd_type == CHARM_CRD_CELL_GRID) ? 1 : SIMD_BLOCK;
+    _Bool is_cell_grd = CHARM(crd_cell_isGrid)(grd_type);
+    size_t simd_blk = is_cell_grd ? 1 : SIMD_BLOCK;
     size_t size_blk = SIMD_SIZE * simd_blk;
     size_t lss, jsize_blk;
 
 
-    if (grd_type == CHARM_CRD_CELL_GRID)
+    if (is_cell_grd)
     {
         /* Before applying the PSLR algorithm from Balmino et al. (2012), the
          * lumped coefficients need to be multiplied by additional terms, which

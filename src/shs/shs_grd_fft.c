@@ -6,6 +6,7 @@
 #include <fftw3.h>
 #include "../prec.h"
 #include "../simd/simd.h"
+#include "../crd/crd_cell_isGrid.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -25,7 +26,7 @@ void CHARM(shs_grd_fft)(size_t i, int grd_type, size_t nlat, size_t nlon,
                         REAL *ftmp, REAL *ftmp2, REAL *f)
 {
     size_t ipv, row, idx, lss, lssv, lssidx;
-    _Bool is_cell_grd = grd_type == CHARM_CRD_CELL_GRID;
+    _Bool is_cell_grd = CHARM(crd_cell_isGrid)(grd_type);
     size_t simd_blk = (is_cell_grd) ? 1 : SIMD_BLOCK;
     size_t size_blk = SIMD_SIZE * simd_blk;
     REAL dsigma;

@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "../prec.h"
 #include "../simd/simd.h"
+#include "../crd/crd_cell_isSctr.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -16,7 +17,7 @@ void CHARM(shs_sctr_mulc)(size_t i, size_t n, int type, REAL_SIMD c,
 {
     size_t ipv;
     size_t il;
-    size_t simd_blk = (type == CHARM_CRD_CELL_SCATTERED) ? 1 : SIMD_BLOCK;
+    size_t simd_blk = CHARM(crd_cell_isSctr)(type) ? 1 : SIMD_BLOCK;
 
 
     for (size_t l = 0; l < simd_blk; l++)

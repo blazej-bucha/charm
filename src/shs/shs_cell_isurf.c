@@ -14,6 +14,7 @@
 #include "../integ/integ_scs.h"
 #include "../integ/integ_sss.h"
 #include "../crd/crd_check_cells.h"
+#include "../crd/crd_cell_isGrid.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
 #include "../simd/simd.h"
@@ -36,7 +37,7 @@ void CHARM(shs_cell_isurf)(const CHARM(cell) *cell,
 {
     /* Some error checks */
     /* --------------------------------------------------------------------- */
-    if (cell->type != CHARM_CRD_CELL_GRID)
+    if (!CHARM(crd_cell_isGrid)(cell->type))
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"cell->type\" must be set to "

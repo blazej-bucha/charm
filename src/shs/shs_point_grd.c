@@ -21,6 +21,8 @@
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
 #include "../crd/crd_grd_check_symm.h"
+#include "../crd/crd_point_isQuadGrid.h"
+#include "../crd/crd_point_isCustGrid.h"
 #include "../misc/misc_arr_chck_lin_incr.h"
 #include "../misc/misc_arr_chck_symm.h"
 #include "../misc/misc_polar_optimization_threshold.h"
@@ -84,9 +86,7 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
         /* The grid is automatically considered as non-symmetric if there is
          * only a single latitude */
         symm = 0;
-    else if ((pnt_type == CHARM_CRD_POINT_GRID_DH1) ||
-             (pnt_type == CHARM_CRD_POINT_GRID_DH2) ||
-             (pnt_type == CHARM_CRD_POINT_GRID_GL))
+    else if (CHARM(crd_point_isQuadGrid)(pnt_type))
     {
         /* The Driscoll--Healy grids or the Gauss--Legendre grid.
          *
@@ -146,7 +146,7 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
      * check whether the longitudinal step is constant.  For quadrature grids,
      * the longitudinal step is constant by definition, so no check is
      * needed. */
-    if ((pnt->type == CHARM_CRD_POINT_GRID) && (pnt_nlon > 1))
+    if (CHARM(crd_point_isCustGrid)(pnt->type) && (pnt_nlon > 1))
     {
         err_tmp = CHARM(misc_arr_chck_lin_incr)(pnt->lon, pnt_nlon,
                                                 0, 1, CHARM(glob_threshold2),

@@ -114,7 +114,10 @@ am_libcharm@P@_crd@OMP@_la_OBJECTS = crd_point_alloc.lo \
 	crd_point_dh1.lo crd_point_dh2.lo crd_point_dh_lats_weights.lo \
 	crd_cell_alloc.lo crd_cell_malloc.lo crd_cell_calloc.lo \
 	crd_cell_init.lo crd_cell_free.lo crd_cell_check_inputs.lo \
-	crd_grd_check_symm.lo crd_check_cells.lo
+	crd_grd_check_symm.lo crd_check_cells.lo crd_point_isGrid.lo \
+	crd_point_isCustGrid.lo crd_point_isQuadGrid.lo \
+	crd_point_isSctr.lo crd_isPoint.lo crd_cell_isGrid.lo \
+	crd_cell_isSctr.lo crd_isCell.lo
 libcharm@P@_crd@OMP@_la_OBJECTS =  \
 	$(am_libcharm@P@_crd@OMP@_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -140,16 +143,22 @@ am__depfiles_remade = ./$(DEPDIR)/crd_cell_alloc.Plo \
 	./$(DEPDIR)/crd_cell_calloc.Plo \
 	./$(DEPDIR)/crd_cell_check_inputs.Plo \
 	./$(DEPDIR)/crd_cell_free.Plo ./$(DEPDIR)/crd_cell_init.Plo \
+	./$(DEPDIR)/crd_cell_isGrid.Plo \
+	./$(DEPDIR)/crd_cell_isSctr.Plo \
 	./$(DEPDIR)/crd_cell_malloc.Plo \
 	./$(DEPDIR)/crd_check_cells.Plo \
-	./$(DEPDIR)/crd_grd_check_symm.Plo \
-	./$(DEPDIR)/crd_point_alloc.Plo \
+	./$(DEPDIR)/crd_grd_check_symm.Plo ./$(DEPDIR)/crd_isCell.Plo \
+	./$(DEPDIR)/crd_isPoint.Plo ./$(DEPDIR)/crd_point_alloc.Plo \
 	./$(DEPDIR)/crd_point_calloc.Plo \
 	./$(DEPDIR)/crd_point_check_inputs.Plo \
 	./$(DEPDIR)/crd_point_dh1.Plo ./$(DEPDIR)/crd_point_dh2.Plo \
 	./$(DEPDIR)/crd_point_dh_lats_weights.Plo \
 	./$(DEPDIR)/crd_point_free.Plo ./$(DEPDIR)/crd_point_gl.Plo \
 	./$(DEPDIR)/crd_point_init.Plo \
+	./$(DEPDIR)/crd_point_isCustGrid.Plo \
+	./$(DEPDIR)/crd_point_isGrid.Plo \
+	./$(DEPDIR)/crd_point_isQuadGrid.Plo \
+	./$(DEPDIR)/crd_point_isSctr.Plo \
 	./$(DEPDIR)/crd_point_malloc.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
@@ -344,7 +353,15 @@ libcharm@P@_crd@OMP@_la_SOURCES = crd_point_alloc.c \
 								  crd_cell_free.c \
 								  crd_cell_check_inputs.c \
 								  crd_grd_check_symm.c \
-								  crd_check_cells.c
+								  crd_check_cells.c \
+								  crd_point_isGrid.c \
+								  crd_point_isCustGrid.c \
+								  crd_point_isQuadGrid.c \
+								  crd_point_isSctr.c \
+								  crd_isPoint.c \
+								  crd_cell_isGrid.c \
+								  crd_cell_isSctr.c \
+								  crd_isCell.c
 
 EXTRA_DIST = *.h
 all: all-am
@@ -406,9 +423,13 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_cell_check_inputs.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_cell_free.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_cell_init.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_cell_isGrid.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_cell_isSctr.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_cell_malloc.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_check_cells.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_grd_check_symm.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_isCell.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_isPoint.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_alloc.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_calloc.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_check_inputs.Plo@am__quote@ # am--include-marker
@@ -418,6 +439,10 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_free.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_gl.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_init.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_isCustGrid.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_isGrid.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_isQuadGrid.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_isSctr.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_malloc.Plo@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
@@ -536,9 +561,13 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/crd_cell_check_inputs.Plo
 	-rm -f ./$(DEPDIR)/crd_cell_free.Plo
 	-rm -f ./$(DEPDIR)/crd_cell_init.Plo
+	-rm -f ./$(DEPDIR)/crd_cell_isGrid.Plo
+	-rm -f ./$(DEPDIR)/crd_cell_isSctr.Plo
 	-rm -f ./$(DEPDIR)/crd_cell_malloc.Plo
 	-rm -f ./$(DEPDIR)/crd_check_cells.Plo
 	-rm -f ./$(DEPDIR)/crd_grd_check_symm.Plo
+	-rm -f ./$(DEPDIR)/crd_isCell.Plo
+	-rm -f ./$(DEPDIR)/crd_isPoint.Plo
 	-rm -f ./$(DEPDIR)/crd_point_alloc.Plo
 	-rm -f ./$(DEPDIR)/crd_point_calloc.Plo
 	-rm -f ./$(DEPDIR)/crd_point_check_inputs.Plo
@@ -548,6 +577,10 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/crd_point_free.Plo
 	-rm -f ./$(DEPDIR)/crd_point_gl.Plo
 	-rm -f ./$(DEPDIR)/crd_point_init.Plo
+	-rm -f ./$(DEPDIR)/crd_point_isCustGrid.Plo
+	-rm -f ./$(DEPDIR)/crd_point_isGrid.Plo
+	-rm -f ./$(DEPDIR)/crd_point_isQuadGrid.Plo
+	-rm -f ./$(DEPDIR)/crd_point_isSctr.Plo
 	-rm -f ./$(DEPDIR)/crd_point_malloc.Plo
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic
@@ -598,9 +631,13 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/crd_cell_check_inputs.Plo
 	-rm -f ./$(DEPDIR)/crd_cell_free.Plo
 	-rm -f ./$(DEPDIR)/crd_cell_init.Plo
+	-rm -f ./$(DEPDIR)/crd_cell_isGrid.Plo
+	-rm -f ./$(DEPDIR)/crd_cell_isSctr.Plo
 	-rm -f ./$(DEPDIR)/crd_cell_malloc.Plo
 	-rm -f ./$(DEPDIR)/crd_check_cells.Plo
 	-rm -f ./$(DEPDIR)/crd_grd_check_symm.Plo
+	-rm -f ./$(DEPDIR)/crd_isCell.Plo
+	-rm -f ./$(DEPDIR)/crd_isPoint.Plo
 	-rm -f ./$(DEPDIR)/crd_point_alloc.Plo
 	-rm -f ./$(DEPDIR)/crd_point_calloc.Plo
 	-rm -f ./$(DEPDIR)/crd_point_check_inputs.Plo
@@ -610,6 +647,10 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/crd_point_free.Plo
 	-rm -f ./$(DEPDIR)/crd_point_gl.Plo
 	-rm -f ./$(DEPDIR)/crd_point_init.Plo
+	-rm -f ./$(DEPDIR)/crd_point_isCustGrid.Plo
+	-rm -f ./$(DEPDIR)/crd_point_isGrid.Plo
+	-rm -f ./$(DEPDIR)/crd_point_isQuadGrid.Plo
+	-rm -f ./$(DEPDIR)/crd_point_isSctr.Plo
 	-rm -f ./$(DEPDIR)/crd_point_malloc.Plo
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic

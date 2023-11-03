@@ -8,6 +8,8 @@
 #include "shs_point_sctr.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
+#include "../crd/crd_point_isSctr.h"
+#include "../crd/crd_point_isGrid.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -37,7 +39,7 @@ void CHARM(shs_point)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
 
     /* Now do the synthesis */
     /* --------------------------------------------------------------------- */
-    if (pnt->type == CHARM_CRD_POINT_SCATTERED)
+    if (CHARM(crd_point_isSctr)(pnt->type))
     {
         if (pnt->nlat != pnt->nlon)
         {
@@ -57,10 +59,7 @@ void CHARM(shs_point)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
             return;
         }
     }
-    else if ((pnt->type == CHARM_CRD_POINT_GRID) ||
-             (pnt->type == CHARM_CRD_POINT_GRID_GL) ||
-             (pnt->type == CHARM_CRD_POINT_GRID_DH1) ||
-             (pnt->type == CHARM_CRD_POINT_GRID_DH2))
+    else if (CHARM(crd_point_isGrid)(pnt->type))
     {
         /* Grid-wise synthesis */
         CHARM(shs_point_grd)(pnt, shcs, nmax, f, err);

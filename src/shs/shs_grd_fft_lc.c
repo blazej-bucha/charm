@@ -5,6 +5,8 @@
 #include <math.h>
 #include "../prec.h"
 #include "../simd/simd.h"
+#include "../crd/crd_point_isGrid.h"
+#include "../crd/crd_cell_isGrid.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -21,7 +23,7 @@ void CHARM(shs_grd_fft_lc)(unsigned long m, REAL dlon,
                            int grd_type, REAL *lc_tmp, REAL *lc2_tmp)
 {
     REAL_SIMD c = (m == 0) ? SET1_R(PREC(1.0)) : SET1_R(PREC(0.5));
-    _Bool is_cell_grd = grd_type == CHARM_CRD_CELL_GRID;
+    _Bool is_cell_grd = CHARM(crd_cell_isGrid)(grd_type);
     size_t simd_blk = (is_cell_grd) ? 1 : SIMD_BLOCK;
     size_t size_blk = SIMD_SIZE * simd_blk;
 #ifdef SIMD
@@ -76,10 +78,7 @@ void CHARM(shs_grd_fft_lc)(unsigned long m, REAL dlon,
             }
         }
     }
-    else if ((grd_type == CHARM_CRD_POINT_GRID) ||
-             (grd_type == CHARM_CRD_POINT_GRID_GL) ||
-             (grd_type == CHARM_CRD_POINT_GRID_DH1) ||
-             (grd_type == CHARM_CRD_POINT_GRID_DH2))
+    else if (CHARM(crd_point_isGrid)(grd_type))
     {
         /* Let's prepare the complex Fourier coefficients */
         for (l = 0; l < simd_blk; l++)
