@@ -403,6 +403,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.nmax_from_file"><code class="docutils literal notranslate"><span class="pre">Shc.nmax_from_file()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.get_coeffs"><code class="docutils literal notranslate"><span class="pre">Shc.get_coeffs()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.set_coeffs"><code class="docutils literal notranslate"><span class="pre">Shc.set_coeffs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.get_degrees_orders"><code class="docutils literal notranslate"><span class="pre">Shc.get_degrees_orders()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.rescale"><code class="docutils literal notranslate"><span class="pre">Shc.rescale()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.dv"><code class="docutils literal notranslate"><span class="pre">Shc.dv()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.da"><code class="docutils literal notranslate"><span class="pre">Shc.da()</span></code></a></li>
@@ -932,6 +933,24 @@ shallow.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pyharm.shc.Shc.get_degrees_orders">
+<span class="sig-name descname"><span class="pre">get_degrees_orders</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.get_degrees_orders" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns arrays of spherical harmonic degrees and orders matching the
+spherical harmonic coefficients stored in <a class="reference internal" href="#pyharm.shc.Shc.c" title="pyharm.shc.Shc.c"><code class="xref py py-obj docutils literal notranslate"><span class="pre">c</span></code></a> and <a class="reference internal" href="#pyharm.shc.Shc.s" title="pyharm.shc.Shc.s"><code class="xref py py-obj docutils literal notranslate"><span class="pre">s</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><strong>degrees</strong> (<em>numpy array of numpy.uint</em>) – Array of spherical harmonic degrees matching the coefficients in
+<a class="reference internal" href="#pyharm.shc.Shc.c" title="pyharm.shc.Shc.c"><code class="xref py py-obj docutils literal notranslate"><span class="pre">c</span></code></a> and <a class="reference internal" href="#pyharm.shc.Shc.s" title="pyharm.shc.Shc.s"><code class="xref py py-obj docutils literal notranslate"><span class="pre">s</span></code></a>.</p></li>
+<li><p><strong>orders</strong> (<em>numpy array of numpy.uint</em>) – Array of spherical harmonic orders matching the coefficients in
+<a class="reference internal" href="#pyharm.shc.Shc.c" title="pyharm.shc.Shc.c"><code class="xref py py-obj docutils literal notranslate"><span class="pre">c</span></code></a> and <a class="reference internal" href="#pyharm.shc.Shc.s" title="pyharm.shc.Shc.s"><code class="xref py py-obj docutils literal notranslate"><span class="pre">s</span></code></a>.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pyharm.shc.Shc.rescale">
 <span class="sig-name descname"><span class="pre">rescale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.rescale" title="Permalink to this definition">#</a></dt>
 <dd><p>Rescales spherical harmonic coefficients to a new scaling parameter
@@ -1100,6 +1119,7 @@ optional.  If not provided, <cite>nmax</cite> is set to the smallest of
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.nmax_from_file"><code class="docutils literal notranslate"><span class="pre">Shc.nmax_from_file()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.get_coeffs"><code class="docutils literal notranslate"><span class="pre">Shc.get_coeffs()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.set_coeffs"><code class="docutils literal notranslate"><span class="pre">Shc.set_coeffs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.get_degrees_orders"><code class="docutils literal notranslate"><span class="pre">Shc.get_degrees_orders()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.rescale"><code class="docutils literal notranslate"><span class="pre">Shc.rescale()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.dv"><code class="docutils literal notranslate"><span class="pre">Shc.dv()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.da"><code class="docutils literal notranslate"><span class="pre">Shc.da()</span></code></a></li>

@@ -842,6 +842,34 @@ class Shc:
         return
 
 
+    def get_degrees_orders(self):
+        """
+        Returns arrays of spherical harmonic degrees and orders matching the
+        spherical harmonic coefficients stored in :obj:`c` and :obj:`s`.
+
+        Returns
+        -------
+        degrees : numpy array of numpy.uint
+            Array of spherical harmonic degrees matching the coefficients in
+            :obj:`c` and :obj:`s`.
+        orders : numpy array of numpy.uint
+            Array of spherical harmonic orders matching the coefficients in
+            :obj:`c` and :obj:`s`.
+        """
+
+        degrees = _np.zeros(self.c.shape, dtype=_np.uint)
+        orders  = _np.zeros(self.c.shape, dtype=_np.uint)
+
+        i = 0
+        for m in range(self.nmax + 1):
+            for n in range(m, self.nmax + 1):
+                degrees[i] = n
+                orders[i]  = m
+                i += 1
+
+        return degrees, orders
+
+
     def rescale(self, mu=None, r=None):
         """
         Rescales spherical harmonic coefficients to a new scaling parameter
