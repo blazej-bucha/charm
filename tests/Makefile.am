@@ -18,6 +18,7 @@ SOURCES = main.c \
 		  write_val.c \
 		  validate.c \
 		  write.c \
+		  modify_low_degree_coefficients.c \
 		  generate_point.c \
 		  generate_cell.c \
 		  module_crd.c \

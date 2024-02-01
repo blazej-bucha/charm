@@ -7,6 +7,7 @@
 #include "../src/prec.h"
 #include "../src/misc/misc_str2real.h"
 #include "cmp_arrays.h"
+#include "validate.h"
 /* ------------------------------------------------------------------------- */
 
 

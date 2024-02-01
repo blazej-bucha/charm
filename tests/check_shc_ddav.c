@@ -5,6 +5,7 @@
 #include "../src/prec.h"
 #include "cmp_arrays.h"
 #include "parameters.h"
+#include "check_shc_ddav.h"
 /* ------------------------------------------------------------------------- */
 
 

@@ -3,6 +3,7 @@
 #include <config.h>
 #include <stdio.h>
 #include "../src/prec.h"
+#include "generate_cell.h"
 /* ------------------------------------------------------------------------- */
 
 

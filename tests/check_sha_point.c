@@ -6,6 +6,8 @@
 #include "../src/prec.h"
 #include "cmp_arrays.h"
 #include "parameters.h"
+#include "modify_low_degree_coefficients.h"
+#include "check_sha_point.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -47,10 +49,7 @@ long int check_sha_point(void)
 
     /* Modify coefficients of degrees "0" and "1" to allow for an accurate
      * validation in all precisions. */
-    shcs_ref->c[0][0 - 0] = (REAL)C00;
-    shcs_ref->c[0][1 - 0] = (REAL)C10;
-    shcs_ref->c[1][1 - 1] = (REAL)C11;
-    shcs_ref->s[1][1 - 1] = (REAL)S11;
+    modify_low_degree_coefficients(shcs_ref);
     /* --------------------------------------------------------------------- */
 
 

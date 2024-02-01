@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "../src/prec.h"
 #include "cmp_vals.h"
+#include "cmp_arrays.h"
 /* ------------------------------------------------------------------------- */
 
 

@@ -7,6 +7,7 @@
 #include "check_shs_point_all.h"
 #include "check_shs_cell.h"
 #include "check_shs_cell_isurf.h"
+#include "module_shs.h"
 /* ------------------------------------------------------------------------- */
 
 

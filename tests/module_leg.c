@@ -7,6 +7,7 @@
 #include "check_leg_pnmj_alloc.h"
 #include "check_func.h"
 #include "check_outcome.h"
+#include "module_leg.h"
 /* ------------------------------------------------------------------------- */
 
 

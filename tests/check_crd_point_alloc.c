@@ -5,6 +5,7 @@
 #include "../src/prec.h"
 #include "parameters.h"
 #include "check_struct.h"
+#include "check_crd_point_alloc.h"
 /* ------------------------------------------------------------------------- */
 
 

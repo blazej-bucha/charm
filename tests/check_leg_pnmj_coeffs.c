@@ -9,6 +9,7 @@
 #else
 #   include "validate.h"
 #endif
+#include "check_leg_pnmj_coeffs.h"
 /* ------------------------------------------------------------------------- */
 
 

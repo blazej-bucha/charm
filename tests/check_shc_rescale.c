@@ -10,6 +10,7 @@
 #else
 #   include "validate.h"
 #endif
+#include "check_shc_rescale.h"
 /* ------------------------------------------------------------------------- */
 
 

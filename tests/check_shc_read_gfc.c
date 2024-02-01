@@ -6,6 +6,7 @@
 #include "validate.h"
 #include "write.h"
 #include "parameters.h"
+#include "check_shc_read_gfc.h"
 /* ------------------------------------------------------------------------- */
 
 
