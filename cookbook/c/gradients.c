@@ -148,7 +148,16 @@ int main(void)
 
     printf("The largest error of the gravitational tensor trace is "
            "%0.16e s^-2.\n", trace_error);
+
+
+    /* Free the heap memory */
+    charm_shc_free(shcs);
+    charm_crd_point_free(grd);
+    charm_err_free(err);
+    for (size_t i = 0; i < np; i++)
+        free(f[i]);
     free(f);
+    free(g);
 
 
     printf("Great, all done!\n");
@@ -157,4 +166,3 @@ int main(void)
 
     exit(CHARM_SUCCESS);
 }
-
