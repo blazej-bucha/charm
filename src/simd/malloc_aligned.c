@@ -53,7 +53,6 @@ void *CHARM(malloc_aligned)(size_t alignment, size_t size)
 #elif HAVE_MM_MALLOC_H
     return _mm_malloc(size, alignment);
 #else
-#   error "Couldn't find any system function to allocate an aligned " \
-          "block of memory."
+#   error "Couldn't find any system function to allocate an aligned block of memory."
 #endif
 }

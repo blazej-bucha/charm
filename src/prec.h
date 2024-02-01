@@ -59,7 +59,7 @@
     (CHARM_FLOAT && CHARM_QUAD) || \
     (CHARM_DOUBLE && CHARM_QUAD) || \
     (CHARM_FLOAT && CHARM_DOUBLE && CHARM_QUAD)
-#   error "One precision only must be defined in \"config.h\"."
+#   error "One precision only must be defined in config.h."
 #endif
 
 

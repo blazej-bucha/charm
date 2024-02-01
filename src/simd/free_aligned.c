@@ -28,7 +28,6 @@ void CHARM(free_aligned)(void *ptr)
     _mm_free(ptr);
     return;
 #else
-#   error "Couldn't find any system function to free an aligned " \
-          "block of memory."
+#   error "Couldn't find any system function to free an aligned block of memory."
 #endif
 }

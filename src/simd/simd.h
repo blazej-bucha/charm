@@ -28,7 +28,7 @@
 #if (HAVE_AVX_INSTRUCTIONS  && HAVE_AVX2_INSTRUCTIONS) || \
     (HAVE_AVX2_INSTRUCTIONS && HAVE_AVX512F_INSTRUCTIONS) || \
     (HAVE_AVX_INSTRUCTIONS  && HAVE_AVX512F_INSTRUCTIONS)
-#   error "One type of SIMD instructions only can be defined in \"config.h\"."
+#   error "One type of SIMD instructions only can be defined in config.h."
 #endif
 
 

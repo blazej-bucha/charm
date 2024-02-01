@@ -81,32 +81,32 @@
 /* "DR" represents the order of the potential derivative in the radial
  * direction. */
 #ifndef DR
-#   error "Symbolic constant \"DR\" undefined."
+#   error "DR undefined."
 #endif
 #if (DR != 0) && (DR != 1) && (DR != 2) && (DR != GRAD_1) && (DR != GRAD_2)
-#   error "\"DR\" must be an integer \"-2\", \"-1\", ..., \"2\"."
+#   error "DR must be an integer -2, -1, ..., 2."
 #endif
 
 
 /* "DLAT" represents the order of the potential derivative in the latitudinal
  * direction. */
 #ifndef DLAT
-#   error "Symbolic constant \"DLAT\" undefined."
+#   error "DLAT undefined."
 #endif
 #if (DLAT != 0) && (DLAT != 1) && (DLAT != 2) && (DLAT != GRAD_1) && \
     (DLAT != GRAD_2)
-#   error "\"DLAT\" must be an integer \"-2\", \"-1\", ..., \"2\"."
+#   error "DLAT must be an integer -2, -1, ..., 2."
 #endif
 
 
 /* "DLON" represents the order of the potential derivative in the longitudinal
  * direction. */
 #ifndef DLON
-#   error "Symbolic constant \"DLON\" undefined."
+#   error "DLON undefined."
 #endif
 #if (DLON != 0) && (DLON != 1) && (DLON != 2) && (DLON != GRAD_1) && \
     (DLON != GRAD_2)
-#   error "\"DLON\" must be an integer \"-2\", \"-1\", ..., \"2\"."
+#   error "DLON must be an integer -2, -1, ..., 2."
 #endif
 
 
@@ -754,14 +754,14 @@ void CHARM(shs_point_kernel_dr1_dlat0_dlon1)
 #   elif (DR == 0) && (DLAT == 1) && (DLON == 1)
 void CHARM(shs_point_kernel_dr0_dlat1_dlon1)
 #   else
-#       error "Wrong combination of \"DR\", \"DLAT\" and \"DLON\"."
+#       error "Wrong combination of DR, DLAT and DLON."
 #   endif
 #elif KERNEL_GRAD == 1
 void CHARM(shs_point_kernel_grad1)
 #elif KERNEL_GRAD == 2
 void CHARM(shs_point_kernel_grad2)
 #else
-#   error "Wrong value of \"KERNEL_GRAD\"."
+#   error "Wrong value of KERNEL_GRAD."
 #endif
                             (unsigned long nmax,
                              unsigned long m,

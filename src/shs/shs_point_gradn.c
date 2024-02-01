@@ -32,7 +32,7 @@ void CHARM(shs_point_grad1)
 #elif GRADN == GRAD_2
 void CHARM(shs_point_grad2)
 #else
-#   error "\"GRADN\" can only be \"0\", \"-1\" or \"-2\"."
+#   error "GRADN can only be 0, -1 or -2."
 #endif
                            (const CHARM(point) *pnt,
                             const CHARM(shc) *shcs,
