@@ -662,29 +662,29 @@ class Shc:
     def set_coeffs(self, n=None, m=None, c=None, s=None):
         """
         Sets spherical harmonic coefficients `Cnm` and `Snm` of degree `n` and
-        order `m` to the values of `c` and `s`, respectively.
+        order `m` to the values of ``c`` and ``s``, respectively.
 
         * If both :obj:`n` and :obj:`m` are integers, sets the spherical
-          harmonic coefficients `Cnm` and/or `Snm` to the input parameters `c`
-          and/or `s`, respectively.  `c` and `s` must be floating point
-          scalars.
+          harmonic coefficients `Cnm` and/or `Snm` to the input parameters
+          ``c`` and/or ``s``, respectively.  ``c`` and ``s`` must be floating
+          point scalars.
 
         * If :obj:`n` is integer and :obj:`m` is :obj:`None`, sets spherical
           harmonic coefficients of degree :obj:`n` and all corresponding
-          harmonic orders :obj:`m = 0, 1, ..., n` to the input parameters `c`
-          and/or `s`.  `c` and `s` must be numpy floating point arrays of
+          harmonic orders :obj:`m = 0, 1, ..., n` to the input parameters ``c``
+          and/or ``s``.  ``c`` and ``s`` must be numpy floating point arrays of
           shapes :obj:`(n + 1,)`.
 
         * If :obj:`n` is :obj:`None` and :obj:`m` is integer, sets spherical
           harmonic coefficients of order :obj:`m` and all corresponding
           harmonic degrees :obj:`n = m, m + 1, ..., self.nmax` to the input
-          parameters `c` and/or `s`.  `c` and `s` must be numpy floating point
-          arrays of shapes :obj:`(self.nmax + 1 - m,)`.
+          parameters ``c`` and/or ``s``.  ``c`` and ``s`` must be numpy
+          floating point arrays of shapes :obj:`(self.nmax + 1 - m,)`.
 
         * If :obj:`n` and :obj:`m` are lists of equal size, sets spherical
           spherical harmonic coefficients of degrees and orders taken from the
           :obj:`n` and :obj:`m` lists, respectively, to the corresponding
-          values taken from the input parameters :obj:`c` and/or :obj:`s`.  The
+          values taken from the input parameters ``c`` and/or ``s``.  The
           length of the input parameters must match.
 
         Note

@@ -866,26 +866,26 @@ copies of the original spherical harmonic coefficients.</p>
 <dt class="sig sig-object py" id="pyharm.shc.Shc.set_coeffs">
 <span class="sig-name descname"><span class="pre">set_coeffs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.set_coeffs" title="Permalink to this definition">#</a></dt>
 <dd><p>Sets spherical harmonic coefficients <cite>Cnm</cite> and <cite>Snm</cite> of degree <cite>n</cite> and
-order <cite>m</cite> to the values of <cite>c</cite> and <cite>s</cite>, respectively.</p>
+order <cite>m</cite> to the values of <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code>, respectively.</p>
 <ul class="simple">
 <li><p>If both <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> are integers, sets the spherical
-harmonic coefficients <cite>Cnm</cite> and/or <cite>Snm</cite> to the input parameters <cite>c</cite>
-and/or <cite>s</cite>, respectively.  <cite>c</cite> and <cite>s</cite> must be floating point
-scalars.</p></li>
+harmonic coefficients <cite>Cnm</cite> and/or <cite>Snm</cite> to the input parameters
+<code class="docutils literal notranslate"><span class="pre">c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">s</span></code>, respectively.  <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> must be floating
+point scalars.</p></li>
 <li><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> is integer and <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> is <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, sets spherical
 harmonic coefficients of degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> and all corresponding
-harmonic orders <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">n</span></code> to the input parameters <cite>c</cite>
-and/or <cite>s</cite>.  <cite>c</cite> and <cite>s</cite> must be numpy floating point arrays of
+harmonic orders <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">n</span></code> to the input parameters <code class="docutils literal notranslate"><span class="pre">c</span></code>
+and/or <code class="docutils literal notranslate"><span class="pre">s</span></code>.  <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> must be numpy floating point arrays of
 shapes <code class="xref py py-obj docutils literal notranslate"><span class="pre">(n</span> <span class="pre">+</span> <span class="pre">1,)</span></code>.</p></li>
 <li><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> is <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> is integer, sets spherical
 harmonic coefficients of order <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> and all corresponding
 harmonic degrees <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">m,</span> <span class="pre">m</span> <span class="pre">+</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">self.nmax</span></code> to the input
-parameters <cite>c</cite> and/or <cite>s</cite>.  <cite>c</cite> and <cite>s</cite> must be numpy floating point
-arrays of shapes <code class="xref py py-obj docutils literal notranslate"><span class="pre">(self.nmax</span> <span class="pre">+</span> <span class="pre">1</span> <span class="pre">-</span> <span class="pre">m,)</span></code>.</p></li>
+parameters <code class="docutils literal notranslate"><span class="pre">c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">s</span></code>.  <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> must be numpy
+floating point arrays of shapes <code class="xref py py-obj docutils literal notranslate"><span class="pre">(self.nmax</span> <span class="pre">+</span> <span class="pre">1</span> <span class="pre">-</span> <span class="pre">m,)</span></code>.</p></li>
 <li><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> are lists of equal size, sets spherical
 spherical harmonic coefficients of degrees and orders taken from the
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> lists, respectively, to the corresponding
-values taken from the input parameters <a class="reference internal" href="#pyharm.shc.Shc.c" title="pyharm.shc.Shc.c"><code class="xref py py-obj docutils literal notranslate"><span class="pre">c</span></code></a> and/or <a class="reference internal" href="#pyharm.shc.Shc.s" title="pyharm.shc.Shc.s"><code class="xref py py-obj docutils literal notranslate"><span class="pre">s</span></code></a>.  The
+values taken from the input parameters <code class="docutils literal notranslate"><span class="pre">c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">s</span></code>.  The
 length of the input parameters must match.</p></li>
 </ul>
 <div class="admonition note">

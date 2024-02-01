@@ -69,7 +69,7 @@ Double precision
 previous one, it is seen that even though the polar optimization introduces 
 *approximations* to spherical harmonic transforms, the numerical accuracy is 
 the same.  The small differences between the two figures are caused by the fact 
-that a new set random spherical harmonic coefficients was generated in both 
+that a new set of random spherical harmonic coefficients was generated in both 
 experiments.
 
 .. image:: ../img/bench/bench-po-accuracy.png
