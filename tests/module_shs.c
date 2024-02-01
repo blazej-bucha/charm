@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include "check_func.h"
 #include "check_outcome.h"
-#include "check_shs_point.h"
+#include "check_shs_point_all.h"
 #include "check_shs_cell.h"
 #include "check_shs_cell_isurf.h"
 /* ------------------------------------------------------------------------- */
@@ -23,6 +23,24 @@ long int module_shs(void)
 
     check_func("shs_point");
     e = check_shs_point();
+    check_outcome(e);
+    esum += e;
+
+
+    check_func("shs_point_grad1");
+    e = check_shs_point_grad1();
+    check_outcome(e);
+    esum += e;
+
+
+    check_func("shs_point_grad2");
+    e = check_shs_point_grad2();
+    check_outcome(e);
+    esum += e;
+
+
+    check_func("shs_point_guru");
+    e = check_shs_point_guru();
     check_outcome(e);
     esum += e;
 

@@ -8,6 +8,8 @@
 #include <config.h>
 #include "../prec.h"
 #include "../simd/simd.h"
+#include "shs_lc_struct.h"
+#include "shs_max_npar.h"
 
 
 #ifdef __cplusplus
@@ -18,13 +20,12 @@ extern "C"
 
 extern void CHARM(shs_grd_fft_lc)(unsigned long,
                                   REAL,
-                                  REAL_SIMD *,
-                                  REAL_SIMD *,
-                                  REAL_SIMD *,
-                                  REAL_SIMD *,
+                                  int,
+                                  CHARM(lc) *,
                                   _Bool,
                                   REAL_SIMD *,
                                   int,
+                                  size_t,
                                   REAL *,
                                   REAL *);
 

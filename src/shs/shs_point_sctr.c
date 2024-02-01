@@ -5,9 +5,14 @@
 #include <stdlib.h>
 #include <math.h>
 #include "../prec.h"
-#include "shs_point_kernel.h"
+#include "shs_point_kernels.h"
 #include "shs_sctr_mulc.h"
 #include "shs_r_eq_rref.h"
+#include "shs_lc_struct.h"
+#include "shs_lc_init.h"
+#include "shs_get_mur_dorder_npar.h"
+#include "shs_point_gradn.h"
+#include "shs_max_npar.h"
 #include "../leg/leg_func_anm_bnm.h"
 #include "../leg/leg_func_dm.h"
 #include "../leg/leg_func_r_ri.h"
@@ -15,6 +20,7 @@
 #include "../misc/misc_polar_optimization_threshold.h"
 #include "../misc/misc_polar_optimization_apply.h"
 #include "../err/err_set.h"
+#include "../err/err_propagate.h"
 #include "../simd/simd.h"
 #include "../simd/calloc_aligned.h"
 #include "../simd/free_aligned.h"
@@ -25,8 +31,27 @@
 
 
 
-void CHARM(shs_point_sctr)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
-                           unsigned long nmax, REAL *f, CHARM(err) *err)
+/* Macros */
+/* ------------------------------------------------------------------------- */
+#undef LC_CS
+#define LC_CS(x)                                                              \
+        fi[idx] = ADD_R(fi[idx], ADD_R(MUL_R(lc.CAT(a, x)[l], clonim),        \
+                                       MUL_R(lc.CAT(b, x)[l], slonim)));
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+void CHARM(shs_point_sctr)(const CHARM(point) *pnt,
+                           const CHARM(shc) *shcs,
+                           unsigned long nmax,
+                           int dr,
+                           int dlat,
+                           int dlon,
+                           REAL **f,
+                           CHARM(err) *err)
 {
     /* --------------------------------------------------------------------- */
     int FAILURE_glob = 0;
@@ -98,8 +123,32 @@ void CHARM(shs_point_sctr)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
 
 
 
+    /* Get some constants */
     /* --------------------------------------------------------------------- */
-    REAL_SIMD mur = SET1_R(shcs->mu / shcs->r);
+    REAL mur;  /* "(shcs->mu / shcs->r)^dorder" */
+    unsigned dorder;  /* "0" for potential,
+                         "1" for first-order derivatives,
+                         "2" for second-order derivatives */
+    size_t npar; /* Number quantities to be synthesized:
+                    "3" for first-order derivatives,
+                    "6" for second-order derivatives,
+                    "1" otherwise. */
+    CHARM(shs_get_mur_dorder_npar)(shcs, dr, dlat, dlon, &mur, &dorder, &npar,
+                                   err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
+    int grad;
+    if ((dr == GRAD_1) && (dlat == GRAD_1) && (dlon == GRAD_1))
+        grad = 1;
+    else if ((dr == GRAD_2) && (dlat == GRAD_2) && (dlon == GRAD_2))
+        grad = 2;
+    else
+        grad = 0;
 
 
     /* Get the polar optimization threshold */
@@ -114,9 +163,12 @@ void CHARM(shs_point_sctr)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
 #if CHARM_OPENMP
 #pragma omp parallel default(none) \
 shared(f, shcs, nmax, pnt, npnt, dm, r, ri, FAILURE_glob, mur, err, pt, rref) \
-shared(r_eq_rref)
+shared(r_eq_rref, dr, dlat, dlon, npar, grad, dorder)
 #endif
     {
+        REAL_SIMD fi[SHS_MAX_NPAR * SIMD_BLOCK];
+
+
         /* ................................................................. */
         /* An indicator for failed memory initializations on each thread,
          * a private variable. */
@@ -257,15 +309,17 @@ FAILURE_1_parallel:
         /* ................................................................. */
 
 
-        size_t ipv, l;
+        size_t ipv, l, idx;
 
 
-        REAL_SIMD t[SIMD_BLOCK], u[SIMD_BLOCK], fi[SIMD_BLOCK];
+        REAL_SIMD t[SIMD_BLOCK], u[SIMD_BLOCK];
         REAL_SIMD pnt_r[SIMD_BLOCK];
         REAL_SIMD ratio[SIMD_BLOCK], ratiom[SIMD_BLOCK];
-        REAL_SIMD a[SIMD_BLOCK], b[SIMD_BLOCK], a2[SIMD_BLOCK], b2[SIMD_BLOCK];
         for (l = 0; l < SIMD_BLOCK; l++)
-            a[l] = b[l] = a2[l] = b2[l] = ratio[l] = ratiom[l] = SET_ZERO_R;
+            ratio[l] = ratiom[l] = SET_ZERO_R;
+        REAL_SIMD pm1m1[SIMD_BLOCK], dpm1m1[SIMD_BLOCK];
+        CHARM(lc) lc;
+        CHARM(shs_lc_init)(&lc);
         REAL_SIMD zeros;
         REAL_SIMD clonim, slonim;
         REAL_SIMD tmp = SET_ZERO_R;
@@ -302,7 +356,6 @@ FAILURE_1_parallel:
                 t[l]     = LOAD_R(&tv[0]);
                 u[l]     = LOAD_R(&uv[0]);
                 pnt_r[l] = LOAD_R(&pnt_rv[0]);
-                fi[l]    = SET_ZERO_R;
 
 
                 ratio[l]  = DIV_R(rref, pnt_r[l]);
@@ -313,6 +366,10 @@ FAILURE_1_parallel:
                 CHARM(leg_func_prepare)(uv, ps + l * SIMD_SIZE * nmax,
                                         ips + l * SIMD_SIZE * nmax, dm, nmax);
             }
+
+
+            for (size_t p = 0; p < SHS_MAX_NPAR * SIMD_BLOCK; p++)
+                fi[p] = SET_ZERO_R;
 
 
             /* Loop over harmonic orders */
@@ -331,16 +388,78 @@ FAILURE_1_parallel:
                 CHARM(leg_func_anm_bnm)(nmax, m, r, ri, anm, bnm);
 
 
+                /* Computation of the lumped coefficients */
+                /* --------------------------------------------------------- */
                 /* Summation over harmonic degrees.  Note that the symmetry of
                  * Legendre functions cannot be utilized with scattered points,
-                 * hence "SET_ZERO_R".  The output variables "a2" and "b2" are
-                 * not used with scattered points. */
-                CHARM(shs_point_kernel)(nmax, m, shcs, r_eq_rref, anm, bnm,
-                                        &t[0], ps, ips,
-                                        &ratio[0], &zeros,
-                                        &ratiom[0], &zeros,
-                                        &zeros,
-                                        &a[0], &b[0], &a2[0], &b2[0]);
+                 * hence "SET_ZERO_R".  The "lc.a2" and "lc.b2" are not used
+                 * with scattered points. */
+#undef KERNEL_IO_PARS
+#define KERNEL_IO_PARS (nmax, m, shcs, r_eq_rref, anm, bnm,                   \
+                        &t[0], &u[0], ps, ips, &ratio[0], &zeros,             \
+                        &ratiom[0], &zeros, &zeros, dorder, &pm1m1[0],        \
+                        &dpm1m1[0], &lc)
+                if ((dr == 0) && (dlat == 0) && (dlon == 0))
+                {
+                    CHARM(shs_point_kernel_dr0_dlat0_dlon0)
+                        KERNEL_IO_PARS;
+                }
+                else if ((dr == 1) && (dlat == 0) && (dlon == 0))
+                {
+                    CHARM(shs_point_kernel_dr1_dlat0_dlon0)
+                        KERNEL_IO_PARS;
+                }
+                else if ((dr == 2) && (dlat == 0) && (dlon == 0))
+                {
+                    CHARM(shs_point_kernel_dr2_dlat0_dlon0)
+                        KERNEL_IO_PARS;
+                }
+                else if ((dr == 0) && (dlat == 1) && (dlon == 0))
+                {
+                    CHARM(shs_point_kernel_dr0_dlat1_dlon0)
+                        KERNEL_IO_PARS;
+                }
+                else if ((dr == 0) && (dlat == 2) && (dlon == 0))
+                {
+                    CHARM(shs_point_kernel_dr0_dlat2_dlon0)
+                        KERNEL_IO_PARS;
+                }
+                else if ((dr == 0) && (dlat == 0) && (dlon == 1))
+                {
+                    CHARM(shs_point_kernel_dr0_dlat0_dlon1)
+                        KERNEL_IO_PARS;
+                }
+                else if ((dr == 0) && (dlat == 0) && (dlon == 2))
+                {
+                    CHARM(shs_point_kernel_dr0_dlat0_dlon2)
+                        KERNEL_IO_PARS;
+                }
+                else if ((dr == 1) && (dlat == 1) && (dlon == 0))
+                {
+                    CHARM(shs_point_kernel_dr1_dlat1_dlon0)
+                        KERNEL_IO_PARS;
+                }
+                else if ((dr == 1) && (dlat == 0) && (dlon == 1))
+                {
+                    CHARM(shs_point_kernel_dr1_dlat0_dlon1)
+                        KERNEL_IO_PARS;
+                }
+                else if ((dr == 0) && (dlat == 1) && (dlon == 1))
+                {
+                    CHARM(shs_point_kernel_dr0_dlat1_dlon1)
+                        KERNEL_IO_PARS;
+                }
+                else if ((dr == GRAD_1) && (dlat == GRAD_1) &&
+                         (dlon == GRAD_1))
+                {
+                    CHARM(shs_point_kernel_grad1) KERNEL_IO_PARS;
+                }
+                else if ((dr == GRAD_2) && (dlat == GRAD_2) &&
+                         (dlon == GRAD_2))
+                {
+                    CHARM(shs_point_kernel_grad2) KERNEL_IO_PARS;
+                }
+                /* --------------------------------------------------------- */
 
 
                 /* The longitudinal part of the synthesis */
@@ -360,9 +479,34 @@ FAILURE_1_parallel:
                     slonim = LOAD_R(&slonimv[0]);
 
 
-                    fi[l] = ADD_R(fi[l],
-                                  ADD_R(MUL_R(a[l], clonim),
-                                        MUL_R(b[l], slonim)));
+                    idx = l;
+                    LC_CS( );
+
+
+                    if (grad > 0)
+                    {
+                        idx += SIMD_BLOCK;
+                        LC_CS(r);
+
+
+                        idx += SIMD_BLOCK;
+                        LC_CS(p);
+                    }
+
+
+                    if (grad > 1)
+                    {
+                        idx += SIMD_BLOCK;
+                        LC_CS(rr);
+
+
+                        idx += SIMD_BLOCK;
+                        LC_CS(rp);
+
+
+                        idx += SIMD_BLOCK;
+                        LC_CS(pp);
+                    }
                 }
                 /* ......................................................... */
 
@@ -377,8 +521,9 @@ UPDATE_RATIOS:
 
 
             /* Final part of the synthesis */
-            CHARM(shs_sctr_mulc)(i, npnt, pnt->type, mur, tmp, tmpv, &fi[0],
-                                 f);
+            for (size_t p = 0; p < npar; p++)
+                CHARM(shs_sctr_mulc)(i, npnt, pnt->type, mur, tmp, tmpv,
+                                     &fi[p * SIMD_BLOCK], f[p]);
 
 
         } /* End of the loop over the evaluation points */

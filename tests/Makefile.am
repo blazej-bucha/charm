@@ -40,6 +40,9 @@ SOURCES = main.c \
 		  check_crd_cell_alloc.c \
 		  check_crd_cell_init.c \
 		  check_shs_point.c \
+		  check_shs_point_grad1.c \
+		  check_shs_point_grad2.c \
+		  check_shs_point_guru.c \
 		  check_shs_cell.c \
 		  check_shs_cell_isurf.c \
 		  check_sha_point.c \

@@ -52,7 +52,7 @@ Gauss--Legendre quadrature without an overflow in single precision.  The
 Driscoll--Healy quadrature could be used as an alternative, but this would 
 produce heterogeneous tests.
 
-.. image:: ../img/benchf-accuracy.png
+.. image:: ../img/bench/benchf-accuracy.png
 
 
 Double precision
@@ -60,7 +60,7 @@ Double precision
 
 *Polar optimization disabled (default)*.
 
-.. image:: ../img/bench-accuracy.png
+.. image:: ../img/bench/bench-accuracy.png
 
 |
 
@@ -72,13 +72,13 @@ the same.  The small differences between the two figures are caused by the fact
 that a new set random spherical harmonic coefficients was generated in both 
 experiments.
 
-.. image:: ../img/bench-po-accuracy.png
+.. image:: ../img/bench/bench-po-accuracy.png
 
 
 Quadruple precision
 -------------------
 
-.. image:: ../img/benchq-accuracy.png
+.. image:: ../img/bench/benchq-accuracy.png
 
 
 Speed
@@ -91,14 +91,14 @@ section.
 Single precision
 ----------------
 
-.. image:: ../img/benchf-time.png
+.. image:: ../img/bench/benchf-time.png
 
 Double precision
 ----------------
 
 *Polar optimization disabled (default)*.
 
-.. image:: ../img/bench-time.png
+.. image:: ../img/bench/bench-time.png
 
 |
 
@@ -109,12 +109,12 @@ remained the same (see :ref:`accuracy`).  More aggressive polar optimization
 can further improve the performance, but, after some critical point, only at 
 the cost of deteriorated accuracy.
 
-.. image:: ../img/bench-po-time.png
+.. image:: ../img/bench/bench-po-time.png
 
 Quadruple precision
 -------------------
 
-.. image:: ../img/benchq-time.png
+.. image:: ../img/bench/benchq-time.png
 
 
 Memory
@@ -141,4 +141,4 @@ where
 Although these are theoretical requirements, they model the reality very well, 
 as all the remaining arrays are significantly smaller.
 
-.. image:: ../img/bench-memory.png
+.. image:: ../img/bench/bench-memory.png

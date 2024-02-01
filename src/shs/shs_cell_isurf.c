@@ -86,8 +86,8 @@ void CHARM(shs_cell_isurf)(const CHARM(cell) *cell,
      * arrays. */
     size_t cell_nlon = cell->nlon;
     size_t cell_nlat = cell->nlat;
-    REAL dlon;
-    CHARM(shs_cell_check_grd_lons)(cell, &dlon, err);
+    REAL deltalon;
+    CHARM(shs_cell_check_grd_lons)(cell, &deltalon, err);
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
@@ -195,7 +195,7 @@ void CHARM(shs_cell_isurf)(const CHARM(cell) *cell,
 
 #if CHARM_OPENMP
 #pragma omp parallel default(none) \
-shared(cell, DELTAlon, lon0, dlon, cell_nlat, cell_nlon) \
+shared(cell, DELTAlon, lon0, deltalon, cell_nlat, cell_nlon) \
 shared(nmax1, nmax3, f, cnm1cnm3, cnm1snm3, snm1cnm3, snm1snm3) \
 shared(FAILURE_glob, mur, size, err)
 #endif
@@ -526,7 +526,7 @@ FAILURE_1_parallel:
 
 
             /* Synthesis for the "i"th latitude parallel */
-            CHARM(shs_cell_isurf_lr)(lon0, dlon, cell_nlon,
+            CHARM(shs_cell_isurf_lr)(lon0, deltalon, cell_nlon,
                                      lc00, lc01, lc10, lc11, m1, m3,
                                      fi);
         }  /* End of the loop over "m3" */

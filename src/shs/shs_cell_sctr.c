@@ -153,7 +153,7 @@ void CHARM(shs_cell_sctr)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
 
 
     /* --------------------------------------------------------------------- */
-    REAL_SIMD mur = SET1_R(shcs->mu / shcs->r);
+    REAL mur = shcs->mu / shcs->r;
 
 
     /* Get the polar optimization threshold */
@@ -373,7 +373,7 @@ FAILURE_1_parallel:
         /* ................................................................. */
 
 
-        REAL_SIMD latmin, latmax, dlon, t1, u1, t2, u2;
+        REAL_SIMD latmin, latmax, deltalon, t1, u1, t2, u2;
 
 
         REAL_SIMD cell_r, ratio, ratiom;
@@ -423,15 +423,15 @@ FAILURE_1_parallel:
             }
 
 
-            t1     = LOAD_R(&t1v[0]);
-            t2     = LOAD_R(&t2v[0]);
-            u1     = LOAD_R(&u1v[0]);
-            u2     = LOAD_R(&u2v[0]);
-            latmin = LOAD_R(&latminv[0]);
-            latmax = LOAD_R(&latmaxv[0]);
-            dlon   = LOAD_R(&dlonv[0]);
-            cell_r = LOAD_R(&cell_rv[0]);
-            fi     = SET_ZERO_R;
+            t1       = LOAD_R(&t1v[0]);
+            t2       = LOAD_R(&t2v[0]);
+            u1       = LOAD_R(&u1v[0]);
+            u2       = LOAD_R(&u2v[0]);
+            latmin   = LOAD_R(&latminv[0]);
+            latmax   = LOAD_R(&latmaxv[0]);
+            deltalon = LOAD_R(&dlonv[0]);
+            cell_r   = LOAD_R(&cell_rv[0]);
+            fi       = SET_ZERO_R;
 
 
             ratio  = DIV_R(rref, cell_r);
@@ -479,7 +479,7 @@ FAILURE_1_parallel:
                 /* The longitudinal part of the synthesis */
                 /* --------------------------------------------------------- */
                 if (m == 0)
-                    m2sm2dl = dlon;
+                    m2sm2dl = deltalon;
                 else
                 {
                     m2 = PREC(2.0) / (REAL)m;
@@ -490,9 +490,9 @@ FAILURE_1_parallel:
 
 
                 a = MUL_R(a, m2sm2dl);
-                b = MUL_R(b, m2sm2dl); /* Remember that "b = 0.0" for "m ==
-                                        * 0.0", so it can safely be multiplied
-                                        * by "m2sm2dl = dlon" */
+                b = MUL_R(b, m2sm2dl); /* Remember that "b = 0.0" for
+                                        * "m = 0.0", so it can safely be
+                                        * multiplied by "m2sm2dl = deltalon" */
 
 
                 m2i = (REAL)m / PREC(2.0);
@@ -519,7 +519,7 @@ UPDATE_RATIOS:
             /* Final part of the synthesis */
             /* ------------------------------------------------------------- */
             /* Area of the cell on the unit sphere */
-            dsigma = MUL_R(SUB_R(t2, t1), dlon);
+            dsigma = MUL_R(SUB_R(t2, t1), deltalon);
 
 
             fi = DIV_R(fi, dsigma);

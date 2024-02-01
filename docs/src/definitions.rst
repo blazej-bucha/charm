@@ -317,6 +317,22 @@ available package or library.
    :ref:`charm_shs` and :ref:`pyharm_shs`.
 
 
+.. _lnof:
+
+Local north-oriented reference frame
+====================================
+
+Local north-oriented reference frame (LNOF) is the right-handed Cartesian 
+coordinate system defined as follows: the origin is at the evaluation point 
+:math:`P(r, \varphi, \lambda)`, the :math:`x`-axis points to the north, the 
+:math:`y`-axis points to the west and the :math:`z`-axis points radially 
+outwards.  At :math:`P(r, \varphi, \lambda)`, the :math:`xy` plane is 
+tangential to the sphere with the radius :math:`r` passing through :math:`P(r, 
+\varphi, \lambda)`.
+
+.. image:: ../img/lnof/lnof.png
+
+
 References
 ==========
 

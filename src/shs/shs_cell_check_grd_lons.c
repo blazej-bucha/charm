@@ -15,7 +15,7 @@
 
 
 
-void CHARM(shs_cell_check_grd_lons)(const CHARM(cell) *cell, REAL *dlon,
+void CHARM(shs_cell_check_grd_lons)(const CHARM(cell) *cell, REAL *deltalon,
                                     CHARM(err) *err)
 {
     if (cell->nlon > 1)
@@ -74,10 +74,10 @@ void CHARM(shs_cell_check_grd_lons)(const CHARM(cell) *cell, REAL *dlon,
                            "\"cell->lonmax[1] - cell->lonmax[0]\".");
             return;
         }
-        *dlon = cell->lonmin[1] - cell->lonmin[0];
+        *deltalon = cell->lonmin[1] - cell->lonmin[0];
     }
     else
-        *dlon = cell->lonmax[0] - cell->lonmin[0];
+        *deltalon = cell->lonmax[0] - cell->lonmin[0];
 
 
     return;

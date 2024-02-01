@@ -12,8 +12,13 @@
 #include "shs_grd_fft_lc.h"
 #include "shs_grd_lr.h"
 #include "shs_grd_lr2.h"
-#include "shs_point_kernel.h"
+#include "shs_point_kernels.h"
 #include "shs_r_eq_rref.h"
+#include "shs_get_mur_dorder_npar.h"
+#include "shs_point_gradn.h"
+#include "shs_lc_struct.h"
+#include "shs_lc_init.h"
+#include "shs_max_npar.h"
 #include "../leg/leg_func_anm_bnm.h"
 #include "../leg/leg_func_dm.h"
 #include "../leg/leg_func_r_ri.h"
@@ -37,8 +42,14 @@
 
 
 
-void CHARM(shs_point_grd)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
-                          unsigned long nmax, REAL *f, CHARM(err) *err)
+void CHARM(shs_point_grd)(const CHARM(point) *pnt,
+                          const CHARM(shc) *shcs,
+                          unsigned long nmax,
+                          int dr,
+                          int dlat,
+                          int dlon,
+                          REAL **f,
+                          CHARM(err) *err)
 {
     /* Check the latitudes */
     /* --------------------------------------------------------------------- */
@@ -172,7 +183,7 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
     /* Get the longitudinal step of the grid.  At this point, we know the
      * longitudinal step is constant over each latitude parallel, so let's get
      * the step from, say, the first two longitudes. */
-    REAL dlon = (pnt_nlon > 1) ? pnt->lon[1] - pnt->lon[0] : PREC(0.0);
+    REAL deltalon = (pnt_nlon > 1) ? pnt->lon[1] - pnt->lon[0] : PREC(0.0);
 
 
     /* Auxiliary constant to be used only in case the PSLR algorithm is
@@ -182,10 +193,10 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
 
 
     /* Length of the lumped coefficients arrays in case FFT will be applied */
-    size_t nlc = pnt_nlon / 2 + 1;
+    size_t nfc = pnt_nlon / 2 + 1;
 
 
-    _Bool use_fft = CHARM(shs_grd_point_fft_check)(pnt, dlon, nmax);
+    _Bool use_fft = CHARM(shs_grd_point_fft_check)(pnt, deltalon, nmax);
     if (!use_fft)
     {
         /* Get the origin of the longitude "pnt->lon" vector (will be necessary
@@ -215,7 +226,7 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
     REAL *r               = NULL;
     REAL *ri              = NULL;
     REAL *dm              = NULL;
-    FFTW(complex) *lc_tmp = NULL;
+    FFTW(complex) *fc_tmp = NULL;
     REAL *ftmp            = NULL;
     FFTW(plan) plan       = NULL;
     /* --------------------------------------------------------------------- */
@@ -260,38 +271,71 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
 
 
 
+    /* Get some constants */
+    /* --------------------------------------------------------------------- */
+    REAL mur;  /* "(shcs->mu / shcs->r)^dorder" */
+    unsigned dorder;  /* "0" for potential,
+                         "1" for first-order derivatives,
+                         "2" for second-order derivatives */
+    size_t npar; /* Number quantities to be synthesized:
+                    "3" for first-order derivatives,
+                    "6" for second-order derivatives,
+                    "1" otherwise. */
+    CHARM(shs_get_mur_dorder_npar)(shcs, dr, dlat, dlon, &mur, &dorder, &npar,
+                                   err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
+    int grad;
+    if ((dr == GRAD_1) && (dlat == GRAD_1) && (dlon == GRAD_1))
+        grad = 1;
+    else if ((dr == GRAD_2) && (dlat == GRAD_2) && (dlon == GRAD_2))
+        grad = 2;
+    else
+        grad = 0;
+    /* --------------------------------------------------------------------- */
+
+
+
+
+
+
     /* Create a FFT plan */
     /* --------------------------------------------------------------------- */
     if (use_fft)
     {
-        lc_tmp = (FFTW(complex) *)FFTW(malloc)(nlc * sizeof(FFTW(complex)));
-        if (lc_tmp == NULL)
+        fc_tmp = (FFTW(complex) *)FFTW(malloc)(nfc * sizeof(FFTW(complex)));
+        if (fc_tmp == NULL)
         {
-            FFTW(free)(lc_tmp);
+            FFTW(free)(fc_tmp);
             FAILURE_glob = 1;
             goto FAILURE;
         }
         ftmp = (REAL *)FFTW(malloc)(pnt_nlon * sizeof(REAL));
         if (ftmp == NULL)
         {
-            FFTW(free)(lc_tmp);
+            FFTW(free)(fc_tmp);
             FFTW(free)(ftmp);
             FAILURE_glob = 1;
             goto FAILURE;
         }
 
 
-        plan = FFTW(plan_dft_c2r_1d)(pnt_nlon, lc_tmp, ftmp, FFTW_ESTIMATE);
+        plan = FFTW(plan_dft_c2r_1d)(pnt_nlon, fc_tmp, ftmp, FFTW_ESTIMATE);
         if (plan == NULL)
         {
-            FFTW(free)(lc_tmp);
+            FFTW(free)(fc_tmp);
             FFTW(free)(ftmp);
             FAILURE_glob = 1;
             goto FAILURE;
         }
 
 
-        FFTW(free)(lc_tmp); FFTW(free)(ftmp);
+        FFTW(free)(fc_tmp); FFTW(free)(ftmp);
     }
     /* --------------------------------------------------------------------- */
 
@@ -302,9 +346,6 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
 
     /* Loop over grid latitudes */
     /* --------------------------------------------------------------------- */
-    REAL mur = shcs->mu / shcs->r;
-
-
     /* Get the polar optimization threshold */
     REAL_SIMD pt = CHARM(misc_polar_optimization_threshold)(nmax);
 
@@ -317,8 +358,8 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
 #if CHARM_OPENMP
 #pragma omp parallel default(none) \
 shared(f, shcs, nmax, pnt, pnt_nlat, pnt_nlon, dm, r, ri, nlatdo, pnt_type) \
-shared(lon0, dlon, even, symm, FAILURE_glob, mur, err, nlc, plan, use_fft) \
-shared(pt, rref, r_eq_rref)
+shared(lon0, deltalon, even, symm, FAILURE_glob, mur, err, nfc, plan) \
+shared(use_fft, pt, rref, r_eq_rref, dr, dlat, dlon, dorder, npar, grad)
 #endif
     {
         /* ................................................................. */
@@ -336,16 +377,19 @@ shared(pt, rref, r_eq_rref)
         REAL *latsinv      = NULL;
         REAL *pnt_rv       = NULL;
         REAL *pnt_r2v      = NULL;
-        REAL *lc_simd      = NULL;
-        REAL *lc2_simd     = NULL;
+        REAL *fc_simd      = NULL;
+        REAL *fc2_simd     = NULL;
         REAL *anm          = NULL;
         REAL *bnm          = NULL;
-        FFTW(complex) *lc  = NULL;
-        FFTW(complex) *lc2 = NULL;
+        FFTW(complex) *fc  = NULL;
+        FFTW(complex) *fc2 = NULL;
         REAL *ftmp         = NULL;
-        REAL *ftmp2        = NULL;
         REAL *fi           = NULL;
         REAL *fi2          = NULL;
+
+
+        size_t nfi_1par = pnt_nlon * SIMD_SIZE * SIMD_BLOCK;
+        size_t nfi = npar * nfi_1par;
 
 
         ips = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
@@ -430,18 +474,18 @@ shared(pt, rref, r_eq_rref)
                 FAILURE_priv = 1;
                 goto FAILURE_1_parallel;
             }
-            lc = (FFTW(complex) *)FFTW(malloc)(nlc * sizeof(FFTW(complex)));
-            if (lc == NULL)
+            fc = (FFTW(complex) *)FFTW(malloc)(nfc * sizeof(FFTW(complex)));
+            if (fc == NULL)
             {
                 FAILURE_priv = 1;
                 goto FAILURE_1_parallel;
             }
-            memset(lc, 0, nlc * sizeof(FFTW(complex)));
-            lc_simd = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                                    nlc * SIMD_SIZE *
+            memset(fc, 0, nfc * sizeof(FFTW(complex)));
+            fc_simd = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                                    npar * nfc * SIMD_SIZE *
                                                     SIMD_BLOCK * 2,
                                                     sizeof(REAL));
-            if (lc_simd == NULL)
+            if (fc_simd == NULL)
             {
                 FAILURE_priv = 1;
                 goto FAILURE_1_parallel;
@@ -449,9 +493,8 @@ shared(pt, rref, r_eq_rref)
         }
         else
         {
-            fi = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                               pnt_nlon * SIMD_SIZE *
-                                               SIMD_BLOCK, sizeof(REAL));
+            fi = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, nfi,
+                                               sizeof(REAL));
             if (fi == NULL)
             {
                 FAILURE_priv = 1;
@@ -473,25 +516,19 @@ shared(pt, rref, r_eq_rref)
 
             if (use_fft)
             {
-                ftmp2 = (REAL *)FFTW(malloc)(pnt_nlon * sizeof(REAL));
-                if (ftmp2 == NULL)
-                {
-                    FAILURE_priv = 1;
-                    goto FAILURE_1_parallel;
-                }
-                lc2 = (FFTW(complex) *)FFTW(malloc)(nlc *
+                fc2 = (FFTW(complex) *)FFTW(malloc)(nfc *
                                                     sizeof(FFTW(complex)));
-                if (lc2 == NULL)
+                if (fc2 == NULL)
                 {
                     FAILURE_priv = 1;
                     goto FAILURE_1_parallel;
                 }
-                memset(lc2, 0, nlc * sizeof(FFTW(complex)));
-                lc2_simd = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                                         nlc * SIMD_SIZE *
-                                                         SIMD_BLOCK * 2,
-                                                         sizeof(REAL));
-                if (lc2_simd == NULL)
+                memset(fc2, 0, nfc * sizeof(FFTW(complex)));
+                fc2_simd = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                                         npar * nfc *
+                                                         SIMD_SIZE * SIMD_BLOCK
+                                                         * 2, sizeof(REAL));
+                if (fc2_simd == NULL)
                 {
                     FAILURE_priv = 1;
                     goto FAILURE_1_parallel;
@@ -499,9 +536,8 @@ shared(pt, rref, r_eq_rref)
             }
             else
             {
-                fi2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                                    pnt_nlon * SIMD_SIZE *
-                                                    SIMD_BLOCK, sizeof(REAL));
+                fi2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, nfi,
+                                                    sizeof(REAL));
                 if (fi2 == NULL)
                 {
                     FAILURE_priv = 1;
@@ -554,18 +590,18 @@ FAILURE_1_parallel:
 
 
         size_t ipv, l;
+        const size_t size_blk2 = SIMD_SIZE * SIMD_BLOCK * 2;
 
 
         REAL_SIMD t[SIMD_BLOCK], u[SIMD_BLOCK], symm_simd[SIMD_BLOCK];
         REAL_SIMD pnt_r[SIMD_BLOCK], pnt_r2[SIMD_BLOCK];
         REAL_SIMD ratio[SIMD_BLOCK], ratio2[SIMD_BLOCK];
         REAL_SIMD ratiom[SIMD_BLOCK], ratio2m[SIMD_BLOCK];
-        REAL_SIMD a[SIMD_BLOCK], b[SIMD_BLOCK], a2[SIMD_BLOCK], b2[SIMD_BLOCK];
         for (l = 0; l < SIMD_BLOCK; l++)
-        {
-            a[l] = b[l] = a2[l] = b2[l] = ratio[l] = ratio2[l] = ratiom[l] =
-                ratio2m[l] = SET_ZERO_R;
-        }
+            ratio[l] = ratio2[l] = ratiom[l] = ratio2m[l] = SET_ZERO_R;
+        REAL_SIMD pm1m1[SIMD_BLOCK], dpm1m1[SIMD_BLOCK];
+        CHARM(lc) lc;
+        CHARM(shs_lc_init)(&lc);
 
 
 #if CHARM_OPENMP
@@ -639,11 +675,11 @@ FAILURE_1_parallel:
                     /* Reset the lumped coefficients.  Required in some
                      * cases. */
                     /* ----------------------------------------------------- */
-                    memset(lc, 0, nlc * sizeof(FFTW(complex)));
+                    memset(fc, 0, nfc * sizeof(FFTW(complex)));
 
 
                     if (symm)
-                        memset(lc2, 0, nlc * sizeof(FFTW(complex)));
+                        memset(fc2, 0, nfc * sizeof(FFTW(complex)));
                     /* ----------------------------------------------------- */
                 }
                 else
@@ -653,13 +689,11 @@ FAILURE_1_parallel:
                      * to be reinitialized to zero for each "ith" latitude. The
                      * same holds true for "fi2" in case of symmetric grids. */
                     /* ----------------------------------------------------- */
-                    memset(fi, 0, pnt_nlon * SIMD_SIZE * SIMD_BLOCK *
-                           sizeof(REAL));
+                    memset(fi, 0, nfi * sizeof(REAL));
 
 
                     if (symm)
-                        memset(fi2, 0, pnt_nlon * SIMD_SIZE * SIMD_BLOCK *
-                               sizeof(REAL));
+                        memset(fi2, 0, nfi * sizeof(REAL));
                     /* ----------------------------------------------------- */
                 }
             }
@@ -682,24 +716,85 @@ FAILURE_1_parallel:
 
 
                 /* Computation of the lumped coefficients */
-                CHARM(shs_point_kernel)(nmax, m, shcs, r_eq_rref, anm, bnm,
-                                        &t[0], ps, ips,
-                                        &ratio[0], &ratio2[0],
-                                        &ratiom[0], &ratio2m[0],
-                                        &symm_simd[0],
-                                        &a[0], &b[0], &a2[0], &b2[0]);
+                /* --------------------------------------------------------- */
+#undef KERNEL_IO_PARS
+#define KERNEL_IO_PARS (nmax, m, shcs, r_eq_rref, anm, bnm,                   \
+                        &t[0], &u[0], ps, ips,                                \
+                        &ratio[0], &ratio2[0], &ratiom[0], &ratio2m[0],       \
+                        &symm_simd[0], dorder, &pm1m1[0], &dpm1m1[0],         \
+                        &lc);
+                if ((dr == 0) && (dlat == 0) && (dlon == 0))
+                {
+                    CHARM(shs_point_kernel_dr0_dlat0_dlon0)
+                        KERNEL_IO_PARS;
+                }
+                else if ((dr == 1) && (dlat == 0) && (dlon == 0))
+                {
+                    CHARM(shs_point_kernel_dr1_dlat0_dlon0)
+                        KERNEL_IO_PARS;
+                }
+                else if ((dr == 2) && (dlat == 0) && (dlon == 0))
+                {
+                    CHARM(shs_point_kernel_dr2_dlat0_dlon0)
+                        KERNEL_IO_PARS;
+                }
+                else if ((dr == 0) && (dlat == 1) && (dlon == 0))
+                {
+                    CHARM(shs_point_kernel_dr0_dlat1_dlon0)
+                        KERNEL_IO_PARS;
+                }
+                else if ((dr == 0) && (dlat == 2) && (dlon == 0))
+                {
+                    CHARM(shs_point_kernel_dr0_dlat2_dlon0)
+                        KERNEL_IO_PARS;
+                }
+                else if ((dr == 0) && (dlat == 0) && (dlon == 1))
+                {
+                    CHARM(shs_point_kernel_dr0_dlat0_dlon1)
+                        KERNEL_IO_PARS;
+                }
+                else if ((dr == 0) && (dlat == 0) && (dlon == 2))
+                {
+                    CHARM(shs_point_kernel_dr0_dlat0_dlon2)
+                        KERNEL_IO_PARS;
+                }
+                else if ((dr == 1) && (dlat == 1) && (dlon == 0))
+                {
+                    CHARM(shs_point_kernel_dr1_dlat1_dlon0)
+                        KERNEL_IO_PARS;
+                }
+                else if ((dr == 1) && (dlat == 0) && (dlon == 1))
+                {
+                    CHARM(shs_point_kernel_dr1_dlat0_dlon1)
+                        KERNEL_IO_PARS;
+                }
+                else if ((dr == 0) && (dlat == 1) && (dlon == 1))
+                {
+                    CHARM(shs_point_kernel_dr0_dlat1_dlon1)
+                        KERNEL_IO_PARS;
+                }
+                else if ((dr == GRAD_1) && (dlat == GRAD_1) &&
+                         (dlon == GRAD_1))
+                {
+                    CHARM(shs_point_kernel_grad1) KERNEL_IO_PARS;
+                }
+                else if ((dr == GRAD_2) && (dlat == GRAD_2) &&
+                         (dlon == GRAD_2))
+                {
+                    CHARM(shs_point_kernel_grad2) KERNEL_IO_PARS;
+                }
+                /* --------------------------------------------------------- */
 
 
                 /* --------------------------------------------------------- */
                 if (use_fft)
-                    CHARM(shs_grd_fft_lc)(m, dlon,
-                                          &a[0], &b[0], &a2[0], &b2[0],
+                    CHARM(shs_grd_fft_lc)(m, deltalon, grad, &lc,
                                           symm, &symm_simd[0], pnt_type,
-                                          lc_simd, lc2_simd);
+                                          nfc, fc_simd, fc2_simd);
                 else
-                    CHARM(shs_grd_lr)(m, lon0, dlon, pnt_nlon, pnt_type,
-                                      &a[0], &b[0], &a2[0], &b2[0],
-                                      symm, fi, fi2);
+                    CHARM(shs_grd_lr)(m, lon0, deltalon, pnt_nlon, pnt_type,
+                                      grad, npar, nfi_1par, &lc, symm,
+                                      fi, fi2);
                 /* --------------------------------------------------------- */
 
 
@@ -716,18 +811,24 @@ UPDATE_RATIOS:
             /* ------------------------------------------------------------- */
 
 
-            if (use_fft)
-                /* Fourier transform along the latitude parallels */
-                CHARM(shs_grd_fft)(i, pnt_type, pnt_nlat, pnt_nlon,
-                                   latsinv, NULL, NULL, PREC(0.0),
-                                   lc, lc2, nlc,
-                                   lc_simd, lc2_simd,
-                                   mur, plan, symmv,
-                                   ftmp, ftmp2, f);
-            else
-                CHARM(shs_grd_lr2)(i, latsinv, pnt_type, pnt_nlat, pnt_nlon,
-                                   symmv, mur, NULL, NULL, PREC(0.0),
-                                   fi, fi2, f);
+            for (size_t p = 0; p < npar; p++)
+            {
+                if (use_fft)
+                    /* Fourier transform along the latitude parallels */
+                    CHARM(shs_grd_fft)(i, pnt_type, pnt_nlat, pnt_nlon,
+                                       latsinv, NULL, NULL, PREC(0.0),
+                                       fc, fc2, nfc,
+                                       &fc_simd[p * nfc * size_blk2],
+                                       &fc2_simd[p * nfc * size_blk2],
+                                       mur, plan, symmv,
+                                       ftmp, f[p]);
+                else
+                    CHARM(shs_grd_lr2)(i, latsinv, pnt_type, pnt_nlat,
+                                       pnt_nlon, symmv, mur, NULL, NULL,
+                                       PREC(0.0),
+                                       &fi[p * nfi_1par], &fi2[p * nfi_1par],
+                                       f[p]);
+            }
 
 
         } /* End of the loop over latitude parallels */
@@ -743,10 +844,10 @@ FAILURE_2_parallel:
         CHARM(free_aligned)(symmv);     CHARM(free_aligned)(latsinv);
         CHARM(free_aligned)(pnt_rv);    CHARM(free_aligned)(pnt_r2v);
         CHARM(free_aligned)(fi);        CHARM(free_aligned)(fi2);
-        CHARM(free_aligned)(lc_simd);   CHARM(free_aligned)(lc2_simd);
+        CHARM(free_aligned)(fc_simd);   CHARM(free_aligned)(fc2_simd);
         free(anm); free(bnm);
-        FFTW(free)(lc); FFTW(free)(lc2);
-        FFTW(free)(ftmp); FFTW(free)(ftmp2);
+        FFTW(free)(fc); FFTW(free)(fc2);
+        FFTW(free)(ftmp);
         /* ----------------------------------------------------------------- */
 
 

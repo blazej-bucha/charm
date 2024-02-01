@@ -388,6 +388,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integration-with-numpy">Integration with NumPy</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-spherical-harmonic-coefficients">Working with spherical harmonic coefficients</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spherical-harmonic-synthesis-and-analysis">Spherical harmonic synthesis and analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#first-and-second-order-gradients-gravitational-vector-and-tensor">First- and second-order gradients (gravitational vector and tensor)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-coefficients-of-legendre-functions">Fourier coefficients of Legendre functions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integrals">Integrals</a></li>
 </ul>
@@ -863,6 +864,65 @@ points.</p></li>
 </pre></div>
 </div>
 </section>
+<section id="first-and-second-order-gradients-gravitational-vector-and-tensor">
+<h3>First- and second-order gradients (gravitational vector and tensor)<a class="headerlink" href="#first-and-second-order-gradients-gravitational-vector-and-tensor" title="Permalink to this heading">#</a></h3>
+<p>This example shows how to compute the full gravitational vector and the full
+gravitational tensor in the <a class="reference internal" href="definitions.html#lnof"><span class="std std-ref">Local north-oriented reference frame</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="c1"># INPUTS</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># Path to the input file with spherical harmonic coefficients in the &#39;gfc&#39;</span>
+<span class="c1"># format</span>
+<span class="n">shcs_file</span> <span class="o">=</span> <span class="s1">&#39;../data/input/EGM96-degree10.gfc&#39;</span>
+<span class="c1"># =============================================================================</span>
+
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># First, let&#39;get the maximum harmonic degree stored in &quot;shcs_file&quot;.  This is</span>
+<span class="c1"># especially useful to read all coefficients in &quot;shcs_file&quot; without knowing its</span>
+<span class="c1"># maximum harmonic degree a priori.</span>
+<span class="n">nmax</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">nmax_from_file</span><span class="p">(</span><span class="s1">&#39;gfc&#39;</span><span class="p">,</span> <span class="n">shcs_file</span><span class="p">)</span>
+
+
+<span class="c1"># Now read all coefficients in &quot;shcs_file&quot;</span>
+<span class="n">shcs</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="s1">&#39;gfc&#39;</span><span class="p">,</span> <span class="n">shcs_file</span><span class="p">,</span> <span class="n">nmax</span><span class="p">)</span>
+
+
+<span class="c1"># Compute the Gauss--Legendre point grid for an &quot;nmax&quot; given by the maximum</span>
+<span class="c1"># degree stored in &quot;shcs&quot; and for a radius equal to the reference sphere,</span>
+<span class="c1"># to which the spherical harmonic coefficients are scaled to.  We intentionally</span>
+<span class="c1"># use here the Gauss--Legendre grid instead of the Driscoll--Healy grids in</span>
+<span class="c1"># order to avoid the inaccuracies due to the singularities of the</span>
+<span class="c1"># &quot;y&quot;-elements at the poles (see the documentation).</span>
+<span class="n">grd</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">crd</span><span class="o">.</span><span class="n">PointGridGL</span><span class="p">(</span><span class="n">shcs</span><span class="o">.</span><span class="n">nmax</span><span class="p">,</span> <span class="n">shcs</span><span class="o">.</span><span class="n">r</span><span class="p">)</span>
+
+
+<span class="c1"># Compute the full first-order gradient (vector)</span>
+<span class="n">fx</span><span class="p">,</span> <span class="n">fy</span><span class="p">,</span> <span class="n">fz</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shs</span><span class="o">.</span><span class="n">point_grad1</span><span class="p">(</span><span class="n">grd</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">shcs</span><span class="o">.</span><span class="n">nmax</span><span class="p">)</span>
+
+
+<span class="c1"># Compute the magnitude of the gravitational acceleration (no contribution due</span>
+<span class="c1"># to the centrifugal force is considered here)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">fx</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">fy</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">fz</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+
+<span class="c1"># Now compute the full second-order gradient (tensor)</span>
+<span class="n">fxx</span><span class="p">,</span> <span class="n">fxy</span><span class="p">,</span> <span class="n">fxz</span><span class="p">,</span> <span class="n">fyy</span><span class="p">,</span> <span class="n">fyz</span><span class="p">,</span> <span class="n">fzz</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shs</span><span class="o">.</span><span class="n">point_grad2</span><span class="p">(</span><span class="n">grd</span><span class="p">,</span> <span class="n">shcs</span><span class="p">,</span> <span class="n">shcs</span><span class="o">.</span><span class="n">nmax</span><span class="p">)</span>
+
+
+<span class="c1"># Check whether &quot;fxx + fyy + fzz&quot; is zero within numerical errors</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The largest error of the gravitational tensor trace is &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">fxx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fyy</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fzz</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s1"> s**-2&#39;</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Great, all done!&#39;</span><span class="p">)</span>
+<span class="c1"># =============================================================================</span>
+</pre></div>
+</div>
+</section>
 <section id="fourier-coefficients-of-legendre-functions">
 <h3>Fourier coefficients of Legendre functions<a class="headerlink" href="#fourier-coefficients-of-legendre-functions" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
@@ -1058,6 +1118,7 @@ So when creating a numpy array to be passed to PyHarm, you must set the
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integration-with-numpy">Integration with NumPy</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-spherical-harmonic-coefficients">Working with spherical harmonic coefficients</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spherical-harmonic-synthesis-and-analysis">Spherical harmonic synthesis and analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#first-and-second-order-gradients-gravitational-vector-and-tensor">First- and second-order gradients (gravitational vector and tensor)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-coefficients-of-legendre-functions">Fourier coefficients of Legendre functions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integrals">Integrals</a></li>
 </ul>
@@ -1086,7 +1147,7 @@ By Blažej Bucha
     
   <p class="copyright">
     
-      © Copyright 2023, Blažej Bucha.
+      © Copyright 2024, Blažej Bucha.
       <br/>
     
   </p>
@@ -1095,7 +1156,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Oct 02, 2023.
+  Last updated on Feb 01, 2024.
   <br/>
 </p>
   </div>

@@ -16,8 +16,14 @@ extern "C"
 #endif
 
 
-extern void CHARM(shs_sctr_mulc)(size_t, size_t, int, REAL_SIMD, REAL_SIMD,
-                                 REAL *, REAL_SIMD *, REAL *);
+extern void CHARM(shs_sctr_mulc)(size_t,
+                                 size_t,
+                                 int,
+                                 REAL,
+                                 REAL_SIMD,
+                                 REAL *,
+                                 REAL_SIMD *,
+                                 REAL *);
 
 
 #ifdef __cplusplus

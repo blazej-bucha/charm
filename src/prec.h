@@ -23,6 +23,8 @@
 
 #undef CAT
 #define CAT(x, y) x ## y
+#undef CAT2
+#define CAT2(x, y, z) x ## y ## z
 
 
 #undef CHARM

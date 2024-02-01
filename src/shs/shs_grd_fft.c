@@ -18,12 +18,24 @@
  * parallels.
  *
  * This routine could potentially be improved by using strides in FFTW. */
-void CHARM(shs_grd_fft)(size_t i, int grd_type, size_t nlat, size_t nlon,
-                        REAL *latsinv, REAL *latminv, REAL *latmaxv, REAL dlon,
-                        FFTW(complex) *lc, FFTW(complex) *lc2, size_t nlc,
-                        const REAL *lc_tmp, const REAL *lc2_tmp,
-                        REAL mur, const FFTW(plan) plan, const REAL *symmv,
-                        REAL *ftmp, REAL *ftmp2, REAL *f)
+void CHARM(shs_grd_fft)(size_t i,
+                        int grd_type,
+                        size_t nlat,
+                        size_t nlon,
+                        REAL *latsinv,
+                        REAL *latminv,
+                        REAL *latmaxv,
+                        REAL deltalon,
+                        FFTW(complex) *fc,
+                        FFTW(complex) *fc2,
+                        size_t nfc,
+                        const REAL *fc_tmp,
+                        const REAL *fc2_tmp,
+                        REAL mur,
+                        const FFTW(plan) plan,
+                        const REAL *symmv,
+                        REAL *ftmp,
+                        REAL *f)
 {
     size_t ipv, row, idx, lss, lssv, lssidx;
     _Bool is_cell_grd = CHARM(crd_cell_isGrid)(grd_type);
@@ -59,53 +71,53 @@ void CHARM(shs_grd_fft)(size_t i, int grd_type, size_t nlat, size_t nlon,
             row = ipv * nlon;
 
 
-            /* If doing the cell synthesis, we have to take into acount not the
+            /* If doing the cell synthesis, we have to take into account the
              * size of the cell on the unit sphere and divide by it the "mu
              * / r" factor. */
             if (is_cell_grd)
             {
                 /* Cell area on the unit sphere and some useful constants */
-                dsigma = (SIN(latmaxv[lssv]) - SIN(latminv[lssv])) * dlon;
-                c = mur / dsigma;
+                dsigma = (SIN(latmaxv[lssv]) - SIN(latminv[lssv])) * deltalon;
+                c      = mur / dsigma;
             }
 
 
             /* Prepare the array with the lumped coefficients that will enter
-             * FFTW.  We need to take proper values from "lc_tmp", because the
-             * coefficients are in "lc_tmp" in blocks of "SIMD_SIZE" and
+             * FFTW.  We need to take proper values from "fc_tmp", because the
+             * coefficients are in "fc_tmp" in blocks of "SIMD_SIZE" and
              * "simd_blk".  I think the FFTW guru API could be used to avoid
              * this code, but it should not be performance critical. */
-            for (size_t j = 0; j < nlc; j++)
+            for (size_t j = 0; j < nfc; j++)
             {
                 idx      = j * 2 * size_blk + v;
                 lssidx   = lss + idx;
-                lc[j][0] = lc_tmp[lssidx];
-                lc[j][1] = lc_tmp[lssidx + size_blk];
+                fc[j][0] = fc_tmp[lssidx];
+                fc[j][1] = fc_tmp[lssidx + size_blk];
             }
 
 
-            /* Now the the FFT and the use the scale factor of "mu / r" or so
+            /* Now execute the FFT and use the scale factor of "mu / r" or so
              * */
-            FFTW(execute_dft_c2r)(plan, lc, ftmp);
+            FFTW(execute_dft_c2r)(plan, fc, ftmp);
             for (size_t j = 0; j < nlon; j++)
                 f[row + j] = c * ftmp[j];
 
 
             if (symmv[lssv])
             {
-                for (size_t j = 0; j < nlc; j++)
+                for (size_t j = 0; j < nfc; j++)
                 {
                     idx       = j * 2 * size_blk + v;
                     lssidx    = lss + idx;
-                    lc2[j][0] = lc2_tmp[lssidx];
-                    lc2[j][1] = lc2_tmp[lssidx + size_blk];
+                    fc2[j][0] = fc2_tmp[lssidx];
+                    fc2[j][1] = fc2_tmp[lssidx + size_blk];
                 }
 
 
                 row = (nlat - ipv - 1) * nlon;
-                FFTW(execute_dft_c2r)(plan, lc2, ftmp2);
+                FFTW(execute_dft_c2r)(plan, fc2, ftmp);
                 for (size_t j = 0; j < nlon; j++)
-                    f[row + j] = c * ftmp2[j];
+                    f[row + j] = c * ftmp[j];
             }
         }
     }

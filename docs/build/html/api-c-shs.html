@@ -396,16 +396,16 @@ document.write(`
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-synthesis-of-point-values">Synthesis of point values</p>
-<p>Functions to perform spherical harmonic synthesis of point values. </p>
+<p>Functions to perform spherical harmonic synthesis of point values and of their first- and second-order gradients in <a class="reference external" href="./definitions.html#lnof">LNOF</a>. </p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv415charm_shs_pointPK11charm_pointPK9charm_shcmPdP9charm_err">
 <span id="_CPPv315charm_shs_pointPK11charm_pointPK9charm_shcmPdP9charm_err"></span><span id="_CPPv215charm_shs_pointPK11charm_pointPK9charm_shcmPdP9charm_err"></span><span id="charm_shs_point__charm_pointCP.charm_shcCP.unsigned-l.doubleP.charm_errP"></span><span class="target" id="charm__shs_8h_1a47e78422d29ab4668f6140fe8a5b16af"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shs_point</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="api-c-crd.html#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pnt</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">f</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415charm_shs_pointPK11charm_pointPK9charm_shcmPdP9charm_err" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Performs the exact solid spherical harmonic synthesis of point values: </p>
 <p><div class="math notranslate nohighlight">
-\[f(\varphi,\lambda) = \dfrac{\mu}{R} \, \sum_{n = 0}^{n_{\max}} \left( 
-\dfrac{R}{r} \right)^{n + 1} \, \sum_{m = 0}^{n} \left( \bar{C}_{nm}\, 
-\cos(m \, \lambda) + \bar{S}_{nm} \, \sin(m \, \lambda) \right) \, 
-\bar{P}_{nm}(\sin\varphi){.}\]</div>
+\[f(r, \varphi,\lambda) = \dfrac{\mu}{R} \, \sum_{n = 0}^{n_{\max}}
+\left( \dfrac{R}{r} \right)^{n + 1} \, \sum_{m = 0}^{n} \left(
+\bar{C}_{nm}\, \cos(m \, \lambda) + \bar{S}_{nm} \, \sin(m \, \lambda)
+\right) \, \bar{P}_{nm}(\sin\varphi){.}\]</div>
 </p>
 <p>The synthesis is done either at</p>
 <p><ul class="simple">
@@ -492,6 +492,179 @@ document.write(`
 </dl>
 </dd></dl>
 
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv421charm_shs_point_grad1PK11charm_pointPK9charm_shcmPPdP9charm_err">
+<span id="_CPPv321charm_shs_point_grad1PK11charm_pointPK9charm_shcmPPdP9charm_err"></span><span id="_CPPv221charm_shs_point_grad1PK11charm_pointPK9charm_shcmPPdP9charm_err"></span><span id="charm_shs_point_grad1__charm_pointCP.charm_shcCP.unsigned-l.doublePP.charm_errP"></span><span class="target" id="charm__shs_8h_1ab8fc2c0e8bbdf34ea05713274cc76112"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shs_point_grad1</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="api-c-crd.html#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pnt</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">f</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421charm_shs_point_grad1PK11charm_pointPK9charm_shcmPPdP9charm_err" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Performs the synthesis of point values of the first-order gradient in <a class="reference external" href="./definitions.html#lnof">LNOF</a>,</p>
+<p><div class="math notranslate nohighlight">
+\[\begin{split}\nabla f =
+%
+\begin{bmatrix}
+f_{\mathrm{x}}\\
+f_{\mathrm{y}}\\
+f_{\mathrm{z}}\\
+\end{bmatrix}
+%
+=
+%
+\begin{bmatrix}
+\dfrac{1}{r} \, \dfrac{\partial f}{\partial \varphi}\\
+-\dfrac{1}{r \, \cos\varphi} \, \dfrac{\partial f}{\partial \lambda}\\
+\dfrac{\partial f}{\partial r}\\
+\end{bmatrix}
+{.}\end{split}\]</div>
+</p>
+<p>If <span class="math notranslate nohighlight">\(f\)</span> is, for instance, the gravitational potential at <span class="math notranslate nohighlight">\((r, \varphi, \lambda)\)</span>, then <span class="math notranslate nohighlight">\(\nabla f\)</span> is the vector of the gravitational acceleration at <span class="math notranslate nohighlight">\((r, \varphi, \lambda)\)</span>.</p>
+<p><div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>It is more efficient to get the three elements of the first-order
+gradient in a single run by this function then by three separate
+calls of <code class="docutils literal notranslate"><span class="pre">charm_shs_point_guru()</span></code> yielding the three
+first-order derivatives with respect to the spherical coordinates.
+On the other hand, <code class="docutils literal notranslate"><span class="pre">charm_shs_point_guru()</span></code> is a better choice
+if you need only a single element of the gradient vector.</p>
+</div>
+</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>In polar areas, the output values of <span class="math notranslate nohighlight">\(f_{\mathrm{y}}\)</span> are likely inaccurate or wrong, because the <span class="math notranslate nohighlight">\(\frac{1}{\cos\varphi}\)</span> term is singular at the poles. The latitudinal derivatives are free of any singularities though, because the latitudinal derivatives of the Legendre functions are computed by non-singular recurrence relations. See <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1a75b5e14a7b6aa7b4fe03223eed889cda"><span class="std std-ref"><span class="pre">charm_shs_point_guru()</span></span></a></code> on how to treat the singularity on your own (in case you are a guru and know what you are doing).</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pnt</strong> – <strong>[in]</strong> Same as in <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1a47e78422d29ab4668f6140fe8a5b16af"><span class="std std-ref"><span class="pre">charm_shs_point()</span></span></a></code>.</p></li>
+<li><p><strong>shcs</strong> – <strong>[in]</strong> Same as in <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1a47e78422d29ab4668f6140fe8a5b16af"><span class="std std-ref"><span class="pre">charm_shs_point()</span></span></a></code>.</p></li>
+<li><p><strong>nmax</strong> – <strong>[in]</strong> Same as in <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1a47e78422d29ab4668f6140fe8a5b16af"><span class="std std-ref"><span class="pre">charm_shs_point()</span></span></a></code>.</p></li>
+<li><p><strong>f</strong> – <strong>[out]</strong> Double pointer to <code class="docutils literal notranslate"><span class="pre">double</span></code> with an access to at least three pointers to <code class="docutils literal notranslate"><span class="pre">double</span></code>. The <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code> and <code class="docutils literal notranslate"><span class="pre">z</span></code> elements are stored in arrays pointed to by <code class="docutils literal notranslate"><span class="pre">f[0]</span></code>, <code class="docutils literal notranslate"><span class="pre">f[1]</span></code> and <code class="docutils literal notranslate"><span class="pre">f[2]</span></code>, respectively.</p></li>
+<li><p><strong>err</strong> – <strong>[out]</strong> Same as in <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1a47e78422d29ab4668f6140fe8a5b16af"><span class="std std-ref"><span class="pre">charm_shs_point()</span></span></a></code>. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv421charm_shs_point_grad2PK11charm_pointPK9charm_shcmPPdP9charm_err">
+<span id="_CPPv321charm_shs_point_grad2PK11charm_pointPK9charm_shcmPPdP9charm_err"></span><span id="_CPPv221charm_shs_point_grad2PK11charm_pointPK9charm_shcmPPdP9charm_err"></span><span id="charm_shs_point_grad2__charm_pointCP.charm_shcCP.unsigned-l.doublePP.charm_errP"></span><span class="target" id="charm__shs_8h_1abb4bc19dedd230af2e54bc3d97c6c792"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shs_point_grad2</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="api-c-crd.html#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pnt</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">f</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421charm_shs_point_grad2PK11charm_pointPK9charm_shcmPPdP9charm_err" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Performs the synthesis of point values of the second-order gradient in <a class="reference external" href="./definitions.html#lnof">LNOF</a>,</p>
+<p><div class="math notranslate nohighlight">
+\[\begin{split}\nabla \otimes \nabla f =
+%
+\begin{bmatrix}
+f_{\mathrm{xx}}, f_{\mathrm{xy}}, f_{\mathrm{xz}}\\
+f_{\mathrm{yz}}, f_{\mathrm{yy}}, f_{\mathrm{yz}}\\
+f_{\mathrm{zx}}, f_{\mathrm{zy}}, f_{\mathrm{zz}}\\
+\end{bmatrix}
+{.}\end{split}\]</div>
+</p>
+<p>If <span class="math notranslate nohighlight">\(f\)</span> is, for instance, the gravitational potential at <span class="math notranslate nohighlight">\((r, \varphi, \lambda)\)</span>, then <span class="math notranslate nohighlight">\(\nabla \otimes \nabla f\)</span> is the gravitational tensor at <span class="math notranslate nohighlight">\((r, \varphi, \lambda)\)</span>.</p>
+<p>Due to the properties of harmonic fields, only six elements of the tensor are unique. In CHarm, these are computed after Reed (1973) by the following equations (note that the <span class="math notranslate nohighlight">\(y\)</span>-axis in Reed 1973 has the opposite direction as here which explains the sign swaps)</p>
+<p><div class="math notranslate nohighlight">
+\[\begin{split}f_{\mathrm{xx}} &amp;= \frac{1}{r^2} \,
+\frac{\partial^2 f}{\partial \varphi^2} + \frac{1}{r} \, \frac{\partial
+f}{\partial r},\\
+%
+f_{\mathrm{xy}} &amp;= -\frac{1}{r^2 \, \cos\varphi} \, \frac{\partial^2
+f}{\partial \varphi \, \partial\lambda} - \frac{\tan\varphi}{r^2 \,
+\cos\varphi} \, \frac{\partial f}{\partial \lambda},\\
+%
+f_{\mathrm{xz}} &amp;= \frac{1}{r} \, \frac{\partial^2
+f}{\partial r \, \partial \varphi} - \frac{1}{r^2} \, \frac{\partial
+f}{\partial \varphi},\\
+%
+f_{\mathrm{yy}} &amp;= \frac{1}{r^2 \, \cos^2\varphi}
+\, \frac{\partial^2 f}{\partial \lambda^2} + \frac{1}{r} \,
+\frac{\partial f}{\partial r} - \frac{\tan\varphi}{r^2} \,
+\frac{\partial f}{\partial \varphi},\\
+%
+f_{\mathrm{yz}} &amp;= -\frac{1}{r \, \cos\varphi} \,
+\frac{\partial^2 f}{\partial r \, \partial \lambda} + \frac{1}{r^2 \,
+\cos\varphi} \, \frac{\partial f}{\partial \lambda},\\
+%
+f_{\mathrm{zz}} &amp;= \frac{\partial^2 f}{\partial r^2}.\end{split}\]</div>
+</p>
+<p><div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>It is significantly more efficient to get the six elements of the
+tensor in a single run by this function then by nine separate calls
+of <code class="docutils literal notranslate"><span class="pre">charm_shs_point_guru()</span></code> yielding the nine derivatives with
+respect to the spherical coordinates that are needed to get the
+derivatives in LNOF.  On the other hand,
+<code class="docutils literal notranslate"><span class="pre">charm_shs_point_guru()</span></code> may be a better choice if you need
+only a single tensor element.</p>
+</div>
+</p>
+<p><strong>References</strong>:</p>
+<p><ul class="simple">
+<li><p>Reed, G. B. (1973) Application of kinematical geodesy for determining the short wavelength components of the gravity field by satellite gradiometry. Report No. 201, Ohio State University, Department of Geodetic Sciences, Columbus, USA </p></li>
+</ul>
+</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>In polar areas, the output values of <span class="math notranslate nohighlight">\(f_{\mathrm{xy}}\)</span>, <span class="math notranslate nohighlight">\(f_{\mathrm{yy}}\)</span> and <span class="math notranslate nohighlight">\(f_{\mathrm{yz}}\)</span> are likely inaccurate or wrong, because the <span class="math notranslate nohighlight">\(\frac{1}{\cos\varphi}\)</span>, <span class="math notranslate nohighlight">\(\frac{1}{\cos^2\varphi}\)</span> and <span class="math notranslate nohighlight">\(\tan\varphi\)</span> terms are singular at the poles. The latitudinal derivatives are free of any singularities though, because the latitudinal derivatives of the Legendre functions are computed by non-singular recurrence relations. See <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1a75b5e14a7b6aa7b4fe03223eed889cda"><span class="std std-ref"><span class="pre">charm_shs_point_guru()</span></span></a></code> on how to treat the singularity on your own (in case you are a guru and know what you are doing).</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pnt</strong> – <strong>[in]</strong> Same as in <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1a47e78422d29ab4668f6140fe8a5b16af"><span class="std std-ref"><span class="pre">charm_shs_point()</span></span></a></code>.</p></li>
+<li><p><strong>shcs</strong> – <strong>[in]</strong> Same as in <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1a47e78422d29ab4668f6140fe8a5b16af"><span class="std std-ref"><span class="pre">charm_shs_point()</span></span></a></code>.</p></li>
+<li><p><strong>nmax</strong> – <strong>[in]</strong> Same as in <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1a47e78422d29ab4668f6140fe8a5b16af"><span class="std std-ref"><span class="pre">charm_shs_point()</span></span></a></code>.</p></li>
+<li><p><strong>f</strong> – <strong>[out]</strong> Double pointer to <code class="docutils literal notranslate"><span class="pre">double</span></code> with an access to at least six pointers to <code class="docutils literal notranslate"><span class="pre">double</span></code>. The <code class="docutils literal notranslate"><span class="pre">xx</span></code>, <code class="docutils literal notranslate"><span class="pre">xy</span></code>, <code class="docutils literal notranslate"><span class="pre">xz</span></code>, <code class="docutils literal notranslate"><span class="pre">yy</span></code>, <code class="docutils literal notranslate"><span class="pre">yz</span></code> and <code class="docutils literal notranslate"><span class="pre">zz</span></code> elements are stored in arrays pointed to by <code class="docutils literal notranslate"><span class="pre">f[0]</span></code>, <code class="docutils literal notranslate"><span class="pre">f[1]</span></code>, <code class="docutils literal notranslate"><span class="pre">...</span></code>, <code class="docutils literal notranslate"><span class="pre">f[5]</span></code>, respectively.</p></li>
+<li><p><strong>err</strong> – <strong>[out]</strong> Same as in <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1a47e78422d29ab4668f6140fe8a5b16af"><span class="std std-ref"><span class="pre">charm_shs_point()</span></span></a></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv420charm_shs_point_guruPK11charm_pointPK9charm_shcmjjjPdP9charm_err">
+<span id="_CPPv320charm_shs_point_guruPK11charm_pointPK9charm_shcmjjjPdP9charm_err"></span><span id="_CPPv220charm_shs_point_guruPK11charm_pointPK9charm_shcmjjjPdP9charm_err"></span><span id="charm_shs_point_guru__charm_pointCP.charm_shcCP.unsigned-l.unsigned.unsigned.unsigned.doubleP.charm_errP"></span><span class="target" id="charm__shs_8h_1a75b5e14a7b6aa7b4fe03223eed889cda"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shs_point_guru</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="api-c-crd.html#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pnt</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dr</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dlat</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dlon</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">f</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv420charm_shs_point_guruPK11charm_pointPK9charm_shcmjjjPdP9charm_err" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Performs the synthesis of</p>
+<p><div class="math notranslate nohighlight">
+\[\frac{1}{r^{j + k}} \, \frac{\partial^{i + j + k} f}{\partial r^i \,
+\partial \varphi^j \, \lambda^k}\]</div>
+</p>
+<p>for <span class="math notranslate nohighlight">\(i = 0, 1, 2\)</span>, <span class="math notranslate nohighlight">\(j = 0, 1, 2\)</span> and <span class="math notranslate nohighlight">\(k = 0, 1, 2\)</span> satisfying <span class="math notranslate nohighlight">\(i + j + k \leq 2\)</span>.</p>
+<p>Computed can be, for instance, quantities like <span class="math notranslate nohighlight">\(\dfrac{1}{r} \,
+  \dfrac{\partial f}{\partial \lambda}\)</span> ( <span class="math notranslate nohighlight">\(i = 0\)</span>, <span class="math notranslate nohighlight">\(j = 1\)</span>, <span class="math notranslate nohighlight">\(k
+  = 0\)</span>) or <span class="math notranslate nohighlight">\(\dfrac{1}{r^2} \, \dfrac{\partial^2 f}{\partial \varphi \,
+  \partial \lambda}\)</span> ( <span class="math notranslate nohighlight">\(i = 0\)</span>, <span class="math notranslate nohighlight">\(j = 1\)</span>, <span class="math notranslate nohighlight">\(k = 1\)</span>).</p>
+<p>The rational behind this function is threefold.</p>
+<p><ul class="simple">
+<li><p>It computes the first- and second-order derivatives of <span class="math notranslate nohighlight">\(f\)</span> with respect to the spherical coordinates without any issues associated with the singularities at the poles.</p></li>
+<li><p>These derivatives are sometimes needed to perform some specialized tasks, for instance, as in cap-modified spectral gravity forward modelling (Bucha et al, 2019).</p></li>
+<li><p>It lowers memory requirements when compared with <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1ab8fc2c0e8bbdf34ea05713274cc76112"><span class="std std-ref"><span class="pre">charm_shs_point_grad1()</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1abb4bc19dedd230af2e54bc3d97c6c792"><span class="std std-ref"><span class="pre">charm_shs_point_grad2()</span></span></a></code>. For instance, the evaluation of the full tensor by <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1abb4bc19dedd230af2e54bc3d97c6c792"><span class="std std-ref"><span class="pre">charm_shs_point_grad2()</span></span></a></code> requires a huge amount of RAM if the point grid is really dense and/or maximum harmonic degree is large. With this function and some additional effort, the outputs from <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1ab8fc2c0e8bbdf34ea05713274cc76112"><span class="std std-ref"><span class="pre">charm_shs_point_grad1()</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1ab8fc2c0e8bbdf34ea05713274cc76112"><span class="std std-ref"><span class="pre">charm_shs_point_grad1()</span></span></a></code> can be reconstructed with much lower memory requirements. This will be significantly slower, but in some cases it may be the only practical solution.</p></li>
+</ul>
+</p>
+<p><strong>References</strong></p>
+<p>Bucha, B., Hirt, C., Kuhn, M. (2019). Cap integration in spectral gravity forward modelling up to the full gravity tensor. Journal of Geodesy 93, 1707-1737, doi: 10.1007/s00190-019-01277-3 </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function does not suffer from any singularities, because CHarm always relies on non-singular recurrence relations for the latitudinal derivatives of Legendre functions.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The sum <code class="docutils literal notranslate"><span class="pre">dr</span> <span class="pre">+</span> <span class="pre">dlat</span> <span class="pre">+</span> <span class="pre">dlon</span></code> cannot be larger than <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Be aware there are no terms like <span class="math notranslate nohighlight">\(\frac{1}{\cos\varphi}\)</span>, <span class="math notranslate nohighlight">\(\frac{1}{\cos^2\varphi}\)</span> or <span class="math notranslate nohighlight">\(\tan\varphi\)</span>. So, for instance, with <span class="math notranslate nohighlight">\(i = 0\)</span>, <span class="math notranslate nohighlight">\(j = 1\)</span>, <span class="math notranslate nohighlight">\(k = 0\)</span>, you will not get the <span class="math notranslate nohighlight">\(y\)</span>-element in LNOF as with <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1ab8fc2c0e8bbdf34ea05713274cc76112"><span class="std std-ref"><span class="pre">charm_shs_point_grad1()</span></span></a></code>. If needed, you have to take into account these factors by yourself. As a benefit, you can treat the singularities in any way you like.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pnt</strong> – <strong>[in]</strong> Same as in <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1a47e78422d29ab4668f6140fe8a5b16af"><span class="std std-ref"><span class="pre">charm_shs_point()</span></span></a></code>.</p></li>
+<li><p><strong>shcs</strong> – <strong>[in]</strong> Same as in <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1a47e78422d29ab4668f6140fe8a5b16af"><span class="std std-ref"><span class="pre">charm_shs_point()</span></span></a></code>.</p></li>
+<li><p><strong>nmax</strong> – <strong>[in]</strong> Same as in <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1a47e78422d29ab4668f6140fe8a5b16af"><span class="std std-ref"><span class="pre">charm_shs_point()</span></span></a></code>.</p></li>
+<li><p><strong>dr</strong> – <strong>[in]</strong> Order of the radial derivative (variable <span class="math notranslate nohighlight">\(i\)</span> in the equation above).</p></li>
+<li><p><strong>dlat</strong> – <strong>[in]</strong> Order of the latitudinal derivative (variable <span class="math notranslate nohighlight">\(j\)</span> in the equation above).</p></li>
+<li><p><strong>dlon</strong> – <strong>[in]</strong> Order of the longitudinal derivative (variable <span class="math notranslate nohighlight">\(k\)</span> in the equation above).</p></li>
+<li><p><strong>f</strong> – <strong>[out]</strong> Same as in <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1a47e78422d29ab4668f6140fe8a5b16af"><span class="std std-ref"><span class="pre">charm_shs_point()</span></span></a></code>, but the output quantity now represents one of the derivatives shows above.</p></li>
+<li><p><strong>err</strong> – <strong>[out]</strong> Same as in <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1a47e78422d29ab4668f6140fe8a5b16af"><span class="std std-ref"><span class="pre">charm_shs_point()</span></span></a></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-synthesis-of-mean-values">Synthesis of mean values</p>
@@ -501,17 +674,17 @@ document.write(`
 <span id="_CPPv314charm_shs_cellPK10charm_cellPK9charm_shcmPdP9charm_err"></span><span id="_CPPv214charm_shs_cellPK10charm_cellPK9charm_shcmPdP9charm_err"></span><span id="charm_shs_cell__charm_cellCP.charm_shcCP.unsigned-l.doubleP.charm_errP"></span><span class="target" id="charm__shs_8h_1add861cfba63c63d85c613ffe68af5c98"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shs_cell</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="api-c-crd.html#_CPPv410charm_cell" title="charm_cell"><span class="n"><span class="pre">charm_cell</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">cell</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">f</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414charm_shs_cellPK10charm_cellPK9charm_shcmPdP9charm_err" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Performs the exact solid spherical harmonic synthesis of mean values over computational cells: </p>
 <p><div class="math notranslate nohighlight">
-\[\begin{split}\tilde{f}(\varphi_{\mathrm{min}}, \varphi_{\mathrm{max}}, 
+\[\begin{split}\tilde{f}(r, \varphi_{\mathrm{min}}, \varphi_{\mathrm{max}}, 
 \lambda_{\mathrm{min}}, \lambda_{\mathrm{max}}) =&amp; \dfrac{1}{\Delta 
 \sigma} \, \dfrac{\mu}{R} \, \sum_{n = 0}^{n_{\max}} \left( 
 \dfrac{R}{r} \right)^{n + 1} \\
-&amp;\sum_{m = 0}^{n} \left( \bar{C}_{nm}\, 
+&amp;\times\sum_{m = 0}^{n} \left( \bar{C}_{nm}\, 
 \int\limits_{\lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}} \cos(m \, 
 \lambda) \, \mathrm{d}\lambda + \bar{S}_{nm} \, 
 \int\limits_{\lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}} \sin(m \, 
 \lambda) \, \mathrm{d}\lambda \right) \\
-&amp;\int\limits_{\varphi_{\mathrm{min}}}^{\varphi_{\mathrm{max}}}\bar{P}_{nm}(\sin\varphi) 
-\, \cos\varphi \, \mathrm{d}\varphi{,}\end{split}\]</div>
+&amp;\times\int\limits_{\varphi_{\mathrm{min}}}^{\varphi_{\mathrm{max}}}
+\bar{P}_{nm}(\sin\varphi) \, \cos\varphi \, \mathrm{d}\varphi{,}\end{split}\]</div>
 </p>
 <p>The synthesis is done either at</p>
 <p><ul class="simple">
@@ -619,7 +792,7 @@ lonmax: 1.0, 1.5, 2.0, 2.5, 3.0, 3.5
 <span id="_CPPv320charm_shs_cell_isurfPK10charm_cellPK9charm_shcmPK9charm_shcmmmPdP9charm_err"></span><span id="_CPPv220charm_shs_cell_isurfPK10charm_cellPK9charm_shcmPK9charm_shcmmmPdP9charm_err"></span><span id="charm_shs_cell_isurf__charm_cellCP.charm_shcCP.unsigned-l.charm_shcCP.unsigned-l.unsigned-l.unsigned-l.doubleP.charm_errP"></span><span class="target" id="charm__shs_8h_1a97a46cd1cf748688ea350f6b03234d38"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shs_cell_isurf</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="api-c-crd.html#_CPPv410charm_cell" title="charm_cell"><span class="n"><span class="pre">charm_cell</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">cell</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs1</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs2</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax2</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax3</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax4</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">f</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv420charm_shs_cell_isurfPK10charm_cellPK9charm_shcmPK9charm_shcmmmPdP9charm_err" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Similarly as <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shs_8h_1add861cfba63c63d85c613ffe68af5c98"><span class="std std-ref"><span class="pre">charm_shs_cell()</span></span></a></code>, this function computes mean values of a function given by <code class="docutils literal notranslate"><span class="pre">shcs1</span></code>. The difference is that here, the mean values are integrated not on the unit sphere, but instead on a band-limited irregular surface <span class="math notranslate nohighlight">\(r(\varphi,\lambda)\)</span> defined by spherical harmonic coefficients in <code class="docutils literal notranslate"><span class="pre">shcs2</span></code>: </p>
 <p><div class="math notranslate nohighlight">
-\[\begin{split}\tilde{f}(\varphi_{\mathrm{min}}, 
+\[\begin{split}\tilde{f}(r, \varphi_{\mathrm{min}}, 
 \varphi_{\mathrm{max}},\lambda_{\mathrm{min}},\lambda_{\mathrm{max}}) 
 =&amp; \frac{1}{\Delta \sigma} \, \frac{\mu^{(1)}}{R^{(1)}} \, 
 \int\limits_{\varphi = \varphi_{\mathrm{min}}}^{\varphi_{\mathrm{max}}} 
@@ -752,7 +925,7 @@ By Blažej Bucha
     
   <p class="copyright">
     
-      © Copyright 2023, Blažej Bucha.
+      © Copyright 2024, Blažej Bucha.
       <br/>
     
   </p>
@@ -761,7 +934,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Oct 02, 2023.
+  Last updated on Feb 01, 2024.
   <br/>
 </p>
   </div>

@@ -5,13 +5,19 @@ import os
 import ctypes as ct
 import pyclibrary
 
-# Path to read the header files from
-PATH = './charm/'
+# List of paths to read the header files from
+PATHS = ['./charm/', './src/shs']
 
 # Name of the output Python file to save the symbolic constants to
 FILE = './wrap/pyharm/_constants.py'
 
-ULONG_MAX_CTYPES = ct.c_ulong(-1).value
+# Dictionary specifying the names of the CHARM symbolic constants and their new
+# names after parsing all header files from "PATH".
+REPLACE_DICT = {'ULONG_MAX': '%s' % (1 - ct.c_ulong(-1).value),
+                'CHARM_SHC_NMAX_MODEL': 'CHARM_SHC__NMAX_MODEL',
+                'CHARM_SHC_NMAX_ERROR': 'CHARM_SHC__NMAX_ERROR'}
+
+VALID_SUFFICES = ['CHARM_', 'GRAD_']
 
 # Create the output file to write the symbolic constants to
 fid = open(FILE, 'w')
@@ -19,54 +25,63 @@ fid = open(FILE, 'w')
 fid.write('\"\"\"\nGenerated automatically.  Do not modify!\n\"\"\"\n\n'
           '_globals = {')
 
-print(f'Parsing C-header files in {PATH}...')
-
 # Loop over all header files in "path" and in its subfolders
 counter = 0
-for root, dirs, files in os.walk(PATH):
+for path in PATHS:
 
-    for f in files:
+    print(f'Parsing C-header files in {PATHS}...')
 
-        print(f'    Found \"{f}\", ', end='')
+    for root, dirs, files in os.walk(path):
 
-        # Skip all files that are not a header file
-        if os.path.splitext(f)[1] != '.h' or (not f.startswith('charm_')  \
-            and not f == 'charm.h'):
-            print('skipping...')
-            continue
-        else:
-            print('parsing...')
+        for f in files:
 
-        # Parse the header file "f" in "PATH"
-        parser = pyclibrary.CParser(os.path.join(PATH, f),
-                     replace={'ULONG_MAX': '%s' % (1 - ULONG_MAX_CTYPES),
-                              'CHARM_SHC_NMAX_MODEL': 'CHARM_SHC__NMAX_MODEL',
-                              'CHARM_SHC_NMAX_ERROR': 'CHARM_SHC__NMAX_ERROR'})
+            print(f'    Found \"{f}\", ', end='')
 
-        # List of symbolic constants found
-        symbols = list(parser.defs['values'].keys())
+            # Skip all files that are not a header file
+            if os.path.splitext(f)[1] != '.h':
+                print('skipping...')
+                continue
+            else:
+                print('parsing...')
 
-        if len(symbols) < 0:
-            continue
+            # Parse the header file "f" in "path"
+            parser = pyclibrary.CParser(os.path.join(path, f),
+                                        replace=REPLACE_DICT)
 
-        for symbol in symbols:
+            # List of symbolic constants found
+            symbols = list(parser.defs['values'].keys())
 
-            # Skip any constants that do not start with the "CHARM_" prefix
-            if not symbol.startswith('CHARM_'):
+            if len(symbols) < 0:
                 continue
 
-            # Value of the symbolic constant
-            val = parser.defs['values'][symbol]
+            for symbol in symbols:
 
-            out = f'\n    \'{symbol}\': '
-            if isinstance(val, str):
-                out += f'\'{val}\''
-            else:
-                out += f'{val}'
-            out += ','
-            fid.write(out)
+                # Skip any constants that do not start with any of the keywords
+                # specified in "VALID_SUFFICES"
+                stop = [''] * len(VALID_SUFFICES)
+                for i, sufix in enumerate(VALID_SUFFICES):
+                    if not symbol.startswith(sufix):
+                        stop[i] = True
+                    else:
+                        stop[i] = False
 
-        counter += 1
+                # Continue with the next "symbol" if the suffix of "symbol"
+                # does not match any of "VALID_SUFFICES"
+                if sum(stop) == len(VALID_SUFFICES):
+                    continue
+
+                # Value of the symbolic constant
+                val = parser.defs['values'][symbol]
+
+                out = f'\n    \'{symbol}\': '
+                if isinstance(val, str):
+                    out += f'\'{val}\''
+                else:
+                    out += f'{val}'
+                out += ','
+                fid.write(out)
+
+            counter += 1
 
 fid.write('\n'
           '}\n\n')

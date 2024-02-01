@@ -48,7 +48,9 @@ extern "C"
 /* ......................................................................... */
 /** @name Synthesis of point values
  *
- * Functions to perform spherical harmonic synthesis of point values.
+ * Functions to perform spherical harmonic synthesis of point values and of
+ * their first- and second-order gradients in <a
+ * href="./definitions.html#lnof">LNOF</a>.
  *
  * @{
  * */
@@ -60,10 +62,10 @@ extern "C"
  * \verbatim embed:rst:leading-asterisk
  *  .. math::
  *
- *      f(\varphi,\lambda) = \dfrac{\mu}{R} \, \sum_{n = 0}^{n_{\max}} \left( 
- *      \dfrac{R}{r} \right)^{n + 1} \, \sum_{m = 0}^{n} \left( \bar{C}_{nm}\, 
- *      \cos(m \, \lambda) + \bar{S}_{nm} \, \sin(m \, \lambda) \right) \, 
- *      \bar{P}_{nm}(\sin\varphi){.}
+ *      f(r, \varphi,\lambda) = \dfrac{\mu}{R} \, \sum_{n = 0}^{n_{\max}}
+ *      \left( \dfrac{R}{r} \right)^{n + 1} \, \sum_{m = 0}^{n} \left(
+ *      \bar{C}_{nm}\, \cos(m \, \lambda) + \bar{S}_{nm} \, \sin(m \, \lambda)
+ *      \right) \, \bar{P}_{nm}(\sin\varphi){.}
  *
  * \endverbatim
  *
@@ -217,6 +219,280 @@ extern void charm@P@_shs_point(const charm@P@_point *pnt,
                                charm@P@_err *err);
 
 
+
+
+
+
+/** Performs the synthesis of point values of the first-order gradient in <a
+ * href="./definitions.html#lnof">LNOF</a>,
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. math::
+ *
+ *      \nabla f =
+ *      %
+ *      \begin{bmatrix}
+ *      f_{\mathrm{x}}\\
+ *      f_{\mathrm{y}}\\
+ *      f_{\mathrm{z}}\\
+ *      \end{bmatrix}
+ *      %
+ *      =
+ *      %
+ *      \begin{bmatrix}
+ *      \dfrac{1}{r} \, \dfrac{\partial f}{\partial \varphi}\\
+ *      -\dfrac{1}{r \, \cos\varphi} \, \dfrac{\partial f}{\partial \lambda}\\
+ *      \dfrac{\partial f}{\partial r}\\
+ *      \end{bmatrix}
+ *      {.}
+ *
+ * \endverbatim
+ *
+ * If \f$f\f$ is, for instance, the gravitational
+ * potential at \f$(r, \varphi, \lambda)\f$, then \f$\nabla f\f$ is the vector
+ * of the gravitational acceleration at \f$(r, \varphi, \lambda)\f$.
+ *
+ * @warning In polar areas, the output values of \f$f_{\mathrm{y}}\f$ are
+ * likely inaccurate or wrong, because the \f$\frac{1}{\cos\varphi}\f$ term is
+ * singular at the poles.  The latitudinal derivatives are free of any
+ * singularities though, because the latitudinal derivatives of the Legendre
+ * functions are computed by non-singular recurrence relations.  See
+ * ``charm@P@_shs_point_guru()`` on how to treat the singularity on your own
+ * (in case you are a guru and know what you are doing).
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *
+ * .. tip:: It is more efficient to get the three elements of the first-order
+ *          gradient in a single run by this function then by three separate
+ *          calls of ``charm@P@_shs_point_guru()`` yielding the three
+ *          first-order derivatives with respect to the spherical coordinates.
+ *          On the other hand, ``charm@P@_shs_point_guru()`` is a better choice
+ *          if you need only a single element of the gradient vector.
+ *
+ * \endverbatim
+ *
+ * @param[in] pnt Same as in ``charm@P@_shs_point()``.
+ *
+ * @param[in] shcs Same as in ``charm@P@_shs_point()``.
+ *
+ * @param[in] nmax Same as in ``charm@P@_shs_point()``.
+ *
+ * @param[out] f Double pointer to ``@RDT@`` with an access to at least three
+ * pointers to ``@RDT@``.  The ``x``, ``y`` and ``z`` elements are stored in
+ * arrays pointed to by ``f[0]``, ``f[1]`` and ``f[2]``, respectively.
+ *
+ * @param[out] err Same as in ``charm@P@_shs_point()``.
+ *
+ * */
+extern void charm@P@_shs_point_grad1(const charm@P@_point *pnt,
+                                     const charm@P@_shc *shcs,
+                                     unsigned long nmax,
+                                     @RDT@ **f,
+                                     charm@P@_err *err);
+
+
+
+
+
+
+/** Performs the synthesis of point values of the second-order gradient in <a
+ * href="./definitions.html#lnof">LNOF</a>,
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. math::
+ *
+ *      \nabla \otimes \nabla f =
+ *      %
+ *      \begin{bmatrix}
+ *      f_{\mathrm{xx}}, f_{\mathrm{xy}}, f_{\mathrm{xz}}\\
+ *      f_{\mathrm{yz}}, f_{\mathrm{yy}}, f_{\mathrm{yz}}\\
+ *      f_{\mathrm{zx}}, f_{\mathrm{zy}}, f_{\mathrm{zz}}\\
+ *      \end{bmatrix}
+ *      {.}
+ *
+ * \endverbatim
+ *
+ * If \f$f\f$ is, for instance, the gravitational
+ * potential at \f$(r, \varphi, \lambda)\f$, then \f$\nabla \otimes \nabla f\f$
+ * is the gravitational tensor at \f$(r, \varphi, \lambda)\f$.
+ *
+ * Due to the properties of harmonic fields, only six elements of the tensor
+ * are unique.  In CHarm, these are computed after Reed (1973) by the following
+ * equations (note that the \f$y\f$-axis in Reed 1973 has the opposite
+ * direction as here which explains the sign swaps)
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. math::
+ *
+ *      f_{\mathrm{xx}} &= \frac{1}{r^2} \,
+ *      \frac{\partial^2 f}{\partial \varphi^2} + \frac{1}{r} \, \frac{\partial
+ *      f}{\partial r},\\
+ *      %
+ *      f_{\mathrm{xy}} &= -\frac{1}{r^2 \, \cos\varphi} \, \frac{\partial^2
+ *      f}{\partial \varphi \, \partial\lambda} - \frac{\tan\varphi}{r^2 \,
+ *      \cos\varphi} \, \frac{\partial f}{\partial \lambda},\\
+ *      %
+ *      f_{\mathrm{xz}} &= \frac{1}{r} \, \frac{\partial^2
+ *      f}{\partial r \, \partial \varphi} - \frac{1}{r^2} \, \frac{\partial
+ *      f}{\partial \varphi},\\
+ *      %
+ *      f_{\mathrm{yy}} &= \frac{1}{r^2 \, \cos^2\varphi}
+ *      \, \frac{\partial^2 f}{\partial \lambda^2} + \frac{1}{r} \,
+ *      \frac{\partial f}{\partial r} - \frac{\tan\varphi}{r^2} \,
+ *      \frac{\partial f}{\partial \varphi},\\
+ *      %
+ *      f_{\mathrm{yz}} &= -\frac{1}{r \, \cos\varphi} \,
+ *      \frac{\partial^2 f}{\partial r \, \partial \lambda} + \frac{1}{r^2 \,
+ *      \cos\varphi} \, \frac{\partial f}{\partial \lambda},\\
+ *      %
+ *      f_{\mathrm{zz}} &= \frac{\partial^2 f}{\partial r^2}.
+ *
+ * \endverbatim
+ *
+ * @warning In polar areas, the output values of \f$f_{\mathrm{xy}}\f$,
+ * \f$f_{\mathrm{yy}}\f$ and \f$f_{\mathrm{yz}}\f$ are likely inaccurate or
+ * wrong, because the \f$\frac{1}{\cos\varphi}\f$,
+ * \f$\frac{1}{\cos^2\varphi}\f$ and \f$\tan\varphi\f$ terms are singular at
+ * the poles.  The latitudinal derivatives are free of any singularities
+ * though, because the latitudinal derivatives of the Legendre functions are
+ * computed by non-singular recurrence relations.  See
+ * ``charm@P@_shs_point_guru()`` on how to treat the singularity on your own
+ * (in case you are a guru and know what you are doing).
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *
+ * .. tip:: It is significantly more efficient to get the six elements of the
+ *          tensor in a single run by this function then by nine separate calls
+ *          of ``charm@P@_shs_point_guru()`` yielding the nine derivatives with
+ *          respect to the spherical coordinates that are needed to get the
+ *          derivatives in LNOF.  On the other hand,
+ *          ``charm@P@_shs_point_guru()`` may be a better choice if you need
+ *          only a single tensor element.
+ *
+ * \endverbatim
+ *
+ * @param[in] pnt Same as in ``charm@P@_shs_point()``.
+ *
+ * @param[in] shcs Same as in ``charm@P@_shs_point()``.
+ *
+ * @param[in] nmax Same as in ``charm@P@_shs_point()``.
+ *
+ * @param[out] f Double pointer to ``@RDT@`` with an access to at least six
+ * pointers to ``@RDT@``.  The ``xx``, ``xy``, ``xz``, ``yy``, ``yz`` and
+ * ``zz`` elements are stored in arrays pointed to by ``f[0]``, ``f[1]``,
+ * ``...``, ``f[5]``, respectively.
+ *
+ * @param[out] err Same as in ``charm@P@_shs_point()``.
+ *
+ * **References**:
+ *
+ * * Reed, G. B. (1973) Application of kinematical geodesy for determining the
+ *   short wavelength components of the gravity field by satellite
+ *   gradiometry. Report No. 201, Ohio State University, Department of Geodetic
+ *   Sciences, Columbus, USA
+ *
+ * */
+extern void charm@P@_shs_point_grad2(const charm@P@_point *pnt,
+                                     const charm@P@_shc *shcs,
+                                     unsigned long nmax,
+                                     @RDT@ **f,
+                                     charm@P@_err *err);
+
+
+
+
+
+
+/** Performs the synthesis of
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *
+ * .. math::
+ *
+ *      \frac{1}{r^{j + k}} \, \frac{\partial^{i + j + k} f}{\partial r^i \,
+ *      \partial \varphi^j \, \lambda^k}
+ *
+ * \endverbatim
+ *
+ * for \f$i = 0, 1, 2\f$, \f$j = 0, 1, 2\f$ and \f$k = 0, 1, 2\f$ satisfying
+ * \f$i + j + k \leq 2\f$.
+ *
+ * Computed can be, for instance, quantities like \f$\dfrac{1}{r} \,
+ * \dfrac{\partial f}{\partial \lambda}\f$ (\f$i = 0\f$, \f$j = 1\f$, \f$k
+ * = 0\f$) or \f$\dfrac{1}{r^2} \, \dfrac{\partial^2 f}{\partial \varphi \,
+ * \partial \lambda}\f$ (\f$i = 0\f$, \f$j = 1\f$, \f$k = 1\f$).
+ *
+ * The rational behind this function is threefold.
+ *
+ * * It computes the first- and second-order derivatives of \f$f\f$ with
+ *   respect to the spherical coordinates without any issues associated with
+ *   the singularities at the poles.
+ *
+ * * These derivatives are sometimes needed to perform some specialized tasks,
+ *   for instance, as in cap-modified spectral gravity forward modelling (Bucha
+ *   et al, 2019).
+ *
+ * * It lowers memory requirements when compared with
+ *   ``charm@P@_shs_point_grad1()`` and ``charm@P@_shs_point_grad2()``.  For
+ *   instance, the evaluation of the full tensor by
+ *   ``charm@P@_shs_point_grad2()`` requires a huge amount of RAM if the point
+ *   grid is really dense and/or maximum harmonic degree is large.  With this
+ *   function and some additional effort, the outputs from
+ *   ``charm@P@_shs_point_grad1()`` and ``charm@P@_shs_point_grad1()`` can be
+ *   reconstructed with much lower memory requirements.  This will be
+ *   significantly slower, but in some cases it may be the only practical
+ *   solution.
+ *
+ * @note This function does not suffer from any singularities, because CHarm
+ * always relies on non-singular recurrence relations for the latitudinal
+ * derivatives of Legendre functions.
+ *
+ * @note The sum ``dr + dlat + dlon`` cannot be larger than ``2``.
+ *
+ * @warning Be aware there are no terms like \f$\frac{1}{\cos\varphi}\f$,
+ * \f$\frac{1}{\cos^2\varphi}\f$ or \f$\tan\varphi\f$.  So, for instance, with
+ * \f$i = 0\f$, \f$j = 1\f$, \f$k = 0\f$, you will not get the \f$y\f$-element
+ * in LNOF as with ``charm@P@_shs_point_grad1()``.  If needed, you have to take
+ * into account these factors by yourself.  As a benefit, you can treat the
+ * singularities in any way you like.
+ *
+ * @param[in] pnt Same as in ``charm@P@_shs_point()``.
+ *
+ * @param[in] shcs Same as in ``charm@P@_shs_point()``.
+ *
+ * @param[in] nmax Same as in ``charm@P@_shs_point()``.
+ *
+ * @param[in] dr Order of the radial derivative (variable \f$i\f$ in the
+ * equation above).
+ *
+ * @param[in] dlat Order of the latitudinal derivative (variable \f$j\f$ in the
+ * equation above).
+ *
+ * @param[in] dlon Order of the longitudinal derivative (variable \f$k\f$ in
+ * the equation above).
+ *
+ * @param[out] f Same as in ``charm@P@_shs_point()``, but the output quantity
+ * now represents one of the derivatives shows above.
+ *
+ * @param[out] err Same as in ``charm@P@_shs_point()``.
+ *
+ * **References**
+ *
+ * Bucha, B., Hirt, C., Kuhn, M. (2019). Cap integration in spectral gravity
+ * forward modelling up to the full gravity tensor. Journal of Geodesy 93,
+ * 1707-1737, doi: 10.1007/s00190-019-01277-3
+ *
+ * */
+extern void charm@P@_shs_point_guru(const charm@P@_point *pnt,
+                                    const charm@P@_shc *shcs,
+                                    unsigned long nmax,
+                                    unsigned dr,
+                                    unsigned dlat,
+                                    unsigned dlon,
+                                    @RDT@ *f,
+                                    charm@P@_err *err);
+
+
 /**
  * @}
  * */
@@ -242,17 +518,17 @@ extern void charm@P@_shs_point(const charm@P@_point *pnt,
  * \verbatim embed:rst:leading-asterisk
  *  .. math::
  *
- *      \tilde{f}(\varphi_{\mathrm{min}}, \varphi_{\mathrm{max}}, 
+ *      \tilde{f}(r, \varphi_{\mathrm{min}}, \varphi_{\mathrm{max}}, 
  *      \lambda_{\mathrm{min}}, \lambda_{\mathrm{max}}) =& \dfrac{1}{\Delta 
  *      \sigma} \, \dfrac{\mu}{R} \, \sum_{n = 0}^{n_{\max}} \left( 
  *      \dfrac{R}{r} \right)^{n + 1} \\
- *      &\sum_{m = 0}^{n} \left( \bar{C}_{nm}\, 
+ *      &\times\sum_{m = 0}^{n} \left( \bar{C}_{nm}\, 
  *      \int\limits_{\lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}} \cos(m \, 
  *      \lambda) \, \mathrm{d}\lambda + \bar{S}_{nm} \, 
  *      \int\limits_{\lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}} \sin(m \, 
  *      \lambda) \, \mathrm{d}\lambda \right) \\
- *      &\int\limits_{\varphi_{\mathrm{min}}}^{\varphi_{\mathrm{max}}}\bar{P}_{nm}(\sin\varphi) 
- *      \, \cos\varphi \, \mathrm{d}\varphi{,}
+ *      &\times\int\limits_{\varphi_{\mathrm{min}}}^{\varphi_{\mathrm{max}}}
+ *      \bar{P}_{nm}(\sin\varphi) \, \cos\varphi \, \mathrm{d}\varphi{,}
  *
  * \endverbatim
  *
@@ -465,7 +741,7 @@ extern void charm@P@_shs_cell(const charm@P@_cell *cell,
  * \verbatim embed:rst:leading-asterisk
  *  .. math::
  *
- *      \tilde{f}(\varphi_{\mathrm{min}}, 
+ *      \tilde{f}(r, \varphi_{\mathrm{min}}, 
  *      \varphi_{\mathrm{max}},\lambda_{\mathrm{min}},\lambda_{\mathrm{max}}) 
  *      =& \frac{1}{\Delta \sigma} \, \frac{\mu^{(1)}}{R^{(1)}} \, 
  *      \int\limits_{\varphi = \varphi_{\mathrm{min}}}^{\varphi_{\mathrm{max}}} 

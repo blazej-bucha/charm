@@ -7,6 +7,9 @@
 #include "../simd/simd.h"
 #include "../crd/crd_point_isGrid.h"
 #include "../crd/crd_cell_isGrid.h"
+#include "shs_lc_struct.h"
+#include "shs_max_npar.h"
+#include "shs_point_gradn.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -14,13 +17,48 @@
 
 
 
-/* An internal function to check whether or not FFT can be applied for
- * grid-wise synthesis. */
-void CHARM(shs_grd_fft_lc)(unsigned long m, REAL dlon,
-                           REAL_SIMD *a, REAL_SIMD *b,
-                           REAL_SIMD *a2, REAL_SIMD *b2,
-                           _Bool symm, REAL_SIMD *symm_simd,
-                           int grd_type, REAL *lc_tmp, REAL *lc2_tmp)
+/* Macros */
+/* ------------------------------------------------------------------------- */
+#undef FC
+#define FC(pnfc, par)                                                         \
+        for (l = 0; l < simd_blk; l++)                                        \
+        {                                                                     \
+            STORE_R(&fc_tmp[pnfc + idx + l * SIMD_SIZE],                      \
+                    MUL_R(CAT2(lc->a, par, )[l], c));                         \
+            STORE_R(&fc_tmp[pnfc + idx2 + l * SIMD_SIZE],                     \
+                    NEG_R(MUL_R(CAT2(lc->b, par, )[l], c)));                  \
+        }                                                                     \
+                                                                              \
+                                                                              \
+        if (symm)                                                             \
+        {                                                                     \
+            for (l = 0; l < simd_blk; l++)                                    \
+            {                                                                 \
+                STORE_R(&fc2_tmp[pnfc + idx + l * SIMD_SIZE],                 \
+                        MUL_R(CAT2(lc->a, par, 2)[l], c));                    \
+                STORE_R(&fc2_tmp[pnfc + idx2 + l * SIMD_SIZE],                \
+                        NEG_R(MUL_R(CAT2(lc->b, par, 2)[l], c)));             \
+            }                                                                 \
+        }
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* An internal function to prepare the Fourier coefficients for synthesis along
+ * the latitude parallels. */
+void CHARM(shs_grd_fft_lc)(unsigned long m,
+                           REAL deltalon,  /* Step in longitudes */
+                           int grad,
+                           CHARM(lc) *lc,
+                           _Bool symm,
+                           REAL_SIMD *symm_simd,
+                           int grd_type,
+                           size_t nfc,
+                           REAL *fc_tmp,
+                           REAL *fc2_tmp)
 {
     REAL_SIMD c = (m == 0) ? SET1_R(PREC(1.0)) : SET1_R(PREC(0.5));
     _Bool is_cell_grd = CHARM(crd_cell_isGrid)(grd_type);
@@ -37,29 +75,32 @@ void CHARM(shs_grd_fft_lc)(unsigned long m, REAL dlon,
     if (is_cell_grd)
     {
         /* Due to the use of the mean values, some additional terms need to be
-         * taken into account when compared with the harmonic synthesis based
-         * on point values (see, e.g., Colombo, 1981) */
+         * taken into account when compared with point values (see, e.g.,
+         * Colombo, 1981) */
         REAL_SIMD cm, sm;
         if (m == 0)
         {
-            sm = SET1_R(dlon);
+            sm = SET1_R(deltalon);
             cm = SET_ZERO_R;
         }
         else
         {
             REAL mr = (REAL)m;
-            cm = SET1_R((COS(mr * dlon) - PREC(1.0)) / mr);
-            sm = SET1_R(SIN(mr * dlon) / mr);
+            cm = SET1_R((COS(mr * deltalon) - PREC(1.0)) / mr);
+            sm = SET1_R(SIN(mr * deltalon) / mr);
         }
 
 
+        /* With cells, "lc->a", "lc->b", "lc->a2" and "lc->b2" implicitly
+         * assume that "SIMD_BLOCK" is "1". */
         for (l = 0; l < simd_blk; l++)
         {
-            STORE_R(&lc_tmp[idx + l * SIMD_SIZE], MUL_R(SUB_R(MUL_R(*a, sm),
-                                                              MUL_R(*b, cm)),
-                                                        c));
-            STORE_R(&lc_tmp[idx2 + l * SIMD_SIZE],
-                    NEG_R(MUL_R(ADD_R(MUL_R(*a, cm), MUL_R(*b, sm)), c)));
+            STORE_R(&fc_tmp[idx + l * SIMD_SIZE],
+                    MUL_R(SUB_R(MUL_R(lc->a[0], sm), MUL_R(lc->b[0], cm)), c));
+            STORE_R(&fc_tmp[idx2 + l * SIMD_SIZE],
+                    NEG_R(MUL_R(ADD_R(MUL_R(lc->a[0], cm),
+                                      MUL_R(lc->b[0], sm)),
+                                c)));
         }
 
 
@@ -67,34 +108,58 @@ void CHARM(shs_grd_fft_lc)(unsigned long m, REAL dlon,
         {
             for (l = 0; l < simd_blk; l++)
             {
-                STORE_R(&lc2_tmp[idx], MUL_R(*symm_simd,
-                                             MUL_R(SUB_R(MUL_R(*a2, sm),
-                                                         MUL_R(*b2, cm)),
+                STORE_R(&fc2_tmp[idx], MUL_R(*symm_simd,
+                                             MUL_R(SUB_R(MUL_R(lc->a2[0], sm),
+                                                         MUL_R(lc->b2[0], cm)),
                                                    c)));
-                STORE_R(&lc2_tmp[idx2],
-                        NEG_R(MUL_R(*symm_simd, MUL_R(ADD_R(MUL_R(*a2, cm),
-                                                            MUL_R(*b2, sm)),
-                                                      c))));
+                STORE_R(&fc2_tmp[idx2],
+                        NEG_R(MUL_R(*symm_simd,
+                                    MUL_R(ADD_R(MUL_R(lc->a2[0], cm),
+                                                MUL_R(lc->b2[0], sm)),
+                                          c))));
             }
         }
     }
     else if (CHARM(crd_point_isGrid)(grd_type))
     {
-        /* Let's prepare the complex Fourier coefficients */
-        for (l = 0; l < simd_blk; l++)
-        {
-            STORE_R(&lc_tmp[idx + l * SIMD_SIZE], MUL_R(a[l], c));
-            STORE_R(&lc_tmp[idx2 + l * SIMD_SIZE], NEG_R(MUL_R(b[l], c)));
-        }
+        /* The ordering of the coefficients in "fc_tmp" and "fc2_tmp" is as
+         * follows:
+         *
+         * * if computing only one parameter, the coefficients of these
+         *   parameter are first,
+         *
+         * * if computing "GRAD_1", the ordering is "vl", "vr" and "vp",
+         *
+         * * if computing "GRAD_2", the ordering is "vll", "vlr", "vlp", "vrr",
+         *   "vrp" and "vpp".
+         *
+         * In this order we call below the "FC" macro ("l", "r", "p" for
+         * "GRAD_1"; "ll", "lr", "lp", "rr", "rp" and "pp" for "GRAD_2").  Do
+         * not change this order, as this affects the of the output quantities.
+         * This is also the order of the symbolic constants "GRAD_L", "GRAD_R",
+         * ... "GRAD_PP" in "shs_point_gradn.h"  */
+        FC(0, );
 
 
-        if (symm)
+        if (grad > 0)
         {
-            for (l = 0; l < simd_blk; l++)
+            size_t q = nfc * SIMD_SIZE * SIMD_BLOCK * 2;
+            size_t pnfc = q;
+
+
+            FC(pnfc, r);
+            pnfc += q;
+            FC(pnfc, p);
+
+
+            if (grad > 1)
             {
-                STORE_R(&lc2_tmp[idx + l * SIMD_SIZE], MUL_R(a2[l], c));
-                STORE_R(&lc2_tmp[idx2 + l * SIMD_SIZE],
-                        NEG_R(MUL_R(b2[l], c)));
+                pnfc += q;
+                FC(pnfc, rr);
+                pnfc += q;
+                FC(pnfc, rp);
+                pnfc += q;
+                FC(pnfc, pp);
             }
         }
     }

@@ -112,11 +112,14 @@ am_libcharm@P@_shs@OMP@_la_OBJECTS = shs_cell.lo shs_cell_grd.lo \
 	shs_cell_isurf_coeffs.lo shs_cell_isurf.lo \
 	shs_cell_isurf_lr.lo shs_cell_isurf_offset.lo \
 	shs_cell_kernel.lo shs_cell_sctr.lo shs_cell_check_grd_lons.lo \
-	shs_point.lo shs_point_grd.lo shs_point_kernel.lo \
-	shs_point_sctr.lo shs_grd_lr.lo shs_grd_lr2.lo \
-	shs_grd_point_fft_check.lo shs_grd_cell_fft_check.lo \
-	shs_grd_fft_lc.lo shs_grd_fft.lo shs_sctr_mulc.lo \
-	shs_check_symm_simd.lo shs_r_eq_rref.lo
+	shs_point.lo shs_point_grads.lo shs_point_grd.lo \
+	shs_point_kernels.lo shs_point_sctr.lo shs_grd_lr.lo \
+	shs_grd_lr2.lo shs_grd_point_fft_check.lo \
+	shs_grd_cell_fft_check.lo shs_grd_fft_lc.lo shs_grd_fft.lo \
+	shs_sctr_mulc.lo shs_lc_init.lo shs_check_symm_simd.lo \
+	shs_r_eq_rref.lo shs_point_guru.lo \
+	shs_check_single_derivative.lo shs_check_grads.lo \
+	shs_get_mur_dorder_npar.lo
 libcharm@P@_shs@OMP@_la_OBJECTS =  \
 	$(am_libcharm@P@_shs@OMP@_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -145,13 +148,18 @@ am__depfiles_remade = ./$(DEPDIR)/shs_cell.Plo \
 	./$(DEPDIR)/shs_cell_isurf_lr.Plo \
 	./$(DEPDIR)/shs_cell_isurf_offset.Plo \
 	./$(DEPDIR)/shs_cell_kernel.Plo ./$(DEPDIR)/shs_cell_sctr.Plo \
+	./$(DEPDIR)/shs_check_grads.Plo \
+	./$(DEPDIR)/shs_check_single_derivative.Plo \
 	./$(DEPDIR)/shs_check_symm_simd.Plo \
+	./$(DEPDIR)/shs_get_mur_dorder_npar.Plo \
 	./$(DEPDIR)/shs_grd_cell_fft_check.Plo \
 	./$(DEPDIR)/shs_grd_fft.Plo ./$(DEPDIR)/shs_grd_fft_lc.Plo \
 	./$(DEPDIR)/shs_grd_lr.Plo ./$(DEPDIR)/shs_grd_lr2.Plo \
 	./$(DEPDIR)/shs_grd_point_fft_check.Plo \
-	./$(DEPDIR)/shs_point.Plo ./$(DEPDIR)/shs_point_grd.Plo \
-	./$(DEPDIR)/shs_point_kernel.Plo \
+	./$(DEPDIR)/shs_lc_init.Plo ./$(DEPDIR)/shs_point.Plo \
+	./$(DEPDIR)/shs_point_grads.Plo ./$(DEPDIR)/shs_point_grd.Plo \
+	./$(DEPDIR)/shs_point_guru.Plo \
+	./$(DEPDIR)/shs_point_kernels.Plo \
 	./$(DEPDIR)/shs_point_sctr.Plo ./$(DEPDIR)/shs_r_eq_rref.Plo \
 	./$(DEPDIR)/shs_sctr_mulc.Plo
 am__mv = mv -f
@@ -340,8 +348,9 @@ libcharm@P@_shs@OMP@_la_SOURCES = shs_cell.c \
 								  shs_cell_sctr.c \
 								  shs_cell_check_grd_lons.c \
 								  shs_point.c \
+								  shs_point_grads.c \
 								  shs_point_grd.c \
-								  shs_point_kernel.c \
+								  shs_point_kernels.c \
 								  shs_point_sctr.c \
 								  shs_grd_lr.c \
 								  shs_grd_lr2.c \
@@ -350,8 +359,13 @@ libcharm@P@_shs@OMP@_la_SOURCES = shs_cell.c \
 								  shs_grd_fft_lc.c \
 								  shs_grd_fft.c \
 								  shs_sctr_mulc.c \
+								  shs_lc_init.c \
 								  shs_check_symm_simd.c \
-								  shs_r_eq_rref.c
+								  shs_r_eq_rref.c \
+								  shs_point_guru.c \
+								  shs_check_single_derivative.c \
+								  shs_check_grads.c \
+								  shs_get_mur_dorder_npar.c
 
 EXTRA_DIST = *.h
 all: all-am
@@ -417,16 +431,22 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_cell_isurf_offset.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_cell_kernel.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_cell_sctr.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_check_grads.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_check_single_derivative.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_check_symm_simd.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_get_mur_dorder_npar.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_grd_cell_fft_check.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_grd_fft.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_grd_fft_lc.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_grd_lr.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_grd_lr2.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_grd_point_fft_check.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_lc_init.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_point.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_point_grads.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_point_grd.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_point_kernel.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_point_guru.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_point_kernels.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_point_sctr.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_r_eq_rref.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_sctr_mulc.Plo@am__quote@ # am--include-marker
@@ -551,16 +571,22 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/shs_cell_isurf_offset.Plo
 	-rm -f ./$(DEPDIR)/shs_cell_kernel.Plo
 	-rm -f ./$(DEPDIR)/shs_cell_sctr.Plo
+	-rm -f ./$(DEPDIR)/shs_check_grads.Plo
+	-rm -f ./$(DEPDIR)/shs_check_single_derivative.Plo
 	-rm -f ./$(DEPDIR)/shs_check_symm_simd.Plo
+	-rm -f ./$(DEPDIR)/shs_get_mur_dorder_npar.Plo
 	-rm -f ./$(DEPDIR)/shs_grd_cell_fft_check.Plo
 	-rm -f ./$(DEPDIR)/shs_grd_fft.Plo
 	-rm -f ./$(DEPDIR)/shs_grd_fft_lc.Plo
 	-rm -f ./$(DEPDIR)/shs_grd_lr.Plo
 	-rm -f ./$(DEPDIR)/shs_grd_lr2.Plo
 	-rm -f ./$(DEPDIR)/shs_grd_point_fft_check.Plo
+	-rm -f ./$(DEPDIR)/shs_lc_init.Plo
 	-rm -f ./$(DEPDIR)/shs_point.Plo
+	-rm -f ./$(DEPDIR)/shs_point_grads.Plo
 	-rm -f ./$(DEPDIR)/shs_point_grd.Plo
-	-rm -f ./$(DEPDIR)/shs_point_kernel.Plo
+	-rm -f ./$(DEPDIR)/shs_point_guru.Plo
+	-rm -f ./$(DEPDIR)/shs_point_kernels.Plo
 	-rm -f ./$(DEPDIR)/shs_point_sctr.Plo
 	-rm -f ./$(DEPDIR)/shs_r_eq_rref.Plo
 	-rm -f ./$(DEPDIR)/shs_sctr_mulc.Plo
@@ -617,16 +643,22 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/shs_cell_isurf_offset.Plo
 	-rm -f ./$(DEPDIR)/shs_cell_kernel.Plo
 	-rm -f ./$(DEPDIR)/shs_cell_sctr.Plo
+	-rm -f ./$(DEPDIR)/shs_check_grads.Plo
+	-rm -f ./$(DEPDIR)/shs_check_single_derivative.Plo
 	-rm -f ./$(DEPDIR)/shs_check_symm_simd.Plo
+	-rm -f ./$(DEPDIR)/shs_get_mur_dorder_npar.Plo
 	-rm -f ./$(DEPDIR)/shs_grd_cell_fft_check.Plo
 	-rm -f ./$(DEPDIR)/shs_grd_fft.Plo
 	-rm -f ./$(DEPDIR)/shs_grd_fft_lc.Plo
 	-rm -f ./$(DEPDIR)/shs_grd_lr.Plo
 	-rm -f ./$(DEPDIR)/shs_grd_lr2.Plo
 	-rm -f ./$(DEPDIR)/shs_grd_point_fft_check.Plo
+	-rm -f ./$(DEPDIR)/shs_lc_init.Plo
 	-rm -f ./$(DEPDIR)/shs_point.Plo
+	-rm -f ./$(DEPDIR)/shs_point_grads.Plo
 	-rm -f ./$(DEPDIR)/shs_point_grd.Plo
-	-rm -f ./$(DEPDIR)/shs_point_kernel.Plo
+	-rm -f ./$(DEPDIR)/shs_point_guru.Plo
+	-rm -f ./$(DEPDIR)/shs_point_kernels.Plo
 	-rm -f ./$(DEPDIR)/shs_point_sctr.Plo
 	-rm -f ./$(DEPDIR)/shs_r_eq_rref.Plo
 	-rm -f ./$(DEPDIR)/shs_sctr_mulc.Plo

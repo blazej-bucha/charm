@@ -6,6 +6,7 @@
 #include "../prec.h"
 #include "shs_point_grd.h"
 #include "shs_point_sctr.h"
+#include "shs_point_gradn.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
 #include "../crd/crd_point_isSctr.h"
@@ -17,8 +18,11 @@
 
 
 
-void CHARM(shs_point)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
-                      unsigned long nmax, REAL *f, CHARM(err) *err)
+void CHARM(shs_point)(const CHARM(point) *pnt,
+                      const CHARM(shc) *shcs,
+                      unsigned long nmax,
+                      REAL *f,
+                      CHARM(err) *err)
 {
     /* Some trivial initial error checks */
     /* --------------------------------------------------------------------- */
@@ -52,7 +56,8 @@ void CHARM(shs_point)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
 
 
         /* Point-wise synthesis */
-        CHARM(shs_point_sctr)(pnt, shcs, nmax, f, err);
+        CHARM(shs_point_sctr)(pnt, shcs, nmax, GRAD_0, GRAD_0, GRAD_0, &f,
+                              err);
         if (!CHARM(err_isempty)(err))
         {
             CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
@@ -62,7 +67,7 @@ void CHARM(shs_point)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
     else if (CHARM(crd_point_isGrid)(pnt->type))
     {
         /* Grid-wise synthesis */
-        CHARM(shs_point_grd)(pnt, shcs, nmax, f, err);
+        CHARM(shs_point_grd)(pnt, shcs, nmax, GRAD_0, GRAD_0, GRAD_0, &f, err);
         if (!CHARM(err_isempty)(err))
         {
             CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
