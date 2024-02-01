@@ -76,25 +76,34 @@ enum
 
 
 
-/** Special values for functions to read spherical harmonic harmonic
- * coefficients: ``charm@P@_shc_read_dov()``, ``charm@P@_shc_read_gfc()``,
- * ``charm@P@_shc_read_tbl()``, ``charm@P@_shc_read_mtx()``,
- * ``charm@P@_shc_read_dov()``.  */
-enum
-{
-    /** Special value of the ``nmax`` input parameter to all functions that
-     * read spherical harmonic coefficients.  If ``nmax`` is
-     * ``::CHARM_SHC_NMAX_MODEL`` and ``shcs`` is ``NULL``, the functions
-     * return the maximum harmonic degree found inside the file and do not read
-     * the rest of the file (see the documentation to ``charm@P@_shc_read_*``
-     * function). The value is platform-dependent. */
-    CHARM_SHC_NMAX_MODEL = ULONG_MAX - 1,
+/** @name Special values for functions to read spherical harmonic coefficients
+ *
+ * The values are used with ``charm@P@_shc_read_dov()``,
+ * ``charm@P@_shc_read_gfc()``, ``charm@P@_shc_read_tbl()``,
+ * ``charm@P@_shc_read_mtx()`` and ``charm@P@_shc_read_dov()``.
+ *
+ * @{
+ * */
+
+/**
+ *
+ * Special value of the ``nmax`` input parameter to all functions that read
+ * spherical harmonic coefficients.  If ``nmax`` is ``::CHARM_SHC_NMAX_MODEL``
+ * and ``shcs`` is ``NULL``, the functions return the maximum harmonic degree
+ * found inside the file and do not read the rest of the file (see the
+ * documentation to ``charm@P@_shc_read_*`` functions). The value is
+ * platform-dependent. */
+#define CHARM_SHC_NMAX_MODEL (ULONG_MAX - 1)
 
 
-    /** Harmonic degree signalizing that a function to read spherical harmonic
-     * coefficients encountered an error. The value is platform-dependent. */
-    CHARM_SHC_NMAX_ERROR
-};
+/** Special value signalizing that a function to read spherical harmonic
+ * coefficients encountered an error. The value is platform-dependent. */
+#define CHARM_SHC_NMAX_ERROR (ULONG_MAX)
+
+
+/**
+ * @}
+ * */
 /* ------------------------------------------------------------------------- */
 
 
@@ -1086,6 +1095,7 @@ extern void charm@P@_shc_write_mtx(const charm@P@_shc *shcs,
  * @}
  * */
 /* ......................................................................... */
+
 
 
 
