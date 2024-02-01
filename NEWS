@@ -1,10 +1,58 @@
 Upcoming release:
 
+* Added functions to compute point values of the full first- and second-order 
+  gradients in LNOF and of the first- and second-order derivatives with respect 
+  to the spherical coordinates.
+
+  In CHarm, the new functions are placed in the `shs` module:
+
+    * `charm_shs_point_grad1` (the full first-order gradient in LNOF),
+    * `charm_shs_point_grad2` (the full second-order gradient in LNOF),
+    * `charm_shs_point_guru` (guru interface for first- and second-order 
+                              derivatives with respect to the spherical 
+                              coordinates).
+
+  In PyHarm, the new functions are:
+
+    * `pyharm.shs.point_grad1`,
+    * `pyharm.shs.point_grad2`,
+    * `pyharm.shs.point_guru`.
+
+  Example codes are provided in the cookbook.
+
 * Added members `npoint` and `ncell` to the `charm_point` and `charm_cell` 
   structures, respectively.  The new members represent the total number of 
   points/cells stored by the structures both for scattered points/cells and 
   grids.  They are particularly useful when allocating the memory for the 
   signal to be synthesized at the points/cells represented by the structures.
+
+* Values
+
+    * `CHARM_SHC_NMAX_MODEL`
+    * `CHARM_SHC_NMAX_ERROR`
+
+  are now symbolic constants instead of enumerations.  This is because ISO 
+  C restricts enumerator values to the range of `int`, but we need the maximum 
+  values of `unsigned long`.  The latter thus do not fall within the range that 
+  can be portably stored by enumerations.
+
+* Renamed
+
+    * `charm_misc_print_version`
+
+  to
+
+    * `charm_misc_print_info`
+
+  which better describes its purpose.  Now it also prints various kind of 
+  useful user-defined compilation flags (`CFLAGS`, `CPPFLAGS`, etc).
+
+* Added functions `charm_misc_get_version` to return a string specifying the 
+  CHarm version number determined on compilation time.
+
+* Added function `charm_misc_buildopt_version_fftw` that returns a string 
+  specifying the FFTW version that was used to compile CHarm.
+
 
 CHarm 0.3.1:
 
