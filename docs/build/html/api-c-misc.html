@@ -436,8 +436,14 @@ precision.</p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv424charm_misc_print_versionv">
-<span id="_CPPv324charm_misc_print_versionv"></span><span id="_CPPv224charm_misc_print_versionv"></span><span id="charm_misc_print_version__void"></span><span class="target" id="charm__misc_8h_1aac665bfb6e91541c8af076432652fa6d"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_misc_print_version</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424charm_misc_print_versionv" title="Permalink to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv422charm_misc_get_versionv">
+<span id="_CPPv322charm_misc_get_versionv"></span><span id="_CPPv222charm_misc_get_versionv"></span><span id="charm_misc_get_version__void"></span><span class="target" id="charm__misc_8h_1a45a71e31b9a6493290a9672278a46611"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_misc_get_version</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv422charm_misc_get_versionv" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Returns a string specifying the CHarm version number determined on compilation time. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv421charm_misc_print_infov">
+<span id="_CPPv321charm_misc_print_infov"></span><span id="_CPPv221charm_misc_print_infov"></span><span id="charm_misc_print_info__void"></span><span class="target" id="charm__misc_8h_1a8d0b291cb8b00c5c14dcd7877172d233"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_misc_print_info</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421charm_misc_print_infov" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Prints library info to <code class="docutils literal notranslate"><span class="pre">stdout</span></code> (library name, version, compilation date, precision, etc). </p>
 </dd></dl>
 
@@ -477,6 +483,12 @@ precision.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">3</span></code> if CHarm was compiled with AVX-512 instructions enabled (<code class="docutils literal notranslate"><span class="pre">--enable-avx-512</span></code>). </p></li>
 </ul>
 </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv432charm_misc_buildopt_version_fftwv">
+<span id="_CPPv332charm_misc_buildopt_version_fftwv"></span><span id="_CPPv232charm_misc_buildopt_version_fftwv"></span><span id="charm_misc_buildopt_version_fftw__void"></span><span class="target" id="charm__misc_8h_1a5c87b549b94e24bbf32ce65bb368b7b7"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_misc_buildopt_version_fftw</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv432charm_misc_buildopt_version_fftwv" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Returns a string specifying the FFTW library version. </p>
 </dd></dl>
 
 <dl class="cpp function">

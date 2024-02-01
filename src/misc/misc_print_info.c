@@ -11,7 +11,7 @@
 
 
 
-void CHARM(misc_print_version)(void)
+void CHARM(misc_print_info)(void)
 {
     printf(
 
@@ -82,12 +82,33 @@ void CHARM(misc_print_version)(void)
     printf("\n");
 
 
-    printf("isfinite macro in math.h: " );
+    printf("FFTW version: %s\n", CHARM(misc_buildopt_version_fftw)());
+
+
+    printf("isfinite macro in math.h: ");
     if (CHARM(misc_buildopt_isfinite)())
         printf("yes");
     else
         printf("no");
-    printf("\n");
+    printf("\n\n");
+
+
+#ifdef _CHARM_CC
+    printf("Compiler (CC): %s\n", _CHARM_CC);
+#endif
+#ifdef _CHARM_CFLAGS
+    printf("Debugging and optimization options (CFLAGS): %s\n",
+           _CHARM_CFLAGS);
+#endif
+#ifdef _CHARM_CPPFLAGS
+    printf("Preprocessor options (CPPFLAGS): %s\n", _CHARM_CPPFLAGS);
+#endif
+#ifdef _CHARM_LDFLAGS
+    printf("Options for the linker (LDFLAGS): %s\n", _CHARM_LDFLAGS);
+#endif
+#ifdef _CHARM_LIBS
+    printf("-l options passed to the linker (LIBS): %s\n", _CHARM_LIBS);
+#endif
 
 
     return;

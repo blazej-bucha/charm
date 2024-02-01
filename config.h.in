@@ -131,6 +131,21 @@
 /* Version number of package */
 #undef VERSION
 
+/* Used compiler. */
+#undef _CHARM_CC
+
+/* CFLAGS used to compile CHarm. */
+#undef _CHARM_CFLAGS
+
+/* CPPFLAGS used to compile CHarm. */
+#undef _CHARM_CPPFLAGS
+
+/* LDFLAGS used to compile CHarm. */
+#undef _CHARM_LDFLAGS
+
+/* LDFLAGS used to compile CHarm. */
+#undef _CHARM_LIBS
+
 /* Define to empty if `const' does not conform to ANSI C. */
 #undef const
 
