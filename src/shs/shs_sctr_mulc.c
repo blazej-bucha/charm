@@ -5,6 +5,7 @@
 #include "../prec.h"
 #include "../simd/simd.h"
 #include "../crd/crd_cell_isSctr.h"
+#include "shs_sctr_mulc.h"
 /* ------------------------------------------------------------------------- */
 
 

@@ -11,6 +11,7 @@
 #include "../err/err_propagate.h"
 #include "../crd/crd_point_isSctr.h"
 #include "../crd/crd_point_isGrid.h"
+#include "shs_point_gradn.h"
 /* ------------------------------------------------------------------------- */
 
 

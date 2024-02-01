@@ -8,6 +8,7 @@
 #include "../err/err_set.h"
 #include "../misc/misc_is_nearly_equal.h"
 #include "../misc/misc_arr_chck_lin_incr.h"
+#include "shs_cell_check_grd_lons.h"
 /* ------------------------------------------------------------------------- */
 
 

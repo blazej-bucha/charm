@@ -4,10 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "shs_check_symm_simd.h"
 #include "../leg/leg_func_xnum.h"
 #include "../prec.h"
 #include "../simd/simd.h"
+#include "shs_check_symm_simd.h"
+#include "shs_cell_kernel.h"
 /* ------------------------------------------------------------------------- */
 
 

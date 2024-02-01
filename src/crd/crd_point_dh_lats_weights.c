@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "../prec.h"
+#include "crd_point_dh_lats_weights.h"
 /* ------------------------------------------------------------------------- */
 
 

@@ -4,6 +4,7 @@
 #include <math.h>
 #include "../prec.h"
 #include "../simd/simd.h"
+#include "leg_func_prepare.h"
 /* ------------------------------------------------------------------------- */
 
 

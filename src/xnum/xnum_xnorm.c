@@ -3,6 +3,7 @@
 #include <config.h>
 #include <math.h>
 #include "../prec.h"
+#include "xnum_xnorm.h"
 /* ------------------------------------------------------------------------- */
 
 

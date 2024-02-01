@@ -9,6 +9,7 @@
 #include "shs_check_grads.h"
 #include "shs_point_gradn.h"
 #include "shs_max_npar.h"
+#include "shs_get_mur_dorder_npar.h"
 /* ------------------------------------------------------------------------- */
 
 

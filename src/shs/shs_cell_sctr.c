@@ -21,6 +21,7 @@
 #include "../simd/simd.h"
 #include "../simd/calloc_aligned.h"
 #include "../simd/free_aligned.h"
+#include "shs_cell_sctr.h"
 /* ------------------------------------------------------------------------- */
 
 

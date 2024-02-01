@@ -5,6 +5,7 @@
 #include "../prec.h"
 #include "../simd/simd.h"
 #include "shs_lc_struct.h"
+#include "shs_lc_init.h"
 /* ------------------------------------------------------------------------- */
 
 

@@ -6,6 +6,7 @@
 #include "../prec.h"
 #include "../simd/simd.h"
 #include "../crd/crd_cell_isGrid.h"
+#include "shs_grd_lr2.h"
 /* ------------------------------------------------------------------------- */
 
 

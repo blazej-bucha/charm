@@ -10,6 +10,7 @@
 #include "shs_lc_struct.h"
 #include "shs_max_npar.h"
 #include "shs_point_gradn.h"
+#include "shs_grd_fft_lc.h"
 /* ------------------------------------------------------------------------- */
 
 

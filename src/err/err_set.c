@@ -5,6 +5,7 @@
 #include <string.h>
 #include "../prec.h"
 #include "err_inc_level.h"
+#include "err_set.h"
 /* ------------------------------------------------------------------------- */
 
 

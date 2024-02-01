@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "../prec.h"
 #include "../simd/simd.h"
+#include "misc_polar_optimization_apply.h"
 /* ------------------------------------------------------------------------- */
 
 

@@ -3,6 +3,7 @@
 #include <config.h>
 #include "../prec.h"
 #include "simd.h"
+#include "malloc_aligned.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -46,7 +47,7 @@ void *CHARM(malloc_aligned)(size_t alignment, size_t size)
      * smallest integer that is a multiple of "alignment" and is not smaller
      * than "size".  Then, an alligned memory is allocated with
      * "aligned_alloc". */
-    size_t size_multiple = (size_t)ceil((double)size / (double)alignment) * 
+    size_t size_multiple = (size_t)ceil((double)size / (double)alignment) *
                                         alignment;
     return aligned_alloc(alignment, size_multiple);
 #elif HAVE_MM_MALLOC_H

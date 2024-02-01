@@ -4,6 +4,7 @@
 #include <string.h>
 #include "../prec.h"
 #include "malloc_aligned.h"
+#include "calloc_aligned.h"
 /* ------------------------------------------------------------------------- */
 
 

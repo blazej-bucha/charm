@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "../prec.h"
 #include "integ_cs.h"
+#include "integ_sc.h"
 /* ------------------------------------------------------------------------- */
 
 

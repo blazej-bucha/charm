@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "../prec.h"
 #include "../simd/simd.h"
+#include "shs_check_symm_simd.h"
 /* ------------------------------------------------------------------------- */
 
 

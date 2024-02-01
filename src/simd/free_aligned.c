@@ -3,6 +3,7 @@
 #include <config.h>
 #include "../prec.h"
 #include "simd.h"
+#include "free_aligned.h"
 /* ------------------------------------------------------------------------- */
 
 

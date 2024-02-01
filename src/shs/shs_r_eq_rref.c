@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "../prec.h"
 #include "../misc/misc_is_nearly_equal.h"
+#include "shs_r_eq_rref.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -11,7 +12,7 @@
 
 
 
-/* Returns "true" if all elements of "pnt->r" are equal to "shcs->r".  
+/* Returns "true" if all elements of "pnt->r" are equal to "shcs->r".
  * Otherwise, "false" is returned. */
 _Bool CHARM(shs_r_eq_rref)(const CHARM(point) *pnt, const CHARM(shc) *shcs)
 {

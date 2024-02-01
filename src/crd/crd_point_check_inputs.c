@@ -6,6 +6,7 @@
 #include "../prec.h"
 #include "crd_isPoint.h"
 #include "crd_point_isSctr.h"
+#include "crd_point_check_inputs.h"
 /* ------------------------------------------------------------------------- */
 
 

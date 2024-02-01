@@ -4,8 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../prec.h"
-#include "../crd/crd_isCell.h"
-#include "../crd/crd_cell_isSctr.h"
+#include "crd_isCell.h"
+#include "crd_cell_isSctr.h"
+#include "crd_cell_check_inputs.h"
 /* ------------------------------------------------------------------------- */
 
 

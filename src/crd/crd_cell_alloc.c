@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "../prec.h"
 #include "crd_cell_check_inputs.h"
+#include "crd_cell_alloc.h"
 /* ------------------------------------------------------------------------- */
 
 

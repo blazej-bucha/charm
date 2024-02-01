@@ -7,6 +7,7 @@
 #include "../err/err_propagate.h"
 #include "shs_check_single_derivative.h"
 #include "shs_point_gradn.h"
+#include "shs_check_grads.h"
 /* ------------------------------------------------------------------------- */
 
 

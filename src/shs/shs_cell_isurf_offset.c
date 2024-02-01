@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../prec.h"
+#include "shs_cell_isurf_offset.h"
 /* ------------------------------------------------------------------------- */
 
 

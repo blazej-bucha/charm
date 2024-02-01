@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "../prec.h"
 #include "../misc/misc_is_nearly_equal.h"
+#include "shs_grd_point_fft_check.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -23,7 +24,7 @@ _Bool CHARM(shs_grd_point_fft_check)(const CHARM(point) *grd,
      * constant, iii) "grd->lon[0]" must be zero, and iv) "grd->lon[grd->nlon
      * 1] + deltalon" must be equal to "2.0 * PI".
      *
-     * The second condition has already been checked, so let's do the 
+     * The second condition has already been checked, so let's do the
      * remaining
      * checks. */
     if ((grd->nlon - 1) / 2 >= nmax &&

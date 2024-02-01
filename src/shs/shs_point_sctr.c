@@ -5,14 +5,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include "../prec.h"
-#include "shs_point_kernels.h"
-#include "shs_sctr_mulc.h"
-#include "shs_r_eq_rref.h"
-#include "shs_lc_struct.h"
-#include "shs_lc_init.h"
-#include "shs_get_mur_dorder_npar.h"
-#include "shs_point_gradn.h"
-#include "shs_max_npar.h"
 #include "../leg/leg_func_anm_bnm.h"
 #include "../leg/leg_func_dm.h"
 #include "../leg/leg_func_r_ri.h"
@@ -24,6 +16,15 @@
 #include "../simd/simd.h"
 #include "../simd/calloc_aligned.h"
 #include "../simd/free_aligned.h"
+#include "shs_point_kernels.h"
+#include "shs_sctr_mulc.h"
+#include "shs_r_eq_rref.h"
+#include "shs_lc_struct.h"
+#include "shs_lc_init.h"
+#include "shs_get_mur_dorder_npar.h"
+#include "shs_point_gradn.h"
+#include "shs_max_npar.h"
+#include "shs_point_sctr.h"
 /* ------------------------------------------------------------------------- */
 
 

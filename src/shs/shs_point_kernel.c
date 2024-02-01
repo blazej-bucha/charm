@@ -59,11 +59,11 @@
 #include <math.h>
 #include "../prec.h"
 #include "../simd/simd.h"
+#include "../leg/leg_func_xnum.h"
+#include "../leg/leg_func_use_xnum.h"
 #include "shs_check_symm_simd.h"
 #include "shs_point_gradn.h"
 #include "shs_lc_struct.h"
-#include "../leg/leg_func_xnum.h"
-#include "../leg/leg_func_use_xnum.h"
 /* ------------------------------------------------------------------------- */
 
 

@@ -4,9 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../prec.h"
-#include "shs_cell_isurf_offset.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
+#include "shs_cell_isurf_offset.h"
+#include "shs_cell_isurf_coeffs.h"
 /* ------------------------------------------------------------------------- */
 
 

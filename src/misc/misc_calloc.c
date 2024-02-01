@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../prec.h"
+#include "misc_calloc.h"
 /* ------------------------------------------------------------------------- */
 
 

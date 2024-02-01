@@ -6,6 +6,7 @@
 #include "../prec.h"
 #include "../xnum/xnum_xlsum2.h"
 #include "../err/err_set.h"
+#include "leg_pnmj_gpodd.h"
 /* ------------------------------------------------------------------------- */
 
 

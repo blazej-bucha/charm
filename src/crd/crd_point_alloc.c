@@ -6,6 +6,7 @@
 #include "../prec.h"
 #include "crd_point_check_inputs.h"
 #include "crd_point_isQuadGrid.h"
+#include "crd_point_alloc.h"
 /* ------------------------------------------------------------------------- */
 
 

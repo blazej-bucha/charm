@@ -8,6 +8,7 @@
 #include "../misc/misc_str2real.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
+#include "shc_read_mtdt.h"
 /* ------------------------------------------------------------------------- */
 
 

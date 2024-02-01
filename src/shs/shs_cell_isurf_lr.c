@@ -6,6 +6,7 @@
 #include <math.h>
 #include "../prec.h"
 #include "../simd/simd.h"
+#include "shs_cell_isurf_lr.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -26,8 +27,8 @@ void CHARM(shs_cell_isurf_lr)(REAL lon0, REAL deltalon, size_t nlon,
  *              "CHARM(shs_cell_isurf)" function.
  *
  *
- * INPUTS: "lon0", "deltalon", ..., "m3" -- All variables have the same meaning 
- *                                      as in "CHARM(shs_cell_isurf)", where 
+ * INPUTS: "lon0", "deltalon", ..., "m3" -- All variables have the same meaning
+ *                                      as in "CHARM(shs_cell_isurf)", where
  *                                      further details can be found.
  *
  *
