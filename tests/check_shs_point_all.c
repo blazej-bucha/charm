@@ -100,6 +100,46 @@ static void free_signal(REAL **f)
 }
 
 
+#if GURU == 1
+/* For a given "j", this function sets "drp", "dlatp" and "dlonp" to the
+ * correspondinf "dr", "dlat" and "dlon" values. */
+static void stop_at_j_corresponding_to_dr_dlat_dlon(size_t j,
+                                                    unsigned *drp,
+                                                    unsigned *dlatp,
+                                                    unsigned *dlonp)
+{
+    unsigned dr   = *drp;
+    unsigned dlat = *dlatp;
+    unsigned dlon = *dlonp;
+
+
+    /* Let the "GURU_LOOP" run and stop it at that values of "dr", "dlat" and
+     * "dlon" that correspond to "j".  The last values of "dlat" and "dlon"
+     * then say whether or not the signal should be set to zeros. */
+    GURU_LOOP(
+              if (j == gn)
+                  goto J_EQ_GN;
+             );
+
+
+    /* If we got here, we are in serious troubles, as this implies wrong
+     * implementation */
+    fprintf(stderr, "Wrong implementation of "
+                    "\"stop_at_j_corresponding_to_dr_dlat_dlon\".");
+    exit(CHARM_FAILURE);
+
+
+J_EQ_GN:
+    *drp   = dr;
+    *dlatp = dlat;
+    *dlonp = dlon;
+
+
+    return;
+}
+#endif
+
+
 /* For low values of "nmax", some elements of "grad1" and "grad2" are zero by
  * definition, particularly for "nmax = 0" and "nmax = 1.  Then, we want the
  * *exported* values to be exactly zero instead of values of orders like "-20"
@@ -149,25 +189,9 @@ static void zeros_for_low_nmax(REAL *f,
 #elif GURU == 1
 
     unsigned dr, dlat, dlon;
+    stop_at_j_corresponding_to_dr_dlat_dlon(j, &dr, &dlat, &dlon);
 
 
-    /* Let the "GURU_LOOP" run and stop it at that values of "dr", "dlat" and
-     * "dlon" that correspond to "j".  The last values of "dlat" and "dlon"
-     * then say whether or not the signal should be set to zeros. */
-    GURU_LOOP(
-              if (j == gn)
-                  goto J_EQ_GN;
-             );
-
-
-    /* If we got here, we are in serious troubles, as this implies wrong
-     * implementation */
-    fprintf(stderr, "Wrong implementation \"zeros_for_low_nmax\" for \"GURU\" "
-                    "function.");
-    exit(CHARM_FAILURE);
-
-
-J_EQ_GN:
     if (nmax == 0)
     {
         if ((dlat > 0) || (dlon > 0))
@@ -237,20 +261,28 @@ static void zeros_for_singularities(CHARM(point) *pnt,
     _Bool sing = 0;
 
 
-#if (GRAD_0 == 1) || (GURU == 1)
+#if GRAD_0 == 1
 
-    /* No singularities for "potentials" or guru functions */
+    /* No singularities for "potentials" */
     sing = 0;
 
 #elif GRAD_1 == 1
 
-    if (j == 1)  /* The "y" element of grad1 */
+    if (j != 2)  /* All elements of grad1 except for "z" */
         sing = 1;
 
 #elif GRAD_2 == 1
 
-    if ((j == 1) || (j == 3) || (j == 4))  /* "xy", "yy" and "yz" of grad2,
-                                            * respectively */
+    if (j != 5)  /* All elements of grad2 except for "zz" */
+        sing = 1;
+
+#elif GURU == 1
+
+    unsigned dr, dlat, dlon;
+    stop_at_j_corresponding_to_dr_dlat_dlon(j, &dr, &dlat, &dlon);
+
+
+    if ((dlat > 0) || (dlon > 0))
         sing = 1;
 
 #endif
@@ -543,11 +575,11 @@ long int check_shs_point_guru(void)
 #   else
                             e += validate(file[j], f[j], grd_pnt->npoint,
 #      if GRAD_0 == 1
-                                          PREC(100.0)
+                                          PREC(100.0) * CHARM(glob_threshold));
 #      else
-                                          PREC(1000.0)
+                                          PREC(1000.0) *
+                                          CHARM(glob_threshold2));
 #      endif
-                                          * CHARM(glob_threshold));
 #   endif
                         }
 

@@ -18,6 +18,7 @@
                  _Bool is_ratio_one,                                          \
                  const REAL *anm,                                             \
                  const REAL *bnm,                                             \
+                 const REAL *enm,                                             \
                  const REAL_SIMD *t,                                          \
                  const REAL_SIMD *u,                                          \
                  const REAL *ps,                                              \
@@ -28,8 +29,6 @@
                  const REAL_SIMD *ratio2m,                                    \
                  const REAL_SIMD *symm_simd,                                  \
                  unsigned dorder,                                             \
-                 REAL_SIMD *pm1m1,                                            \
-                 REAL_SIMD *dpm1m1,                                           \
                  CHARM(lc) *lc)
 
 

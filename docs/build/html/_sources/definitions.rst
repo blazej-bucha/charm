@@ -200,13 +200,18 @@ are the fully-normalized associated Legendre functions of the first kind and
 are the (un-normalized) Legendre polynomials (:math:`m = 0`, so the order is
 omitted from the notation).
 
+.. warning::
+   CHarm evaluates the latitudinal derivatives of Legendre functions by the 
+   fixed-order recurrences from Appendix A.1 of Fukushima (2012b), which are 
+   *singular* at the poles.
+
 .. note::
    Applied is the geodetic :math:`4\pi` full normalization.  Neither other
    normalizations nor complex spherical harmonics are supported (yet?).
 
 .. note::
    The numerical evaluation of Legendre functions is performed after Fukushima
-   (2012), so spherical harmonics can be safely evaluated up to high degrees
+   (2012a), so spherical harmonics can be safely evaluated up to high degrees
    and orders (tens of thousands and even well beyond).
 
 
@@ -343,9 +348,14 @@ References
 * Driscoll, J. R., Healy, D. M. (1994) Computing Fourier transforms and
   convolutions on the 2-sphere. Advances in Applied Mathematics 15:202-250
 
-* Fukushima T (2012) Numerical computation of spherical harmonics of arbitrary
+* Fukushima T (2012a) Numerical computation of spherical harmonics of arbitrary
   degree and order by extending exponent of floating point numbers. Journal of
   Geodesy 86:271--285, doi: 10.1007/s00190-011-0519-2
+
+* Fukushima T (2012b) Numerical computation of spherical harmonics of arbitrary
+  degree and order by extending exponent of floating point numbers: II first-, 
+  second-, and third-order derivatives. Journal of
+  Geodesy 86, 1019--1028, doi: 10.1007/s00190-012-0561-8
 
 * Hofmann-Wellenhof B, Moritz H (2005) Physical Geodesy. Springer, Wien, New
   York, 403 pp

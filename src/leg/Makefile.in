@@ -109,13 +109,14 @@ CONFIG_CLEAN_VPATH_FILES =
 LTLIBRARIES = $(noinst_LTLIBRARIES)
 libcharm@P@_leg@OMP@_la_LIBADD =
 am_libcharm@P@_leg@OMP@_la_OBJECTS = leg_func_anm_bnm.lo \
-	leg_func_dm.lo leg_func_gm_hm.lo leg_func_prepare.lo \
-	leg_func_r_ri.lo leg_func_use_xnum.lo leg_pnmj_coeffs.lo \
-	leg_pnmj_dpeven.lo leg_pnmj_dpodd.lo leg_pnmj_gpeven.lo \
-	leg_pnmj_gpodd.lo leg_pnmj_alloc.lo leg_pnmj_calloc.lo \
-	leg_pnmj_malloc.lo leg_pnmj_init.lo leg_pnmj_free.lo \
-	leg_pnmj_length.lo leg_pnmj_j2k.lo leg_pnmj_k2j.lo \
-	leg_pnmj_leq4.lo leg_pnmj_check_ordering.lo leg_pol_en_fn.lo
+	leg_func_enm.lo leg_func_dm.lo leg_func_gm_hm.lo \
+	leg_func_prepare.lo leg_func_r_ri.lo leg_func_use_xnum.lo \
+	leg_pnmj_coeffs.lo leg_pnmj_dpeven.lo leg_pnmj_dpodd.lo \
+	leg_pnmj_gpeven.lo leg_pnmj_gpodd.lo leg_pnmj_alloc.lo \
+	leg_pnmj_calloc.lo leg_pnmj_malloc.lo leg_pnmj_init.lo \
+	leg_pnmj_free.lo leg_pnmj_length.lo leg_pnmj_j2k.lo \
+	leg_pnmj_k2j.lo leg_pnmj_leq4.lo leg_pnmj_check_ordering.lo \
+	leg_pol_en_fn.lo
 libcharm@P@_leg@OMP@_la_OBJECTS =  \
 	$(am_libcharm@P@_leg@OMP@_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -138,7 +139,8 @@ DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/leg_func_anm_bnm.Plo \
-	./$(DEPDIR)/leg_func_dm.Plo ./$(DEPDIR)/leg_func_gm_hm.Plo \
+	./$(DEPDIR)/leg_func_dm.Plo ./$(DEPDIR)/leg_func_enm.Plo \
+	./$(DEPDIR)/leg_func_gm_hm.Plo \
 	./$(DEPDIR)/leg_func_prepare.Plo ./$(DEPDIR)/leg_func_r_ri.Plo \
 	./$(DEPDIR)/leg_func_use_xnum.Plo \
 	./$(DEPDIR)/leg_pnmj_alloc.Plo ./$(DEPDIR)/leg_pnmj_calloc.Plo \
@@ -327,6 +329,7 @@ top_srcdir = @top_srcdir@
 noinst_LTLIBRARIES = libcharm@P@_leg@OMP@.la
 AM_CPPFLAGS = -I$(top_srcdir)/charm
 libcharm@P@_leg@OMP@_la_SOURCES = leg_func_anm_bnm.c \
+								  leg_func_enm.c \
 								  leg_func_dm.c \
 								  leg_func_gm_hm.c \
 								  leg_func_prepare.c \
@@ -406,6 +409,7 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leg_func_anm_bnm.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leg_func_dm.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leg_func_enm.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leg_func_gm_hm.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leg_func_prepare.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/leg_func_r_ri.Plo@am__quote@ # am--include-marker
@@ -540,6 +544,7 @@ clean-am: clean-generic clean-libtool clean-noinstLTLIBRARIES \
 distclean: distclean-am
 		-rm -f ./$(DEPDIR)/leg_func_anm_bnm.Plo
 	-rm -f ./$(DEPDIR)/leg_func_dm.Plo
+	-rm -f ./$(DEPDIR)/leg_func_enm.Plo
 	-rm -f ./$(DEPDIR)/leg_func_gm_hm.Plo
 	-rm -f ./$(DEPDIR)/leg_func_prepare.Plo
 	-rm -f ./$(DEPDIR)/leg_func_r_ri.Plo
@@ -606,6 +611,7 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 		-rm -f ./$(DEPDIR)/leg_func_anm_bnm.Plo
 	-rm -f ./$(DEPDIR)/leg_func_dm.Plo
+	-rm -f ./$(DEPDIR)/leg_func_enm.Plo
 	-rm -f ./$(DEPDIR)/leg_func_gm_hm.Plo
 	-rm -f ./$(DEPDIR)/leg_func_prepare.Plo
 	-rm -f ./$(DEPDIR)/leg_func_r_ri.Plo

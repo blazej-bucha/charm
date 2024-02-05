@@ -583,6 +583,12 @@ P_n(\sin\varphi)}{\mathrm{d} (\sin\varphi)^m} {,} \quad &amp;0 &lt; m \leq n {,
 (\sin\varphi)^n} \left(\sin^2\varphi - 1 \right)^n\]</div>
 <p>are the (un-normalized) Legendre polynomials (<span class="math notranslate nohighlight">\(m = 0\)</span>, so the order is
 omitted from the notation).</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>CHarm evaluates the latitudinal derivatives of Legendre functions by the
+fixed-order recurrences from Appendix A.1 of Fukushima (2012b), which are
+<em>singular</em> at the poles.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Applied is the geodetic <span class="math notranslate nohighlight">\(4\pi\)</span> full normalization.  Neither other
@@ -591,7 +597,7 @@ normalizations nor complex spherical harmonics are supported (yet?).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The numerical evaluation of Legendre functions is performed after Fukushima
-(2012), so spherical harmonics can be safely evaluated up to high degrees
+(2012a), so spherical harmonics can be safely evaluated up to high degrees
 and orders (tens of thousands and even well beyond).</p>
 </div>
 </section>
@@ -701,9 +707,13 @@ sphere. Report No. 310, Department of Geodetic Science and Surveying, The
 Ohio State University, Columbus, Ohio, 140 pp</p></li>
 <li><p>Driscoll, J. R., Healy, D. M. (1994) Computing Fourier transforms and
 convolutions on the 2-sphere. Advances in Applied Mathematics 15:202-250</p></li>
-<li><p>Fukushima T (2012) Numerical computation of spherical harmonics of arbitrary
+<li><p>Fukushima T (2012a) Numerical computation of spherical harmonics of arbitrary
 degree and order by extending exponent of floating point numbers. Journal of
 Geodesy 86:271–285, doi: 10.1007/s00190-011-0519-2</p></li>
+<li><p>Fukushima T (2012b) Numerical computation of spherical harmonics of arbitrary
+degree and order by extending exponent of floating point numbers: II first-,
+second-, and third-order derivatives. Journal of
+Geodesy 86, 1019–1028, doi: 10.1007/s00190-012-0561-8</p></li>
 <li><p>Hofmann-Wellenhof B, Moritz H (2005) Physical Geodesy. Springer, Wien, New
 York, 403 pp</p></li>
 <li><p>Jekeli C, Lee JK, Kwon JH (2007) On the computation and approximation of
@@ -807,7 +817,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Feb 01, 2024.
+  Last updated on Feb 05, 2024.
   <br/>
 </p>
   </div>

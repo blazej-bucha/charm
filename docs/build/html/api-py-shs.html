@@ -490,8 +490,8 @@ the full documentation.</p>
 <span class="sig-prename descclassname"><span class="pre">pyharm.shs.</span></span><span class="sig-name descname"><span class="pre">point_guru</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shcs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dlat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dlon</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shs.point_guru" title="Permalink to this definition">#</a></dt>
 <dd><p>Performs the synthesis of point values of</p>
 <div class="math notranslate nohighlight">
-\[\frac{1}{r^{j + k}} \, \frac{\partial^{i + j + k} f}{\partial r^i \,
-\partial \varphi^j \, \lambda^k}\]</div>
+\[\frac{1}{r^{j + k} \, \cos^k\varphi} \, \frac{\partial^{i + j + k}
+f}{\partial r^i \, \partial \varphi^j \, \lambda^k}\]</div>
 <p>for <span class="math notranslate nohighlight">\(i = 0, 1, 2\)</span> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dr</span></code>), <span class="math notranslate nohighlight">\(j = 0, 1, 2\)</span> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dlat</span></code>) and
 <span class="math notranslate nohighlight">\(k = 0, 1, 2\)</span> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dlon</span></code>) satisfying <span class="math notranslate nohighlight">\(i + j + k \leq 2\)</span> from
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs</span></code> at <code class="xref py py-obj docutils literal notranslate"><span class="pre">pnt</span></code> up to maximum degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to
@@ -666,7 +666,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Feb 01, 2024.
+  Last updated on Feb 05, 2024.
   <br/>
 </p>
   </div>

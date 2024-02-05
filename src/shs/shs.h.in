@@ -252,13 +252,11 @@ extern void charm@P@_shs_point(const charm@P@_point *pnt,
  * potential at \f$(r, \varphi, \lambda)\f$, then \f$\nabla f\f$ is the vector
  * of the gravitational acceleration at \f$(r, \varphi, \lambda)\f$.
  *
- * @warning In polar areas, the output values of \f$f_{\mathrm{y}}\f$ are
- * likely inaccurate or wrong, because the \f$\frac{1}{\cos\varphi}\f$ term is
- * singular at the poles.  The latitudinal derivatives are free of any
- * singularities though, because the latitudinal derivatives of the Legendre
- * functions are computed by non-singular recurrence relations.  See
- * ``charm@P@_shs_point_guru()`` on how to treat the singularity on your own
- * (in case you are a guru and know what you are doing).
+ * @warning In polar areas, the output values of \f$f_{\mathrm{x}}\f$ and
+ * \f$f_{\mathrm{y}}\f$ are likely inaccurate or wrong, because (i) CHarm
+ * evaluates the latitudinal derivatives of Legendre functions by recurrences
+ * that are singular at the poles and (ii) the \f$\frac{1}{\cos\varphi}\f$ term
+ * is singular at the poles.
  *
  * \verbatim embed:rst:leading-asterisk
  *
@@ -349,15 +347,11 @@ extern void charm@P@_shs_point_grad1(const charm@P@_point *pnt,
  *
  * \endverbatim
  *
- * @warning In polar areas, the output values of \f$f_{\mathrm{xy}}\f$,
- * \f$f_{\mathrm{yy}}\f$ and \f$f_{\mathrm{yz}}\f$ are likely inaccurate or
- * wrong, because the \f$\frac{1}{\cos\varphi}\f$,
- * \f$\frac{1}{\cos^2\varphi}\f$ and \f$\tan\varphi\f$ terms are singular at
- * the poles.  The latitudinal derivatives are free of any singularities
- * though, because the latitudinal derivatives of the Legendre functions are
- * computed by non-singular recurrence relations.  See
- * ``charm@P@_shs_point_guru()`` on how to treat the singularity on your own
- * (in case you are a guru and know what you are doing).
+ * @warning In polar areas, all output values except for \f$f_{\mathrm{zz}}\f$
+ * are likely inaccurate or wrong, because (i) CHarm evaluates the latitudinal
+ * derivatives of Legendre functions by recurrences that are singular at the
+ * poles and (ii) the \f$\frac{1}{\cos\varphi}\f$ and
+ * \f$\frac{1}{\cos^2\varphi}\f$ terms are singular at the poles.
  *
  * \verbatim embed:rst:leading-asterisk
  *
@@ -409,28 +403,21 @@ extern void charm@P@_shs_point_grad2(const charm@P@_point *pnt,
  *
  * .. math::
  *
- *      \frac{1}{r^{j + k}} \, \frac{\partial^{i + j + k} f}{\partial r^i \,
- *      \partial \varphi^j \, \lambda^k}
+ *      \frac{1}{r^{j + k} \, \cos^k\varphi} \, \frac{\partial^{i + j + k}
+ *      f}{\partial r^i \, \partial \varphi^j \, \lambda^k}
  *
  * \endverbatim
  *
  * for \f$i = 0, 1, 2\f$, \f$j = 0, 1, 2\f$ and \f$k = 0, 1, 2\f$ satisfying
  * \f$i + j + k \leq 2\f$.
  *
- * Computed can be, for instance, quantities like \f$\dfrac{1}{r} \,
- * \dfrac{\partial f}{\partial \lambda}\f$ (\f$i = 0\f$, \f$j = 1\f$, \f$k
- * = 0\f$) or \f$\dfrac{1}{r^2} \, \dfrac{\partial^2 f}{\partial \varphi \,
- * \partial \lambda}\f$ (\f$i = 0\f$, \f$j = 1\f$, \f$k = 1\f$).
+ * Computed can be, for instance, quantities like \f$\dfrac{1}{r \,
+ * \cos\varphi} \, \dfrac{\partial f}{\partial \lambda}\f$ (\f$i = 0\f$, \f$j
+ * = 1\f$, \f$k = 0\f$) or \f$\dfrac{1}{r^2 \, \cos\varphi} \,
+ * \dfrac{\partial^2 f}{\partial \varphi \, \partial \lambda}\f$ (\f$i = 0\f$,
+ * \f$j = 1\f$, \f$k = 1\f$).
  *
- * The rational behind this function is threefold.
- *
- * * It computes the first- and second-order derivatives of \f$f\f$ with
- *   respect to the spherical coordinates without any issues associated with
- *   the singularities at the poles.
- *
- * * These derivatives are sometimes needed to perform some specialized tasks,
- *   for instance, as in cap-modified spectral gravity forward modelling (Bucha
- *   et al, 2019).
+ * The rational behind this function is twofold.
  *
  * * It lowers memory requirements when compared with
  *   ``charm@P@_shs_point_grad1()`` and ``charm@P@_shs_point_grad2()``.  For
@@ -438,23 +425,22 @@ extern void charm@P@_shs_point_grad2(const charm@P@_point *pnt,
  *   ``charm@P@_shs_point_grad2()`` requires a huge amount of RAM if the point
  *   grid is really dense and/or maximum harmonic degree is large.  With this
  *   function and some additional effort, the outputs from
- *   ``charm@P@_shs_point_grad1()`` and ``charm@P@_shs_point_grad1()`` can be
+ *   ``charm@P@_shs_point_grad1()`` and ``charm@P@_shs_point_grad2()`` can be
  *   reconstructed with much lower memory requirements.  This will be
  *   significantly slower, but in some cases it may be the only practical
  *   solution.
  *
- * @note This function does not suffer from any singularities, because CHarm
- * always relies on non-singular recurrence relations for the latitudinal
- * derivatives of Legendre functions.
+ * * These quantities are sometimes needed to perform some specialized tasks,
+ *   for instance, as in cap-modified spectral gravity forward modelling (Bucha
+ *   et al, 2019).
  *
  * @note The sum ``dr + dlat + dlon`` cannot be larger than ``2``.
  *
- * @warning Be aware there are no terms like \f$\frac{1}{\cos\varphi}\f$,
- * \f$\frac{1}{\cos^2\varphi}\f$ or \f$\tan\varphi\f$.  So, for instance, with
- * \f$i = 0\f$, \f$j = 1\f$, \f$k = 0\f$, you will not get the \f$y\f$-element
- * in LNOF as with ``charm@P@_shs_point_grad1()``.  If needed, you have to take
- * into account these factors by yourself.  As a benefit, you can treat the
- * singularities in any way you like.
+ * @warning In polar areas, the outputs are likely inaccurate or wrong if
+ * ``dlat > 0`` and/or ``dlon > 0``, because (i) CHarm evaluates the
+ * latitudinal derivatives of Legendre functions by recurrences that are
+ * singular at the poles and (ii) the \f$\frac{1}{\cos\varphi}\f$ and
+ * \f$\frac{1}{\cos^2\varphi}\f$ terms are singular at the poles.
  *
  * @param[in] pnt Same as in ``charm@P@_shs_point()``.
  *

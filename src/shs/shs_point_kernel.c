@@ -63,6 +63,7 @@
 #include "../leg/leg_func_use_xnum.h"
 #include "shs_check_symm_simd.h"
 #include "shs_point_gradn.h"
+#include "shs_point_kernels.h"
 #include "shs_lc_struct.h"
 /* ------------------------------------------------------------------------- */
 
@@ -212,13 +213,12 @@
 
 
 /* We stored the Legendre functions in variables "pnm0", "pnm1" and "pnm2"
- * ("P_{n - 2, m}", "P_{n - 1, m}", "P_{n, m}", respectively).  Similarly, the
- * first-order derivatives of Legendre functions are stored in "dpnm0", "dpnm1"
- * and "dpnm2" and the second-order derivatives in "ddpnm0", "ddpnm1" and
- * "ddpnm2".  It is handy to introduce the "DIFF" macro that adds the "d" or
- * "dd" prefixes (or nothing) before "pnm0", depending on the order of the
- * derivative for which we compile the kernel.  This significantly simplifies
- * the code. */
+ * ("P_{n - 2, m}", "P_{n - 1, m}", "P_{n, m}", respectively).  The first-order
+ * derivatives of "p_{n, m}" are stored in "dpnm0", "dpnm1", "dpnm2" and the
+ * second-order derivatives in "ddpnm0", "ddpnm1", "ddpnm2".  It is handy to
+ * introduce the "DIFF" macro that adds the "d" or "dd" prefixes (or nothing)
+ * before "pnm0", depending on the order of the derivative for which we compile
+ * the kernel.  This significantly simplifies the code. */
 #undef DIFF
 #if DLAT == 0
 #   define DIFF(x)   x
@@ -237,8 +237,8 @@
 #   define DPNM_RECURRENCE_BLOCK                                              \
         for (l = 0; l < SIMD_BLOCK; l++)                                      \
         {                                                                     \
-            DPNM_RECURRENCE((dpnm0[l]), (dpnm1[l]), (dpnm2[l]), (x[l]),       \
-                            (t[l]), (u[l]), (anms), (bnms));                  \
+            DPNM_RECURRENCE((dpnm2[l]), (x[l]), (pnm2[l]), (tu[l]),           \
+                            (u_rec[l]), (ns), (enms));                        \
         }
 #else
 #   define DPNM_RECURRENCE_BLOCK
@@ -253,44 +253,12 @@
 #   define DDPNM_RECURRENCE_BLOCK                                             \
         for (l = 0; l < SIMD_BLOCK; l++)                                      \
         {                                                                     \
-            DDPNM_RECURRENCE((ddpnm0[l]), (ddpnm1[l]), (ddpnm2[l]),           \
-                             (dpnm1[l]), (x[l]), (u2[l]), (t[l]), (anms),     \
-                             (bnms));                                         \
+            DDPNM_RECURRENCE((ddpnm2[l]), (dpnm2[l]), (pnm2[l]),              \
+                             (tu[l]), (u2_rec[l]), (m2s), (nn1s));            \
         }
 #else
 #   define DDPNM_RECURRENCE_BLOCK
 #endif
-
-
-/* This macro updates the three terms used to compute the first-order
- * derivatives of the Legendre functions if "DLAT > 0".  Otherwise, it does
- * nothing. */
-#undef DRECURRENCE_NEXT_ITER_BLOCK
-#if DLAT > 0
-#   define DRECURRENCE_NEXT_ITER_BLOCK                                        \
-        for (l = 0; l < SIMD_BLOCK; l++)                                      \
-        {                                                                     \
-            RECURRENCE_NEXT_ITER((dpnm0[l]), (dpnm1[l]), (dpnm2[l]));         \
-        }
-#else
-#   define DRECURRENCE_NEXT_ITER_BLOCK
-#endif
-
-
-/* This macro updates the three terms used to compute the second-order
- * derivatives of the Legendre functions if "DLAT > 1".  Otherwise, it does
- * nothing. */
-#undef DDRECURRENCE_NEXT_ITER_BLOCK
-#if DLAT > 1
-#   define DDRECURRENCE_NEXT_ITER_BLOCK                                       \
-        for (l = 0; l < SIMD_BLOCK; l++)                                      \
-        {                                                                     \
-            RECURRENCE_NEXT_ITER((ddpnm0[l]), (ddpnm1[l]), (ddpnm2[l]));      \
-        }
-#else
-#   define DDRECURRENCE_NEXT_ITER_BLOCK
-#endif
-
 
 
 /* Lumped coefficients for "grad0" */
@@ -547,11 +515,32 @@
     }
 
 
+#undef ENMS
+#if DLAT > 0
+#   define ENMS(n)                                                            \
+        enms = SET1_R(enm[(n)]);                                              \
+        ns   = SET1_R((REAL)(n));
+#else
+#   define ENMS(n)
+#endif
+
+
+#undef NN1S
+#if DLAT > 1
+#   define NN1S(n)                                                            \
+        nn1s = SET1_R((REAL)((n) * ((n) + 1)));
+#else
+#   define NN1S(n)
+#endif
+
+
 /* A single macro for Legendre functions and their derivatives */
 #undef LEG_CS
 #define LEG_CS(n)                                                             \
     anms = SET1_R(anm[(n)]);                                                  \
     bnms = SET1_R(bnm[(n)]);                                                  \
+    ENMS(n);                                                                  \
+    NN1S(n);                                                                  \
     cnm  = SET1_R(shcs->c[m][idx]);                                           \
     snm  = SET1_R(shcs->s[m][idx]);                                           \
     AMPL((n));                                                                \
@@ -569,8 +558,6 @@
     {                                                                         \
         RECURRENCE_NEXT_ITER(y[l], x[l], pnm2[l]);                            \
     }                                                                         \
-    DRECURRENCE_NEXT_ITER_BLOCK;                                              \
-    DDRECURRENCE_NEXT_ITER_BLOCK;                                             \
                                                                               \
                                                                               \
     LFCS
@@ -769,6 +756,7 @@ void CHARM(shs_point_kernel_grad2)
                              _Bool is_ratio_one,
                              const REAL *anm,
                              const REAL *bnm,
+                             const REAL *enm,
                              const REAL_SIMD *t,
                              const REAL_SIMD *u,
                              const REAL *ps,
@@ -779,8 +767,6 @@ void CHARM(shs_point_kernel_grad2)
                              const REAL_SIMD *ratio2m,
                              const REAL_SIMD *symm_simd,
                              unsigned dorder,
-                             REAL_SIMD *pm1m1,
-                             REAL_SIMD *dpm1m1,
                              CHARM(lc) *lc
                              )
 {
@@ -803,20 +789,33 @@ void CHARM(shs_point_kernel_grad2)
 #if (DLAT > 0) || (KERNEL_GRAD > 0)
     NEG_R_INIT;
 #endif
+    const REAL_SIMD one = SET1_R(PREC(1.0));
 
 
     size_t l;
     REAL_SIMD pnm0[SIMD_BLOCK], pnm1[SIMD_BLOCK], pnm2[SIMD_BLOCK];
 #if DLAT > 0
-    REAL_SIMD dpnm0[SIMD_BLOCK],   dpnm1[SIMD_BLOCK],  dpnm2[SIMD_BLOCK];
-    REAL_SIMD emm;
+    REAL_SIMD dpnm0[SIMD_BLOCK], dpnm1[SIMD_BLOCK], dpnm2[SIMD_BLOCK];
 #endif
 #if DLAT > 1
     REAL_SIMD ddpnm0[SIMD_BLOCK], ddpnm1[SIMD_BLOCK], ddpnm2[SIMD_BLOCK];
-    REAL_SIMD u2[SIMD_BLOCK];
-    REAL_SIMD two = SET1_R(PREC(2.0));
+#endif
+#if (DLAT > 0) || (DLON > 0)
+    REAL_SIMD u_rec[SIMD_BLOCK];
     for (l = 0; l < SIMD_BLOCK; l++)
-        u2[l] = MUL_R(two, u[l]);
+        u_rec[l] = DIV_R(one, u[l]);  /* 1 / cos(lat) */
+#endif
+
+
+#if DLAT > 0
+    REAL_SIMD tu[SIMD_BLOCK];
+    for (l = 0; l < SIMD_BLOCK; l++)
+        tu[l] = MUL_R(t[l], u_rec[l]);  /* sin(lat) / cos(lat) */
+#endif
+#if (DLAT > 1) || (DLON > 1)
+    REAL_SIMD u2_rec[SIMD_BLOCK];
+    for (l = 0; l < SIMD_BLOCK; l++)
+        u2_rec[l] = MUL_R(u_rec[l], u_rec[l]);  /* 1 / cos(lat)^2 */
 #endif
     REAL_SIMD leg_cnm[SIMD_BLOCK], leg_snm[SIMD_BLOCK];
 #if KERNEL_GRAD > 0
@@ -833,18 +832,6 @@ void CHARM(shs_point_kernel_grad2)
 
     REAL_SIMD ration[SIMD_BLOCK];
     REAL_SIMD ratio2n[SIMD_BLOCK];
-    if (m <= 1)
-    {
-        /* For "m <= 1", the sectorial Legendre functions and their first-order
-         * derivatives are not needed in recursions that will follow, so are
-         * set to zero.  For "m > 1", their values are taken from the previous
-         * call of this kernel ("pm1m1" and "dpm1m1" are input/output
-         * parameters). */
-        for (l = 0; l < SIMD_BLOCK; l++)
-            pm1m1[l]  = SET_ZERO_R;
-        for (l = 0; l < SIMD_BLOCK; l++)
-            dpm1m1[l] = SET_ZERO_R;
-    }
 
 
     /* (R / r)^(n + 1 + dorder) */
@@ -875,6 +862,14 @@ void CHARM(shs_point_kernel_grad2)
 
 
     REAL_SIMD anms, bnms;
+#if DLAT > 0
+    REAL_SIMD enms;
+    REAL_SIMD ns;  /* "n" */
+#endif
+#if DLAT > 1
+    REAL_SIMD nn1s;  /* "n * (n + 1)" */
+    REAL_SIMD m2s = SET1_R((REAL)(m * m));  /* "m * m" */
+#endif
 #if KERNEL_GRAD == 0
 #   if DR > 0
     REAL_SIMD ampl;
@@ -901,9 +896,6 @@ void CHARM(shs_point_kernel_grad2)
 #endif
 
 
-    const REAL_SIMD ones = SET1_R(PREC(1.0));
-
-
     /* Summations over harmonic degree "n" */
     if (m == 0)
     {
@@ -915,7 +907,7 @@ void CHARM(shs_point_kernel_grad2)
 
 
         for (l = 0; l < SIMD_BLOCK; l++)
-            pnm0[l] = ones;
+            pnm0[l] = one;
 #if DLAT > 0
         for (l = 0; l < SIMD_BLOCK; l++)
             dpnm0[l] = SET_ZERO_R;
@@ -1056,6 +1048,13 @@ void CHARM(shs_point_kernel_grad2)
             {
                 anms = SET1_R(anm[n]);
                 bnms = SET1_R(bnm[n]);
+#if DLAT > 0
+                enms = SET1_R(enm[n]);
+                ns   = SET1_R((REAL)n);
+#endif
+#if DLAT > 1
+                nn1s = SET1_R((REAL)(n * (n + 1)));
+#endif
                 cnm  = SET1_R(shcs->c[0][n]);
                 AMPL(n);
 
@@ -1065,13 +1064,13 @@ void CHARM(shs_point_kernel_grad2)
                                    bnms);
 #if DLAT > 0
                 for (l = 0; l < SIMD_BLOCK; l++)
-                    DPNM_RECURRENCE(dpnm0[l], dpnm1[l], dpnm2[l], pnm1[l],
-                                    t[l], u[l], anms, bnms);
+                    DPNM_RECURRENCE(dpnm2[l], pnm1[l], pnm2[l], tu[l],
+                                    u_rec[l], ns, enms);
 #endif
 #if DLAT > 1
                 for (l = 0; l < SIMD_BLOCK; l++)
-                    DDPNM_RECURRENCE(ddpnm0[l], ddpnm1[l], ddpnm2[l], dpnm1[l],
-                                     pnm1[l], u2[l], t[l], anms, bnms);
+                    DDPNM_RECURRENCE(ddpnm2[l], dpnm2[l], pnm2[l], tu[l],
+                                     u2_rec[l], m2s, nn1s);
 #endif
 
 
@@ -1101,14 +1100,6 @@ void CHARM(shs_point_kernel_grad2)
 
                 for (l = 0; l < SIMD_BLOCK; l++)
                     RECURRENCE_NEXT_ITER(pnm0[l], pnm1[l], pnm2[l]);
-#if DLAT > 0
-                for (l = 0; l < SIMD_BLOCK; l++)
-                    RECURRENCE_NEXT_ITER(dpnm0[l], dpnm1[l], dpnm2[l]);
-#endif
-#if DLAT > 1
-                for (l = 0; l < SIMD_BLOCK; l++)
-                    RECURRENCE_NEXT_ITER(ddpnm0[l], ddpnm1[l], ddpnm2[l]);
-#endif
 
 
                 if (symm)
@@ -1151,6 +1142,13 @@ void CHARM(shs_point_kernel_grad2)
         /* ----------------------------------------------------- */
         cnm = SET1_R(shcs->c[m][0]);
         snm = SET1_R(shcs->s[m][0]);
+#if DLAT > 0
+        enms = SET1_R(enm[m]);
+        ns   = SET1_R((REAL)m);
+#endif
+#if DLAT > 1
+        nn1s = SET1_R(m * (m + 1));
+#endif
         AMPL(m);
 
 
@@ -1173,44 +1171,13 @@ void CHARM(shs_point_kernel_grad2)
 #endif
         }
 #if DLAT > 0
-        if (m > 1)
-            /* The following equation is taken from Eq. (15) of "Xing et
-             * al., 2020: Numerical experiments on column-wise recurrence
-             * formula to compute fully normalized associated Legendre
-             * functions of ultra-high degree and order.  Journal of
-             * Geodesy 94:2" for "n == m".  The "SQRT" can be pre-computed,
-             * but this single "SQRT" for sectorial Legendre functions is
-             * not really a problem in terms of computing time. */
-        {
-            for (l = 0; l < SIMD_BLOCK; l++)
-            {
-                emm      = SET1_R(-SQRT(m * (m + PREC(0.5))));
-                dpnm0[l] = MUL_R(MUL_R(emm, t[l]), pm1m1[l]);
-#if DLAT > 1
-                ddpnm0[l] = MUL_R(emm, ADD_R(MUL_R(u[l], pm1m1[l]),
-                                             MUL_R(t[l], dpm1m1[l])));
-#endif
-            }
-        }
-        else /* "m == 1" */
-        {
-            for (l = 0; l < SIMD_BLOCK; l++)
-                dpnm0[l]  = NEG_R(MUL_R(ROOT3_r, t[l]));
-#if DLAT > 1
-            for (l = 0; l < SIMD_BLOCK; l++)
-                ddpnm0[l] = NEG_R(MUL_R(ROOT3_r, u[l]));
-#endif
-        }
-#endif
-
-
-#if DLAT > 0
         for (l = 0; l < SIMD_BLOCK; l++)
-            pm1m1[l]  = pnm0[l];
-#   if DLAT > 1
+            dpnm0[l] = NEG_R(MUL_R(MUL_R(MUL_R(ns, t[l]), u_rec[l]), pnm0[l]));
+#endif
+#if DLAT > 1
         for (l = 0; l < SIMD_BLOCK; l++)
-            dpm1m1[l] = dpnm0[l];
-#   endif
+            DDPNM_RECURRENCE(ddpnm0[l], dpnm0[l], pnm0[l], tu[l], u2_rec[l],
+                             m2s, nn1s);
 #endif
 
 
@@ -1286,6 +1253,13 @@ void CHARM(shs_point_kernel_grad2)
         {
             anms = SET1_R(anm[m + 1]);
             bnms = SET1_R(bnm[m + 1]);
+#if DLAT > 0
+            enms = SET1_R(enm[m + 1]);
+            ns   = SET1_R((REAL)(m + 1));
+#endif
+#if DLAT > 1
+            nn1s = SET1_R((m + 1) * (m + 2));
+#endif
             cnm  = SET1_R(shcs->c[m][1]);
             snm  = SET1_R(shcs->s[m][1]);
             AMPL(m + 1);
@@ -1306,14 +1280,13 @@ void CHARM(shs_point_kernel_grad2)
             }
 #if DLAT > 0
             for (l = 0; l < SIMD_BLOCK; l++)
-                dpnm1[l] = MUL_R(anms, ADD_R(MUL_R(u[l], pnm0[l]),
-                                             MUL_R(t[l], dpnm0[l])));
+                DPNM_RECURRENCE(dpnm1[l], pnm0[l], pnm1[l], tu[l], u_rec[l],
+                                ns, enms);
 #endif
 #if DLAT > 1
             for (l = 0; l < SIMD_BLOCK; l++)
-                ddpnm1[l] = MUL_R(anms,
-                                  ADD_R(MUL_R(t[l], SUB_R(ddpnm0[l], pnm0[l])),
-                                        MUL_R(u2[l], dpnm0[l])));
+                DDPNM_RECURRENCE(ddpnm1[l], dpnm1[l], pnm1[l], tu[l],
+                                 u2_rec[l], m2s, nn1s);
 #endif
 
 
@@ -1386,6 +1359,13 @@ void CHARM(shs_point_kernel_grad2)
             {
                 anms = SET1_R(anm[n]);
                 bnms = SET1_R(bnm[n]);
+#if DLAT > 0
+                enms = SET1_R(enm[n]);
+                ns   = SET1_R((REAL)n);
+#endif
+#if DLAT > 1
+                nn1s = SET1_R((REAL)(n * (n + 1)));
+#endif
                 cnm  = SET1_R(shcs->c[m][idx]);
                 snm  = SET1_R(shcs->s[m][idx]);
                 AMPL(n);
@@ -1410,21 +1390,15 @@ void CHARM(shs_point_kernel_grad2)
                 }
 #if DLAT > 0
                 for (l = 0; l < SIMD_BLOCK; l++)
-                    DPNM_RECURRENCE(dpnm0[l], dpnm1[l], dpnm2[l], pnm1[l],
-                                    t[l], u[l], anms, bnms);
-#if DLAT > 1
-                for (l = 0; l < SIMD_BLOCK; l++)
-                    DDPNM_RECURRENCE(ddpnm0[l], ddpnm1[l], ddpnm2[l], dpnm1[l],
-                                     pnm1[l], u2[l], t[l], anms, bnms);
-#endif
+                    DPNM_RECURRENCE(dpnm2[l], pnm1[l], pnm2[l], tu[l],
+                                    u_rec[l], ns, enms);
                 for (l = 0; l < SIMD_BLOCK; l++)
                     pnm1[l]  = pnm2[l];
-                for (l = 0; l < SIMD_BLOCK; l++)
-                    RECURRENCE_NEXT_ITER(dpnm0[l], dpnm1[l], dpnm2[l]);
+#endif
 #if DLAT > 1
                 for (l = 0; l < SIMD_BLOCK; l++)
-                    RECURRENCE_NEXT_ITER(ddpnm0[l], ddpnm1[l], ddpnm2[l]);
-#endif
+                    DDPNM_RECURRENCE(ddpnm2[l], dpnm2[l], pnm2[l], tu[l],
+                                     u2_rec[l], m2s, nn1s);
 #endif
 
 
@@ -1604,6 +1578,40 @@ DR_DERIVATIVE:
 #if KERNEL_GRAD == 0  /* Longitudinal derivatives if computing a single
                        * parameter only */
 
+    /* Apply the "1 / cos(lat)" or "1 / cos^2(lat)" terms if needed */
+    /* ..................................................................... */
+#   undef CLAT_TERM
+#   if DLON == 1
+
+#       define CLAT_TERM(x)                                                   \
+            for (l = 0; l < SIMD_BLOCK; l++)                                  \
+                lc->x[l] = MUL_R(u_rec[l], lc->x[l]);
+
+#   elif DLON == 2
+
+#       define CLAT_TERM(x)                                                   \
+            for (l = 0; l < SIMD_BLOCK; l++)                                  \
+                lc->x[l] = MUL_R(u2_rec[l], lc->x[l]);
+
+#   else
+
+#       define CLAT_TERM(x)
+
+#   endif
+
+
+    CLAT_TERM(a);
+    CLAT_TERM(b);
+    if (symm)
+    {
+        CLAT_TERM(a2);
+        CLAT_TERM(b2);
+    }
+    /* ..................................................................... */
+
+
+    /* Longitudinal derivatives */
+    /* ..................................................................... */
 #   if DLON == 1
 
     dlon1(&lc->a, &lc->b, &lc->a2, &lc->b2, m, symm);
@@ -1613,6 +1621,7 @@ DR_DERIVATIVE:
     dlon2(lc->a, lc->b, lc->a2, lc->b2, m, symm);
 
 #   endif
+    /* ..................................................................... */
 
 
 #elif KERNEL_GRAD == 1  /* The full first-order gradient in LNOF */
@@ -1632,11 +1641,6 @@ DR_DERIVATIVE:
 
 
     /* Now divide the lumped coefficients by the "cos(lat)" term. */
-    REAL_SIMD u_rec[SIMD_BLOCK];
-    for (l = 0; l < SIMD_BLOCK; l++)
-        u_rec[l] = DIV_R(ones, u[l]);
-
-
 #undef Y
 #define Y(x)                                                                  \
     for (l = 0; l < SIMD_BLOCK; l++)                                          \
@@ -1676,16 +1680,6 @@ DR_DERIVATIVE:
 
     /* yy */
     /* ..................................................................... */
-    REAL_SIMD u_rec[SIMD_BLOCK], u2_rec[SIMD_BLOCK], tl[SIMD_BLOCK];
-    for (l = 0; l < SIMD_BLOCK; l++)
-        u_rec[l] = DIV_R(ones, u[l]);  /* 1 / cos(lat) */
-    for (l = 0; l < SIMD_BLOCK; l++)
-        u2_rec[l] = MUL_R(u_rec[l], u_rec[l]);  /* 1 / cos(lat)^2 */
-    for (l = 0; l < SIMD_BLOCK; l++)
-        tl[l] = MUL_R(t[l], u_rec[l]);  /* tan(lat) */
-
-
-
     /* We need a hard copy of "lc->a", "lc->b", "lc->a2" and "lc->b2", because
      * "dlon2" overwrites these with the second order longitudinal derivatives
      * and later we need also the first order derivatives, which need to be
@@ -1718,7 +1712,7 @@ DR_DERIVATIVE:
     for (l = 0; l < SIMD_BLOCK; l++)                                          \
         lc->CAT(ab, i)[l] = ADD_R(PM(MUL_R(u2_rec[l],                         \
                                            lc->CAT(ab, i)[l]),                \
-                                     MUL_R(tl[l], lc->CAT2(ab, p, i)[l])),    \
+                                     MUL_R(tu[l], lc->CAT2(ab, p, i)[l])),    \
                                   lc->CAT2(ab, r, i)[l]);
     YY(a, SUB_R, );
     YY(b, SUB_R, );
@@ -1766,7 +1760,7 @@ DR_DERIVATIVE:
     for (l = 0; l < SIMD_BLOCK; l++)                                          \
         lc->CAT2(ab, p, i)[l] = PM(NEG_R(MUL_R(u_rec[l],                      \
                                                lc->CAT2(ab, p, i)[l])),       \
-                                   MUL_R(MUL_R(tl[l], u_rec[l]),              \
+                                   MUL_R(MUL_R(tu[l], u_rec[l]),              \
                                          CAT2(ab, ptr_, i)[l]));
 
 

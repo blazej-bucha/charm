@@ -32,19 +32,15 @@ extern "C"
 
 
 /* First-order derivatives of tesseral Legendre functions */
-#define DPNM_RECURRENCE(dpnm0, dpnm1, dpnm2, pnm1, t, u, anms, bnms)          \
-        (dpnm2) = SUB_R(MUL_R((anms), ADD_R(MUL_R((u), (pnm1)),               \
-                                            MUL_R((t), (dpnm1)))),            \
-                        MUL_R((bnms), (dpnm0)));
+#define DPNM_RECURRENCE(dpnm2, pnm1, pnm2, tu, u_rec, ns, enms)               \
+        (dpnm2) = SUB_R(MUL_R(MUL_R((enms), (u_rec)), (pnm1)),                \
+                        MUL_R(MUL_R((ns), (tu)), (pnm2)));
 
 
 /* Second-order derivative of tesseral legendre functions */
-#define DDPNM_RECURRENCE(ddpnm0, ddpnm1, ddpnm2, dpnm1, pnm1, u2, t,          \
-                         anms, bnms)                                          \
-        (ddpnm2) = SUB_R(MUL_R((anms),                                        \
-                               ADD_R(MUL_R((t), SUB_R((ddpnm1), (pnm1))),     \
-                                     MUL_R((u2), (dpnm1)))),                  \
-                         MUL_R((bnms), (ddpnm0)));
+#define DDPNM_RECURRENCE(ddpnm, dpnm, pnm, tu, u2_rec, m2s, nn1s)             \
+        (ddpnm) = ADD_R(MUL_R((tu), (dpnm)),                                  \
+                        MUL_R(SUB_R(MUL_R((m2s), (u2_rec)), (nn1s)), (pnm)));
 
 
 /* Update the terms of a three-term recurrence */

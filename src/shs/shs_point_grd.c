@@ -8,6 +8,7 @@
 #include <fftw3.h>
 #include "../prec.h"
 #include "../leg/leg_func_anm_bnm.h"
+#include "../leg/leg_func_enm.h"
 #include "../leg/leg_func_dm.h"
 #include "../leg/leg_func_r_ri.h"
 #include "../leg/leg_func_prepare.h"
@@ -382,6 +383,7 @@ shared(use_fft, pt, rref, r_eq_rref, dr, dlat, dlon, dorder, npar, grad)
         REAL *fc2_simd     = NULL;
         REAL *anm          = NULL;
         REAL *bnm          = NULL;
+        REAL *enm          = NULL;
         FFTW(complex) *fc  = NULL;
         FFTW(complex) *fc2 = NULL;
         REAL *ftmp         = NULL;
@@ -464,6 +466,15 @@ shared(use_fft, pt, rref, r_eq_rref, dr, dlat, dlon, dorder, npar, grad)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
+        }
+        if (dorder > 0)
+        {
+            enm = (REAL *)calloc(nmax + 1, sizeof(REAL));
+            if (enm == NULL)
+            {
+                FAILURE_priv = 1;
+                goto FAILURE_1_parallel;
+            }
         }
 
 
@@ -600,7 +611,6 @@ FAILURE_1_parallel:
         REAL_SIMD ratiom[SIMD_BLOCK], ratio2m[SIMD_BLOCK];
         for (l = 0; l < SIMD_BLOCK; l++)
             ratio[l] = ratio2[l] = ratiom[l] = ratio2m[l] = SET_ZERO_R;
-        REAL_SIMD pm1m1[SIMD_BLOCK], dpm1m1[SIMD_BLOCK];
         CHARM(lc) lc;
         CHARM(shs_lc_init)(&lc);
 
@@ -711,19 +721,21 @@ FAILURE_1_parallel:
                     goto UPDATE_RATIOS;
 
 
-                /* Computation of "anm" and "bnm" coefficients for Legendre
-                 * recurrence relations */
+                /* "anm" and "bnm" coefficients for Legendre recurrence
+                 * relations and for their derivatives */
                 CHARM(leg_func_anm_bnm)(nmax, m, r, ri, anm, bnm);
+                if (dorder > 0)
+                    CHARM(leg_func_enm)(nmax, m, r, ri, enm);
+
 
 
                 /* Computation of the lumped coefficients */
                 /* --------------------------------------------------------- */
 #undef KERNEL_IO_PARS
-#define KERNEL_IO_PARS (nmax, m, shcs, r_eq_rref, anm, bnm,                   \
+#define KERNEL_IO_PARS (nmax, m, shcs, r_eq_rref, anm, bnm, enm,              \
                         &t[0], &u[0], ps, ips,                                \
                         &ratio[0], &ratio2[0], &ratiom[0], &ratio2m[0],       \
-                        &symm_simd[0], dorder, &pm1m1[0], &dpm1m1[0],         \
-                        &lc);
+                        &symm_simd[0], dorder, &lc);
                 if ((dr == 0) && (dlat == 0) && (dlon == 0))
                 {
                     CHARM(shs_point_kernel_dr0_dlat0_dlon0)
@@ -846,7 +858,9 @@ FAILURE_2_parallel:
         CHARM(free_aligned)(pnt_rv);    CHARM(free_aligned)(pnt_r2v);
         CHARM(free_aligned)(fi);        CHARM(free_aligned)(fi2);
         CHARM(free_aligned)(fc_simd);   CHARM(free_aligned)(fc2_simd);
-        free(anm); free(bnm);
+        free(anm);
+        free(bnm);
+        free(enm);
         FFTW(free)(fc); FFTW(free)(fc2);
         FFTW(free)(ftmp);
         /* ----------------------------------------------------------------- */

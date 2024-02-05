@@ -6,6 +6,7 @@
 #include <math.h>
 #include "../prec.h"
 #include "../leg/leg_func_anm_bnm.h"
+#include "../leg/leg_func_enm.h"
 #include "../leg/leg_func_dm.h"
 #include "../leg/leg_func_r_ri.h"
 #include "../leg/leg_func_prepare.h"
@@ -187,6 +188,7 @@ shared(r_eq_rref, dr, dlat, dlon, npar, grad, dorder)
         REAL *tmpv    = NULL;
         REAL *anm     = NULL;
         REAL *bnm     = NULL;
+        REAL *enm     = NULL;
 
 
         ips = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
@@ -267,6 +269,15 @@ shared(r_eq_rref, dr, dlat, dlon, npar, grad, dorder)
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
+        if (dorder > 0)
+        {
+            enm = (REAL *)calloc(nmax + 1, sizeof(REAL));
+            if (enm == NULL)
+            {
+                FAILURE_priv = 1;
+                goto FAILURE_1_parallel;
+            }
+            }
 
 
 FAILURE_1_parallel:
@@ -318,10 +329,11 @@ FAILURE_1_parallel:
         REAL_SIMD ratio[SIMD_BLOCK], ratiom[SIMD_BLOCK];
         for (l = 0; l < SIMD_BLOCK; l++)
             ratio[l] = ratiom[l] = SET_ZERO_R;
-        REAL_SIMD pm1m1[SIMD_BLOCK], dpm1m1[SIMD_BLOCK];
         CHARM(lc) lc;
         CHARM(shs_lc_init)(&lc);
-        REAL_SIMD zeros;
+        REAL_SIMD zeros[SIMD_BLOCK];
+        for (l = 0; l < SIMD_BLOCK; l++)
+            zeros[l] = SET_ZERO_R;
         REAL_SIMD clonim, slonim;
         REAL_SIMD tmp = SET_ZERO_R;
         REAL lontmp, m_real;
@@ -384,9 +396,11 @@ FAILURE_1_parallel:
                     goto UPDATE_RATIOS;
 
 
-                /* Computation of "anm" and "bnm" coefficients for Legendre
-                 * recurrence relations */
+                /* "anm" and "bnm" coefficients for Legendre recurrence
+                 * relations and their derivatives */
                 CHARM(leg_func_anm_bnm)(nmax, m, r, ri, anm, bnm);
+                if (dorder > 0)
+                    CHARM(leg_func_enm)(nmax, m, r, ri, enm);
 
 
                 /* Computation of the lumped coefficients */
@@ -396,10 +410,9 @@ FAILURE_1_parallel:
                  * hence "SET_ZERO_R".  The "lc.a2" and "lc.b2" are not used
                  * with scattered points. */
 #undef KERNEL_IO_PARS
-#define KERNEL_IO_PARS (nmax, m, shcs, r_eq_rref, anm, bnm,                   \
-                        &t[0], &u[0], ps, ips, &ratio[0], &zeros,             \
-                        &ratiom[0], &zeros, &zeros, dorder, &pm1m1[0],        \
-                        &dpm1m1[0], &lc)
+#define KERNEL_IO_PARS (nmax, m, shcs, r_eq_rref, anm, bnm, enm,              \
+                        &t[0], &u[0], ps, ips, &ratio[0], &zeros[0],          \
+                        &ratiom[0], &zeros[0], &zeros[0], dorder, &lc)
                 if ((dr == 0) && (dlat == 0) && (dlon == 0))
                 {
                     CHARM(shs_point_kernel_dr0_dlat0_dlon0)
@@ -539,7 +552,9 @@ FAILURE_2_parallel:
         CHARM(free_aligned)(pnt_rv);   CHARM(free_aligned)(lonv);
         CHARM(free_aligned)(clonimv);  CHARM(free_aligned)(slonimv);
         CHARM(free_aligned)(tmpv);
-        free(anm); free(bnm);
+        free(anm);
+        free(bnm);
+        free(enm);
         /* ----------------------------------------------------------------- */
 
 

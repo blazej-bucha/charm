@@ -194,8 +194,8 @@ def point_guru(pnt, shcs, nmax, dr, dlat, dlon):
 
     .. math::
 
-        \\frac{1}{r^{j + k}} \, \\frac{\partial^{i + j + k} f}{\partial r^i \,
-        \partial \\varphi^j \, \lambda^k}
+        \\frac{1}{r^{j + k} \, \cos^k\\varphi} \, \\frac{\partial^{i + j + k}
+        f}{\partial r^i \, \partial \\varphi^j \, \lambda^k}
 
     for :math:`i = 0, 1, 2` (:obj:`dr`), :math:`j = 0, 1, 2` (:obj:`dlat`) and
     :math:`k = 0, 1, 2` (:obj:`dlon`) satisfying :math:`i + j + k \leq 2` from
