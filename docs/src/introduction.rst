@@ -26,6 +26,9 @@ Features
   where FFT cannot be used, applied are the Chebyshev recurrences along the
   latitude parallels.
 
+* Computes the full first- and second-order gradients at evaluation points 
+  (e.g., the gravitational vector and the gravitational tensor).
+
 * Supports the Gauss--Legendre and Driscoll--Healy quadratures.
 
 * Integrates solid spherical harmonic expansions (e.g., of the gravitational
