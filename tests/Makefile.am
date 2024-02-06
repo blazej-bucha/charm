@@ -7,7 +7,8 @@ check_PROGRAMS = test_run@P@@OMP@
 noinst_PROGRAMS = genref_run@P@@OMP@
 
 
-EXTRA_DIST = *.h
+EXTRA_DIST = *.h \
+			 check_shs_point_all.c
 
 
 # Source files common to both the test and the genref program

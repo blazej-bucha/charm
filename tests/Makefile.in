@@ -522,7 +522,9 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-EXTRA_DIST = *.h
+EXTRA_DIST = *.h \
+			 check_shs_point_all.c
+
 
 # Source files common to both the test and the genref program
 SOURCES = main.c \
