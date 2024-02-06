@@ -34,4 +34,6 @@ libcharm@P@_shs@OMP@_la_SOURCES = shs_cell.c \
 								  shs_get_mur_dorder_npar.c
 
 
-EXTRA_DIST = *.h
+EXTRA_DIST = *.h \
+			 shs_point_gradn.c \
+			 shs_point_kernel.c
