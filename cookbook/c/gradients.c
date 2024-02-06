@@ -52,8 +52,7 @@ int main(void)
      * sphere, to which the spherical harmonic coefficients are scaled to.  We
      * intentionally use here the Gauss--Legendre grid instead of the
      * Driscoll--Healy grids in order to avoid the inaccuracies due to the
-     * singularities of the "y"-elements at the poles (see the
-     * documentation). */
+     * singularities at the poles (see the documentation). */
     charm_point *grd = charm_crd_point_gl(shcs->nmax, shcs->r);
     if (grd == NULL)
     {

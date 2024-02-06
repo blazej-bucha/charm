@@ -25,8 +25,8 @@ shcs = ph.shc.Shc.from_file('gfc', shcs_file, nmax)
 # degree stored in "shcs" and for a radius equal to the reference sphere,
 # to which the spherical harmonic coefficients are scaled to.  We intentionally
 # use here the Gauss--Legendre grid instead of the Driscoll--Healy grids in
-# order to avoid the inaccuracies due to the singularities of the
-# "y"-elements at the poles (see the documentation).
+# order to avoid the inaccuracies due to the singularities at the poles (see
+# the documentation).
 grd = ph.crd.PointGridGL(shcs.nmax, shcs.r)
 
 

@@ -414,10 +414,10 @@ harmonic synthesis with minimized memory requirements.</p></li>
 <li><p>Stable up to high degrees and orders (tens of thousands and beyond).</p></li>
 <li><p>Available in single, double and quadruple precision.</p></li>
 <li><p>Supports point and mean data values (both analysis and synthesis).</p></li>
-<li><p>Supports synthesis at grids and at scattered points/cells.  Synthesis at
-grids is done by efficient FFT-based algorithms if possible.  For grids,
-where FFT cannot be used, applied are the Chebyshev recurrences along the
-latitude parallels.</p></li>
+<li><p>Supports synthesis at grids and at scattered points/cells.  Grid-wise
+computations are done by FFT whenever possible.  If FFT cannot be applied,
+the less efficient Chebyshev recurrences are used along the latitude
+parallels instead.</p></li>
 <li><p>Computes the full first- and second-order gradients at evaluation points
 (e.g., the gravitational vector and the gravitational tensor).</p></li>
 <li><p>Supports the Gauss–Legendre and Driscoll–Healy quadratures.</p></li>
@@ -593,7 +593,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Feb 05, 2024.
+  Last updated on Feb 06, 2024.
   <br/>
 </p>
   </div>

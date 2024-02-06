@@ -303,7 +303,7 @@ extern void charm@P@_shs_point_grad1(const charm@P@_point *pnt,
  *      %
  *      \begin{bmatrix}
  *      f_{\mathrm{xx}}, f_{\mathrm{xy}}, f_{\mathrm{xz}}\\
- *      f_{\mathrm{yz}}, f_{\mathrm{yy}}, f_{\mathrm{yz}}\\
+ *      f_{\mathrm{yx}}, f_{\mathrm{yy}}, f_{\mathrm{yz}}\\
  *      f_{\mathrm{zx}}, f_{\mathrm{zy}}, f_{\mathrm{zz}}\\
  *      \end{bmatrix}
  *      {.}

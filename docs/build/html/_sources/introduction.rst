@@ -21,10 +21,10 @@ Features
 
 * Supports point and mean data values (both analysis and synthesis).
 
-* Supports synthesis at grids and at scattered points/cells.  Synthesis at
-  grids is done by efficient FFT-based algorithms if possible.  For grids,
-  where FFT cannot be used, applied are the Chebyshev recurrences along the
-  latitude parallels.
+* Supports synthesis at grids and at scattered points/cells.  Grid-wise 
+  computations are done by FFT whenever possible.  If FFT cannot be applied, 
+  the less efficient Chebyshev recurrences are used along the latitude 
+  parallels instead.
 
 * Computes the full first- and second-order gradients at evaluation points 
   (e.g., the gravitational vector and the gravitational tensor).
