@@ -1,9 +1,9 @@
 """
 Module to work with the coordinates of evaluation points/cells:
 
-    * defines the following classes :obj:`pyharm.crd.PointSctr`, 
-      :obj:`pyharm.crd.PointGrid`, :obj:`pyharm.crd.PointGridGL`, 
-      :obj:`pyharm.crd.PointGridDH1`, :obj:`pyharm.crd.PointGridDH2`, 
+    * defines the following classes :obj:`pyharm.crd.PointSctr`,
+      :obj:`pyharm.crd.PointGrid`, :obj:`pyharm.crd.PointGridGL`,
+      :obj:`pyharm.crd.PointGridDH1`, :obj:`pyharm.crd.PointGridDH2`,
       :obj:`pyharm.crd.CellSctr` and :obj:`pyharm.crd.CellGrid`,
 
     * computes Gauss--Legendre and Driscoll--Healy quadrature grids.
@@ -45,25 +45,26 @@ class _Point(_ct.Structure):
     Private class to represent the `charm_point` structure of CHarm.
     """
 
-    _fields_ = [('type',  _ct_int),
-                ('nlat',  _ct_size_t),
-                ('nlon',  _ct_size_t),
-                ('lat',   _ct.POINTER(_ct_flt)),
-                ('lon',   _ct.POINTER(_ct_flt)),
-                ('r',     _ct.POINTER(_ct_flt)),
-                ('w',     _ct.POINTER(_ct_flt)),
-                ('owner', _ct.c_bool)]
+    _fields_ = [('type',   _ct_int),
+                ('nlat',   _ct_size_t),
+                ('nlon',   _ct_size_t),
+                ('npoint', _ct_size_t),
+                ('lat',    _ct.POINTER(_ct_flt)),
+                ('lon',    _ct.POINTER(_ct_flt)),
+                ('r',      _ct.POINTER(_ct_flt)),
+                ('w',      _ct.POINTER(_ct_flt)),
+                ('owner',  _ct.c_bool)]
 
 
 class _PointBase:
     """
-    Parent class of the derived :class:`PointSctr`, :class:`PointGrid`, 
-    :class:`PointGridGL`, :class:`PointGridDH1` and :class:`PointGridDH2` 
+    Parent class of the derived :class:`PointSctr`, :class:`PointGrid`,
+    :class:`PointGridGL`, :class:`PointGridDH1` and :class:`PointGridDH2`
     classes.
 
     Note
     ----
-    It is not recommended for users to interact with this class.  
+    It is not recommended for users to interact with this class.
     Always work with the derived classes.
 
     For details, refer to `charm_crd <./api-c-crd.html>`_.
@@ -71,7 +72,7 @@ class _PointBase:
     Parameters
     ----------
     crd_type : integer
-        Point type, the `type` attribute of an instance of the `_PointBase` 
+        Point type, the `type` attribute of an instance of the `_PointBase`
         class.  Accepted values are `pyharm.crd.POINT_*`
     nlat : integer
         Number of latitudes
@@ -84,16 +85,16 @@ class _PointBase:
 
             * :obj:`0` to set all array elements to zero (`calloc` in C),
 
-            * :obj:`(lat, lon, r)` to define the object's latitudes, longitudes 
-              and spherical radii, respectively.  The :obj:`lat`, :obj:`lon` 
-              and :obj:`r` variables must be numpy floating point arrays of 
-              dimension :obj:`1`.  The number of array elements of the arrays 
-              depends on :obj:`crd_type` (for further detail, refer to 
+            * :obj:`(lat, lon, r)` to define the object's latitudes, longitudes
+              and spherical radii, respectively.  The :obj:`lat`, :obj:`lon`
+              and :obj:`r` variables must be numpy floating point arrays of
+              dimension :obj:`1`.  The number of array elements of the arrays
+              depends on :obj:`crd_type` (for further detail, refer to
               `charm_crd <./api-c-crd.html>`_.)
 
     Note
     ----
-    Once a :class:`_PointBase` class instance is created, its attributes are 
+    Once a :class:`_PointBase` class instance is created, its attributes are
     not writeable, but all array elements are writeable.
     """
 
@@ -117,6 +118,12 @@ class _PointBase:
 
 
     @property
+    def npoint(self):
+        """ Total number of points. """
+        return self._npoint
+
+
+    @property
     def owner(self):
         """ Refer to :class:`pyharm.shc.Shc` for documentation. """
         return self._owner
@@ -127,6 +134,7 @@ class _PointBase:
         self._type         = None
         self._nlat         = None
         self._nlon         = None
+        self._npoint       = None
         self._lat          = _get_empty_array()
         self._lon          = _get_empty_array()
         self._r            = _get_empty_array()
@@ -266,15 +274,16 @@ class _PointBase:
 
     def _Point2Point(self):
         """
-        Private function to transform the `_Point` class instance in 
-        `self._Point` to a :class:`_PointBase` class instance in `self`.  The 
-        array attributes of `self._Point.contents.` share the same memory space 
+        Private function to transform the `_Point` class instance in
+        `self._Point` to a :class:`_PointBase` class instance in `self`.  The
+        array attributes of `self._Point.contents.` share the same memory space
         as the corresponding attributes of `self`.
         """
 
-        self._type = int(self._Point.contents.type)
-        self._nlat = int(self._Point.contents.nlat)
-        self._nlon = int(self._Point.contents.nlon)
+        self._type   = int(self._Point.contents.type)
+        self._nlat   = int(self._Point.contents.nlat)
+        self._nlon   = int(self._Point.contents.nlon)
+        self._npoint = int(self._Point.contents.npoint)
 
 
         def get_error_msg(arr):
@@ -443,7 +452,7 @@ class _PointBase:
         Parameters
         ----------
         crd_type : integer
-            Point type, the `type` attribute of an instance of the `_PointBase` 
+            Point type, the `type` attribute of an instance of the `_PointBase`
             class
         """
 
@@ -495,7 +504,7 @@ class PointSctr(_PointBase):
 
     For details, refer to `charm_crd <./api-c-crd.html>`_.
 
-    To create a :class:`PointGrid` class instance, always use one of the 
+    To create a :class:`PointGrid` class instance, always use one of the
     following factory methods:
 
         * :meth:`from_garbage`,
@@ -504,13 +513,13 @@ class PointSctr(_PointBase):
 
     Example
     --------
-    * Create an instance with 5 scattered points and all array elements 
+    * Create an instance with 5 scattered points and all array elements
       initialized to zero:
 
       >>> import pyharm as ph
       >>> grd = ph.crd.PointSctr.from_zeros(5)
 
-    * Create an instance with 3 scattered points with latitudes, longitudes and 
+    * Create an instance with 3 scattered points with latitudes, longitudes and
       spherical radii taken from numpy arrays:
 
       >>> import numpy as np
@@ -531,15 +540,15 @@ class PointSctr(_PointBase):
 
             * :obj:`0` to set all array elements to zero (`calloc` in C),
 
-            * :obj:`(lat, lon, r)` to define the object's latitudes, longitudes 
-              and spherical radii, respectively.  The :obj:`lat`, :obj:`lon` 
-              and :obj:`r` variables must be numpy floating point arrays of 
-              dimension :obj:`1`.  The number of elements in :obj:`lat`, 
+            * :obj:`(lat, lon, r)` to define the object's latitudes, longitudes
+              and spherical radii, respectively.  The :obj:`lat`, :obj:`lon`
+              and :obj:`r` variables must be numpy floating point arrays of
+              dimension :obj:`1`.  The number of elements in :obj:`lat`,
               :obj:`lon` and :obj:`r` must match.
 
     Note
     ----
-    Once a :class:`PointGrid` class instance is created, its attributes are 
+    Once a :class:`PointGrid` class instance is created, its attributes are
     not writeable, but all array elements are writeable.
     """
 
@@ -560,7 +569,7 @@ class PointSctr(_PointBase):
     @classmethod
     def from_garbage(cls, npoint):
         """
-        Returns a :class:`PointSctr` class instance with uninitialized array 
+        Returns a :class:`PointSctr` class instance with uninitialized array
         elements (`malloc` in C).
 
         Parameters
@@ -579,7 +588,7 @@ class PointSctr(_PointBase):
     @classmethod
     def from_zeros(cls, npoint):
         """
-        Returns a :class:`PointSctr` class instance with all array elements 
+        Returns a :class:`PointSctr` class instance with all array elements
         initialized to zero (`calloc` in C).
 
         Parameters
@@ -599,8 +608,8 @@ class PointSctr(_PointBase):
     @classmethod
     def from_arrays(cls, lat, lon, r):
         """
-        Returns a :class:`PointSctr` class instance with spherical latitudes, 
-        longitudes and spherical radii taken from :obj:`lat`, :obj:`lon` and 
+        Returns a :class:`PointSctr` class instance with spherical latitudes,
+        longitudes and spherical radii taken from :obj:`lat`, :obj:`lon` and
         :obj:`r`, respectively.
 
         Parameters
@@ -628,7 +637,7 @@ class PointGrid(_PointBase):
 
     For details, refer to `charm_crd <./api-c-crd.html>`_.
 
-    To create a :class:`PointGrid` class instance, always use one of the 
+    To create a :class:`PointGrid` class instance, always use one of the
     following factory methods:
 
         * :meth:`from_garbage`,
@@ -637,13 +646,13 @@ class PointGrid(_PointBase):
 
     Examples
     --------
-    * Create an instance with 5 grid latitudes and 10 grid longitudes and 
+    * Create an instance with 5 grid latitudes and 10 grid longitudes and
       initialize all array elements to zero:
 
       >>> import ph
       >>> grd = ph.crd.PointGrid.from_zeros(5, 10)
 
-    * Create an instance with grid latitudes, longitudes and spherical radii 
+    * Create an instance with grid latitudes, longitudes and spherical radii
       taken from numpy arrays:
 
       >>> import numpy as np
@@ -667,15 +676,15 @@ class PointGrid(_PointBase):
 
             * :obj:`0` to set all array elements to zero (`calloc` in C),
 
-            * :obj:`(lat, lon, r)` to define the object's latitudes, longitudes 
-              and spherical radii, respectively.  The :obj:`lat`, :obj:`lon` 
-              and :obj:`r` variables must be numpy floating point arrays of the 
-              dimension :obj:`1`.  The shape of :obj:`lat` and :obj:`lon` as 
+            * :obj:`(lat, lon, r)` to define the object's latitudes, longitudes
+              and spherical radii, respectively.  The :obj:`lat`, :obj:`lon`
+              and :obj:`r` variables must be numpy floating point arrays of the
+              dimension :obj:`1`.  The shape of :obj:`lat` and :obj:`lon` as
               well as the shape of :obj:`lat` and :obj:`r` must match.
 
     Note
     ----
-    Once a :class:`PointGrid` class instance is created, its attributes are 
+    Once a :class:`PointGrid` class instance is created, its attributes are
     not writeable, but all array elements are writeable.
     """
 
@@ -696,7 +705,7 @@ class PointGrid(_PointBase):
     @classmethod
     def from_garbage(cls, nlat, nlon):
         """
-        Returns a :class:`PointGrid` class instance with uninitialized array 
+        Returns a :class:`PointGrid` class instance with uninitialized array
         elements (`malloc` in C).
 
         Parameters
@@ -718,7 +727,7 @@ class PointGrid(_PointBase):
     @classmethod
     def from_zeros(cls, nlat, nlon):
         """
-        Returns a :class:`PointGrid` class instance with all array 
+        Returns a :class:`PointGrid` class instance with all array
         elements initialized to zero (`calloc` in C).
 
         Parameters
@@ -740,8 +749,8 @@ class PointGrid(_PointBase):
     @classmethod
     def from_arrays(cls, lat, lon, r):
         """
-        Returns a :class:`PointGrid` class instance with spherical latitudes, 
-        longitudes and spherical radii taken from :obj:`lat`, :obj:`lon` and 
+        Returns a :class:`PointGrid` class instance with spherical latitudes,
+        longitudes and spherical radii taken from :obj:`lat`, :obj:`lon` and
         :obj:`r`, respectively.
 
         Parameters
@@ -779,12 +788,12 @@ class PointGridGL(_PointBase):
     nmax : integer
         Maximum harmonic degree associated with the quadrature grid
     r : floating point
-        Spherical radius of grid meridians, optional.  Default value is 
+        Spherical radius of grid meridians, optional.  Default value is
         :obj:`1.0`.
 
     Note
     ----
-    Once a :class:`PointGridGL` class instance is created, neither its 
+    Once a :class:`PointGridGL` class instance is created, neither its
     attributes nor its array elements are writeable.
     """
 
@@ -835,12 +844,12 @@ class PointGridDH1(_PointBase):
     nmax : integer
         Maximum harmonic degree associated with the quadrature grid
     r : floating point
-        Spherical radius of grid meridians, optional.  Default value is 
+        Spherical radius of grid meridians, optional.  Default value is
         :obj:`1.0`.
 
     Note
     ----
-    Once a :class:`PointGridDH1` class instance is created, neither its 
+    Once a :class:`PointGridDH1` class instance is created, neither its
     attributes nor its array elements are writeable.
     """
 
@@ -891,12 +900,12 @@ class PointGridDH2(_PointBase):
     nmax : integer
         Maximum harmonic degree associated with the quadrature grid
     r : floating point
-        Spherical radius of grid meridians, optional.  Default value is 
+        Spherical radius of grid meridians, optional.  Default value is
         :obj:`1.0`.
 
     Note
     ----
-    Once a :class:`PointGridDH2` class instance is created, neither its 
+    Once a :class:`PointGridDH2` class instance is created, neither its
     attributes nor its array elements are writeable.
     """
 
@@ -941,6 +950,7 @@ class _Cell(_ct.Structure):
     _fields_ = [('type',   _ct_int),
                 ('nlat',   _ct_size_t),
                 ('nlon',   _ct_size_t),
+                ('ncell',  _ct_size_t),
                 ('latmin', _ct.POINTER(_ct_flt)),
                 ('latmax', _ct.POINTER(_ct_flt)),
                 ('lonmin', _ct.POINTER(_ct_flt)),
@@ -951,12 +961,12 @@ class _Cell(_ct.Structure):
 
 class _CellBase:
     """
-    Parent class of the derived :class:`CellSctr` and :class:`CellGrid` 
+    Parent class of the derived :class:`CellSctr` and :class:`CellGrid`
     classes.
 
     Note
     ----
-    It is not recommended for users to interact with this class.  
+    It is not recommended for users to interact with this class.
     Always work with the derived classes.
 
     For details, refer to `charm_crd <./api-c-crd.html>`_.
@@ -964,7 +974,7 @@ class _CellBase:
     Parameters
     ----------
     crd_type : integer
-        Cell type, the `type` attribute of an instance of the `_CellBase` 
+        Cell type, the `type` attribute of an instance of the `_CellBase`
         class.  Accepted values are `pyharm.crd.CELL_*`
     nlat : integer
         Number of latitudes
@@ -977,17 +987,17 @@ class _CellBase:
 
             * :obj:`0` to set all array elements to zero (`calloc` in C),
 
-            * :obj:`(latmin, latmax, lonmin, lonmax, r)` to define the object's 
-              minimum and maximum latitudes, minimum and maximum longitudes and 
-              spherical radii, respectively.  The :obj:`latmin`, :obj:`latmax`, 
-              :obj:`lonmin`, :obj:`lonmax` and :obj:`r` variables must be numpy 
-              floating point arrays of dimension :obj:`1`.  The number of array 
-              elements of the arrays depends on :obj:`crd_type` (for further 
+            * :obj:`(latmin, latmax, lonmin, lonmax, r)` to define the object's
+              minimum and maximum latitudes, minimum and maximum longitudes and
+              spherical radii, respectively.  The :obj:`latmin`, :obj:`latmax`,
+              :obj:`lonmin`, :obj:`lonmax` and :obj:`r` variables must be numpy
+              floating point arrays of dimension :obj:`1`.  The number of array
+              elements of the arrays depends on :obj:`crd_type` (for further
               detail, refer to `charm_crd <./api-c-crd.html>`_.)
 
     Note
     ----
-    Once a :class:`_CellBase` class instance is created, its attributes are 
+    Once a :class:`_CellBase` class instance is created, its attributes are
     not writeable, but all array elements are writeable.
     """
 
@@ -1023,6 +1033,12 @@ class _CellBase:
 
 
     @property
+    def ncell(self):
+        """ Total number of cells. """
+        return self._ncell
+
+
+    @property
     def owner(self):
         """ Refer to :class:`pyharm.shc.Shc` for documentation. """
         return self._owner
@@ -1033,6 +1049,7 @@ class _CellBase:
         self._type        = None
         self._nlat        = None
         self._nlon        = None
+        self._ncell       = None
         self._latmin      = _get_empty_array()
         self._latmax      = _get_empty_array()
         self._lonmin      = _get_empty_array()
@@ -1160,15 +1177,16 @@ class _CellBase:
 
     def _Cell2Cell(self):
         """
-        Private function to transform the `_Cell` class instance in 
-        `self._Cell` to a :class:`_CellBase` class instance in `self`.  The 
-        array attributes of `self._Cell.contents.` share the same memory space 
+        Private function to transform the `_Cell` class instance in
+        `self._Cell` to a :class:`_CellBase` class instance in `self`.  The
+        array attributes of `self._Cell.contents.` share the same memory space
         as the corresponding attributes of `self`.
         """
 
-        self._type = int(self._Cell.contents.type)
-        self._nlat = int(self._Cell.contents.nlat)
-        self._nlon = int(self._Cell.contents.nlon)
+        self._type  = int(self._Cell.contents.type)
+        self._nlat  = int(self._Cell.contents.nlat)
+        self._nlon  = int(self._Cell.contents.nlon)
+        self._ncell = int(self._Cell.contents.ncell)
 
 
         def get_error_msg(arr):
@@ -1266,7 +1284,7 @@ class _CellBase:
         Parameters
         ----------
         crd_type : integer
-            Cell type, the `type` attribute of an instance of the `_CellBase` 
+            Cell type, the `type` attribute of an instance of the `_CellBase`
             class
         """
 
@@ -1324,7 +1342,7 @@ class CellSctr(_CellBase):
 
     For details, refer to `charm_crd <./api-c-crd.html>`_.
 
-    To create a :class:`CellGrid` class instance, always use one of the 
+    To create a :class:`CellGrid` class instance, always use one of the
     following factory methods:
 
         * :meth:`from_garbage`,
@@ -1339,7 +1357,7 @@ class CellSctr(_CellBase):
       >>> import pyharm as ph
       >>> grd = ph.crd.CellSctr.from_zeros(5)
 
-    * Create an instance with 3 scattered cells with latitudes, longitudes 
+    * Create an instance with 3 scattered cells with latitudes, longitudes
       and spherical radii taken from numpy arrays:
 
       >>> import numpy as np
@@ -1395,7 +1413,7 @@ class CellSctr(_CellBase):
     @classmethod
     def from_garbage(cls, ncell):
         """
-        Returns a :class:`CellSctr` class instance with uninitialized array 
+        Returns a :class:`CellSctr` class instance with uninitialized array
         elements (`malloc` in C).
 
         Parameters
@@ -1414,7 +1432,7 @@ class CellSctr(_CellBase):
     @classmethod
     def from_zeros(cls, ncell):
         """
-        Returns a :class:`CellSctr` class instance with all array elements 
+        Returns a :class:`CellSctr` class instance with all array elements
         initialized to zero (`calloc` in C).
 
         Parameters
@@ -1434,9 +1452,9 @@ class CellSctr(_CellBase):
     @classmethod
     def from_arrays(cls, latmin, latmax, lonmin, lonmax, r):
         """
-        Returns a :class:`CellSctr` class instance with minimum and maximum 
-        spherical cell latitudes, minimum and maximum cell longitudes and 
-        spherical radii taken :obj:`latmin`, :obj:`latmax`, :obj:`lonmin`, 
+        Returns a :class:`CellSctr` class instance with minimum and maximum
+        spherical cell latitudes, minimum and maximum cell longitudes and
+        spherical radii taken :obj:`latmin`, :obj:`latmax`, :obj:`lonmin`,
         :obj:`lonmax` and :obj:`r`, respectively.
 
         Parameters
@@ -1469,7 +1487,7 @@ class CellGrid(_CellBase):
 
     For details, refer to `charm_crd <./api-c-crd.html>`_.
 
-    To create a :class:`CellGrid` class instance, always use one of the 
+    To create a :class:`CellGrid` class instance, always use one of the
     following factory methods:
 
         * :meth:`from_garbage`,
@@ -1478,13 +1496,13 @@ class CellGrid(_CellBase):
 
     Examples
     --------
-    * Create an instance with 5 grid latitudes and 10 grid longitudes and 
+    * Create an instance with 5 grid latitudes and 10 grid longitudes and
       initialize all array elements to zero:
 
       >>> import pyharm as ph
       >>> grd = ph.crd.CellGrid.from_zeros(5, 10)
 
-    * Create an instance with grid latitudes, longitudes and spherical radii 
+    * Create an instance with grid latitudes, longitudes and spherical radii
       taken from numpy arrays:
 
       >>> import numpy as np
@@ -1587,8 +1605,8 @@ class CellGrid(_CellBase):
     def from_arrays(cls, latmin, latmax, lonmin, lonmax, r):
         """
         Returns a :class:`CellGrid` class instance with minimum and maximum
-        spherical cell latitudes, minimum and maximum cell longitudes and 
-        spherical radii taken from :obj:`latmin` :obj:`latmax`, :obj:`lonmin`, 
+        spherical cell latitudes, minimum and maximum cell longitudes and
+        spherical radii taken from :obj:`latmin` :obj:`latmax`, :obj:`lonmin`,
         :obj:`lonmax` and :obj:`r`, respectively.
 
         Parameters

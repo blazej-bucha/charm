@@ -7,6 +7,7 @@
 #include <errno.h>
 #include "../prec.h"
 #include "../err/err_set.h"
+#include "misc_str2real.h"
 /* ------------------------------------------------------------------------- */
 
 

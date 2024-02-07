@@ -11,6 +11,8 @@
 #else
 #   include "validate.h"
 #endif
+#include "modify_low_degree_coefficients.h"
+#include "check_shs_cell.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -46,10 +48,7 @@ long int check_shs_cell(void)
 
     /* Modify coefficients of degrees "0" and "1" to allow for an accurate
      * validation in all precisions. */
-    shcs_pot->c[0][0 - 0] = (REAL)C00;
-    shcs_pot->c[0][1 - 0] = (REAL)C10;
-    shcs_pot->c[1][1 - 1] = (REAL)C11;
-    shcs_pot->s[1][1 - 1] = (REAL)S11;
+    modify_low_degree_coefficients(shcs_pot);
     /* --------------------------------------------------------------------- */
 
 
@@ -131,8 +130,7 @@ long int check_shs_cell(void)
                                 (s == 0) ? 0 : 1, FTYPE);
 
 
-                        f = (REAL *)malloc(grd_cell->nlat * grd_cell->nlon *
-                                           sizeof(REAL));
+                        f = (REAL *)malloc(grd_cell->ncell * sizeof(REAL));
                         if (f == NULL)
                         {
                             fprintf(stderr, "malloc failure.\n");
@@ -143,9 +141,9 @@ long int check_shs_cell(void)
                         CHARM(shs_cell)(grd_cell, shcs_pot, nmax, f, err);
                         CHARM(err_handler)(err, 1);
 #ifdef GENREF
-                        e += write(file, f, grd_cell->nlat * grd_cell->nlon);
+                        e += write(file, f, grd_cell->ncell);
 #else
-                        e += validate(file, f, grd_cell->nlat * grd_cell->nlon,
+                        e += validate(file, f, grd_cell->ncell,
                                       CHARM(glob_threshold2));
 #endif
 
@@ -202,7 +200,7 @@ long int check_shs_cell(void)
                         FOLDER, "c", nmax, i, deltar, FTYPE);
 
 
-                f = (REAL *)malloc(sctr_cell->nlat * sizeof(REAL));
+                f = (REAL *)malloc(sctr_cell->ncell * sizeof(REAL));
                 if (f == NULL)
                 {
                     fprintf(stderr, "malloc failure.\n");
@@ -213,9 +211,9 @@ long int check_shs_cell(void)
                 CHARM(shs_cell)(sctr_cell, shcs_pot, nmax, f, err);
                 CHARM(err_handler)(err, 1);
 #ifdef GENREF
-                e += write(file, f, sctr_cell->nlat);
+                e += write(file, f, sctr_cell->ncell);
 #else
-                e += validate(file, f, sctr_cell->nlat,
+                e += validate(file, f, sctr_cell->ncell,
                               CHARM(glob_threshold2));
 #endif
 

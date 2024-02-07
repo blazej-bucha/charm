@@ -6,6 +6,15 @@ systems. On other operating systems, the library should compile, too,
 but, for the time being, a detailed recipe is missing.  Nonetheless,
 provided are some hints for Installation on Windows 10.
 
+Start by downloading the Source code from GitHub in any way you like
+and then enter the main directory of CHarm.  For instance,
+
+   git clone https://github.com/blazej-bucha/charm
+   cd charm
+
+The installation steps that follow depend on the operating system, on
+which your machine is running.
+
 * Installation on Unix-based operating systems
 
 * Installation on Windows 10

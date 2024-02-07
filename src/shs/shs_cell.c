@@ -8,6 +8,8 @@
 #include "shs_cell_sctr.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
+#include "../crd/crd_cell_isSctr.h"
+#include "../crd/crd_cell_isGrid.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -38,7 +40,7 @@ void CHARM(shs_cell)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
 
     /* Now do the synthesis */
     /* --------------------------------------------------------------------- */
-    if (cell->type == CHARM_CRD_CELL_SCATTERED)
+    if (CHARM(crd_cell_isSctr)(cell->type))
     {
         if (cell->nlat != cell->nlon)
         {
@@ -58,7 +60,7 @@ void CHARM(shs_cell)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
             return;
         }
     }
-    else if (cell->type == CHARM_CRD_CELL_GRID)
+    else if (CHARM(crd_cell_isGrid)(cell->type))
     {
         /* Grid-wise synthesis */
         CHARM(shs_cell_grd)(cell, shcs, nmax, f, err);

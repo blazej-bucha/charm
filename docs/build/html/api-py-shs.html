@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>pyharm.shs &#8212; CHarm 0.3.1 documentation</title>
+    <title>pyharm.shs &#8212; CHarm 0.4.0 documentation</title>
   
   
   
@@ -41,6 +41,7 @@
     <script src="_static/doctools.js"></script>
     <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api-py-shs';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -125,7 +126,7 @@
     <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
   
   
-    <p class="title logo__title">CHarm v0.3.1</p>
+    <p class="title logo__title">CHarm v0.4.0</p>
   
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
@@ -385,6 +386,9 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shs.point"><code class="docutils literal notranslate"><span class="pre">point()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shs.point_grad1"><code class="docutils literal notranslate"><span class="pre">point_grad1()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shs.point_grad2"><code class="docutils literal notranslate"><span class="pre">point_grad2()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shs.point_guru"><code class="docutils literal notranslate"><span class="pre">point_guru()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shs.cell"><code class="docutils literal notranslate"><span class="pre">cell()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shs.cell_isurf"><code class="docutils literal notranslate"><span class="pre">cell_isurf()</span></code></a></li>
 </ul>
@@ -420,6 +424,95 @@ document.write(`
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>out</strong> – Point values synthesized from <code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs</span></code> at <code class="xref py py-obj docutils literal notranslate"><span class="pre">pnt</span></code></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy array of floating points</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyharm.shs.point_grad1">
+<span class="sig-prename descclassname"><span class="pre">pyharm.shs.</span></span><span class="sig-name descname"><span class="pre">point_grad1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shcs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shs.point_grad1" title="Permalink to this definition">#</a></dt>
+<dd><p>Performs the synthesis of point values of the first-order gradient in <a class="reference external" href="./definitions.html#lnof">LNOF</a> from <code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs</span></code> at <code class="xref py py-obj docutils literal notranslate"><span class="pre">pnt</span></code> up to maximum
+degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to <a class="reference external" href="./api-c-shs.html">charm_shs</a> for the full
+documentation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pnt</strong> (<a class="reference internal" href="api-py-crd.html#pyharm.crd.PointGrid" title="pyharm.crd.PointGrid"><em>PointGrid</em></a><em>, </em><a class="reference internal" href="api-py-crd.html#pyharm.crd.PointGridDH1" title="pyharm.crd.PointGridDH1"><em>PointGridDH1</em></a><em>, </em><a class="reference internal" href="api-py-crd.html#pyharm.crd.PointGridDH2" title="pyharm.crd.PointGridDH2"><em>PointGridDH2</em></a><em>, </em><a class="reference internal" href="api-py-crd.html#pyharm.crd.PointGridGL" title="pyharm.crd.PointGridGL"><em>PointGridGL</em></a><em> or </em><a class="reference internal" href="api-py-crd.html#pyharm.crd.PointSctr" title="pyharm.crd.PointSctr"><em>PointSctr</em></a>) – Evaluation points</p></li>
+<li><p><strong>shcs</strong> (<a class="reference internal" href="api-py-shc.html#pyharm.shc.Shc" title="pyharm.shc.Shc"><em>Shc</em></a>) – Spherical harmonic coefficients</p></li>
+<li><p><strong>nmax</strong> (<em>integer</em>) – Maximum degree of the synthesis</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>fx</strong> (<em>numpy array of floating points</em>) – The <cite>x</cite> element</p></li>
+<li><p><strong>fy</strong> (<em>numpy array of floating points</em>) – The <cite>y</cite> element</p></li>
+<li><p><strong>fz</strong> (<em>numpy array of floating points</em>) – The <cite>z</cite> element</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyharm.shs.point_grad2">
+<span class="sig-prename descclassname"><span class="pre">pyharm.shs.</span></span><span class="sig-name descname"><span class="pre">point_grad2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shcs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shs.point_grad2" title="Permalink to this definition">#</a></dt>
+<dd><p>Performs the synthesis of point values of the second-order gradient in
+<a class="reference external" href="./definitions.html#lnof">LNOF</a> from <code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs</span></code> at <code class="xref py py-obj docutils literal notranslate"><span class="pre">pnt</span></code> up to
+maximum degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to <a class="reference external" href="./api-c-shs.html">charm_shs</a> for
+the full documentation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pnt</strong> (<a class="reference internal" href="api-py-crd.html#pyharm.crd.PointGrid" title="pyharm.crd.PointGrid"><em>PointGrid</em></a><em>, </em><a class="reference internal" href="api-py-crd.html#pyharm.crd.PointGridDH1" title="pyharm.crd.PointGridDH1"><em>PointGridDH1</em></a><em>, </em><a class="reference internal" href="api-py-crd.html#pyharm.crd.PointGridDH2" title="pyharm.crd.PointGridDH2"><em>PointGridDH2</em></a><em>, </em><a class="reference internal" href="api-py-crd.html#pyharm.crd.PointGridGL" title="pyharm.crd.PointGridGL"><em>PointGridGL</em></a><em> or </em><a class="reference internal" href="api-py-crd.html#pyharm.crd.PointSctr" title="pyharm.crd.PointSctr"><em>PointSctr</em></a>) – Evaluation points</p></li>
+<li><p><strong>shcs</strong> (<a class="reference internal" href="api-py-shc.html#pyharm.shc.Shc" title="pyharm.shc.Shc"><em>Shc</em></a>) – Spherical harmonic coefficients</p></li>
+<li><p><strong>nmax</strong> (<em>integer</em>) – Maximum degree of the synthesis</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>fxx</strong> (<em>numpy array of floating points</em>) – The <cite>xx</cite> element</p></li>
+<li><p><strong>fxy</strong> (<em>numpy array of floating points</em>) – The <cite>xy</cite> element</p></li>
+<li><p><strong>fxz</strong> (<em>numpy array of floating points</em>) – The <cite>xz</cite> element</p></li>
+<li><p><strong>fyy</strong> (<em>numpy array of floating points</em>) – The <cite>yy</cite> element</p></li>
+<li><p><strong>fyz</strong> (<em>numpy array of floating points</em>) – The <cite>yz</cite> element</p></li>
+<li><p><strong>fzz</strong> (<em>numpy array of floating points</em>) – The <cite>zz</cite> element</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyharm.shs.point_guru">
+<span class="sig-prename descclassname"><span class="pre">pyharm.shs.</span></span><span class="sig-name descname"><span class="pre">point_guru</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shcs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dlat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dlon</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shs.point_guru" title="Permalink to this definition">#</a></dt>
+<dd><p>Performs the synthesis of point values of</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{r^{j + k} \, \cos^k\varphi} \, \frac{\partial^{i + j + k}
+f}{\partial r^i \, \partial \varphi^j \, \lambda^k}\]</div>
+<p>for <span class="math notranslate nohighlight">\(i = 0, 1, 2\)</span> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dr</span></code>), <span class="math notranslate nohighlight">\(j = 0, 1, 2\)</span> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dlat</span></code>) and
+<span class="math notranslate nohighlight">\(k = 0, 1, 2\)</span> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dlon</span></code>) satisfying <span class="math notranslate nohighlight">\(i + j + k \leq 2\)</span> from
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs</span></code> at <code class="xref py py-obj docutils literal notranslate"><span class="pre">pnt</span></code> up to maximum degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to
+<cite>charm_shs_point_guru</cite> in <a class="reference external" href="./api-c-shs.html">charm_shs</a> for the full
+documentation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pnt</strong> (<a class="reference internal" href="api-py-crd.html#pyharm.crd.PointGrid" title="pyharm.crd.PointGrid"><em>PointGrid</em></a><em>, </em><a class="reference internal" href="api-py-crd.html#pyharm.crd.PointGridDH1" title="pyharm.crd.PointGridDH1"><em>PointGridDH1</em></a><em>, </em><a class="reference internal" href="api-py-crd.html#pyharm.crd.PointGridDH2" title="pyharm.crd.PointGridDH2"><em>PointGridDH2</em></a><em>, </em><a class="reference internal" href="api-py-crd.html#pyharm.crd.PointGridGL" title="pyharm.crd.PointGridGL"><em>PointGridGL</em></a><em> or </em><a class="reference internal" href="api-py-crd.html#pyharm.crd.PointSctr" title="pyharm.crd.PointSctr"><em>PointSctr</em></a>) – Evaluation points</p></li>
+<li><p><strong>shcs</strong> (<a class="reference internal" href="api-py-shc.html#pyharm.shc.Shc" title="pyharm.shc.Shc"><em>Shc</em></a>) – Spherical harmonic coefficients</p></li>
+<li><p><strong>nmax</strong> (<em>integer</em>) – Maximum degree of the synthesis</p></li>
+<li><p><strong>dr</strong> (<em>integer</em>) – Order of the radial derivative (variable <span class="math notranslate nohighlight">\(i\)</span> in the equation
+above)</p></li>
+<li><p><strong>dlat</strong> (<em>integer</em>) – Order of the latitudinal derivative (variable <span class="math notranslate nohighlight">\(j\)</span> in the equation
+above)</p></li>
+<li><p><strong>dlon</strong> (<em>integer</em>) – Order of the longitudinal derivative (variable <span class="math notranslate nohighlight">\(k\)</span> in the
+equation above)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>f</strong> – Output quantity depending on <code class="xref py py-obj docutils literal notranslate"><span class="pre">dr</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">dlat</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">dlon</span></code></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>numpy array of floating points</p>
@@ -536,6 +629,9 @@ on the surface defined by <code class="xref py py-obj docutils literal notransla
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shs.point"><code class="docutils literal notranslate"><span class="pre">point()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shs.point_grad1"><code class="docutils literal notranslate"><span class="pre">point_grad1()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shs.point_grad2"><code class="docutils literal notranslate"><span class="pre">point_grad2()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shs.point_guru"><code class="docutils literal notranslate"><span class="pre">point_guru()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shs.cell"><code class="docutils literal notranslate"><span class="pre">cell()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shs.cell_isurf"><code class="docutils literal notranslate"><span class="pre">cell_isurf()</span></code></a></li>
 </ul>
@@ -561,7 +657,7 @@ By Blažej Bucha
     
   <p class="copyright">
     
-      © Copyright 2023, Blažej Bucha.
+      © Copyright 2024, Blažej Bucha.
       <br/>
     
   </p>
@@ -570,7 +666,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Sep 12, 2023.
+  Last updated on Feb 07, 2024.
   <br/>
 </p>
   </div>

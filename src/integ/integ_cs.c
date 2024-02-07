@@ -6,8 +6,8 @@
 #include <string.h>
 #include <math.h>
 #include "../prec.h"
-#include "integ_cs.h"
 #include "../misc/misc_is_nearly_equal.h"
+#include "integ_cs.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -22,7 +22,7 @@ void CHARM(integ_cs)(REAL u0, REAL du, size_t nu, REAL a1, REAL a2, REAL *s)
 
         memset(s, 0, nu * sizeof(REAL));
 
-    else if (CHARM(misc_is_nearly_equal)(FABS(a1), FABS(a2), 
+    else if (CHARM(misc_is_nearly_equal)(FABS(a1), FABS(a2),
                                          CHARM(glob_threshold)))
     /* "FABS(a1) == FABS(a2) != PREC(0.0)" within the "threshold" */
     {

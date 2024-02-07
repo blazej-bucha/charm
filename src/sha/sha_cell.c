@@ -18,6 +18,7 @@
 #include "../leg/leg_func_xnum.h"
 #include "../crd/crd_grd_check_symm.h"
 #include "../crd/crd_check_cells.h"
+#include "../crd/crd_cell_isGrid.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
 #include "../misc/misc_is_nearly_equal.h"
@@ -51,7 +52,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
     }
 
 
-    if (cell->type != CHARM_CRD_CELL_GRID)
+    if (!CHARM(crd_cell_isGrid)(cell->type))
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Unsupported \"cell->type\" for spherical "
@@ -263,8 +264,8 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
     }
 
 
-    REAL dlon;
-    CHARM(shs_cell_check_grd_lons)(cell, &dlon, err);
+    REAL deltalon;
+    CHARM(shs_cell_check_grd_lons)(cell, &deltalon, err);
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
@@ -856,7 +857,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
 #pragma omp parallel default(none) \
 shared(nmax, t1, t2, u1, u2, symm_simd) \
 shared(shcs, en, fn, gm, hm, imm, ps1, ps2, ips1, ips2, r, ri) \
-shared(a, b, a2, b2, dlon, latsin, pt) \
+shared(a, b, a2, b2, deltalon, latsin, pt) \
 shared(FAILURE_glob, err) \
 private(am, bm, a2m, b2m, anms, bnms) \
 private(cm, sm, x1, x2, ix1, ix2, y1, y2, iy1, iy2, w, mr) \
@@ -957,16 +958,16 @@ FAILURE_1_parallel:
                 if (m == 0)
                 {
                     amp = MUL_R(MUL_R(ADD_R(am, MUL_R(symm_simd, a2m)),
-                                      SET1_R(dlon)), latsin);
+                                      SET1_R(deltalon)), latsin);
                     amm = MUL_R(MUL_R(SUB_R(am, MUL_R(symm_simd, a2m)),
-                                      SET1_R(dlon)), latsin);
+                                      SET1_R(deltalon)), latsin);
                 }
                 else
                 {
                     /* Useful substitution */
                     mr = (REAL)m;
-                    cm = (COS(mr * dlon) - PREC(1.0)) / mr;
-                    sm = SIN(mr * dlon) / mr;
+                    cm = (COS(mr * deltalon) - PREC(1.0)) / mr;
+                    sm = SIN(mr * deltalon) / mr;
                     cm_simd = SET1_R(cm);
                     sm_simd = SET1_R(sm);
 

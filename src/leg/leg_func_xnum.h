@@ -26,11 +26,29 @@ extern "C"
 /* Macros to compute Legendre functions using "F"-numbers */
 /* ------------------------------------------------------------------------- */
 /* Tesseral Legendre functions */
-#define PNM_TESSERAL(x, y, pnm2, t, anms, bnms)                               \
-    pnm2 = SUB_R(MUL_R(MUL_R((anms), (t)), (x)),                              \
-                 MUL_R((bnms), (y)));                                         \
-    y    = x;                                                                 \
-    x    = pnm2;
+#define PNM_RECURRENCE(x, y, pnm2, t, anms, bnms)                             \
+        (pnm2) = SUB_R(MUL_R(MUL_R((anms), (t)), (x)),                        \
+                       MUL_R((bnms), (y)));
+
+
+/* First-order derivatives of tesseral Legendre functions */
+#define DPNM_RECURRENCE(dpnm2, pnm1, pnm2, tu, u_rec, ns, enms)               \
+        (dpnm2) = SUB_R(MUL_R(MUL_R((enms), (u_rec)), (pnm1)),                \
+                        MUL_R(MUL_R((ns), (tu)), (pnm2)));
+
+
+/* Second-order derivative of tesseral legendre functions */
+#define DDPNM_RECURRENCE(ddpnm, dpnm, pnm, tu, u2_rec, m2s, nn1s)             \
+        (ddpnm) = ADD_R(MUL_R((tu), (dpnm)),                                  \
+                        MUL_R(SUB_R(MUL_R((m2s), (u2_rec)), (nn1s)), (pnm)));
+
+
+/* Update the terms of a three-term recurrence */
+#define RECURRENCE_NEXT_ITER(a0, a1, a2)                                      \
+        {                                                                     \
+            a0 = a1;                                                          \
+            a1 = a2;                                                          \
+        }
 /* ------------------------------------------------------------------------- */
 
 
@@ -158,7 +176,8 @@ extern "C"
                                                                               \
            if ((ds))                                                          \
            {                                                                  \
-               PNM_TESSERAL(x, y, pnm2, t, anms, bnms);                       \
+               PNM_RECURRENCE(x, y, pnm2, t, anms, bnms);                     \
+               RECURRENCE_NEXT_ITER(y, x, pnm2);                              \
            }                                                                  \
            else                                                               \
            {                                                                  \
@@ -357,7 +376,8 @@ extern "C"
                                                                               \
         if ((ds))                                                             \
         {                                                                     \
-            PNM_TESSERAL(x, y, pnm2, t, anm, bnm);                            \
+            PNM_RECURRENCE(x, y, pnm2, t, anm, bnm);                          \
+            RECURRENCE_NEXT_ITER(y, x, pnm2);                                 \
         }                                                                     \
         else                                                                  \
         {                                                                     \

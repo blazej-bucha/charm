@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "../prec.h"
+#include "misc_is_nearly_equal.h"
 /* ------------------------------------------------------------------------- */
 
 

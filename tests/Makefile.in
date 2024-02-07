@@ -117,6 +117,7 @@ am__objects_1 = genref_run@P@@OMP@-main.$(OBJEXT) \
 	genref_run@P@@OMP@-write_val.$(OBJEXT) \
 	genref_run@P@@OMP@-validate.$(OBJEXT) \
 	genref_run@P@@OMP@-write.$(OBJEXT) \
+	genref_run@P@@OMP@-modify_low_degree_coefficients.$(OBJEXT) \
 	genref_run@P@@OMP@-generate_point.$(OBJEXT) \
 	genref_run@P@@OMP@-generate_cell.$(OBJEXT) \
 	genref_run@P@@OMP@-module_crd.$(OBJEXT) \
@@ -139,6 +140,9 @@ am__objects_1 = genref_run@P@@OMP@-main.$(OBJEXT) \
 	genref_run@P@@OMP@-check_crd_cell_alloc.$(OBJEXT) \
 	genref_run@P@@OMP@-check_crd_cell_init.$(OBJEXT) \
 	genref_run@P@@OMP@-check_shs_point.$(OBJEXT) \
+	genref_run@P@@OMP@-check_shs_point_grad1.$(OBJEXT) \
+	genref_run@P@@OMP@-check_shs_point_grad2.$(OBJEXT) \
+	genref_run@P@@OMP@-check_shs_point_guru.$(OBJEXT) \
 	genref_run@P@@OMP@-check_shs_cell.$(OBJEXT) \
 	genref_run@P@@OMP@-check_shs_cell_isurf.$(OBJEXT) \
 	genref_run@P@@OMP@-check_sha_point.$(OBJEXT) \
@@ -171,6 +175,7 @@ am__objects_2 = test_run@P@@OMP@-main.$(OBJEXT) \
 	test_run@P@@OMP@-write_val.$(OBJEXT) \
 	test_run@P@@OMP@-validate.$(OBJEXT) \
 	test_run@P@@OMP@-write.$(OBJEXT) \
+	test_run@P@@OMP@-modify_low_degree_coefficients.$(OBJEXT) \
 	test_run@P@@OMP@-generate_point.$(OBJEXT) \
 	test_run@P@@OMP@-generate_cell.$(OBJEXT) \
 	test_run@P@@OMP@-module_crd.$(OBJEXT) \
@@ -193,6 +198,9 @@ am__objects_2 = test_run@P@@OMP@-main.$(OBJEXT) \
 	test_run@P@@OMP@-check_crd_cell_alloc.$(OBJEXT) \
 	test_run@P@@OMP@-check_crd_cell_init.$(OBJEXT) \
 	test_run@P@@OMP@-check_shs_point.$(OBJEXT) \
+	test_run@P@@OMP@-check_shs_point_grad1.$(OBJEXT) \
+	test_run@P@@OMP@-check_shs_point_grad2.$(OBJEXT) \
+	test_run@P@@OMP@-check_shs_point_guru.$(OBJEXT) \
 	test_run@P@@OMP@-check_shs_cell.$(OBJEXT) \
 	test_run@P@@OMP@-check_shs_cell_isurf.$(OBJEXT) \
 	test_run@P@@OMP@-check_sha_point.$(OBJEXT) \
@@ -254,6 +262,9 @@ am__depfiles_remade =  \
 	./$(DEPDIR)/genref_run@P@@OMP@-check_shs_cell.Po \
 	./$(DEPDIR)/genref_run@P@@OMP@-check_shs_cell_isurf.Po \
 	./$(DEPDIR)/genref_run@P@@OMP@-check_shs_point.Po \
+	./$(DEPDIR)/genref_run@P@@OMP@-check_shs_point_grad1.Po \
+	./$(DEPDIR)/genref_run@P@@OMP@-check_shs_point_grad2.Po \
+	./$(DEPDIR)/genref_run@P@@OMP@-check_shs_point_guru.Po \
 	./$(DEPDIR)/genref_run@P@@OMP@-check_simd_abs_r.Po \
 	./$(DEPDIR)/genref_run@P@@OMP@-check_simd_neg_r.Po \
 	./$(DEPDIR)/genref_run@P@@OMP@-check_struct.Po \
@@ -263,6 +274,7 @@ am__depfiles_remade =  \
 	./$(DEPDIR)/genref_run@P@@OMP@-generate_point.Po \
 	./$(DEPDIR)/genref_run@P@@OMP@-main.Po \
 	./$(DEPDIR)/genref_run@P@@OMP@-misc.Po \
+	./$(DEPDIR)/genref_run@P@@OMP@-modify_low_degree_coefficients.Po \
 	./$(DEPDIR)/genref_run@P@@OMP@-module_crd.Po \
 	./$(DEPDIR)/genref_run@P@@OMP@-module_integ.Po \
 	./$(DEPDIR)/genref_run@P@@OMP@-module_leg.Po \
@@ -297,6 +309,9 @@ am__depfiles_remade =  \
 	./$(DEPDIR)/test_run@P@@OMP@-check_shs_cell.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-check_shs_cell_isurf.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-check_shs_point.Po \
+	./$(DEPDIR)/test_run@P@@OMP@-check_shs_point_grad1.Po \
+	./$(DEPDIR)/test_run@P@@OMP@-check_shs_point_grad2.Po \
+	./$(DEPDIR)/test_run@P@@OMP@-check_shs_point_guru.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-check_simd_abs_r.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-check_simd_neg_r.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-check_struct.Po \
@@ -306,6 +321,7 @@ am__depfiles_remade =  \
 	./$(DEPDIR)/test_run@P@@OMP@-generate_point.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-main.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-misc.Po \
+	./$(DEPDIR)/test_run@P@@OMP@-modify_low_degree_coefficients.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-module_crd.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-module_integ.Po \
 	./$(DEPDIR)/test_run@P@@OMP@-module_leg.Po \
@@ -506,7 +522,9 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-EXTRA_DIST = *.h
+EXTRA_DIST = *.h \
+			 check_shs_point_all.c
+
 
 # Source files common to both the test and the genref program
 SOURCES = main.c \
@@ -516,6 +534,7 @@ SOURCES = main.c \
 		  write_val.c \
 		  validate.c \
 		  write.c \
+		  modify_low_degree_coefficients.c \
 		  generate_point.c \
 		  generate_cell.c \
 		  module_crd.c \
@@ -538,6 +557,9 @@ SOURCES = main.c \
 		  check_crd_cell_alloc.c \
 		  check_crd_cell_init.c \
 		  check_shs_point.c \
+		  check_shs_point_grad1.c \
+		  check_shs_point_grad2.c \
+		  check_shs_point_guru.c \
 		  check_shs_cell.c \
 		  check_shs_cell_isurf.c \
 		  check_sha_point.c \
@@ -663,6 +685,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@@OMP@-check_shs_cell.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@@OMP@-check_shs_cell_isurf.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@@OMP@-check_shs_point.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@@OMP@-check_shs_point_grad1.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@@OMP@-check_shs_point_grad2.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@@OMP@-check_shs_point_guru.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@@OMP@-check_simd_abs_r.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@@OMP@-check_simd_neg_r.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@@OMP@-check_struct.Po@am__quote@ # am--include-marker
@@ -672,6 +697,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@@OMP@-generate_point.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@@OMP@-main.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@@OMP@-misc.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@@OMP@-modify_low_degree_coefficients.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@@OMP@-module_crd.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@@OMP@-module_integ.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@@OMP@-module_leg.Po@am__quote@ # am--include-marker
@@ -706,6 +732,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-check_shs_cell.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-check_shs_cell_isurf.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-check_shs_point.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-check_shs_point_grad1.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-check_shs_point_grad2.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-check_shs_point_guru.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-check_simd_abs_r.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-check_simd_neg_r.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-check_struct.Po@am__quote@ # am--include-marker
@@ -715,6 +744,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-generate_point.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-main.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-misc.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-modify_low_degree_coefficients.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-module_crd.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-module_integ.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@@OMP@-module_leg.Po@am__quote@ # am--include-marker
@@ -850,6 +880,20 @@ genref_run@P@@OMP@-write.obj: write.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='write.c' object='genref_run@P@@OMP@-write.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o genref_run@P@@OMP@-write.obj `if test -f 'write.c'; then $(CYGPATH_W) 'write.c'; else $(CYGPATH_W) '$(srcdir)/write.c'; fi`
+
+genref_run@P@@OMP@-modify_low_degree_coefficients.o: modify_low_degree_coefficients.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT genref_run@P@@OMP@-modify_low_degree_coefficients.o -MD -MP -MF $(DEPDIR)/genref_run@P@@OMP@-modify_low_degree_coefficients.Tpo -c -o genref_run@P@@OMP@-modify_low_degree_coefficients.o `test -f 'modify_low_degree_coefficients.c' || echo '$(srcdir)/'`modify_low_degree_coefficients.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@@OMP@-modify_low_degree_coefficients.Tpo $(DEPDIR)/genref_run@P@@OMP@-modify_low_degree_coefficients.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='modify_low_degree_coefficients.c' object='genref_run@P@@OMP@-modify_low_degree_coefficients.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o genref_run@P@@OMP@-modify_low_degree_coefficients.o `test -f 'modify_low_degree_coefficients.c' || echo '$(srcdir)/'`modify_low_degree_coefficients.c
+
+genref_run@P@@OMP@-modify_low_degree_coefficients.obj: modify_low_degree_coefficients.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT genref_run@P@@OMP@-modify_low_degree_coefficients.obj -MD -MP -MF $(DEPDIR)/genref_run@P@@OMP@-modify_low_degree_coefficients.Tpo -c -o genref_run@P@@OMP@-modify_low_degree_coefficients.obj `if test -f 'modify_low_degree_coefficients.c'; then $(CYGPATH_W) 'modify_low_degree_coefficients.c'; else $(CYGPATH_W) '$(srcdir)/modify_low_degree_coefficients.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@@OMP@-modify_low_degree_coefficients.Tpo $(DEPDIR)/genref_run@P@@OMP@-modify_low_degree_coefficients.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='modify_low_degree_coefficients.c' object='genref_run@P@@OMP@-modify_low_degree_coefficients.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o genref_run@P@@OMP@-modify_low_degree_coefficients.obj `if test -f 'modify_low_degree_coefficients.c'; then $(CYGPATH_W) 'modify_low_degree_coefficients.c'; else $(CYGPATH_W) '$(srcdir)/modify_low_degree_coefficients.c'; fi`
 
 genref_run@P@@OMP@-generate_point.o: generate_point.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT genref_run@P@@OMP@-generate_point.o -MD -MP -MF $(DEPDIR)/genref_run@P@@OMP@-generate_point.Tpo -c -o genref_run@P@@OMP@-generate_point.o `test -f 'generate_point.c' || echo '$(srcdir)/'`generate_point.c
@@ -1159,6 +1203,48 @@ genref_run@P@@OMP@-check_shs_point.obj: check_shs_point.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o genref_run@P@@OMP@-check_shs_point.obj `if test -f 'check_shs_point.c'; then $(CYGPATH_W) 'check_shs_point.c'; else $(CYGPATH_W) '$(srcdir)/check_shs_point.c'; fi`
 
+genref_run@P@@OMP@-check_shs_point_grad1.o: check_shs_point_grad1.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT genref_run@P@@OMP@-check_shs_point_grad1.o -MD -MP -MF $(DEPDIR)/genref_run@P@@OMP@-check_shs_point_grad1.Tpo -c -o genref_run@P@@OMP@-check_shs_point_grad1.o `test -f 'check_shs_point_grad1.c' || echo '$(srcdir)/'`check_shs_point_grad1.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@@OMP@-check_shs_point_grad1.Tpo $(DEPDIR)/genref_run@P@@OMP@-check_shs_point_grad1.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shs_point_grad1.c' object='genref_run@P@@OMP@-check_shs_point_grad1.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o genref_run@P@@OMP@-check_shs_point_grad1.o `test -f 'check_shs_point_grad1.c' || echo '$(srcdir)/'`check_shs_point_grad1.c
+
+genref_run@P@@OMP@-check_shs_point_grad1.obj: check_shs_point_grad1.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT genref_run@P@@OMP@-check_shs_point_grad1.obj -MD -MP -MF $(DEPDIR)/genref_run@P@@OMP@-check_shs_point_grad1.Tpo -c -o genref_run@P@@OMP@-check_shs_point_grad1.obj `if test -f 'check_shs_point_grad1.c'; then $(CYGPATH_W) 'check_shs_point_grad1.c'; else $(CYGPATH_W) '$(srcdir)/check_shs_point_grad1.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@@OMP@-check_shs_point_grad1.Tpo $(DEPDIR)/genref_run@P@@OMP@-check_shs_point_grad1.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shs_point_grad1.c' object='genref_run@P@@OMP@-check_shs_point_grad1.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o genref_run@P@@OMP@-check_shs_point_grad1.obj `if test -f 'check_shs_point_grad1.c'; then $(CYGPATH_W) 'check_shs_point_grad1.c'; else $(CYGPATH_W) '$(srcdir)/check_shs_point_grad1.c'; fi`
+
+genref_run@P@@OMP@-check_shs_point_grad2.o: check_shs_point_grad2.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT genref_run@P@@OMP@-check_shs_point_grad2.o -MD -MP -MF $(DEPDIR)/genref_run@P@@OMP@-check_shs_point_grad2.Tpo -c -o genref_run@P@@OMP@-check_shs_point_grad2.o `test -f 'check_shs_point_grad2.c' || echo '$(srcdir)/'`check_shs_point_grad2.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@@OMP@-check_shs_point_grad2.Tpo $(DEPDIR)/genref_run@P@@OMP@-check_shs_point_grad2.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shs_point_grad2.c' object='genref_run@P@@OMP@-check_shs_point_grad2.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o genref_run@P@@OMP@-check_shs_point_grad2.o `test -f 'check_shs_point_grad2.c' || echo '$(srcdir)/'`check_shs_point_grad2.c
+
+genref_run@P@@OMP@-check_shs_point_grad2.obj: check_shs_point_grad2.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT genref_run@P@@OMP@-check_shs_point_grad2.obj -MD -MP -MF $(DEPDIR)/genref_run@P@@OMP@-check_shs_point_grad2.Tpo -c -o genref_run@P@@OMP@-check_shs_point_grad2.obj `if test -f 'check_shs_point_grad2.c'; then $(CYGPATH_W) 'check_shs_point_grad2.c'; else $(CYGPATH_W) '$(srcdir)/check_shs_point_grad2.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@@OMP@-check_shs_point_grad2.Tpo $(DEPDIR)/genref_run@P@@OMP@-check_shs_point_grad2.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shs_point_grad2.c' object='genref_run@P@@OMP@-check_shs_point_grad2.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o genref_run@P@@OMP@-check_shs_point_grad2.obj `if test -f 'check_shs_point_grad2.c'; then $(CYGPATH_W) 'check_shs_point_grad2.c'; else $(CYGPATH_W) '$(srcdir)/check_shs_point_grad2.c'; fi`
+
+genref_run@P@@OMP@-check_shs_point_guru.o: check_shs_point_guru.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT genref_run@P@@OMP@-check_shs_point_guru.o -MD -MP -MF $(DEPDIR)/genref_run@P@@OMP@-check_shs_point_guru.Tpo -c -o genref_run@P@@OMP@-check_shs_point_guru.o `test -f 'check_shs_point_guru.c' || echo '$(srcdir)/'`check_shs_point_guru.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@@OMP@-check_shs_point_guru.Tpo $(DEPDIR)/genref_run@P@@OMP@-check_shs_point_guru.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shs_point_guru.c' object='genref_run@P@@OMP@-check_shs_point_guru.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o genref_run@P@@OMP@-check_shs_point_guru.o `test -f 'check_shs_point_guru.c' || echo '$(srcdir)/'`check_shs_point_guru.c
+
+genref_run@P@@OMP@-check_shs_point_guru.obj: check_shs_point_guru.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT genref_run@P@@OMP@-check_shs_point_guru.obj -MD -MP -MF $(DEPDIR)/genref_run@P@@OMP@-check_shs_point_guru.Tpo -c -o genref_run@P@@OMP@-check_shs_point_guru.obj `if test -f 'check_shs_point_guru.c'; then $(CYGPATH_W) 'check_shs_point_guru.c'; else $(CYGPATH_W) '$(srcdir)/check_shs_point_guru.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@@OMP@-check_shs_point_guru.Tpo $(DEPDIR)/genref_run@P@@OMP@-check_shs_point_guru.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shs_point_guru.c' object='genref_run@P@@OMP@-check_shs_point_guru.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o genref_run@P@@OMP@-check_shs_point_guru.obj `if test -f 'check_shs_point_guru.c'; then $(CYGPATH_W) 'check_shs_point_guru.c'; else $(CYGPATH_W) '$(srcdir)/check_shs_point_guru.c'; fi`
+
 genref_run@P@@OMP@-check_shs_cell.o: check_shs_cell.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT genref_run@P@@OMP@-check_shs_cell.o -MD -MP -MF $(DEPDIR)/genref_run@P@@OMP@-check_shs_cell.Tpo -c -o genref_run@P@@OMP@-check_shs_cell.o `test -f 'check_shs_cell.c' || echo '$(srcdir)/'`check_shs_cell.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@@OMP@-check_shs_cell.Tpo $(DEPDIR)/genref_run@P@@OMP@-check_shs_cell.Po
@@ -1452,6 +1538,20 @@ test_run@P@@OMP@-write.obj: write.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='write.c' object='test_run@P@@OMP@-write.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-write.obj `if test -f 'write.c'; then $(CYGPATH_W) 'write.c'; else $(CYGPATH_W) '$(srcdir)/write.c'; fi`
+
+test_run@P@@OMP@-modify_low_degree_coefficients.o: modify_low_degree_coefficients.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-modify_low_degree_coefficients.o -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-modify_low_degree_coefficients.Tpo -c -o test_run@P@@OMP@-modify_low_degree_coefficients.o `test -f 'modify_low_degree_coefficients.c' || echo '$(srcdir)/'`modify_low_degree_coefficients.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-modify_low_degree_coefficients.Tpo $(DEPDIR)/test_run@P@@OMP@-modify_low_degree_coefficients.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='modify_low_degree_coefficients.c' object='test_run@P@@OMP@-modify_low_degree_coefficients.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-modify_low_degree_coefficients.o `test -f 'modify_low_degree_coefficients.c' || echo '$(srcdir)/'`modify_low_degree_coefficients.c
+
+test_run@P@@OMP@-modify_low_degree_coefficients.obj: modify_low_degree_coefficients.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-modify_low_degree_coefficients.obj -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-modify_low_degree_coefficients.Tpo -c -o test_run@P@@OMP@-modify_low_degree_coefficients.obj `if test -f 'modify_low_degree_coefficients.c'; then $(CYGPATH_W) 'modify_low_degree_coefficients.c'; else $(CYGPATH_W) '$(srcdir)/modify_low_degree_coefficients.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-modify_low_degree_coefficients.Tpo $(DEPDIR)/test_run@P@@OMP@-modify_low_degree_coefficients.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='modify_low_degree_coefficients.c' object='test_run@P@@OMP@-modify_low_degree_coefficients.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-modify_low_degree_coefficients.obj `if test -f 'modify_low_degree_coefficients.c'; then $(CYGPATH_W) 'modify_low_degree_coefficients.c'; else $(CYGPATH_W) '$(srcdir)/modify_low_degree_coefficients.c'; fi`
 
 test_run@P@@OMP@-generate_point.o: generate_point.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-generate_point.o -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-generate_point.Tpo -c -o test_run@P@@OMP@-generate_point.o `test -f 'generate_point.c' || echo '$(srcdir)/'`generate_point.c
@@ -1760,6 +1860,48 @@ test_run@P@@OMP@-check_shs_point.obj: check_shs_point.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shs_point.c' object='test_run@P@@OMP@-check_shs_point.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-check_shs_point.obj `if test -f 'check_shs_point.c'; then $(CYGPATH_W) 'check_shs_point.c'; else $(CYGPATH_W) '$(srcdir)/check_shs_point.c'; fi`
+
+test_run@P@@OMP@-check_shs_point_grad1.o: check_shs_point_grad1.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-check_shs_point_grad1.o -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-check_shs_point_grad1.Tpo -c -o test_run@P@@OMP@-check_shs_point_grad1.o `test -f 'check_shs_point_grad1.c' || echo '$(srcdir)/'`check_shs_point_grad1.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-check_shs_point_grad1.Tpo $(DEPDIR)/test_run@P@@OMP@-check_shs_point_grad1.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shs_point_grad1.c' object='test_run@P@@OMP@-check_shs_point_grad1.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-check_shs_point_grad1.o `test -f 'check_shs_point_grad1.c' || echo '$(srcdir)/'`check_shs_point_grad1.c
+
+test_run@P@@OMP@-check_shs_point_grad1.obj: check_shs_point_grad1.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-check_shs_point_grad1.obj -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-check_shs_point_grad1.Tpo -c -o test_run@P@@OMP@-check_shs_point_grad1.obj `if test -f 'check_shs_point_grad1.c'; then $(CYGPATH_W) 'check_shs_point_grad1.c'; else $(CYGPATH_W) '$(srcdir)/check_shs_point_grad1.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-check_shs_point_grad1.Tpo $(DEPDIR)/test_run@P@@OMP@-check_shs_point_grad1.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shs_point_grad1.c' object='test_run@P@@OMP@-check_shs_point_grad1.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-check_shs_point_grad1.obj `if test -f 'check_shs_point_grad1.c'; then $(CYGPATH_W) 'check_shs_point_grad1.c'; else $(CYGPATH_W) '$(srcdir)/check_shs_point_grad1.c'; fi`
+
+test_run@P@@OMP@-check_shs_point_grad2.o: check_shs_point_grad2.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-check_shs_point_grad2.o -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-check_shs_point_grad2.Tpo -c -o test_run@P@@OMP@-check_shs_point_grad2.o `test -f 'check_shs_point_grad2.c' || echo '$(srcdir)/'`check_shs_point_grad2.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-check_shs_point_grad2.Tpo $(DEPDIR)/test_run@P@@OMP@-check_shs_point_grad2.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shs_point_grad2.c' object='test_run@P@@OMP@-check_shs_point_grad2.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-check_shs_point_grad2.o `test -f 'check_shs_point_grad2.c' || echo '$(srcdir)/'`check_shs_point_grad2.c
+
+test_run@P@@OMP@-check_shs_point_grad2.obj: check_shs_point_grad2.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-check_shs_point_grad2.obj -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-check_shs_point_grad2.Tpo -c -o test_run@P@@OMP@-check_shs_point_grad2.obj `if test -f 'check_shs_point_grad2.c'; then $(CYGPATH_W) 'check_shs_point_grad2.c'; else $(CYGPATH_W) '$(srcdir)/check_shs_point_grad2.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-check_shs_point_grad2.Tpo $(DEPDIR)/test_run@P@@OMP@-check_shs_point_grad2.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shs_point_grad2.c' object='test_run@P@@OMP@-check_shs_point_grad2.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-check_shs_point_grad2.obj `if test -f 'check_shs_point_grad2.c'; then $(CYGPATH_W) 'check_shs_point_grad2.c'; else $(CYGPATH_W) '$(srcdir)/check_shs_point_grad2.c'; fi`
+
+test_run@P@@OMP@-check_shs_point_guru.o: check_shs_point_guru.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-check_shs_point_guru.o -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-check_shs_point_guru.Tpo -c -o test_run@P@@OMP@-check_shs_point_guru.o `test -f 'check_shs_point_guru.c' || echo '$(srcdir)/'`check_shs_point_guru.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-check_shs_point_guru.Tpo $(DEPDIR)/test_run@P@@OMP@-check_shs_point_guru.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shs_point_guru.c' object='test_run@P@@OMP@-check_shs_point_guru.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-check_shs_point_guru.o `test -f 'check_shs_point_guru.c' || echo '$(srcdir)/'`check_shs_point_guru.c
+
+test_run@P@@OMP@-check_shs_point_guru.obj: check_shs_point_guru.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-check_shs_point_guru.obj -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-check_shs_point_guru.Tpo -c -o test_run@P@@OMP@-check_shs_point_guru.obj `if test -f 'check_shs_point_guru.c'; then $(CYGPATH_W) 'check_shs_point_guru.c'; else $(CYGPATH_W) '$(srcdir)/check_shs_point_guru.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@@OMP@-check_shs_point_guru.Tpo $(DEPDIR)/test_run@P@@OMP@-check_shs_point_guru.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shs_point_guru.c' object='test_run@P@@OMP@-check_shs_point_guru.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o test_run@P@@OMP@-check_shs_point_guru.obj `if test -f 'check_shs_point_guru.c'; then $(CYGPATH_W) 'check_shs_point_guru.c'; else $(CYGPATH_W) '$(srcdir)/check_shs_point_guru.c'; fi`
 
 test_run@P@@OMP@-check_shs_cell.o: check_shs_cell.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT test_run@P@@OMP@-check_shs_cell.o -MD -MP -MF $(DEPDIR)/test_run@P@@OMP@-check_shs_cell.Tpo -c -o test_run@P@@OMP@-check_shs_cell.o `test -f 'check_shs_cell.c' || echo '$(srcdir)/'`check_shs_cell.c
@@ -2113,6 +2255,9 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shs_cell.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shs_cell_isurf.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shs_point.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shs_point_grad1.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shs_point_grad2.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shs_point_guru.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_simd_abs_r.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_simd_neg_r.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_struct.Po
@@ -2122,6 +2267,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-generate_point.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-main.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-misc.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-modify_low_degree_coefficients.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-module_crd.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-module_integ.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-module_leg.Po
@@ -2156,6 +2302,9 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shs_cell.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shs_cell_isurf.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shs_point.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shs_point_grad1.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shs_point_grad2.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shs_point_guru.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_simd_abs_r.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_simd_neg_r.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_struct.Po
@@ -2165,6 +2314,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-generate_point.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-main.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-misc.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-modify_low_degree_coefficients.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-module_crd.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-module_integ.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-module_leg.Po
@@ -2244,6 +2394,9 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shs_cell.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shs_cell_isurf.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shs_point.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shs_point_grad1.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shs_point_grad2.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_shs_point_guru.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_simd_abs_r.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_simd_neg_r.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-check_struct.Po
@@ -2253,6 +2406,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-generate_point.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-main.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-misc.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-modify_low_degree_coefficients.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-module_crd.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-module_integ.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@@OMP@-module_leg.Po
@@ -2287,6 +2441,9 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shs_cell.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shs_cell_isurf.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shs_point.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shs_point_grad1.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shs_point_grad2.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_shs_point_guru.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_simd_abs_r.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_simd_neg_r.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-check_struct.Po
@@ -2296,6 +2453,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-generate_point.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-main.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-misc.Po
+	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-modify_low_degree_coefficients.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-module_crd.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-module_integ.Po
 	-rm -f ./$(DEPDIR)/test_run@P@@OMP@-module_leg.Po

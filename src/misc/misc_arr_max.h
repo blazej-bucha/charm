@@ -26,7 +26,7 @@ extern "C"
  * ``nan`` value and the error is written to ``err``.
  *
  * */
-extern REAL CHARM(misc_arr_max)(const REAL *a, size_t na, CHAR(err) *err);
+extern REAL CHARM(misc_arr_max)(const REAL *a, size_t na, CHARM(err) *err);
 
 
 #ifdef __cplusplus

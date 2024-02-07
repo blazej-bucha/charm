@@ -14,6 +14,7 @@
 #include "check_shc_rescale.h"
 #include "check_shc_alloc.h"
 #include "check_shc_init.h"
+#include "module_shc.h"
 /* ------------------------------------------------------------------------- */
 
 

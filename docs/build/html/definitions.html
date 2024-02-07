@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Some definitions to make things clear &#8212; CHarm 0.3.1 documentation</title>
+    <title>Some definitions to make things clear &#8212; CHarm 0.4.0 documentation</title>
   
   
   
@@ -126,7 +126,7 @@
     <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
   
   
-    <p class="title logo__title">CHarm v0.3.1</p>
+    <p class="title logo__title">CHarm v0.4.0</p>
   
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
@@ -390,6 +390,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#surface-spherical-harmonics">Surface spherical harmonics</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spherical-harmonic-analysis">Spherical harmonic analysis</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spherical-harmonic-synthesis">Spherical harmonic synthesis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-north-oriented-reference-frame">Local north-oriented reference frame</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
             </nav>
@@ -582,6 +583,12 @@ P_n(\sin\varphi)}{\mathrm{d} (\sin\varphi)^m} {,} \quad &amp;0 &lt; m \leq n {,
 (\sin\varphi)^n} \left(\sin^2\varphi - 1 \right)^n\]</div>
 <p>are the (un-normalized) Legendre polynomials (<span class="math notranslate nohighlight">\(m = 0\)</span>, so the order is
 omitted from the notation).</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>CHarm evaluates the latitudinal derivatives of Legendre functions by the
+fixed-order recurrences from Appendix A.1 of Fukushima (2012b), which are
+<em>singular</em> at the poles.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Applied is the geodetic <span class="math notranslate nohighlight">\(4\pi\)</span> full normalization.  Neither other
@@ -590,7 +597,7 @@ normalizations nor complex spherical harmonics are supported (yet?).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The numerical evaluation of Legendre functions is performed after Fukushima
-(2012), so spherical harmonics can be safely evaluated up to high degrees
+(2012a), so spherical harmonics can be safely evaluated up to high degrees
 and orders (tens of thousands and even well beyond).</p>
 </div>
 </section>
@@ -681,6 +688,17 @@ available package or library.</p>
 <a class="reference internal" href="api-c-shs.html#charm-shs"><span class="std std-ref">charm_shs</span></a> and <a class="reference internal" href="api-py-shs.html#pyharm-shs"><span class="std std-ref">pyharm.shs</span></a>.</p>
 </div>
 </section>
+<section id="local-north-oriented-reference-frame">
+<span id="lnof"></span><h2>Local north-oriented reference frame<a class="headerlink" href="#local-north-oriented-reference-frame" title="Permalink to this heading">#</a></h2>
+<p>Local north-oriented reference frame (LNOF) is the right-handed Cartesian
+coordinate system defined as follows: the origin is at the evaluation point
+<span class="math notranslate nohighlight">\(P(r, \varphi, \lambda)\)</span>, the <span class="math notranslate nohighlight">\(x\)</span>-axis points to the north, the
+<span class="math notranslate nohighlight">\(y\)</span>-axis points to the west and the <span class="math notranslate nohighlight">\(z\)</span>-axis points radially
+outwards.  At <span class="math notranslate nohighlight">\(P(r, \varphi, \lambda)\)</span>, the <span class="math notranslate nohighlight">\(xy\)</span> plane is
+tangential to the sphere with the radius <span class="math notranslate nohighlight">\(r\)</span> passing through <span class="math notranslate nohighlight">\(P(r,
+\varphi, \lambda)\)</span>.</p>
+<img alt="_images/lnof.png" src="_images/lnof.png" />
+</section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -689,9 +707,13 @@ sphere. Report No. 310, Department of Geodetic Science and Surveying, The
 Ohio State University, Columbus, Ohio, 140 pp</p></li>
 <li><p>Driscoll, J. R., Healy, D. M. (1994) Computing Fourier transforms and
 convolutions on the 2-sphere. Advances in Applied Mathematics 15:202-250</p></li>
-<li><p>Fukushima T (2012) Numerical computation of spherical harmonics of arbitrary
+<li><p>Fukushima T (2012a) Numerical computation of spherical harmonics of arbitrary
 degree and order by extending exponent of floating point numbers. Journal of
 Geodesy 86:271–285, doi: 10.1007/s00190-011-0519-2</p></li>
+<li><p>Fukushima T (2012b) Numerical computation of spherical harmonics of arbitrary
+degree and order by extending exponent of floating point numbers: II first-,
+second-, and third-order derivatives. Journal of
+Geodesy 86, 1019–1028, doi: 10.1007/s00190-012-0561-8</p></li>
 <li><p>Hofmann-Wellenhof B, Moritz H (2005) Physical Geodesy. Springer, Wien, New
 York, 403 pp</p></li>
 <li><p>Jekeli C, Lee JK, Kwon JH (2007) On the computation and approximation of
@@ -761,6 +783,7 @@ International 118:707–716</p></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#surface-spherical-harmonics">Surface spherical harmonics</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spherical-harmonic-analysis">Spherical harmonic analysis</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spherical-harmonic-synthesis">Spherical harmonic synthesis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-north-oriented-reference-frame">Local north-oriented reference frame</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>
@@ -785,7 +808,7 @@ By Blažej Bucha
     
   <p class="copyright">
     
-      © Copyright 2023, Blažej Bucha.
+      © Copyright 2024, Blažej Bucha.
       <br/>
     
   </p>
@@ -794,7 +817,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Sep 12, 2023.
+  Last updated on Feb 07, 2024.
   <br/>
 </p>
   </div>

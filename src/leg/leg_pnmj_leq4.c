@@ -5,6 +5,7 @@
 #include <math.h>
 #include "../prec.h"
 #include "../err/err_set.h"
+#include "leg_pnmj_leq4.h"
 /* ------------------------------------------------------------------------- */
 
 

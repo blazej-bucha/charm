@@ -71,8 +71,7 @@ int main(void)
 
 
     /* Allocate the memory for the synthesized signal */
-    double *f = (double *)malloc(grd_pnt->nlat * grd_pnt->nlon *
-                                 sizeof(double));
+    double *f = (double *)malloc(grd_pnt->npoint * sizeof(double));
     if (f == NULL)
     {
         fprintf(stderr, "malloc failure.\n");
@@ -195,7 +194,7 @@ int main(void)
 
 
     /* Allocate memory to store the synthesized signal */
-    f = (double *)malloc(sctr_pnt->nlat * sizeof(double));
+    f = (double *)malloc(sctr_pnt->npoint * sizeof(double));
     if (f == NULL)
     {
         fprintf(stderr, "malloc failure.\n");
@@ -212,7 +211,7 @@ int main(void)
 
 
     /* Print the synthesized values */
-    for (size_t i = 0; i < sctr_pnt->nlat; i++)
+    for (size_t i = 0; i < sctr_pnt->npoint; i++)
         printf("%0.16e\n", f[i]);
 
 
@@ -257,7 +256,7 @@ int main(void)
 
 
     /* Initialize an array to store the synthesized signal */
-    f = (double *)malloc(grd_pnt->nlat * grd_pnt->nlon * sizeof(double));
+    f = (double *)malloc(grd_pnt->npoint * sizeof(double));
     if (f == NULL)
     {
         fprintf(stderr, "malloc failure.\n");
@@ -340,7 +339,7 @@ int main(void)
 
 
     /* Initialize an array to store the synthesized signal */
-    f = (double *)malloc(sctr_cell->nlat * sizeof(double));
+    f = (double *)malloc(sctr_cell->ncell * sizeof(double));
     if (f == NULL)
     {
         fprintf(stderr, "malloc failure.\n");
@@ -354,7 +353,7 @@ int main(void)
 
 
     /* Print the synthesized values */
-    for (size_t i = 0; i < sctr_cell->nlat; i++)
+    for (size_t i = 0; i < sctr_cell->ncell; i++)
         printf("%0.16e\n", f[i]);
 
 
@@ -413,7 +412,7 @@ int main(void)
 
 
     /* Initialize an array to store the synthesized signal */
-    f = (double *)malloc(grd_cell->nlat * grd_cell->nlon * sizeof(double));
+    f = (double *)malloc(grd_cell->ncell * sizeof(double));
     if (f == NULL)
     {
         fprintf(stderr, "malloc failure.\n");

@@ -23,6 +23,8 @@
 
 #undef CAT
 #define CAT(x, y) x ## y
+#undef CAT2
+#define CAT2(x, y, z) x ## y ## z
 
 
 #undef CHARM
@@ -57,7 +59,7 @@
     (CHARM_FLOAT && CHARM_QUAD) || \
     (CHARM_DOUBLE && CHARM_QUAD) || \
     (CHARM_FLOAT && CHARM_DOUBLE && CHARM_QUAD)
-#   error "One precision only must be defined in \"config.h\"."
+#   error "One precision only must be defined in config.h."
 #endif
 
 

@@ -6,6 +6,7 @@
 #include "../prec.h"
 #include "../misc/misc_fprintf_real.h"
 #include "../err/err_set.h"
+#include "shc_write_mtdt.h"
 /* ------------------------------------------------------------------------- */
 
 

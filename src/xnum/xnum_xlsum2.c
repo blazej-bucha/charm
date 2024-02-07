@@ -3,6 +3,7 @@
 #include <config.h>
 #include "../prec.h"
 #include "xnum_xnorm.h"
+#include "xnum_xlsum2.h"
 /* ------------------------------------------------------------------------- */
 
 

@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include "../src/misc/misc_is_nearly_equal.h"
 #include "parameters.h"
+#include "check_struct.h"
 /* ------------------------------------------------------------------------- */
 
 

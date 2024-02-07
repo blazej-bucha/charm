@@ -9,15 +9,29 @@ All functions that deal with numerics are written in double precision.
 
 from . import _libcharm, _CHARM
 from ._data_types import _ct_int
+import ctypes as _ct
 
 
-def print_version():
+def get_version():
+    """
+    Returns a string specifying the CHarm version number determined on
+    compilation time.
+    """
+
+    func          = _libcharm[_CHARM + 'misc_get_version']
+    func.restype  = _ct.c_char_p
+    func.argtypes = None
+
+    return func().decode()
+
+
+def print_info():
     """
     Prints library info (library name, version, compilation date, precision,
     etc).
     """
 
-    func          = _libcharm[_CHARM + 'misc_print_version']
+    func          = _libcharm[_CHARM + 'misc_print_info']
     func.restype  = None
     func.argtypes = None
 
@@ -97,6 +111,18 @@ def buildopt_simd():
     func.restype  = _ct_int
 
     return func()
+
+
+def buildopt_version_fftw():
+    """
+    Returns a string specifying the FFTW version used to compile CHarm.
+    """
+
+    func          = _libcharm[_CHARM + 'misc_buildopt_version_fftw']
+    func.restype  = _ct.c_char_p
+    func.argtypes = None
+
+    return func().decode()
 
 
 def buildopt_isfinite():

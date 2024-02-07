@@ -95,9 +95,18 @@ extern "C"
 
 /* Function prototypes */
 /* ------------------------------------------------------------------------- */
+/** @brief Returns a string specifying the CHarm version number determined on
+ * compilation time. */
+extern const char * const charm@P@_misc_get_version(void);
+
+
+
+
+
+
 /** @brief Prints library info to ``stdout`` (library name, version,
  * compilation date, precision, etc). */
-extern void charm@P@_misc_print_version(void);
+extern void charm@P@_misc_print_info(void);
 
 
 
@@ -157,6 +166,14 @@ extern int charm@P@_misc_buildopt_omp_fftw(void);
  *
  * */
 extern int charm@P@_misc_buildopt_simd(void);
+
+
+
+
+
+
+/** @brief Returns a string specifying the FFTW library version. */
+extern const char * const charm@P@_misc_buildopt_version_fftw(void);
 
 
 

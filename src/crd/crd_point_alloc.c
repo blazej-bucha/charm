@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include "../prec.h"
 #include "crd_point_check_inputs.h"
+#include "crd_point_isQuadGrid.h"
+#include "crd_point_alloc.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -52,9 +54,7 @@ CHARM(point) *CHARM(crd_point_alloc)(int type, size_t nlat, size_t nlon,
         goto FAILURE;
 
 
-    if ((type == CHARM_CRD_POINT_GRID_GL) ||
-        (type == CHARM_CRD_POINT_GRID_DH1) ||
-        (type == CHARM_CRD_POINT_GRID_DH2))
+    if (CHARM(crd_point_isQuadGrid)(type))
     {
         w = (REAL *)alloc(nlat * sizeof(REAL));
         if (w == NULL)

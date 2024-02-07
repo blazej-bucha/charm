@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../prec.h"
+#include "crd_isCell.h"
+#include "crd_cell_isSctr.h"
+#include "crd_cell_check_inputs.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -17,7 +20,7 @@ int CHARM(crd_cell_check_inputs)(int type, size_t nlat, size_t nlon)
     /* Check the inputs */
     /* --------------------------------------------------------------------- */
     /* Check "type" for supported values */
-    if ((type != CHARM_CRD_CELL_SCATTERED) && (type != CHARM_CRD_CELL_GRID))
+    if (!CHARM(crd_isCell)(type))
         return 1;
 
 
@@ -27,7 +30,7 @@ int CHARM(crd_cell_check_inputs)(int type, size_t nlat, size_t nlon)
 
 
     /* For scattered cells, "nlat" must be equal to "nlon" */
-    if (type == CHARM_CRD_CELL_SCATTERED)
+    if (CHARM(crd_cell_isSctr)(type))
     {
         if (nlat != nlon)
             return 3;

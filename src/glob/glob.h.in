@@ -123,7 +123,7 @@ extern @RDT@ charm@P@_glob_threshold2;
  *
  * **References**:
  *
- * * Reinecke, M., Seljebotn, D. S. (2013) Libsharp -- spherical harmonic
+ * * Reinecke, M., Seljebotn, D. S. (2013) Libsharp - spherical harmonic
  *   transforms revisited.  Astronomy and Astrophysics 554, A112, doi:
  *   10.1051/0004-6361/201321494.
  *

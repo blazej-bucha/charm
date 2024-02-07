@@ -11,6 +11,8 @@
 #else
 #   include "validate.h"
 #endif
+#include "modify_low_degree_coefficients.h"
+#include "check_shs_cell_isurf.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -46,10 +48,7 @@ long int check_shs_cell_isurf(void)
 
     /* Modify coefficients of degrees "0" and "1" to allow for an accurate
      * validation in all precisions. */
-    shcs_pot->c[0][0 - 0] = (REAL)C00;
-    shcs_pot->c[0][1 - 0] = (REAL)C10;
-    shcs_pot->c[1][1 - 1] = (REAL)C11;
-    shcs_pot->s[1][1 - 1] = (REAL)S11;
+    modify_low_degree_coefficients(shcs_pot);
     /* --------------------------------------------------------------------- */
 
 
@@ -107,7 +106,7 @@ long int check_shs_cell_isurf(void)
                               FOLDER, nmax_p, nmax_t, i, FTYPE);
 
 
-                f = (REAL *)malloc(grd->nlat * grd->nlon * sizeof(REAL));
+                f = (REAL *)malloc(grd->ncell * sizeof(REAL));
                 if (f == NULL)
                 {
                     fprintf(stderr, "malloc failure.\n");
@@ -121,10 +120,9 @@ long int check_shs_cell_isurf(void)
 
 
 #ifdef GENREF
-                e += write(file, f, grd->nlat * grd->nlon);
+                e += write(file, f, grd->ncell);
 #else
-                e += validate(file, f, grd->nlat * grd->nlon,
-                              CHARM(glob_threshold2));
+                e += validate(file, f, grd->ncell, CHARM(glob_threshold2));
 #endif
 
 

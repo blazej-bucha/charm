@@ -41,7 +41,7 @@ int main(void)
     /* Print version number, etc. of the compiled CHarm library */
     printf("Printing info on CHarm...\n");
     printf("..................................\n");
-    CHARM(misc_print_version());
+    CHARM(misc_print_info());
     printf("..................................\n\n");
 
 

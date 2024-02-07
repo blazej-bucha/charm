@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "../prec.h"
 #include "../misc/misc_is_nearly_equal.h"
+#include "shs_grd_cell_fft_check.h"
 /* ------------------------------------------------------------------------- */
 
 

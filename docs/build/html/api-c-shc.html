@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>charm_shc &#8212; CHarm 0.3.1 documentation</title>
+    <title>charm_shc &#8212; CHarm 0.4.0 documentation</title>
   
   
   
@@ -126,7 +126,7 @@
     <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
   
   
-    <p class="title logo__title">CHarm v0.3.1</p>
+    <p class="title logo__title">CHarm v0.4.0</p>
   
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
@@ -403,6 +403,22 @@ document.write(`
 <p>This documentation is written for double precision version of CHarm. </p>
 </div>
 <div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-special-values-for-functions-to-read-spherical-harmonic-coefficients">Special values for functions to read spherical harmonic coefficients</p>
+<p>The values are used with <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a8964cfa35210c0504a66352d4a08de62"><span class="std std-ref"><span class="pre">charm_shc_read_dov()</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1af6995bacff72c260aecb449bf9a41967"><span class="std std-ref"><span class="pre">charm_shc_read_gfc()</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1ad38866f0da4c14d02631c4ddbb723a1a"><span class="std std-ref"><span class="pre">charm_shc_read_tbl()</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a15f826d9e23977fd774db07c11a22939"><span class="std std-ref"><span class="pre">charm_shc_read_mtx()</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a8964cfa35210c0504a66352d4a08de62"><span class="std std-ref"><span class="pre">charm_shc_read_dov()</span></span></a></code>. </p>
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.CHARM_SHC_NMAX_MODEL">
+<span class="target" id="charm__shc_8h_1a386fcf3135c8b896e0ab20d4ab63c5a2"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_SHC_NMAX_MODEL</span></span></span> <span class="pre">(ULONG_MAX</span> <span class="pre">-</span> <span class="pre">1)</span><a class="headerlink" href="#c.CHARM_SHC_NMAX_MODEL" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Special value of the <code class="docutils literal notranslate"><span class="pre">nmax</span></code> input parameter to all functions that read spherical harmonic coefficients. If <code class="docutils literal notranslate"><span class="pre">nmax</span></code> is <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a386fcf3135c8b896e0ab20d4ab63c5a2"><span class="std std-ref"><span class="pre">CHARM_SHC_NMAX_MODEL</span></span></a></code> and <code class="docutils literal notranslate"><span class="pre">shcs</span></code> is <code class="docutils literal notranslate"><span class="pre">NULL</span></code>, the functions return the maximum harmonic degree found inside the file and do not read the rest of the file (see the documentation to <code class="docutils literal notranslate"><span class="pre">charm_shc_read_*</span></code> functions). The value is platform-dependent. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.CHARM_SHC_NMAX_ERROR">
+<span class="target" id="charm__shc_8h_1a81159bc53ff0bf69090ab5e066739849"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_SHC_NMAX_ERROR</span></span></span> <span class="pre">(ULONG_MAX)</span><a class="headerlink" href="#c.CHARM_SHC_NMAX_ERROR" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Special value signalizing that a function to read spherical harmonic coefficients encountered an error. The value is platform-dependent. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-allocate,-initialize-and-free-the-charm_shc-structure">Allocate, initialize and free the charm_shc structure</p>
 <p>These functions allocate, initialize and free the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure, which is designed to store spherical harmonic coefficients and some associated data such as the maximum degree of the coefficients, scaling constant, etc. </p>
 <dl class="cpp function">
@@ -592,7 +608,7 @@ this:</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Upon successful return, the function returns the maximum harmonic degree from <code class="docutils literal notranslate"><span class="pre">pathname</span></code>. On error, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a61dadd085c1777f559549e05962b2c9ead127c3f5c47238580c260e8d2ea20b98"><span class="std std-ref"><span class="pre">CHARM_SHC_NMAX_ERROR</span></span></a></code> is returned in addition to the error reporting through <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
+<dd class="field-odd"><p>Upon successful return, the function returns the maximum harmonic degree from <code class="docutils literal notranslate"><span class="pre">pathname</span></code>. On error, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a81159bc53ff0bf69090ab5e066739849"><span class="std std-ref"><span class="pre">CHARM_SHC_NMAX_ERROR</span></span></a></code> is returned in addition to the error reporting through <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
 </dd>
 </dl>
 </dd></dl>
@@ -627,7 +643,7 @@ has one additional input parameter when compared with
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Upon successful return, the function returns the maximum harmonic degree from <code class="docutils literal notranslate"><span class="pre">pathname</span></code>. On error, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a61dadd085c1777f559549e05962b2c9ead127c3f5c47238580c260e8d2ea20b98"><span class="std std-ref"><span class="pre">CHARM_SHC_NMAX_ERROR</span></span></a></code> is returned in addition to the error reporting through <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
+<dd class="field-odd"><p>Upon successful return, the function returns the maximum harmonic degree from <code class="docutils literal notranslate"><span class="pre">pathname</span></code>. On error, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a81159bc53ff0bf69090ab5e066739849"><span class="std std-ref"><span class="pre">CHARM_SHC_NMAX_ERROR</span></span></a></code> is returned in addition to the error reporting through <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
 </dd>
 </dl>
 </dd></dl>
@@ -668,7 +684,7 @@ without reading the spherical harmonic coefficients.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Upon successful return, the function returns the maximum harmonic degree from <code class="docutils literal notranslate"><span class="pre">pathname</span></code>. On error, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a61dadd085c1777f559549e05962b2c9ead127c3f5c47238580c260e8d2ea20b98"><span class="std std-ref"><span class="pre">CHARM_SHC_NMAX_ERROR</span></span></a></code> is returned in addition to the error reporting through <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
+<dd class="field-odd"><p>Upon successful return, the function returns the maximum harmonic degree from <code class="docutils literal notranslate"><span class="pre">pathname</span></code>. On error, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a81159bc53ff0bf69090ab5e066739849"><span class="std std-ref"><span class="pre">CHARM_SHC_NMAX_ERROR</span></span></a></code> is returned in addition to the error reporting through <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
 </dd>
 </dl>
 </dd></dl>
@@ -711,7 +727,7 @@ without reading the spherical harmonic coefficients.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Upon successful return, the function returns the maximum harmonic degree from <code class="docutils literal notranslate"><span class="pre">pathname</span></code>. On error, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a61dadd085c1777f559549e05962b2c9ead127c3f5c47238580c260e8d2ea20b98"><span class="std std-ref"><span class="pre">CHARM_SHC_NMAX_ERROR</span></span></a></code> is returned in addition to the error reporting through <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
+<dd class="field-odd"><p>Upon successful return, the function returns the maximum harmonic degree from <code class="docutils literal notranslate"><span class="pre">pathname</span></code>. On error, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a81159bc53ff0bf69090ab5e066739849"><span class="std std-ref"><span class="pre">CHARM_SHC_NMAX_ERROR</span></span></a></code> is returned in addition to the error reporting through <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
 </dd>
 </dl>
 </dd></dl>
@@ -755,7 +771,7 @@ without reading the spherical harmonic coefficients.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Upon successful return, the function returns the maximum harmonic degree from <code class="docutils literal notranslate"><span class="pre">pathname</span></code>. On error, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a61dadd085c1777f559549e05962b2c9ead127c3f5c47238580c260e8d2ea20b98"><span class="std std-ref"><span class="pre">CHARM_SHC_NMAX_ERROR</span></span></a></code> is returned in addition to the error reporting through <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
+<dd class="field-odd"><p>Upon successful return, the function returns the maximum harmonic degree from <code class="docutils literal notranslate"><span class="pre">pathname</span></code>. On error, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a81159bc53ff0bf69090ab5e066739849"><span class="std std-ref"><span class="pre">CHARM_SHC_NMAX_ERROR</span></span></a></code> is returned in addition to the error reporting through <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
 </dd>
 </dl>
 </dd></dl>
@@ -1014,25 +1030,6 @@ The path to the output file in <code class="docutils literal notranslate"><span 
 
 </dd></dl>
 
-<dl class="cpp enum">
-<dt class="sig sig-object cpp" id="_CPPv4Ut1_5">
-<span id="_CPPv3Ut1_5"></span><span class="target" id="charm__shc_8h_1a61dadd085c1777f559549e05962b2c9e"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">[anonymous]</span></span></span><a class="headerlink" href="#_CPPv4Ut1_5" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Special values for functions to read spherical harmonic harmonic coefficients: <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a8964cfa35210c0504a66352d4a08de62"><span class="std std-ref"><span class="pre">charm_shc_read_dov()</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1af6995bacff72c260aecb449bf9a41967"><span class="std std-ref"><span class="pre">charm_shc_read_gfc()</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1ad38866f0da4c14d02631c4ddbb723a1a"><span class="std std-ref"><span class="pre">charm_shc_read_tbl()</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a15f826d9e23977fd774db07c11a22939"><span class="std std-ref"><span class="pre">charm_shc_read_mtx()</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a8964cfa35210c0504a66352d4a08de62"><span class="std std-ref"><span class="pre">charm_shc_read_dov()</span></span></a></code>. </p>
-<p><em>Values:</em></p>
-<dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4NUt1_520CHARM_SHC_NMAX_MODELE">
-<span id="_CPPv3NUt1_520CHARM_SHC_NMAX_MODELE"></span><span class="target" id="charm__shc_8h_1a61dadd085c1777f559549e05962b2c9eaf97c711b8e643eb1a2f458b80090b209"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_SHC_NMAX_MODEL</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">ULONG_MAX</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><a class="headerlink" href="#_CPPv4NUt1_520CHARM_SHC_NMAX_MODELE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Special value of the <code class="docutils literal notranslate"><span class="pre">nmax</span></code> input parameter to all functions that read spherical harmonic coefficients. If <code class="docutils literal notranslate"><span class="pre">nmax</span></code> is <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a61dadd085c1777f559549e05962b2c9eaf97c711b8e643eb1a2f458b80090b209"><span class="std std-ref"><span class="pre">CHARM_SHC_NMAX_MODEL</span></span></a></code> and <code class="docutils literal notranslate"><span class="pre">shcs</span></code> is <code class="docutils literal notranslate"><span class="pre">NULL</span></code>, the functions return the maximum harmonic degree found inside the file and do not read the rest of the file (see the documentatino to <code class="docutils literal notranslate"><span class="pre">charm_shc_read_*</span></code> function). The value is platform-dependent. </p>
-</dd></dl>
-
-<dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4NUt1_520CHARM_SHC_NMAX_ERRORE">
-<span id="_CPPv3NUt1_520CHARM_SHC_NMAX_ERRORE"></span><span class="target" id="charm__shc_8h_1a61dadd085c1777f559549e05962b2c9ead127c3f5c47238580c260e8d2ea20b98"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_SHC_NMAX_ERROR</span></span></span><a class="headerlink" href="#_CPPv4NUt1_520CHARM_SHC_NMAX_ERRORE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Harmonic degree signalizing that a function to read spherical harmonic coefficients encountered an error. The value is platform-dependent. </p>
-</dd></dl>
-
-</dd></dl>
-
 </div>
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv49charm_shc">
@@ -1183,7 +1180,7 @@ By Blažej Bucha
     
   <p class="copyright">
     
-      © Copyright 2023, Blažej Bucha.
+      © Copyright 2024, Blažej Bucha.
       <br/>
     
   </p>
@@ -1192,7 +1189,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Sep 12, 2023.
+  Last updated on Feb 07, 2024.
   <br/>
 </p>
   </div>

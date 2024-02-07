@@ -42,7 +42,8 @@
                                                                               \
     for (l = 0; l < SIMD_BLOCK; l++)                                          \
     {                                                                         \
-        PNM_TESSERAL(x[l], y[l], pnm2[l], t[l], anms, bnms);                  \
+        PNM_RECURRENCE(x[l], y[l], pnm2[l], t[l], anms, bnms);                \
+        RECURRENCE_NEXT_ITER(y[l], x[l], pnm2[l]);                            \
     }                                                                         \
                                                                               \
                                                                               \

@@ -127,35 +127,30 @@ typedef struct
     int type;
 
 
-    /**
-     * Number of latitudes.
-     *
-     * * For **scattered** points (``charm@P@_point.type`` is
-     *   ``::CHARM_CRD_POINT_SCATTERED``), ``charm@P@_point.nlat`` represents
-     *   the total number of points in the ``charm@P@_point`` structure.
-     *
-     * * For **grids** (``charm@P@_point.type`` is ``::CHARM_CRD_POINT_GRID``,
-     *   ``::CHARM_CRD_POINT_GRID_GL``, ``::CHARM_CRD_POINT_GRID_DH1`` or
-     *   ``::CHARM_CRD_POINT_GRID_DH2``), ``charm@P@_point.nlat`` stands for
-     *   the numbers of points in the latitudinal direction of the grid.  */
+    /** Number of array elements associated with the ``charm@P@_point.lat``,
+     * ``charm@P@_point.r`` and ``charm@P@_point.w`` pointers. */
     size_t nlat;
 
 
-    /**
-     * Number of longitudes.
-     *
-     * * For **scattered** points, ``charm@P@_point.nlon`` represents the total
-     *   number of points in the ``charm@P@_point``
-     *   structure. ``charm@P@_point.nlon`` must be equal to
-     *   ``charm@P@_point.nlat``. The total number of points is
-     *   ``charm@P@_point.nlat == charm@P@_point.nlon``.
-     *
-     * * For **grids**, ``charm@P@_point.nlon`` stands for the numbers of
-     *   points in the longitudinal direction of the grid.
-     *   ``charm@P@_point.nlat`` and ``charm@P@_point.nlon`` may be different.
-     *   The total number of grid points is
-     *   ``charm@P@_point.nlat * charm@P@_point.nlon``.  */
+    /** Number of array elements associated with the ``charm@P@_point.lon``
+     * pointer. */
     size_t nlon;
+
+
+    /** Total number of points represented by the structure.
+     *
+     * Determines the total number of array elements that are necessary to
+     * store a signal sampled at the points of the structure.
+     *
+     * * For **scattered** points (``charm@P@_point.type`` is
+     *   ``::CHARM_CRD_POINT_SCATTERED``), ``charm@P@_point.npoint`` equals to
+     *   ``charm@P@_point.nlat`` and to ``charm@P@_point.nlon``.
+     *
+     * * For **grids** (``charm@P@_point.type`` is ``::CHARM_CRD_POINT_GRID``,
+     *   ``::CHARM_CRD_POINT_GRID_GL``, ``::CHARM_CRD_POINT_GRID_DH1`` or
+     *   ``::CHARM_CRD_POINT_GRID_DH2``), ``charm@P@_point.npoint`` is given as
+     *   ``charm@P@_point.nlat * charm@P@_point.nlon``. */
+    size_t npoint;
 
 
     /** Pointer to an array of latitudes in radians.  ``charm@P@_point.nlat``
@@ -220,62 +215,53 @@ typedef struct
     int type;
 
 
-    /**
-     * Number of latitudes.
-     *
-     * * For **scattered** cells (``charm@P@_cell.type`` set to
-     *   ``::CHARM_CRD_CELL_SCATTERED``), ``charm@P@_cell.nlat`` represents the
-     *   total number of cells in the ``charm@P@_cell`` structure.
-     *
-     * * For **grids** (``charm@P@_cell.type`` set to
-     *   ``::CHARM_CRD_CELL_GRID``), ``charm@P@_cell.nlat`` stands for the
-     *   numbers of cells in the latitudinal direction of the grid.  */
+    /** Number of array elements associated with the ``charm@P@_cell.latmin``,
+     * ``charm@P@_cell.latmax`` and ``charm@P@_cell.r`` pointers. */
     size_t nlat;
 
 
-    /**
-     * Number of longitudes.
-     *
-     * * For **scattered** cells, ``charm@P@_cell.nlon`` represents the total
-     *   number of cells in the ``charm@P@_cell``
-     *   structure. ``charm@P@_cell.nlon`` must be equal to
-     *   ``charm@P@_cell.nlat``. The total number of cells is equal to
-     *   ``charm@P@_cell.nlat == charm@P@_cell.nlon``.
-     *
-     * * For **grids**, ``charm@P@_cell.nlon`` stands for the numbers of cells
-     *   in the longitudinal direction of the grid.  ``charm@P@_cell.nlat`` and
-     *   ``charm@P@_cell.nlon`` may be different. The total number of grid
-     *   cells is ``charm@P@_cell.nlat * charm@P@_cell.nlon``.  */
+    /** Number of array elements associated with the ``charm@P@_cell.lonmin``
+     * and ``charm@P@_cell.lonmax`` pointers. */
     size_t nlon;
 
 
-    /** Pointer to an array of minimum cell latitudes in radians.
-     * ``charm@P@_cell.nlat`` array elements are associated with
-     * ``charm@P@_cell.latmin`` */
+    /** Total number of cells represented by the structure.
+     *
+     * Determines the total number of array elements that are necessary to
+     * store a signal sampled at the cells of the strucutre.
+     *
+     * * For **scattered** cells (``charm@P@_cell.type`` set to
+     *   ``::CHARM_CRD_CELL_SCATTERED``), ``charm@P@_cell.ncell`` equals to
+     *   ``charm@P@_cell.nlat`` and to ``charm@P@_cell.nlon``.
+     *
+     * * For **grids** (``charm@P@_cell.type`` set to
+     *   ``::CHARM_CRD_CELL_GRID``), ``charm@P@_cell.ncell`` is given as
+     *   ``charm@P@_cell.nlat * charm@P@_cell.nlon``.  */
+    size_t ncell;
+
+
+    /** Pointer to a ``charm@P@_cell.nlat`` array elements representing minimum
+     * cell latitudes in radians. */
     @RDT@ *latmin;
 
 
-    /** Pointer to an array of maximum cell latitudes in radians.
-     * ``charm@P@_cell.nlat`` array elements are associated with
-     * ``charm@P@_cell.latmax`` */
+    /** Pointer to a ``charm@P@_cell.nlat`` array elements representing maximum
+     * cell latitudes in radians. */
     @RDT@ *latmax;
 
 
-    /** Pointer to an array of minimum cell longitudes in
-     * radians. ``charm@P@_cell.nlon`` array elements are associated with
-     * ``charm@P@_cell.lonmin`` */
+    /** Pointer to a ``charm@P@_cell.nlon`` array elements representing minimum
+     * cell longitudes in radians. */
     @RDT@ *lonmin;
 
 
-    /** Pointer to an array of maximum cell longitudes in
-     * radians. ``charm@P@_cell.nlon`` array elements are associated with
-     * ``charm@P@_cell.lonmax`` */
+    /** Pointer to a ``charm@P@_cell.nlon`` array elements representing maximum
+     * cell longitudes in radians. */
     @RDT@ *lonmax;
 
 
-    /** Pointer to an array of spherical radii in
-     * metres. ``charm@P@_cell.nlat`` array elements are associated with
-     * ``charm@P@_cell.r``.  */
+    /** Pointer to a ``charm@P@_cell.nlat`` array elements representing
+     * spherical radii in metres.  */
     @RDT@ *r;
 
 

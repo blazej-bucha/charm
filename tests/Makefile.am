@@ -7,7 +7,8 @@ check_PROGRAMS = test_run@P@@OMP@
 noinst_PROGRAMS = genref_run@P@@OMP@
 
 
-EXTRA_DIST = *.h
+EXTRA_DIST = *.h \
+			 check_shs_point_all.c
 
 
 # Source files common to both the test and the genref program
@@ -18,6 +19,7 @@ SOURCES = main.c \
 		  write_val.c \
 		  validate.c \
 		  write.c \
+		  modify_low_degree_coefficients.c \
 		  generate_point.c \
 		  generate_cell.c \
 		  module_crd.c \
@@ -40,6 +42,9 @@ SOURCES = main.c \
 		  check_crd_cell_alloc.c \
 		  check_crd_cell_init.c \
 		  check_shs_point.c \
+		  check_shs_point_grad1.c \
+		  check_shs_point_grad2.c \
+		  check_shs_point_guru.c \
 		  check_shs_cell.c \
 		  check_shs_cell_isurf.c \
 		  check_sha_point.c \

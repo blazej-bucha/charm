@@ -6,6 +6,7 @@
 #include "../src/leg/leg_pnmj_length.h"
 #include "parameters.h"
 #include "check_struct.h"
+#include "check_leg_pnmj_alloc.h"
 /* ------------------------------------------------------------------------- */
 
 

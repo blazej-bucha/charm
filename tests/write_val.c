@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "../src/prec.h"
 #include "../src/misc/misc_fprintf_real.h"
+#include "write_val.h"
 /* ------------------------------------------------------------------------- */
 
 

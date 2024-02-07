@@ -5,6 +5,7 @@
 #include "../src/prec.h"
 #include "parameters.h"
 #include "check_struct.h"
+#include "check_crd_point_alloc.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -127,6 +128,11 @@ long int check_crd_point_alloc(CHARM(point) *(*crd_point_alloc)(int,
 
     e += check_struct_size_t(pnt->nlon, nlon, NEQ, VALID, func_call_str,
                              "returned a wrong value of \"nlon\"");
+
+
+    e += check_struct_size_t(pnt->npoint, nlat * nlon, NEQ, VALID,
+                             func_call_str,
+                             "returned a wrong value of \"npoint\"");
 
 
     e += check_struct_ptr(pnt->lat, NULL, EQ, VALID, func_call_str,

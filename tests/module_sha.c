@@ -6,6 +6,7 @@
 #include "check_outcome.h"
 #include "check_sha_point.h"
 #include "check_sha_cell.h"
+#include "module_sha.h"
 /* ------------------------------------------------------------------------- */
 
 

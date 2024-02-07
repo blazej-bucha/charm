@@ -5,7 +5,8 @@
 #include <stdlib.h>
 #include "../prec.h"
 #include "../err/err_set.h"
-#include "../misc/misc_is_nearly_equal.h"
+#include "misc_is_nearly_equal.h"
+#include "misc_arr_chck_symm.h"
 /* ------------------------------------------------------------------------- */
 
 

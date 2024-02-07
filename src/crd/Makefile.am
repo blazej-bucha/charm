@@ -21,7 +21,15 @@ libcharm@P@_crd@OMP@_la_SOURCES = crd_point_alloc.c \
 								  crd_cell_free.c \
 								  crd_cell_check_inputs.c \
 								  crd_grd_check_symm.c \
-								  crd_check_cells.c
+								  crd_check_cells.c \
+								  crd_point_isGrid.c \
+								  crd_point_isCustGrid.c \
+								  crd_point_isQuadGrid.c \
+								  crd_point_isSctr.c \
+								  crd_isPoint.c \
+								  crd_cell_isGrid.c \
+								  crd_cell_isSctr.c \
+								  crd_isCell.c
 
 
 EXTRA_DIST = *.h

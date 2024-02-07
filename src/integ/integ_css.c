@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "../prec.h"
 #include "integ_ss.h"
+#include "integ_css.h"
 /* ------------------------------------------------------------------------- */
 
 

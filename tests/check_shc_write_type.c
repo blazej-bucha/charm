@@ -7,6 +7,7 @@
 #include "cmp_arrays.h"
 #include "parameters.h"
 #include "check_shc_read_type.h"
+#include "check_shc_write_type.h"
 /* ------------------------------------------------------------------------- */
 
 

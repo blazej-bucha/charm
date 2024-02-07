@@ -5,6 +5,7 @@
 #include "../src/prec.h"
 #include "parameters.h"
 #include "check_struct.h"
+#include "check_shc_init.h"
 /* ------------------------------------------------------------------------- */
 
 

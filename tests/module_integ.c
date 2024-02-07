@@ -6,6 +6,7 @@
 #include "check_integ_yi1n1m1yi2n2m2.h"
 #include "check_func.h"
 #include "check_outcome.h"
+#include "module_integ.h"
 /* ------------------------------------------------------------------------- */
 
 

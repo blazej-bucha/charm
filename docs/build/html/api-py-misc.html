@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>pyharm.misc &#8212; CHarm 0.3.1 documentation</title>
+    <title>pyharm.misc &#8212; CHarm 0.4.0 documentation</title>
   
   
   
@@ -125,7 +125,7 @@
     <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
   
   
-    <p class="title logo__title">CHarm v0.3.1</p>
+    <p class="title logo__title">CHarm v0.4.0</p>
   
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
@@ -384,11 +384,13 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.print_version"><code class="docutils literal notranslate"><span class="pre">print_version()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.get_version"><code class="docutils literal notranslate"><span class="pre">get_version()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.print_info"><code class="docutils literal notranslate"><span class="pre">print_info()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_precision"><code class="docutils literal notranslate"><span class="pre">buildopt_precision()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_omp_charm"><code class="docutils literal notranslate"><span class="pre">buildopt_omp_charm()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_omp_fftw"><code class="docutils literal notranslate"><span class="pre">buildopt_omp_fftw()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_simd"><code class="docutils literal notranslate"><span class="pre">buildopt_simd()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_version_fftw"><code class="docutils literal notranslate"><span class="pre">buildopt_version_fftw()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_isfinite"><code class="docutils literal notranslate"><span class="pre">buildopt_isfinite()</span></code></a></li>
 </ul>
             </nav>
@@ -409,8 +411,15 @@ document.write(`
 <p>All functions that deal with numerics are written in double precision.</p>
 </div>
 <dl class="py function">
-<dt class="sig sig-object py" id="pyharm.misc.print_version">
-<span class="sig-prename descclassname"><span class="pre">pyharm.misc.</span></span><span class="sig-name descname"><span class="pre">print_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.misc.print_version" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="pyharm.misc.get_version">
+<span class="sig-prename descclassname"><span class="pre">pyharm.misc.</span></span><span class="sig-name descname"><span class="pre">get_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.misc.get_version" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns a string specifying the CHarm version number determined on
+compilation time.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyharm.misc.print_info">
+<span class="sig-prename descclassname"><span class="pre">pyharm.misc.</span></span><span class="sig-name descname"><span class="pre">print_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.misc.print_info" title="Permalink to this definition">#</a></dt>
 <dd><p>Prints library info (library name, version, compilation date, precision,
 etc).</p>
 </dd></dl>
@@ -458,6 +467,12 @@ parallelization.  Otherwise, zero is returned.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">3</span></code> if CHarm was compiled with AVX-512 instructions enabled
 (<code class="docutils literal notranslate"><span class="pre">--enable-avx-512</span></code>).</p></li>
 </ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyharm.misc.buildopt_version_fftw">
+<span class="sig-prename descclassname"><span class="pre">pyharm.misc.</span></span><span class="sig-name descname"><span class="pre">buildopt_version_fftw</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.misc.buildopt_version_fftw" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns a string specifying the FFTW version used to compile CHarm.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -521,11 +536,13 @@ not working correctly with <code class="docutils literal notranslate"><span clas
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.print_version"><code class="docutils literal notranslate"><span class="pre">print_version()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.get_version"><code class="docutils literal notranslate"><span class="pre">get_version()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.print_info"><code class="docutils literal notranslate"><span class="pre">print_info()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_precision"><code class="docutils literal notranslate"><span class="pre">buildopt_precision()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_omp_charm"><code class="docutils literal notranslate"><span class="pre">buildopt_omp_charm()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_omp_fftw"><code class="docutils literal notranslate"><span class="pre">buildopt_omp_fftw()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_simd"><code class="docutils literal notranslate"><span class="pre">buildopt_simd()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_version_fftw"><code class="docutils literal notranslate"><span class="pre">buildopt_version_fftw()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_isfinite"><code class="docutils literal notranslate"><span class="pre">buildopt_isfinite()</span></code></a></li>
 </ul>
   </nav></div>
@@ -550,7 +567,7 @@ By Blažej Bucha
     
   <p class="copyright">
     
-      © Copyright 2023, Blažej Bucha.
+      © Copyright 2024, Blažej Bucha.
       <br/>
     
   </p>
@@ -559,7 +576,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Sep 12, 2023.
+  Last updated on Feb 07, 2024.
   <br/>
 </p>
   </div>

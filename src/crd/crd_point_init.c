@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include "../prec.h"
 #include "crd_point_check_inputs.h"
+#include "crd_point_isSctr.h"
+#include "crd_point_isGrid.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -45,6 +47,10 @@ CHARM(point) *CHARM(crd_point_init)(int type, size_t nlat, size_t nlon,
     /* --------------------------------------------------------------------- */
     pnt->nlat  = nlat;
     pnt->nlon  = nlon;
+    if (CHARM(crd_point_isSctr)(type))
+        pnt->npoint = nlat;
+    else if (CHARM(crd_point_isGrid)(type))
+        pnt->npoint = nlat * nlon;
     pnt->type  = type;
     pnt->owner = 0;
     /* --------------------------------------------------------------------- */

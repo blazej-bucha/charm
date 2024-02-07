@@ -3,6 +3,7 @@
 #include <config.h>
 #include <stdio.h>
 #include "../prec.h"
+#include "crd_grd_check_symm.h"
 /* ------------------------------------------------------------------------- */
 
 

@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "../prec.h"
 #include "../err/err_set.h"
+#include "crd_check_cells.h"
 /* ------------------------------------------------------------------------- */
 
 

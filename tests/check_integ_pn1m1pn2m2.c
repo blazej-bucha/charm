@@ -5,6 +5,7 @@
 #include "../src/prec.h"
 #include "cmp_vals.h"
 #include "parameters.h"
+#include "check_integ_pn1m1pn2m2.h"
 /* ------------------------------------------------------------------------- */
 
 

@@ -6,6 +6,7 @@
 #include <math.h>
 #include "../prec.h"
 #include "../simd/simd.h"
+#include "shs_cell_isurf_lr.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -13,7 +14,7 @@
 
 
 
-void CHARM(shs_cell_isurf_lr)(REAL lon0, REAL dlon, size_t nlon,
+void CHARM(shs_cell_isurf_lr)(REAL lon0, REAL deltalon, size_t nlon,
                               REAL_SIMD lc00, REAL_SIMD lc01,
                               REAL_SIMD lc10, REAL_SIMD lc11,
                               unsigned long m1,
@@ -26,9 +27,9 @@ void CHARM(shs_cell_isurf_lr)(REAL lon0, REAL dlon, size_t nlon,
  *              "CHARM(shs_cell_isurf)" function.
  *
  *
- * INPUTS: "lon0", "dlon", ..., "m3" -- All variables have the same meaning as
- *                                      in "CHARM(shs_cell_isurf)",
- *                                      where further details can be found.
+ * INPUTS: "lon0", "deltalon", ..., "m3" -- All variables have the same meaning
+ *                                      as in "CHARM(shs_cell_isurf)", where
+ *                                      further details can be found.
  *
  *
  * OUTPUTS: "fi" -- A pointer to an array of dimensions "nlon" to store the
@@ -40,21 +41,21 @@ void CHARM(shs_cell_isurf_lr)(REAL lon0, REAL dlon, size_t nlon,
 {
     if ((m1 == 0) && (m3 == 0))
     {
-        REAL_SIMD tmp = MUL_R(SET1_R(dlon), lc00);
+        REAL_SIMD tmp = MUL_R(SET1_R(deltalon), lc00);
         for (size_t j = 0; j < nlon; j++)
             STORE_R(&fi[j * SIMD_SIZE], ADD_R(LOAD_R(&fi[j * SIMD_SIZE]),
                                               tmp));
     }
     else if ((m1 == 0) || (m3 == 0))
     {
-        REAL lon1   = lon0 + dlon;
-        REAL lon2   = lon1 + dlon;
+        REAL lon1   = lon0 + deltalon;
+        REAL lon2   = lon1 + deltalon;
         REAL k      = (m1 == 0) ? (REAL)m3 : (REAL)m1;
         REAL k_2    = k / PREC(2.0);
-        REAL_SIMD d = SET1_R(PREC(2.0) * COS(k * dlon));
+        REAL_SIMD d = SET1_R(PREC(2.0) * COS(k * deltalon));
 
 
-        REAL_SIMD z  = SET1_R(PREC(2.0) * SIN(k_2 * dlon) / k);
+        REAL_SIMD z  = SET1_R(PREC(2.0) * SIN(k_2 * deltalon) / k);
         REAL lon_tmp = k_2 * (lon0 + lon1);
         REAL_SIMD zs = SET1_R(SIN(lon_tmp));
         REAL_SIMD zc = SET1_R(COS(lon_tmp));
@@ -101,21 +102,22 @@ void CHARM(shs_cell_isurf_lr)(REAL lon0, REAL dlon, size_t nlon,
     }
     else if (m1 == m3)
     {
-        REAL lon1   = lon0 + dlon;
-        REAL lon2   = lon1 + dlon;
+        REAL lon1   = lon0 + deltalon;
+        REAL lon2   = lon1 + deltalon;
         /* Note that "m1 == m3" */
         REAL k      = PREC(2.0) * (REAL)m1;
         REAL k_2    = k / PREC(2.0);
-        REAL_SIMD d = SET1_R(PREC(2.0) * COS(k * dlon));
+        REAL_SIMD d = SET1_R(PREC(2.0) * COS(k * deltalon));
 
 
-        REAL_SIMD z    = SET1_R(SIN(k_2 * dlon) / k);
+        REAL_SIMD z    = SET1_R(SIN(k_2 * deltalon) / k);
         REAL lon_tmp   = k_2 * (lon0 + lon1);
         REAL_SIMD zs   = SET1_R(SIN(lon_tmp));
         REAL_SIMD zc   = SET1_R(COS(lon_tmp));
         REAL_SIMD tmp0 = MUL_R(z, ADD_R(MUL_R(zs, ADD_R(lc01, lc10)),
                                         MUL_R(zc, SUB_R(lc00, lc11))));
-        REAL_SIMD c    = MUL_R(SET1_R(dlon / PREC(2.0)), ADD_R(lc00, lc11));
+        REAL_SIMD c    = MUL_R(SET1_R(deltalon / PREC(2.0)),
+                               ADD_R(lc00, lc11));
         STORE_R(&fi[0], ADD_R(LOAD_R(&fi[0]), ADD_R(c, tmp0)));
 
 
@@ -151,18 +153,18 @@ void CHARM(shs_cell_isurf_lr)(REAL lon0, REAL dlon, size_t nlon,
     }
     else
     {
-        REAL lon1    = lon0 + dlon;
-        REAL lon2    = lon1 + dlon;
+        REAL lon1    = lon0 + deltalon;
+        REAL lon2    = lon1 + deltalon;
         REAL k1      = (REAL)m3 - (REAL)m1;
         REAL k2      = (REAL)m3 + (REAL)m1;
         REAL k1_2    = k1 / PREC(2.0);
         REAL k2_2    = k2 / PREC(2.0);
-        REAL_SIMD d1 = SET1_R(PREC(2.0) * COS(k1 * dlon));
-        REAL_SIMD d2 = SET1_R(PREC(2.0) * COS(k2 * dlon));
+        REAL_SIMD d1 = SET1_R(PREC(2.0) * COS(k1 * deltalon));
+        REAL_SIMD d2 = SET1_R(PREC(2.0) * COS(k2 * deltalon));
 
 
-        REAL_SIMD z1 = SET1_R(SIN(k1_2 * dlon) / k1);
-        REAL_SIMD z2 = SET1_R(SIN(k2_2 * dlon) / k2);
+        REAL_SIMD z1 = SET1_R(SIN(k1_2 * deltalon) / k1);
+        REAL_SIMD z2 = SET1_R(SIN(k2_2 * deltalon) / k2);
 
 
         REAL lon_tmp = lon0 + lon1;

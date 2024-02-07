@@ -6,6 +6,8 @@
 #include "../src/prec.h"
 #include "cmp_arrays.h"
 #include "parameters.h"
+#include "modify_low_degree_coefficients.h"
+#include "check_sha_point.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -47,10 +49,7 @@ long int check_sha_point(void)
 
     /* Modify coefficients of degrees "0" and "1" to allow for an accurate
      * validation in all precisions. */
-    shcs_ref->c[0][0 - 0] = (REAL)C00;
-    shcs_ref->c[0][1 - 0] = (REAL)C10;
-    shcs_ref->c[1][1 - 1] = (REAL)C11;
-    shcs_ref->s[1][1 - 1] = (REAL)S11;
+    modify_low_degree_coefficients(shcs_ref);
     /* --------------------------------------------------------------------- */
 
 
@@ -120,7 +119,7 @@ long int check_sha_point(void)
             }
 
 
-            f = (REAL *)malloc(grd_pnt->nlat * grd_pnt->nlon * sizeof(REAL));
+            f = (REAL *)malloc(grd_pnt->npoint * sizeof(REAL));
             if (f == NULL)
             {
                 fprintf(stderr, "Failed to initialize an array to store the "
@@ -172,8 +171,8 @@ long int check_sha_point(void)
      * a test, we need sufficiently large harmonic degrees, so that CHarm will
      * actually apply the dynamical switching and loop unrolling.  But to avoid
      * having large input data files, we simply set spherical harmonic
-     * coefficients to some fake values in this test.  Except for this, the 
-     * test is almost identical to the previous ones that used actual spherical 
+     * coefficients to some fake values in this test.  Except for this, the
+     * test is almost identical to the previous ones that used actual spherical
      * harmonic coefficients. */
     /* --------------------------------------------------------------------- */
     for (int i = 0; i < 3; i++)
@@ -237,7 +236,7 @@ long int check_sha_point(void)
             }
 
 
-            f = (REAL *)malloc(grd_pnt->nlat * grd_pnt->nlon * sizeof(REAL));
+            f = (REAL *)malloc(grd_pnt->npoint * sizeof(REAL));
             if (f == NULL)
             {
                 fprintf(stderr, "Failed to initialize an array to store the "

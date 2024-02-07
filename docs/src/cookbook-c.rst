@@ -127,6 +127,16 @@ This section shows several examples.
    :language: c
 
 
+First- and second-order gradients (gravitational vector and tensor)
+-------------------------------------------------------------------
+
+This example shows how to compute the full gravitational vector and the full
+gravitational tensor in the :ref:`lnof`.
+
+.. literalinclude:: ../../cookbook/c/gradients.c
+   :language: c
+
+
 Fourier coefficients of Legendre functions
 ------------------------------------------
 

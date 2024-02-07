@@ -5,6 +5,7 @@
 #include <math.h>
 #include "../src/prec.h"
 #include "../src/simd/simd.h"
+#include "check_simd_neg_r.h"
 /* ------------------------------------------------------------------------- */
 
 

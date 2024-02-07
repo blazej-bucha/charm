@@ -22,7 +22,7 @@ extern void CHARM(shs_grd_fft)(size_t, int, size_t, size_t,
                                FFTW(complex) *, FFTW(complex) *, size_t,
                                const REAL *, const REAL *,
                                REAL, const FFTW(plan), const REAL *,
-                               REAL *, REAL *, REAL *);
+                               REAL *, REAL *);
 
 
 #ifdef __cplusplus

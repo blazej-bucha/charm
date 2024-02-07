@@ -6,6 +6,7 @@
 #include "check_simd_neg_r.h"
 #include "check_func.h"
 #include "check_outcome.h"
+#include "misc.h"
 /* ------------------------------------------------------------------------- */
 
 

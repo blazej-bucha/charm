@@ -5,6 +5,7 @@ AM_CPPFLAGS = -I$(top_srcdir)/charm
 
 
 libcharm@P@_leg@OMP@_la_SOURCES = leg_func_anm_bnm.c \
+								  leg_func_enm.c \
 								  leg_func_dm.c \
 								  leg_func_gm_hm.c \
 								  leg_func_prepare.c \

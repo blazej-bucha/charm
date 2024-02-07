@@ -3,6 +3,7 @@
 #include <config.h>
 #include <stdlib.h>
 #include "../prec.h"
+#include "leg_func_anm_bnm.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -33,7 +34,7 @@ void CHARM(leg_func_anm_bnm)(unsigned long nmax, unsigned long m,
     /* Let's treat the zero/non-defined coefficients */
     /* --------------------------------------------------------------------- */
     /* "amm", "bmm" */
-    anm[0] = bnm[0] = PREC(0.0);
+    anm[m] = bnm[m] = PREC(0.0);
 
 
     if (m == nmax)

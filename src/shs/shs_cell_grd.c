@@ -14,6 +14,8 @@
 #include "shs_grd_fft_lc.h"
 #include "shs_cell_check_grd_lons.h"
 #include "shs_grd_fft.h"
+#include "shs_lc_struct.h"
+#include "shs_lc_init.h"
 #include "../leg/leg_func_anm_bnm.h"
 #include "../leg/leg_func_dm.h"
 #include "../leg/leg_func_gm_hm.h"
@@ -30,6 +32,7 @@
 #include "../simd/simd.h"
 #include "../simd/calloc_aligned.h"
 #include "../simd/free_aligned.h"
+#include "shs_cell_grd.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -114,8 +117,8 @@ void CHARM(shs_cell_grd)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
     size_t cell_nlon = cell->nlon;
 
 
-    REAL dlon;
-    CHARM(shs_cell_check_grd_lons)(cell, &dlon, err);
+    REAL deltalon;
+    CHARM(shs_cell_check_grd_lons)(cell, &deltalon, err);
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
@@ -130,7 +133,7 @@ void CHARM(shs_cell_grd)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
 
 
     /* Length of the lumped coefficients arrays in case FFT will be applied */
-    size_t nlc = cell_nlon / 2 + 1;
+    size_t nfc = cell_nlon / 2 + 1;
 
 
     /* If true, FFT is applied along the latitude parallels */
@@ -177,7 +180,7 @@ void CHARM(shs_cell_grd)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
     REAL *fn          = NULL;
     REAL *gm          = NULL;
     REAL *hm          = NULL;
-    FFTW(complex) *lc = NULL;
+    FFTW(complex) *fc = NULL;
     REAL *ftmp        = NULL;
     FFTW(plan) plan   = NULL;
     /* --------------------------------------------------------------------- */
@@ -269,35 +272,35 @@ void CHARM(shs_cell_grd)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
     /* --------------------------------------------------------------------- */
     if (use_fft)
     {
-        lc  = (FFTW(complex) *)FFTW(malloc)(nlc * SIMD_SIZE *
+        fc  = (FFTW(complex) *)FFTW(malloc)(nfc * SIMD_SIZE *
                                             sizeof(FFTW(complex)));
-        if (lc == NULL)
+        if (fc == NULL)
         {
-            FFTW(free)(lc);
+            FFTW(free)(fc);
             FAILURE_glob = 1;
             goto FAILURE;
         }
         ftmp = (REAL *)FFTW(malloc)(cell_nlon * sizeof(REAL));
         if (ftmp == NULL)
         {
-            FFTW(free)(lc);
+            FFTW(free)(fc);
             FFTW(free)(ftmp);
             FAILURE_glob = 1;
             goto FAILURE;
         }
 
 
-        plan = FFTW(plan_dft_c2r_1d)(cell_nlon, lc, ftmp, FFTW_ESTIMATE);
+        plan = FFTW(plan_dft_c2r_1d)(cell_nlon, fc, ftmp, FFTW_ESTIMATE);
         if (plan == NULL)
         {
-            FFTW(free)(lc);
+            FFTW(free)(fc);
             FFTW(free)(ftmp);
             FAILURE_glob = 1;
             goto FAILURE;
         }
 
 
-        FFTW(free)(ftmp); FFTW(free)(lc);
+        FFTW(free)(ftmp); FFTW(free)(fc);
     }
     /* --------------------------------------------------------------------- */
 
@@ -322,14 +325,17 @@ void CHARM(shs_cell_grd)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
 #if CHARM_OPENMP
 #pragma omp parallel default(none) \
 shared(f, shcs, nmax, cell, cell_nlat, cell_nlon, dm, en, fn, gm, hm, r, ri) \
-shared(nlatdo, lon0, dlon, even, symm, FAILURE_glob, mur, err, cell_type, pt) \
-shared(nlc, plan, use_fft, rref)
+shared(nlatdo, lon0, deltalon, even, symm, FAILURE_glob, mur, err, cell_type) \
+shared(pt, nfc, plan, use_fft, rref)
 #endif
     {
         /* ................................................................. */
         /* An indicator for failed memory initializations on each thread,
          * a private variable. */
         int FAILURE_priv = 0;
+
+
+        size_t nfi = cell_nlon * SIMD_SIZE;
 
 
         int  *ips1         = NULL;
@@ -344,16 +350,15 @@ shared(nlc, plan, use_fft, rref)
         REAL *u2v          = NULL;
         REAL *symmv        = NULL;
         REAL *latsinv      = NULL;
-        REAL *lc_simd      = NULL;
-        REAL *lc2_simd     = NULL;
+        REAL *fc_simd      = NULL;
+        REAL *fc2_simd     = NULL;
         REAL *anm          = NULL;
         REAL *bnm          = NULL;
         REAL *fi           = NULL;
         REAL *fi2          = NULL;
         REAL *ftmp         = NULL;
-        REAL *ftmp2        = NULL;
-        FFTW(complex) *lc  = NULL;
-        FFTW(complex) *lc2 = NULL;
+        FFTW(complex) *fc  = NULL;
+        FFTW(complex) *fc2 = NULL;
         REAL *cell_rv      = NULL;
         REAL *cell_r2v     = NULL;
 
@@ -464,18 +469,18 @@ shared(nlc, plan, use_fft, rref)
                 FAILURE_priv = 1;
                 goto FAILURE_1_parallel;
             }
-            lc = (FFTW(complex) *)FFTW(malloc)(nlc * SIMD_SIZE *
+            fc = (FFTW(complex) *)FFTW(malloc)(nfc * SIMD_SIZE *
                                                sizeof(FFTW(complex)));
-            if (lc == NULL)
+            if (fc == NULL)
             {
                 FAILURE_priv = 1;
                 goto FAILURE_1_parallel;
             }
-            memset(lc, 0, nlc * SIMD_SIZE * sizeof(FFTW(complex)));
-            lc_simd = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                                    nlc * SIMD_SIZE * 2,
+            memset(fc, 0, nfc * SIMD_SIZE * sizeof(FFTW(complex)));
+            fc_simd = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                                    nfc * SIMD_SIZE * 2,
                                                     sizeof(REAL));
-            if (lc_simd == NULL)
+            if (fc_simd == NULL)
             {
                 FAILURE_priv = 1;
                 goto FAILURE_1_parallel;
@@ -483,8 +488,7 @@ shared(nlc, plan, use_fft, rref)
         }
         else
         {
-            fi = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                               cell_nlon * SIMD_SIZE,
+            fi = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, nfi,
                                                sizeof(REAL));
             if (fi == NULL)
             {
@@ -507,24 +511,18 @@ shared(nlc, plan, use_fft, rref)
         {
             if (use_fft)
             {
-                ftmp2 = (REAL *)FFTW(malloc)(cell_nlon * sizeof(REAL));
-                if (ftmp2 == NULL)
-                {
-                    FAILURE_priv = 1;
-                    goto FAILURE_1_parallel;
-                }
-                lc2 = (FFTW(complex) *)FFTW(malloc)(nlc * SIMD_SIZE *
+                fc2 = (FFTW(complex) *)FFTW(malloc)(nfc * SIMD_SIZE *
                                                     sizeof(FFTW(complex)));
-                if (lc2 == NULL)
+                if (fc2 == NULL)
                 {
                     FAILURE_priv = 1;
                     goto FAILURE_1_parallel;
                 }
-                memset(lc2, 0, nlc * SIMD_SIZE * sizeof(FFTW(complex)));
-                lc2_simd = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                                         nlc * SIMD_SIZE * 2,
+                memset(fc2, 0, nfc * SIMD_SIZE * sizeof(FFTW(complex)));
+                fc2_simd = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                                         nfc * SIMD_SIZE * 2,
                                                          sizeof(REAL));
-                if (lc2_simd == NULL)
+                if (fc2_simd == NULL)
                 {
                     FAILURE_priv = 1;
                     goto FAILURE_1_parallel;
@@ -532,8 +530,7 @@ shared(nlc, plan, use_fft, rref)
             }
             else
             {
-                fi2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                                    cell_nlon * SIMD_SIZE,
+                fi2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, nfi,
                                                     sizeof(REAL));
                 if (fi2 == NULL)
                 {
@@ -608,6 +605,8 @@ FAILURE_1_parallel:
         ratio = ratio2 = ratiom = ratio2m = SET_ZERO_R;
 
 
+        CHARM(lc) lc;
+        CHARM(shs_lc_init)(&lc);
         REAL_SIMD a, b, a2, b2;
         a = b = a2 = b2 = SET_ZERO_R;
         REAL_SIMD imm0, imm1, imm2;
@@ -694,12 +693,12 @@ FAILURE_1_parallel:
                  * overwrites even the *input* array.  For some combinations of
                  * "nmax" and "cell_nlon", this is not a problem, while for
                  * other combinations, this causes incorrect results.  Here, we
-                 * have to therefore reset "lc" and "lc2" to zeros.*/
-                memset(lc, 0, nlc * SIMD_SIZE * sizeof(FFTW(complex)));
+                 * have to therefore reset "fc" and "fc2" to zeros.*/
+                memset(fc, 0, nfc * SIMD_SIZE * sizeof(FFTW(complex)));
 
 
                 if (symm)
-                    memset(lc2, 0, nlc * SIMD_SIZE * sizeof(FFTW(complex)));
+                    memset(fc2, 0, nfc * SIMD_SIZE * sizeof(FFTW(complex)));
             }
             else
             {
@@ -707,11 +706,11 @@ FAILURE_1_parallel:
                  * the "ipv"th latitude parallel. Therefore, it needs to be
                  * reinitialized to zero for each "ith" latitude. The same
                  * holds true for "fi2" in case of symmetric grids. */
-                memset(fi, 0, cell_nlon * SIMD_SIZE * sizeof(REAL));
+                memset(fi, 0, nfi * sizeof(REAL));
 
 
                 if (symm)
-                    memset(fi2, 0, cell_nlon * SIMD_SIZE * sizeof(REAL));
+                    memset(fi2, 0, nfi * sizeof(REAL));
             }
             /* ------------------------------------------------------------- */
 
@@ -750,13 +749,30 @@ FAILURE_1_parallel:
                                        &a, &b, &a2, &b2);
 
 
+                /* The two function calls that follow require "CHARM(lc)" as an
+                 * input, so it is prepared here.  We did not want to use
+                 * "CHARM(lc)", however, in the previous function call.  The
+                 * reason is that "CHARM(lc)" assumes "SIMD_BLOCK" larger than
+                 * "1" but with cells, the block size is always "1".  In that
+                 * case, it may be suboptimal to create "CHARM(lc)" for some
+                 * "BLOCK_SIZE > 1", but use it only for a single block (lots
+                 * of useless memory jumps that may reduce cache efficiency).
+                 * In the two function calls that follow, the memory jumps are,
+                 * however, not at all critical, so they can rely on
+                 * "CHARM(lc)" without deteriorating the performance. */
+                lc.a[0]  = a;
+                lc.b[0]  = b;
+                lc.a2[0] = a2;
+                lc.b2[0] = b2;
+
+
                 if (use_fft)
-                    CHARM(shs_grd_fft_lc)(m, dlon, &a, &b, &a2, &b2, symm,
-                                          &symm_simd, cell_type,
-                                          lc_simd, lc2_simd);
+                    CHARM(shs_grd_fft_lc)(m, deltalon, 0, &lc,
+                                          symm, &symm_simd, cell_type,
+                                          nfc, fc_simd, fc2_simd);
                 else
-                    CHARM(shs_grd_lr)(m, lon0, dlon, cell_nlon, cell_type,
-                                      &a, &b, &a2, &b2, symm, fi, fi2);
+                    CHARM(shs_grd_lr)(m, lon0, deltalon, cell_nlon, cell_type,
+                                      0, 1, nfi, &lc, symm, fi, fi2);
 
 
 UPDATE_RATIOS:
@@ -772,14 +788,13 @@ UPDATE_RATIOS:
             if (use_fft)
                 /* Fourier transform along the latitude parallels */
                 CHARM(shs_grd_fft)(i, cell_type, cell_nlat, cell_nlon,
-                                   latsinv, latminv, latmaxv, dlon,
-                                   lc, lc2, nlc, lc_simd, lc2_simd,
-                                   mur, plan, symmv, ftmp, ftmp2,
-                                   f);
+                                   latsinv, latminv, latmaxv, deltalon,
+                                   fc, fc2, nfc, fc_simd, fc2_simd,
+                                   mur, plan, symmv, ftmp, f);
             else
                 CHARM(shs_grd_lr2)(i, latsinv,
                                    cell_type, cell_nlat, cell_nlon,
-                                   symmv, mur, latminv, latmaxv, dlon,
+                                   symmv, mur, latminv, latmaxv, deltalon,
                                    fi, fi2, f);
 
 
@@ -797,9 +812,9 @@ FAILURE_2_parallel:
         CHARM(free_aligned)(latminv);  CHARM(free_aligned)(latmaxv);
         CHARM(free_aligned)(fi);       CHARM(free_aligned)(fi2);
         free(anm);                     free(bnm);
-        FFTW(free)(lc);                FFTW(free)(lc2);
-        FFTW(free)(ftmp);              FFTW(free)(ftmp2);
-        CHARM(free_aligned)(lc_simd);  CHARM(free_aligned)(lc2_simd);
+        FFTW(free)(fc);                FFTW(free)(fc2);
+        FFTW(free)(ftmp);
+        CHARM(free_aligned)(fc_simd);  CHARM(free_aligned)(fc2_simd);
 
 
     } /* End of "#pragma omp parallel" */

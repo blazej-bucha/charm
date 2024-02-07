@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Introduction &#8212; CHarm 0.3.1 documentation</title>
+    <title>Introduction &#8212; CHarm 0.4.0 documentation</title>
   
   
   
@@ -125,7 +125,7 @@
     <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
   
   
-    <p class="title logo__title">CHarm v0.3.1</p>
+    <p class="title logo__title">CHarm v0.4.0</p>
   
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
@@ -414,10 +414,12 @@ harmonic synthesis with minimized memory requirements.</p></li>
 <li><p>Stable up to high degrees and orders (tens of thousands and beyond).</p></li>
 <li><p>Available in single, double and quadruple precision.</p></li>
 <li><p>Supports point and mean data values (both analysis and synthesis).</p></li>
-<li><p>Supports synthesis at grids and at scattered points/cells.  Synthesis at
-grids is done by efficient FFT-based algorithms if possible.  For grids,
-where FFT cannot be used, applied are the Chebyshev recurrences along the
-latitude parallels.</p></li>
+<li><p>Supports synthesis at grids and at scattered points/cells.  Grid-wise
+computations are done by FFT whenever possible.  If FFT cannot be applied,
+the less efficient Chebyshev recurrences are used along the latitude
+parallels instead.</p></li>
+<li><p>Computes the full first- and second-order gradients at evaluation points
+(e.g., the gravitational vector and the gravitational tensor).</p></li>
 <li><p>Supports the Gauss–Legendre and Driscoll–Healy quadratures.</p></li>
 <li><p>Integrates solid spherical harmonic expansions (e.g., of the gravitational
 potential) on band-limited irregular surfaces (e.g., on the Earth’s
@@ -582,7 +584,7 @@ By Blažej Bucha
     
   <p class="copyright">
     
-      © Copyright 2023, Blažej Bucha.
+      © Copyright 2024, Blažej Bucha.
       <br/>
     
   </p>
@@ -591,7 +593,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Sep 12, 2023.
+  Last updated on Feb 07, 2024.
   <br/>
 </p>
   </div>

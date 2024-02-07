@@ -441,6 +441,21 @@ dnl ===========================================================================
 
 
 
+dnl Export some useful user-defined options from the "./configure" call into
+dnl "config.h".
+dnl ===========================================================================
+AC_DEFINE_UNQUOTED(_CHARM_CC,["$CC"],[Used compiler.])
+AC_DEFINE_UNQUOTED(_CHARM_CFLAGS,["$CFLAGS"],[CFLAGS used to compile CHarm.])
+AC_DEFINE_UNQUOTED(_CHARM_CPPFLAGS,["$CPPFLAGS"],[CPPFLAGS used to compile CHarm.])
+AC_DEFINE_UNQUOTED(_CHARM_LDFLAGS,["$LDFLAGS"],[LDFLAGS used to compile CHarm.])
+AC_DEFINE_UNQUOTED(_CHARM_LIBS,["$LIBS"],[LDFLAGS used to compile CHarm.])
+dnl ===========================================================================
+
+
+
+
+
+
 AC_CONFIG_FILES([Makefile \
                  charm/charm${P}.h:src/charm.h.in \
                  charm/charm${P}_crd.h:src/crd/crd.h.in \

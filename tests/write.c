@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "../src/prec.h"
 #include "write_array.h"
+#include "write.h"
 /* ------------------------------------------------------------------------- */
 
 

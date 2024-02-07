@@ -7,7 +7,8 @@
 #include "../prec.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
-#include "../misc/misc_arr_mean.h"
+#include "misc_arr_mean.h"
+#include "misc_arr_std.h"
 /* ------------------------------------------------------------------------- */
 
 

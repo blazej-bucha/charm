@@ -13,7 +13,8 @@ libcharm@P@_misc@OMP@_la_SOURCES = misc_arr_chck_lin_incr.c \
 								   misc_arr_rms.c \
 								   misc_is_nearly_equal.c \
 								   misc_fprintf_real.c \
-								   misc_print_version.c \
+								   misc_print_info.c \
+								   misc_get_version.c \
 								   misc_str2ul.c \
 								   misc_str2real.c \
 								   misc_calloc.c \
@@ -23,7 +24,8 @@ libcharm@P@_misc@OMP@_la_SOURCES = misc_arr_chck_lin_incr.c \
 								   misc_buildopt_omp_charm.c \
 								   misc_buildopt_omp_fftw.c \
 								   misc_buildopt_simd.c \
-								   misc_buildopt_isfinite.c
+								   misc_buildopt_isfinite.c \
+								   misc_buildopt_version_fftw.c
 
 
 EXTRA_DIST = *.h

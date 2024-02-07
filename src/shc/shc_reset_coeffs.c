@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "../prec.h"
+#include "shc_reset_coeffs.h"
 /* ------------------------------------------------------------------------- */
 
 

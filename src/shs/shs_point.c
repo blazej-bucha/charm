@@ -6,8 +6,11 @@
 #include "../prec.h"
 #include "shs_point_grd.h"
 #include "shs_point_sctr.h"
+#include "shs_point_gradn.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
+#include "../crd/crd_point_isSctr.h"
+#include "../crd/crd_point_isGrid.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -15,8 +18,11 @@
 
 
 
-void CHARM(shs_point)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
-                      unsigned long nmax, REAL *f, CHARM(err) *err)
+void CHARM(shs_point)(const CHARM(point) *pnt,
+                      const CHARM(shc) *shcs,
+                      unsigned long nmax,
+                      REAL *f,
+                      CHARM(err) *err)
 {
     /* Some trivial initial error checks */
     /* --------------------------------------------------------------------- */
@@ -37,7 +43,7 @@ void CHARM(shs_point)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
 
     /* Now do the synthesis */
     /* --------------------------------------------------------------------- */
-    if (pnt->type == CHARM_CRD_POINT_SCATTERED)
+    if (CHARM(crd_point_isSctr)(pnt->type))
     {
         if (pnt->nlat != pnt->nlon)
         {
@@ -50,20 +56,18 @@ void CHARM(shs_point)(const CHARM(point) *pnt, const CHARM(shc) *shcs,
 
 
         /* Point-wise synthesis */
-        CHARM(shs_point_sctr)(pnt, shcs, nmax, f, err);
+        CHARM(shs_point_sctr)(pnt, shcs, nmax, GRAD_0, GRAD_0, GRAD_0, &f,
+                              err);
         if (!CHARM(err_isempty)(err))
         {
             CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
             return;
         }
     }
-    else if ((pnt->type == CHARM_CRD_POINT_GRID) ||
-             (pnt->type == CHARM_CRD_POINT_GRID_GL) ||
-             (pnt->type == CHARM_CRD_POINT_GRID_DH1) ||
-             (pnt->type == CHARM_CRD_POINT_GRID_DH2))
+    else if (CHARM(crd_point_isGrid)(pnt->type))
     {
         /* Grid-wise synthesis */
-        CHARM(shs_point_grd)(pnt, shcs, nmax, f, err);
+        CHARM(shs_point_grd)(pnt, shcs, nmax, GRAD_0, GRAD_0, GRAD_0, &f, err);
         if (!CHARM(err_isempty)(err))
         {
             CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);

@@ -4,10 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "shs_check_symm_simd.h"
 #include "../leg/leg_func_xnum.h"
 #include "../prec.h"
 #include "../simd/simd.h"
+#include "shs_check_symm_simd.h"
+#include "shs_cell_kernel.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -18,22 +19,38 @@
 /* Returns summations over harmonic degrees, "a", "b", "a2" and "b2", for
  * synthesis with mean values.  The function also updates "imm0", "imm1" and
  * "imm2". */
-void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
+void CHARM(shs_cell_kernel)(unsigned long nmax,
+                            unsigned long m,
                             const CHARM(shc) *shcs,
-                            const REAL *anm, const REAL *bnm,
-                            REAL_SIMD latmin, REAL_SIMD latmax,
-                            REAL_SIMD t1, REAL_SIMD t2,
-                            REAL_SIMD u1, REAL_SIMD u2,
-                            const REAL *ps1, const REAL *ps2,
-                            const int *ips1, const int *ips2,
-                            REAL_SIMD *imm0, REAL_SIMD *imm1, REAL_SIMD *imm2,
-                            const REAL *en, const REAL *fn,
-                            const REAL *gm, const REAL *hm,
+                            const REAL *anm,
+                            const REAL *bnm,
+                            REAL_SIMD latmin,
+                            REAL_SIMD latmax,
+                            REAL_SIMD t1,
+                            REAL_SIMD t2,
+                            REAL_SIMD u1,
+                            REAL_SIMD u2,
+                            const REAL *ps1,
+                            const REAL *ps2,
+                            const int *ips1,
+                            const int *ips2,
+                            REAL_SIMD *imm0,
+                            REAL_SIMD *imm1,
+                            REAL_SIMD *imm2,
+                            const REAL *en,
+                            const REAL *fn,
+                            const REAL *gm,
+                            const REAL *hm,
                             const REAL *ri,
-                            REAL_SIMD ratio, REAL_SIMD ratio2,
-                            REAL_SIMD ratiom, REAL_SIMD ratio2m,
-                            REAL_SIMD symm_simd, REAL_SIMD *a,  REAL_SIMD *b,
-                            REAL_SIMD *a2, REAL_SIMD *b2)
+                            REAL_SIMD ratio,
+                            REAL_SIMD ratio2,
+                            REAL_SIMD ratiom,
+                            REAL_SIMD ratio2m,
+                            REAL_SIMD symm_simd,
+                            REAL_SIMD *a,
+                            REAL_SIMD *b,
+                            REAL_SIMD *a2,
+                            REAL_SIMD *b2)
 {
     REAL_SIMD w;
     REAL_SIMD x1, x2, y1, y2, z1, z2;
@@ -114,8 +131,8 @@ void CHARM(shs_cell_kernel)(unsigned long nmax, unsigned long m,
 
         if (symm)
         {
-            *a2     = MUL_R(ratio2n, inm_cnm);
-            *b2     = SET_ZERO_R;
+            *a2 = MUL_R(ratio2n, inm_cnm);
+            *b2 = SET_ZERO_R;
             ratio2n = MUL_R(ratio2n, ratio2);
         }
         /* ................................................................. */

@@ -125,6 +125,16 @@ This section shows several examples.
    :language: python
 
 
+First- and second-order gradients (gravitational vector and tensor)
+-------------------------------------------------------------------
+
+This example shows how to compute the full gravitational vector and the full
+gravitational tensor in the :ref:`lnof`.
+
+.. literalinclude:: ../../cookbook/python/gradients.py
+   :language: python
+
+
 Fourier coefficients of Legendre functions
 ------------------------------------------
 

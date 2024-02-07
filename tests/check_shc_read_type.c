@@ -6,6 +6,7 @@
 #include "cmp_vals.h"
 #include "cmp_arrays.h"
 #include "parameters.h"
+#include "check_shc_read_type.h"
 /* ------------------------------------------------------------------------- */
 
 

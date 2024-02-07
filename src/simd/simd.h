@@ -28,7 +28,7 @@
 #if (HAVE_AVX_INSTRUCTIONS  && HAVE_AVX2_INSTRUCTIONS) || \
     (HAVE_AVX2_INSTRUCTIONS && HAVE_AVX512F_INSTRUCTIONS) || \
     (HAVE_AVX_INSTRUCTIONS  && HAVE_AVX512F_INSTRUCTIONS)
-#   error "One type of SIMD instructions only can be defined in \"config.h\"."
+#   error "One type of SIMD instructions only can be defined in config.h."
 #endif
 
 
@@ -59,6 +59,7 @@
 #undef SUB_RI
 #undef NEG_R_INIT
 #undef NEG_R
+#undef SIGNBIT
 #undef SET1_R
 #undef SET1_RI
 #undef LOAD_R
@@ -66,6 +67,7 @@
 #undef SUM_R
 #undef ABS_R
 #undef ABS_R_INIT
+#undef NONSIGNBITS
 #undef SIMD_MULTIPLE
 #undef CAST_RI2R
 #undef CAST_R2RI
@@ -201,7 +203,7 @@
     /* The "SIMD_BLOCK" value can be played with.  It has no effect on the
      * accuracy, but affects the performance.  Too low or too high values can
      * decrease the computation speed. */
-#   define SIMD_BLOCK 8
+#   define SIMD_BLOCK 2
 
 
 #   define MUL_R(x, y)         PF(mul)((x), (y))
@@ -438,11 +440,13 @@
 
     /* Absolute value.  The "FABS" macro is defined in "../prec.h". */
 #   define ABS_R_INIT
+#   define NONSIGNBITS
 #   define ABS_R                FABS
 
 
     /* Change the sign. */
 #   define NEG_R_INIT
+#   define SIGNBIT
 #   define NEG_R(x)             (-(x))
 
 

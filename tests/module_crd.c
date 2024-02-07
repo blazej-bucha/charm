@@ -10,6 +10,7 @@
 #include "check_crd_cell_init.h"
 #include "check_func.h"
 #include "check_outcome.h"
+#include "module_crd.h"
 /* ------------------------------------------------------------------------- */
 
 

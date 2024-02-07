@@ -14,8 +14,9 @@ libcharm@P@_shs@OMP@_la_SOURCES = shs_cell.c \
 								  shs_cell_sctr.c \
 								  shs_cell_check_grd_lons.c \
 								  shs_point.c \
+								  shs_point_grads.c \
 								  shs_point_grd.c \
-								  shs_point_kernel.c \
+								  shs_point_kernels.c \
 								  shs_point_sctr.c \
 								  shs_grd_lr.c \
 								  shs_grd_lr2.c \
@@ -24,8 +25,15 @@ libcharm@P@_shs@OMP@_la_SOURCES = shs_cell.c \
 								  shs_grd_fft_lc.c \
 								  shs_grd_fft.c \
 								  shs_sctr_mulc.c \
+								  shs_lc_init.c \
 								  shs_check_symm_simd.c \
-								  shs_r_eq_rref.c
+								  shs_r_eq_rref.c \
+								  shs_point_guru.c \
+								  shs_check_single_derivative.c \
+								  shs_check_grads.c \
+								  shs_get_mur_dorder_npar.c
 
 
-EXTRA_DIST = *.h
+EXTRA_DIST = *.h \
+			 shs_point_gradn.c \
+			 shs_point_kernel.c

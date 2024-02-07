@@ -5,6 +5,7 @@
 #include "../prec.h"
 #include "leg_pnmj_init.h"
 #include "leg_pnmj_length.h"
+#include "leg_pnmj_alloc.h"
 /* ------------------------------------------------------------------------- */
 
 

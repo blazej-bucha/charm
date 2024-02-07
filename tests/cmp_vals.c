@@ -5,6 +5,7 @@
 #include "../src/prec.h"
 #include "../src/misc/misc_is_nearly_equal.h"
 #include "parameters.h"
+#include "cmp_vals.h"
 /* ------------------------------------------------------------------------- */
 
 
