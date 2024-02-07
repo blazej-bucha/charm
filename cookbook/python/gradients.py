@@ -6,7 +6,7 @@ import numpy as np
 # =============================================================================
 # Path to the input file with spherical harmonic coefficients in the 'gfc'
 # format
-shcs_file = '../data/input/EGM96-degree10.gfc'
+shcs_file = '../../data/input/EGM96-degree10.gfc'
 # =============================================================================
 
 
