@@ -6,6 +6,9 @@
   solution therefore seems to be to install both CHarm and PyHarm either as 
   a user or as a root and not combine the two.
 
+* Add mechanism to tune the `SIMD_BLOCK` parameter for the host's CPU during 
+  the compilation.
+
 * Add support for fused multiply-add instructions.
 
 * Add the Condon--Shortley phase factor.

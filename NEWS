@@ -58,6 +58,11 @@ module.
 * Added function `charm_misc_buildopt_version_fftw` that returns a string 
   specifying the FFTW version that was used to compile CHarm.
 
+* Changed value of the internal parameter `SIMD_BLOCK` from `8` to `2`.  On 
+  some recent processors, this may improve the performance up to 40 %, while no 
+  significant deteriorations was encountered on older CPUs.  In the future, it 
+  would be nice to tune this parameter for the host's CPU during compilation.
+
 CHarm 0.3.1:
 
 * Added support to read the ICGEM's time variable gravity field models.  
