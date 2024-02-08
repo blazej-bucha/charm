@@ -439,7 +439,7 @@ From within Python, you can now work with PyHarm:
 .. code-block:: python
 
   >>> import pyharm as ph
-  >>> ph.misc.print_version()
+  >>> ph.misc.print_info()
   >>> quit()
 
 Deactivate the virtual environment from the shell:
