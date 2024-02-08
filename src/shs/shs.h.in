@@ -190,7 +190,7 @@ extern "C"
  *   ultra-high degree of Bouguer and isostatic anomalies. Journal of Geodesy 
  *   86:499-520, doi: 10.1007/s00190-011-0533-4
  *
- * @note The function does not use ``cell->w``, so no constrains are applied.
+ * @note The function does not use ``pnt->w``, so no constrains are applied.
  *
  * @param[in] pnt Evaluation points, organized either as a **grid** or as
  * **scattered points** (see ``charm@P@_point``).
