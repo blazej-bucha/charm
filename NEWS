@@ -1,3 +1,8 @@
+Upcoming release:
+
+* The internal parameter `SIMD_BLOCK` is now set to `4` for all kinds of AVX 
+  instruction sets.  This value seem to perform the best overall.
+
 CHarm 0.4.0:
 
 This release adds new functions to synthesize the full first- and second-order 

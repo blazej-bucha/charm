@@ -203,7 +203,7 @@
     /* The "SIMD_BLOCK" value can be played with.  It has no effect on the
      * accuracy, but affects the performance.  Too low or too high values can
      * decrease the computation speed. */
-#   define SIMD_BLOCK 2
+#   define SIMD_BLOCK 4
 
 
 #   define MUL_R(x, y)         PF(mul)((x), (y))
