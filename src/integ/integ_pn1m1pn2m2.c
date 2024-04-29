@@ -9,6 +9,7 @@
 #include "integ_scs.h"
 #include "integ_sss.h"
 #include "../leg/leg_pnmj_check_ordering.h"
+#include "../misc/misc_nan.h"
 #include "../err/err_set.h"
 /* ------------------------------------------------------------------------- */
 
@@ -32,7 +33,7 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"cltmin\" cannot be larger than \"cltmax\".");
-        return (PREC(0.0) / PREC(0.0));
+        return NAN;
     }
 
 
@@ -40,7 +41,7 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"n1\" cannot be larger than \"pnmj->nmax\".");
-        return (PREC(0.0) / PREC(0.0));
+        return NAN;
     }
 
 
@@ -48,7 +49,7 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"n2\" cannot be larger than \"pnmj->nmax\".");
-        return (PREC(0.0) / PREC(0.0));
+        return NAN;
     }
 
 
@@ -57,7 +58,7 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"m1\" cannot be larger than \"n1\".");
-        return (PREC(0.0) / PREC(0.0));
+        return NAN;
     }
 
 
@@ -65,7 +66,7 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"m2\" cannot be larger than \"n2\".");
-        return (PREC(0.0) / PREC(0.0));
+        return NAN;
     }
 
 
@@ -73,7 +74,7 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Unsupported value of \"pnmj->ordering\".");
-        return (PREC(0.0) / PREC(0.0));
+        return NAN;
     }
     /* --------------------------------------------------------------------- */
 
@@ -89,7 +90,7 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
                        CHARM_ERR_MALLOC_FAILURE);
-        return (PREC(0.0) / PREC(0.0));
+        return NAN;
     }
 
 
