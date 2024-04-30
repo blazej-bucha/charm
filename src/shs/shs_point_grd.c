@@ -806,7 +806,7 @@ FAILURE_1_parallel:
                                           nfc, fc_simd, fc2_simd);
                 else
                     CHARM(shs_grd_lr)(m, lon0, deltalon, pnt_nlon, pnt_type,
-                                      grad, npar, nfi_1par, &lc, symm,
+                                      grad, nfi_1par, &lc, symm,
                                       fi, fi2);
                 /* --------------------------------------------------------- */
 

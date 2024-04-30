@@ -335,7 +335,7 @@ shared(pt, nfc, plan, use_fft, rref)
         int FAILURE_priv = 0;
 
 
-        size_t nfi = cell_nlon * SIMD_SIZE;
+        size_t nfi = cell_nlon * SIMD_SIZE * SIMD_BLOCK;
 
 
         int  *ips1         = NULL;
@@ -772,7 +772,7 @@ FAILURE_1_parallel:
                                           nfc, fc_simd, fc2_simd);
                 else
                     CHARM(shs_grd_lr)(m, lon0, deltalon, cell_nlon, cell_type,
-                                      0, 1, nfi, &lc, symm, fi, fi2);
+                                      0, nfi, &lc, symm, fi, fi2);
 
 
 UPDATE_RATIOS:
