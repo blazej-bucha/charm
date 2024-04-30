@@ -90,43 +90,45 @@ long int check_sha_cell(void)
                     /* If there is only a single latitude, the grid is
                      * automatically non-symmetric */
                     continue;
+                else if ((nlat[i] >= (nmax + 1)) && (s == 0) && (nmax == 0))
+                    continue;
 
 
                 for (int dr = 0; dr < NDELTAR; dr++)
                 {
-                    REAL r = shcs_ref->r + (REAL)(DELTAR) * (REAL)(dr);
-
-
-                    grd_cell = CHARM(crd_cell_calloc)(CHARM_CRD_CELL_GRID,
-                                                      nlat[i], nlon[i]);
-                    if (grd_cell == NULL)
-                    {
-                        fprintf(stderr, "Failed to initialize a "
-                                        "\"crd\" structure\n");
-                        exit(CHARM_FAILURE);
-                    }
-
-
-                    CHARM(generate_cell)(grd_cell, r, PI, PREC(2.0) * PI);
-
-
-                    /* A constant to artificially get a non-symmetric grid from
-                     * a symmetric grid */
-                    REAL break_symm = PREC(0.0);
-                    if (s == 0)
-                        break_symm = (REAL)(BREAK_SYMM);
-
-
-                    f = (REAL *)malloc(grd_cell->ncell * sizeof(REAL));
-                    if (f == NULL)
-                    {
-                        fprintf(stderr, "malloc failure.\n");
-                        exit(CHARM_FAILURE);
-                    }
-
-
                     if (nlat[i] >= (nmax + 1))
                     {
+                        REAL r = shcs_ref->r + (REAL)(DELTAR) * (REAL)(dr);
+
+
+                        grd_cell = CHARM(crd_cell_calloc)(CHARM_CRD_CELL_GRID,
+                                                          nlat[i], nlon[i]);
+                        if (grd_cell == NULL)
+                        {
+                            fprintf(stderr, "Failed to initialize a "
+                                            "\"crd\" structure\n");
+                            exit(CHARM_FAILURE);
+                        }
+
+
+                        CHARM(generate_cell)(grd_cell, r, PI, PREC(2.0) * PI);
+
+
+                        /* A constant to artificially get a non-symmetric grid
+                         * from a symmetric grid */
+                        REAL break_symm = PREC(0.0);
+                        if (s == 0)
+                            break_symm = (REAL)(BREAK_SYMM);
+
+
+                        f = (REAL *)malloc(grd_cell->ncell * sizeof(REAL));
+                        if (f == NULL)
+                        {
+                            fprintf(stderr, "malloc failure.\n");
+                            exit(CHARM_FAILURE);
+                        }
+
+
                         shcs_out = CHARM(shc_calloc)(nmax, shcs_ref->mu,
                                                      shcs_ref->r);
                         if (shcs_out == NULL)
@@ -139,10 +141,6 @@ long int check_sha_cell(void)
 
                         if (s == 0)
                         {
-                            if (nmax == 0)
-                                continue;
-
-
                             grd_cell->latmin[0] += break_symm;
                             grd_cell->latmax[1] += break_symm;
                         }
@@ -184,11 +182,9 @@ long int check_sha_cell(void)
 
 
                         CHARM(shc_free)(shcs_out);
+                        CHARM(crd_cell_free)(grd_cell);
+                        free(f);
                     }
-
-
-                    CHARM(crd_cell_free)(grd_cell);
-                    free(f);
                 }
             }
         }

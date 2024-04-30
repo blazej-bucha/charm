@@ -841,6 +841,9 @@ long int check_shs_point_guru(void)
                 }
             }
         }
+
+
+        CHARM(shc_free)(shcs);
     }
     }
 #endif
@@ -853,7 +856,6 @@ long int check_shs_point_guru(void)
 
     /* --------------------------------------------------------------------- */
     CHARM(err_free)(err);
-    CHARM(shc_free)(shcs);
     free(f);
 
 
