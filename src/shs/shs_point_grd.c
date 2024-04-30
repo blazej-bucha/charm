@@ -643,7 +643,19 @@ FAILURE_1_parallel:
 
 
                         if (symm)
-                            pnt_r2v[v] = pnt->r[pnt_nlat - ipv - 1];
+                        {
+                            if (((pnt_type == CHARM_CRD_POINT_GRID_DH1) ||
+                                 (pnt_type == CHARM_CRD_POINT_GRID_DH2)) &&
+                                (ipv == 0))
+                                /* For the Driscoll--Healy grids, we increased
+                                 * "pnt_nlat" by one, so to ensure we won't
+                                 * read outside the bounds of "pnt->r", we set
+                                 * now the non-existing radius at the south
+                                 * pole to zero. */
+                                pnt_r2v[v] = PREC(0.0);
+                            else
+                                pnt_r2v[v] = pnt->r[pnt_nlat - ipv - 1];
+                        }
                     }
                     else
                     {
