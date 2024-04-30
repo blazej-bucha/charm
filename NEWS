@@ -1,5 +1,16 @@
 Upcoming release:
 
+* Fixed outside-of-bounds reads bug in the spherical harmonic synthesis at 
+  Driscoll--Healy grids.  The outputs of the synthesis were correct but various 
+  errors might occur rarely (e.g., segmentation fault).
+
+* Removed variable-length arrays from one specific internal routine of CHarm.  
+  CHarm is now completely free from variable-length arrays.
+
+* Functions returning NaN now use the `NAN` macro from `math.h`.  
+  Previously, `0.0 / 0.0` was used to get NaN.  Now this is only a fallback if 
+  the `NAN` macro is not found in `math.h`.
+
 * The internal parameter `SIMD_BLOCK` is now set to `4` for all kinds of AVX 
   instruction sets.  This value seems to perform the best overall.
 
