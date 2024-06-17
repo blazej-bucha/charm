@@ -651,22 +651,18 @@ variable when calling the <code class="docutils literal notranslate"><span class
 <section id="a-few-installation-notes">
 <h3>A few installation notes<a class="headerlink" href="#a-few-installation-notes" title="Permalink to this heading">#</a></h3>
 <ul>
-<li><p>The output lib names depend on the user-defined compilation settings and
-follow the pattern:</p>
+<li><p>The output lib names depend on the precision used to compile CHarm:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">libcharmf</span></code> – single precision with OpenMP disabled,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">libcharmf_omp</span></code> – single precision with OpenMP enabled,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">libcharm</span></code> – double precision with OpenMP disabled,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">libcharm_omp</span></code> –  double precision with OpenMP enabled,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">libcharmq</span></code> – quadruple precision with OpenMP disabled,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">libcharmq_omp</span></code> – quadruple precision with OpenMP enabled.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libcharmf</span></code> – single precision,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libcharm</span></code> – double precision,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libcharmq</span></code> – quadruple precision.</p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p>You may install CHarm in single, double and quadruple precision, each with
-OpenMP enabled and disabled, to the same installation path.  You don’t have
-to worry about overwriting the header and lib files.</p></li>
+<li><p>You may install CHarm in single, double and quadruple precision to the same
+installation path.  You don’t have to worry about overwriting the header and
+lib files.</p></li>
 </ul>
 </section>
 <section id="uninstallation">
@@ -762,7 +758,7 @@ make<span class="w"> </span>check
 make<span class="w"> </span>install
 </pre></div>
 </div>
-<p>Open Python:</p>
+<p>Then, open Python:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3
 </pre></div>
 </div>
@@ -776,6 +772,21 @@ make<span class="w"> </span>install
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>deactivate
 </pre></div>
 </div>
+<p>As a side note, you might replace</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make
+make<span class="w"> </span>check
+make<span class="w"> </span>install
+</pre></div>
+</div>
+<p>by</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>pyharm
+</pre></div>
+</div>
+<p>right after you called the <code class="docutils literal notranslate"><span class="pre">./configure</span></code> script.  You risk, however, that
+CHarm, hence PyHarm, might not be functioning properly, as you did not check
+the output from the test suite, which is otherwise executed by <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">check</span></code>.
+Use this approach only if you know by prior experience that the tests are
+likely to pass on your platform and with your compiling options.</p>
 </section>
 </section>
 <section id="id4">
@@ -891,7 +902,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Feb 08, 2024.
+  Last updated on Jun 17, 2024.
   <br/>
 </p>
   </div>

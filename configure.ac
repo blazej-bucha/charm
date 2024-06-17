@@ -350,13 +350,11 @@ if test "$enable_openmp" = "yes"; then
     fi
 
 
-    AC_SUBST([OMP], [_omp])
-    AC_SUBST([CHARM_LIB], [-lcharm$P$OMP])
+    AC_SUBST([CHARM_LIB], [-lcharm])
 else
     AC_MSG_NOTICE([compiling with OpenMP parallelization disabled])
 
 
-    AC_SUBST([OMP], [])
     AC_SUBST([CHARM_LIB], [-lcharm$P])
 fi
 

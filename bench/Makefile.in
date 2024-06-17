@@ -88,7 +88,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-noinst_PROGRAMS = bench_run@P@@OMP@$(EXEEXT)
+noinst_PROGRAMS = bench_run@P@$(EXEEXT)
 subdir = bench
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_check_compile_flag.m4 \
@@ -108,17 +108,16 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 PROGRAMS = $(noinst_PROGRAMS)
-am_bench_run@P@@OMP@_OBJECTS = bench_run@P@@OMP@-bench.$(OBJEXT)
-bench_run@P@@OMP@_OBJECTS = $(am_bench_run@P@@OMP@_OBJECTS)
-bench_run@P@@OMP@_DEPENDENCIES = $(top_builddir)/libcharm@P@@OMP@.la
+am_bench_run@P@_OBJECTS = bench_run@P@-bench.$(OBJEXT)
+bench_run@P@_OBJECTS = $(am_bench_run@P@_OBJECTS)
+bench_run@P@_DEPENDENCIES = $(top_builddir)/libcharm@P@.la
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-bench_run@P@@OMP@_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(bench_run@P@@OMP@_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
-	-o $@
+bench_run@P@_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(bench_run@P@_CFLAGS) \
+	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -134,7 +133,7 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/bench_run@P@@OMP@-bench.Po
+am__depfiles_remade = ./$(DEPDIR)/bench_run@P@-bench.Po
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -154,8 +153,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(bench_run@P@@OMP@_SOURCES)
-DIST_SOURCES = $(bench_run@P@@OMP@_SOURCES)
+SOURCES = $(bench_run@P@_SOURCES)
+DIST_SOURCES = $(bench_run@P@_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -224,7 +223,6 @@ NP_FLOAT = @NP_FLOAT@
 OBJDIR = @OBJDIR@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
-OMP = @OMP@
 OPENMP_CFLAGS = @OPENMP_CFLAGS@
 OTOOL = @OTOOL@
 OTOOL64 = @OTOOL64@
@@ -314,19 +312,19 @@ EXTRA_DIST = plot-bench.py \
 
 
 # Source code of the benchmark program
-bench_run@P@@OMP@_SOURCES = bench.c
+bench_run@P@_SOURCES = bench.c
 
 # Path to header files
-bench_run@P@@OMP@_CPPFLAGS = -I$(top_srcdir)/charm
+bench_run@P@_CPPFLAGS = -I$(top_srcdir)/charm
 
 # CFLAGS
-@OPENMP_TRUE@bench_run@P@@OMP@_CFLAGS = $(OPENMP_CFLAGS)
+@OPENMP_TRUE@bench_run@P@_CFLAGS = $(OPENMP_CFLAGS)
 
 # Link CHarm library
-bench_run@P@@OMP@_LDADD = $(top_builddir)/libcharm@P@@OMP@.la
+bench_run@P@_LDADD = $(top_builddir)/libcharm@P@.la
 
 # Get the absolute path to the benchmark program
-bench_run@P@@OMP@dir = $(abs_top_builddir)/bench
+bench_run@P@dir = $(abs_top_builddir)/bench
 all: all-am
 
 .SUFFIXES:
@@ -370,9 +368,9 @@ clean-noinstPROGRAMS:
 	echo " rm -f" $$list; \
 	rm -f $$list
 
-bench_run@P@@OMP@$(EXEEXT): $(bench_run@P@@OMP@_OBJECTS) $(bench_run@P@@OMP@_DEPENDENCIES) $(EXTRA_bench_run@P@@OMP@_DEPENDENCIES) 
-	@rm -f bench_run@P@@OMP@$(EXEEXT)
-	$(AM_V_CCLD)$(bench_run@P@@OMP@_LINK) $(bench_run@P@@OMP@_OBJECTS) $(bench_run@P@@OMP@_LDADD) $(LIBS)
+bench_run@P@$(EXEEXT): $(bench_run@P@_OBJECTS) $(bench_run@P@_DEPENDENCIES) $(EXTRA_bench_run@P@_DEPENDENCIES) 
+	@rm -f bench_run@P@$(EXEEXT)
+	$(AM_V_CCLD)$(bench_run@P@_LINK) $(bench_run@P@_OBJECTS) $(bench_run@P@_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -380,7 +378,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bench_run@P@@OMP@-bench.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bench_run@P@-bench.Po@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -409,19 +407,19 @@ am--depfiles: $(am__depfiles_remade)
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
 
-bench_run@P@@OMP@-bench.o: bench.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bench_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(bench_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT bench_run@P@@OMP@-bench.o -MD -MP -MF $(DEPDIR)/bench_run@P@@OMP@-bench.Tpo -c -o bench_run@P@@OMP@-bench.o `test -f 'bench.c' || echo '$(srcdir)/'`bench.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/bench_run@P@@OMP@-bench.Tpo $(DEPDIR)/bench_run@P@@OMP@-bench.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='bench.c' object='bench_run@P@@OMP@-bench.o' libtool=no @AMDEPBACKSLASH@
+bench_run@P@-bench.o: bench.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bench_run@P@_CPPFLAGS) $(CPPFLAGS) $(bench_run@P@_CFLAGS) $(CFLAGS) -MT bench_run@P@-bench.o -MD -MP -MF $(DEPDIR)/bench_run@P@-bench.Tpo -c -o bench_run@P@-bench.o `test -f 'bench.c' || echo '$(srcdir)/'`bench.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/bench_run@P@-bench.Tpo $(DEPDIR)/bench_run@P@-bench.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='bench.c' object='bench_run@P@-bench.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bench_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(bench_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o bench_run@P@@OMP@-bench.o `test -f 'bench.c' || echo '$(srcdir)/'`bench.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bench_run@P@_CPPFLAGS) $(CPPFLAGS) $(bench_run@P@_CFLAGS) $(CFLAGS) -c -o bench_run@P@-bench.o `test -f 'bench.c' || echo '$(srcdir)/'`bench.c
 
-bench_run@P@@OMP@-bench.obj: bench.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bench_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(bench_run@P@@OMP@_CFLAGS) $(CFLAGS) -MT bench_run@P@@OMP@-bench.obj -MD -MP -MF $(DEPDIR)/bench_run@P@@OMP@-bench.Tpo -c -o bench_run@P@@OMP@-bench.obj `if test -f 'bench.c'; then $(CYGPATH_W) 'bench.c'; else $(CYGPATH_W) '$(srcdir)/bench.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/bench_run@P@@OMP@-bench.Tpo $(DEPDIR)/bench_run@P@@OMP@-bench.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='bench.c' object='bench_run@P@@OMP@-bench.obj' libtool=no @AMDEPBACKSLASH@
+bench_run@P@-bench.obj: bench.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bench_run@P@_CPPFLAGS) $(CPPFLAGS) $(bench_run@P@_CFLAGS) $(CFLAGS) -MT bench_run@P@-bench.obj -MD -MP -MF $(DEPDIR)/bench_run@P@-bench.Tpo -c -o bench_run@P@-bench.obj `if test -f 'bench.c'; then $(CYGPATH_W) 'bench.c'; else $(CYGPATH_W) '$(srcdir)/bench.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/bench_run@P@-bench.Tpo $(DEPDIR)/bench_run@P@-bench.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='bench.c' object='bench_run@P@-bench.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bench_run@P@@OMP@_CPPFLAGS) $(CPPFLAGS) $(bench_run@P@@OMP@_CFLAGS) $(CFLAGS) -c -o bench_run@P@@OMP@-bench.obj `if test -f 'bench.c'; then $(CYGPATH_W) 'bench.c'; else $(CYGPATH_W) '$(srcdir)/bench.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bench_run@P@_CPPFLAGS) $(CPPFLAGS) $(bench_run@P@_CFLAGS) $(CFLAGS) -c -o bench_run@P@-bench.obj `if test -f 'bench.c'; then $(CYGPATH_W) 'bench.c'; else $(CYGPATH_W) '$(srcdir)/bench.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -507,7 +505,7 @@ clean-am: clean-generic clean-libtool clean-local clean-noinstPROGRAMS \
 	mostlyclean-am
 
 distclean: distclean-am
-		-rm -f ./$(DEPDIR)/bench_run@P@@OMP@-bench.Po
+		-rm -f ./$(DEPDIR)/bench_run@P@-bench.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-local
@@ -553,7 +551,7 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f ./$(DEPDIR)/bench_run@P@@OMP@-bench.Po
+		-rm -f ./$(DEPDIR)/bench_run@P@-bench.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
@@ -591,11 +589,11 @@ uninstall-am:
 .PRECIOUS: Makefile
 
 
-$(top_builddir)/libcharm@P@@OMP@.la:
+$(top_builddir)/libcharm@P@.la:
 	cd $(top_builddir) && $(MAKE)
 
-bench-local: bench_run@P@@OMP@$(EXEEXT)
-	$(bench_run@P@@OMP@dir)/bench_run@P@@OMP@
+bench-local: bench_run@P@$(EXEEXT)
+	$(bench_run@P@dir)/bench_run@P@
 
 remove-files:
 	rm -f bench_run*

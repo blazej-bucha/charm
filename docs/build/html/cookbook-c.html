@@ -438,12 +438,12 @@ in the <a class="reference internal" href="#compilation-linux"><span class="std 
 <span id="compilation-linux"></span><h3>Compilation on Linux<a class="headerlink" href="#compilation-on-linux" title="Permalink to this heading">#</a></h3>
 <p>Assuming your working directory is <code class="docutils literal notranslate"><span class="pre">cookbook/c</span></code>, an example compilation
 with the static library might look like this:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>gcc<span class="w"> </span>-fopenmp<span class="w"> </span>shcs.c<span class="w"> </span>-l:libcharm_omp.a<span class="w"> </span>-lfftw3<span class="w"> </span>-lfftw3_omp<span class="w"> </span>-lm
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>gcc<span class="w"> </span>-fopenmp<span class="w"> </span>shcs.c<span class="w"> </span>-l:libcharm.a<span class="w"> </span>-lfftw3<span class="w"> </span>-lfftw3_omp<span class="w"> </span>-lm
 </pre></div>
 </div>
 <p>Compilation using the shared library:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>gcc<span class="w"> </span>-fopenmp<span class="w"> </span>-Wl,-rpath<span class="w"> </span>-Wl,/usr/local/lib<span class="w"> </span>shcs.c<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>-lcharm_omp<span class="w"> </span>-lfftw3<span class="w"> </span>-lfftw3_omp<span class="w"> </span>-lm
+<span class="w">     </span>-lcharm<span class="w"> </span>-lfftw3<span class="w"> </span>-lfftw3_omp<span class="w"> </span>-lm
 </pre></div>
 </div>
 <p>After a successful compilation, you are ready to execute the compiled binary as</p>
@@ -1611,25 +1611,25 @@ link FFTW in single or quadruple precision, respectively.</p></li>
 <h3>Example compilation in single precision<a class="headerlink" href="#example-compilation-in-single-precision" title="Permalink to this heading">#</a></h3>
 <p>Assuming your working directory is <code class="docutils literal notranslate"><span class="pre">cookbook/c</span></code>, an example compilation
 with the static library might look like this:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>gcc<span class="w"> </span>-fopenmp<span class="w"> </span>shcsf.c<span class="w"> </span>-l:libcharmf_omp.a<span class="w"> </span>-lfftw3f<span class="w"> </span>-lfftw3f_omp<span class="w"> </span>-lm
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>gcc<span class="w"> </span>-fopenmp<span class="w"> </span>shcsf.c<span class="w"> </span>-l:libcharmf.a<span class="w"> </span>-lfftw3f<span class="w"> </span>-lfftw3f_omp<span class="w"> </span>-lm
 </pre></div>
 </div>
 <p>Compilation with the shared library:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>gcc<span class="w"> </span>-fopenmp<span class="w"> </span>-Wl,-rpath<span class="w"> </span>-Wl,/usr/local/lib<span class="w"> </span>shcsf.c<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>-lcharmf_omp<span class="w"> </span>-lfftw3f<span class="w"> </span>-lfftw3f_omp<span class="w"> </span>-lm
+<span class="w">     </span>-lcharmf<span class="w"> </span>-lfftw3f<span class="w"> </span>-lfftw3f_omp<span class="w"> </span>-lm
 </pre></div>
 </div>
 </section>
 <section id="example-compilation-in-quadruple-precision">
 <h3>Example compilation in quadruple precision<a class="headerlink" href="#example-compilation-in-quadruple-precision" title="Permalink to this heading">#</a></h3>
 <p>Static library:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>gcc<span class="w"> </span>-fopenmp<span class="w"> </span>shcsq.c<span class="w"> </span>-l:libcharmq_omp.a<span class="w"> </span>-lfftw3q<span class="w"> </span>-lfftw3q_omp<span class="w"> </span><span class="se">\</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>gcc<span class="w"> </span>-fopenmp<span class="w"> </span>shcsq.c<span class="w"> </span>-l:libcharmq.a<span class="w"> </span>-lfftw3q<span class="w"> </span>-lfftw3q_omp<span class="w"> </span><span class="se">\</span>
 <span class="w">     </span>-lquadmath<span class="w"> </span>-lm
 </pre></div>
 </div>
 <p>Shared library:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>gcc<span class="w"> </span>-fopenmp<span class="w"> </span>-Wl,-rpath<span class="w"> </span>-Wl,/usr/local/lib<span class="w"> </span>shcsq.c<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>-lcharmq_omp<span class="w"> </span>-lfftw3q<span class="w"> </span>-lfftw3q_omp<span class="w"> </span>-lquadmath<span class="w"> </span>-lm
+<span class="w">     </span>-lcharmq<span class="w"> </span>-lfftw3q<span class="w"> </span>-lfftw3q_omp<span class="w"> </span>-lquadmath<span class="w"> </span>-lm
 </pre></div>
 </div>
 </section>
@@ -1730,7 +1730,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Feb 08, 2024.
+  Last updated on Jun 17, 2024.
   <br/>
 </p>
   </div>

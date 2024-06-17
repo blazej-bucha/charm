@@ -7,10 +7,10 @@ import os as _os
 from ._lib import _load_lib
 
 # Name of the shared CHarm library to load
-_libcharmname = 'libcharm@P@@OMP@'
+_libcharmname = 'libcharm@P@'
 
 # Directory of "_libcharmname"
-_libcharmdir = _os.path.join(_os.path.dirname(__file__), 'lib')
+_libcharmdir = _os.path.join(_os.path.dirname(__file__), '')
 
 # Load the shared CHarm library
 _libcharm = _load_lib(_libcharmdir, _libcharmname)

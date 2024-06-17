@@ -686,7 +686,6 @@ PYTHON
 OPENMP_FALSE
 OPENMP_TRUE
 CHARM_LIB
-OMP
 OPENMP_CFLAGS
 DOC_FALSE
 DOC_TRUE
@@ -14740,14 +14739,11 @@ fi
     fi
 
 
-    OMP=_omp
-
-    CHARM_LIB=-lcharm$P$OMP
+    CHARM_LIB=-lcharm
 
 else
     { printf "%s\n" "$as_me:${as_lineno-$LINENO}: compiling with OpenMP parallelization disabled" >&5
 printf "%s\n" "$as_me: compiling with OpenMP parallelization disabled" >&6;}
-
 
 
     CHARM_LIB=-lcharm$P

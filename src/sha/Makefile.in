@@ -107,10 +107,9 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 LTLIBRARIES = $(noinst_LTLIBRARIES)
-libcharm@P@_sha@OMP@_la_LIBADD =
-am_libcharm@P@_sha@OMP@_la_OBJECTS = sha_cell.lo sha_point.lo
-libcharm@P@_sha@OMP@_la_OBJECTS =  \
-	$(am_libcharm@P@_sha@OMP@_la_OBJECTS)
+libcharm@P@_sha_la_LIBADD =
+am_libcharm@P@_sha_la_OBJECTS = sha_cell.lo sha_point.lo
+libcharm@P@_sha_la_OBJECTS = $(am_libcharm@P@_sha_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
@@ -151,8 +150,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libcharm@P@_sha@OMP@_la_SOURCES)
-DIST_SOURCES = $(libcharm@P@_sha@OMP@_la_SOURCES)
+SOURCES = $(libcharm@P@_sha_la_SOURCES)
+DIST_SOURCES = $(libcharm@P@_sha_la_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -221,7 +220,6 @@ NP_FLOAT = @NP_FLOAT@
 OBJDIR = @OBJDIR@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
-OMP = @OMP@
 OPENMP_CFLAGS = @OPENMP_CFLAGS@
 OTOOL = @OTOOL@
 OTOOL64 = @OTOOL64@
@@ -306,10 +304,10 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-noinst_LTLIBRARIES = libcharm@P@_sha@OMP@.la
+noinst_LTLIBRARIES = libcharm@P@_sha.la
 AM_CPPFLAGS = -I$(top_srcdir)/charm
-libcharm@P@_sha@OMP@_la_SOURCES = sha_cell.c \
-								  sha_point.c
+libcharm@P@_sha_la_SOURCES = sha_cell.c \
+							 sha_point.c
 
 all: all-am
 
@@ -356,8 +354,8 @@ clean-noinstLTLIBRARIES:
 	  rm -f $${locs}; \
 	}
 
-libcharm@P@_sha@OMP@.la: $(libcharm@P@_sha@OMP@_la_OBJECTS) $(libcharm@P@_sha@OMP@_la_DEPENDENCIES) $(EXTRA_libcharm@P@_sha@OMP@_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(LINK)  $(libcharm@P@_sha@OMP@_la_OBJECTS) $(libcharm@P@_sha@OMP@_la_LIBADD) $(LIBS)
+libcharm@P@_sha.la: $(libcharm@P@_sha_la_OBJECTS) $(libcharm@P@_sha_la_DEPENDENCIES) $(EXTRA_libcharm@P@_sha_la_DEPENDENCIES) 
+	$(AM_V_CCLD)$(LINK)  $(libcharm@P@_sha_la_OBJECTS) $(libcharm@P@_sha_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

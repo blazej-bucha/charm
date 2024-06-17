@@ -29,7 +29,7 @@ _globals = {
     'CHARM_VERSION_MAJOR': 0,
     'CHARM_VERSION_MINOR': 4,
     'CHARM_VERSION_PATCH': 0,
-    'CHARM_VERSION_STRING': '0.4.0',
+    'CHARM_VERSION_STRING': '0.4.0-dev',
     'CHARM_LEG_PMNJ': 0,
     'CHARM_LEG_PMJN': 1,
     'GRAD_0': 0,

@@ -1,9 +1,12 @@
-from setuptools import setup
+import os
+import glob
+import sysconfig
+from setuptools import setup, Extension
 
 
 # Get the version number of Charm
 # .............................................................................
-ver = open("./VERSION").read()
+ver = open('./VERSION').read()
 
 ret = ver.find("\n")
 if ret != -1:
@@ -11,17 +14,45 @@ if ret != -1:
 # .............................................................................
 
 
+# Get and process the user-defined compilation options
+# .............................................................................
+extra_compile_args = '@CFLAGS@'
+include_dirs       = '@CPPFLAGS@'
+library_dirs       = '@LDFLAGS@'
+libraries          = '@LIBS@'
+
+
+# Transforms "string" to a list using "separator"
+def to_list(string, separator):
+
+    string = string.split(separator)
+    string = [i.replace(' ', '') for i in string]
+    string = [i for i in string if i != '']
+
+    return string
+# .............................................................................
+
+
 setup(name='pyharm@P@',
       version=ver,
       description='Python wrapper for CHarm, a C library to work with '
                   'spherical harmonics up to almost arbitrarily high degrees',
-      license='The 3-Clause BSD License',
       author='Blazej Bucha',
       author_email='blazej.bucha@stuba.sk',
+      license_files = ['AUTHORS', 'COPYING'],
       packages=['pyharm@P@'],
       package_dir={'': 'wrap'},
       package_data={'': ['lib/*']},
       url='https://github.com/blazej-bucha/charm',
-      install_requires=['numpy']
+      install_requires=['numpy'],
+      ext_modules=[
+            Extension(
+                name='pyharm@P@.libcharm@P@',
+                sources=glob.glob('src/**/*.c'),
+                extra_compile_args=to_list(extra_compile_args, ' '),
+                include_dirs=['.', './src'] + to_list(include_dirs, '-I'),
+                library_dirs=to_list(library_dirs, '-L'),
+                libraries=to_list(libraries, '-l'),
+                     ),
+                  ]
       )
-

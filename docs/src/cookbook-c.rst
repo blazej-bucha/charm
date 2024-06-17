@@ -46,14 +46,14 @@ with the static library might look like this:
 
 .. code-block:: shell
 
-   gcc -fopenmp shcs.c -l:libcharm_omp.a -lfftw3 -lfftw3_omp -lm
+   gcc -fopenmp shcs.c -l:libcharm.a -lfftw3 -lfftw3_omp -lm
 
 Compilation using the shared library:
 
 .. code-block:: shell
 
    gcc -fopenmp -Wl,-rpath -Wl,/usr/local/lib shcs.c \
-        -lcharm_omp -lfftw3 -lfftw3_omp -lm
+        -lcharm -lfftw3 -lfftw3_omp -lm
 
 After a successful compilation, you are ready to execute the compiled binary as
 
@@ -192,14 +192,14 @@ with the static library might look like this:
 
 .. code-block:: shell
 
-   gcc -fopenmp shcsf.c -l:libcharmf_omp.a -lfftw3f -lfftw3f_omp -lm
+   gcc -fopenmp shcsf.c -l:libcharmf.a -lfftw3f -lfftw3f_omp -lm
 
 Compilation with the shared library:
 
 .. code-block:: shell
 
    gcc -fopenmp -Wl,-rpath -Wl,/usr/local/lib shcsf.c \
-        -lcharmf_omp -lfftw3f -lfftw3f_omp -lm
+        -lcharmf -lfftw3f -lfftw3f_omp -lm
 
 
 Example compilation in quadruple precision
@@ -209,7 +209,7 @@ Static library:
 
 .. code-block:: shell
 
-   gcc -fopenmp shcsq.c -l:libcharmq_omp.a -lfftw3q -lfftw3q_omp \
+   gcc -fopenmp shcsq.c -l:libcharmq.a -lfftw3q -lfftw3q_omp \
         -lquadmath -lm
 
 Shared library:
@@ -217,4 +217,4 @@ Shared library:
 .. code-block:: shell
 
    gcc -fopenmp -Wl,-rpath -Wl,/usr/local/lib shcsq.c \
-        -lcharmq_omp -lfftw3q -lfftw3q_omp -lquadmath -lm
+        -lcharmq -lfftw3q -lfftw3q_omp -lquadmath -lm

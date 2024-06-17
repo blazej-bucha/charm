@@ -14,6 +14,13 @@ Upcoming release:
 * The internal parameter `SIMD_BLOCK` is now set to `4` for all kinds of AVX 
   instruction sets.  This value seems to perform the best overall.
 
+* Changed PyHarm building process.  The C-part of PyHarm is now compiled from 
+  within Python as an extension module.
+
+* Lib names no longer have the `_omp` suffix, even if CHarm is compiled 
+  with OpenMP support.  Depending on the precision, the names are `libcharmf`, 
+  `libcharm` and `libcharmq`.  This affects the way how CHarm is linked.
+
 CHarm 0.4.0:
 
 This release adds new functions to synthesize the full first- and second-order 

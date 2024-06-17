@@ -107,18 +107,16 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 LTLIBRARIES = $(noinst_LTLIBRARIES)
-libcharm@P@_leg@OMP@_la_LIBADD =
-am_libcharm@P@_leg@OMP@_la_OBJECTS = leg_func_anm_bnm.lo \
-	leg_func_enm.lo leg_func_dm.lo leg_func_gm_hm.lo \
-	leg_func_prepare.lo leg_func_r_ri.lo leg_func_use_xnum.lo \
-	leg_pnmj_coeffs.lo leg_pnmj_dpeven.lo leg_pnmj_dpodd.lo \
-	leg_pnmj_gpeven.lo leg_pnmj_gpodd.lo leg_pnmj_alloc.lo \
-	leg_pnmj_calloc.lo leg_pnmj_malloc.lo leg_pnmj_init.lo \
-	leg_pnmj_free.lo leg_pnmj_length.lo leg_pnmj_j2k.lo \
-	leg_pnmj_k2j.lo leg_pnmj_leq4.lo leg_pnmj_check_ordering.lo \
-	leg_pol_en_fn.lo
-libcharm@P@_leg@OMP@_la_OBJECTS =  \
-	$(am_libcharm@P@_leg@OMP@_la_OBJECTS)
+libcharm@P@_leg_la_LIBADD =
+am_libcharm@P@_leg_la_OBJECTS = leg_func_anm_bnm.lo leg_func_enm.lo \
+	leg_func_dm.lo leg_func_gm_hm.lo leg_func_prepare.lo \
+	leg_func_r_ri.lo leg_func_use_xnum.lo leg_pnmj_coeffs.lo \
+	leg_pnmj_dpeven.lo leg_pnmj_dpodd.lo leg_pnmj_gpeven.lo \
+	leg_pnmj_gpodd.lo leg_pnmj_alloc.lo leg_pnmj_calloc.lo \
+	leg_pnmj_malloc.lo leg_pnmj_init.lo leg_pnmj_free.lo \
+	leg_pnmj_length.lo leg_pnmj_j2k.lo leg_pnmj_k2j.lo \
+	leg_pnmj_leq4.lo leg_pnmj_check_ordering.lo leg_pol_en_fn.lo
+libcharm@P@_leg_la_OBJECTS = $(am_libcharm@P@_leg_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
@@ -171,8 +169,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libcharm@P@_leg@OMP@_la_SOURCES)
-DIST_SOURCES = $(libcharm@P@_leg@OMP@_la_SOURCES)
+SOURCES = $(libcharm@P@_leg_la_SOURCES)
+DIST_SOURCES = $(libcharm@P@_leg_la_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -241,7 +239,6 @@ NP_FLOAT = @NP_FLOAT@
 OBJDIR = @OBJDIR@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
-OMP = @OMP@
 OPENMP_CFLAGS = @OPENMP_CFLAGS@
 OTOOL = @OTOOL@
 OTOOL64 = @OTOOL64@
@@ -326,31 +323,31 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-noinst_LTLIBRARIES = libcharm@P@_leg@OMP@.la
+noinst_LTLIBRARIES = libcharm@P@_leg.la
 AM_CPPFLAGS = -I$(top_srcdir)/charm
-libcharm@P@_leg@OMP@_la_SOURCES = leg_func_anm_bnm.c \
-								  leg_func_enm.c \
-								  leg_func_dm.c \
-								  leg_func_gm_hm.c \
-								  leg_func_prepare.c \
-								  leg_func_r_ri.c \
-								  leg_func_use_xnum.c \
-								  leg_pnmj_coeffs.c \
-								  leg_pnmj_dpeven.c \
-								  leg_pnmj_dpodd.c \
-								  leg_pnmj_gpeven.c \
-								  leg_pnmj_gpodd.c \
-								  leg_pnmj_alloc.c \
-								  leg_pnmj_calloc.c \
-								  leg_pnmj_malloc.c \
-								  leg_pnmj_init.c \
-								  leg_pnmj_free.c \
-								  leg_pnmj_length.c \
-								  leg_pnmj_j2k.c \
-								  leg_pnmj_k2j.c \
-								  leg_pnmj_leq4.c \
-								  leg_pnmj_check_ordering.c \
-								  leg_pol_en_fn.c
+libcharm@P@_leg_la_SOURCES = leg_func_anm_bnm.c \
+							 leg_func_enm.c \
+							 leg_func_dm.c \
+							 leg_func_gm_hm.c \
+							 leg_func_prepare.c \
+							 leg_func_r_ri.c \
+							 leg_func_use_xnum.c \
+							 leg_pnmj_coeffs.c \
+							 leg_pnmj_dpeven.c \
+							 leg_pnmj_dpodd.c \
+							 leg_pnmj_gpeven.c \
+							 leg_pnmj_gpodd.c \
+							 leg_pnmj_alloc.c \
+							 leg_pnmj_calloc.c \
+							 leg_pnmj_malloc.c \
+							 leg_pnmj_init.c \
+							 leg_pnmj_free.c \
+							 leg_pnmj_length.c \
+							 leg_pnmj_j2k.c \
+							 leg_pnmj_k2j.c \
+							 leg_pnmj_leq4.c \
+							 leg_pnmj_check_ordering.c \
+							 leg_pol_en_fn.c
 
 EXTRA_DIST = *.h
 all: all-am
@@ -398,8 +395,8 @@ clean-noinstLTLIBRARIES:
 	  rm -f $${locs}; \
 	}
 
-libcharm@P@_leg@OMP@.la: $(libcharm@P@_leg@OMP@_la_OBJECTS) $(libcharm@P@_leg@OMP@_la_DEPENDENCIES) $(EXTRA_libcharm@P@_leg@OMP@_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(LINK)  $(libcharm@P@_leg@OMP@_la_OBJECTS) $(libcharm@P@_leg@OMP@_la_LIBADD) $(LIBS)
+libcharm@P@_leg.la: $(libcharm@P@_leg_la_OBJECTS) $(libcharm@P@_leg_la_DEPENDENCIES) $(EXTRA_libcharm@P@_leg_la_DEPENDENCIES) 
+	$(AM_V_CCLD)$(LINK)  $(libcharm@P@_leg_la_OBJECTS) $(libcharm@P@_leg_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

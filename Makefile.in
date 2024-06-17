@@ -139,17 +139,17 @@ am__uninstall_files_from_dir = { \
   }
 am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(pkgconfigdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
-libcharm@P@@OMP@_la_DEPENDENCIES = $(SUBLIBS)
-am_libcharm@P@@OMP@_la_OBJECTS =
-libcharm@P@@OMP@_la_OBJECTS = $(am_libcharm@P@@OMP@_la_OBJECTS)
+libcharm@P@_la_DEPENDENCIES = $(SUBLIBS)
+am_libcharm@P@_la_OBJECTS =
+libcharm@P@_la_OBJECTS = $(am_libcharm@P@_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-libcharm@P@@OMP@_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+libcharm@P@_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(libcharm@P@@OMP@_la_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
-	$(LDFLAGS) -o $@
+	$(libcharm@P@_la_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o \
+	$@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -181,8 +181,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libcharm@P@@OMP@_la_SOURCES)
-DIST_SOURCES = $(libcharm@P@@OMP@_la_SOURCES)
+SOURCES = $(libcharm@P@_la_SOURCES)
+DIST_SOURCES = $(libcharm@P@_la_SOURCES)
 RECURSIVE_TARGETS = all-recursive check-recursive cscopelist-recursive \
 	ctags-recursive dvi-recursive html-recursive info-recursive \
 	install-data-recursive install-dvi-recursive \
@@ -225,9 +225,9 @@ am__define_uniq_tagged_files = \
   done | $(am__uniquify_input)`
 DIST_SUBDIRS = $(SUBDIRS)
 am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/charm-tmpl.pc.in \
-	$(srcdir)/config.h.in $(srcdir)/setup.py.in AUTHORS INSTALL \
-	NEWS TODO ar-lib compile config.guess config.sub install-sh \
-	ltmain.sh missing py-compile
+	$(srcdir)/config.h.in $(srcdir)/setup.py.in AUTHORS COPYING \
+	INSTALL NEWS TODO ar-lib compile config.guess config.sub \
+	install-sh ltmain.sh missing py-compile
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -332,7 +332,6 @@ NP_FLOAT = @NP_FLOAT@
 OBJDIR = @OBJDIR@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
-OMP = @OMP@
 OPENMP_CFLAGS = @OPENMP_CFLAGS@
 OTOOL = @OTOOL@
 OTOOL64 = @OTOOL64@
@@ -440,25 +439,25 @@ SUBDIRS = charm \
 		  data \
 		  wrap/pyharm
 
-SUBLIBS = src/crd/libcharm@P@_crd@OMP@.la \
-		  src/err/libcharm@P@_err@OMP@.la \
-		  src/integ/libcharm@P@_integ@OMP@.la \
-		  src/leg/libcharm@P@_leg@OMP@.la \
-		  src/misc/libcharm@P@_misc@OMP@.la \
-		  src/sha/libcharm@P@_sha@OMP@.la \
-		  src/shc/libcharm@P@_shc@OMP@.la \
-		  src/shs/libcharm@P@_shs@OMP@.la \
-		  src/xnum/libcharm@P@_xnum@OMP@.la \
-		  src/glob/libcharm@P@_glob@OMP@.la \
-		  src/simd/libcharm@P@_simd@OMP@.la
+SUBLIBS = src/crd/libcharm@P@_crd.la \
+		  src/err/libcharm@P@_err.la \
+		  src/integ/libcharm@P@_integ.la \
+		  src/leg/libcharm@P@_leg.la \
+		  src/misc/libcharm@P@_misc.la \
+		  src/sha/libcharm@P@_sha.la \
+		  src/shc/libcharm@P@_shc.la \
+		  src/shs/libcharm@P@_shs.la \
+		  src/xnum/libcharm@P@_xnum.la \
+		  src/glob/libcharm@P@_glob.la \
+		  src/simd/libcharm@P@_simd.la
 
 CLEANFILES = charm.pc \
-			 charm[fq].pc \
-			 charm*_omp.pc
+			 charm[fq].pc
 
 EXTRA_DIST = AUTHORS \
 			 INSTALL \
 			 LICENSE \
+			 COPYING \
 			 NEWS \
 			 README.rst \
 			 TODO \
@@ -466,12 +465,12 @@ EXTRA_DIST = AUTHORS \
 			 configure.ac \
 			 pyharm-parser.py
 
-lib_LTLIBRARIES = libcharm@P@@OMP@.la
-libcharm@P@@OMP@_la_SOURCES = 
-libcharm@P@@OMP@_la_LIBADD = $(SUBLIBS)
-libcharm@P@@OMP@_la_CFLAGS = $(AM_CFLAGS)
+lib_LTLIBRARIES = libcharm@P@.la
+libcharm@P@_la_SOURCES = 
+libcharm@P@_la_LIBADD = $(SUBLIBS)
+libcharm@P@_la_CFLAGS = $(AM_CFLAGS)
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = charm@P@@OMP@.pc
+pkgconfig_DATA = charm@P@.pc
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -564,8 +563,8 @@ clean-libLTLIBRARIES:
 	  rm -f $${locs}; \
 	}
 
-libcharm@P@@OMP@.la: $(libcharm@P@@OMP@_la_OBJECTS) $(libcharm@P@@OMP@_la_DEPENDENCIES) $(EXTRA_libcharm@P@@OMP@_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(libcharm@P@@OMP@_la_LINK) -rpath $(libdir) $(libcharm@P@@OMP@_la_OBJECTS) $(libcharm@P@@OMP@_la_LIBADD) $(LIBS)
+libcharm@P@.la: $(libcharm@P@_la_OBJECTS) $(libcharm@P@_la_DEPENDENCIES) $(EXTRA_libcharm@P@_la_DEPENDENCIES) 
+	$(AM_V_CCLD)$(libcharm@P@_la_LINK) -rpath $(libdir) $(libcharm@P@_la_OBJECTS) $(libcharm@P@_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -946,14 +945,14 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-recursive
 
-clean-am: clean-generic clean-libLTLIBRARIES clean-libtool clean-local \
+clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 	mostlyclean-am
 
 distclean: distclean-recursive
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
-	distclean-hdr distclean-libtool distclean-local distclean-tags
+	distclean-hdr distclean-libtool distclean-tags
 
 dvi: dvi-recursive
 
@@ -999,8 +998,7 @@ maintainer-clean: maintainer-clean-recursive
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
 	-rm -f Makefile
-maintainer-clean-am: distclean-am maintainer-clean-generic \
-	maintainer-clean-local
+maintainer-clean-am: distclean-am maintainer-clean-generic
 
 mostlyclean: mostlyclean-recursive
 
@@ -1021,12 +1019,11 @@ uninstall-am: uninstall-libLTLIBRARIES uninstall-pkgconfigDATA
 
 .PHONY: $(am__recursive_targets) CTAGS GTAGS TAGS all all-am \
 	am--refresh check check-am clean clean-cscope clean-generic \
-	clean-libLTLIBRARIES clean-libtool clean-local cscope \
-	cscopelist-am ctags ctags-am dist dist-all dist-bzip2 \
-	dist-gzip dist-lzip dist-shar dist-tarZ dist-xz dist-zip \
-	dist-zstd distcheck distclean distclean-compile \
-	distclean-generic distclean-hdr distclean-libtool \
-	distclean-local distclean-tags distcleancheck distdir \
+	clean-libLTLIBRARIES clean-libtool cscope cscopelist-am ctags \
+	ctags-am dist dist-all dist-bzip2 dist-gzip dist-lzip \
+	dist-shar dist-tarZ dist-xz dist-zip dist-zstd distcheck \
+	distclean distclean-compile distclean-generic distclean-hdr \
+	distclean-libtool distclean-tags distcleancheck distdir \
 	distuninstallcheck dvi dvi-am html html-am info info-am \
 	install install-am install-data install-data-am install-dvi \
 	install-dvi-am install-exec install-exec-am install-html \
@@ -1034,37 +1031,35 @@ uninstall-am: uninstall-libLTLIBRARIES uninstall-pkgconfigDATA
 	install-libLTLIBRARIES install-man install-pdf install-pdf-am \
 	install-pkgconfigDATA install-ps install-ps-am install-strip \
 	installcheck installcheck-am installdirs installdirs-am \
-	maintainer-clean maintainer-clean-generic \
-	maintainer-clean-local mostlyclean mostlyclean-compile \
-	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
-	tags tags-am uninstall uninstall-am uninstall-libLTLIBRARIES \
-	uninstall-pkgconfigDATA
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
+	pdf pdf-am ps ps-am tags tags-am uninstall uninstall-am \
+	uninstall-libLTLIBRARIES uninstall-pkgconfigDATA
 
 .PRECIOUS: Makefile
 
 
-charm@P@@OMP@.pc: charm-tmpl.pc
-	cp -f charm-tmpl.pc charm@P@@OMP@.pc
+charm@P@.pc: charm-tmpl.pc
+	cp -f charm-tmpl.pc charm@P@.pc
 
 .PHONY: bench
 
 bench:
 	cd bench && $(MAKE) bench-local
 
+pyharm:
+@PY_TRUE@	cd wrap/pyharm && $(MAKE) pyharm-local
+@PY_FALSE@	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@PY_FALSE@	@echo
+@PY_FALSE@	@echo ERROR: --enable-python option is required to build PyHarm
+@PY_FALSE@	@echo
+@PY_FALSE@	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 pyharm-parser: all
 	$(PYTHON) pyharm-parser.py
 
 generate-reference-data:
 	cd tests && $(MAKE) generate-reference-data-local
-
-remove-files:
-	rm -rf __pycache__
-
-clean-local: remove-files
-
-distclean-local: remove-files
-
-maintainer-clean-local: remove-files
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

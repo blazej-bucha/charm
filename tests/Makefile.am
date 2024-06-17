@@ -1,10 +1,10 @@
 # Name of the test program (will not be installed)
-check_PROGRAMS = test_run@P@@OMP@
+check_PROGRAMS = test_run@P@
 
 
 # Name of the program to generate reference data for the test program (will not 
 # be installed)
-noinst_PROGRAMS = genref_run@P@@OMP@
+noinst_PROGRAMS = genref_run@P@
 
 
 EXTRA_DIST = *.h \
@@ -62,43 +62,43 @@ SOURCES = main.c \
 
 
 # Source code of the test program
-test_run@P@@OMP@_SOURCES = $(SOURCES)
-genref_run@P@@OMP@_SOURCES = $(SOURCES)
+test_run@P@_SOURCES = $(SOURCES)
+genref_run@P@_SOURCES = $(SOURCES)
 
 
 # Path to header files
-test_run@P@@OMP@_CPPFLAGS = -I$(top_srcdir)/charm
-genref_run@P@@OMP@_CPPFLAGS = -I$(top_srcdir)/charm
+test_run@P@_CPPFLAGS = -I$(top_srcdir)/charm
+genref_run@P@_CPPFLAGS = -I$(top_srcdir)/charm
 
 
 # CFLAGS
-genref_run@P@@OMP@_CFLAGS = -DGENREF
+genref_run@P@_CFLAGS = -DGENREF
 if OPENMP
-test_run@P@@OMP@_CFLAGS = $(OPENMP_CFLAGS)
-genref_run@P@@OMP@_CFLAGS += $(OPENMP_CFLAGS)
+test_run@P@_CFLAGS = $(OPENMP_CFLAGS)
+genref_run@P@_CFLAGS += $(OPENMP_CFLAGS)
 endif
 
 
 # Link CHarm library
-test_run@P@@OMP@_LDADD = $(top_builddir)/libcharm@P@@OMP@.la
-genref_run@P@@OMP@_LDADD = $(top_builddir)/libcharm@P@@OMP@.la
+test_run@P@_LDADD = $(top_builddir)/libcharm@P@.la
+genref_run@P@_LDADD = $(top_builddir)/libcharm@P@.la
 
 
 # Get the absolute path to the test program
-test_run@P@@OMP@dir = $(abs_top_builddir)/tests
-genref_run@P@@OMP@dir = $(abs_top_builddir)/tests
+test_run@P@dir = $(abs_top_builddir)/tests
+genref_run@P@dir = $(abs_top_builddir)/tests
 
 
-check-local: test_run@P@@OMP@$(EXEEXT)
-	$(test_run@P@@OMP@dir)/test_run@P@@OMP@
+check-local: test_run@P@$(EXEEXT)
+	$(test_run@P@dir)/test_run@P@
 
 
-generate-reference-data-local: genref_run@P@@OMP@$(EXEEXT)
+generate-reference-data-local: genref_run@P@$(EXEEXT)
 	mkdir -p ./genref-output
 	mkdir -p ./genref-output/single
 	mkdir -p ./genref-output/double
 	mkdir -p ./genref-output/quad
-	$(genref_run@P@@OMP@dir)/genref_run@P@@OMP@
+	$(genref_run@P@dir)/genref_run@P@
 
 
 remove-files:

@@ -107,19 +107,18 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 LTLIBRARIES = $(noinst_LTLIBRARIES)
-libcharm@P@_crd@OMP@_la_LIBADD =
-am_libcharm@P@_crd@OMP@_la_OBJECTS = crd_point_alloc.lo \
-	crd_point_malloc.lo crd_point_calloc.lo crd_point_init.lo \
-	crd_point_free.lo crd_point_check_inputs.lo crd_point_gl.lo \
-	crd_point_dh1.lo crd_point_dh2.lo crd_point_dh_lats_weights.lo \
+libcharm@P@_crd_la_LIBADD =
+am_libcharm@P@_crd_la_OBJECTS = crd_point_alloc.lo crd_point_malloc.lo \
+	crd_point_calloc.lo crd_point_init.lo crd_point_free.lo \
+	crd_point_check_inputs.lo crd_point_gl.lo crd_point_dh1.lo \
+	crd_point_dh2.lo crd_point_dh_lats_weights.lo \
 	crd_cell_alloc.lo crd_cell_malloc.lo crd_cell_calloc.lo \
 	crd_cell_init.lo crd_cell_free.lo crd_cell_check_inputs.lo \
 	crd_grd_check_symm.lo crd_check_cells.lo crd_point_isGrid.lo \
 	crd_point_isCustGrid.lo crd_point_isQuadGrid.lo \
 	crd_point_isSctr.lo crd_isPoint.lo crd_cell_isGrid.lo \
 	crd_cell_isSctr.lo crd_isCell.lo
-libcharm@P@_crd@OMP@_la_OBJECTS =  \
-	$(am_libcharm@P@_crd@OMP@_la_OBJECTS)
+libcharm@P@_crd_la_OBJECTS = $(am_libcharm@P@_crd_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
@@ -179,8 +178,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libcharm@P@_crd@OMP@_la_SOURCES)
-DIST_SOURCES = $(libcharm@P@_crd@OMP@_la_SOURCES)
+SOURCES = $(libcharm@P@_crd_la_SOURCES)
+DIST_SOURCES = $(libcharm@P@_crd_la_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -249,7 +248,6 @@ NP_FLOAT = @NP_FLOAT@
 OBJDIR = @OBJDIR@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
-OMP = @OMP@
 OPENMP_CFLAGS = @OPENMP_CFLAGS@
 OTOOL = @OTOOL@
 OTOOL64 = @OTOOL64@
@@ -334,34 +332,34 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-noinst_LTLIBRARIES = libcharm@P@_crd@OMP@.la
+noinst_LTLIBRARIES = libcharm@P@_crd.la
 AM_CPPFLAGS = -I$(top_srcdir)/charm
-libcharm@P@_crd@OMP@_la_SOURCES = crd_point_alloc.c \
-								  crd_point_malloc.c \
-								  crd_point_calloc.c \
-								  crd_point_init.c \
-								  crd_point_free.c \
-								  crd_point_check_inputs.c \
-								  crd_point_gl.c \
-								  crd_point_dh1.c \
-								  crd_point_dh2.c \
-								  crd_point_dh_lats_weights.c \
-								  crd_cell_alloc.c \
-								  crd_cell_malloc.c \
-								  crd_cell_calloc.c \
-								  crd_cell_init.c \
-								  crd_cell_free.c \
-								  crd_cell_check_inputs.c \
-								  crd_grd_check_symm.c \
-								  crd_check_cells.c \
-								  crd_point_isGrid.c \
-								  crd_point_isCustGrid.c \
-								  crd_point_isQuadGrid.c \
-								  crd_point_isSctr.c \
-								  crd_isPoint.c \
-								  crd_cell_isGrid.c \
-								  crd_cell_isSctr.c \
-								  crd_isCell.c
+libcharm@P@_crd_la_SOURCES = crd_point_alloc.c \
+							 crd_point_malloc.c \
+							 crd_point_calloc.c \
+							 crd_point_init.c \
+							 crd_point_free.c \
+							 crd_point_check_inputs.c \
+							 crd_point_gl.c \
+							 crd_point_dh1.c \
+							 crd_point_dh2.c \
+							 crd_point_dh_lats_weights.c \
+							 crd_cell_alloc.c \
+							 crd_cell_malloc.c \
+							 crd_cell_calloc.c \
+							 crd_cell_init.c \
+							 crd_cell_free.c \
+							 crd_cell_check_inputs.c \
+							 crd_grd_check_symm.c \
+							 crd_check_cells.c \
+							 crd_point_isGrid.c \
+							 crd_point_isCustGrid.c \
+							 crd_point_isQuadGrid.c \
+							 crd_point_isSctr.c \
+							 crd_isPoint.c \
+							 crd_cell_isGrid.c \
+							 crd_cell_isSctr.c \
+							 crd_isCell.c
 
 EXTRA_DIST = *.h
 all: all-am
@@ -409,8 +407,8 @@ clean-noinstLTLIBRARIES:
 	  rm -f $${locs}; \
 	}
 
-libcharm@P@_crd@OMP@.la: $(libcharm@P@_crd@OMP@_la_OBJECTS) $(libcharm@P@_crd@OMP@_la_DEPENDENCIES) $(EXTRA_libcharm@P@_crd@OMP@_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(LINK)  $(libcharm@P@_crd@OMP@_la_OBJECTS) $(libcharm@P@_crd@OMP@_la_LIBADD) $(LIBS)
+libcharm@P@_crd.la: $(libcharm@P@_crd_la_OBJECTS) $(libcharm@P@_crd_la_DEPENDENCIES) $(EXTRA_libcharm@P@_crd_la_DEPENDENCIES) 
+	$(AM_V_CCLD)$(LINK)  $(libcharm@P@_crd_la_OBJECTS) $(libcharm@P@_crd_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

@@ -285,25 +285,17 @@ variable when calling the ``./configure`` script from the CHarm installation.
 A few installation notes
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-* The output lib names depend on the user-defined compilation settings and
-  follow the pattern:
+* The output lib names depend on the precision used to compile CHarm:
 
-   * ``libcharmf`` -- single precision with OpenMP disabled,
+   * ``libcharmf`` -- single precision,
 
-   * ``libcharmf_omp`` -- single precision with OpenMP enabled,
+   * ``libcharm`` -- double precision,
 
-   * ``libcharm`` -- double precision with OpenMP disabled,
+   * ``libcharmq`` -- quadruple precision.
 
-   * ``libcharm_omp`` --  double precision with OpenMP enabled,
-
-
-   * ``libcharmq`` -- quadruple precision with OpenMP disabled,
-
-   * ``libcharmq_omp`` -- quadruple precision with OpenMP enabled.
-
-* You may install CHarm in single, double and quadruple precision, each with
-  OpenMP enabled and disabled, to the same installation path.  You don't have
-  to worry about overwriting the header and lib files.
+* You may install CHarm in single, double and quadruple precision to the same 
+  installation path.  You don't have to worry about overwriting the header and 
+  lib files.
 
 
 .. _charm_uninstallation:
@@ -427,8 +419,7 @@ this:
   make check
   make install
 
-
-Open Python:
+Then, open Python:
 
 .. code-block:: bash
 
@@ -447,6 +438,26 @@ Deactivate the virtual environment from the shell:
 .. code-block:: bash
 
   deactivate
+
+As a side note, you might replace
+
+.. code-block:: bash
+
+  make
+  make check
+  make install
+
+by
+
+.. code-block:: bash
+
+  make pyharm
+
+right after you called the ``./configure`` script.  You risk, however, that 
+CHarm, hence PyHarm, might not be functioning properly, as you did not check 
+the output from the test suite, which is otherwise executed by ``make check``.  
+Use this approach only if you know by prior experience that the tests are 
+likely to pass on your platform and with your compiling options.
 
 
 Uninstallation

@@ -45,20 +45,16 @@ help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 
-$(top_srcdir)/@OBJDIR@/libcharm@P@@OMP@@SHARED_EXT@:
-	cd $(top_srcdir) && $(MAKE) -j
-
-
-lib-file: $(top_srcdir)/@OBJDIR@/libcharm@P@@OMP@@SHARED_EXT@
-	cd $(top_srcdir)/wrap/pyharm && $(MAKE) cp-lib
-
-
 doxygen:
 	cd $(top_srcdir) && ./config.status
 	doxygen Doxyfile
 
 
-$(SPHINXTARGETS) $(SPHINXTARGETS_DEL): doxygen lib-file
+$(SPHINXTARGETS) $(SPHINXTARGETS_DEL): doxygen
+	cd $(top_srcdir)/wrap/pyharm@P@ && $(MAKE) pyharm-build-local
+	cd $(top_srcdir) && rm -f ./wrap/pyharm@P@/libcharm@P@*.so
+	cd $(top_srcdir) && \
+		cp ./build/lib*/pyharm/libcharm@P@*.so ./wrap/pyharm@P@
 if DOC
 if DOC_PY
 	rm -rf build/$@
