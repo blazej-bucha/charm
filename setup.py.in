@@ -1,4 +1,5 @@
 import os
+import sys
 import glob
 import sysconfig
 from setuptools import setup, Extension
@@ -33,6 +34,15 @@ def to_list(string, separator):
 # .............................................................................
 
 
+# Run setup
+# .............................................................................
+if sys.platform == 'win32':
+    # This must be empty on Windows
+    runtime_library_dirs = []
+else:
+    runtime_library_dirs = to_list(library_dirs, '-L')
+
+
 setup(name='pyharm@P@',
       version=ver,
       description='Python wrapper for CHarm, a C library to work with '
@@ -52,7 +62,9 @@ setup(name='pyharm@P@',
                 extra_compile_args=to_list(extra_compile_args, ' '),
                 include_dirs=['.', './src'] + to_list(include_dirs, '-I'),
                 library_dirs=to_list(library_dirs, '-L'),
+                runtime_library_dirs=runtime_library_dirs,
                 libraries=to_list(libraries, '-l'),
                      ),
                   ]
       )
+# .............................................................................
