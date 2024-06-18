@@ -413,7 +413,7 @@ extern void charm@P@_shs_point_grad2(const charm@P@_point *pnt,
  *
  * Computed can be, for instance, quantities like \f$\dfrac{1}{r \,
  * \cos\varphi} \, \dfrac{\partial f}{\partial \lambda}\f$ (\f$i = 0\f$, \f$j
- * = 1\f$, \f$k = 0\f$) or \f$\dfrac{1}{r^2 \, \cos\varphi} \,
+ * = 0\f$, \f$k = 1\f$) or \f$\dfrac{1}{r^2 \, \cos\varphi} \,
  * \dfrac{\partial^2 f}{\partial \varphi \, \partial \lambda}\f$ (\f$i = 0\f$,
  * \f$j = 1\f$, \f$k = 1\f$).
  *
