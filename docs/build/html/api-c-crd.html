@@ -1,9 +1,8 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
@@ -15,32 +14,33 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=a5a0fee1"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api-c-crd';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -48,6 +48,7 @@
     <link rel="prev" title="charm_shc" href="api-c-shc.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Jun 18, 2024"/>
   </head>
   
   
@@ -55,19 +56,23 @@
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -89,12 +94,20 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -109,9 +122,11 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="index.html">
+  
   
   
   
@@ -121,30 +136,41 @@
       
     
     
-    <img src="_static/charm-logo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="_static/charm-logo.png" class="logo__image only-light" alt=""/>
+    <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt=""/>`);</script>
   
   
     <p class="title logo__title">CHarm v0.4.0-dev</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="install.html">Installing</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="install.html">Installing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="install_unix.html">Installation on Unix-based operating systems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="install_non_unix.html">Installation on Windows 10</a></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="cookbook.html">Cookbook</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="cookbook.html">Cookbook</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="cookbook-c.html">CHarm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cookbook-py.html">PyHarm</a></li>
 </ul>
-</li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="api.html">Interfaces</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2 current active has-children"><a class="reference internal" href="api-c.html">CHarm (C API)</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="api.html">Interfaces</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="api-c.html">CHarm (C API)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="api-c-shc.html">charm_shc</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">charm_crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
@@ -156,8 +182,8 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-glob.html">charm_glob</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
 </ul>
-</li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="api-py-shc.html">pyharm.shc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
@@ -167,9 +193,9 @@
 <li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-glob.html">pyharm.glob</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
@@ -189,7 +215,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -198,14 +224,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -344,24 +370,28 @@
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -377,6 +407,59 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv422charm_crd_point_malloci6size_t6size_t"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_malloc()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv422charm_crd_point_calloci6size_t6size_t"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_calloc()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv420charm_crd_point_initi6size_t6size_tPdPdPd"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_init()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv420charm_crd_point_freeP11charm_point"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_free()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv418charm_crd_point_glmd"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_gl()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv419charm_crd_point_dh1md"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_dh1()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv419charm_crd_point_dh2md"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_dh2()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv421charm_crd_cell_malloci6size_t6size_t"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_malloc()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv421charm_crd_cell_calloci6size_t6size_t"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_calloc()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv419charm_crd_cell_initi6size_t6size_tPdPdPdPdPd"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_init()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv419charm_crd_cell_freeP10charm_cell"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_free()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4Ut1_0"><code class="docutils literal notranslate"><span class="pre">@0</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_019CHARM_CRD_CELL_GRIDE"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_CELL_GRID</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_024CHARM_CRD_CELL_SCATTEREDE"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_CELL_SCATTERED</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_025CHARM_CRD_POINT_SCATTEREDE"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_POINT_SCATTERED</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_020CHARM_CRD_POINT_GRIDE"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_POINT_GRID</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_023CHARM_CRD_POINT_GRID_GLE"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_POINT_GRID_GL</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH1E"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_POINT_GRID_DH1</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH2E"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_POINT_GRID_DH2</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv411charm_point"><code class="docutils literal notranslate"><span class="pre">charm_point</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4typeE"><code class="docutils literal notranslate"><span class="pre">charm_point::type</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4nlatE"><code class="docutils literal notranslate"><span class="pre">charm_point::nlat</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4nlonE"><code class="docutils literal notranslate"><span class="pre">charm_point::nlon</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point6npointE"><code class="docutils literal notranslate"><span class="pre">charm_point::npoint</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point3latE"><code class="docutils literal notranslate"><span class="pre">charm_point::lat</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point3lonE"><code class="docutils literal notranslate"><span class="pre">charm_point::lon</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point1rE"><code class="docutils literal notranslate"><span class="pre">charm_point::r</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point1wE"><code class="docutils literal notranslate"><span class="pre">charm_point::w</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point5ownerE"><code class="docutils literal notranslate"><span class="pre">charm_point::owner</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv410charm_cell"><code class="docutils literal notranslate"><span class="pre">charm_cell</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell4typeE"><code class="docutils literal notranslate"><span class="pre">charm_cell::type</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell4nlatE"><code class="docutils literal notranslate"><span class="pre">charm_cell::nlat</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell4nlonE"><code class="docutils literal notranslate"><span class="pre">charm_cell::nlon</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell5ncellE"><code class="docutils literal notranslate"><span class="pre">charm_cell::ncell</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell6latminE"><code class="docutils literal notranslate"><span class="pre">charm_cell::latmin</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell6latmaxE"><code class="docutils literal notranslate"><span class="pre">charm_cell::latmax</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell6lonminE"><code class="docutils literal notranslate"><span class="pre">charm_cell::lonmin</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell6lonmaxE"><code class="docutils literal notranslate"><span class="pre">charm_cell::lonmax</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell1rE"><code class="docutils literal notranslate"><span class="pre">charm_cell::r</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell5ownerE"><code class="docutils literal notranslate"><span class="pre">charm_cell::owner</span></code></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -384,10 +467,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section id="charm-crd">
-<span id="id1"></span><h1>charm_crd<a class="headerlink" href="#charm-crd" title="Permalink to this heading">#</a></h1>
+<span id="id1"></span><h1>charm_crd<a class="headerlink" href="#charm-crd" title="Link to this heading">#</a></h1>
 <p>Module to work with the coordinates of evaluation points/cells:</p>
 <p><ul class="simple">
 <li><p>defines <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code> structures,</p></li>
@@ -411,7 +494,7 @@ document.write(`
 <p>These functions allocate, initialize and free the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure, which is designed to store evaluation points. </p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv422charm_crd_point_malloci6size_t6size_t">
-<span id="_CPPv322charm_crd_point_malloci6size_t6size_t"></span><span id="_CPPv222charm_crd_point_malloci6size_t6size_t"></span><span id="charm_crd_point_malloc__i.s.s"></span><span class="target" id="charm__crd_8h_1a506d61d454256ca01b9ae64690fd6c8b"></span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_point_malloc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlat</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlon</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv422charm_crd_point_malloci6size_t6size_t" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv322charm_crd_point_malloci6size_t6size_t"></span><span id="_CPPv222charm_crd_point_malloci6size_t6size_t"></span><span id="charm_crd_point_malloc__i.s.s"></span><span class="target" id="charm__crd_8h_1a506d61d454256ca01b9ae64690fd6c8b"></span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_point_malloc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlat</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlon</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv422charm_crd_point_malloci6size_t6size_t" title="Link to this definition">#</a><br /></dt>
 <dd><p>Allocates evaluation points of a given <code class="docutils literal notranslate"><span class="pre">type</span></code> with <code class="docutils literal notranslate"><span class="pre">nlat</span></code> latitudes, <code class="docutils literal notranslate"><span class="pre">nlon</span></code> longitudes and <code class="docutils literal notranslate"><span class="pre">nlat</span></code> spherical radii. If <code class="docutils literal notranslate"><span class="pre">type</span></code> is <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bab4d94ce6d422441b136e7a4c1004fe60"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba7b6b9df94846ef66a06576f859b33490"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></span></a></code> or <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bac257fe0b50a555185faec82d04a70ee6"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></span></a></code>, <code class="docutils literal notranslate"><span class="pre">nlat</span></code> integration weights are allocated in addition. The memory of all array elements is uninitialized, so their values are undefined. </p>
 <p>Valid values of <code class="docutils literal notranslate"><span class="pre">type</span></code> are constants <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba6b99f8561350326841b455125b2820f9"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_SCATTERED</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bae65b0ee9dba031d62ff7758344ace23c"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bab4d94ce6d422441b136e7a4c1004fe60"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba7b6b9df94846ef66a06576f859b33490"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bac257fe0b50a555185faec82d04a70ee6"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></span></a></code>.</p>
 <p><ul>
@@ -446,13 +529,13 @@ document.write(`
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv422charm_crd_point_calloci6size_t6size_t">
-<span id="_CPPv322charm_crd_point_calloci6size_t6size_t"></span><span id="_CPPv222charm_crd_point_calloci6size_t6size_t"></span><span id="charm_crd_point_calloc__i.s.s"></span><span class="target" id="charm__crd_8h_1a90f7e9d5f31cfb95bfe77d1d43fb5b22"></span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_point_calloc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlat</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlon</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv422charm_crd_point_calloci6size_t6size_t" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv322charm_crd_point_calloci6size_t6size_t"></span><span id="_CPPv222charm_crd_point_calloci6size_t6size_t"></span><span id="charm_crd_point_calloc__i.s.s"></span><span class="target" id="charm__crd_8h_1a90f7e9d5f31cfb95bfe77d1d43fb5b22"></span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_point_calloc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlat</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlon</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv422charm_crd_point_calloci6size_t6size_t" title="Link to this definition">#</a><br /></dt>
 <dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a506d61d454256ca01b9ae64690fd6c8b"><span class="std std-ref"><span class="pre">charm_crd_point_malloc()</span></span></a></code> but all array elements are initialized to zero. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv420charm_crd_point_initi6size_t6size_tPdPdPd">
-<span id="_CPPv320charm_crd_point_initi6size_t6size_tPdPdPd"></span><span id="_CPPv220charm_crd_point_initi6size_t6size_tPdPdPd"></span><span id="charm_crd_point_init__i.s.s.doubleP.doubleP.doubleP"></span><span class="target" id="charm__crd_8h_1acb9cd413acb07ef1e3a18f48baa101a2"></span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_point_init</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlat</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlon</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">lat</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">lon</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">r</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv420charm_crd_point_initi6size_t6size_tPdPdPd" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv320charm_crd_point_initi6size_t6size_tPdPdPd"></span><span id="_CPPv220charm_crd_point_initi6size_t6size_tPdPdPd"></span><span id="charm_crd_point_init__i.s.s.doubleP.doubleP.doubleP"></span><span class="target" id="charm__crd_8h_1acb9cd413acb07ef1e3a18f48baa101a2"></span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_point_init</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlat</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlon</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">lat</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">lon</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">r</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv420charm_crd_point_initi6size_t6size_tPdPdPd" title="Link to this definition">#</a><br /></dt>
 <dd><p>For a given point <code class="docutils literal notranslate"><span class="pre">type</span></code>, takes <code class="docutils literal notranslate"><span class="pre">nlat</span></code> spherical latitudes from the array pointed to by <code class="docutils literal notranslate"><span class="pre">lat</span></code>, <code class="docutils literal notranslate"><span class="pre">nlon</span></code> spherical longitudes from <code class="docutils literal notranslate"><span class="pre">lon</span></code> and <code class="docutils literal notranslate"><span class="pre">nlat</span></code> spherical radii from <code class="docutils literal notranslate"><span class="pre">r</span></code> (shallow copy). </p>
 <p>Valid values of <code class="docutils literal notranslate"><span class="pre">type</span></code> are constants <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba6b99f8561350326841b455125b2820f9"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_SCATTERED</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bae65b0ee9dba031d62ff7758344ace23c"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bab4d94ce6d422441b136e7a4c1004fe60"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba7b6b9df94846ef66a06576f859b33490"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bac257fe0b50a555185faec82d04a70ee6"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></span></a></code>.</p>
 <p><ul class="simple">
@@ -490,7 +573,7 @@ document.write(`
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv420charm_crd_point_freeP11charm_point">
-<span id="_CPPv320charm_crd_point_freeP11charm_point"></span><span id="_CPPv220charm_crd_point_freeP11charm_point"></span><span id="charm_crd_point_free__charm_pointP"></span><span class="target" id="charm__crd_8h_1a74d3a0f9144c9db18230507d38cbcbee"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_point_free</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pnt</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv420charm_crd_point_freeP11charm_point" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv320charm_crd_point_freeP11charm_point"></span><span id="_CPPv220charm_crd_point_freeP11charm_point"></span><span id="charm_crd_point_free__charm_pointP"></span><span class="target" id="charm__crd_8h_1a74d3a0f9144c9db18230507d38cbcbee"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_point_free</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pnt</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv420charm_crd_point_freeP11charm_point" title="Link to this definition">#</a><br /></dt>
 <dd><p>Frees the memory associated with <code class="docutils literal notranslate"><span class="pre">pnt</span></code>. No operation is performed if <code class="docutils literal notranslate"><span class="pre">pnt</span></code> is <code class="docutils literal notranslate"><span class="pre">NULL</span></code>. </p>
 <p>If <code class="docutils literal notranslate"><span class="pre">pnt-&gt;owner</span></code> is <code class="docutils literal notranslate"><span class="pre">1</span></code>, the function releases all the memory that is associated with <code class="docutils literal notranslate"><span class="pre">pnt</span></code>, including that of its array members. If <code class="docutils literal notranslate"><span class="pre">pnt-&gt;owner</span></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code>, the arrays are not released from the memory, because they were not allocated by CHarm. </p>
 </dd></dl>
@@ -501,7 +584,7 @@ document.write(`
 <p>These functions compute the Gauss-Legendre and Driscoll-Healy quadrature grids and the associated integration weights. </p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv418charm_crd_point_glmd">
-<span id="_CPPv318charm_crd_point_glmd"></span><span id="_CPPv218charm_crd_point_glmd"></span><span id="charm_crd_point_gl__unsigned-l.double"></span><span class="target" id="charm__crd_8h_1a43011764a620cbea682983d31a5e202f"></span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_point_gl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418charm_crd_point_glmd" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv318charm_crd_point_glmd"></span><span id="_CPPv218charm_crd_point_glmd"></span><span id="charm_crd_point_gl__unsigned-l.double"></span><span class="target" id="charm__crd_8h_1a43011764a620cbea682983d31a5e202f"></span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_point_gl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418charm_crd_point_glmd" title="Link to this definition">#</a><br /></dt>
 <dd><p>Computes the Gauss-Legendre grid associated with the harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code> (Sneeuw, 1994) on the sphere with the radius <code class="docutils literal notranslate"><span class="pre">r</span></code>. The integration weights are computed on the <em>unit</em> sphere. </p>
 <p>Loops are parallelized using OpenMP.</p>
 <div class="admonition note">
@@ -522,7 +605,7 @@ longitudinal step is constant.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv419charm_crd_point_dh1md">
-<span id="_CPPv319charm_crd_point_dh1md"></span><span id="_CPPv219charm_crd_point_dh1md"></span><span id="charm_crd_point_dh1__unsigned-l.double"></span><span class="target" id="charm__crd_8h_1a74dd8465b52f35d4e7dca5205c5b3eb5"></span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_point_dh1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_crd_point_dh1md" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv319charm_crd_point_dh1md"></span><span id="_CPPv219charm_crd_point_dh1md"></span><span id="charm_crd_point_dh1__unsigned-l.double"></span><span class="target" id="charm__crd_8h_1a74dd8465b52f35d4e7dca5205c5b3eb5"></span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_point_dh1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_crd_point_dh1md" title="Link to this definition">#</a><br /></dt>
 <dd><p>Computes the non-equiangular Driscoll-Healy grid (as defined by Driscoll and Healy, 1994) associated with the maximum spherical harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code> on the sphere with the radius <code class="docutils literal notranslate"><span class="pre">r</span></code>. The integration weights are computed on the <em>unit</em> sphere. </p>
 <p>Loops are parallelized using OpenMP.</p>
 <div class="admonition warning">
@@ -538,7 +621,7 @@ longitudinal step is constant.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv419charm_crd_point_dh2md">
-<span id="_CPPv319charm_crd_point_dh2md"></span><span id="_CPPv219charm_crd_point_dh2md"></span><span id="charm_crd_point_dh2__unsigned-l.double"></span><span class="target" id="charm__crd_8h_1a60c2bc69dee5a06f2be9f0a89bf04da3"></span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_point_dh2</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_crd_point_dh2md" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv319charm_crd_point_dh2md"></span><span id="_CPPv219charm_crd_point_dh2md"></span><span id="charm_crd_point_dh2__unsigned-l.double"></span><span class="target" id="charm__crd_8h_1a60c2bc69dee5a06f2be9f0a89bf04da3"></span><a class="reference internal" href="#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_point_dh2</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_crd_point_dh2md" title="Link to this definition">#</a><br /></dt>
 <dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a74dd8465b52f35d4e7dca5205c5b3eb5"><span class="std std-ref"><span class="pre">charm_crd_point_dh1()</span></span></a></code> but for the equiangular modification of the Driscoll-Healy grid after Wieczorek and Meschede (2018). </p>
 </dd></dl>
 
@@ -548,7 +631,7 @@ longitudinal step is constant.</p>
 <p>These functions allocate, initialize and free the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell"><span class="std std-ref"><span class="pre">charm_cell</span></span></a></code> structure, which is designed to store evaluation cells. </p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv421charm_crd_cell_malloci6size_t6size_t">
-<span id="_CPPv321charm_crd_cell_malloci6size_t6size_t"></span><span id="_CPPv221charm_crd_cell_malloci6size_t6size_t"></span><span id="charm_crd_cell_malloc__i.s.s"></span><span class="target" id="charm__crd_8h_1aa6b35f3c72196d66a6ad6738457fe300"></span><a class="reference internal" href="#_CPPv410charm_cell" title="charm_cell"><span class="n"><span class="pre">charm_cell</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_cell_malloc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlat</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlon</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421charm_crd_cell_malloci6size_t6size_t" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv321charm_crd_cell_malloci6size_t6size_t"></span><span id="_CPPv221charm_crd_cell_malloci6size_t6size_t"></span><span id="charm_crd_cell_malloc__i.s.s"></span><span class="target" id="charm__crd_8h_1aa6b35f3c72196d66a6ad6738457fe300"></span><a class="reference internal" href="#_CPPv410charm_cell" title="charm_cell"><span class="n"><span class="pre">charm_cell</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_cell_malloc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlat</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlon</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421charm_crd_cell_malloci6size_t6size_t" title="Link to this definition">#</a><br /></dt>
 <dd><p>Allocates evaluation cells of a given <code class="docutils literal notranslate"><span class="pre">type</span></code> with <code class="docutils literal notranslate"><span class="pre">nlat</span></code> minimum and maximum latitudes, <code class="docutils literal notranslate"><span class="pre">nlon</span></code> minimum and maximum longitudes and <code class="docutils literal notranslate"><span class="pre">nlat</span></code> spherical radii. The memory of all array elements is uninitialized, so their values are undefined. </p>
 <p>Valid values of <code class="docutils literal notranslate"><span class="pre">type</span></code> are constants <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba66aff589c459da043f1c2cf320c49768"><span class="std std-ref"><span class="pre">CHARM_CRD_CELL_GRID</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bafb6b3c1a3904ae4db02d4ab932893ec2"><span class="std std-ref"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></span></a></code>.</p>
 <p><ul>
@@ -587,13 +670,13 @@ longitudinal step is constant.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv421charm_crd_cell_calloci6size_t6size_t">
-<span id="_CPPv321charm_crd_cell_calloci6size_t6size_t"></span><span id="_CPPv221charm_crd_cell_calloci6size_t6size_t"></span><span id="charm_crd_cell_calloc__i.s.s"></span><span class="target" id="charm__crd_8h_1ab4d8da51ed28735494116bc15d02e5bd"></span><a class="reference internal" href="#_CPPv410charm_cell" title="charm_cell"><span class="n"><span class="pre">charm_cell</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_cell_calloc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlat</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlon</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421charm_crd_cell_calloci6size_t6size_t" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv321charm_crd_cell_calloci6size_t6size_t"></span><span id="_CPPv221charm_crd_cell_calloci6size_t6size_t"></span><span id="charm_crd_cell_calloc__i.s.s"></span><span class="target" id="charm__crd_8h_1ab4d8da51ed28735494116bc15d02e5bd"></span><a class="reference internal" href="#_CPPv410charm_cell" title="charm_cell"><span class="n"><span class="pre">charm_cell</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_cell_calloc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlat</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlon</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421charm_crd_cell_calloci6size_t6size_t" title="Link to this definition">#</a><br /></dt>
 <dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1aa6b35f3c72196d66a6ad6738457fe300"><span class="std std-ref"><span class="pre">charm_crd_cell_malloc()</span></span></a></code> but the memory of all array elements is initialized to zero. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv419charm_crd_cell_initi6size_t6size_tPdPdPdPdPd">
-<span id="_CPPv319charm_crd_cell_initi6size_t6size_tPdPdPdPdPd"></span><span id="_CPPv219charm_crd_cell_initi6size_t6size_tPdPdPdPdPd"></span><span id="charm_crd_cell_init__i.s.s.doubleP.doubleP.doubleP.doubleP.doubleP"></span><span class="target" id="charm__crd_8h_1a34dadebfdbdc3f7697bbab00b8c52885"></span><a class="reference internal" href="#_CPPv410charm_cell" title="charm_cell"><span class="n"><span class="pre">charm_cell</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_cell_init</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlat</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlon</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">latmin</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">latmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">lonmin</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">lonmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">r</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_crd_cell_initi6size_t6size_tPdPdPdPdPd" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv319charm_crd_cell_initi6size_t6size_tPdPdPdPdPd"></span><span id="_CPPv219charm_crd_cell_initi6size_t6size_tPdPdPdPdPd"></span><span id="charm_crd_cell_init__i.s.s.doubleP.doubleP.doubleP.doubleP.doubleP"></span><span class="target" id="charm__crd_8h_1a34dadebfdbdc3f7697bbab00b8c52885"></span><a class="reference internal" href="#_CPPv410charm_cell" title="charm_cell"><span class="n"><span class="pre">charm_cell</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_cell_init</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlat</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nlon</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">latmin</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">latmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">lonmin</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">lonmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">r</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_crd_cell_initi6size_t6size_tPdPdPdPdPd" title="Link to this definition">#</a><br /></dt>
 <dd><p>For a given <code class="docutils literal notranslate"><span class="pre">type</span></code>, takes <code class="docutils literal notranslate"><span class="pre">nlat</span></code> minimum and maximum spherical latitudes from the arrays pointed to by <code class="docutils literal notranslate"><span class="pre">latmin</span></code> and <code class="docutils literal notranslate"><span class="pre">latmax</span></code>, <code class="docutils literal notranslate"><span class="pre">nlon</span></code> minimum and maximum spherical longitudes from <code class="docutils literal notranslate"><span class="pre">lonmin</span></code> and <code class="docutils literal notranslate"><span class="pre">lonmax</span></code> and <code class="docutils literal notranslate"><span class="pre">nlat</span></code> spherical radii from <code class="docutils literal notranslate"><span class="pre">r</span></code>, respectively (shallow copy). </p>
 <p>Accepted values of <code class="docutils literal notranslate"><span class="pre">type</span></code> are <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba66aff589c459da043f1c2cf320c49768"><span class="std std-ref"><span class="pre">CHARM_CRD_CELL_GRID</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bafb6b3c1a3904ae4db02d4ab932893ec2"><span class="std std-ref"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></span></a></code>.</p>
 <p><ul class="simple">
@@ -631,7 +714,7 @@ longitudinal step is constant.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv419charm_crd_cell_freeP10charm_cell">
-<span id="_CPPv319charm_crd_cell_freeP10charm_cell"></span><span id="_CPPv219charm_crd_cell_freeP10charm_cell"></span><span id="charm_crd_cell_free__charm_cellP"></span><span class="target" id="charm__crd_8h_1a321c2e629b86feebcb3210dbd881610f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_cell_free</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv410charm_cell" title="charm_cell"><span class="n"><span class="pre">charm_cell</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">cell</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_crd_cell_freeP10charm_cell" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv319charm_crd_cell_freeP10charm_cell"></span><span id="_CPPv219charm_crd_cell_freeP10charm_cell"></span><span id="charm_crd_cell_free__charm_cellP"></span><span class="target" id="charm__crd_8h_1a321c2e629b86feebcb3210dbd881610f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_crd_cell_free</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv410charm_cell" title="charm_cell"><span class="n"><span class="pre">charm_cell</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">cell</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419charm_crd_cell_freeP10charm_cell" title="Link to this definition">#</a><br /></dt>
 <dd><p>Frees the memory associated with <code class="docutils literal notranslate"><span class="pre">cell</span></code>. No operation is performed if <code class="docutils literal notranslate"><span class="pre">cell</span></code> is <code class="docutils literal notranslate"><span class="pre">NULL</span></code>. </p>
 <p>If <code class="docutils literal notranslate"><span class="pre">cell-&gt;owner</span></code> is <code class="docutils literal notranslate"><span class="pre">1</span></code>, the function releases all the memory that is associated with <code class="docutils literal notranslate"><span class="pre">cell</span></code>, including that of its array members. If <code class="docutils literal notranslate"><span class="pre">cell-&gt;owner</span></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code>, the arrays are not released from the memory, because they were not allocated by CHarm. </p>
 </dd></dl>
@@ -641,48 +724,48 @@ longitudinal step is constant.</p>
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-enums">Enums</p>
 <dl class="cpp enum">
 <dt class="sig sig-object cpp" id="_CPPv4Ut1_0">
-<span id="_CPPv3Ut1_0"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55b"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">[anonymous]</span></span></span><a class="headerlink" href="#_CPPv4Ut1_0" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3Ut1_0"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55b"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">[anonymous]</span></span></span><a class="headerlink" href="#_CPPv4Ut1_0" title="Link to this definition">#</a><br /></dt>
 <dd><p>Defines supported values of <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1aa35333657beaf178363c136623b0473d"><span class="std std-ref"><span class="pre">charm_point.type</span></span></a></code> to <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba6b99f8561350326841b455125b2820f9"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_SCATTERED</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bae65b0ee9dba031d62ff7758344ace23c"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bab4d94ce6d422441b136e7a4c1004fe60"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba7b6b9df94846ef66a06576f859b33490"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bac257fe0b50a555185faec82d04a70ee6"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></span></a></code>. For <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a6f1a65bcfb966a604f080f4a1db87fe9"><span class="std std-ref"><span class="pre">charm_cell.type</span></span></a></code>, valid constants are <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bafb6b3c1a3904ae4db02d4ab932893ec2"><span class="std std-ref"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba66aff589c459da043f1c2cf320c49768"><span class="std std-ref"><span class="pre">CHARM_CRD_CELL_GRID</span></span></a></code>. </p>
 <p><em>Values:</em></p>
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4NUt1_019CHARM_CRD_CELL_GRIDE">
-<span id="_CPPv3NUt1_019CHARM_CRD_CELL_GRIDE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba66aff589c459da043f1c2cf320c49768"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_CELL_GRID</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">2</span></span><a class="headerlink" href="#_CPPv4NUt1_019CHARM_CRD_CELL_GRIDE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NUt1_019CHARM_CRD_CELL_GRIDE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba66aff589c459da043f1c2cf320c49768"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_CELL_GRID</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">2</span></span><a class="headerlink" href="#_CPPv4NUt1_019CHARM_CRD_CELL_GRIDE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Custom grid of cells. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4NUt1_024CHARM_CRD_CELL_SCATTEREDE">
-<span id="_CPPv3NUt1_024CHARM_CRD_CELL_SCATTEREDE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bafb6b3c1a3904ae4db02d4ab932893ec2"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></span></span><a class="headerlink" href="#_CPPv4NUt1_024CHARM_CRD_CELL_SCATTEREDE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NUt1_024CHARM_CRD_CELL_SCATTEREDE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bafb6b3c1a3904ae4db02d4ab932893ec2"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></span></span><a class="headerlink" href="#_CPPv4NUt1_024CHARM_CRD_CELL_SCATTEREDE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Scattered cells. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4NUt1_025CHARM_CRD_POINT_SCATTEREDE">
-<span id="_CPPv3NUt1_025CHARM_CRD_POINT_SCATTEREDE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba6b99f8561350326841b455125b2820f9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_POINT_SCATTERED</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><a class="headerlink" href="#_CPPv4NUt1_025CHARM_CRD_POINT_SCATTEREDE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NUt1_025CHARM_CRD_POINT_SCATTEREDE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba6b99f8561350326841b455125b2820f9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_POINT_SCATTERED</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><a class="headerlink" href="#_CPPv4NUt1_025CHARM_CRD_POINT_SCATTEREDE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Scattered points. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4NUt1_020CHARM_CRD_POINT_GRIDE">
-<span id="_CPPv3NUt1_020CHARM_CRD_POINT_GRIDE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bae65b0ee9dba031d62ff7758344ace23c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_POINT_GRID</span></span></span><a class="headerlink" href="#_CPPv4NUt1_020CHARM_CRD_POINT_GRIDE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NUt1_020CHARM_CRD_POINT_GRIDE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bae65b0ee9dba031d62ff7758344ace23c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_POINT_GRID</span></span></span><a class="headerlink" href="#_CPPv4NUt1_020CHARM_CRD_POINT_GRIDE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Custom point grid. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4NUt1_023CHARM_CRD_POINT_GRID_GLE">
-<span id="_CPPv3NUt1_023CHARM_CRD_POINT_GRID_GLE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bab4d94ce6d422441b136e7a4c1004fe60"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></span></span><a class="headerlink" href="#_CPPv4NUt1_023CHARM_CRD_POINT_GRID_GLE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NUt1_023CHARM_CRD_POINT_GRID_GLE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bab4d94ce6d422441b136e7a4c1004fe60"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></span></span><a class="headerlink" href="#_CPPv4NUt1_023CHARM_CRD_POINT_GRID_GLE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Gauss-Legendre point grid. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH1E">
-<span id="_CPPv3NUt1_024CHARM_CRD_POINT_GRID_DH1E"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba7b6b9df94846ef66a06576f859b33490"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></span></span><a class="headerlink" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH1E" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NUt1_024CHARM_CRD_POINT_GRID_DH1E"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba7b6b9df94846ef66a06576f859b33490"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></span></span><a class="headerlink" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH1E" title="Link to this definition">#</a><br /></dt>
 <dd><p>Driscoll-Healy point grid as defined by Driscoll and Healy (1994) (non-equiangular). </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH2E">
-<span id="_CPPv3NUt1_024CHARM_CRD_POINT_GRID_DH2E"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bac257fe0b50a555185faec82d04a70ee6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></span></span><a class="headerlink" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH2E" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NUt1_024CHARM_CRD_POINT_GRID_DH2E"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bac257fe0b50a555185faec82d04a70ee6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></span></span><a class="headerlink" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH2E" title="Link to this definition">#</a><br /></dt>
 <dd><p>The equiangular modification of the Driscoll-Healy point grid after Wieczorek and Meschede (2018). </p>
 </dd></dl>
 
@@ -691,13 +774,13 @@ longitudinal step is constant.</p>
 </div>
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv411charm_point">
-<span id="_CPPv311charm_point"></span><span id="_CPPv211charm_point"></span><span id="charm_point"></span><span class="target" id="structcharm__point"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_point</span></span></span><a class="headerlink" href="#_CPPv411charm_point" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv311charm_point"></span><span id="_CPPv211charm_point"></span><span id="charm_point"></span><span class="target" id="structcharm__point"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_point</span></span></span><a class="headerlink" href="#_CPPv411charm_point" title="Link to this definition">#</a><br /></dt>
 <dd><p>Structure to store evaluation points. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N11charm_point4typeE">
-<span id="_CPPv3N11charm_point4typeE"></span><span id="_CPPv2N11charm_point4typeE"></span><span id="charm_point::type__i"></span><span class="target" id="structcharm__point_1aa35333657beaf178363c136623b0473d"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">type</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point4typeE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N11charm_point4typeE"></span><span id="_CPPv2N11charm_point4typeE"></span><span id="charm_point::type__i"></span><span class="target" id="structcharm__point_1aa35333657beaf178363c136623b0473d"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">type</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point4typeE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Defines whether the points are organized as a grid or are scattered.</p>
 <p><code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1aa35333657beaf178363c136623b0473d"><span class="std std-ref"><span class="pre">charm_point.type</span></span></a></code> takes the following constants:</p>
 <p><ul class="simple">
@@ -712,19 +795,19 @@ longitudinal step is constant.</p>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N11charm_point4nlatE">
-<span id="_CPPv3N11charm_point4nlatE"></span><span id="_CPPv2N11charm_point4nlatE"></span><span id="charm_point::nlat__s"></span><span class="target" id="structcharm__point_1a0e1e42423c1f91fc48c64fa78778f161"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nlat</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point4nlatE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N11charm_point4nlatE"></span><span id="_CPPv2N11charm_point4nlatE"></span><span id="charm_point::nlat__s"></span><span class="target" id="structcharm__point_1a0e1e42423c1f91fc48c64fa78778f161"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nlat</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point4nlatE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Number of array elements associated with the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a1bca253be877755c4cfa49557668a435"><span class="std std-ref"><span class="pre">charm_point.lat</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1aa3f23516d42d1f896af66f167d410fc0"><span class="std std-ref"><span class="pre">charm_point.r</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1adb584de4defe51ad089a2f770e0e15f8"><span class="std std-ref"><span class="pre">charm_point.w</span></span></a></code> pointers. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N11charm_point4nlonE">
-<span id="_CPPv3N11charm_point4nlonE"></span><span id="_CPPv2N11charm_point4nlonE"></span><span id="charm_point::nlon__s"></span><span class="target" id="structcharm__point_1a02380017e214d456417521491507fa08"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nlon</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point4nlonE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N11charm_point4nlonE"></span><span id="_CPPv2N11charm_point4nlonE"></span><span id="charm_point::nlon__s"></span><span class="target" id="structcharm__point_1a02380017e214d456417521491507fa08"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nlon</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point4nlonE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Number of array elements associated with the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a93f0426f7005caa8ecebf01ff910c332"><span class="std std-ref"><span class="pre">charm_point.lon</span></span></a></code> pointer. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N11charm_point6npointE">
-<span id="_CPPv3N11charm_point6npointE"></span><span id="_CPPv2N11charm_point6npointE"></span><span id="charm_point::npoint__s"></span><span class="target" id="structcharm__point_1a4134d18ebf9bc5137f0e023043835795"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">npoint</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point6npointE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N11charm_point6npointE"></span><span id="_CPPv2N11charm_point6npointE"></span><span id="charm_point::npoint__s"></span><span class="target" id="structcharm__point_1a4134d18ebf9bc5137f0e023043835795"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">npoint</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point6npointE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Total number of points represented by the structure.</p>
 <p>Determines the total number of array elements that are necessary to store a signal sampled at the points of the structure.</p>
 <p><ul class="simple">
@@ -736,25 +819,25 @@ longitudinal step is constant.</p>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N11charm_point3latE">
-<span id="_CPPv3N11charm_point3latE"></span><span id="_CPPv2N11charm_point3latE"></span><span id="charm_point::lat__doubleP"></span><span class="target" id="structcharm__point_1a1bca253be877755c4cfa49557668a435"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">lat</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point3latE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N11charm_point3latE"></span><span id="_CPPv2N11charm_point3latE"></span><span id="charm_point::lat__doubleP"></span><span class="target" id="structcharm__point_1a1bca253be877755c4cfa49557668a435"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">lat</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point3latE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Pointer to an array of latitudes in radians. <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a0e1e42423c1f91fc48c64fa78778f161"><span class="std std-ref"><span class="pre">charm_point.nlat</span></span></a></code> array elements are associated with <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a1bca253be877755c4cfa49557668a435"><span class="std std-ref"><span class="pre">charm_point.lat</span></span></a></code>. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N11charm_point3lonE">
-<span id="_CPPv3N11charm_point3lonE"></span><span id="_CPPv2N11charm_point3lonE"></span><span id="charm_point::lon__doubleP"></span><span class="target" id="structcharm__point_1a93f0426f7005caa8ecebf01ff910c332"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">lon</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point3lonE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N11charm_point3lonE"></span><span id="_CPPv2N11charm_point3lonE"></span><span id="charm_point::lon__doubleP"></span><span class="target" id="structcharm__point_1a93f0426f7005caa8ecebf01ff910c332"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">lon</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point3lonE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Pointer to an array of longitudes in radians. <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a02380017e214d456417521491507fa08"><span class="std std-ref"><span class="pre">charm_point.nlon</span></span></a></code> array elements are associated with <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a93f0426f7005caa8ecebf01ff910c332"><span class="std std-ref"><span class="pre">charm_point.lon</span></span></a></code>. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N11charm_point1rE">
-<span id="_CPPv3N11charm_point1rE"></span><span id="_CPPv2N11charm_point1rE"></span><span id="charm_point::r__doubleP"></span><span class="target" id="structcharm__point_1aa3f23516d42d1f896af66f167d410fc0"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">r</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point1rE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N11charm_point1rE"></span><span id="_CPPv2N11charm_point1rE"></span><span id="charm_point::r__doubleP"></span><span class="target" id="structcharm__point_1aa3f23516d42d1f896af66f167d410fc0"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">r</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point1rE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Pointer to an array of spherical radii in metres. <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a0e1e42423c1f91fc48c64fa78778f161"><span class="std std-ref"><span class="pre">charm_point.nlat</span></span></a></code> array elements are associated with <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1aa3f23516d42d1f896af66f167d410fc0"><span class="std std-ref"><span class="pre">charm_point.r</span></span></a></code>. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N11charm_point1wE">
-<span id="_CPPv3N11charm_point1wE"></span><span id="_CPPv2N11charm_point1wE"></span><span id="charm_point::w__doubleP"></span><span class="target" id="structcharm__point_1adb584de4defe51ad089a2f770e0e15f8"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">w</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point1wE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N11charm_point1wE"></span><span id="_CPPv2N11charm_point1wE"></span><span id="charm_point::w__doubleP"></span><span class="target" id="structcharm__point_1adb584de4defe51ad089a2f770e0e15f8"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">w</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point1wE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Pointer to an array of integration weights on the <em>unit</em> sphere. The pointer is used (i.e. is not <code class="docutils literal notranslate"><span class="pre">NULL</span></code>) only for <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structures returned by the <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a43011764a620cbea682983d31a5e202f"><span class="std std-ref"><span class="pre">charm_crd_point_gl()</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a74dd8465b52f35d4e7dca5205c5b3eb5"><span class="std std-ref"><span class="pre">charm_crd_point_dh1()</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a60c2bc69dee5a06f2be9f0a89bf04da3"><span class="std std-ref"><span class="pre">charm_crd_point_dh2()</span></span></a></code> functions, that is, if <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1aa35333657beaf178363c136623b0473d"><span class="std std-ref"><span class="pre">charm_point.type</span></span></a></code> is <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bab4d94ce6d422441b136e7a4c1004fe60"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba7b6b9df94846ef66a06576f859b33490"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></span></a></code>, or <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bac257fe0b50a555185faec82d04a70ee6"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></span></a></code>.</p>
 <p><code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a0e1e42423c1f91fc48c64fa78778f161"><span class="std std-ref"><span class="pre">charm_point.nlat</span></span></a></code> array elements are associated with <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1adb584de4defe51ad089a2f770e0e15f8"><span class="std std-ref"><span class="pre">charm_point.w</span></span></a></code>.</p>
 <p>For all other values of <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1aa35333657beaf178363c136623b0473d"><span class="std std-ref"><span class="pre">charm_point.type</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1adb584de4defe51ad089a2f770e0e15f8"><span class="std std-ref"><span class="pre">charm_point.w</span></span></a></code> is <code class="docutils literal notranslate"><span class="pre">NULL</span></code> and is never used. </p>
@@ -762,7 +845,7 @@ longitudinal step is constant.</p>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N11charm_point5ownerE">
-<span id="_CPPv3N11charm_point5ownerE"></span><span id="_CPPv2N11charm_point5ownerE"></span><span id="charm_point::owner___Bool"></span><span class="target" id="structcharm__point_1ac0cf181aca43ea91487562628e642cb4"></span><span class="n"><span class="pre">_Bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">owner</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point5ownerE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N11charm_point5ownerE"></span><span id="_CPPv2N11charm_point5ownerE"></span><span id="charm_point::owner___Bool"></span><span class="target" id="structcharm__point_1ac0cf181aca43ea91487562628e642cb4"></span><span class="n"><span class="pre">_Bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">owner</span></span></span><a class="headerlink" href="#_CPPv4N11charm_point5ownerE" title="Link to this definition">#</a><br /></dt>
 <dd><p>If <code class="docutils literal notranslate"><span class="pre">1</span></code>, the memory associated with <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a1bca253be877755c4cfa49557668a435"><span class="std std-ref"><span class="pre">charm_point.lat</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1a93f0426f7005caa8ecebf01ff910c332"><span class="std std-ref"><span class="pre">charm_point.lon</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1aa3f23516d42d1f896af66f167d410fc0"><span class="std std-ref"><span class="pre">charm_point.r</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1adb584de4defe51ad089a2f770e0e15f8"><span class="std std-ref"><span class="pre">charm_point.w</span></span></a></code> was allocated by CHarm, so <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a74d3a0f9144c9db18230507d38cbcbee"><span class="std std-ref"><span class="pre">charm_crd_point_free()</span></span></a></code> deallocates it. If <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1ac0cf181aca43ea91487562628e642cb4"><span class="std std-ref"><span class="pre">charm_point.owner</span></span></a></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code>, the memory associated with these arrays was allocated outside CHarm, so <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a74d3a0f9144c9db18230507d38cbcbee"><span class="std std-ref"><span class="pre">charm_crd_point_free()</span></span></a></code> does <em>not</em> deallocate it (the user allocated this memory outside CHarm, so the user should free the memory outside CHarm as well). </p>
 </dd></dl>
 
@@ -771,13 +854,13 @@ longitudinal step is constant.</p>
 
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv410charm_cell">
-<span id="_CPPv310charm_cell"></span><span id="_CPPv210charm_cell"></span><span id="charm_cell"></span><span class="target" id="structcharm__cell"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_cell</span></span></span><a class="headerlink" href="#_CPPv410charm_cell" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv310charm_cell"></span><span id="_CPPv210charm_cell"></span><span id="charm_cell"></span><span class="target" id="structcharm__cell"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_cell</span></span></span><a class="headerlink" href="#_CPPv410charm_cell" title="Link to this definition">#</a><br /></dt>
 <dd><p>Structure to store evaluation cells. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N10charm_cell4typeE">
-<span id="_CPPv3N10charm_cell4typeE"></span><span id="_CPPv2N10charm_cell4typeE"></span><span id="charm_cell::type__i"></span><span class="target" id="structcharm__cell_1a6f1a65bcfb966a604f080f4a1db87fe9"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">type</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell4typeE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N10charm_cell4typeE"></span><span id="_CPPv2N10charm_cell4typeE"></span><span id="charm_cell::type__i"></span><span class="target" id="structcharm__cell_1a6f1a65bcfb966a604f080f4a1db87fe9"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">type</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell4typeE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Defines whether the cells are organized as a regular grid or are scattered.</p>
 <p><code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a6f1a65bcfb966a604f080f4a1db87fe9"><span class="std std-ref"><span class="pre">charm_cell.type</span></span></a></code> takes the following constants:</p>
 <p><ul class="simple">
@@ -789,19 +872,19 @@ longitudinal step is constant.</p>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N10charm_cell4nlatE">
-<span id="_CPPv3N10charm_cell4nlatE"></span><span id="_CPPv2N10charm_cell4nlatE"></span><span id="charm_cell::nlat__s"></span><span class="target" id="structcharm__cell_1a2c5772a0dc8d14f5fe5083fa477306b5"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nlat</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell4nlatE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N10charm_cell4nlatE"></span><span id="_CPPv2N10charm_cell4nlatE"></span><span id="charm_cell::nlat__s"></span><span class="target" id="structcharm__cell_1a2c5772a0dc8d14f5fe5083fa477306b5"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nlat</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell4nlatE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Number of array elements associated with the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a5503fb0498f585c40f3bc15a83945842"><span class="std std-ref"><span class="pre">charm_cell.latmin</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a2be55ed7ced4e688fb01624afefbd33b"><span class="std std-ref"><span class="pre">charm_cell.latmax</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1aa8252f6e124a3a47cf4d5da73af51434"><span class="std std-ref"><span class="pre">charm_cell.r</span></span></a></code> pointers. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N10charm_cell4nlonE">
-<span id="_CPPv3N10charm_cell4nlonE"></span><span id="_CPPv2N10charm_cell4nlonE"></span><span id="charm_cell::nlon__s"></span><span class="target" id="structcharm__cell_1addfe8c449d13a413a9039496863b9a22"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nlon</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell4nlonE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N10charm_cell4nlonE"></span><span id="_CPPv2N10charm_cell4nlonE"></span><span id="charm_cell::nlon__s"></span><span class="target" id="structcharm__cell_1addfe8c449d13a413a9039496863b9a22"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nlon</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell4nlonE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Number of array elements associated with the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1ac0cbf9ad2adfa785346cb07b54c62fde"><span class="std std-ref"><span class="pre">charm_cell.lonmin</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a4f9f0676a9e18c795712247753ee30d9"><span class="std std-ref"><span class="pre">charm_cell.lonmax</span></span></a></code> pointers. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N10charm_cell5ncellE">
-<span id="_CPPv3N10charm_cell5ncellE"></span><span id="_CPPv2N10charm_cell5ncellE"></span><span id="charm_cell::ncell__s"></span><span class="target" id="structcharm__cell_1a568b8cf03286e74c7750ba8667e3f512"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ncell</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell5ncellE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N10charm_cell5ncellE"></span><span id="_CPPv2N10charm_cell5ncellE"></span><span id="charm_cell::ncell__s"></span><span class="target" id="structcharm__cell_1a568b8cf03286e74c7750ba8667e3f512"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ncell</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell5ncellE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Total number of cells represented by the structure.</p>
 <p>Determines the total number of array elements that are necessary to store a signal sampled at the cells of the strucutre.</p>
 <p><ul class="simple">
@@ -813,37 +896,37 @@ longitudinal step is constant.</p>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N10charm_cell6latminE">
-<span id="_CPPv3N10charm_cell6latminE"></span><span id="_CPPv2N10charm_cell6latminE"></span><span id="charm_cell::latmin__doubleP"></span><span class="target" id="structcharm__cell_1a5503fb0498f585c40f3bc15a83945842"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">latmin</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell6latminE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N10charm_cell6latminE"></span><span id="_CPPv2N10charm_cell6latminE"></span><span id="charm_cell::latmin__doubleP"></span><span class="target" id="structcharm__cell_1a5503fb0498f585c40f3bc15a83945842"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">latmin</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell6latminE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Pointer to a <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a2c5772a0dc8d14f5fe5083fa477306b5"><span class="std std-ref"><span class="pre">charm_cell.nlat</span></span></a></code> array elements representing minimum cell latitudes in radians. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N10charm_cell6latmaxE">
-<span id="_CPPv3N10charm_cell6latmaxE"></span><span id="_CPPv2N10charm_cell6latmaxE"></span><span id="charm_cell::latmax__doubleP"></span><span class="target" id="structcharm__cell_1a2be55ed7ced4e688fb01624afefbd33b"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">latmax</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell6latmaxE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N10charm_cell6latmaxE"></span><span id="_CPPv2N10charm_cell6latmaxE"></span><span id="charm_cell::latmax__doubleP"></span><span class="target" id="structcharm__cell_1a2be55ed7ced4e688fb01624afefbd33b"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">latmax</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell6latmaxE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Pointer to a <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a2c5772a0dc8d14f5fe5083fa477306b5"><span class="std std-ref"><span class="pre">charm_cell.nlat</span></span></a></code> array elements representing maximum cell latitudes in radians. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N10charm_cell6lonminE">
-<span id="_CPPv3N10charm_cell6lonminE"></span><span id="_CPPv2N10charm_cell6lonminE"></span><span id="charm_cell::lonmin__doubleP"></span><span class="target" id="structcharm__cell_1ac0cbf9ad2adfa785346cb07b54c62fde"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">lonmin</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell6lonminE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N10charm_cell6lonminE"></span><span id="_CPPv2N10charm_cell6lonminE"></span><span id="charm_cell::lonmin__doubleP"></span><span class="target" id="structcharm__cell_1ac0cbf9ad2adfa785346cb07b54c62fde"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">lonmin</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell6lonminE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Pointer to a <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1addfe8c449d13a413a9039496863b9a22"><span class="std std-ref"><span class="pre">charm_cell.nlon</span></span></a></code> array elements representing minimum cell longitudes in radians. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N10charm_cell6lonmaxE">
-<span id="_CPPv3N10charm_cell6lonmaxE"></span><span id="_CPPv2N10charm_cell6lonmaxE"></span><span id="charm_cell::lonmax__doubleP"></span><span class="target" id="structcharm__cell_1a4f9f0676a9e18c795712247753ee30d9"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">lonmax</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell6lonmaxE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N10charm_cell6lonmaxE"></span><span id="_CPPv2N10charm_cell6lonmaxE"></span><span id="charm_cell::lonmax__doubleP"></span><span class="target" id="structcharm__cell_1a4f9f0676a9e18c795712247753ee30d9"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">lonmax</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell6lonmaxE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Pointer to a <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1addfe8c449d13a413a9039496863b9a22"><span class="std std-ref"><span class="pre">charm_cell.nlon</span></span></a></code> array elements representing maximum cell longitudes in radians. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N10charm_cell1rE">
-<span id="_CPPv3N10charm_cell1rE"></span><span id="_CPPv2N10charm_cell1rE"></span><span id="charm_cell::r__doubleP"></span><span class="target" id="structcharm__cell_1aa8252f6e124a3a47cf4d5da73af51434"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">r</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell1rE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N10charm_cell1rE"></span><span id="_CPPv2N10charm_cell1rE"></span><span id="charm_cell::r__doubleP"></span><span class="target" id="structcharm__cell_1aa8252f6e124a3a47cf4d5da73af51434"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">r</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell1rE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Pointer to a <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a2c5772a0dc8d14f5fe5083fa477306b5"><span class="std std-ref"><span class="pre">charm_cell.nlat</span></span></a></code> array elements representing spherical radii in metres. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N10charm_cell5ownerE">
-<span id="_CPPv3N10charm_cell5ownerE"></span><span id="_CPPv2N10charm_cell5ownerE"></span><span id="charm_cell::owner___Bool"></span><span class="target" id="structcharm__cell_1a9f141c763b7728edd837ba3028394d14"></span><span class="n"><span class="pre">_Bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">owner</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell5ownerE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N10charm_cell5ownerE"></span><span id="_CPPv2N10charm_cell5ownerE"></span><span id="charm_cell::owner___Bool"></span><span class="target" id="structcharm__cell_1a9f141c763b7728edd837ba3028394d14"></span><span class="n"><span class="pre">_Bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">owner</span></span></span><a class="headerlink" href="#_CPPv4N10charm_cell5ownerE" title="Link to this definition">#</a><br /></dt>
 <dd><p>If <code class="docutils literal notranslate"><span class="pre">1</span></code>, the memory associated with <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a5503fb0498f585c40f3bc15a83945842"><span class="std std-ref"><span class="pre">charm_cell.latmin</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a2be55ed7ced4e688fb01624afefbd33b"><span class="std std-ref"><span class="pre">charm_cell.latmax</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1ac0cbf9ad2adfa785346cb07b54c62fde"><span class="std std-ref"><span class="pre">charm_cell.lonmin</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a4f9f0676a9e18c795712247753ee30d9"><span class="std std-ref"><span class="pre">charm_cell.lonmax</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1aa8252f6e124a3a47cf4d5da73af51434"><span class="std std-ref"><span class="pre">charm_cell.r</span></span></a></code> was allocated by CHarm, so <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a321c2e629b86feebcb3210dbd881610f"><span class="std std-ref"><span class="pre">charm_crd_cell_free()</span></span></a></code> deallocates it. If <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a9f141c763b7728edd837ba3028394d14"><span class="std std-ref"><span class="pre">charm_cell.owner</span></span></a></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code>, the memory associated with these arrays was allocated outside CHarm, so <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a321c2e629b86feebcb3210dbd881610f"><span class="std std-ref"><span class="pre">charm_crd_cell_free()</span></span></a></code> does <em>not</em> deallocate it (the user allocated this memory outside CHarm, so the user should free the memory outside CHarm as well). </p>
 </dd></dl>
 
@@ -858,11 +941,10 @@ longitudinal step is constant.</p>
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="api-c-shc.html"
@@ -882,15 +964,72 @@ longitudinal step is constant.</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv422charm_crd_point_malloci6size_t6size_t"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_malloc()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv422charm_crd_point_calloci6size_t6size_t"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_calloc()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv420charm_crd_point_initi6size_t6size_tPdPdPd"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_init()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv420charm_crd_point_freeP11charm_point"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_free()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv418charm_crd_point_glmd"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_gl()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv419charm_crd_point_dh1md"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_dh1()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv419charm_crd_point_dh2md"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_dh2()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv421charm_crd_cell_malloci6size_t6size_t"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_malloc()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv421charm_crd_cell_calloci6size_t6size_t"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_calloc()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv419charm_crd_cell_initi6size_t6size_tPdPdPdPdPd"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_init()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv419charm_crd_cell_freeP10charm_cell"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_free()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4Ut1_0"><code class="docutils literal notranslate"><span class="pre">@0</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_019CHARM_CRD_CELL_GRIDE"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_CELL_GRID</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_024CHARM_CRD_CELL_SCATTEREDE"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_CELL_SCATTERED</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_025CHARM_CRD_POINT_SCATTEREDE"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_POINT_SCATTERED</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_020CHARM_CRD_POINT_GRIDE"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_POINT_GRID</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_023CHARM_CRD_POINT_GRID_GLE"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_POINT_GRID_GL</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH1E"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_POINT_GRID_DH1</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH2E"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_POINT_GRID_DH2</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv411charm_point"><code class="docutils literal notranslate"><span class="pre">charm_point</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4typeE"><code class="docutils literal notranslate"><span class="pre">charm_point::type</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4nlatE"><code class="docutils literal notranslate"><span class="pre">charm_point::nlat</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4nlonE"><code class="docutils literal notranslate"><span class="pre">charm_point::nlon</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point6npointE"><code class="docutils literal notranslate"><span class="pre">charm_point::npoint</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point3latE"><code class="docutils literal notranslate"><span class="pre">charm_point::lat</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point3lonE"><code class="docutils literal notranslate"><span class="pre">charm_point::lon</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point1rE"><code class="docutils literal notranslate"><span class="pre">charm_point::r</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point1wE"><code class="docutils literal notranslate"><span class="pre">charm_point::w</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point5ownerE"><code class="docutils literal notranslate"><span class="pre">charm_point::owner</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv410charm_cell"><code class="docutils literal notranslate"><span class="pre">charm_cell</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell4typeE"><code class="docutils literal notranslate"><span class="pre">charm_cell::type</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell4nlatE"><code class="docutils literal notranslate"><span class="pre">charm_cell::nlat</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell4nlonE"><code class="docutils literal notranslate"><span class="pre">charm_cell::nlon</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell5ncellE"><code class="docutils literal notranslate"><span class="pre">charm_cell::ncell</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell6latminE"><code class="docutils literal notranslate"><span class="pre">charm_cell::latmin</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell6latmaxE"><code class="docutils literal notranslate"><span class="pre">charm_cell::latmax</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell6lonminE"><code class="docutils literal notranslate"><span class="pre">charm_cell::lonmin</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell6lonmaxE"><code class="docutils literal notranslate"><span class="pre">charm_cell::lonmax</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell1rE"><code class="docutils literal notranslate"><span class="pre">charm_cell::r</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell5ownerE"><code class="docutils literal notranslate"><span class="pre">charm_cell::owner</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
@@ -908,6 +1047,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2024, Blažej Bucha.
@@ -919,7 +1059,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 17, 2024.
+  Last updated on Jun 18, 2024.
   <br/>
 </p>
   </div>
@@ -937,8 +1077,8 @@ By Blažej Bucha
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
 
   <footer class="bd-footer">
   </footer>

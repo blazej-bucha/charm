@@ -1,9 +1,8 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
@@ -15,32 +14,33 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=a5a0fee1"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api-c-err';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -48,6 +48,7 @@
     <link rel="prev" title="charm_misc" href="api-c-misc.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Jun 18, 2024"/>
   </head>
   
   
@@ -55,19 +56,23 @@
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -89,12 +94,20 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -109,9 +122,11 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="index.html">
+  
   
   
   
@@ -121,30 +136,41 @@
       
     
     
-    <img src="_static/charm-logo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="_static/charm-logo.png" class="logo__image only-light" alt=""/>
+    <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt=""/>`);</script>
   
   
     <p class="title logo__title">CHarm v0.4.0-dev</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="install.html">Installing</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="install.html">Installing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="install_unix.html">Installation on Unix-based operating systems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="install_non_unix.html">Installation on Windows 10</a></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="cookbook.html">Cookbook</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="cookbook.html">Cookbook</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="cookbook-c.html">CHarm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cookbook-py.html">PyHarm</a></li>
 </ul>
-</li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="api.html">Interfaces</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2 current active has-children"><a class="reference internal" href="api-c.html">CHarm (C API)</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="api.html">Interfaces</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="api-c.html">CHarm (C API)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="api-c-shc.html">charm_shc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
@@ -156,8 +182,8 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-glob.html">charm_glob</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
 </ul>
-</li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="api-py-shc.html">pyharm.shc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
@@ -167,9 +193,9 @@
 <li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-glob.html">pyharm.glob</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
@@ -189,7 +215,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -198,14 +224,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -344,24 +370,28 @@
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -377,6 +407,37 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4Ut1_1"><code class="docutils literal notranslate"><span class="pre">@1</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_FAILUREE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_FAILURE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_SUCCESSE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_SUCCESS</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_110CHARM_EMEME"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EMEM</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_114CHARM_EFUNCARGE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EFUNCARG</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_EFILEIOE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EFILEIO</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_115CHARM_EFFTWINITE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EFFTWINIT</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv414charm_err_initv"><code class="docutils literal notranslate"><span class="pre">charm_err_init()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv414charm_err_freeP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_err_free()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv415charm_err_resetP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_err_reset()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv417charm_err_handlerP9charm_err5_Bool"><code class="docutils literal notranslate"><span class="pre">charm_err_handler()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv417charm_err_isemptyPK9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_err_isempty()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv49charm_err"><code class="docutils literal notranslate"><span class="pre">charm_err</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err5levelE"><code class="docutils literal notranslate"><span class="pre">charm_err::level</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4fileE"><code class="docutils literal notranslate"><span class="pre">charm_err::file</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4lineE"><code class="docutils literal notranslate"><span class="pre">charm_err::line</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4funcE"><code class="docutils literal notranslate"><span class="pre">charm_err::func</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4codeE"><code class="docutils literal notranslate"><span class="pre">charm_err::code</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err3msgE"><code class="docutils literal notranslate"><span class="pre">charm_err::msg</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err11issaturatedE"><code class="docutils literal notranslate"><span class="pre">charm_err::issaturated</span></code></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -384,10 +445,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section id="charm-err">
-<h1>charm_err<a class="headerlink" href="#charm-err" title="Permalink to this heading">#</a></h1>
+<h1>charm_err<a class="headerlink" href="#charm-err" title="Link to this heading">#</a></h1>
 <p>Error handling module:</p>
 <p><ul class="simple">
 <li><p>defines, initializes, frees and resets the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err"><span class="std std-ref"><span class="pre">charm_err</span></span></a></code> structure,</p></li>
@@ -403,31 +464,31 @@ document.write(`
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-defines">Defines</p>
 <dl class="cpp macro">
 <dt class="sig sig-object cpp" id="c.CHARM_ERR_MAX_FILE">
-<span class="target" id="charm__err_8h_1a2206023ac94616afe5070f54161a37c8"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_ERR_MAX_FILE</span></span></span> <span class="pre">4096</span><a class="headerlink" href="#c.CHARM_ERR_MAX_FILE" title="Permalink to this definition">#</a><br /></dt>
+<span class="target" id="charm__err_8h_1a2206023ac94616afe5070f54161a37c8"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_ERR_MAX_FILE</span></span></span> <span class="pre">4096</span><a class="headerlink" href="#c.CHARM_ERR_MAX_FILE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Maximum number of characters that can be stored in <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err_1acffc24efbdee4e116c0e0657b682d7aa"><span class="std std-ref"><span class="pre">charm_err.file</span></span></a><span class="pre">[i]</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <a class="reference internal" href="#charm__err_8h_1a49e5d96b857828ae82cccca933919b4b"><span class="std std-ref"><span class="pre">CHARM_ERR_MAX_LEVEL</span></span></a> <span class="pre">-</span> <span class="pre">1</span></code>, including the terminating null character. </p>
 </dd></dl>
 
 <dl class="cpp macro">
 <dt class="sig sig-object cpp" id="c.CHARM_ERR_MAX_FUNC">
-<span class="target" id="charm__err_8h_1a0febddc0efe42b313e0e1ba1a09a366e"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_ERR_MAX_FUNC</span></span></span> <span class="pre">256</span><a class="headerlink" href="#c.CHARM_ERR_MAX_FUNC" title="Permalink to this definition">#</a><br /></dt>
+<span class="target" id="charm__err_8h_1a0febddc0efe42b313e0e1ba1a09a366e"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_ERR_MAX_FUNC</span></span></span> <span class="pre">256</span><a class="headerlink" href="#c.CHARM_ERR_MAX_FUNC" title="Link to this definition">#</a><br /></dt>
 <dd><p>Maximum number of characters that can be stored in <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err_1a26b843134aa95c774c4228fb00590f7a"><span class="std std-ref"><span class="pre">charm_err.func</span></span></a><span class="pre">[i]</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <a class="reference internal" href="#charm__err_8h_1a49e5d96b857828ae82cccca933919b4b"><span class="std std-ref"><span class="pre">CHARM_ERR_MAX_LEVEL</span></span></a> <span class="pre">-</span> <span class="pre">1</span></code>, including the terminating null character. </p>
 </dd></dl>
 
 <dl class="cpp macro">
 <dt class="sig sig-object cpp" id="c.CHARM_ERR_MAX_MSG">
-<span class="target" id="charm__err_8h_1a257215c6769e91568cb1393037023312"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_ERR_MAX_MSG</span></span></span> <span class="pre">4096</span><a class="headerlink" href="#c.CHARM_ERR_MAX_MSG" title="Permalink to this definition">#</a><br /></dt>
+<span class="target" id="charm__err_8h_1a257215c6769e91568cb1393037023312"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_ERR_MAX_MSG</span></span></span> <span class="pre">4096</span><a class="headerlink" href="#c.CHARM_ERR_MAX_MSG" title="Link to this definition">#</a><br /></dt>
 <dd><p>Maximum number of characters in <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err_1ad127e3297ca08ccbfc812118d4e80478"><span class="std std-ref"><span class="pre">charm_err.msg</span></span></a></code>, including the terminating null character. </p>
 </dd></dl>
 
 <dl class="cpp macro">
 <dt class="sig sig-object cpp" id="c.CHARM_ERR_MAX_LEVEL">
-<span class="target" id="charm__err_8h_1a49e5d96b857828ae82cccca933919b4b"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_ERR_MAX_LEVEL</span></span></span> <span class="pre">10</span><a class="headerlink" href="#c.CHARM_ERR_MAX_LEVEL" title="Permalink to this definition">#</a><br /></dt>
+<span class="target" id="charm__err_8h_1a49e5d96b857828ae82cccca933919b4b"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_ERR_MAX_LEVEL</span></span></span> <span class="pre">10</span><a class="headerlink" href="#c.CHARM_ERR_MAX_LEVEL" title="Link to this definition">#</a><br /></dt>
 <dd><p>Maximum number of error propagations from the function, in which the error occurred to the caller. </p>
 </dd></dl>
 
 <dl class="cpp macro">
 <dt class="sig sig-object cpp" id="c.CHARM_ERR_MALLOC_FAILURE">
-<span class="target" id="charm__err_8h_1a5730142e2e5557b7290bac75f01c4740"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_ERR_MALLOC_FAILURE</span></span></span> <span class="pre">&quot;Memory</span> <span class="pre">allocation</span> <span class="pre">failure.&quot;</span><a class="headerlink" href="#c.CHARM_ERR_MALLOC_FAILURE" title="Permalink to this definition">#</a><br /></dt>
+<span class="target" id="charm__err_8h_1a5730142e2e5557b7290bac75f01c4740"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_ERR_MALLOC_FAILURE</span></span></span> <span class="pre">&quot;Memory</span> <span class="pre">allocation</span> <span class="pre">failure.&quot;</span><a class="headerlink" href="#c.CHARM_ERR_MALLOC_FAILURE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Message to be printed when <code class="docutils literal notranslate"><span class="pre">malloc</span></code> or <code class="docutils literal notranslate"><span class="pre">calloc</span></code> fails. </p>
 </dd></dl>
 
@@ -436,42 +497,42 @@ document.write(`
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-enums">Enums</p>
 <dl class="cpp enum">
 <dt class="sig sig-object cpp" id="_CPPv4Ut1_1">
-<span id="_CPPv3Ut1_1"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">[anonymous]</span></span></span><a class="headerlink" href="#_CPPv4Ut1_1" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3Ut1_1"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">[anonymous]</span></span></span><a class="headerlink" href="#_CPPv4Ut1_1" title="Link to this definition">#</a><br /></dt>
 <dd><p>Errors enumeration. </p>
 <p><em>Values:</em></p>
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4NUt1_113CHARM_FAILUREE">
-<span id="_CPPv3NUt1_113CHARM_FAILUREE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7aa184de9ef11b8d67321e8efb5a0bb882"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_FAILURE</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">1</span></span><a class="headerlink" href="#_CPPv4NUt1_113CHARM_FAILUREE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NUt1_113CHARM_FAILUREE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7aa184de9ef11b8d67321e8efb5a0bb882"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_FAILURE</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">1</span></span><a class="headerlink" href="#_CPPv4NUt1_113CHARM_FAILUREE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Exit status returned when CHarm is explicitly asked to terminate the program in case it encounters an error. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4NUt1_113CHARM_SUCCESSE">
-<span id="_CPPv3NUt1_113CHARM_SUCCESSE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7a2f5b21353cdb465cb3d173b9071e474a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_SUCCESS</span></span></span><a class="headerlink" href="#_CPPv4NUt1_113CHARM_SUCCESSE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NUt1_113CHARM_SUCCESSE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7a2f5b21353cdb465cb3d173b9071e474a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_SUCCESS</span></span></span><a class="headerlink" href="#_CPPv4NUt1_113CHARM_SUCCESSE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Successful execution of a CHarm function. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4NUt1_110CHARM_EMEME">
-<span id="_CPPv3NUt1_110CHARM_EMEME"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7a92551a2515ec22bf06eadf651d0f93e5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_EMEM</span></span></span><a class="headerlink" href="#_CPPv4NUt1_110CHARM_EMEME" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NUt1_110CHARM_EMEME"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7a92551a2515ec22bf06eadf651d0f93e5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_EMEM</span></span></span><a class="headerlink" href="#_CPPv4NUt1_110CHARM_EMEME" title="Link to this definition">#</a><br /></dt>
 <dd><p>Memory allocation failure (malloc, calloc). </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4NUt1_114CHARM_EFUNCARGE">
-<span id="_CPPv3NUt1_114CHARM_EFUNCARGE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7a9ab9c557b568ecae2d60cf5166b03c48"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_EFUNCARG</span></span></span><a class="headerlink" href="#_CPPv4NUt1_114CHARM_EFUNCARGE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NUt1_114CHARM_EFUNCARGE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7a9ab9c557b568ecae2d60cf5166b03c48"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_EFUNCARG</span></span></span><a class="headerlink" href="#_CPPv4NUt1_114CHARM_EFUNCARGE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Error in function input/output argument(s). </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4NUt1_113CHARM_EFILEIOE">
-<span id="_CPPv3NUt1_113CHARM_EFILEIOE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7a8bd99c831aaa3b5293d2d0f862ac2f8b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_EFILEIO</span></span></span><a class="headerlink" href="#_CPPv4NUt1_113CHARM_EFILEIOE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NUt1_113CHARM_EFILEIOE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7a8bd99c831aaa3b5293d2d0f862ac2f8b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_EFILEIO</span></span></span><a class="headerlink" href="#_CPPv4NUt1_113CHARM_EFILEIOE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Error in file reading/writing. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4NUt1_115CHARM_EFFTWINITE">
-<span id="_CPPv3NUt1_115CHARM_EFFTWINITE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7adb17096d12ede0d617451b330f59ec34"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_EFFTWINIT</span></span></span><a class="headerlink" href="#_CPPv4NUt1_115CHARM_EFFTWINITE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NUt1_115CHARM_EFFTWINITE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7adb17096d12ede0d617451b330f59ec34"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_EFFTWINIT</span></span></span><a class="headerlink" href="#_CPPv4NUt1_115CHARM_EFFTWINITE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Error in threads initialization by FFTW. </p>
 </dd></dl>
 
@@ -482,7 +543,7 @@ document.write(`
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv414charm_err_initv">
-<span id="_CPPv314charm_err_initv"></span><span id="_CPPv214charm_err_initv"></span><span id="charm_err_init__void"></span><span class="target" id="charm__err_8h_1a59ab2cbc7522349517985b3c2bc4fa67"></span><a class="reference internal" href="#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_err_init</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414charm_err_initv" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv314charm_err_initv"></span><span id="_CPPv214charm_err_initv"></span><span id="charm_err_init__void"></span><span class="target" id="charm__err_8h_1a59ab2cbc7522349517985b3c2bc4fa67"></span><a class="reference internal" href="#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_err_init</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414charm_err_initv" title="Link to this definition">#</a><br /></dt>
 <dd><p>Allocates and initializes the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err"><span class="std std-ref"><span class="pre">charm_err</span></span></a></code> structure using default empty values. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -493,19 +554,19 @@ document.write(`
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv414charm_err_freeP9charm_err">
-<span id="_CPPv314charm_err_freeP9charm_err"></span><span id="_CPPv214charm_err_freeP9charm_err"></span><span id="charm_err_free__charm_errP"></span><span class="target" id="charm__err_8h_1a1801d7182e14e678190863725663045d"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_err_free</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414charm_err_freeP9charm_err" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv314charm_err_freeP9charm_err"></span><span id="_CPPv214charm_err_freeP9charm_err"></span><span id="charm_err_free__charm_errP"></span><span class="target" id="charm__err_8h_1a1801d7182e14e678190863725663045d"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_err_free</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414charm_err_freeP9charm_err" title="Link to this definition">#</a><br /></dt>
 <dd><p>Frees the memory associated with <code class="docutils literal notranslate"><span class="pre">err</span></code>. No operation is performed if <code class="docutils literal notranslate"><span class="pre">err</span></code> is <code class="docutils literal notranslate"><span class="pre">NULL</span></code>. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv415charm_err_resetP9charm_err">
-<span id="_CPPv315charm_err_resetP9charm_err"></span><span id="_CPPv215charm_err_resetP9charm_err"></span><span id="charm_err_reset__charm_errP"></span><span class="target" id="charm__err_8h_1a7dc5f3347febf8fd452e9ea9c48adbb8"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_err_reset</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415charm_err_resetP9charm_err" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv315charm_err_resetP9charm_err"></span><span id="_CPPv215charm_err_resetP9charm_err"></span><span id="charm_err_reset__charm_errP"></span><span class="target" id="charm__err_8h_1a7dc5f3347febf8fd452e9ea9c48adbb8"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_err_reset</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415charm_err_resetP9charm_err" title="Link to this definition">#</a><br /></dt>
 <dd><p>Resets <code class="docutils literal notranslate"><span class="pre">err</span></code> to the default empty values. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv417charm_err_handlerP9charm_err5_Bool">
-<span id="_CPPv317charm_err_handlerP9charm_err5_Bool"></span><span id="_CPPv217charm_err_handlerP9charm_err5_Bool"></span><span id="charm_err_handler__charm_errP._Bool"></span><span class="target" id="charm__err_8h_1a3b58f956ffbe19c48b626fd9b584cded"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_err_handler</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span>, <span class="n"><span class="pre">_Bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">terminate</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv417charm_err_handlerP9charm_err5_Bool" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv317charm_err_handlerP9charm_err5_Bool"></span><span id="_CPPv217charm_err_handlerP9charm_err5_Bool"></span><span id="charm_err_handler__charm_errP._Bool"></span><span class="target" id="charm__err_8h_1a3b58f956ffbe19c48b626fd9b584cded"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_err_handler</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span>, <span class="n"><span class="pre">_Bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">terminate</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv417charm_err_handlerP9charm_err5_Bool" title="Link to this definition">#</a><br /></dt>
 <dd><p>Error handler. </p>
 <p><ul class="simple">
 <li><p>If <code class="docutils literal notranslate"><span class="pre">err</span></code> is not empty, prints detailed information on the error. If <code class="docutils literal notranslate"><span class="pre">terminate</span></code> is set to Boolean <code class="docutils literal notranslate"><span class="pre">1</span></code>, the program subsequently terminates.</p></li>
@@ -521,57 +582,57 @@ document.write(`
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv417charm_err_isemptyPK9charm_err">
-<span id="_CPPv317charm_err_isemptyPK9charm_err"></span><span id="_CPPv217charm_err_isemptyPK9charm_err"></span><span id="charm_err_isempty__charm_errCP"></span><span class="target" id="charm__err_8h_1a88dac602fe7f6d15c35e27533f059535"></span><span class="n"><span class="pre">_Bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_err_isempty</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv417charm_err_isemptyPK9charm_err" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv317charm_err_isemptyPK9charm_err"></span><span id="_CPPv217charm_err_isemptyPK9charm_err"></span><span id="charm_err_isempty__charm_errCP"></span><span class="target" id="charm__err_8h_1a88dac602fe7f6d15c35e27533f059535"></span><span class="n"><span class="pre">_Bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_err_isempty</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv417charm_err_isemptyPK9charm_err" title="Link to this definition">#</a><br /></dt>
 <dd><p>Returns boolean <code class="docutils literal notranslate"><span class="pre">1</span></code> if <code class="docutils literal notranslate"><span class="pre">err</span></code> is empty or <code class="docutils literal notranslate"><span class="pre">0</span></code> otherwise. </p>
 </dd></dl>
 
 </div>
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv49charm_err">
-<span id="_CPPv39charm_err"></span><span id="_CPPv29charm_err"></span><span id="charm_err"></span><span class="target" id="structcharm__err"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_err</span></span></span><a class="headerlink" href="#_CPPv49charm_err" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv39charm_err"></span><span id="_CPPv29charm_err"></span><span id="charm_err"></span><span class="target" id="structcharm__err"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_err</span></span></span><a class="headerlink" href="#_CPPv49charm_err" title="Link to this definition">#</a><br /></dt>
 <dd><p>Error structure.</p>
 <p>In most cases, it is created by functions from this module that return a pointer to <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err"><span class="std std-ref"><span class="pre">charm_err</span></span></a></code>. Experienced users may create the structure on their own, provided that they assign correct values to its members, so that CHarm can properly understood the data in it (see the rules summarized below). </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N9charm_err5levelE">
-<span id="_CPPv3N9charm_err5levelE"></span><span id="_CPPv2N9charm_err5levelE"></span><span id="charm_err::level__unsigned-i"></span><span class="target" id="structcharm__err_1af5e7693b6651c726b4d9ec2fdf562bce"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">level</span></span></span><a class="headerlink" href="#_CPPv4N9charm_err5levelE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N9charm_err5levelE"></span><span id="_CPPv2N9charm_err5levelE"></span><span id="charm_err::level__unsigned-i"></span><span class="target" id="structcharm__err_1af5e7693b6651c726b4d9ec2fdf562bce"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">level</span></span></span><a class="headerlink" href="#_CPPv4N9charm_err5levelE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Total number of error propagations from the function in which the error was encountered back to the caller. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N9charm_err4fileE">
-<span id="_CPPv3N9charm_err4fileE"></span><span id="_CPPv2N9charm_err4fileE"></span><span id="charm_err::file__cPP"></span><span class="target" id="structcharm__err_1acffc24efbdee4e116c0e0657b682d7aa"></span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">file</span></span></span><a class="headerlink" href="#_CPPv4N9charm_err4fileE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N9charm_err4fileE"></span><span id="_CPPv2N9charm_err4fileE"></span><span id="charm_err::file__cPP"></span><span class="target" id="structcharm__err_1acffc24efbdee4e116c0e0657b682d7aa"></span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">file</span></span></span><a class="headerlink" href="#_CPPv4N9charm_err4fileE" title="Link to this definition">#</a><br /></dt>
 <dd><p><code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err_1acffc24efbdee4e116c0e0657b682d7aa"><span class="std std-ref"><span class="pre">charm_err.file</span></span></a><span class="pre">[0]</span></code> is a pointer to a string with the name of the file in which the error was encountered; <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err_1acffc24efbdee4e116c0e0657b682d7aa"><span class="std std-ref"><span class="pre">charm_err.file</span></span></a><span class="pre">[i]</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">...,</span> <a class="reference internal" href="#charm__err_8h_1a49e5d96b857828ae82cccca933919b4b"><span class="std std-ref"><span class="pre">CHARM_ERR_MAX_LEVEL</span></span></a> <span class="pre">-</span> <span class="pre">1</span></code>, are file names through which the error was propagated to the caller. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N9charm_err4lineE">
-<span id="_CPPv3N9charm_err4lineE"></span><span id="_CPPv2N9charm_err4lineE"></span><span id="charm_err::line__unsigned-iP"></span><span class="target" id="structcharm__err_1a93f77fa2c860c8b62bd00e2cc89af628"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">line</span></span></span><a class="headerlink" href="#_CPPv4N9charm_err4lineE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N9charm_err4lineE"></span><span id="_CPPv2N9charm_err4lineE"></span><span id="charm_err::line__unsigned-iP"></span><span class="target" id="structcharm__err_1a93f77fa2c860c8b62bd00e2cc89af628"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">line</span></span></span><a class="headerlink" href="#_CPPv4N9charm_err4lineE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Pointer to an array with line numbers of <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err_1acffc24efbdee4e116c0e0657b682d7aa"><span class="std std-ref"><span class="pre">charm_err.file</span></span></a><span class="pre">[i]</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <a class="reference internal" href="#charm__err_8h_1a49e5d96b857828ae82cccca933919b4b"><span class="std std-ref"><span class="pre">CHARM_ERR_MAX_LEVEL</span></span></a> <span class="pre">-</span> <span class="pre">1</span></code>, at which the <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err"><span class="std std-ref"><span class="pre">charm_err</span></span></a></code> structure was modified. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N9charm_err4funcE">
-<span id="_CPPv3N9charm_err4funcE"></span><span id="_CPPv2N9charm_err4funcE"></span><span id="charm_err::func__cPP"></span><span class="target" id="structcharm__err_1a26b843134aa95c774c4228fb00590f7a"></span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">func</span></span></span><a class="headerlink" href="#_CPPv4N9charm_err4funcE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N9charm_err4funcE"></span><span id="_CPPv2N9charm_err4funcE"></span><span id="charm_err::func__cPP"></span><span class="target" id="structcharm__err_1a26b843134aa95c774c4228fb00590f7a"></span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">func</span></span></span><a class="headerlink" href="#_CPPv4N9charm_err4funcE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Same as <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__err_1acffc24efbdee4e116c0e0657b682d7aa"><span class="std std-ref"><span class="pre">charm_err.file</span></span></a></code>, but with function names. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N9charm_err4codeE">
-<span id="_CPPv3N9charm_err4codeE"></span><span id="_CPPv2N9charm_err4codeE"></span><span id="charm_err::code__i"></span><span class="target" id="structcharm__err_1a4e91feeeb0eef0b76ea6923f73a5c908"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">code</span></span></span><a class="headerlink" href="#_CPPv4N9charm_err4codeE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N9charm_err4codeE"></span><span id="_CPPv2N9charm_err4codeE"></span><span id="charm_err::code__i"></span><span class="target" id="structcharm__err_1a4e91feeeb0eef0b76ea6923f73a5c908"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">code</span></span></span><a class="headerlink" href="#_CPPv4N9charm_err4codeE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Error code (see the errors enumerations <code class="docutils literal notranslate"><a class="reference internal" href="#charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7aa184de9ef11b8d67321e8efb5a0bb882"><span class="std std-ref"><span class="pre">CHARM_FAILURE</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7a2f5b21353cdb465cb3d173b9071e474a"><span class="std std-ref"><span class="pre">CHARM_SUCCESS</span></span></a></code>, etc.). </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N9charm_err3msgE">
-<span id="_CPPv3N9charm_err3msgE"></span><span id="_CPPv2N9charm_err3msgE"></span><span id="charm_err::msg__cP"></span><span class="target" id="structcharm__err_1ad127e3297ca08ccbfc812118d4e80478"></span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">msg</span></span></span><a class="headerlink" href="#_CPPv4N9charm_err3msgE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N9charm_err3msgE"></span><span id="_CPPv2N9charm_err3msgE"></span><span id="charm_err::msg__cP"></span><span class="target" id="structcharm__err_1ad127e3297ca08ccbfc812118d4e80478"></span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">msg</span></span></span><a class="headerlink" href="#_CPPv4N9charm_err3msgE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Pointer to an error message. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N9charm_err11issaturatedE">
-<span id="_CPPv3N9charm_err11issaturatedE"></span><span id="_CPPv2N9charm_err11issaturatedE"></span><span id="charm_err::issaturated___Bool"></span><span class="target" id="structcharm__err_1ab9e4d1322499e46fe98fbf9eec9a1bed"></span><span class="n"><span class="pre">_Bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">issaturated</span></span></span><a class="headerlink" href="#_CPPv4N9charm_err11issaturatedE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N9charm_err11issaturatedE"></span><span id="_CPPv2N9charm_err11issaturatedE"></span><span id="charm_err::issaturated___Bool"></span><span class="target" id="structcharm__err_1ab9e4d1322499e46fe98fbf9eec9a1bed"></span><span class="n"><span class="pre">_Bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">issaturated</span></span></span><a class="headerlink" href="#_CPPv4N9charm_err11issaturatedE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Signalizes whether or not the levels of the error structure are saturated due to the error propagations. If true, the structure can no longer store most recent error propagations. This should never happen, though, since <code class="docutils literal notranslate"><a class="reference internal" href="#charm__err_8h_1a49e5d96b857828ae82cccca933919b4b"><span class="std std-ref"><span class="pre">CHARM_ERR_MAX_LEVEL</span></span></a></code> is chosen large enough. </p>
 </dd></dl>
 
@@ -586,11 +647,10 @@ document.write(`
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="api-c-misc.html"
@@ -610,15 +670,50 @@ document.write(`
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4Ut1_1"><code class="docutils literal notranslate"><span class="pre">@1</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_FAILUREE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_FAILURE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_SUCCESSE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_SUCCESS</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_110CHARM_EMEME"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EMEM</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_114CHARM_EFUNCARGE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EFUNCARG</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_EFILEIOE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EFILEIO</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_115CHARM_EFFTWINITE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EFFTWINIT</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv414charm_err_initv"><code class="docutils literal notranslate"><span class="pre">charm_err_init()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv414charm_err_freeP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_err_free()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv415charm_err_resetP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_err_reset()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv417charm_err_handlerP9charm_err5_Bool"><code class="docutils literal notranslate"><span class="pre">charm_err_handler()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv417charm_err_isemptyPK9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_err_isempty()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv49charm_err"><code class="docutils literal notranslate"><span class="pre">charm_err</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err5levelE"><code class="docutils literal notranslate"><span class="pre">charm_err::level</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4fileE"><code class="docutils literal notranslate"><span class="pre">charm_err::file</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4lineE"><code class="docutils literal notranslate"><span class="pre">charm_err::line</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4funcE"><code class="docutils literal notranslate"><span class="pre">charm_err::func</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4codeE"><code class="docutils literal notranslate"><span class="pre">charm_err::code</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err3msgE"><code class="docutils literal notranslate"><span class="pre">charm_err::msg</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err11issaturatedE"><code class="docutils literal notranslate"><span class="pre">charm_err::issaturated</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
@@ -636,6 +731,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2024, Blažej Bucha.
@@ -647,7 +743,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 17, 2024.
+  Last updated on Jun 18, 2024.
   <br/>
 </p>
   </div>
@@ -665,8 +761,8 @@ By Blažej Bucha
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -1,9 +1,8 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
@@ -15,32 +14,33 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=a5a0fee1"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api-c-glob';</script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -49,6 +49,7 @@
     <link rel="prev" title="charm_err" href="api-c-err.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Jun 18, 2024"/>
   </head>
   
   
@@ -56,19 +57,23 @@
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -90,12 +95,20 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -110,9 +123,11 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="index.html">
+  
   
   
   
@@ -122,30 +137,41 @@
       
     
     
-    <img src="_static/charm-logo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="_static/charm-logo.png" class="logo__image only-light" alt=""/>
+    <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt=""/>`);</script>
   
   
     <p class="title logo__title">CHarm v0.4.0-dev</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="install.html">Installing</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="install.html">Installing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="install_unix.html">Installation on Unix-based operating systems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="install_non_unix.html">Installation on Windows 10</a></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="cookbook.html">Cookbook</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="cookbook.html">Cookbook</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="cookbook-c.html">CHarm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cookbook-py.html">PyHarm</a></li>
 </ul>
-</li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="api.html">Interfaces</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2 current active has-children"><a class="reference internal" href="api-c.html">CHarm (C API)</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="api.html">Interfaces</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="api-c.html">CHarm (C API)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="api-c-shc.html">charm_shc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
@@ -157,8 +183,8 @@
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">charm_glob</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
 </ul>
-</li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="api-py-shc.html">pyharm.shc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
@@ -168,9 +194,9 @@
 <li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-glob.html">pyharm.glob</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
@@ -190,7 +216,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -199,14 +225,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -345,24 +371,28 @@
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -378,6 +408,17 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv420charm_glob_threshold"><code class="docutils literal notranslate"><span class="pre">charm_glob_threshold</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv421charm_glob_threshold2"><code class="docutils literal notranslate"><span class="pre">charm_glob_threshold2</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv432charm_glob_polar_optimization_a1"><code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a1</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv432charm_glob_polar_optimization_a2"><code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a2</span></code></a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -385,10 +426,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section id="charm-glob">
-<span id="id1"></span><h1>charm_glob<a class="headerlink" href="#charm-glob" title="Permalink to this heading">#</a></h1>
+<span id="id1"></span><h1>charm_glob<a class="headerlink" href="#charm-glob" title="Link to this heading">#</a></h1>
 <p>Module defining global CHarm variables.</p>
 <p>The global variables are declared in <code class="docutils literal notranslate"><span class="pre">charm_glob.h</span></code> and are initialized to safe values. Should you need to modify them for some reason, simply include <code class="docutils literal notranslate"><span class="pre">charm_glob.h</span></code> (or <code class="docutils literal notranslate"><span class="pre">charm.h</span></code>) in your code and set (without definition) the variables to whatever values you prefer. After that, whenever you call a CHarm routine that uses the global variables, the routine will use your own values instead of the default ones.</p>
 <div class="admonition warning">
@@ -404,13 +445,13 @@ interact with it.</p>
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-thresholds-used-to-compare-floating-point-numbers">Thresholds used to compare floating point numbers</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv420charm_glob_threshold">
-<span id="_CPPv320charm_glob_threshold"></span><span id="_CPPv220charm_glob_threshold"></span><span id="charm_glob_threshold__double"></span><span class="target" id="charm__glob_8h_1ab38bfd45ebf0f622c892ec1d0045c601"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_glob_threshold</span></span></span><a class="headerlink" href="#_CPPv420charm_glob_threshold" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv320charm_glob_threshold"></span><span id="_CPPv220charm_glob_threshold"></span><span id="charm_glob_threshold__double"></span><span class="target" id="charm__glob_8h_1ab38bfd45ebf0f622c892ec1d0045c601"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_glob_threshold</span></span></span><a class="headerlink" href="#_CPPv420charm_glob_threshold" title="Link to this definition">#</a><br /></dt>
 <dd><p>Threshold to judge whether two floating point numbers are equal, <code class="docutils literal notranslate"><span class="pre">100.0</span> <span class="pre">*</span> <span class="pre">EPS</span></code>, where <code class="docutils literal notranslate"><span class="pre">EPS</span></code> is the machine epsilon of the floating point data type (<code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">double</span></code> or <code class="docutils literal notranslate"><span class="pre">__float128</span></code>). Experienced users may (under some very specific circumstances) need the possibility to tighten or relax the threshold. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv421charm_glob_threshold2">
-<span id="_CPPv321charm_glob_threshold2"></span><span id="_CPPv221charm_glob_threshold2"></span><span id="charm_glob_threshold2__double"></span><span class="target" id="charm__glob_8h_1afb419caab47d66aff55c04d1339b4f7d"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_glob_threshold2</span></span></span><a class="headerlink" href="#_CPPv421charm_glob_threshold2" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv321charm_glob_threshold2"></span><span id="_CPPv221charm_glob_threshold2"></span><span id="charm_glob_threshold2__double"></span><span class="target" id="charm__glob_8h_1afb419caab47d66aff55c04d1339b4f7d"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_glob_threshold2</span></span></span><a class="headerlink" href="#_CPPv421charm_glob_threshold2" title="Link to this definition">#</a><br /></dt>
 <dd><p>A more relaxed threshold to judge whether two floating point numbers are equal, <code class="docutils literal notranslate"><span class="pre">100000.0</span> <span class="pre">*</span> <span class="pre">EPS</span></code>. It is used to check longitudes of <em>custom</em> user-defined grids for a constant longitudinal step (required by the FFT-based algorithms). To this end, we use double differences. For high-resolution grids, the longitudinal step may be very small, so that two consecutive longitudes are very similar. Since double differences increase numerical errors, the threshold needs to be sufficiently large in such situations (yet narrow enough). The current value was found to be sufficient for quadrature grids associated with degrees as high as <code class="docutils literal notranslate"><span class="pre">70,000</span></code>. </p>
 </dd></dl>
 
@@ -438,13 +479,13 @@ interact with it.</p>
 </p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv432charm_glob_polar_optimization_a1">
-<span id="_CPPv332charm_glob_polar_optimization_a1"></span><span id="_CPPv232charm_glob_polar_optimization_a1"></span><span id="charm_glob_polar_optimization_a1__unsigned-l"></span><span class="target" id="charm__glob_8h_1a912f3a473bd2a2762a005616916dbe52"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_glob_polar_optimization_a1</span></span></span><a class="headerlink" href="#_CPPv432charm_glob_polar_optimization_a1" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv332charm_glob_polar_optimization_a1"></span><span id="_CPPv232charm_glob_polar_optimization_a1"></span><span id="charm_glob_polar_optimization_a1__unsigned-l"></span><span class="target" id="charm__glob_8h_1a912f3a473bd2a2762a005616916dbe52"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_glob_polar_optimization_a1</span></span></span><a class="headerlink" href="#_CPPv432charm_glob_polar_optimization_a1" title="Link to this definition">#</a><br /></dt>
 <dd><p>Polar optimization parameter (default is <code class="docutils literal notranslate"><span class="pre">100</span></code>) </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv432charm_glob_polar_optimization_a2">
-<span id="_CPPv332charm_glob_polar_optimization_a2"></span><span id="_CPPv232charm_glob_polar_optimization_a2"></span><span id="charm_glob_polar_optimization_a2__double"></span><span class="target" id="charm__glob_8h_1ab5fc3b2f3555814f59ea7d7fd8004de0"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_glob_polar_optimization_a2</span></span></span><a class="headerlink" href="#_CPPv432charm_glob_polar_optimization_a2" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv332charm_glob_polar_optimization_a2"></span><span id="_CPPv232charm_glob_polar_optimization_a2"></span><span id="charm_glob_polar_optimization_a2__double"></span><span class="target" id="charm__glob_8h_1ab5fc3b2f3555814f59ea7d7fd8004de0"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_glob_polar_optimization_a2</span></span></span><a class="headerlink" href="#_CPPv432charm_glob_polar_optimization_a2" title="Link to this definition">#</a><br /></dt>
 <dd><p>Polar optimization parameter (default is <code class="docutils literal notranslate"><span class="pre">-1.0</span></code>, that is, no polar optimization) </p>
 </dd></dl>
 
@@ -457,11 +498,10 @@ interact with it.</p>
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="api-c-err.html"
@@ -481,15 +521,30 @@ interact with it.</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv420charm_glob_threshold"><code class="docutils literal notranslate"><span class="pre">charm_glob_threshold</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv421charm_glob_threshold2"><code class="docutils literal notranslate"><span class="pre">charm_glob_threshold2</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv432charm_glob_polar_optimization_a1"><code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a1</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv432charm_glob_polar_optimization_a2"><code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a2</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
@@ -507,6 +562,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2024, Blažej Bucha.
@@ -518,7 +574,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 17, 2024.
+  Last updated on Jun 18, 2024.
   <br/>
 </p>
   </div>
@@ -536,8 +592,8 @@ By Blažej Bucha
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
 
   <footer class="bd-footer">
   </footer>
