@@ -85,6 +85,7 @@ To list all available formats, execute ``cd docs && make help``.
 
 .. _contact:
 
+
 Contact
 =======
 
@@ -92,6 +93,14 @@ Should you have any comments, questions, bug report or criticism, please feel
 free to contact the author, Blažej Bucha, at blazej.bucha@stuba.sk.  Further
 products developed by the author can be found at `https://www.blazejbucha.com
 <https://www.blazejbucha.com>`_.
+
+
+Pronunciation
+=============
+
+We prefer to pronounce CHarm and PyHarm like the words ``see harm`` and ``pie 
+harm``.  But it is indeed quite charming to pronounce CHarm like the word 
+``charm``, especially when the library works like a charm.
 
 
 Other spherical-harmonic-based libraries
