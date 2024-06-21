@@ -1,6 +1,5 @@
 EXTRA_DIST = build/html \
 			 img \
-			 logo \
 			 src \
 			 Doxyfile \
 			 index.html \

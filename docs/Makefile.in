@@ -273,7 +273,6 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 EXTRA_DIST = build/html \
 			 img \
-			 logo \
 			 src \
 			 Doxyfile \
 			 index.html \
