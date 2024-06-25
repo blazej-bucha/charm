@@ -21,6 +21,11 @@
 /* ------------------------------------------------------------------------- */
 
 
+#ifndef DLL_EXPORT
+#   define DLL_EXPORT
+#endif
+
+
 #undef CAT
 #define CAT(x, y) x ## y
 #undef CAT2
