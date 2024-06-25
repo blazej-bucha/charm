@@ -197,12 +197,12 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
 
     /* --------------------------------------------------------------------- */
     int FAILURE_glob = 0;
-    REAL *r                 = NULL;
-    REAL *ri                = NULL;
-    REAL *dm                = NULL;
-    REAL *ftmp_in           = NULL;
-    FFTW(complex) *ftmp_out = NULL;
-    FFTW(plan) plan         = NULL;
+    REAL *r                  = NULL;
+    REAL *ri                 = NULL;
+    REAL *dm                 = NULL;
+    REAL *ftmp_in            = NULL;
+    FFTWC(complex) *ftmp_out = NULL;
+    FFTW(plan) plan          = NULL;
     /* --------------------------------------------------------------------- */
 
 
@@ -285,8 +285,8 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
         FAILURE_glob = 1;
         goto FAILURE;
     }
-    ftmp_out = (FFTW(complex) *)FFTW(malloc)(pnt_nlon_fft *
-                                             sizeof(FFTW(complex)));
+    ftmp_out = (FFTWC(complex) *)FFTW(malloc)(pnt_nlon_fft *
+                                              sizeof(FFTWC(complex)));
     if (ftmp_out == NULL)
     {
         FFTW(free)(ftmp_in);
@@ -365,7 +365,7 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
         REAL *a2      = NULL;
         REAL *b2      = NULL;
         REAL *ftmp_in = NULL;
-        FFTW(complex) *ftmp_out = NULL;
+        FFTWC(complex) *ftmp_out = NULL;
 
 
         ips = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
@@ -464,8 +464,8 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        ftmp_out = (FFTW(complex) *)FFTW(malloc)(pnt_nlon_fft *
-                                                 sizeof(FFTW(complex)));
+        ftmp_out = (FFTWC(complex) *)FFTW(malloc)(pnt_nlon_fft *
+                                                  sizeof(FFTWC(complex)));
         if (ftmp_out == NULL)
         {
             FAILURE_glob = 1;
@@ -652,9 +652,10 @@ FAILURE_1_parallel:
 
 
             /* Loop over harmonic orders */
-#pragma omp for schedule(dynamic)
+            unsigned long m;
+#pragma omp for schedule(dynamic) private(m)
 #endif
-            for (unsigned long m = 0; m <= nmax; m++)
+            for (m = 0; m <= nmax; m++)
             {
 
                 /* Apply polar optimization if asked to do so */
@@ -1026,10 +1027,11 @@ FAILURE:
     /* Normalize the coefficients */
     /* ..................................................................... */
     const REAL c2 = PREC(1.0) / (PREC(4.0) * PI) * (r0 / shcs->mu);
+    unsigned long m;
 #if CHARM_OPENMP
-    #pragma omp parallel for default(none) shared(shcs, nmax, c2)
+    #pragma omp parallel for default(none) shared(shcs, nmax, c2) private(m)
 #endif
-    for (unsigned long m = 0; m <= nmax; m++)
+    for (m = 0; m <= nmax; m++)
     {
         for (unsigned long n = m; n <= nmax; n++)
         {

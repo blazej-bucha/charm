@@ -118,7 +118,8 @@ am_libcharm@P@_misc_la_OBJECTS = misc_arr_chck_lin_incr.lo \
 	misc_polar_optimization_threshold.lo \
 	misc_buildopt_precision.lo misc_buildopt_omp_charm.lo \
 	misc_buildopt_omp_fftw.lo misc_buildopt_simd.lo \
-	misc_buildopt_isfinite.lo misc_buildopt_version_fftw.lo
+	misc_buildopt_isfinite.lo misc_buildopt_version_fftw.lo \
+	pyinit_libcharm.lo
 libcharm@P@_misc_la_OBJECTS = $(am_libcharm@P@_misc_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -156,7 +157,7 @@ am__depfiles_remade = ./$(DEPDIR)/misc_arr_chck_lin_incr.Plo \
 	./$(DEPDIR)/misc_polar_optimization_apply.Plo \
 	./$(DEPDIR)/misc_polar_optimization_threshold.Plo \
 	./$(DEPDIR)/misc_print_info.Plo ./$(DEPDIR)/misc_str2real.Plo \
-	./$(DEPDIR)/misc_str2ul.Plo
+	./$(DEPDIR)/misc_str2ul.Plo ./$(DEPDIR)/pyinit_libcharm.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -190,6 +191,7 @@ ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
 AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
 AR = @AR@
+AS = @AS@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
@@ -353,7 +355,8 @@ libcharm@P@_misc_la_SOURCES = misc_arr_chck_lin_incr.c \
 							  misc_buildopt_omp_fftw.c \
 							  misc_buildopt_simd.c \
 							  misc_buildopt_isfinite.c \
-							  misc_buildopt_version_fftw.c
+							  misc_buildopt_version_fftw.c \
+							  pyinit_libcharm.c
 
 EXTRA_DIST = *.h
 all: all-am
@@ -432,6 +435,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_print_info.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_str2real.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_str2ul.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pyinit_libcharm.Plo@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -566,6 +570,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/misc_print_info.Plo
 	-rm -f ./$(DEPDIR)/misc_str2real.Plo
 	-rm -f ./$(DEPDIR)/misc_str2ul.Plo
+	-rm -f ./$(DEPDIR)/pyinit_libcharm.Plo
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic
 
@@ -632,6 +637,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/misc_print_info.Plo
 	-rm -f ./$(DEPDIR)/misc_str2real.Plo
 	-rm -f ./$(DEPDIR)/misc_str2ul.Plo
+	-rm -f ./$(DEPDIR)/pyinit_libcharm.Plo
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

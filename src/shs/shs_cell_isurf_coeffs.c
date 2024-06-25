@@ -108,10 +108,11 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
 
 
     /* "shcs1->r / r" */
+    size_t i;
 #if CHARM_OPENMP
-#pragma omp parallel for default(shared)
+#pragma omp parallel for default(shared) private(i)
 #endif
-    for (size_t i = 0; i < glg->npoint; i++)
+    for (i = 0; i < glg->npoint; i++)
         r[i] = shcs1->r / r[i];
 
 
@@ -125,9 +126,9 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
         goto FAILURE;
     }
 #if CHARM_OPENMP
-#pragma omp parallel for default(shared)
+#pragma omp parallel for default(shared) private(i)
 #endif
-    for (size_t i = 0; i < glg->npoint; i++)
+    for (i = 0; i < glg->npoint; i++)
         r_pow[i] = PREC(1.0);
     /* --------------------------------------------------------------------- */
 
@@ -254,13 +255,14 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
 
     /* The actual computation of the coefficients */
     /* --------------------------------------------------------------------- */
+    unsigned long m1;
 #if CHARM_OPENMP
 #pragma omp parallel for default(none) \
 shared(shcs1, cnm1pnmj, snm1pnmj, pnmj, nmax1) \
 private(cnm1pnmj_m1, cnm1pnmj_m1_j1, snm1pnmj_m1, snm1pnmj_m1_j1) \
-private(pnmj_m1_j1, max_m1_j1)
+private(m1, pnmj_m1_j1, max_m1_j1)
 #endif
-    for (unsigned long m1 = 0; m1 <= nmax1; m1++)
+    for (m1 = 0; m1 <= nmax1; m1++)
     {
         cnm1pnmj_m1 = cnm1pnmj->pnmj[m1];
         snm1pnmj_m1 = snm1pnmj->pnmj[m1];
@@ -296,10 +298,11 @@ private(pnmj_m1_j1, max_m1_j1)
         /* Compute the "n1 + 1"th power of the topographic surface and its
          * spherical harmonic coefficients */
         /* ................................................................. */
+        size_t i;
 #if CHARM_OPENMP
-#pragma omp parallel for default(shared)
+#pragma omp parallel for default(shared) private(i)
 #endif
-        for (size_t i = 0; i < glg->npoint; i++)
+        for (i = 0; i < glg->npoint; i++)
             r_pow[i] *= r[i];
 
 
@@ -314,13 +317,14 @@ private(pnmj_m1_j1, max_m1_j1)
 
         /* Pre-compute the summation over "n3" */
         /* ................................................................. */
+        unsigned long m3;
 #if CHARM_OPENMP
 #pragma omp parallel for default(none) \
 shared(nmax3, nmax3_2, pnmj, shcs3, cnm3pnmj_sum, snm3pnmj_sum) \
 private(j3pj3, max_m3_j3, idx, pnmj_m3_j3, c_sum1, c_sum2, s_sum1, s_sum2) \
-private(cnm3_m3, snm3_m3)
+private(m3, cnm3_m3, snm3_m3)
 #endif
-        for (unsigned long m3 = 0; m3 <= nmax3; m3++)
+        for (m3 = 0; m3 <= nmax3; m3++)
         {
             cnm3_m3 = shcs3->c[m3];
             snm3_m3 = shcs3->s[m3];
@@ -373,6 +377,7 @@ private(cnm3_m3, snm3_m3)
         /* Compute the contribution of "n1" to coefficients and add it to the
          * contribution from "n1 - 1" */
         /* ................................................................. */
+        unsigned long m1;
 #if CHARM_OPENMP
 #pragma omp parallel for default(none) \
 shared(n1, n1_2, n1_rem_2, nmax3, nmax3_2, nmax1p1, nmax3p1) \
@@ -380,10 +385,10 @@ shared(cnm1pnmj, snm1pnmj, cnm3pnmj_sum, snm3pnmj_sum) \
 shared(cnm1cnm3, cnm1snm3, snm1cnm3, snm1snm3) \
 private(cnm1pnmj_m1, snm1pnmj_m1, cnm1pnmj_m1_j1, snm1pnmj_m1_j1) \
 private(cnm1pnmj_m1_j1_n1, snm1pnmj_m1_j1_n1) \
-private(k1, k3, k3pm1, j1pj1, j3pj3, max_m1_j1, max_m3_j3) \
+private(m1, k1, k3, k3pm1, j1pj1, j3pj3, max_m1_j1, max_m3_j3) \
 private(idx, idxp1, idx0_lc, idx1_lc)
 #endif
-        for (unsigned long m1 = 0; m1 <= n1; m1++)
+        for (m1 = 0; m1 <= n1; m1++)
         {
             cnm1pnmj_m1 = cnm1pnmj->pnmj[m1];
             snm1pnmj_m1 = snm1pnmj->pnmj[m1];

@@ -18,8 +18,8 @@ if ret != -1:
 # Get and process the user-defined compilation options
 # .............................................................................
 extra_compile_args = '@CFLAGS@'
-include_dirs       = '@CPPFLAGS@'
-library_dirs       = '@LDFLAGS@'
+include_dirs       = r'@CPPFLAGS@'  # r-string required for Windows paths
+library_dirs       = r'@LDFLAGS@'   # r-string required for Windows paths
 libraries          = '@LIBS@'
 
 
@@ -36,11 +36,24 @@ def to_list(string, separator):
 
 # Run setup
 # .............................................................................
+include_dirs = to_list(include_dirs, '-I')
+library_dirs = to_list(library_dirs, '-L')
+
+
 if sys.platform == 'win32':
+
+    # Not sure why, but relative paths in "include_dirs" and "library_dirs" are
+    # needed on Windows
+    for i in range(len(include_dirs)):
+        include_dirs[i] = os.path.relpath(include_dirs[i])
+    for i in range(len(library_dirs)):
+        library_dirs[i] = os.path.relpath(library_dirs[i])
+
     # This must be empty on Windows
     runtime_library_dirs = []
+
 else:
-    runtime_library_dirs = to_list(library_dirs, '-L')
+    runtime_library_dirs = library_dirs
 
 
 setup(name='pyharm@P@',
@@ -59,8 +72,8 @@ setup(name='pyharm@P@',
                 name='pyharm@P@.libcharm@P@',
                 sources=glob.glob('src/**/*.c'),
                 extra_compile_args=to_list(extra_compile_args, ' '),
-                include_dirs=['.', './src'] + to_list(include_dirs, '-I'),
-                library_dirs=to_list(library_dirs, '-L'),
+                include_dirs=['.', './src'] + include_dirs,
+                library_dirs=library_dirs,
                 runtime_library_dirs=runtime_library_dirs,
                 libraries=to_list(libraries, '-l'),
                      ),

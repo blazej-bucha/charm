@@ -97,7 +97,7 @@ extern "C"
 /* ------------------------------------------------------------------------- */
 /** @brief Returns a string specifying the CHarm version number determined on
  * compilation time. */
-extern const char * const charm@P@_misc_get_version(void);
+CHARM_EXTERN const char * const CHARM_CDECL charm@P@_misc_get_version(void);
 
 
 
@@ -106,7 +106,7 @@ extern const char * const charm@P@_misc_get_version(void);
 
 /** @brief Prints library info to ``stdout`` (library name, version,
  * compilation date, precision, etc). */
-extern void charm@P@_misc_print_info(void);
+CHARM_EXTERN void CHARM_CDECL charm@P@_misc_print_info(void);
 
 
 
@@ -123,7 +123,7 @@ extern void charm@P@_misc_print_info(void);
  *
  * * ``3`` if CHarm was compiled quadruple precision
  *   (``--enable-quad-precision``). */
-extern int charm@P@_misc_buildopt_precision(void);
+CHARM_EXTERN int CHARM_CDECL charm@P@_misc_buildopt_precision(void);
 
 
 
@@ -133,7 +133,7 @@ extern int charm@P@_misc_buildopt_precision(void);
 /** @brief Returns a non-zero value if CHarm was compiled with the OpenMP
  * parallelization enabled (``--enable-openmp``).  Otherwise, zero is
  * returned. */
-extern int charm@P@_misc_buildopt_omp_charm(void);
+CHARM_EXTERN int CHARM_CDECL charm@P@_misc_buildopt_omp_charm(void);
 
 
 
@@ -144,7 +144,7 @@ extern int charm@P@_misc_buildopt_omp_charm(void);
  * parallelization.  Otherwise, zero is returned.
  *
  * @details If non-zero, all FFTW computations are parallelized. */
-extern int charm@P@_misc_buildopt_omp_fftw(void);
+CHARM_EXTERN int CHARM_CDECL charm@P@_misc_buildopt_omp_fftw(void);
 
 
 
@@ -165,7 +165,7 @@ extern int charm@P@_misc_buildopt_omp_fftw(void);
  *   (``--enable-avx-512``).
  *
  * */
-extern int charm@P@_misc_buildopt_simd(void);
+CHARM_EXTERN int CHARM_CDECL charm@P@_misc_buildopt_simd(void);
 
 
 
@@ -173,7 +173,8 @@ extern int charm@P@_misc_buildopt_simd(void);
 
 
 /** @brief Returns a string specifying the FFTW library version. */
-extern const char * const charm@P@_misc_buildopt_version_fftw(void);
+CHARM_EXTERN const char * const CHARM_CDECL
+                                    charm@P@_misc_buildopt_version_fftw(void);
 
 
 
@@ -187,7 +188,7 @@ extern const char * const charm@P@_misc_buildopt_version_fftw(void);
  * @details On some systems, the ``isfinite`` macro is available in ``math.h``
  * but is not working correctly with ``__float128`` floating point data type
  * (quadruple precision).  In that case, zero is returned. */
-extern int charm@P@_misc_buildopt_isfinite(void);
+CHARM_EXTERN int CHARM_CDECL charm@P@_misc_buildopt_isfinite(void);
 /* ------------------------------------------------------------------------- */
 
 

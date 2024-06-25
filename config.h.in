@@ -32,6 +32,9 @@
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H
 
+/* Define to 1 if fftwq_version is available in the fftw3q lib. */
+#undef HAVE_FFTW_VERSION
+
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
 
@@ -96,8 +99,14 @@
 /* Define to 1 if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
 
+/* Define to 1 if you have the `_aligned_malloc' function. */
+#undef HAVE__ALIGNED_MALLOC
+
 /* Define to the sub-directory where libtool stores uninstalled libraries. */
 #undef LT_OBJDIR
+
+/* Define to 1 to patch the MSVC underscore bug on Windows */
+#undef MSVC_UNDERSCORE_PATCH
 
 /* Define to 1 if your C compiler doesn't accept -c and -o together. */
 #undef NO_MINUS_C_MINUS_O

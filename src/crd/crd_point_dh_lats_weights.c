@@ -31,10 +31,11 @@ void CHARM(crd_point_dh_lats_weights)(CHARM(point) *dh, unsigned long nmax)
     REAL sclti, sclti0, sclti1, cclti2, sclti2, w_tmp, clti;
 
 
+    unsigned long i;
 #if CHARM_OPENMP
-#pragma omp for
+#pragma omp for private(i)
 #endif
-    for (unsigned long i = 0; i < L2; i++)
+    for (i = 0; i < L2; i++)
     {
         /* The "i"th co-latitude */
         clti = M_PI_2L * (REAL)(i);

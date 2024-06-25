@@ -321,9 +321,9 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
     REAL *fn = NULL;
     REAL *gm = NULL;
     REAL *hm = NULL;
-    REAL *ftmp_in           = NULL;
-    FFTW(complex) *ftmp_out = NULL;
-    FFTW(plan) plan         = NULL;
+    REAL *ftmp_in            = NULL;
+    FFTWC(complex) *ftmp_out = NULL;
+    FFTW(plan) plan          = NULL;
     /* --------------------------------------------------------------------- */
 
 
@@ -429,8 +429,8 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
         FAILURE_glob = 1;
         goto FAILURE;
     }
-    ftmp_out = (FFTW(complex) *)FFTW(malloc)(sizeof(FFTW(complex)) *
-                                             cell_nlon_fft);
+    ftmp_out = (FFTWC(complex) *)FFTW(malloc)(sizeof(FFTWC(complex)) *
+                                              cell_nlon_fft);
     if (ftmp_out == NULL)
     {
         FFTW(free)(ftmp_in);
@@ -527,7 +527,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
 #endif
         REAL *imm     = NULL;
         REAL *ftmp_in = NULL;
-        FFTW(complex) *ftmp_out = NULL;
+        FFTWC(complex) *ftmp_out = NULL;
 
 
         ips1 = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax,
@@ -674,8 +674,8 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        ftmp_out = (FFTW(complex) *)FFTW(malloc)(sizeof(FFTW(complex)) *
-                                                 cell_nlon_fft);
+        ftmp_out = (FFTWC(complex) *)FFTW(malloc)(sizeof(FFTWC(complex)) *
+                                                  cell_nlon_fft);
         if (ftmp_out == NULL)
         {
             FAILURE_glob = 1;
@@ -930,9 +930,10 @@ FAILURE_1_parallel:
             /* ............................................................. */
 
 
-#pragma omp for schedule(dynamic)
+            unsigned long m;
+#pragma omp for schedule(dynamic) private(m)
 #endif
-            for (unsigned long m = 0; m <= nmax; m++)
+            for (m = 0; m <= nmax; m++)
             {
 
                 /* Apply polar optimization if asked to do so.  Since "u1
@@ -1411,10 +1412,11 @@ FAILURE:
     REAL c2 = PREC(1.0) / (PREC(4.0) * PI) * (r0 / shcs->mu);
 
 
+    unsigned long m;
 #if CHARM_OPENMP
-    #pragma omp parallel for default(none) shared(shcs, nmax, c2)
+    #pragma omp parallel for default(none) shared(shcs, nmax, c2) private(m)
 #endif
-    for (unsigned long m = 0; m <= nmax; m++)
+    for (m = 0; m <= nmax; m++)
     {
         for (unsigned long n = m; n <= nmax; n++)
         {

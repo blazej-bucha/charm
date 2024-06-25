@@ -25,7 +25,8 @@ libcharm@P@_misc_la_SOURCES = misc_arr_chck_lin_incr.c \
 							  misc_buildopt_omp_fftw.c \
 							  misc_buildopt_simd.c \
 							  misc_buildopt_isfinite.c \
-							  misc_buildopt_version_fftw.c
+							  misc_buildopt_version_fftw.c \
+							  pyinit_libcharm.c
 
 
 EXTRA_DIST = *.h

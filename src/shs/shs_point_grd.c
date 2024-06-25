@@ -224,13 +224,13 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt,
 
 
     /* --------------------------------------------------------------------- */
-    int FAILURE_glob      = 0;
-    REAL *r               = NULL;
-    REAL *ri              = NULL;
-    REAL *dm              = NULL;
-    FFTW(complex) *fc_tmp = NULL;
-    REAL *ftmp            = NULL;
-    FFTW(plan) plan       = NULL;
+    int FAILURE_glob       = 0;
+    REAL *r                = NULL;
+    REAL *ri               = NULL;
+    REAL *dm               = NULL;
+    FFTWC(complex) *fc_tmp = NULL;
+    REAL *ftmp             = NULL;
+    FFTW(plan) plan        = NULL;
     /* --------------------------------------------------------------------- */
 
 
@@ -310,7 +310,7 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt,
     /* --------------------------------------------------------------------- */
     if (use_fft)
     {
-        fc_tmp = (FFTW(complex) *)FFTW(malloc)(nfc * sizeof(FFTW(complex)));
+        fc_tmp = (FFTWC(complex) *)FFTW(malloc)(nfc * sizeof(FFTWC(complex)));
         if (fc_tmp == NULL)
         {
             FFTW(free)(fc_tmp);
@@ -370,25 +370,25 @@ shared(use_fft, pt, rref, r_eq_rref, dr, dlat, dlon, dorder, npar, grad)
         int FAILURE_priv = 0;
 
 
-        int  *ips          = NULL;
-        REAL *ps           = NULL;
-        REAL *latv         = NULL;
-        REAL *tv           = NULL;
-        REAL *uv           = NULL;
-        REAL *symmv        = NULL;
-        REAL *latsinv      = NULL;
-        REAL *pnt_rv       = NULL;
-        REAL *pnt_r2v      = NULL;
-        REAL *fc_simd      = NULL;
-        REAL *fc2_simd     = NULL;
-        REAL *anm          = NULL;
-        REAL *bnm          = NULL;
-        REAL *enm          = NULL;
-        FFTW(complex) *fc  = NULL;
-        FFTW(complex) *fc2 = NULL;
-        REAL *ftmp         = NULL;
-        REAL *fi           = NULL;
-        REAL *fi2          = NULL;
+        int  *ips           = NULL;
+        REAL *ps            = NULL;
+        REAL *latv          = NULL;
+        REAL *tv            = NULL;
+        REAL *uv            = NULL;
+        REAL *symmv         = NULL;
+        REAL *latsinv       = NULL;
+        REAL *pnt_rv        = NULL;
+        REAL *pnt_r2v       = NULL;
+        REAL *fc_simd       = NULL;
+        REAL *fc2_simd      = NULL;
+        REAL *anm           = NULL;
+        REAL *bnm           = NULL;
+        REAL *enm           = NULL;
+        FFTWC(complex) *fc  = NULL;
+        FFTWC(complex) *fc2 = NULL;
+        REAL *ftmp          = NULL;
+        REAL *fi            = NULL;
+        REAL *fi2           = NULL;
 
 
         size_t nfi_1par = pnt_nlon * SIMD_SIZE * SIMD_BLOCK;
@@ -486,13 +486,13 @@ shared(use_fft, pt, rref, r_eq_rref, dr, dlat, dlon, dorder, npar, grad)
                 FAILURE_priv = 1;
                 goto FAILURE_1_parallel;
             }
-            fc = (FFTW(complex) *)FFTW(malloc)(nfc * sizeof(FFTW(complex)));
+            fc = (FFTWC(complex) *)FFTW(malloc)(nfc * sizeof(FFTWC(complex)));
             if (fc == NULL)
             {
                 FAILURE_priv = 1;
                 goto FAILURE_1_parallel;
             }
-            memset(fc, 0, nfc * sizeof(FFTW(complex)));
+            memset(fc, 0, nfc * sizeof(FFTWC(complex)));
             fc_simd = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
                                                     npar * nfc * SIMD_SIZE *
                                                     SIMD_BLOCK * 2,
@@ -528,14 +528,14 @@ shared(use_fft, pt, rref, r_eq_rref, dr, dlat, dlon, dorder, npar, grad)
 
             if (use_fft)
             {
-                fc2 = (FFTW(complex) *)FFTW(malloc)(nfc *
-                                                    sizeof(FFTW(complex)));
+                fc2 = (FFTWC(complex) *)FFTW(malloc)(nfc *
+                                                     sizeof(FFTWC(complex)));
                 if (fc2 == NULL)
                 {
                     FAILURE_priv = 1;
                     goto FAILURE_1_parallel;
                 }
-                memset(fc2, 0, nfc * sizeof(FFTW(complex)));
+                memset(fc2, 0, nfc * sizeof(FFTWC(complex)));
                 fc2_simd = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
                                                          npar * nfc *
                                                          SIMD_SIZE * SIMD_BLOCK
@@ -615,10 +615,11 @@ FAILURE_1_parallel:
         CHARM(shs_lc_init)(&lc);
 
 
+        size_t i;
 #if CHARM_OPENMP
-#pragma omp for schedule(dynamic)
+#pragma omp for schedule(dynamic) private(i)
 #endif
-        for (size_t i = 0; i < SIMD_MULTIPLE(nlatdo, SIMD_SIZE * SIMD_BLOCK);
+        for (i = 0; i < SIMD_MULTIPLE(nlatdo, SIMD_SIZE * SIMD_BLOCK);
              i += SIMD_SIZE * SIMD_BLOCK)
         {
             for (l = 0; l < SIMD_BLOCK; l++)
@@ -698,11 +699,11 @@ FAILURE_1_parallel:
                     /* Reset the lumped coefficients.  Required in some
                      * cases. */
                     /* ----------------------------------------------------- */
-                    memset(fc, 0, nfc * sizeof(FFTW(complex)));
+                    memset(fc, 0, nfc * sizeof(FFTWC(complex)));
 
 
                     if (symm)
-                        memset(fc2, 0, nfc * sizeof(FFTW(complex)));
+                        memset(fc2, 0, nfc * sizeof(FFTWC(complex)));
                     /* ----------------------------------------------------- */
                 }
                 else

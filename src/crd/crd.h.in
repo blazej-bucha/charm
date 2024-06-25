@@ -342,9 +342,10 @@ typedef struct
  * unsupported value of ``type``).
  *
  * */
-extern charm@P@_point *charm@P@_crd_point_malloc(int type,
-                                                 size_t nlat,
-                                                 size_t nlon);
+CHARM_EXTERN charm@P@_point * CHARM_CDECL
+                             charm@P@_crd_point_malloc(int type,
+                                                       size_t nlat,
+                                                       size_t nlon);
 
 
 
@@ -353,9 +354,10 @@ extern charm@P@_point *charm@P@_crd_point_malloc(int type,
 
 /** @brief The same as ``charm@P@_crd_point_malloc()`` but all array elements
  * are initialized to zero. */
-extern charm@P@_point *charm@P@_crd_point_calloc(int type,
-                                                 size_t nlat,
-                                                 size_t nlon);
+CHARM_EXTERN charm@P@_point * CHARM_CDECL
+                             charm@P@_crd_point_calloc(int type,
+                                                       size_t nlat,
+                                                       size_t nlon);
 
 
 
@@ -405,12 +407,13 @@ extern charm@P@_point *charm@P@_crd_point_calloc(int type,
  * unsupported value of ``type``).
  *
  * */
-extern charm@P@_point *charm@P@_crd_point_init(int type,
-                                               size_t nlat,
-                                               size_t nlon,
-                                               @RDT@ *lat,
-                                               @RDT@ *lon,
-                                               @RDT@ *r);
+CHARM_EXTERN charm@P@_point * CHARM_CDECL
+                             charm@P@_crd_point_init(int type,
+                                                     size_t nlat,
+                                                     size_t nlon,
+                                                     @RDT@ *lat,
+                                                     @RDT@ *lon,
+                                                     @RDT@ *r);
 
 
 
@@ -426,7 +429,7 @@ extern charm@P@_point *charm@P@_crd_point_init(int type,
  * because they were not allocated by CHarm.
  *
  * */
-extern void charm@P@_crd_point_free(charm@P@_point *pnt);
+CHARM_EXTERN void CHARM_CDECL charm@P@_crd_point_free(charm@P@_point *pnt);
 
 
 /**
@@ -476,8 +479,9 @@ extern void charm@P@_crd_point_free(charm@P@_point *pnt);
  * lead to memory leaks.
  *
  * */
-extern charm@P@_point *charm@P@_crd_point_gl(unsigned long nmax,
-                                             @RDT@ r);
+CHARM_EXTERN charm@P@_point * CHARM_CDECL
+                             charm@P@_crd_point_gl(unsigned long nmax,
+                                                   @RDT@ r);
 
 
 
@@ -499,8 +503,9 @@ extern charm@P@_point *charm@P@_crd_point_gl(unsigned long nmax,
  * lead to memory leaks.
  *
  * */
-extern charm@P@_point *charm@P@_crd_point_dh1(unsigned long nmax,
-                                              @RDT@ r);
+CHARM_EXTERN charm@P@_point * CHARM_CDECL
+                             charm@P@_crd_point_dh1(unsigned long nmax,
+                                                    @RDT@ r);
 
 
 
@@ -510,8 +515,9 @@ extern charm@P@_point *charm@P@_crd_point_dh1(unsigned long nmax,
 /** @brief The same as ``charm@P@_crd_point_dh1()`` but for the equiangular
  * modification of the Driscoll-Healy grid after Wieczorek and Meschede (2018).
  * */
-extern charm@P@_point *charm@P@_crd_point_dh2(unsigned long nmax,
-                                              @RDT@ r);
+CHARM_EXTERN charm@P@_point * CHARM_CDECL
+                             charm@P@_crd_point_dh2(unsigned long nmax,
+                                                    @RDT@ r);
 
 
 /**
@@ -584,9 +590,10 @@ extern charm@P@_point *charm@P@_crd_point_dh2(unsigned long nmax,
  * unsupported value of ``type``).
  *
  * */
-extern charm@P@_cell *charm@P@_crd_cell_malloc(int type,
-                                               size_t nlat,
-                                               size_t nlon);
+CHARM_EXTERN charm@P@_cell * CHARM_CDECL
+                            charm@P@_crd_cell_malloc(int type,
+                                                     size_t nlat,
+                                                     size_t nlon);
 
 
 
@@ -595,9 +602,10 @@ extern charm@P@_cell *charm@P@_crd_cell_malloc(int type,
 
 /** @brief The same as ``charm@P@_crd_cell_malloc()`` but the memory of all
  * array elements is initialized to zero. */
-extern charm@P@_cell *charm@P@_crd_cell_calloc(int type,
-                                               size_t nlat,
-                                               size_t nlon);
+CHARM_EXTERN charm@P@_cell * CHARM_CDECL
+                            charm@P@_crd_cell_calloc(int type,
+                                                     size_t nlat,
+                                                     size_t nlon);
 
 
 
@@ -645,14 +653,15 @@ extern charm@P@_cell *charm@P@_crd_cell_calloc(int type,
  * unsupported value of ``type``).
  *
  * */
-extern charm@P@_cell *charm@P@_crd_cell_init(int type,
-                                             size_t nlat,
-                                             size_t nlon,
-                                             @RDT@ *latmin,
-                                             @RDT@ *latmax,
-                                             @RDT@ *lonmin,
-                                             @RDT@ *lonmax,
-                                             @RDT@ *r);
+CHARM_EXTERN charm@P@_cell * CHARM_CDECL
+                            charm@P@_crd_cell_init(int type,
+                                                   size_t nlat,
+                                                   size_t nlon,
+                                                   @RDT@ *latmin,
+                                                   @RDT@ *latmax,
+                                                   @RDT@ *lonmin,
+                                                   @RDT@ *lonmax,
+                                                   @RDT@ *r);
 
 
 
@@ -666,7 +675,7 @@ extern charm@P@_cell *charm@P@_crd_cell_init(int type,
  * that is associated with ``cell``, including that of its array members. If
  * ``cell->owner`` is ``0``, the arrays are not released from the memory,
  * because they were not allocated by CHarm.  */
-extern void charm@P@_crd_cell_free(charm@P@_cell *cell);
+CHARM_EXTERN void CHARM_CDECL charm@P@_crd_cell_free(charm@P@_cell *cell);
 
 
 /**

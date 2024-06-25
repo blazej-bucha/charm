@@ -272,9 +272,10 @@ typedef struct
  * @note ``r`` must be greater than zero.
  *
  * */
-extern charm@P@_shc *charm@P@_shc_malloc(unsigned long nmax,
-                                         @RDT@ mu,
-                                         @RDT@ r);
+CHARM_EXTERN charm@P@_shc * CHARM_CDECL
+                           charm@P@_shc_malloc(unsigned long nmax,
+                                               @RDT@ mu,
+                                               @RDT@ r);
 
 
 
@@ -283,9 +284,10 @@ extern charm@P@_shc *charm@P@_shc_malloc(unsigned long nmax,
 
 /** @brief The same as ``charm@P@_shc_malloc()`` but all spherical harmonic
  * coefficients are initialized to zero.  */
-extern charm@P@_shc *charm@P@_shc_calloc(unsigned long nmax,
-                                         @RDT@ mu,
-                                         @RDT@ r);
+CHARM_EXTERN charm@P@_shc * CHARM_CDECL
+                           charm@P@_shc_calloc(unsigned long nmax,
+                                               @RDT@ mu,
+                                               @RDT@ r);
 
 
 
@@ -392,11 +394,12 @@ extern charm@P@_shc *charm@P@_shc_calloc(unsigned long nmax,
  * @note ``r`` must be greater than zero.
  *
  * */
-extern charm@P@_shc *charm@P@_shc_init(unsigned long nmax,
-                                       @RDT@ mu,
-                                       @RDT@ r,
-                                       @RDT@ *c,
-                                       @RDT@ *s);
+CHARM_EXTERN charm@P@_shc * CHARM_CDECL
+                           charm@P@_shc_init(unsigned long nmax,
+                                             @RDT@ mu,
+                                             @RDT@ r,
+                                             @RDT@ *c,
+                                             @RDT@ *s);
 
 
 
@@ -412,7 +415,7 @@ extern charm@P@_shc *charm@P@_shc_init(unsigned long nmax,
  * from the memory, because they were not allocated by CHarm.
  *
  * */
-extern void charm@P@_shc_free(charm@P@_shc *shcs);
+CHARM_EXTERN void CHARM_CDECL charm@P@_shc_free(charm@P@_shc *shcs);
 
 
 /**
@@ -529,10 +532,11 @@ extern void charm@P@_shc_free(charm@P@_shc *shcs);
  * in addition to the error reporting through ``err``.
  *
  * */
-extern unsigned long charm@P@_shc_read_bin(const char *pathname,
-                                           unsigned long nmax,
-                                           charm@P@_shc *shcs,
-                                           charm@P@_err *err);
+CHARM_EXTERN unsigned long CHARM_CDECL
+                           charm@P@_shc_read_bin(const char *pathname,
+                                                 unsigned long nmax,
+                                                 charm@P@_shc *shcs,
+                                                 charm@P@_err *err);
 
 
 
@@ -596,11 +600,12 @@ extern unsigned long charm@P@_shc_read_bin(const char *pathname,
  * in addition to the error reporting through ``err``.
  *
  * */
-extern unsigned long charm@P@_shc_read_gfc(const char *pathname,
-                                           unsigned long nmax,
-                                           const char *epoch,
-                                           charm@P@_shc *shcs,
-                                           charm@P@_err *err);
+CHARM_EXTERN unsigned long CHARM_CDECL
+                           charm@P@_shc_read_gfc(const char *pathname,
+                                                 unsigned long nmax,
+                                                 const char *epoch,
+                                                 charm@P@_shc *shcs,
+                                                 charm@P@_err *err);
 
 
 
@@ -669,10 +674,11 @@ extern unsigned long charm@P@_shc_read_gfc(const char *pathname,
  * in addition to the error reporting through ``err``.
  *
  * */
-extern unsigned long charm@P@_shc_read_tbl(const char *pathname,
-                                           unsigned long nmax,
-                                           charm@P@_shc *shcs,
-                                           charm@P@_err *err);
+CHARM_EXTERN unsigned long CHARM_CDECL
+                           charm@P@_shc_read_tbl(const char *pathname,
+                                                 unsigned long nmax,
+                                                 charm@P@_shc *shcs,
+                                                 charm@P@_err *err);
 
 
 
@@ -744,10 +750,11 @@ extern unsigned long charm@P@_shc_read_tbl(const char *pathname,
  * in addition to the error reporting through ``err``.
  *
  * */
-extern unsigned long charm@P@_shc_read_dov(const char *pathname,
-                                           unsigned long nmax,
-                                           charm@P@_shc *shcs,
-                                           charm@P@_err *err);
+CHARM_EXTERN unsigned long CHARM_CDECL
+                           charm@P@_shc_read_dov(const char *pathname,
+                                                 unsigned long nmax,
+                                                 charm@P@_shc *shcs,
+                                                 charm@P@_err *err);
 
 
 
@@ -817,10 +824,11 @@ extern unsigned long charm@P@_shc_read_dov(const char *pathname,
  * in addition to the error reporting through ``err``.
  *
  * */
-extern unsigned long charm@P@_shc_read_mtx(const char *pathname,
-                                           unsigned long nmax,
-                                           charm@P@_shc *shcs,
-                                           charm@P@_err *err);
+CHARM_EXTERN unsigned long CHARM_CDECL
+                           charm@P@_shc_read_mtx(const char *pathname,
+                                                 unsigned long nmax,
+                                                 charm@P@_shc *shcs,
+                                                 charm@P@_err *err);
 
 
 
@@ -856,10 +864,11 @@ extern unsigned long charm@P@_shc_read_mtx(const char *pathname,
  * The path to the output file in ``pathname`` must already exist.
  *
  * */
-extern void charm@P@_shc_write_bin(const charm@P@_shc *shcs,
-                                   unsigned long nmax,
-                                   const char *pathname,
-                                   charm@P@_err *err);
+CHARM_EXTERN void CHARM_CDECL
+                  charm@P@_shc_write_bin(const charm@P@_shc *shcs,
+                                         unsigned long nmax,
+                                         const char *pathname,
+                                         charm@P@_err *err);
 
 
 
@@ -940,12 +949,13 @@ extern void charm@P@_shc_write_bin(const charm@P@_shc *shcs,
  * The path to the output file in ``pathname`` must already exist.
  *
  * */
-extern void charm@P@_shc_write_tbl(const charm@P@_shc *shcs,
-                                   unsigned long nmax,
-                                   const char *formatting,
-                                   int ordering,
-                                   const char *pathname,
-                                   charm@P@_err *err);
+CHARM_EXTERN void CHARM_CDECL
+                  charm@P@_shc_write_tbl(const charm@P@_shc *shcs,
+                                         unsigned long nmax,
+                                         const char *formatting,
+                                         int ordering,
+                                         const char *pathname,
+                                         charm@P@_err *err);
 
 
 
@@ -1026,12 +1036,13 @@ extern void charm@P@_shc_write_tbl(const charm@P@_shc *shcs,
 * ``%40.34Qe`` or ``%0.34Qf`` (see the documentation to ``libquadmath``).
  *
  * */
-extern void charm@P@_shc_write_dov(const charm@P@_shc *shcs,
-                                   unsigned long nmax,
-                                   const char *formatting,
-                                   int ordering,
-                                   const char *pathname,
-                                   charm@P@_err *err);
+CHARM_EXTERN void CHARM_CDECL
+                  charm@P@_shc_write_dov(const charm@P@_shc *shcs,
+                                         unsigned long nmax,
+                                         const char *formatting,
+                                         int ordering,
+                                         const char *pathname,
+                                         charm@P@_err *err);
 
 
 
@@ -1084,11 +1095,12 @@ extern void charm@P@_shc_write_dov(const charm@P@_shc *shcs,
  * The path to the output file in ``pathname`` must already exist.
  *
  * */
-extern void charm@P@_shc_write_mtx(const charm@P@_shc *shcs,
-                                   unsigned long nmax,
-                                   const char *formatting,
-                                   const char *pathname,
-                                   charm@P@_err *err);
+CHARM_EXTERN void CHARM_CDECL
+                  charm@P@_shc_write_mtx(const charm@P@_shc *shcs,
+                                         unsigned long nmax,
+                                         const char *formatting,
+                                         const char *pathname,
+                                         charm@P@_err *err);
 
 
 /**
@@ -1131,10 +1143,11 @@ extern void charm@P@_shc_write_mtx(const charm@P@_shc *shcs,
  * in practice.
  *
  * */
-extern void charm@P@_shc_dv(const charm@P@_shc *shcs,
-                            unsigned long nmax,
-                            @RDT@ *dv,
-                            charm@P@_err *err);
+CHARM_EXTERN void CHARM_CDECL
+                  charm@P@_shc_dv(const charm@P@_shc *shcs,
+                                  unsigned long nmax,
+                                  @RDT@ *dv,
+                                  charm@P@_err *err);
 
 
 
@@ -1162,10 +1175,11 @@ extern void charm@P@_shc_dv(const charm@P@_shc *shcs,
  * in practice.
  *
  * */
-extern void charm@P@_shc_da(const charm@P@_shc *shcs,
-                            unsigned long nmax,
-                            @RDT@ *da,
-                            charm@P@_err *err);
+CHARM_EXTERN void CHARM_CDECL
+                  charm@P@_shc_da(const charm@P@_shc *shcs,
+                                  unsigned long nmax,
+                                  @RDT@ *da,
+                                  charm@P@_err *err);
 
 
 
@@ -1196,11 +1210,12 @@ extern void charm@P@_shc_da(const charm@P@_shc *shcs,
  * and ``shcs2`` **must** be equal (the function performs a check on this).
  *
  * */
-extern void charm@P@_shc_ddv(const charm@P@_shc *shcs1,
-                             const charm@P@_shc *shcs2,
-                             unsigned long nmax,
-                             @RDT@ *ddv,
-                             charm@P@_err *err);
+CHARM_EXTERN void CHARM_CDECL
+                  charm@P@_shc_ddv(const charm@P@_shc *shcs1,
+                                   const charm@P@_shc *shcs2,
+                                   unsigned long nmax,
+                                   @RDT@ *ddv,
+                                   charm@P@_err *err);
 
 
 
@@ -1231,11 +1246,12 @@ extern void charm@P@_shc_ddv(const charm@P@_shc *shcs1,
  * and ``shcs2`` **must** be equal (the function performs a check on this).
  *
  * */
-extern void charm@P@_shc_dda(const charm@P@_shc *shcs1,
-                             const charm@P@_shc *shcs2,
-                             unsigned long nmax,
-                             @RDT@ *da,
-                             charm@P@_err *err);
+CHARM_EXTERN void CHARM_CDECL
+                  charm@P@_shc_dda(const charm@P@_shc *shcs1,
+                                   const charm@P@_shc *shcs2,
+                                   unsigned long nmax,
+                                   @RDT@ *da,
+                                   charm@P@_err *err);
 
 
 /**
@@ -1277,10 +1293,11 @@ extern void charm@P@_shc_dda(const charm@P@_shc *shcs1,
  * Error reported by the function (if any) is written to ``err``.
  *
  * */
-extern void charm@P@_shc_rescale(charm@P@_shc *shcs,
-                                 @RDT@ munew,
-                                 @RDT@ rnew,
-                                 charm@P@_err *err);
+CHARM_EXTERN void CHARM_CDECL
+                  charm@P@_shc_rescale(charm@P@_shc *shcs,
+                                       @RDT@ munew,
+                                       @RDT@ rnew,
+                                       charm@P@_err *err);
 
 
 /**

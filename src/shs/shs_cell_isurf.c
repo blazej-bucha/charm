@@ -336,10 +336,11 @@ FAILURE_1_parallel:
 
 
     /* Loop over the latitude cells */
+    size_t i;
 #if CHARM_OPENMP
-#pragma omp for schedule(dynamic)
+#pragma omp for schedule(dynamic) private(i)
 #endif
-    for (size_t i = 0; i < SIMD_MULTIPLE(cell_nlat, SIMD_SIZE);
+    for (i = 0; i < SIMD_MULTIPLE(cell_nlat, SIMD_SIZE);
          i += SIMD_SIZE)
     {
         /* Transformation of latitudes into co-latitudes */
