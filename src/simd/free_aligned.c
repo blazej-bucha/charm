@@ -1,7 +1,15 @@
 /* Header files */
 /* ------------------------------------------------------------------------- */
 #include <config.h>
-#if HAVE__ALIGNED_MALLOC
+#ifndef SIMD
+#   include <stdlib.h>
+#elif HAVE_POSIX_MEMALIGN
+#   include <stdlib.h>
+#elif HAVE_ALIGNED_ALLOC
+#   include <stdlib.h>
+#elif HAVE_MM_MALLOC_H
+#   include <mm_malloc.h>
+#elif HAVE__ALIGNED_MALLOC
 #   include <malloc.h>
 #endif
 #include "../prec.h"
