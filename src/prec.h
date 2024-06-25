@@ -57,10 +57,7 @@
 /* At first, let's check if one precision only is defined in "config.h".  The
  * configure script does not allow this, but if CHarm is compiled without the
  * autotools, this might perhaps happen. */
-#if (CHARM_FLOAT && CHARM_DOUBLE) || \
-    (CHARM_FLOAT && CHARM_QUAD) || \
-    (CHARM_DOUBLE && CHARM_QUAD) || \
-    (CHARM_FLOAT && CHARM_DOUBLE && CHARM_QUAD)
+#if CHARM_FLOAT && CHARM_QUAD
 #   error "One precision only must be defined in config.h."
 #endif
 

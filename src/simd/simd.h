@@ -25,9 +25,9 @@
 /* At first, let's check if one type of SIMD instruction only is defined in
  * "config.h".  The configure script does not allow this, but if CHarm is
  * compiled without the autotools, this might perhaps happen. */
-#if (HAVE_AVX_INSTRUCTIONS  && HAVE_AVX2_INSTRUCTIONS) || \
-    (HAVE_AVX2_INSTRUCTIONS && HAVE_AVX512F_INSTRUCTIONS) || \
-    (HAVE_AVX_INSTRUCTIONS  && HAVE_AVX512F_INSTRUCTIONS)
+#if (HAVE_AVX  && HAVE_AVX2) || \
+    (HAVE_AVX2 && HAVE_AVX512F) || \
+    (HAVE_AVX  && HAVE_AVX512F)
 #   error "One type of SIMD instructions only can be defined in config.h."
 #endif
 
@@ -95,8 +95,7 @@
 
 
 
-#if HAVE_AVX_INSTRUCTIONS || HAVE_AVX2_INSTRUCTIONS || \
-    HAVE_AVX512F_INSTRUCTIONS
+#if HAVE_AVX || HAVE_AVX2 || HAVE_AVX512F
     /* If "SIMD" is defined, CHarm is being compiled with SIMD support. */
 #   define SIMD
 #endif
@@ -124,7 +123,7 @@
 
 
 
-#   if HAVE_AVX_INSTRUCTIONS || HAVE_AVX2_INSTRUCTIONS
+#   if HAVE_AVX || HAVE_AVX2
 
 #       if CHARM_FLOAT /* Single precision */
 
@@ -152,9 +151,9 @@
 #       define INT_SIMD          __m256i
 
 
-#       if HAVE_AVX_INSTRUCTIONS
+#       if HAVE_AVX
 #           define RI_SIMD       REAL_SIMD
-#       elif HAVE_AVX2_INSTRUCTIONS
+#       elif HAVE_AVX2
 #           define RI_SIMD       INT_SIMD
 #       endif
 
@@ -162,7 +161,7 @@
 #       define MASK_SIMD         RI_SIMD
 #       define MASK2_SIMD        REAL_SIMD
 
-#   elif HAVE_AVX512F_INSTRUCTIONS
+#   elif HAVE_AVX512F
 
 #       if CHARM_FLOAT /* Single precision */
 
@@ -219,10 +218,10 @@
 #   define STOREU_R(ptr, x)    PF(storeu)((ptr), (x))
 
 
-#   if HAVE_AVX_INSTRUCTIONS || HAVE_AVX2_INSTRUCTIONS
+#   if HAVE_AVX || HAVE_AVX2
 #       define BLEND_R(x, y, mask)   PF(blendv)((x), (y), (mask))
 #       define MOVEMASK(x)           PF(movemask)((x))
-#   elif HAVE_AVX512F_INSTRUCTIONS
+#   elif HAVE_AVX512F
 #       define BLEND_R(x, y, mask)   PF(mask_blend)((mask), (x), (y))
 #       define MOVEMASK(x)           (x)
 #   endif
@@ -230,18 +229,18 @@
 
 #   define AND_R(x, y)          PF(and)((x), (y))
 #   define OR_R(x, y)           PF(or)((x), (y))
-#   if HAVE_AVX_INSTRUCTIONS || HAVE_AVX2_INSTRUCTIONS
+#   if HAVE_AVX || HAVE_AVX2
 #       define EQ_R(x, y)       PF(cmp)((x), (y), _CMP_EQ_OQ)
 #       define GE_R(x, y)       PF(cmp)((x), (y), _CMP_GE_OQ)
 #       define LT_R(x, y)       PF(cmp)((x), (y), _CMP_LT_OQ)
-#   elif HAVE_AVX512F_INSTRUCTIONS
+#   elif HAVE_AVX512F
 #       define EQ_R(x, y)       PF_MASK(cmp)((x), (y), _CMP_EQ_OQ)
 #       define GE_R(x, y)       PF_MASK(cmp)((x), (y), _CMP_GE_OQ)
 #       define LT_R(x, y)       PF_MASK(cmp)((x), (y), _CMP_LT_OQ)
 #   endif
 
 
-#   if HAVE_AVX_INSTRUCTIONS
+#   if HAVE_AVX
 
 #       define SET1_RI                SET1_R
 #       if CHARM_FLOAT
@@ -265,7 +264,7 @@
 #       define ANDNOT_MASK(x)         EQ_R((x), SET_ZERO_R)
 #       define BLEND_RI               BLEND_R
 
-#   elif HAVE_AVX2_INSTRUCTIONS
+#   elif HAVE_AVX2
 
 #       define SET1_RI(x)             PINT2(set1)((x))
 #       if CHARM_FLOAT
@@ -293,7 +292,7 @@
 #       define BLEND_RI(x, y, mask)   CAST_R2RI(BLEND_R(CAST_RI2R(x), \
                                                         CAST_RI2R(y), \
                                                         CAST_RI2R(mask)))
-#   elif HAVE_AVX512F_INSTRUCTIONS
+#   elif HAVE_AVX512F
 
 #       define SET1_RI(x)             PINT(set1)((x))
 #       if CHARM_FLOAT
@@ -338,10 +337,10 @@
 #   else
 #       define NONSIGNBITS 0x7FFFFFFFFFFFFFFFLL
 #   endif
-#   if HAVE_AVX_INSTRUCTIONS || HAVE_AVX2_INSTRUCTIONS
+#   if HAVE_AVX || HAVE_AVX2
 #       define ABS_R_INIT   REAL_SIMD NONSIGNBITS_R = \
                                         PF(castsi256)(PINT2(set1)(NONSIGNBITS))
-#   elif HAVE_AVX512F_INSTRUCTIONS
+#   elif HAVE_AVX512F
 #       define ABS_R_INIT   REAL_SIMD NONSIGNBITS_R = \
                                         PF(castsi512)(PINT2(set1)(NONSIGNBITS))
 #   endif
@@ -359,10 +358,10 @@
 #   else
 #       define SIGNBIT 0x8000000000000000LL
 #   endif
-#   if HAVE_AVX_INSTRUCTIONS || HAVE_AVX2_INSTRUCTIONS
+#   if HAVE_AVX || HAVE_AVX2
 #       define NEG_R_INIT   REAL_SIMD SIGNBIT_R = \
                                         PF(castsi256)(PINT2(set1)(SIGNBIT))
-#   elif HAVE_AVX512F_INSTRUCTIONS
+#   elif HAVE_AVX512F
 #       define NEG_R_INIT   REAL_SIMD SIGNBIT_R = \
                                         PF(castsi512)(PINT2(set1)(SIGNBIT))
 #   endif
@@ -378,7 +377,7 @@
 
 
     /* Sum all elements of a SIMD vector. */
-#   if HAVE_AVX_INSTRUCTIONS || HAVE_AVX2_INSTRUCTIONS
+#   if HAVE_AVX || HAVE_AVX2
         inline static REAL SUM_R(REAL_SIMD x)
         {
             x = ADD_R(PF(permute2f128)(x, x, 0x01), x);
@@ -391,7 +390,7 @@
             return P(cvtsd_f64)(x);
 #       endif
         }
-#   elif HAVE_AVX512F_INSTRUCTIONS
+#   elif HAVE_AVX512F
 #       define SUM_R(x)    PF(reduce_add)((x))
 #   endif
 

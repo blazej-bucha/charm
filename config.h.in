@@ -17,14 +17,14 @@
 /* Define to 1 if you have the `aligned_alloc' function. */
 #undef HAVE_ALIGNED_ALLOC
 
+/* Define to 1 to enable avx instructions */
+#undef HAVE_AVX
+
 /* Define to 1 to enable avx2 instructions */
-#undef HAVE_AVX2_INSTRUCTIONS
+#undef HAVE_AVX2
 
 /* Define to 1 to enable avx512f instructions */
-#undef HAVE_AVX512F_INSTRUCTIONS
-
-/* Define to 1 to enable avx instructions */
-#undef HAVE_AVX_INSTRUCTIONS
+#undef HAVE_AVX512F
 
 /* Define to 1 if you have the clock_gettime function. */
 #undef HAVE_CLOCK_GETTIME

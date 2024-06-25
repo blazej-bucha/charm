@@ -276,7 +276,7 @@ simd_flag2="no"
 dnl --enable-avx
 if test "$avx" = "yes"; then
     AC_MSG_NOTICE([compiling with AVX instructions enabled])
-    AC_DEFINE([HAVE_AVX_INSTRUCTIONS], [1], [Define to 1 to enable avx instructions])
+    AC_DEFINE([HAVE_AVX], [1], [Define to 1 to enable avx instructions])
     if test "$ax_cv_c_compiler_vendor" = "microsoft"; then
         simd_flag1=/arch:AVX
     else
@@ -288,7 +288,7 @@ fi
 dnl --enable-avx2
 if test "$avx2" = "yes"; then
     AC_MSG_NOTICE([compiling with AVX2 instructions enabled])
-    AC_DEFINE([HAVE_AVX2_INSTRUCTIONS], [1], [Define to 1 to enable avx2 instructions])
+    AC_DEFINE([HAVE_AVX2], [1], [Define to 1 to enable avx2 instructions])
     if test "$ax_cv_c_compiler_vendor" = "microsoft"; then
         simd_flag1=/arch:AVX2
     else
@@ -300,7 +300,7 @@ fi
 dnl --enable-avx-512
 if test "$avx512" = "yes"; then
     AC_MSG_NOTICE([compiling with AVX-512 instructions enabled])
-    AC_DEFINE([HAVE_AVX512F_INSTRUCTIONS], [1], [Define to 1 to enable avx512f instructions])
+    AC_DEFINE([HAVE_AVX512F], [1], [Define to 1 to enable avx512f instructions])
     if test "$ax_cv_c_compiler_vendor" = "microsoft"; then
         simd_flag1=/arch:AVX512
     else

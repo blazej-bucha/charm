@@ -14565,7 +14565,7 @@ if test "$avx" = "yes"; then
     { printf "%s\n" "$as_me:${as_lineno-$LINENO}: compiling with AVX instructions enabled" >&5
 printf "%s\n" "$as_me: compiling with AVX instructions enabled" >&6;}
 
-printf "%s\n" "#define HAVE_AVX_INSTRUCTIONS 1" >>confdefs.h
+printf "%s\n" "#define HAVE_AVX 1" >>confdefs.h
 
     if test "$ax_cv_c_compiler_vendor" = "microsoft"; then
         simd_flag1=/arch:AVX
@@ -14579,7 +14579,7 @@ if test "$avx2" = "yes"; then
     { printf "%s\n" "$as_me:${as_lineno-$LINENO}: compiling with AVX2 instructions enabled" >&5
 printf "%s\n" "$as_me: compiling with AVX2 instructions enabled" >&6;}
 
-printf "%s\n" "#define HAVE_AVX2_INSTRUCTIONS 1" >>confdefs.h
+printf "%s\n" "#define HAVE_AVX2 1" >>confdefs.h
 
     if test "$ax_cv_c_compiler_vendor" = "microsoft"; then
         simd_flag1=/arch:AVX2
@@ -14593,7 +14593,7 @@ if test "$avx512" = "yes"; then
     { printf "%s\n" "$as_me:${as_lineno-$LINENO}: compiling with AVX-512 instructions enabled" >&5
 printf "%s\n" "$as_me: compiling with AVX-512 instructions enabled" >&6;}
 
-printf "%s\n" "#define HAVE_AVX512F_INSTRUCTIONS 1" >>confdefs.h
+printf "%s\n" "#define HAVE_AVX512F 1" >>confdefs.h
 
     if test "$ax_cv_c_compiler_vendor" = "microsoft"; then
         simd_flag1=/arch:AVX512
@@ -15019,6 +15019,9 @@ fi
 
 
     CFLAGS="$CFLAGS $OPENMP_CFLAGS"
+    if test "$ax_cv_c_compiler_vendor" = "microsoft"; then
+                        CFLAGS="$CFLAGS /openmp:llvm"
+    fi
 
 
 

@@ -33,8 +33,8 @@
 
 
 
-#ifndef __CHARM@PC@_LEG_DP_H__
-#define __CHARM@PC@_LEG_DP_H__
+#ifndef __CHARM@PC@_LEG_H__
+#define __CHARM@PC@_LEG_H__
 
 
 /* Header files required by this module */
