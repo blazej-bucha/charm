@@ -89,11 +89,11 @@ ddv = shcs.ddv(shcs2)
 
 n = 0
 print('\n')
-print(f'Degree variance for harmonic degree {n} = {ddv[n]}')
+print(f'Difference degree variance for harmonic degree {n} = {ddv[n]}')
 n = 4
-print(f'Degree variance for harmonic degree {n} = {ddv[n]}')
+print(f'Difference degree variance for harmonic degree {n} = {ddv[n]}')
 n = 10
-print(f'Degree variance for harmonic degree {n} = {ddv[n]}')
+print(f'Difference degree variance for harmonic degree {n} = {ddv[n]}')
 # -----------------------------------------------------------------------------
 
 
