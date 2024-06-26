@@ -15721,8 +15721,8 @@ else $as_nop
 fi
 
 if test "$msvc_underscore_patch" == "yes"; then
-    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: patching MSVC underscore bug enabled" >&5
-printf "%s\n" "$as_me: patching MSVC underscore bug enabled" >&6;}
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: patching the MSVC underscore bug enabled" >&5
+printf "%s\n" "$as_me: patching the MSVC underscore bug enabled" >&6;}
 
 printf "%s\n" "#define MSVC_UNDERSCORE_PATCH 1" >>confdefs.h
 
@@ -15739,11 +15739,13 @@ printf "%s\n" "#define _CHARM_CC \"$CC\"" >>confdefs.h
 
 printf "%s\n" "#define _CHARM_CFLAGS \"$CFLAGS\"" >>confdefs.h
 
+CPPFLAGS_MOD=`echo "$CPPFLAGS" | $SED 's/\\\\/\\\\\\\\/g'`
+LDFLAGS_MOD=`echo "$LDFLAGS" | $SED 's/\\\\/\\\\\\\\/g'`
 
-printf "%s\n" "#define _CHARM_CPPFLAGS \"$CPPFLAGS\"" >>confdefs.h
+printf "%s\n" "#define _CHARM_CPPFLAGS \"$CPPFLAGS_MOD\"" >>confdefs.h
 
 
-printf "%s\n" "#define _CHARM_LDFLAGS \"$LDFLAGS\"" >>confdefs.h
+printf "%s\n" "#define _CHARM_LDFLAGS \"$LDFLAGS_MOD\"" >>confdefs.h
 
 
 printf "%s\n" "#define _CHARM_LIBS \"$LIBS\"" >>confdefs.h

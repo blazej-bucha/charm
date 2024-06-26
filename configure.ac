@@ -491,7 +491,7 @@ dnl Fix bugs in MSVC
 dnl ===========================================================================
 AC_ARG_ENABLE([msvc-underscore-patch], [AS_HELP_STRING([--enable-msvc-underscore-patch], [enable on Windows if MSVC throws the "'fftw__complex': undeclared identifier" error on compilation; this is a bug in MSVC, which evidently cannot properly expand a valid C macro [default=no]])], msvc_underscore_patch=$enableval, msvc_underscore_patch=no)
 if test "$msvc_underscore_patch" == "yes"; then
-    AC_MSG_NOTICE([patching MSVC underscore bug enabled])
+    AC_MSG_NOTICE([patching the MSVC underscore bug enabled])
     AC_DEFINE(MSVC_UNDERSCORE_PATCH, [1], [Define to 1 to patch the MSVC underscore bug on Windows])
 fi
 dnl ===========================================================================
@@ -506,8 +506,15 @@ dnl "config.h".
 dnl ===========================================================================
 AC_DEFINE_UNQUOTED(_CHARM_CC,["$CC"],[Used compiler.])
 AC_DEFINE_UNQUOTED(_CHARM_CFLAGS,["$CFLAGS"],[CFLAGS used to compile CHarm.])
-AC_DEFINE_UNQUOTED(_CHARM_CPPFLAGS,["$CPPFLAGS"],[CPPFLAGS used to compile CHarm.])
-AC_DEFINE_UNQUOTED(_CHARM_LDFLAGS,["$LDFLAGS"],[LDFLAGS used to compile CHarm.])
+dnl "CPPFLAGS" and "LDFLAGS" may contain "\".  In that case,
+dnl "AC_DEFINE_UNQUOTED" perfoms backslash escaping which is not desired here.
+dnl So before each "\" in these variables, we add yet another "\", so that
+dnl after the backslash escaping, we get to the original point.  This is useful
+dnl especially for Windows paths like "C:\Users\isaac\Documents\fftw".
+CPPFLAGS_MOD=`echo "$CPPFLAGS" | $SED 's/\\\\/\\\\\\\\/g'`
+LDFLAGS_MOD=`echo "$LDFLAGS" | $SED 's/\\\\/\\\\\\\\/g'`
+AC_DEFINE_UNQUOTED(_CHARM_CPPFLAGS,["$CPPFLAGS_MOD"],[CPPFLAGS used to compile CHarm.])
+AC_DEFINE_UNQUOTED(_CHARM_LDFLAGS,["$LDFLAGS_MOD"],[LDFLAGS used to compile CHarm.])
 AC_DEFINE_UNQUOTED(_CHARM_LIBS,["$LIBS"],[LDFLAGS used to compile CHarm.])
 dnl ===========================================================================
 
