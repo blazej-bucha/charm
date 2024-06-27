@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>PyHarm (Python API) &#8212; CHarm 0.4.0-dev documentation</title>
+    <title>Building from source on Windows 10 and later &#8212; CHarm 0.4.0-dev documentation</title>
   
   
   
@@ -41,13 +41,12 @@
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'api-py';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'build-from-src-non-unix';</script>
     <link rel="icon" href="_static/charm-logo.svg"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="pyharm.shc" href="api-py-shc.html" />
-    <link rel="prev" title="charm" href="api-c-charm.html" />
+    <link rel="next" title="Some definitions to make things clear" href="definitions.html" />
+    <link rel="prev" title="Building from source on Unix-based operating systems" href="build-from-src-unix.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
     <meta name="docbuild:last-update" content="Jun 27, 2024"/>
@@ -160,11 +159,11 @@
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="install.html">Installing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="install.html">Installing</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="install-pyharm-pip.html">Installation of PyHarm with pip</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="build-from-src.html">Building from source</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="build-from-src.html">Building from source</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="build-from-src-unix.html">Unix-based operating systems</a></li>
-<li class="toctree-l3"><a class="reference internal" href="build-from-src-non-unix.html">Windows 10 and later</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Windows 10 and later</a></li>
 </ul>
 </details></li>
 </ul>
@@ -175,7 +174,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cookbook-py.html">PyHarm</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="api.html">Interfaces</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="api.html">Interfaces</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="api-c.html">CHarm (C API)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shc.html">charm_shc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
@@ -189,7 +188,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">PyHarm (Python API)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="api-py-shc.html">pyharm.shc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
@@ -277,7 +276,7 @@
       
       
       
-      <li><a href="https://github.com/blazej-bucha/charm/edit/master/docs/src/api-py.rst" target="_blank"
+      <li><a href="https://github.com/blazej-bucha/charm/edit/master/docs/src/build-from-src-non-unix.rst" target="_blank"
    class="btn btn-sm btn-source-edit-button dropdown-item"
    title="Suggest edit"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -294,7 +293,7 @@
       
       
       
-      <li><a href="https://github.com/blazej-bucha/charm/issues/new?title=Issue%20on%20page%20%2Fapi-py.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/blazej-bucha/charm/issues/new?title=Issue%20on%20page%20%2Fbuild-from-src-non-unix.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -324,7 +323,7 @@
       
       
       
-      <li><a href="_sources/api-py.rst" target="_blank"
+      <li><a href="_sources/build-from-src-non-unix.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -406,7 +405,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>PyHarm (Python API)</h1>
+    <h1>Building from source on Windows 10 and later</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -420,34 +419,27 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="pyharm-python-api">
-<span id="py-api"></span><h1>PyHarm (Python API)<a class="headerlink" href="#pyharm-python-api" title="Link to this heading">#</a></h1>
-<p>This chapter documents the Python interface.</p>
-<p>PyHarm is a Python wrapper for CHarm.  It relies on the Python’s <a class="reference external" href="https://docs.python.org/3/library/ctypes.html">ctypes</a> module and is fully
-integrated with <a class="reference external" href="https://numpy.org/">NumPy</a> to work easily and efficiently
-with arrays.  Similarly as CHarm, PyHarm is divided into several modules,
-comprising classes and functions with conceptually similar tasks, such as
-spherical harmonic analysis or spherical harmonic synthesis.  Source files of
-the wrapper are located in <code class="docutils literal notranslate"><span class="pre">wrap/pyharm</span></code>.  The wrapper is hand-written and
-follows the object-oriented paradigm of Python in order to provide a Pythonic
-feeling (sort of).  Therefore, there is no simple one-to-one relation between
-CHarm and PyHarm.</p>
-<p>Next follows the documentation of the PyHarm modules in double precision. There
-are only a few easy-to-remember systematic differences in PyHarm’s API when
-working in single precision, so separate documentation is omitted. The list of
-the differences is given in <a class="reference internal" href="cookbook-py.html#pyharm-in-single-precision"><span class="std std-ref">PyHarm in single precision</span></a>.</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="api-py-shc.html">pyharm.shc</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api-py-sha.html">pyharm.sha</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api-py-leg.html">pyharm.leg</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api-py-integ.html">pyharm.integ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api-py-glob.html">pyharm.glob</a></li>
-</ul>
-</div>
+  <section id="building-from-source-on-windows-10-and-later">
+<span id="build-from-src-non-unix"></span><h1>Building from source on Windows 10 and later<a class="headerlink" href="#building-from-source-on-windows-10-and-later" title="Link to this heading">#</a></h1>
+<p>Perhaps the easiest way is to install the <a class="reference external" href="https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux">Windows Subsystem for Linux</a> (WSL).  WSL
+offers a fully functional Linux distribution that you can run from within
+Windows 10 (no dual boot).  WSL is officially supported by Microsoft and its
+installation is very easy.  Having installed WSL, you may proceed with
+<a class="reference internal" href="build-from-src-unix.html#build-from-src-unix"><span class="std std-ref">Building from source on Unix-based operating systems</span></a>.</p>
+<p>Other solution is, for instance, <a class="reference external" href="https://en.wikipedia.org/wiki/Cygwin">Cygwin</a>.  However, to properly compile CHarm
+under Cygwin with SIMD instructions enabled (<code class="docutils literal notranslate"><span class="pre">--enable-avx</span></code>,
+<code class="docutils literal notranslate"><span class="pre">--enable-avx2</span></code> or <code class="docutils literal notranslate"><span class="pre">--enable-avx-512</span></code>), do <em>not</em> use GCC.  Under Cygwin,
+GCC doesn’t seem to properly align the memory which is required to execute SIMD
+CPU instructions.  You won’t get any compilation error, but when running your
+program or the check program (<code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">check</span></code>), you will most likely get
+a segfault error.  Clang, for instance, does its job properly, even under
+Cygwin, so is recommended in this case.</p>
+<p>The last path you can (but do not want to) take is to build the library using
+the Microsoft’s MSVC compiler.  To make it work, install some layer that will
+add the standard installation utilities (e.g. make) that are not found on
+Windows normally.  Next, you may want to use the <a class="reference external" href="https://github.com/swig/cccl">CCCL</a> wrapper for MSVC.  Finally, follow the
+instructions found in <a class="reference internal" href="build-from-src-unix.html#build-from-src-unix"><span class="std std-ref">Building from source on Unix-based operating systems</span></a>.  In fact, this is how we
+build the Python wheels for Windows that are available from PyPI.</p>
 </section>
 
 
@@ -462,20 +454,20 @@ the differences is given in <a class="reference internal" href="cookbook-py.html
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="api-c-charm.html"
+       href="build-from-src-unix.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">charm</p>
+        <p class="prev-next-title">Building from source on Unix-based operating systems</p>
       </div>
     </a>
     <a class="right-next"
-       href="api-py-shc.html"
+       href="definitions.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">pyharm.shc</p>
+        <p class="prev-next-title">Some definitions to make things clear</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

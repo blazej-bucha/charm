@@ -1,13 +1,14 @@
-.. _installation_unix:
+.. _build_from_src_unix:
 
-Installation on Unix-based operating systems
-============================================
+Building from source on Unix-based operating systems
+====================================================
 
-This section provides an installation guide for Unix-based operating systems,
-particularly :ref:`Linux <installation_linux>` and :ref:`macOS
-<installation_mac>`.  First, discussed is the installation of :ref:`CHarm (the 
-C library) <charm_installation>` and then follow instructions on how to build 
-:ref:`PyHarm (the Python wrapper) <pyharm_installation>`.
+This section provides a guide through the build of CHarm and/or PyHarm from 
+source on Unix-based operating systems, particularly :ref:`Linux 
+<installation_linux>` and :ref:`macOS <installation_mac>`.  First discussed are 
+the steps to compile :ref:`CHarm (the C library) <charm_installation>` and then 
+follow instructions on how to (optionally) build :ref:`PyHarm (the Python 
+wrapper) <pyharm_installation>`.
 
 
 .. _charm_installation:

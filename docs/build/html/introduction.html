@@ -6,7 +6,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Introduction &#8212; CHarm 0.4.0-dev documentation</title>
   
@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
   
@@ -49,7 +49,7 @@
     <link rel="prev" title="Welcome to CHarm" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Jun 24, 2024"/>
+    <meta name="docbuild:last-update" content="Jun 27, 2024"/>
   </head>
   
   
@@ -160,8 +160,12 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="install.html">Installing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="install_unix.html">Installation on Unix-based operating systems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="install_non_unix.html">Installation on Windows 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install-pyharm-pip.html">Installation of PyHarm with pip</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="build-from-src.html">Building from source</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="build-from-src-unix.html">Unix-based operating systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="build-from-src-non-unix.html">Windows 10 and later</a></li>
+</ul>
+</details></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
@@ -414,6 +418,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#features">Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#source-code">Source code</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contact">Contact</a></li>
@@ -467,11 +472,26 @@ using <a class="reference external" href="https://docs.python.org/3/library/ctyp
 integrated with <a class="reference external" href="https://numpy.org/">numpy</a>.</p></li>
 </ul>
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="f1" role="note">
+<aside class="footnote brackets" id="f1" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
 <p>This routine is unique to CHarm.</p>
 </aside>
 </aside>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<p>On Linux, macOS and Windows running on the x86_64 CPU architecture, the Python
+wrapper PyHarm can be installed using <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pyharm
+</pre></div>
+</div>
+<p>On other operating systems or CPU architectures, PyHarm has to be build from
+source.  NEON instructions on Macs with ARM processors (M1, etc.) are not yet
+supported, but the library can be compiled without the NEON instruction set.</p>
+<p>The C library CHarm has to be build from source on all operating systems and
+CPU architectures.</p>
+<p>Further installation details at
+<a class="reference external" href="https://www.charmlib.org/build/html/install.html">https://www.charmlib.org/build/html/install.html</a>.</p>
 </section>
 <section id="source-code">
 <span id="download"></span><h2>Source code<a class="headerlink" href="#source-code" title="Link to this heading">#</a></h2>
@@ -590,6 +610,7 @@ degrees and orders (tens of thousands and well beyond).</p></li>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#features">Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#source-code">Source code</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contact">Contact</a></li>
@@ -628,7 +649,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 24, 2024.
+  Last updated on Jun 27, 2024.
   <br/>
 </p>
   </div>

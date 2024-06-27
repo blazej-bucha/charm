@@ -4,24 +4,17 @@
 Installing
 ==========
 
-This chapter provides an installation guide for Unix-based operating systems.
-On other operating systems, the library should compile, too, but, for the time 
-being, a detailed recipe is missing.  Nonetheless, provided are some hints for
-:ref:`installation_win`.
+PyHarm (the Python wrapper) can either be installed via ``pip`` or it can be 
+build from source.  Users having no or little experience with compiling from 
+the command line are advised to use ``pip``.  Advanced users are recommended to 
+build from source.  This gives you the freedom to tailor PyHarm to your CPU 
+which is likely to improve the performance compared to the generic binaries 
+installed by ``pip``.
 
-Start by downloading the :ref:`download` from GitHub in any way you like and 
-then enter the main directory of CHarm.  For instance,
-
-.. code-block:: bash
-
-  git clone https://github.com/blazej-bucha/charm
-  cd charm
-
-The installation steps that follow depend on the operating system, on which 
-your machine is running.
+CHarm (the C library) has to be build from source.
 
 .. toctree::
    :maxdepth: 1
 
-   install_unix
-   install_non_unix
+   install-pyharm-pip
+   build-from-src

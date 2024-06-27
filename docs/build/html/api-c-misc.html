@@ -6,7 +6,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>charm_misc &#8212; CHarm 0.4.0-dev documentation</title>
   
@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
   
@@ -49,7 +49,7 @@
     <link rel="prev" title="charm_integ" href="api-c-integ.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Jun 24, 2024"/>
+    <meta name="docbuild:last-update" content="Jun 27, 2024"/>
   </head>
   
   
@@ -160,8 +160,12 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="install.html">Installing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="install_unix.html">Installation on Unix-based operating systems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="install_non_unix.html">Installation on Windows 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install-pyharm-pip.html">Installation of PyHarm with pip</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="build-from-src.html">Building from source</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="build-from-src-unix.html">Unix-based operating systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="build-from-src-non-unix.html">Windows 10 and later</a></li>
+</ul>
+</details></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
@@ -483,7 +487,7 @@ precision.</p>
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv422charm_misc_get_versionv">
-<span id="_CPPv322charm_misc_get_versionv"></span><span id="_CPPv222charm_misc_get_versionv"></span><span id="charm_misc_get_version__void"></span><span class="target" id="charm__misc_8h_1a45a71e31b9a6493290a9672278a46611"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_misc_get_version</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv422charm_misc_get_versionv" title="Link to this definition">#</a><br /></dt>
+<span id="_CPPv322charm_misc_get_versionv"></span><span id="_CPPv222charm_misc_get_versionv"></span><span id="charm_misc_get_version__void"></span><span class="target" id="charm__misc_8h_1a2d85c58ebba9dc40f174523308e78d38"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_misc_get_version</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv422charm_misc_get_versionv" title="Link to this definition">#</a><br /></dt>
 <dd><p>Returns a string specifying the CHarm version number determined on compilation time. </p>
 </dd></dl>
 
@@ -533,7 +537,7 @@ precision.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv432charm_misc_buildopt_version_fftwv">
-<span id="_CPPv332charm_misc_buildopt_version_fftwv"></span><span id="_CPPv232charm_misc_buildopt_version_fftwv"></span><span id="charm_misc_buildopt_version_fftw__void"></span><span class="target" id="charm__misc_8h_1a5c87b549b94e24bbf32ce65bb368b7b7"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_misc_buildopt_version_fftw</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv432charm_misc_buildopt_version_fftwv" title="Link to this definition">#</a><br /></dt>
+<span id="_CPPv332charm_misc_buildopt_version_fftwv"></span><span id="_CPPv232charm_misc_buildopt_version_fftwv"></span><span id="charm_misc_buildopt_version_fftw__void"></span><span class="target" id="charm__misc_8h_1a0a70e48bf534e72b30f03f9384ab3951"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_misc_buildopt_version_fftw</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv432charm_misc_buildopt_version_fftwv" title="Link to this definition">#</a><br /></dt>
 <dd><p>Returns a string specifying the FFTW library version. </p>
 </dd></dl>
 
@@ -633,7 +637,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 24, 2024.
+  Last updated on Jun 27, 2024.
   <br/>
 </p>
   </div>

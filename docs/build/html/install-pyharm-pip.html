@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>PyHarm (Python API) &#8212; CHarm 0.4.0-dev documentation</title>
+    <title>Installation of PyHarm with pip &#8212; CHarm 0.4.0-dev documentation</title>
   
   
   
@@ -41,13 +41,12 @@
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'api-py';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'install-pyharm-pip';</script>
     <link rel="icon" href="_static/charm-logo.svg"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="pyharm.shc" href="api-py-shc.html" />
-    <link rel="prev" title="charm" href="api-c-charm.html" />
+    <link rel="next" title="Building from source" href="build-from-src.html" />
+    <link rel="prev" title="Installing" href="install.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
     <meta name="docbuild:last-update" content="Jun 27, 2024"/>
@@ -160,8 +159,8 @@
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="install.html">Installing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="install-pyharm-pip.html">Installation of PyHarm with pip</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="install.html">Installing</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Installation of PyHarm with pip</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="build-from-src.html">Building from source</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="build-from-src-unix.html">Unix-based operating systems</a></li>
 <li class="toctree-l3"><a class="reference internal" href="build-from-src-non-unix.html">Windows 10 and later</a></li>
@@ -175,7 +174,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cookbook-py.html">PyHarm</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="api.html">Interfaces</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="api.html">Interfaces</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="api-c.html">CHarm (C API)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shc.html">charm_shc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
@@ -189,7 +188,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">PyHarm (Python API)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="api-py-shc.html">pyharm.shc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
@@ -277,7 +276,7 @@
       
       
       
-      <li><a href="https://github.com/blazej-bucha/charm/edit/master/docs/src/api-py.rst" target="_blank"
+      <li><a href="https://github.com/blazej-bucha/charm/edit/master/docs/src/install-pyharm-pip.rst" target="_blank"
    class="btn btn-sm btn-source-edit-button dropdown-item"
    title="Suggest edit"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -294,7 +293,7 @@
       
       
       
-      <li><a href="https://github.com/blazej-bucha/charm/issues/new?title=Issue%20on%20page%20%2Fapi-py.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/blazej-bucha/charm/issues/new?title=Issue%20on%20page%20%2Finstall-pyharm-pip.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -324,7 +323,7 @@
       
       
       
-      <li><a href="_sources/api-py.rst" target="_blank"
+      <li><a href="_sources/install-pyharm-pip.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -406,7 +405,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>PyHarm (Python API)</h1>
+    <h1>Installation of PyHarm with pip</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -420,34 +419,50 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="pyharm-python-api">
-<span id="py-api"></span><h1>PyHarm (Python API)<a class="headerlink" href="#pyharm-python-api" title="Link to this heading">#</a></h1>
-<p>This chapter documents the Python interface.</p>
-<p>PyHarm is a Python wrapper for CHarm.  It relies on the Python’s <a class="reference external" href="https://docs.python.org/3/library/ctypes.html">ctypes</a> module and is fully
-integrated with <a class="reference external" href="https://numpy.org/">NumPy</a> to work easily and efficiently
-with arrays.  Similarly as CHarm, PyHarm is divided into several modules,
-comprising classes and functions with conceptually similar tasks, such as
-spherical harmonic analysis or spherical harmonic synthesis.  Source files of
-the wrapper are located in <code class="docutils literal notranslate"><span class="pre">wrap/pyharm</span></code>.  The wrapper is hand-written and
-follows the object-oriented paradigm of Python in order to provide a Pythonic
-feeling (sort of).  Therefore, there is no simple one-to-one relation between
-CHarm and PyHarm.</p>
-<p>Next follows the documentation of the PyHarm modules in double precision. There
-are only a few easy-to-remember systematic differences in PyHarm’s API when
-working in single precision, so separate documentation is omitted. The list of
-the differences is given in <a class="reference internal" href="cookbook-py.html#pyharm-in-single-precision"><span class="std std-ref">PyHarm in single precision</span></a>.</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="api-py-shc.html">pyharm.shc</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api-py-sha.html">pyharm.sha</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api-py-leg.html">pyharm.leg</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api-py-integ.html">pyharm.integ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api-py-glob.html">pyharm.glob</a></li>
-</ul>
+  <section id="installation-of-pyharm-with-pip">
+<span id="install-pyharm-pip"></span><h1>Installation of PyHarm with pip<a class="headerlink" href="#installation-of-pyharm-with-pip" title="Link to this heading">#</a></h1>
+<p>On Linux, macOS and Windows running on the x86_64 CPU architecture, install
+PyHarm using the command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pyharm
+</pre></div>
 </div>
+<p>This will install the wrapper Python code of PyHarm and a pre-compiled CHarm
+library, the latter of which is called by PyHarm routines.</p>
+<p>The CHarm binaries were compiled using the following settings.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gcc</span></code> compiler on Linux and macOS and <code class="docutils literal notranslate"><span class="pre">MSVC</span></code> on Windows.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--enable-double-precision</span></code> to compile in double precision.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--enable-openmp</span></code> to enable parallelization among CPU cores.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--enable-avx</span></code> to enable SIMD parallelism using the AVX instruction sets of
+x86_64 CPUs.  AVX has been with us for more than 10 years now, so the
+binaries should run on any reasonably old CPU.  Should you get an error like
+<code class="docutils literal notranslate"><span class="pre">Illegal</span> <span class="pre">instruction</span></code>, this means your CPU does not support AVX.  In that
+case, you have to build PyHarm from source and avoid using any set of AVX
+instructions (see <a class="reference internal" href="build-from-src.html#build-from-src"><span class="std std-ref">Building from source</span></a>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-O3</span> <span class="pre">-ffast-math</span> <span class="pre">-Wall</span> <span class="pre">-Wpedantic</span></code> compiler flags on Linux and macOS and
+<code class="docutils literal notranslate"><span class="pre">/O2</span> <span class="pre">/fp:fast</span> <span class="pre">/FS</span> <span class="pre">/GL</span></code> on Windows to optimize the library for best
+performance.  Importantly, you should be aware that <code class="docutils literal notranslate"><span class="pre">-ffast-math</span></code> and
+<code class="docutils literal notranslate"><span class="pre">/fp:fast</span></code> relax some rules on floating point arithmetics in favour of
+gaining some additional computing speed.  As a result, the accuracy may be
+slightly <em>worse</em> than when not using these flags.  Normally, however, one
+does not need to bother by this.  Should you need compliance with the IEEE
+specifications, compile the library on your own without these flags.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--enable-python</span></code> to build the PyHarm wrapper.</p></li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>All this information is also available directly from PyHarm by calling:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ph</span><span class="o">.</span><span class="n">misc</span><span class="o">.</span><span class="n">print_info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>This will print some useful compilation details about your particular PyHarm
+build.</p>
+</div>
+<p>An out-of-the-box support for ARM CPUs with NEON instructions is on the TODO
+list.</p>
 </section>
 
 
@@ -462,20 +477,20 @@ the differences is given in <a class="reference internal" href="cookbook-py.html
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="api-c-charm.html"
+       href="install.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">charm</p>
+        <p class="prev-next-title">Installing</p>
       </div>
     </a>
     <a class="right-next"
-       href="api-py-shc.html"
+       href="build-from-src.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">pyharm.shc</p>
+        <p class="prev-next-title">Building from source</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

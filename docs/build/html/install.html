@@ -6,7 +6,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Installing &#8212; CHarm 0.4.0-dev documentation</title>
   
@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
   
@@ -45,11 +45,11 @@
     <link rel="icon" href="_static/charm-logo.svg"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Installation on Unix-based operating systems" href="install_unix.html" />
+    <link rel="next" title="Installation of PyHarm with pip" href="install-pyharm-pip.html" />
     <link rel="prev" title="Introduction" href="introduction.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Jun 24, 2024"/>
+    <meta name="docbuild:last-update" content="Jun 27, 2024"/>
   </head>
   
   
@@ -160,8 +160,12 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Installing</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="install_unix.html">Installation on Unix-based operating systems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="install_non_unix.html">Installation on Windows 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install-pyharm-pip.html">Installation of PyHarm with pip</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="build-from-src.html">Building from source</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="build-from-src-unix.html">Unix-based operating systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="build-from-src-non-unix.html">Windows 10 and later</a></li>
+</ul>
+</details></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
@@ -417,22 +421,17 @@ document.write(`
                   
   <section id="installing">
 <span id="id1"></span><h1>Installing<a class="headerlink" href="#installing" title="Link to this heading">#</a></h1>
-<p>This chapter provides an installation guide for Unix-based operating systems.
-On other operating systems, the library should compile, too, but, for the time
-being, a detailed recipe is missing.  Nonetheless, provided are some hints for
-<a class="reference internal" href="install_non_unix.html#installation-win"><span class="std std-ref">Installation on Windows 10</span></a>.</p>
-<p>Start by downloading the <a class="reference internal" href="introduction.html#download"><span class="std std-ref">Source code</span></a> from GitHub in any way you like and
-then enter the main directory of CHarm.  For instance,</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/blazej-bucha/charm
-<span class="nb">cd</span><span class="w"> </span>charm
-</pre></div>
-</div>
-<p>The installation steps that follow depend on the operating system, on which
-your machine is running.</p>
+<p>PyHarm (the Python wrapper) can either be installed via <code class="docutils literal notranslate"><span class="pre">pip</span></code> or it can be
+build from source.  Users having no or little experience with compiling from
+the command line are advised to use <code class="docutils literal notranslate"><span class="pre">pip</span></code>.  Advanced users are recommended to
+build from source.  This gives you the freedom to tailor PyHarm to your CPU
+which is likely to improve the performance compared to the generic binaries
+installed by <code class="docutils literal notranslate"><span class="pre">pip</span></code>.</p>
+<p>CHarm (the C library) has to be build from source.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="install_unix.html">Installation on Unix-based operating systems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="install_non_unix.html">Installation on Windows 10</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install-pyharm-pip.html">Installation of PyHarm with pip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build-from-src.html">Building from source</a></li>
 </ul>
 </div>
 </section>
@@ -458,11 +457,11 @@ your machine is running.</p>
       </div>
     </a>
     <a class="right-next"
-       href="install_unix.html"
+       href="install-pyharm-pip.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Installation on Unix-based operating systems</p>
+        <p class="prev-next-title">Installation of PyHarm with pip</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -501,7 +500,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 24, 2024.
+  Last updated on Jun 27, 2024.
   <br/>
 </p>
   </div>

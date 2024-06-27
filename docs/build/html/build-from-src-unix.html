@@ -6,9 +6,9 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Installation on Unix-based operating systems &#8212; CHarm 0.4.0-dev documentation</title>
+    <title>Building from source on Unix-based operating systems &#8212; CHarm 0.4.0-dev documentation</title>
   
   
   
@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
   
@@ -41,15 +41,15 @@
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'install_unix';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'build-from-src-unix';</script>
     <link rel="icon" href="_static/charm-logo.svg"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Installation on Windows 10" href="install_non_unix.html" />
-    <link rel="prev" title="Installing" href="install.html" />
+    <link rel="next" title="Building from source on Windows 10 and later" href="build-from-src-non-unix.html" />
+    <link rel="prev" title="Building from source" href="build-from-src.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Jun 24, 2024"/>
+    <meta name="docbuild:last-update" content="Jun 27, 2024"/>
   </head>
   
   
@@ -160,8 +160,12 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="install.html">Installing</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Installation on Unix-based operating systems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="install_non_unix.html">Installation on Windows 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install-pyharm-pip.html">Installation of PyHarm with pip</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="build-from-src.html">Building from source</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Unix-based operating systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="build-from-src-non-unix.html">Windows 10 and later</a></li>
+</ul>
+</details></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
@@ -272,7 +276,7 @@
       
       
       
-      <li><a href="https://github.com/blazej-bucha/charm/edit/master/docs/src/install_unix.rst" target="_blank"
+      <li><a href="https://github.com/blazej-bucha/charm/edit/master/docs/src/build-from-src-unix.rst" target="_blank"
    class="btn btn-sm btn-source-edit-button dropdown-item"
    title="Suggest edit"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -289,7 +293,7 @@
       
       
       
-      <li><a href="https://github.com/blazej-bucha/charm/issues/new?title=Issue%20on%20page%20%2Finstall_unix.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/blazej-bucha/charm/issues/new?title=Issue%20on%20page%20%2Fbuild-from-src-unix.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -319,7 +323,7 @@
       
       
       
-      <li><a href="_sources/install_unix.rst" target="_blank"
+      <li><a href="_sources/build-from-src-unix.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -403,7 +407,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Installation on Unix-based operating systems</h1>
+    <h1>Building from source on Unix-based operating systems</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -450,12 +454,13 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="installation-on-unix-based-operating-systems">
-<span id="installation-unix"></span><h1>Installation on Unix-based operating systems<a class="headerlink" href="#installation-on-unix-based-operating-systems" title="Link to this heading">#</a></h1>
-<p>This section provides an installation guide for Unix-based operating systems,
-particularly <a class="reference internal" href="#installation-linux"><span class="std std-ref">Linux</span></a> and <a class="reference internal" href="#installation-mac"><span class="std std-ref">macOS</span></a>.  First, discussed is the installation of <a class="reference internal" href="#charm-installation"><span class="std std-ref">CHarm (the
-C library)</span></a> and then follow instructions on how to build
-<a class="reference internal" href="#pyharm-installation"><span class="std std-ref">PyHarm (the Python wrapper)</span></a>.</p>
+  <section id="building-from-source-on-unix-based-operating-systems">
+<span id="build-from-src-unix"></span><h1>Building from source on Unix-based operating systems<a class="headerlink" href="#building-from-source-on-unix-based-operating-systems" title="Link to this heading">#</a></h1>
+<p>This section provides a guide through the build of CHarm and/or PyHarm from
+source on Unix-based operating systems, particularly <a class="reference internal" href="#installation-linux"><span class="std std-ref">Linux</span></a> and <a class="reference internal" href="#installation-mac"><span class="std std-ref">macOS</span></a>.  First discussed are
+the steps to compile <a class="reference internal" href="#charm-installation"><span class="std std-ref">CHarm (the C library)</span></a> and then
+follow instructions on how to (optionally) build <a class="reference internal" href="#pyharm-installation"><span class="std std-ref">PyHarm (the Python
+wrapper)</span></a>.</p>
 <section id="charm-the-c-library">
 <span id="charm-installation"></span><h2>CHarm (the C library)<a class="headerlink" href="#charm-the-c-library" title="Link to this heading">#</a></h2>
 <section id="requirements">
@@ -837,20 +842,20 @@ likely to pass on your platform and with your compiling options.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="install.html"
+       href="build-from-src.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Installing</p>
+        <p class="prev-next-title">Building from source</p>
       </div>
     </a>
     <a class="right-next"
-       href="install_non_unix.html"
+       href="build-from-src-non-unix.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Installation on Windows 10</p>
+        <p class="prev-next-title">Building from source on Windows 10 and later</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -929,7 +934,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 24, 2024.
+  Last updated on Jun 27, 2024.
   <br/>
 </p>
   </div>

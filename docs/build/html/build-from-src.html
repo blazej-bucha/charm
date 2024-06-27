@@ -6,9 +6,9 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Installation on Windows 10 &#8212; CHarm 0.4.0-dev documentation</title>
+    <title>Building from source &#8212; CHarm 0.4.0-dev documentation</title>
   
   
   
@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
   
@@ -41,15 +41,15 @@
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'install_non_unix';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'build-from-src';</script>
     <link rel="icon" href="_static/charm-logo.svg"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Some definitions to make things clear" href="definitions.html" />
-    <link rel="prev" title="Installation on Unix-based operating systems" href="install_unix.html" />
+    <link rel="next" title="Building from source on Unix-based operating systems" href="build-from-src-unix.html" />
+    <link rel="prev" title="Installation of PyHarm with pip" href="install-pyharm-pip.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Jun 24, 2024"/>
+    <meta name="docbuild:last-update" content="Jun 27, 2024"/>
   </head>
   
   
@@ -160,8 +160,12 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="install.html">Installing</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="install_unix.html">Installation on Unix-based operating systems</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Installation on Windows 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install-pyharm-pip.html">Installation of PyHarm with pip</a></li>
+<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">Building from source</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="build-from-src-unix.html">Unix-based operating systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="build-from-src-non-unix.html">Windows 10 and later</a></li>
+</ul>
+</details></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
@@ -272,7 +276,7 @@
       
       
       
-      <li><a href="https://github.com/blazej-bucha/charm/edit/master/docs/src/install_non_unix.rst" target="_blank"
+      <li><a href="https://github.com/blazej-bucha/charm/edit/master/docs/src/build-from-src.rst" target="_blank"
    class="btn btn-sm btn-source-edit-button dropdown-item"
    title="Suggest edit"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -289,7 +293,7 @@
       
       
       
-      <li><a href="https://github.com/blazej-bucha/charm/issues/new?title=Issue%20on%20page%20%2Finstall_non_unix.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/blazej-bucha/charm/issues/new?title=Issue%20on%20page%20%2Fbuild-from-src.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -319,7 +323,7 @@
       
       
       
-      <li><a href="_sources/install_non_unix.rst" target="_blank"
+      <li><a href="_sources/build-from-src.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -401,7 +405,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Installation on Windows 10</h1>
+    <h1>Building from source</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -415,21 +419,25 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="installation-on-windows-10">
-<span id="installation-win"></span><h1>Installation on Windows 10<a class="headerlink" href="#installation-on-windows-10" title="Link to this heading">#</a></h1>
-<p>Perhaps the easiest way is to install the <a class="reference external" href="https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux">Windows Subsystem for Linux</a> (WSL).  WSL
-offers a fully functional Linux distribution that you can run from within
-Windows 10 (no dual boot).  WSL is officially supported by Microsoft and its
-installation is very easy.  Having installed WSL, you may proceed with
-<a class="reference internal" href="install_unix.html#installation-unix"><span class="std std-ref">Installation on Unix-based operating systems</span></a>.</p>
-<p>Other solution is, for instance, <a class="reference external" href="https://en.wikipedia.org/wiki/Cygwin">Cygwin</a>.  A note on enabling SIMD instructions
-(<code class="docutils literal notranslate"><span class="pre">--enable-avx</span></code>, <code class="docutils literal notranslate"><span class="pre">--enable-avx2</span></code> or <code class="docutils literal notranslate"><span class="pre">--enable-avx-512</span></code>) under Cygwin is
-necessary here.  To properly compile CHarm under Cygwin with SIMD instructions
-enabled, do <em>not</em> use GCC.  Under Cygwin, GCC doesn’t seem to properly align
-the memory (required to execute SIMD CPU instructions).  You won’t get any
-compilation error, but when running your program or the check program (<code class="docutils literal notranslate"><span class="pre">make</span>
-<span class="pre">check</span></code>), you will most likely get a segfault error.  Clang, for instance, does
-its job properly, even under Cygwin, so is recommended in this case.</p>
+  <section id="building-from-source">
+<span id="build-from-src"></span><h1>Building from source<a class="headerlink" href="#building-from-source" title="Link to this heading">#</a></h1>
+<p>This chapter will guide you through building from source on Unix-based
+operating systems.  On other operating systems, the library should compile,
+too, but a detailed recipe is missing for the time being.  Nonetheless,
+provided are some hints for <a class="reference internal" href="build-from-src-non-unix.html#build-from-src-non-unix"><span class="std std-ref">Building from source on Windows 10 and later</span></a>.</p>
+<p>Start by downloading the <a class="reference internal" href="introduction.html#download"><span class="std std-ref">Source code</span></a> from GitHub in any way you like and
+then enter the main directory of CHarm.  For instance,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/blazej-bucha/charm
+<span class="nb">cd</span><span class="w"> </span>charm
+</pre></div>
+</div>
+<p>The installation steps that follow depend on your operating system.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="build-from-src-unix.html">Unix-based operating systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build-from-src-non-unix.html">Windows 10 and later</a></li>
+</ul>
+</div>
 </section>
 
 
@@ -444,20 +452,20 @@ its job properly, even under Cygwin, so is recommended in this case.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="install_unix.html"
+       href="install-pyharm-pip.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Installation on Unix-based operating systems</p>
+        <p class="prev-next-title">Installation of PyHarm with pip</p>
       </div>
     </a>
     <a class="right-next"
-       href="definitions.html"
+       href="build-from-src-unix.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Some definitions to make things clear</p>
+        <p class="prev-next-title">Building from source on Unix-based operating systems</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -496,7 +504,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 24, 2024.
+  Last updated on Jun 27, 2024.
   <br/>
 </p>
   </div>
