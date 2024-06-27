@@ -12,7 +12,7 @@
 
 
 
-const char * const CHARM(misc_buildopt_version_fftw)(void)
+const char * CHARM(misc_buildopt_version_fftw)(void)
 {
     return
            /* Not sure why, but "FFTW(version)" is not available on Windows, at

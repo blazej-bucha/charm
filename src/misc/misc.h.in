@@ -97,7 +97,7 @@ extern "C"
 /* ------------------------------------------------------------------------- */
 /** @brief Returns a string specifying the CHarm version number determined on
  * compilation time. */
-CHARM_EXTERN const char * const CHARM_CDECL charm@P@_misc_get_version(void);
+CHARM_EXTERN const char * CHARM_CDECL charm@P@_misc_get_version(void);
 
 
 
@@ -173,7 +173,7 @@ CHARM_EXTERN int CHARM_CDECL charm@P@_misc_buildopt_simd(void);
 
 
 /** @brief Returns a string specifying the FFTW library version. */
-CHARM_EXTERN const char * const CHARM_CDECL
+CHARM_EXTERN const char * CHARM_CDECL
                                     charm@P@_misc_buildopt_version_fftw(void);
 
 
