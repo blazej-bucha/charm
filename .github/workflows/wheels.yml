@@ -1,0 +1,94 @@
+name: Build wheels
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build_wheels:
+    name: Build wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-12, windows-latest]
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup MSVC
+        if: startsWith(matrix.os, 'windows')
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Get CCCL wrapper for MSVC
+        if: startsWith(matrix.os, 'windows')
+        run: |
+          git clone https://github.com/swig/cccl cccl-repo
+
+      - name: Install FFTW
+        run:  |
+          if [ "$RUNNER_OS" == "Linux" ]; then
+               sudo apt-get install -y libfftw3-dev
+          elif [ "$RUNNER_OS" == "macOS" ]; then
+               brew install fftw
+          elif [ "$RUNNER_OS" == "Windows" ]; then
+               vcpkg install fftw3:x64-windows
+          fi
+
+      - name: Configure installation
+        run:  |
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            export CFLAGS="-O3 -ffast-math -Wpedantic -Wall"
+
+            ./configure --enable-openmp --enable-avx --enable-python --with-gnu-ld
+          elif [ "$RUNNER_OS" == "macOS" ]; then
+            export CC=gcc-13
+            export CFLAGS="-O3 -ffast-math -Wpedantic -Wall"
+            export CPPFLAGS="-I$(brew --prefix)/include"
+            export LDFLAGS="-L$(brew --prefix)/lib"
+
+            ./configure --enable-openmp --enable-avx --enable-python --with-gnu-ld
+          elif [ "$RUNNER_OS" == "Windows" ]; then
+            export PATH=./cccl-repo:$PATH
+            export CC=cccl
+            export LD=cccl
+            export CFLAGS="/O2 /fp:fast /FS /GL"
+            export CPPFLAGS="-IC:\vcpkg\installed\x64-windows\include"
+            export LDFLAGS="-LC:\vcpkg\installed\x64-windows\lib"
+
+           ./configure --enable-openmp --enable-avx --enable-python --enable-msvc-underscore-patch
+          fi
+
+      - name: Compile and run the test suite
+        run:   |
+          if [ "$RUNNER_OS" == "macOS" ]; then
+             make -j && make check
+          fi
+          # On Linux, the library has to be compiled and the test suite must be 
+          # executed later inside the container.  On Windows, the test suite is 
+          # not executed for now.
+
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2.17.0
+        env:
+          CIBW_BUILD_VERBOSITY: 1
+          CIBW_BEFORE_BUILD_WINDOWS: 'pip install delvewheel'
+          CIBW_SKIP: "cp36-* cp37-* cp38-* pp37-* pp38-* *-manylinux_i686 *-musllinux_i686 *-win32*"
+          CIBW_CACHE_PATH: './cibw_cache'
+          CIBW_ENVIRONMENT_MACOS: CC=gcc-13
+          CIBW_ENVIRONMENT_LINUX: CC='gcc' CFLAGS='-O3 -ffast-math -Wpedantic -Wall' LIBS='-lgomp'
+          # On Linux, we need to install the dependencies again, this time 
+          # inside the container
+          CIBW_BEFORE_ALL_LINUX: "yum install -y fftw-devel || apk add --upgrade fftw-dev || apt-get install -y libfftw3-dev && make clean && ./configure --enable-openmp --enable-avx --enable-python --with-gnu-ld && make -j && make check"
+          CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: 'delvewheel repair --add-path C:\vcpkg\installed\x64-windows\bin -w {dest_dir} {wheel}'
+        with:
+          package-dir: .
+          output-dir: wheelhouse
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cibw-wheels-${{ matrix.os }}-${{ strategy.job-index }}
+          path: ./wheelhouse/*.whl
