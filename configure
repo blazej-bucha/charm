@@ -14604,7 +14604,9 @@ printf "%s\n" "#define HAVE_AVX512F 1" >>confdefs.h
 fi
 
 
-as_CACHEVAR=`printf "%s\n" "ax_cv_check_cflags__$simd_flag1" | $as_tr_sh`
+if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes"; then
+
+    as_CACHEVAR=`printf "%s\n" "ax_cv_check_cflags__$simd_flag1" | $as_tr_sh`
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether C compiler accepts $simd_flag1" >&5
 printf %s "checking whether C compiler accepts $simd_flag1... " >&6; }
 if eval test \${$as_CACHEVAR+y}
@@ -14644,8 +14646,8 @@ else $as_nop
   as_fn_error $? "unrecognized $simd_flag1 compiler flag.  Try using the gcc compiler." "$LINENO" 5
 fi
 
-if test "$simd_flag2" != "no"; then
-    as_CACHEVAR=`printf "%s\n" "ax_cv_check_cflags__$simd_flag2" | $as_tr_sh`
+    if test "$simd_flag2" != "no"; then
+        as_CACHEVAR=`printf "%s\n" "ax_cv_check_cflags__$simd_flag2" | $as_tr_sh`
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether C compiler accepts $simd_flag2" >&5
 printf %s "checking whether C compiler accepts $simd_flag2... " >&6; }
 if eval test \${$as_CACHEVAR+y}
@@ -14685,10 +14687,7 @@ else $as_nop
   as_fn_error $? "unrecognized $simd_flag2 compiler flag.  Try using the gcc compiler." "$LINENO" 5
 fi
 
-fi
-
-
-if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes"; then
+    fi
 
     have_posix_memalign=no
     have_aligned_alloc=no
