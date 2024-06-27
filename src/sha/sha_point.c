@@ -568,6 +568,7 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
 
 
             /* ------------------------------------------------------------- */
+            unsigned long m;
 #if CHARM_OPENMP
 
 
@@ -652,7 +653,6 @@ FAILURE_1_parallel:
 
 
             /* Loop over harmonic orders */
-            unsigned long m;
 #pragma omp for schedule(dynamic) private(m)
 #endif
             for (m = 0; m <= nmax; m++)

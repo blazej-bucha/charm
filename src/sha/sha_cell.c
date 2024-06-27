@@ -840,6 +840,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
 
             /* Loop over harmonic orders */
             /* ------------------------------------------------------------- */
+            unsigned long m;
 #if CHARM_OPENMP
 
 
@@ -930,7 +931,6 @@ FAILURE_1_parallel:
             /* ............................................................. */
 
 
-            unsigned long m;
 #pragma omp for schedule(dynamic) private(m)
 #endif
             for (m = 0; m <= nmax; m++)
