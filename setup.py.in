@@ -41,17 +41,7 @@ library_dirs = to_list(library_dirs, '-L')
 
 
 if sys.platform == 'win32':
-
-    # Not sure why, but relative paths in "include_dirs" and "library_dirs" are
-    # needed on Windows
-    for i in range(len(include_dirs)):
-        include_dirs[i] = os.path.relpath(include_dirs[i])
-    for i in range(len(library_dirs)):
-        library_dirs[i] = os.path.relpath(library_dirs[i])
-
-    # This must be empty on Windows
     runtime_library_dirs = []
-
 else:
     runtime_library_dirs = library_dirs
 
