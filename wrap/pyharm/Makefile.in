@@ -486,7 +486,7 @@ uninstall-am: uninstall-local
 pyharm-build-local:
 @PY_TRUE@@SINGLE_PY_TRUE@	cd $(top_srcdir)/wrap && rm -rf pyharm@P@ && $(LN_S) pyharm pyharm@P@
 @PY_TRUE@	cd $(top_srcdir) && CC=$(CC) $(PYTHON) -m pip install . --verbose \
-@PY_TRUE@		--target $(pythondir) --upgrade
+@PY_TRUE@		--target $(pythondir) --upgrade --upgrade-strategy only-if-needed
 
 pyharm-local: remove-py-build
 	$(MAKE) pyharm-build-local

@@ -10,7 +10,7 @@ if SINGLE_PY
 	cd $(top_srcdir)/wrap && rm -rf pyharm@P@ && $(LN_S) pyharm pyharm@P@
 endif
 	cd $(top_srcdir) && CC=$(CC) $(PYTHON) -m pip install . --verbose \
-		--target $(pythondir) --upgrade
+		--target $(pythondir) --upgrade --upgrade-strategy only-if-needed
 endif
 
 
