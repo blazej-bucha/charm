@@ -586,7 +586,7 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
 #pragma omp parallel default(none) \
 shared(nmax, symm, r, ri, a, b, a2, b2, shcs, t, u, ps, ips) \
 shared(latsin, pt, ROOT3_r, FAILURE_glob, err) \
-private(am, bm, a2m, b2m, amp, amm, bmp, bmm, anms, bnms) \
+private(m, am, bm, a2m, b2m, amp, amm, bmp, bmm, anms, bnms) \
 private(x, ix, y, iy, wlf, ixy, z, iz) \
 private(pnm0, pnm1, pnm2, npm_even, ds, l) SIMD_VARS
             {
@@ -653,7 +653,7 @@ FAILURE_1_parallel:
 
 
             /* Loop over harmonic orders */
-#pragma omp for schedule(dynamic) private(m)
+#pragma omp for schedule(dynamic)
 #endif
             for (m = 0; m <= nmax; m++)
             {
