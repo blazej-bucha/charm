@@ -2,9 +2,6 @@
 
 * Add support for the ARM's NEON instructions.
 
-* Export "lnof.svg" to png without the transparent background, so that the 
-  figure is nicely visible even in Firefox when using Dark Reader.
-
 * Add mechanism to tune the `SIMD_BLOCK` parameter for the host's CPU during 
   the compilation.
 
