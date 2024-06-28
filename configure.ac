@@ -315,7 +315,7 @@ if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes"; then
 
     AX_CHECK_COMPILE_FLAG([$simd_flag1], [CFLAGS_SIMD="$simd_flag1"], [AC_MSG_ERROR([unrecognized $simd_flag1 compiler flag.  Try using the gcc compiler.])])
     if test "$simd_flag2" != "no"; then
-        AX_CHECK_COMPILE_FLAG([$simd_flag2], [CFLAGS_SIMD="$simd_flag2"], [AC_MSG_ERROR([unrecognized $simd_flag2 compiler flag.  Try using the gcc compiler.])])
+        AX_CHECK_COMPILE_FLAG([$simd_flag2], [CFLAGS_SIMD="$CFLAGS_SIMD $simd_flag2"], [AC_MSG_ERROR([unrecognized $simd_flag2 compiler flag.  Try using the gcc compiler.])])
     fi
 
     have_posix_memalign=no

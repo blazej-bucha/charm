@@ -14682,7 +14682,7 @@ eval ac_res=\$$as_CACHEVAR
 printf "%s\n" "$ac_res" >&6; }
 if eval test \"x\$"$as_CACHEVAR"\" = x"yes"
 then :
-  CFLAGS_SIMD="$simd_flag2"
+  CFLAGS_SIMD="$CFLAGS_SIMD $simd_flag2"
 else $as_nop
   as_fn_error $? "unrecognized $simd_flag2 compiler flag.  Try using the gcc compiler." "$LINENO" 5
 fi
