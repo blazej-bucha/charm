@@ -11,8 +11,8 @@ PyHarm using the command:
 
     pip install pyharm
 
-This will install the wrapper Python code of PyHarm and a pre-compiled CHarm 
-library, the latter of which is called by PyHarm routines.
+This will install PyHarm and a pre-compiled CHarm library, the latter of which 
+is called by the PyHarm routines.
 
 The CHarm binaries were compiled using the following settings.
 
