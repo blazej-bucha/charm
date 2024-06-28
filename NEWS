@@ -1,5 +1,8 @@
 Upcoming release:
 
+* On Linux, macOS and Windows running on the x86_64 CPU, PyHarm can now be 
+  installed using `pip install pyharm`.
+
 * Fixed outside-of-bounds reads bug in the spherical harmonic synthesis at 
   Driscoll--Healy grids.  The outputs of the synthesis were correct but various 
   errors might occur rarely (e.g., segmentation fault).
@@ -20,6 +23,8 @@ Upcoming release:
 * Lib names no longer have the `_omp` suffix, even if CHarm is compiled 
   with OpenMP support.  Depending on the precision, the names are `libcharmf`, 
   `libcharm` and `libcharmq`.  This affects the way how CHarm is linked.
+
+* Various documentation improvements.
 
 CHarm 0.4.0:
 
