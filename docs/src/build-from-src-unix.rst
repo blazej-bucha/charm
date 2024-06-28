@@ -440,26 +440,6 @@ Deactivate the virtual environment from the shell:
 
   deactivate
 
-As a side note, you might replace
-
-.. code-block:: bash
-
-  make
-  make check
-  make install
-
-by
-
-.. code-block:: bash
-
-  make pyharm
-
-right after you called the ``./configure`` script.  You risk, however, that 
-CHarm, hence PyHarm, might not be functioning properly, as you did not check 
-the output from the test suite, which is otherwise executed by ``make check``.  
-Use this approach only if you know by prior experience that the tests are 
-likely to pass on your platform and with your compiling options.
-
 
 Uninstallation
 ~~~~~~~~~~~~~~

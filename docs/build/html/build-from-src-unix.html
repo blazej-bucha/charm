@@ -806,21 +806,6 @@ make<span class="w"> </span>install
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>deactivate
 </pre></div>
 </div>
-<p>As a side note, you might replace</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make
-make<span class="w"> </span>check
-make<span class="w"> </span>install
-</pre></div>
-</div>
-<p>by</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>pyharm
-</pre></div>
-</div>
-<p>right after you called the <code class="docutils literal notranslate"><span class="pre">./configure</span></code> script.  You risk, however, that
-CHarm, hence PyHarm, might not be functioning properly, as you did not check
-the output from the test suite, which is otherwise executed by <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">check</span></code>.
-Use this approach only if you know by prior experience that the tests are
-likely to pass on your platform and with your compiling options.</p>
 </section>
 </section>
 <section id="id4">
