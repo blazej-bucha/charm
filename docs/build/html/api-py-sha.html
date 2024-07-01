@@ -49,7 +49,7 @@
     <link rel="prev" title="pyharm.shs" href="api-py-shs.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Jun 28, 2024"/>
+    <meta name="docbuild:last-update" content="Jul 01, 2024"/>
   </head>
   
   
@@ -459,22 +459,22 @@ quadrature method.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyharm.sha.point">
 <span class="sig-prename descclassname"><span class="pre">pyharm.sha.</span></span><span class="sig-name descname"><span class="pre">point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.sha.point" title="Link to this definition">#</a></dt>
-<dd><p>Performs surface spherical harmonic analysis of point values <code class="xref py py-obj docutils literal notranslate"><span class="pre">f</span></code> at
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">pnt</span></code> up to maximum degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to <a class="reference external" href="./api-c-sha.html">charm_sha</a> for the full documentation.</p>
+<dd><p>Performs surface spherical harmonic analysis of point values <code class="docutils literal notranslate"><span class="pre">f</span></code> at
+<code class="docutils literal notranslate"><span class="pre">pnt</span></code> up to maximum degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to <a class="reference external" href="./api-c-sha.html">charm_sha</a> for the full documentation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>pnt</strong> (<a class="reference internal" href="api-py-crd.html#pyharm.crd.PointGridDH1" title="pyharm.crd.PointGridDH1"><em>PointGridDH1</em></a><em>, </em><a class="reference internal" href="api-py-crd.html#pyharm.crd.PointGridDH2" title="pyharm.crd.PointGridDH2"><em>PointGridDH2</em></a><em>, </em><a class="reference internal" href="api-py-crd.html#pyharm.crd.PointGridGL" title="pyharm.crd.PointGridGL"><em>PointGridGL</em></a>) – Quadrature grid points at which <code class="xref py py-obj docutils literal notranslate"><span class="pre">f</span></code> is sampled</p></li>
+<li><p><strong>pnt</strong> (<a class="reference internal" href="api-py-crd.html#pyharm.crd.PointGridDH1" title="pyharm.crd.PointGridDH1"><em>PointGridDH1</em></a><em>, </em><a class="reference internal" href="api-py-crd.html#pyharm.crd.PointGridDH2" title="pyharm.crd.PointGridDH2"><em>PointGridDH2</em></a><em>, </em><a class="reference internal" href="api-py-crd.html#pyharm.crd.PointGridGL" title="pyharm.crd.PointGridGL"><em>PointGridGL</em></a>) – Quadrature grid points at which <code class="docutils literal notranslate"><span class="pre">f</span></code> is sampled</p></li>
 <li><p><strong>f</strong> (<em>numpy array</em><em> of </em><em>floating points</em>) – Signal to be harmonically analysed</p></li>
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum degree of the analysis</p></li>
 <li><p><strong>mu</strong> (<em>floating point</em>) – Scaling parameter to be associated with the output spherical harmonic
-coefficients, optional.  Default is <code class="xref py py-obj docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
+coefficients, optional.  Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
 <li><p><strong>r</strong> (<em>floating point</em>) – Radius of the reference sphere to be associated with the output
-spherical harmonic coefficients, optional.  Default is <code class="xref py py-obj docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
+spherical harmonic coefficients, optional.  Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>out</strong> – Spherical harmonic coefficients of <code class="xref py py-obj docutils literal notranslate"><span class="pre">f</span></code></p>
+<dd class="field-even"><p><strong>out</strong> – Spherical harmonic coefficients of <code class="docutils literal notranslate"><span class="pre">f</span></code></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="api-py-shc.html#pyharm.shc.Shc" title="pyharm.shc.Shc">Shc</a></p>
@@ -485,24 +485,24 @@ spherical harmonic coefficients, optional.  Default is <code class="xref py py-o
 <dl class="py function">
 <dt class="sig sig-object py" id="pyharm.sha.cell">
 <span class="sig-prename descclassname"><span class="pre">pyharm.sha.</span></span><span class="sig-name descname"><span class="pre">cell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cell</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.sha.cell" title="Link to this definition">#</a></dt>
-<dd><p>Performs surface spherical harmonic analysis of point values <code class="xref py py-obj docutils literal notranslate"><span class="pre">f</span></code> at
-<a class="reference internal" href="#pyharm.sha.cell" title="pyharm.sha.cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell</span></code></a> up to maximum degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to <a class="reference external" href="./api-c-sha.html">charm_sha</a> for the full documentation.</p>
+<dd><p>Performs surface spherical harmonic analysis of point values <code class="docutils literal notranslate"><span class="pre">f</span></code> at
+<code class="docutils literal notranslate"><span class="pre">cell</span></code> up to maximum degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to <a class="reference external" href="./api-c-sha.html">charm_sha</a> for the full documentation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>cell</strong> (<a class="reference internal" href="api-py-crd.html#pyharm.crd.CellGrid" title="pyharm.crd.CellGrid"><em>CellGrid</em></a>) – Grid cells at which <code class="xref py py-obj docutils literal notranslate"><span class="pre">f</span></code> is sampled</p></li>
+<li><p><strong>cell</strong> (<a class="reference internal" href="api-py-crd.html#pyharm.crd.CellGrid" title="pyharm.crd.CellGrid"><em>CellGrid</em></a>) – Grid cells at which <code class="docutils literal notranslate"><span class="pre">f</span></code> is sampled</p></li>
 <li><p><strong>f</strong> (<em>numpy array</em><em> of </em><em>floating points</em>) – Signal to be harmonically analysed</p></li>
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum degree of the analysis</p></li>
 <li><p><strong>method</strong> (<em>integer</em>) – Method of the spherical harmonic analysis of area-mean values.
 Currently the only accepted value is <a class="reference internal" href="#pyharm.sha.CELL_AQ" title="pyharm.sha.CELL_AQ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyharm.sha.CELL_AQ</span></code></a>.</p></li>
 <li><p><strong>mu</strong> (<em>floating point</em>) – Scaling parameter to be associated with the output spherical harmonic
-coefficients, optional.  Default is <code class="xref py py-obj docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
+coefficients, optional.  Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
 <li><p><strong>r</strong> (<em>floating point</em>) – Radius of the reference sphere to be associated with the output
-spherical harmonic coefficients, optional.  Default is <code class="xref py py-obj docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
+spherical harmonic coefficients, optional.  Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>out</strong> – Spherical harmonic coefficients of <code class="xref py py-obj docutils literal notranslate"><span class="pre">f</span></code></p>
+<dd class="field-even"><p><strong>out</strong> – Spherical harmonic coefficients of <code class="docutils literal notranslate"><span class="pre">f</span></code></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="api-py-shc.html#pyharm.shc.Shc" title="pyharm.shc.Shc">Shc</a></p>
@@ -593,7 +593,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 28, 2024.
+  Last updated on Jul 01, 2024.
   <br/>
 </p>
   </div>

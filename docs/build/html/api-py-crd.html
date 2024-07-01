@@ -49,7 +49,7 @@
     <link rel="prev" title="pyharm.shc" href="api-py-shc.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Jun 28, 2024"/>
+    <meta name="docbuild:last-update" content="Jul 01, 2024"/>
   </head>
   
   
@@ -564,13 +564,13 @@ spherical radii taken from numpy arrays:</p>
 <li><p><strong>data</strong> (<em>None</em><em>, </em><em>0</em><em> or </em><em>tuple</em>) – <p>Determines the way of initializing array elements:</p>
 <blockquote>
 <div><ul>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code> to not initialize array elements (<cite>malloc</cite> in C),</p></li>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">0</span></code> to set all array elements to zero (<cite>calloc</cite> in C),</p></li>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">(lat,</span> <span class="pre">lon,</span> <span class="pre">r)</span></code> to define the object’s latitudes, longitudes
-and spherical radii, respectively.  The <a class="reference internal" href="#pyharm.crd.PointSctr.lat" title="pyharm.crd.PointSctr.lat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lat</span></code></a>, <a class="reference internal" href="#pyharm.crd.PointSctr.lon" title="pyharm.crd.PointSctr.lon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lon</span></code></a>
-and <a class="reference internal" href="#pyharm.crd.PointSctr.r" title="pyharm.crd.PointSctr.r"><code class="xref py py-obj docutils literal notranslate"><span class="pre">r</span></code></a> variables must be numpy floating point arrays of
-dimension <code class="xref py py-obj docutils literal notranslate"><span class="pre">1</span></code>.  The number of elements in <a class="reference internal" href="#pyharm.crd.PointSctr.lat" title="pyharm.crd.PointSctr.lat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lat</span></code></a>,
-<a class="reference internal" href="#pyharm.crd.PointSctr.lon" title="pyharm.crd.PointSctr.lon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lon</span></code></a> and <a class="reference internal" href="#pyharm.crd.PointSctr.r" title="pyharm.crd.PointSctr.r"><code class="xref py py-obj docutils literal notranslate"><span class="pre">r</span></code></a> must match.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> to not initialize array elements (<code class="docutils literal notranslate"><span class="pre">malloc</span></code> in C),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code> to set all array elements to zero (<code class="docutils literal notranslate"><span class="pre">calloc</span></code> in C),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(lat,</span> <span class="pre">lon,</span> <span class="pre">r)</span></code> to define the object’s latitudes, longitudes
+and spherical radii, respectively.  The <code class="docutils literal notranslate"><span class="pre">lat</span></code>, <code class="docutils literal notranslate"><span class="pre">lon</span></code>
+and <code class="docutils literal notranslate"><span class="pre">r</span></code> variables must be numpy floating point arrays of
+dimension <code class="docutils literal notranslate"><span class="pre">1</span></code>.  The number of elements in <code class="docutils literal notranslate"><span class="pre">lat</span></code>,
+<code class="docutils literal notranslate"><span class="pre">lon</span></code> and <code class="docutils literal notranslate"><span class="pre">r</span></code> must match.</p></li>
 </ul>
 </div></blockquote>
 </p></li>
@@ -586,7 +586,7 @@ not writeable, but all array elements are writeable.</p>
 <dt class="sig sig-object py" id="pyharm.crd.PointSctr.from_garbage">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_garbage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npoint</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointSctr.from_garbage" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.crd.PointSctr" title="pyharm.crd.PointSctr"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointSctr</span></code></a> class instance with uninitialized array
-elements (<cite>malloc</cite> in C).</p>
+elements (<code class="docutils literal notranslate"><span class="pre">malloc</span></code> in C).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>npoint</strong> (<em>integer</em>) – Number of scattered points</p>
@@ -604,7 +604,7 @@ elements (<cite>malloc</cite> in C).</p>
 <dt class="sig sig-object py" id="pyharm.crd.PointSctr.from_zeros">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_zeros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npoint</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointSctr.from_zeros" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.crd.PointSctr" title="pyharm.crd.PointSctr"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointSctr</span></code></a> class instance with all array elements
-initialized to zero (<cite>calloc</cite> in C).</p>
+initialized to zero (<code class="docutils literal notranslate"><span class="pre">calloc</span></code> in C).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>npoint</strong> (<em>integer</em>) – Number of scattered points</p>
@@ -622,8 +622,8 @@ initialized to zero (<cite>calloc</cite> in C).</p>
 <dt class="sig sig-object py" id="pyharm.crd.PointSctr.from_arrays">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointSctr.from_arrays" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.crd.PointSctr" title="pyharm.crd.PointSctr"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointSctr</span></code></a> class instance with spherical latitudes,
-longitudes and spherical radii taken from <a class="reference internal" href="#pyharm.crd.PointSctr.lat" title="pyharm.crd.PointSctr.lat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lat</span></code></a>, <a class="reference internal" href="#pyharm.crd.PointSctr.lon" title="pyharm.crd.PointSctr.lon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lon</span></code></a> and
-<a class="reference internal" href="#pyharm.crd.PointSctr.r" title="pyharm.crd.PointSctr.r"><code class="xref py py-obj docutils literal notranslate"><span class="pre">r</span></code></a>, respectively.</p>
+longitudes and spherical radii taken from <code class="docutils literal notranslate"><span class="pre">lat</span></code>, <code class="docutils literal notranslate"><span class="pre">lon</span></code> and
+<code class="docutils literal notranslate"><span class="pre">r</span></code>, respectively.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -716,13 +716,13 @@ taken from numpy arrays:</p>
 <li><p><strong>data</strong> (<em>None</em><em>, </em><em>0</em><em> or </em><em>tuple</em>) – <p>Determines the way of initializing array elements:</p>
 <blockquote>
 <div><ul>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code> to not initialize array elements (<cite>malloc</cite> in C),</p></li>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">0</span></code> to set all array elements to zero (<cite>calloc</cite> in C),</p></li>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">(lat,</span> <span class="pre">lon,</span> <span class="pre">r)</span></code> to define the object’s latitudes, longitudes
-and spherical radii, respectively.  The <a class="reference internal" href="#pyharm.crd.PointGrid.lat" title="pyharm.crd.PointGrid.lat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lat</span></code></a>, <a class="reference internal" href="#pyharm.crd.PointGrid.lon" title="pyharm.crd.PointGrid.lon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lon</span></code></a>
-and <a class="reference internal" href="#pyharm.crd.PointGrid.r" title="pyharm.crd.PointGrid.r"><code class="xref py py-obj docutils literal notranslate"><span class="pre">r</span></code></a> variables must be numpy floating point arrays of the
-dimension <code class="xref py py-obj docutils literal notranslate"><span class="pre">1</span></code>.  The shape of <a class="reference internal" href="#pyharm.crd.PointGrid.lat" title="pyharm.crd.PointGrid.lat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lat</span></code></a> and <a class="reference internal" href="#pyharm.crd.PointGrid.lon" title="pyharm.crd.PointGrid.lon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lon</span></code></a> as
-well as the shape of <a class="reference internal" href="#pyharm.crd.PointGrid.lat" title="pyharm.crd.PointGrid.lat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lat</span></code></a> and <a class="reference internal" href="#pyharm.crd.PointGrid.r" title="pyharm.crd.PointGrid.r"><code class="xref py py-obj docutils literal notranslate"><span class="pre">r</span></code></a> must match.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> to not initialize array elements (<code class="docutils literal notranslate"><span class="pre">malloc</span></code> in C),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code> to set all array elements to zero (<code class="docutils literal notranslate"><span class="pre">calloc</span></code> in C),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(lat,</span> <span class="pre">lon,</span> <span class="pre">r)</span></code> to define the object’s latitudes, longitudes
+and spherical radii, respectively.  The <code class="docutils literal notranslate"><span class="pre">lat</span></code>, <code class="docutils literal notranslate"><span class="pre">lon</span></code>
+and <code class="docutils literal notranslate"><span class="pre">r</span></code> variables must be numpy floating point arrays of the
+dimension <code class="docutils literal notranslate"><span class="pre">1</span></code>.  The shape of <code class="docutils literal notranslate"><span class="pre">lat</span></code> and <code class="docutils literal notranslate"><span class="pre">lon</span></code> as
+well as the shape of <code class="docutils literal notranslate"><span class="pre">lat</span></code> and <code class="docutils literal notranslate"><span class="pre">r</span></code> must match.</p></li>
 </ul>
 </div></blockquote>
 </p></li>
@@ -738,7 +738,7 @@ not writeable, but all array elements are writeable.</p>
 <dt class="sig sig-object py" id="pyharm.crd.PointGrid.from_garbage">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_garbage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nlon</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGrid.from_garbage" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.crd.PointGrid" title="pyharm.crd.PointGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointGrid</span></code></a> class instance with uninitialized array
-elements (<cite>malloc</cite> in C).</p>
+elements (<code class="docutils literal notranslate"><span class="pre">malloc</span></code> in C).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -759,7 +759,7 @@ elements (<cite>malloc</cite> in C).</p>
 <dt class="sig sig-object py" id="pyharm.crd.PointGrid.from_zeros">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_zeros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nlon</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGrid.from_zeros" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.crd.PointGrid" title="pyharm.crd.PointGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointGrid</span></code></a> class instance with all array
-elements initialized to zero (<cite>calloc</cite> in C).</p>
+elements initialized to zero (<code class="docutils literal notranslate"><span class="pre">calloc</span></code> in C).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -780,8 +780,8 @@ elements initialized to zero (<cite>calloc</cite> in C).</p>
 <dt class="sig sig-object py" id="pyharm.crd.PointGrid.from_arrays">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGrid.from_arrays" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.crd.PointGrid" title="pyharm.crd.PointGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointGrid</span></code></a> class instance with spherical latitudes,
-longitudes and spherical radii taken from <a class="reference internal" href="#pyharm.crd.PointGrid.lat" title="pyharm.crd.PointGrid.lat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lat</span></code></a>, <a class="reference internal" href="#pyharm.crd.PointGrid.lon" title="pyharm.crd.PointGrid.lon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lon</span></code></a> and
-<a class="reference internal" href="#pyharm.crd.PointGrid.r" title="pyharm.crd.PointGrid.r"><code class="xref py py-obj docutils literal notranslate"><span class="pre">r</span></code></a>, respectively.</p>
+longitudes and spherical radii taken from <code class="docutils literal notranslate"><span class="pre">lat</span></code>, <code class="docutils literal notranslate"><span class="pre">lon</span></code> and
+<code class="docutils literal notranslate"><span class="pre">r</span></code>, respectively.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -846,7 +846,7 @@ longitudes and spherical radii taken from <a class="reference internal" href="#p
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree associated with the quadrature grid</p></li>
 <li><p><strong>r</strong> (<em>floating point</em>) – Spherical radius of grid meridians, optional.  Default value is
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
+<code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -914,7 +914,7 @@ attributes nor its array elements are writeable.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree associated with the quadrature grid</p></li>
 <li><p><strong>r</strong> (<em>floating point</em>) – Spherical radius of grid meridians, optional.  Default value is
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
+<code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -982,7 +982,7 @@ attributes nor its array elements are writeable.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree associated with the quadrature grid</p></li>
 <li><p><strong>r</strong> (<em>floating point</em>) – Spherical radius of grid meridians, optional.  Default value is
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
+<code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1081,14 +1081,14 @@ and spherical radii taken from numpy arrays:</p>
 <li><p><strong>data</strong> (<em>None</em><em>, </em><em>0</em><em> or </em><em>tuple</em>) – <p>Determines the way of initializing array elements:</p>
 <blockquote>
 <div><ul>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code> to not initialize array elements (<cite>malloc</cite> in C),</p></li>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">0</span></code> to set all array elements to zero (<cite>calloc</cite> in C),</p></li>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">(latmin,</span> <span class="pre">latmax,</span> <span class="pre">lonmin,</span> <span class="pre">lonmax,</span> <span class="pre">r)</span></code> to define the object’s
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> to not initialize array elements (<code class="docutils literal notranslate"><span class="pre">malloc</span></code> in C),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code> to set all array elements to zero (<code class="docutils literal notranslate"><span class="pre">calloc</span></code> in C),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(latmin,</span> <span class="pre">latmax,</span> <span class="pre">lonmin,</span> <span class="pre">lonmax,</span> <span class="pre">r)</span></code> to define the object’s
 minimum and maximum cell latitudes, minimum and maximum cell
-longitudes and spherical radii, respectively.  The <a class="reference internal" href="#pyharm.crd.CellSctr.latmin" title="pyharm.crd.CellSctr.latmin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">latmin</span></code></a>,
-<a class="reference internal" href="#pyharm.crd.CellSctr.latmax" title="pyharm.crd.CellSctr.latmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">latmax</span></code></a>, <a class="reference internal" href="#pyharm.crd.CellSctr.lonmin" title="pyharm.crd.CellSctr.lonmin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lonmin</span></code></a>, <a class="reference internal" href="#pyharm.crd.CellSctr.lonmax" title="pyharm.crd.CellSctr.lonmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lonmax</span></code></a> and <a class="reference internal" href="#pyharm.crd.CellSctr.r" title="pyharm.crd.CellSctr.r"><code class="xref py py-obj docutils literal notranslate"><span class="pre">r</span></code></a>
-variables must be numpy floating point arrays of dimension
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">1</span></code>.  All arrays must share the same number of elements.</p></li>
+longitudes and spherical radii, respectively.  The <code class="docutils literal notranslate"><span class="pre">latmin</span></code>,
+<code class="docutils literal notranslate"><span class="pre">latmax</span></code>, <code class="docutils literal notranslate"><span class="pre">lonmin</span></code>, <code class="docutils literal notranslate"><span class="pre">lonmax</span></code> and <code class="docutils literal notranslate"><span class="pre">r</span></code> variables must be
+numpy floating point arrays of dimension <code class="docutils literal notranslate"><span class="pre">1</span></code>.  All arrays must
+share the same number of elements.</p></li>
 </ul>
 </div></blockquote>
 </p></li>
@@ -1104,7 +1104,7 @@ writeable, but all array elements are writeable.</p>
 <dt class="sig sig-object py" id="pyharm.crd.CellSctr.from_garbage">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_garbage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ncell</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.CellSctr.from_garbage" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.crd.CellSctr" title="pyharm.crd.CellSctr"><code class="xref py py-class docutils literal notranslate"><span class="pre">CellSctr</span></code></a> class instance with uninitialized array
-elements (<cite>malloc</cite> in C).</p>
+elements (<code class="docutils literal notranslate"><span class="pre">malloc</span></code> in C).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>ncell</strong> (<em>integer</em>) – Number of scattered cells</p>
@@ -1122,7 +1122,7 @@ elements (<cite>malloc</cite> in C).</p>
 <dt class="sig sig-object py" id="pyharm.crd.CellSctr.from_zeros">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_zeros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ncell</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.CellSctr.from_zeros" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.crd.CellSctr" title="pyharm.crd.CellSctr"><code class="xref py py-class docutils literal notranslate"><span class="pre">CellSctr</span></code></a> class instance with all array elements
-initialized to zero (<cite>calloc</cite> in C).</p>
+initialized to zero (<code class="docutils literal notranslate"><span class="pre">calloc</span></code> in C).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>ncell</strong> (<em>integer</em>) – Number of scattered cells</p>
@@ -1141,8 +1141,8 @@ initialized to zero (<cite>calloc</cite> in C).</p>
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lonmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lonmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.CellSctr.from_arrays" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.crd.CellSctr" title="pyharm.crd.CellSctr"><code class="xref py py-class docutils literal notranslate"><span class="pre">CellSctr</span></code></a> class instance with minimum and maximum
 spherical cell latitudes, minimum and maximum cell longitudes and
-spherical radii taken <a class="reference internal" href="#pyharm.crd.CellSctr.latmin" title="pyharm.crd.CellSctr.latmin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">latmin</span></code></a>, <a class="reference internal" href="#pyharm.crd.CellSctr.latmax" title="pyharm.crd.CellSctr.latmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">latmax</span></code></a>, <a class="reference internal" href="#pyharm.crd.CellSctr.lonmin" title="pyharm.crd.CellSctr.lonmin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lonmin</span></code></a>,
-<a class="reference internal" href="#pyharm.crd.CellSctr.lonmax" title="pyharm.crd.CellSctr.lonmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lonmax</span></code></a> and <a class="reference internal" href="#pyharm.crd.CellSctr.r" title="pyharm.crd.CellSctr.r"><code class="xref py py-obj docutils literal notranslate"><span class="pre">r</span></code></a>, respectively.</p>
+spherical radii taken from <code class="docutils literal notranslate"><span class="pre">latmin</span></code>, <code class="docutils literal notranslate"><span class="pre">latmax</span></code>, <code class="docutils literal notranslate"><span class="pre">lonmin</span></code>,
+<code class="docutils literal notranslate"><span class="pre">lonmax</span></code> and <code class="docutils literal notranslate"><span class="pre">r</span></code>, respectively.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1252,16 +1252,16 @@ taken from numpy arrays:</p>
 <li><p><strong>data</strong> (<em>None</em><em>, </em><em>0</em><em> or </em><em>tuple</em>) – <p>Determines the way of initializing array elements:</p>
 <blockquote>
 <div><ul>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code> to not initialize array elements (<cite>malloc</cite> in C),</p></li>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">0</span></code> to set all array elements to zero (<cite>calloc</cite> in C),</p></li>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">(latmin,</span> <span class="pre">latmax,</span> <span class="pre">lonmin,</span> <span class="pre">lonmax,</span> <span class="pre">r)</span></code> to define the object’s
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> to not initialize array elements (<code class="docutils literal notranslate"><span class="pre">malloc</span></code> in C),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code> to set all array elements to zero (<code class="docutils literal notranslate"><span class="pre">calloc</span></code> in C),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(latmin,</span> <span class="pre">latmax,</span> <span class="pre">lonmin,</span> <span class="pre">lonmax,</span> <span class="pre">r)</span></code> to define the object’s
 minimum and maximum cell latitudes, minimum and maximum cell
-longitudes and spherical radii, respectively.  The <a class="reference internal" href="#pyharm.crd.CellGrid.latmin" title="pyharm.crd.CellGrid.latmin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">latmin</span></code></a>,
-<a class="reference internal" href="#pyharm.crd.CellGrid.latmax" title="pyharm.crd.CellGrid.latmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">latmax</span></code></a>, <a class="reference internal" href="#pyharm.crd.CellGrid.lonmin" title="pyharm.crd.CellGrid.lonmin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lonmin</span></code></a>, <a class="reference internal" href="#pyharm.crd.CellGrid.lonmax" title="pyharm.crd.CellGrid.lonmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lonmax</span></code></a> and <a class="reference internal" href="#pyharm.crd.CellGrid.r" title="pyharm.crd.CellGrid.r"><code class="xref py py-obj docutils literal notranslate"><span class="pre">r</span></code></a>
+longitudes and spherical radii, respectively.  The <code class="docutils literal notranslate"><span class="pre">latmin</span></code>,
+<code class="docutils literal notranslate"><span class="pre">latmax</span></code>, <code class="docutils literal notranslate"><span class="pre">lonmin</span></code>, <code class="docutils literal notranslate"><span class="pre">lonmax</span></code> and <code class="docutils literal notranslate"><span class="pre">r</span></code>
 variables must be numpy floating point arrays of dimension
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">1</span></code>.  The <a class="reference internal" href="#pyharm.crd.CellGrid.latmin" title="pyharm.crd.CellGrid.latmin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">latmin</span></code></a>, <a class="reference internal" href="#pyharm.crd.CellGrid.latmax" title="pyharm.crd.CellGrid.latmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">latmax</span></code></a> and <a class="reference internal" href="#pyharm.crd.CellGrid.r" title="pyharm.crd.CellGrid.r"><code class="xref py py-obj docutils literal notranslate"><span class="pre">r</span></code></a> arrays
+<code class="docutils literal notranslate"><span class="pre">1</span></code>.  The <code class="docutils literal notranslate"><span class="pre">latmin</span></code>, <code class="docutils literal notranslate"><span class="pre">latmax</span></code> and <code class="docutils literal notranslate"><span class="pre">r</span></code> arrays
 must have the same number of elements, the same is true for
-<a class="reference internal" href="#pyharm.crd.CellGrid.lonmin" title="pyharm.crd.CellGrid.lonmin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lonmin</span></code></a> and <a class="reference internal" href="#pyharm.crd.CellGrid.lonmax" title="pyharm.crd.CellGrid.lonmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lonmax</span></code></a>.</p></li>
+<code class="docutils literal notranslate"><span class="pre">lonmin</span></code> and <code class="docutils literal notranslate"><span class="pre">lonmax</span></code>.</p></li>
 </ul>
 </div></blockquote>
 </p></li>
@@ -1319,7 +1319,7 @@ writeable, but all array elements are writeable.</p>
 <dt class="sig sig-object py" id="pyharm.crd.CellGrid.from_garbage">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_garbage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nlon</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.CellGrid.from_garbage" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.crd.CellGrid" title="pyharm.crd.CellGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">CellGrid</span></code></a> class instance with uninitialized array
-elements (<cite>malloc</cite> in C).</p>
+elements (<code class="docutils literal notranslate"><span class="pre">malloc</span></code> in C).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1340,7 +1340,7 @@ elements (<cite>malloc</cite> in C).</p>
 <dt class="sig sig-object py" id="pyharm.crd.CellGrid.from_zeros">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_zeros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nlon</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.CellGrid.from_zeros" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.crd.CellGrid" title="pyharm.crd.CellGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">CellGrid</span></code></a> class instance with all array elements
-initialized to zero (<cite>calloc</cite> in C).</p>
+initialized to zero (<code class="docutils literal notranslate"><span class="pre">calloc</span></code> in C).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1362,8 +1362,8 @@ initialized to zero (<cite>calloc</cite> in C).</p>
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lonmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lonmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.CellGrid.from_arrays" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.crd.CellGrid" title="pyharm.crd.CellGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">CellGrid</span></code></a> class instance with minimum and maximum
 spherical cell latitudes, minimum and maximum cell longitudes and
-spherical radii taken from <a class="reference internal" href="#pyharm.crd.CellGrid.latmin" title="pyharm.crd.CellGrid.latmin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">latmin</span></code></a> <a class="reference internal" href="#pyharm.crd.CellGrid.latmax" title="pyharm.crd.CellGrid.latmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">latmax</span></code></a>, <a class="reference internal" href="#pyharm.crd.CellGrid.lonmin" title="pyharm.crd.CellGrid.lonmin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lonmin</span></code></a>,
-<a class="reference internal" href="#pyharm.crd.CellGrid.lonmax" title="pyharm.crd.CellGrid.lonmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lonmax</span></code></a> and <a class="reference internal" href="#pyharm.crd.CellGrid.r" title="pyharm.crd.CellGrid.r"><code class="xref py py-obj docutils literal notranslate"><span class="pre">r</span></code></a>, respectively.</p>
+spherical radii taken from <code class="docutils literal notranslate"><span class="pre">latmin</span></code>, <code class="docutils literal notranslate"><span class="pre">latmax</span></code>, <code class="docutils literal notranslate"><span class="pre">lonmin</span></code>,
+<code class="docutils literal notranslate"><span class="pre">lonmax</span></code> and <code class="docutils literal notranslate"><span class="pre">r</span></code>, respectively.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1543,7 +1543,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 28, 2024.
+  Last updated on Jul 01, 2024.
   <br/>
 </p>
   </div>

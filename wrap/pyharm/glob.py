@@ -1,5 +1,5 @@
 """
-Module defining the :class:`pyharm.glob.Constants` class for global CHarm 
+Module defining the :class:`pyharm.glob.Constants` class for global CHarm
 variables.
 """
 
@@ -42,8 +42,8 @@ class Constants:
     @threshold.getter
     def threshold(self):
         """
-        The CHarm's :obj:`charm_glob_threshold` variable.  To change its 
-        default value to, say, :obj:`1e-12`, use the following command:
+        The CHarm's ``charm_glob_threshold`` variable.  To change its
+        default value to, say, ``1e-12``, use the following command:
 
         >>> pyharm.glob.Constants().threshold = 1e-12
 
@@ -70,8 +70,8 @@ class Constants:
     @threshold2.getter
     def threshold2(self):
         """
-        The CHarm's :obj:`charm_glob_threshold2` variable.  To change its 
-        default value to, say, :obj:`1e-11`, use the following command:
+        The CHarm's ``charm_glob_threshold2`` variable.  To change its
+        default value to, say, ``1e-11``, use the following command:
 
         >>> pyharm.glob.Constants().threshold2 = 1e-11
 
@@ -98,8 +98,8 @@ class Constants:
     @polar_optimization_a1.getter
     def polar_optimization_a1(self):
         """
-        The CHarm's :obj:`charm_glob_polar_optimization_a1` variable.  To 
-        change its default value to, say, :obj:`50`, use the following command:
+        The CHarm's ``charm_glob_polar_optimization_a1`` variable.  To
+        change its default value to, say, ``50``, use the following command:
 
         >>> pyharm.glob.Constants().polar_optimization_a1 = 50
 
@@ -126,8 +126,8 @@ class Constants:
     @polar_optimization_a2.getter
     def polar_optimization_a2(self):
         """
-        The CHarm's :obj:`charm_glob_polar_optimization_a2` variable.  To 
-        change its default value to, say, :obj:`0.02`, use the following 
+        The CHarm's ``charm_glob_polar_optimization_a2`` variable.  To
+        change its default value to, say, ``0.02``, use the following
         command:
 
         >>> pyharm.glob.Constants().polar_optimization_a2 = 0.02

@@ -11,7 +11,7 @@ Module to compute the following integrals:
       \mathrm{d}\\theta{,} \quad \\theta_1 \leq \\theta_2{,}
 
 
-* a product of two :obj:`4pi` fully-normalized surface spherical harmonic
+* a product of two ``4pi`` fully-normalized surface spherical harmonic
   functions over a rectangular cell on the unit sphere,
 
   .. math::
@@ -72,13 +72,13 @@ def pn1m1pn2m2(cltmin, cltmax, n1, m1, n2, m2, pnmj):
     m2 : integer
         Harmonic order of the second Legendre function
     pnmj : Pnmj
-        Fourier coefficients of Legendre functions up to degree :obj:`max(n1,
-        n2)`.
+        Fourier coefficients of Legendre functions up to degree ``max(n1,
+        n2)``.
 
     Returns
     -------
     out : floating point
-        The output value :obj:`ip` of the integral.
+        The output value ``ip`` of the integral.
     """
 
     _check_pn1m1pn2m2_inputs(cltmin, cltmax, n1, m1, n2, m2, pnmj)
@@ -139,26 +139,26 @@ def yi1n1m1yi2n2m2(cltmin, cltmax, lonmin, lonmax, i1, n1, m1, i2, n2, m2,
     lonmax : floating point
         Maximum longitude in radians
     i1 : integer
-        :obj:`0` if the first spherical harmonic function is of the :obj:`cos`
-        type, :obj:`1` for the :obj:`sin` type
+        ``0`` if the first spherical harmonic function is of the ``cos``
+        type, ``1`` for the ``sin`` type
     n1 : integer
         Harmonic degree of the first spherical harmonic function
     m1 : integer
         Harmonic order of the first spherical harmonic function
     i2 : integer
-        The same as :obj:`i1` but for the second spherical harmonic function
+        The same as ``i1`` but for the second spherical harmonic function
     n2 : integer
         Harmonic degree of the second spherical harmonic function
     m2 : integer
         Harmonic order of the second spherical harmonic function
     pnmj : Pnmj
         Fourier coefficients of Legendre functions at least up to degree
-        :obj:`max(n1, n2)`.
+        ``max(n1, n2)``.
 
     Returns
     -------
     out : floating point
-        The value :obj:`iy` of the integral.
+        The value ``iy`` of the integral.
     """
 
     _check_pn1m1pn2m2_inputs(cltmin, cltmax, n1, m1, n2, m2, pnmj)
@@ -221,9 +221,9 @@ def _check_pn1m1pn2m2_inputs(cltmin, cltmax, n1, m1, n2, m2, pnmj):
         Harmonic order of the second spherical harmonic function
     pnmj : Pnmj
         A `pyharm.leg.Pnmj` structure with the Fourier coefficients of
-        associated Legendre functions at least up to degree :obj:`max(n1, n2)`.
+        associated Legendre functions at least up to degree ``max(n1, n2)``.
         It is assumed that the instance is prepared beforehand.  Note that
-        :obj:`j` is related to wave-numbers, but is *not* a wave-number (refer
+        ``j`` is related to wave-numbers, but is *not* a wave-number (refer
         to `charm_leg <./api-c-leg.html>`_ for the full documentation).
     """
 

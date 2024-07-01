@@ -50,7 +50,7 @@
     <link rel="prev" title="pyharm.crd" href="api-py-crd.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Jun 28, 2024"/>
+    <meta name="docbuild:last-update" content="Jul 01, 2024"/>
   </head>
   
   
@@ -445,8 +445,8 @@ document.write(`
 <dl class="py function">
 <dt class="sig sig-object py" id="pyharm.shs.point">
 <span class="sig-prename descclassname"><span class="pre">pyharm.shs.</span></span><span class="sig-name descname"><span class="pre">point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shcs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shs.point" title="Link to this definition">#</a></dt>
-<dd><p>Performs spherical harmonic synthesis of point values from <code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs</span></code> at
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">pnt</span></code> up to maximum degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to <a class="reference external" href="./api-c-shs.html">charm_shs</a> for the full documentation.</p>
+<dd><p>Performs spherical harmonic synthesis of point values from <code class="docutils literal notranslate"><span class="pre">shcs</span></code> at
+<code class="docutils literal notranslate"><span class="pre">pnt</span></code> up to maximum degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to <a class="reference external" href="./api-c-shs.html">charm_shs</a> for the full documentation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -456,7 +456,7 @@ document.write(`
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>out</strong> – Point values synthesized from <code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs</span></code> at <code class="xref py py-obj docutils literal notranslate"><span class="pre">pnt</span></code></p>
+<dd class="field-even"><p><strong>out</strong> – Point values synthesized from <code class="docutils literal notranslate"><span class="pre">shcs</span></code> at <code class="docutils literal notranslate"><span class="pre">pnt</span></code></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>numpy array of floating points</p>
@@ -467,8 +467,8 @@ document.write(`
 <dl class="py function">
 <dt class="sig sig-object py" id="pyharm.shs.point_grad1">
 <span class="sig-prename descclassname"><span class="pre">pyharm.shs.</span></span><span class="sig-name descname"><span class="pre">point_grad1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shcs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shs.point_grad1" title="Link to this definition">#</a></dt>
-<dd><p>Performs the synthesis of point values of the first-order gradient in <a class="reference external" href="./definitions.html#lnof">LNOF</a> from <code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs</span></code> at <code class="xref py py-obj docutils literal notranslate"><span class="pre">pnt</span></code> up to maximum
-degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to <a class="reference external" href="./api-c-shs.html">charm_shs</a> for the full
+<dd><p>Performs the synthesis of point values of the first-order gradient in <a class="reference external" href="./definitions.html#lnof">LNOF</a> from <code class="docutils literal notranslate"><span class="pre">shcs</span></code> at <code class="docutils literal notranslate"><span class="pre">pnt</span></code> up to maximum
+degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to <a class="reference external" href="./api-c-shs.html">charm_shs</a> for the full
 documentation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -493,8 +493,8 @@ documentation.</p>
 <dt class="sig sig-object py" id="pyharm.shs.point_grad2">
 <span class="sig-prename descclassname"><span class="pre">pyharm.shs.</span></span><span class="sig-name descname"><span class="pre">point_grad2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shcs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shs.point_grad2" title="Link to this definition">#</a></dt>
 <dd><p>Performs the synthesis of point values of the second-order gradient in
-<a class="reference external" href="./definitions.html#lnof">LNOF</a> from <code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs</span></code> at <code class="xref py py-obj docutils literal notranslate"><span class="pre">pnt</span></code> up to
-maximum degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to <a class="reference external" href="./api-c-shs.html">charm_shs</a> for
+<a class="reference external" href="./definitions.html#lnof">LNOF</a> from <code class="docutils literal notranslate"><span class="pre">shcs</span></code> at <code class="docutils literal notranslate"><span class="pre">pnt</span></code> up to
+maximum degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to <a class="reference external" href="./api-c-shs.html">charm_shs</a> for
 the full documentation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -525,9 +525,9 @@ the full documentation.</p>
 <div class="math notranslate nohighlight">
 \[\frac{1}{r^{j + k} \, \cos^k\varphi} \, \frac{\partial^{i + j + k}
 f}{\partial r^i \, \partial \varphi^j \, \lambda^k}\]</div>
-<p>for <span class="math notranslate nohighlight">\(i = 0, 1, 2\)</span> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dr</span></code>), <span class="math notranslate nohighlight">\(j = 0, 1, 2\)</span> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dlat</span></code>) and
-<span class="math notranslate nohighlight">\(k = 0, 1, 2\)</span> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dlon</span></code>) satisfying <span class="math notranslate nohighlight">\(i + j + k \leq 2\)</span> from
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs</span></code> at <code class="xref py py-obj docutils literal notranslate"><span class="pre">pnt</span></code> up to maximum degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to
+<p>for <span class="math notranslate nohighlight">\(i = 0, 1, 2\)</span> (<code class="docutils literal notranslate"><span class="pre">dr</span></code>), <span class="math notranslate nohighlight">\(j = 0, 1, 2\)</span> (<code class="docutils literal notranslate"><span class="pre">dlat</span></code>) and
+<span class="math notranslate nohighlight">\(k = 0, 1, 2\)</span> (<code class="docutils literal notranslate"><span class="pre">dlon</span></code>) satisfying <span class="math notranslate nohighlight">\(i + j + k \leq 2\)</span> from
+<code class="docutils literal notranslate"><span class="pre">shcs</span></code> at <code class="docutils literal notranslate"><span class="pre">pnt</span></code> up to maximum degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to
 <cite>charm_shs_point_guru</cite> in <a class="reference external" href="./api-c-shs.html">charm_shs</a> for the full
 documentation.</p>
 <dl class="field-list simple">
@@ -545,7 +545,7 @@ equation above)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>f</strong> – Output quantity depending on <code class="xref py py-obj docutils literal notranslate"><span class="pre">dr</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">dlat</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">dlon</span></code></p>
+<dd class="field-even"><p><strong>f</strong> – Output quantity depending on <code class="docutils literal notranslate"><span class="pre">dr</span></code>, <code class="docutils literal notranslate"><span class="pre">dlat</span></code> and <code class="docutils literal notranslate"><span class="pre">dlon</span></code></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>numpy array of floating points</p>
@@ -556,8 +556,8 @@ equation above)</p></li>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyharm.shs.cell">
 <span class="sig-prename descclassname"><span class="pre">pyharm.shs.</span></span><span class="sig-name descname"><span class="pre">cell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cell</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shcs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shs.cell" title="Link to this definition">#</a></dt>
-<dd><p>Performs spherical harmonic synthesis of area-mean values from <code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs</span></code>
-at <a class="reference internal" href="#pyharm.shs.cell" title="pyharm.shs.cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell</span></code></a> up to maximum degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to <a class="reference external" href="./api-c-shs.html">charm_shs</a> for the full documentation.</p>
+<dd><p>Performs spherical harmonic synthesis of area-mean values from <code class="docutils literal notranslate"><span class="pre">shcs</span></code>
+at <code class="docutils literal notranslate"><span class="pre">cell</span></code> up to maximum degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to <a class="reference external" href="./api-c-shs.html">charm_shs</a> for the full documentation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -567,7 +567,7 @@ at <a class="reference internal" href="#pyharm.shs.cell" title="pyharm.shs.cell"
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>out</strong> – Area-mean values synthesized from <code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs</span></code> at <a class="reference internal" href="#pyharm.shs.cell" title="pyharm.shs.cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell</span></code></a></p>
+<dd class="field-even"><p><strong>out</strong> – Area-mean values synthesized from <code class="docutils literal notranslate"><span class="pre">shcs</span></code> at <code class="docutils literal notranslate"><span class="pre">cell</span></code></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>numpy array of floating points</p>
@@ -578,14 +578,14 @@ at <a class="reference internal" href="#pyharm.shs.cell" title="pyharm.shs.cell"
 <dl class="py function">
 <dt class="sig sig-object py" id="pyharm.shs.cell_isurf">
 <span class="sig-prename descclassname"><span class="pre">pyharm.shs.</span></span><span class="sig-name descname"><span class="pre">cell_isurf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cell</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shcs1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shcs2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax4</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shs.cell_isurf" title="Link to this definition">#</a></dt>
-<dd><p>Performs spherical harmonic synthesis of area-mean values from <code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs1</span></code>
-at <a class="reference internal" href="#pyharm.shs.cell" title="pyharm.shs.cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell</span></code></a> residing on an irregular surface defined by <code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs2</span></code>.
-The synthesis of area-mean values is done up to degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax1</span></code>
-and the irregular surface is expanded up to degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax2</span></code>.
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax3</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax4</span></code> represent the maximum harmonic degrees to
-synthesize and analyze the <code class="xref py py-obj docutils literal notranslate"><span class="pre">(shcs1.r</span> <span class="pre">/</span> <span class="pre">r)^(n</span> <span class="pre">+</span> <span class="pre">1)</span></code> terms, where
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">r</span></code> stands for the spherical radius of the irregular surface defined
-by <code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs2</span></code>.  Refer to <a class="reference external" href="./api-c-shs.html">charm_shs</a> for the full
+<dd><p>Performs spherical harmonic synthesis of area-mean values from <code class="docutils literal notranslate"><span class="pre">shcs1</span></code>
+at <code class="docutils literal notranslate"><span class="pre">cell</span></code> residing on an irregular surface defined by <code class="docutils literal notranslate"><span class="pre">shcs2</span></code>.
+The synthesis of area-mean values is done up to degree <code class="docutils literal notranslate"><span class="pre">nmax1</span></code>
+and the irregular surface is expanded up to degree <code class="docutils literal notranslate"><span class="pre">nmax2</span></code>.
+<code class="docutils literal notranslate"><span class="pre">nmax3</span></code> and <code class="docutils literal notranslate"><span class="pre">nmax4</span></code> represent the maximum harmonic degrees to
+synthesize and analyze the <code class="docutils literal notranslate"><span class="pre">(shcs1.r</span> <span class="pre">/</span> <span class="pre">r)^(n</span> <span class="pre">+</span> <span class="pre">1)</span></code> terms, where
+<code class="docutils literal notranslate"><span class="pre">r</span></code> stands for the spherical radius of the irregular surface defined
+by <code class="docutils literal notranslate"><span class="pre">shcs2</span></code>.  Refer to <a class="reference external" href="./api-c-shs.html">charm_shs</a> for the full
 documentation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -597,13 +597,13 @@ of which are synthesized</p></li>
 <li><p><strong>shcs2</strong> (<a class="reference internal" href="api-py-shc.html#pyharm.shc.Shc" title="pyharm.shc.Shc"><em>Shc</em></a>) – Spherical harmonic coefficients of the irregular surface, on which the
 area-mean values are synthesized</p></li>
 <li><p><strong>nmax2</strong> (<em>integer</em>) – Maximum degree of the synthesis of the irregular surface</p></li>
-<li><p><strong>nmax3</strong> (<em>integer</em>) – Maximum degree of the synthesis of <code class="xref py py-obj docutils literal notranslate"><span class="pre">(shcs1.r</span> <span class="pre">/</span> <span class="pre">r)^(n</span> <span class="pre">+</span> <span class="pre">1)</span></code></p></li>
-<li><p><strong>nmax4</strong> (<em>integer</em>) – Maximum degree of the analysis of <code class="xref py py-obj docutils literal notranslate"><span class="pre">(shcs1.r</span> <span class="pre">/</span> <span class="pre">r)^(n</span> <span class="pre">+</span> <span class="pre">1)</span></code></p></li>
+<li><p><strong>nmax3</strong> (<em>integer</em>) – Maximum degree of the synthesis of <code class="docutils literal notranslate"><span class="pre">(shcs1.r</span> <span class="pre">/</span> <span class="pre">r)^(n</span> <span class="pre">+</span> <span class="pre">1)</span></code></p></li>
+<li><p><strong>nmax4</strong> (<em>integer</em>) – Maximum degree of the analysis of <code class="docutils literal notranslate"><span class="pre">(shcs1.r</span> <span class="pre">/</span> <span class="pre">r)^(n</span> <span class="pre">+</span> <span class="pre">1)</span></code></p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>out</strong> – Area-mean values synthesized from <code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs1</span></code> at <a class="reference internal" href="#pyharm.shs.cell" title="pyharm.shs.cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell</span></code></a> residing
-on the surface defined by <code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs2</span></code></p>
+<dd class="field-even"><p><strong>out</strong> – Area-mean values synthesized from <code class="docutils literal notranslate"><span class="pre">shcs1</span></code> at <code class="docutils literal notranslate"><span class="pre">cell</span></code> residing
+on the surface defined by <code class="docutils literal notranslate"><span class="pre">shcs2</span></code></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>numpy array of floating points</p>
@@ -697,7 +697,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 28, 2024.
+  Last updated on Jul 01, 2024.
   <br/>
 </p>
   </div>

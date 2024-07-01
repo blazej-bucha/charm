@@ -34,13 +34,13 @@ _ORDERING = [PMNJ, PMJN]
 
 
 #: int: Ordering scheme of Fourier coefficients of Legendre functions: order
-#: :obj:`m`, degree :obj:`n` and wave-number-related variable :obj:`j`.
+#: ``m``, degree ``n`` and wave-number-related variable ``j``.
 #: For further details, refer to `charm_leg <./api-c-leg.html>`_.
 PMNJ: int
 
 
 #: int: Ordering scheme of Fourier coefficients of Legendre functions: order
-#: :obj:`m`, wave-number-related variable :obj:`j` and degree :obj:`n`.
+#: ``m``, wave-number-related variable ``j`` and degree ``n``.
 #: For further details, refer to `charm_leg <./api-c-leg.html>`_.
 PMJN: int
 
@@ -79,13 +79,13 @@ class Pnmj:
     ordering : integer
         Ordering scheme of Fourier coefficients.  Use
         :meth:`get_ordering_types` to get all supported ordering schemes.
-    coeffs : None or :obj:`0`
+    coeffs : None or ``0``
         Determines the way of initializing Fourier coefficients:
 
-            * :obj:`None` to not initialize Fourier coefficients (`malloc` in
+            * ``None`` to not initialize Fourier coefficients (``malloc`` in
               C),
 
-            * :obj:`0` to set all Fourier coefficients to zero (`calloc` in C).
+            * ``0`` to set all Fourier coefficients to zero (``calloc`` in C).
 
     Note
     ----
@@ -191,7 +191,7 @@ class Pnmj:
     def from_garbage(cls, nmax, ordering=PMNJ):
         """
         Returns a :class:`Pnmj` class instance with uninitialized Fourier
-        coefficients (`malloc` in C).
+        coefficients (``malloc`` in C).
 
         Parameters
         ----------
@@ -215,7 +215,7 @@ class Pnmj:
     def from_zeros(cls, nmax, ordering=PMNJ):
         """
         Returns a :class:`Pnmj` class instance with all Fourier coefficients
-        initialized to zero (`calloc` in C).
+        initialized to zero (``calloc`` in C).
 
         Parameters
         ----------
@@ -273,8 +273,8 @@ class Pnmj:
 
     def get_coeff(self, n, m, j):
         """
-        Returns Fourier coefficient of degree :obj:`n`, order :obj:`m` and
-        wave-number-related value :obj:`j`.
+        Returns Fourier coefficient of degree ``n``, order ``m`` and
+        wave-number-related value ``j``.
 
         Parameters
         ----------
@@ -289,8 +289,8 @@ class Pnmj:
         Returns
         -------
         out : floating point
-            Fourier coefficient of degree :obj:`n`, order :obj:`m` and
-            wave-number-related value :obj:`j`.
+            Fourier coefficient of degree ``n``, order ``m`` and
+            wave-number-related value ``j``.
         """
 
         _check_deg_ord(n, 'degree')
@@ -333,9 +333,9 @@ class Pnmj:
     @staticmethod
     def j2k(n, j):
         """
-        Transforms a wave-number-related variable :obj:`j` to the wave-number
-        :obj:`k` of a Fourier coefficient of fully-normalized associated
-        Legendre function of degree :obj:`n`.
+        Transforms a wave-number-related variable ``j`` to the wave-number
+        ``k`` of a Fourier coefficient of fully-normalized associated
+        Legendre function of degree ``n``.
 
         For further details, see the references at `charm_leg
         <./api-c-leg.html>`_.
@@ -345,12 +345,12 @@ class Pnmj:
         n : integer
             Spherical harmonic degree of the Legendre function
         j : integer
-            Variable related to the wave-number :obj:`k`
+            Variable related to the wave-number ``k``
 
         Returns
         -------
         out : integer
-            Wave-number :obj:`k` of the Fourier coefficient of a Legendre function
+            Wave-number ``k`` of the Fourier coefficient of a Legendre function
         """
 
         _check_deg_ord(n, 'degree')
@@ -366,9 +366,9 @@ class Pnmj:
     @staticmethod
     def k2j(k):
         """
-        Transforms a wave-number :obj:`k` of a Fourier coefficient of
+        Transforms a wave-number ``k`` of a Fourier coefficient of
         fully-normalized associated Legendre functions to the
-        wave-number-related variable :obj:`j`.
+        wave-number-related variable ``j``.
 
         For further details, see the references at `charm_leg
         <./api-c-leg.html>`_.
@@ -381,7 +381,7 @@ class Pnmj:
         Returns
         -------
         out : integer
-            Wave-number-related variable :obj:`j` of the Fourier coefficient
+            Wave-number-related variable ``j`` of the Fourier coefficient
             of a Legendre function
         """
 
@@ -411,9 +411,9 @@ class Pnmj:
     def _Pnmj2Pnmj(self):
         """
         Private function to transform the :class:`_Pnmj` class instance in
-        `self._Pnmj.contents` to a :class:`Pnmj` class instance in `self`.  The
-        :attr:`pnmj` attribute of `self` shares the same memory space as the
-        corresponding attribute `self._Pnmj.contents.pnmj`.
+        ``self._Pnmj.contents`` to a :class:`Pnmj` class instance in``self``.
+        The :attr:`pnmj` attribute of``self`` shares the same memory space as
+        the corresponding attribute``self._Pnmj.contents.pnmj``.
         """
 
         if not isinstance(self._Pnmj.contents, _Pnmj):
@@ -466,7 +466,7 @@ class Pnmj:
     @staticmethod
     def _check_j(j):
         """
-        Private method to check whether the input :obj:`j` value can represent
+        Private method to check whether the input ``j`` value can represent
         the wave-number-related variable.
 
         Parameters
@@ -484,7 +484,7 @@ class Pnmj:
 def fourier_coeffs(nmax, ordering=PMNJ):
     """
     Computes Fourier coefficients of Legendre functions up to degree
-    :obj:`nmax` using the :obj:`ordering` ordering scheme of coefficients.
+    ``nmax`` using the ``ordering`` ordering scheme of coefficients.
 
     Parameters
     ----------

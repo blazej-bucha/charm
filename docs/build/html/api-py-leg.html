@@ -49,7 +49,7 @@
     <link rel="prev" title="pyharm.sha" href="api-py-sha.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Jun 28, 2024"/>
+    <meta name="docbuild:last-update" content="Jul 01, 2024"/>
   </head>
   
   
@@ -464,7 +464,7 @@ of the Legendre functions,</p></li>
 <dt class="sig sig-object py" id="pyharm.leg.PMNJ">
 <span class="sig-prename descclassname"><span class="pre">pyharm.leg.</span></span><span class="sig-name descname"><span class="pre">PMNJ</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#pyharm.leg.PMNJ" title="Link to this definition">#</a></dt>
 <dd><p>Ordering scheme of Fourier coefficients of Legendre functions: order
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code>, degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> and wave-number-related variable <code class="xref py py-obj docutils literal notranslate"><span class="pre">j</span></code>.
+<code class="docutils literal notranslate"><span class="pre">m</span></code>, degree <code class="docutils literal notranslate"><span class="pre">n</span></code> and wave-number-related variable <code class="docutils literal notranslate"><span class="pre">j</span></code>.
 For further details, refer to <a class="reference external" href="./api-c-leg.html">charm_leg</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -477,7 +477,7 @@ For further details, refer to <a class="reference external" href="./api-c-leg.ht
 <dt class="sig sig-object py" id="pyharm.leg.PMJN">
 <span class="sig-prename descclassname"><span class="pre">pyharm.leg.</span></span><span class="sig-name descname"><span class="pre">PMJN</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#pyharm.leg.PMJN" title="Link to this definition">#</a></dt>
 <dd><p>Ordering scheme of Fourier coefficients of Legendre functions: order
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code>, wave-number-related variable <code class="xref py py-obj docutils literal notranslate"><span class="pre">j</span></code> and degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code>.
+<code class="docutils literal notranslate"><span class="pre">m</span></code>, wave-number-related variable <code class="docutils literal notranslate"><span class="pre">j</span></code> and degree <code class="docutils literal notranslate"><span class="pre">n</span></code>.
 For further details, refer to <a class="reference external" href="./api-c-leg.html">charm_leg</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -510,12 +510,12 @@ factory methods:</p>
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree</p></li>
 <li><p><strong>ordering</strong> (<em>integer</em>) – Ordering scheme of Fourier coefficients.  Use
 <a class="reference internal" href="#pyharm.leg.Pnmj.get_ordering_types" title="pyharm.leg.Pnmj.get_ordering_types"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_ordering_types()</span></code></a> to get all supported ordering schemes.</p></li>
-<li><p><strong>coeffs</strong> (None or <code class="xref py py-obj docutils literal notranslate"><span class="pre">0</span></code>) – <p>Determines the way of initializing Fourier coefficients:</p>
+<li><p><strong>coeffs</strong> (None or <code class="docutils literal notranslate"><span class="pre">0</span></code>) – <p>Determines the way of initializing Fourier coefficients:</p>
 <blockquote>
 <div><ul>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code> to not initialize Fourier coefficients (<cite>malloc</cite> in
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> to not initialize Fourier coefficients (<code class="docutils literal notranslate"><span class="pre">malloc</span></code> in
 C),</p></li>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">0</span></code> to set all Fourier coefficients to zero (<cite>calloc</cite> in C).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code> to set all Fourier coefficients to zero (<code class="docutils literal notranslate"><span class="pre">calloc</span></code> in C).</p></li>
 </ul>
 </div></blockquote>
 </p></li>
@@ -553,7 +553,7 @@ string.</p>
 <dt class="sig sig-object py" id="pyharm.leg.Pnmj.from_garbage">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_garbage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj.from_garbage" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.leg.Pnmj" title="pyharm.leg.Pnmj"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pnmj</span></code></a> class instance with uninitialized Fourier
-coefficients (<cite>malloc</cite> in C).</p>
+coefficients (<code class="docutils literal notranslate"><span class="pre">malloc</span></code> in C).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -576,7 +576,7 @@ supported ordering schemes.</p></li>
 <dt class="sig sig-object py" id="pyharm.leg.Pnmj.from_zeros">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_zeros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj.from_zeros" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.leg.Pnmj" title="pyharm.leg.Pnmj"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pnmj</span></code></a> class instance with all Fourier coefficients
-initialized to zero (<cite>calloc</cite> in C).</p>
+initialized to zero (<code class="docutils literal notranslate"><span class="pre">calloc</span></code> in C).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -610,8 +610,8 @@ supported ordering schemes.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.leg.Pnmj.get_coeff">
 <span class="sig-name descname"><span class="pre">get_coeff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj.get_coeff" title="Link to this definition">#</a></dt>
-<dd><p>Returns Fourier coefficient of degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code>, order <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> and
-wave-number-related value <code class="xref py py-obj docutils literal notranslate"><span class="pre">j</span></code>.</p>
+<dd><p>Returns Fourier coefficient of degree <code class="docutils literal notranslate"><span class="pre">n</span></code>, order <code class="docutils literal notranslate"><span class="pre">m</span></code> and
+wave-number-related value <code class="docutils literal notranslate"><span class="pre">j</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -622,8 +622,8 @@ wave-number-related value <code class="xref py py-obj docutils literal notransla
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>out</strong> – Fourier coefficient of degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code>, order <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> and
-wave-number-related value <code class="xref py py-obj docutils literal notranslate"><span class="pre">j</span></code>.</p>
+<dd class="field-even"><p><strong>out</strong> – Fourier coefficient of degree <code class="docutils literal notranslate"><span class="pre">n</span></code>, order <code class="docutils literal notranslate"><span class="pre">m</span></code> and
+wave-number-related value <code class="docutils literal notranslate"><span class="pre">j</span></code>.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>floating point</p>
@@ -648,19 +648,19 @@ wave-number-related value <code class="xref py py-obj docutils literal notransla
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.leg.Pnmj.j2k">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">j2k</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj.j2k" title="Link to this definition">#</a></dt>
-<dd><p>Transforms a wave-number-related variable <code class="xref py py-obj docutils literal notranslate"><span class="pre">j</span></code> to the wave-number
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">k</span></code> of a Fourier coefficient of fully-normalized associated
-Legendre function of degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code>.</p>
+<dd><p>Transforms a wave-number-related variable <code class="docutils literal notranslate"><span class="pre">j</span></code> to the wave-number
+<code class="docutils literal notranslate"><span class="pre">k</span></code> of a Fourier coefficient of fully-normalized associated
+Legendre function of degree <code class="docutils literal notranslate"><span class="pre">n</span></code>.</p>
 <p>For further details, see the references at <a class="reference external" href="./api-c-leg.html">charm_leg</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>n</strong> (<em>integer</em>) – Spherical harmonic degree of the Legendre function</p></li>
-<li><p><strong>j</strong> (<em>integer</em>) – Variable related to the wave-number <code class="xref py py-obj docutils literal notranslate"><span class="pre">k</span></code></p></li>
+<li><p><strong>j</strong> (<em>integer</em>) – Variable related to the wave-number <code class="docutils literal notranslate"><span class="pre">k</span></code></p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>out</strong> – Wave-number <code class="xref py py-obj docutils literal notranslate"><span class="pre">k</span></code> of the Fourier coefficient of a Legendre function</p>
+<dd class="field-even"><p><strong>out</strong> – Wave-number <code class="docutils literal notranslate"><span class="pre">k</span></code> of the Fourier coefficient of a Legendre function</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>integer</p>
@@ -671,16 +671,16 @@ Legendre function of degree <code class="xref py py-obj docutils literal notrans
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.leg.Pnmj.k2j">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">k2j</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj.k2j" title="Link to this definition">#</a></dt>
-<dd><p>Transforms a wave-number <code class="xref py py-obj docutils literal notranslate"><span class="pre">k</span></code> of a Fourier coefficient of
+<dd><p>Transforms a wave-number <code class="docutils literal notranslate"><span class="pre">k</span></code> of a Fourier coefficient of
 fully-normalized associated Legendre functions to the
-wave-number-related variable <code class="xref py py-obj docutils literal notranslate"><span class="pre">j</span></code>.</p>
+wave-number-related variable <code class="docutils literal notranslate"><span class="pre">j</span></code>.</p>
 <p>For further details, see the references at <a class="reference external" href="./api-c-leg.html">charm_leg</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>k</strong> (<em>integer</em>) – Wave-number</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>out</strong> – Wave-number-related variable <code class="xref py py-obj docutils literal notranslate"><span class="pre">j</span></code> of the Fourier coefficient
+<dd class="field-even"><p><strong>out</strong> – Wave-number-related variable <code class="docutils literal notranslate"><span class="pre">j</span></code> of the Fourier coefficient
 of a Legendre function</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -702,7 +702,7 @@ of a Legendre function</p>
 <dt class="sig sig-object py" id="pyharm.leg.fourier_coeffs">
 <span class="sig-prename descclassname"><span class="pre">pyharm.leg.</span></span><span class="sig-name descname"><span class="pre">fourier_coeffs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.fourier_coeffs" title="Link to this definition">#</a></dt>
 <dd><p>Computes Fourier coefficients of Legendre functions up to degree
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">nmax</span></code> using the <code class="xref py py-obj docutils literal notranslate"><span class="pre">ordering</span></code> ordering scheme of coefficients.</p>
+<code class="docutils literal notranslate"><span class="pre">nmax</span></code> using the <code class="docutils literal notranslate"><span class="pre">ordering</span></code> ordering scheme of coefficients.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -818,7 +818,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 28, 2024.
+  Last updated on Jul 01, 2024.
   <br/>
 </p>
   </div>
