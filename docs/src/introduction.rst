@@ -57,19 +57,14 @@ Features
 Installation
 ============
 
-On Linux, macOS and Windows running on the x86_64 CPU architecture, the Python 
-wrapper PyHarm can be installed using ``pip``:
+On Linux (x86_64), macOS (x86_64, ARM64) and Windows (x86_64), install the 
+Python wrapper PyHarm using ``pip``:
 
 .. code-block:: bash
 
    pip install pyharm
 
-On other operating systems or CPU architectures, PyHarm has to be build from 
-source.  NEON instructions on Macs with ARM processors (M1, etc.) are not yet 
-supported, but the library can be compiled without the NEON instruction set.
-
-The C library CHarm has to be build from source on all operating systems and 
-CPU architectures.
+The C library CHarm has to be build from source.
 
 Further installation details at 
 `https://www.charmlib.org/build/html/install.html 
