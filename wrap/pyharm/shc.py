@@ -1414,6 +1414,10 @@ class Shc:
         """
 
         dirpath = _os.path.dirname(pathname)
+        if dirpath == '':
+            # Saving the result to the current working directory, so no
+            # directory needs to be created
+            return
 
         if not _os.path.exists(dirpath):
             _os.makedirs(dirpath, exist_ok=True)

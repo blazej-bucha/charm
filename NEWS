@@ -1,7 +1,12 @@
 Upcoming release:
 
-* On Linux, macOS and Windows running on the x86_64 CPU, PyHarm can now be 
-  installed using `pip install pyharm`.
+* On Linux (x86_64), macOS (x86_64, ARM64) and Windows (x86_64), PyHarm can now 
+  be installed using `pip install pyharm`.
+
+* In PyHarm, the `pathname` input parameter to the `to_file` method of the 
+  `Shc` class no longer requires to specify `./` when saving to the current 
+  working directory.  `pathname` may now contain only the file name, implying 
+  the coefficients should be saved to the current working directory.
 
 * Fixed outside-of-bounds reads bug in the spherical harmonic synthesis at 
   Driscoll--Healy grids.  The outputs of the synthesis were correct but various 
