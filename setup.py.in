@@ -50,6 +50,8 @@ setup(name='pyharm@P@',
       version=ver,
       description='Python wrapper for CHarm, a C library to work with '
                   'spherical harmonics up to almost arbitrarily high degrees',
+      long_description=open('README.rst').read(),
+      long_description_content_type='text/x-rst',
       author='Blazej Bucha',
       author_email='blazej.bucha@stuba.sk',
       license_files = ['AUTHORS', 'COPYING'],
