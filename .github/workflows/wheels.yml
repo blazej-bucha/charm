@@ -11,7 +11,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-12, windows-latest]
+        os: [ubuntu-latest, macos-12, macos-14, windows-latest]
     defaults:
       run:
         shell: bash
@@ -50,7 +50,13 @@ jobs:
             export CPPFLAGS="-I$(brew --prefix)/include"
             export LDFLAGS="-L$(brew --prefix)/lib"
 
-            ./configure --enable-openmp --enable-avx --enable-python --with-gnu-ld
+            if [ "$RUNNER_ARCH" == "x64" ]; then
+              ./configure --enable-openmp --enable-avx --enable-python --with-gnu-ld
+            elif [ "$RUNNER_ARCH" == "ARM64" ]; then
+              #  NEON instructions are not yet supported, so no SIMD in this 
+              #  case
+              ./configure --enable-openmp --enable-python --with-gnu-ld
+            fi
           elif [ "$RUNNER_OS" == "Windows" ]; then
             export PATH=./cccl-repo:$PATH
             export CC=cccl
