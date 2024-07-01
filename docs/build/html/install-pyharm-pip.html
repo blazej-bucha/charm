@@ -421,24 +421,24 @@ document.write(`
                   
   <section id="installation-of-pyharm-with-pip">
 <span id="install-pyharm-pip"></span><h1>Installation of PyHarm with pip<a class="headerlink" href="#installation-of-pyharm-with-pip" title="Link to this heading">#</a></h1>
-<p>On Linux, macOS and Windows running on the x86_64 CPU architecture, install
-PyHarm using the command:</p>
+<p>On Linux (x86_64), macOS (x86_64, ARM64) and Windows (x86_64), install PyHarm
+using the command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pyharm
 </pre></div>
 </div>
 <p>This will install PyHarm and a pre-compiled CHarm library, the latter of which
-is called by the PyHarm routines.</p>
+is internally called by the PyHarm routines.</p>
 <p>The CHarm binaries were compiled using the following settings.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">gcc</span></code> compiler on Linux and macOS and <code class="docutils literal notranslate"><span class="pre">MSVC</span></code> on Windows.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--enable-double-precision</span></code> to compile in double precision.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--enable-openmp</span></code> to enable parallelization among CPU cores.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--enable-avx</span></code> to enable SIMD parallelism using the AVX instruction sets of
-x86_64 CPUs.  AVX has been with us for more than 10 years now, so the
-binaries should run on any reasonably old CPU.  Should you get an error like
-<code class="docutils literal notranslate"><span class="pre">Illegal</span> <span class="pre">instruction</span></code>, this means your CPU does not support AVX.  In that
-case, you have to build PyHarm from source and avoid using any set of AVX
-instructions (see <a class="reference internal" href="build-from-src.html#build-from-src"><span class="std std-ref">Building from source</span></a>).</p></li>
+<li><p>On x86_64 CPUs, <code class="docutils literal notranslate"><span class="pre">--enable-avx</span></code> to enable SIMD parallelism using the AVX
+instruction sets of x86_64 CPUs.  AVX has been with us for more than 10 years
+now, so the binaries should run on any reasonably old CPU.  Should you get an
+error like <code class="docutils literal notranslate"><span class="pre">Illegal</span> <span class="pre">instruction</span></code>, this means your CPU does not support AVX.
+In that case, you have to build PyHarm from source and avoid using any set of
+AVX instructions (see <a class="reference internal" href="build-from-src.html#build-from-src"><span class="std std-ref">Building from source</span></a>).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">-O3</span> <span class="pre">-ffast-math</span> <span class="pre">-Wall</span> <span class="pre">-Wpedantic</span></code> compiler flags on Linux and macOS and
 <code class="docutils literal notranslate"><span class="pre">/O2</span> <span class="pre">/fp:fast</span> <span class="pre">/FS</span> <span class="pre">/GL</span></code> on Windows to optimize the library for best
 performance.  Importantly, you should be aware that <code class="docutils literal notranslate"><span class="pre">-ffast-math</span></code> and
@@ -461,8 +461,11 @@ specifications, compile the library on your own without these flags.</p></li>
 <p>This will print some useful compilation details about your particular PyHarm
 build.</p>
 </div>
-<p>An out-of-the-box support for ARM CPUs with NEON instructions is on the TODO
-list.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The SIMD parallelization on ARM CPUs through the NEON instruction set is not
+yet supported, but it is on the TODO list.</p>
+</div>
 </section>
 
 
