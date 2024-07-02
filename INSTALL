@@ -1,10 +1,86 @@
 Installing
 **********
 
-This chapter provides an installation guide for Unix-based operating
-systems. On other operating systems, the library should compile, too,
-but, for the time being, a detailed recipe is missing.  Nonetheless,
-provided are some hints for Installation on Windows 10.
+PyHarm (the Python wrapper) can either be installed via "pip" or it
+can be build from source.  Users having no or little experience with
+compiling from the command line are advised to use "pip".  Advanced
+users are recommended to build from source.  This gives you the
+freedom to tailor PyHarm to your CPU which is likely to improve the
+performance compared to the generic binaries installed by "pip".
+
+CHarm (the C library) has to be build from source.
+
+* Installation of PyHarm with pip
+
+* Building from source
+
+
+
+Installation of PyHarm with pip
+*******************************
+
+On Linux (x86_64), macOS (x86_64, ARM64) and Windows (x86_64), install
+PyHarm using the command:
+
+   pip install pyharm
+
+This will install PyHarm and all the dependencies, most notably the C
+library CHarm, which is internally called by PyHarm.
+
+The CHarm binaries were compiled using the following settings.
+
+* "gcc" compiler on Linux and macOS and "MSVC" on Windows.
+
+* "--enable-double-precision" to compile in double precision.
+
+* "--enable-openmp" to enable parallelization among CPU cores.
+
+* On x86_64 CPUs, "--enable-avx" to enable SIMD parallelism using the
+  AVX instruction sets of x86_64 CPUs.  AVX has been with us for more
+  than 10 years now, so the binaries should run on any reasonably old
+  CPU.  Should you get an error like "Illegal instruction", this means
+  your CPU does not support AVX. In that case, you have to build
+  PyHarm from source and avoid using any set of AVX instructions (see
+  Building from source).
+
+* "-O3 -ffast-math -Wall -Wpedantic" compiler flags on Linux and macOS
+  and "/O2 /fp:fast /FS /GL" on Windows to optimize the library for
+  best performance.  Importantly, you should be aware that "-ffast-
+  math" and "/fp:fast" relax some rules on floating point arithmetics
+  in favour of gaining some additional computing speed.  As a result,
+  the accuracy may be slightly *worse* than when not using these
+  flags.  Normally, however, one does not need to bother by this.
+  Should you need compliance with the IEEE specifications, compile the
+  library on your own without these flags.
+
+* "--enable-python" to build the PyHarm wrapper.
+
+Tip:
+
+  All this information is also available directly from PyHarm by
+  calling:
+
+        >>> import pyharm as ph
+        >>> ph.misc.print_info()
+
+  This will print some useful compilation details about your
+  particular PyHarm build.
+
+Note:
+
+  On ARM CPUs, the SIMD parallelization through the NEON instruction
+  set is not yet supported, but it is on the TODO list.
+
+
+
+Building from source
+********************
+
+This chapter will guide you through building from source on Unix-based
+operating systems.  On other operating systems, the library should
+compile, too, but a detailed recipe is missing for the time being.
+Nonetheless, provided are some hints for Building from source on
+Windows 10 and later.
 
 Start by downloading the Source code from GitHub in any way you like
 and then enter the main directory of CHarm.  For instance,
@@ -12,22 +88,22 @@ and then enter the main directory of CHarm.  For instance,
    git clone https://github.com/blazej-bucha/charm
    cd charm
 
-The installation steps that follow depend on the operating system, on
-which your machine is running.
+The installation steps that follow depend on your operating system.
 
-* Installation on Unix-based operating systems
+* Unix-based operating systems
 
-* Installation on Windows 10
-
+* Windows 10 and later
 
 
-Installation on Unix-based operating systems
-********************************************
 
-This section provides an installation guide for Unix-based operating
-systems, particularly Linux and macOS.  First, discussed is the
-installation of CHarm (the C library) and then follow instructions on
-how to build PyHarm (the Python wrapper).
+Building from source on Unix-based operating systems
+****************************************************
+
+This section provides a guide through the build of CHarm and/or PyHarm
+from source on Unix-based operating systems, particularly Linux and
+macOS.  First discussed are the steps to compile CHarm (the C library)
+and then follow instructions on how to (optionally) build PyHarm (the
+Python wrapper).
 
 
 CHarm (the C library)
@@ -426,23 +502,6 @@ Deactivate the virtual environment from the shell:
 
    deactivate
 
-As a side note, you might replace
-
-   make
-   make check
-   make install
-
-by
-
-   make pyharm
-
-right after you called the "./configure" script.  You risk, however,
-that CHarm, hence PyHarm, might not be functioning properly, as you
-did not check the output from the test suite, which is otherwise
-executed by "make check". Use this approach only if you know by prior
-experience that the tests are likely to pass on your platform and with
-your compiling options.
-
 
 Uninstallation
 --------------
@@ -451,22 +510,30 @@ See Uninstallation.
 
 
 
-Installation on Windows 10
-**************************
+Building from source on Windows 10 and later
+********************************************
 
 Perhaps the easiest way is to install the Windows Subsystem for Linux
 (WSL).  WSL offers a fully functional Linux distribution that you can
 run from within Windows 10 (no dual boot).  WSL is officially
 supported by Microsoft and its installation is very easy.  Having
-installed WSL, you may proceed with Installation on Unix-based
+installed WSL, you may proceed with Building from source on Unix-based
 operating systems.
 
-Other solution is, for instance, Cygwin.  A note on enabling SIMD
-instructions ("--enable-avx", "--enable-avx2" or "--enable-avx-512")
-under Cygwin is necessary here.  To properly compile CHarm under
-Cygwin with SIMD instructions enabled, do *not* use GCC.  Under
-Cygwin, GCC doesn’t seem to properly align the memory (required to
-execute SIMD CPU instructions).  You won’t get any compilation error,
+Other solution is, for instance, Cygwin.  However, to properly compile
+CHarm under Cygwin with SIMD instructions enabled ("--enable-avx", "--
+enable-avx2" or "--enable-avx-512"), do *not* use GCC.  Under Cygwin,
+GCC doesn’t seem to properly align the memory which is required to
+execute SIMD CPU instructions.  You won’t get any compilation error,
 but when running your program or the check program ("make check"), you
 will most likely get a segfault error.  Clang, for instance, does its
 job properly, even under Cygwin, so is recommended in this case.
+
+The last path you can (but do not want to) take is to build the
+library using the Microsoft’s MSVC compiler.  To make it work, install
+some layer that will add the standard installation utilities (e.g.
+make) that are not found on Windows normally.  Next, you may want to
+use the CCCL wrapper for MSVC.  Finally, follow the instructions found
+in Building from source on Unix-based operating systems.  In fact,
+this is how we build the Python wheels for Windows that are available
+from PyPI.

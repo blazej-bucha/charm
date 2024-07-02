@@ -1,4 +1,8 @@
-Upcoming release:
+CHarm 0.4.1:
+
+This is a maintenance release enabling the installation of PyHarm using `pip`.  
+A few minor bugs were additionally fixed and some minor improvements were 
+applied.
 
 * On Linux (x86_64), macOS (x86_64, ARM64) and Windows (x86_64), PyHarm can now 
   be installed using `pip install pyharm`.
