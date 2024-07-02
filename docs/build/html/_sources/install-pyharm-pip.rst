@@ -11,8 +11,8 @@ using the command:
 
     pip install pyharm
 
-This will install PyHarm and a pre-compiled CHarm library, the latter of which 
-is internally called by the PyHarm routines.
+This will install PyHarm and all the dependencies, most notably the C library 
+CHarm, which is internally called by PyHarm.
 
 The CHarm binaries were compiled using the following settings.
 
@@ -48,5 +48,5 @@ The CHarm binaries were compiled using the following settings.
    build.
 
 .. note::
-   The SIMD parallelization on ARM CPUs through the NEON instruction set is not 
-   yet supported, but it is on the TODO list.
+   On ARM CPUs, the SIMD parallelization through the NEON instruction set is 
+   not yet supported, but it is on the TODO list.

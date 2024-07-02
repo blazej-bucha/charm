@@ -504,7 +504,7 @@ class PointSctr(_PointBase):
 
     For details, refer to `charm_crd <./api-c-crd.html>`_.
 
-    To create a :class:`PointGrid` class instance, always use one of the
+    To create a :class:`PointSctr` class instance, always use one of the
     following factory methods:
 
         * :meth:`from_garbage`,
@@ -548,7 +548,7 @@ class PointSctr(_PointBase):
 
     Note
     ----
-    Once a :class:`PointGrid` class instance is created, its attributes are
+    Once a :class:`PointSctr` class instance is created, its attributes are
     not writeable, but all array elements are writeable.
     """
 
@@ -1342,7 +1342,7 @@ class CellSctr(_CellBase):
 
     For details, refer to `charm_crd <./api-c-crd.html>`_.
 
-    To create a :class:`CellGrid` class instance, always use one of the
+    To create a :class:`CellSctr` class instance, always use one of the
     following factory methods:
 
         * :meth:`from_garbage`,
@@ -1392,7 +1392,7 @@ class CellSctr(_CellBase):
 
     Note
     ----
-    Once a :class:`CellGrid` class instance is created, its attributes are not
+    Once a :class:`CellSctr` class instance is created, its attributes are not
     writeable, but all array elements are writeable.
     """
 
