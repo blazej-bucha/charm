@@ -78,7 +78,7 @@ jobs:
           # not executed for now.
 
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.17.0
+        uses: pypa/cibuildwheel@v2.19.1
         env:
           CIBW_BUILD_VERBOSITY: 1
           CIBW_BEFORE_BUILD_WINDOWS: 'pip install delvewheel'
