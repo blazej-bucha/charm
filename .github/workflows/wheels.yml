@@ -50,12 +50,12 @@ jobs:
             export CPPFLAGS="-I$(brew --prefix)/include"
             export LDFLAGS="-L$(brew --prefix)/lib"
 
-            if [ "$RUNNER_ARCH" == "x64" ]; then
-              ./configure --enable-openmp --enable-avx --enable-python --with-gnu-ld
-            elif [ "$RUNNER_ARCH" == "ARM64" ]; then
+            if [ "$RUNNER_ARCH" == "ARM64" ]; then
               #  NEON instructions are not yet supported, so no SIMD in this 
               #  case
               ./configure --enable-openmp --enable-python --with-gnu-ld
+            else
+              ./configure --enable-openmp --enable-avx --enable-python --with-gnu-ld
             fi
           elif [ "$RUNNER_OS" == "Windows" ]; then
             export PATH=./cccl-repo:$PATH
@@ -78,7 +78,7 @@ jobs:
           # not executed for now.
 
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.19.1
+        uses: pypa/cibuildwheel@v2.17.0
         env:
           CIBW_BUILD_VERBOSITY: 1
           CIBW_BEFORE_BUILD_WINDOWS: "pip install delvewheel"
