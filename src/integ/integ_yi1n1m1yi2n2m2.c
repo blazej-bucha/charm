@@ -8,6 +8,7 @@
 #include "integ_cs.h"
 #include "integ_ss.h"
 #include "integ_sc.h"
+#include "../misc/misc_nan.h"
 #include "../leg/leg_pnmj_check_ordering.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
@@ -37,9 +38,7 @@ REAL CHARM(integ_yi1n1m1yi2n2m2)(REAL cltmin,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"cltmin\" cannot be larger than \"cltmax\".");
-
-
-        return (PREC(0.0) / PREC(0.0));
+        return NAN;
     }
 
 
@@ -47,9 +46,7 @@ REAL CHARM(integ_yi1n1m1yi2n2m2)(REAL cltmin,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"lonmin\" cannot be larger than \"lonmax\".");
-
-
-        return (PREC(0.0) / PREC(0.0));
+        return NAN;
     }
 
 
@@ -57,9 +54,7 @@ REAL CHARM(integ_yi1n1m1yi2n2m2)(REAL cltmin,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"n1\" cannot be larger than \"pnmj->nmax\".");
-
-
-        return (PREC(0.0) / PREC(0.0));
+        return NAN;
     }
 
 
@@ -67,9 +62,7 @@ REAL CHARM(integ_yi1n1m1yi2n2m2)(REAL cltmin,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"n2\" cannot be larger than \"pnmj->nmax\".");
-
-
-        return (PREC(0.0) / PREC(0.0));
+        return NAN;
     }
 
 
@@ -77,9 +70,7 @@ REAL CHARM(integ_yi1n1m1yi2n2m2)(REAL cltmin,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"m1\" cannot be larger than \"n1\".");
-
-
-        return (PREC(0.0) / PREC(0.0));
+        return NAN;
     }
 
 
@@ -87,9 +78,7 @@ REAL CHARM(integ_yi1n1m1yi2n2m2)(REAL cltmin,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"m2\" cannot be larger than \"n2\".");
-
-
-        return (PREC(0.0) / PREC(0.0));
+        return NAN;
     }
 
 
@@ -97,7 +86,7 @@ REAL CHARM(integ_yi1n1m1yi2n2m2)(REAL cltmin,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Unsupported value of \"pnmj->ordering\".");
-        return (PREC(0.0) / PREC(0.0));
+        return NAN;
     }
 
     /* --------------------------------------------------------------------- */
@@ -110,7 +99,7 @@ REAL CHARM(integ_yi1n1m1yi2n2m2)(REAL cltmin,
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
-        return (PREC(0.0) / PREC(0.0));
+        return NAN;
     }
     /* --------------------------------------------------------------------- */
 

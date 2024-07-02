@@ -339,10 +339,11 @@ FAILURE_1_parallel:
         REAL lontmp, m_real;
 
 
+        size_t i;
 #if CHARM_OPENMP
-#pragma omp for schedule(dynamic)
+#pragma omp for schedule(dynamic) private(i)
 #endif
-        for (size_t i = 0; i < SIMD_MULTIPLE(npnt, SIMD_SIZE * SIMD_BLOCK);
+        for (i = 0; i < SIMD_MULTIPLE(npnt, SIMD_SIZE * SIMD_BLOCK);
              i += SIMD_SIZE * SIMD_BLOCK)
         {
             for (l = 0; l < SIMD_BLOCK; l++)

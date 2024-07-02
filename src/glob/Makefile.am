@@ -1,7 +1,7 @@
-noinst_LTLIBRARIES = libcharm@P@_glob@OMP@.la
+noinst_LTLIBRARIES = libcharm@P@_glob.la
 
 
 AM_CPPFLAGS = -I$(top_srcdir)/charm
 
 
-libcharm@P@_glob@OMP@_la_SOURCES = glob.c
+libcharm@P@_glob_la_SOURCES = glob.c

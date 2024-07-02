@@ -1,54 +1,56 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>pyharm.shc &#8212; CHarm 0.4.0 documentation</title>
+    <title>pyharm.shc &#8212; CHarm 0.4.1 documentation</title>
   
   
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=a3cf13c8"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api-py-shc';</script>
+    <link rel="icon" href="_static/charm-logo.svg"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="pyharm.crd" href="api-py-crd.html" />
     <link rel="prev" title="PyHarm (Python API)" href="api-py.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Jul 02, 2024"/>
   </head>
   
   
@@ -56,19 +58,23 @@
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -90,12 +96,20 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -110,9 +124,11 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="index.html">
+  
   
   
   
@@ -122,30 +138,45 @@
       
     
     
-    <img src="_static/charm-logo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="_static/charm-logo.svg" class="logo__image only-light" alt=""/>
+    <script>document.write(`<img src="_static/charm-logo.svg" class="logo__image only-dark" alt=""/>`);</script>
   
   
-    <p class="title logo__title">CHarm v0.4.0</p>
+    <p class="title logo__title">CHarm v0.4.1</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="install.html">Installing</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="install_unix.html">Installation on Unix-based operating systems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="install_non_unix.html">Installation on Windows 10</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="install.html">Installing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="install-pyharm-pip.html">Installation of PyHarm with pip</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="build-from-src.html">Building from source</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="build-from-src-unix.html">Unix-based operating systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="build-from-src-non-unix.html">Windows 10 and later</a></li>
 </ul>
-</li>
+</details></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="cookbook.html">Cookbook</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="cookbook.html">Cookbook</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="cookbook-c.html">CHarm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cookbook-py.html">PyHarm</a></li>
 </ul>
-</li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="api.html">Interfaces</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2 has-children"><a class="reference internal" href="api-c.html">CHarm (C API)</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="api.html">Interfaces</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="api-c.html">CHarm (C API)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shc.html">charm_shc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
@@ -157,8 +188,8 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-glob.html">charm_glob</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
 </ul>
-</li>
-<li class="toctree-l2 current active has-children"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">pyharm.shc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
@@ -168,9 +199,9 @@
 <li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-glob.html">pyharm.glob</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
@@ -190,7 +221,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -199,14 +230,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -345,26 +376,28 @@
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -420,10 +453,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section id="module-pyharm.shc">
-<span id="id1"></span><span id="pyharm-shc"></span><h1>pyharm.shc<a class="headerlink" href="#module-pyharm.shc" title="Permalink to this heading">#</a></h1>
+<span id="id1"></span><span id="pyharm-shc"></span><h1>pyharm.shc<a class="headerlink" href="#module-pyharm.shc" title="Link to this heading">#</a></h1>
 <p>Module to work with spherical harmonic coefficients.  Defines the <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a>
 class, including its methods that are designed to:</p>
 <blockquote>
@@ -439,7 +472,7 @@ class, including its methods that are designed to:</p>
 </div>
 <dl class="py data">
 <dt class="sig sig-object py" id="pyharm.shc.WRITE_N">
-<span class="sig-prename descclassname"><span class="pre">pyharm.shc.</span></span><span class="sig-name descname"><span class="pre">WRITE_N</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#pyharm.shc.WRITE_N" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">pyharm.shc.</span></span><span class="sig-name descname"><span class="pre">WRITE_N</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#pyharm.shc.WRITE_N" title="Link to this definition">#</a></dt>
 <dd><p>Ordering scheme to write spherical harmonic coefficients with
 the <a class="reference internal" href="#pyharm.shc.Shc.to_file" title="pyharm.shc.Shc.to_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pyharm.shc.Shc.to_file()</span></code></a> method: harmonic degree varies
 fastest.</p>
@@ -452,7 +485,7 @@ fastest.</p>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="pyharm.shc.WRITE_M">
-<span class="sig-prename descclassname"><span class="pre">pyharm.shc.</span></span><span class="sig-name descname"><span class="pre">WRITE_M</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#pyharm.shc.WRITE_M" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">pyharm.shc.</span></span><span class="sig-name descname"><span class="pre">WRITE_M</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#pyharm.shc.WRITE_M" title="Link to this definition">#</a></dt>
 <dd><p>Ordering scheme to write spherical harmonic coefficients with
 the <a class="reference internal" href="#pyharm.shc.Shc.to_file" title="pyharm.shc.Shc.to_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pyharm.shc.Shc.to_file()</span></code></a> method: harmonic order varies
 fastest.</p>
@@ -465,7 +498,7 @@ fastest.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pyharm.shc.Shc">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyharm.shc.</span></span><span class="sig-name descname"><span class="pre">Shc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coeffs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyharm.shc.</span></span><span class="sig-name descname"><span class="pre">Shc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coeffs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc" title="Link to this definition">#</a></dt>
 <dd><p>Class for spherical harmonic coefficients.</p>
 <p>To create an <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> class instance, always use one of the following
 factory methods:</p>
@@ -491,14 +524,14 @@ factory methods:</p>
 <li><p><strong>coeffs</strong> (<em>None</em><em>, </em><em>0</em><em> or </em><em>tuple</em>) – <p>Determines the way of initializing spherical harmonic coefficients:</p>
 <blockquote>
 <div><ul>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code> to not initialize spherical harmonic coefficients
-(<cite>malloc</cite> in C),</p></li>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">0</span></code> to set all spherical harmonic coefficients to zero
-(<cite>calloc</cite> in C),</p></li>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">(c,</span> <span class="pre">s)</span></code> to define spherical harmonic coefficients based on
-two numpy floating point arrays <a class="reference internal" href="#pyharm.shc.Shc.c" title="pyharm.shc.Shc.c"><code class="xref py py-obj docutils literal notranslate"><span class="pre">c</span></code></a> and <a class="reference internal" href="#pyharm.shc.Shc.s" title="pyharm.shc.Shc.s"><code class="xref py py-obj docutils literal notranslate"><span class="pre">s</span></code></a>, each of
-shape <code class="xref py py-obj docutils literal notranslate"><span class="pre">(((nmax</span> <span class="pre">+</span> <span class="pre">2)</span> <span class="pre">*</span> <span class="pre">(nmax</span> <span class="pre">+</span> <span class="pre">1))</span> <span class="pre">//</span> <span class="pre">2,)</span></code>.  For ordering
-scheme of the coefficients in the <cite>c</cite> and <cite>s</cite> arrays,
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> to not initialize spherical harmonic coefficients
+(<code class="docutils literal notranslate"><span class="pre">malloc</span></code> in C),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code> to set all spherical harmonic coefficients to zero
+(<code class="docutils literal notranslate"><span class="pre">calloc</span></code> in C),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(c,</span> <span class="pre">s)</span></code> to define spherical harmonic coefficients based on
+two numpy floating point arrays <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code>, each of
+shape <code class="docutils literal notranslate"><span class="pre">(((nmax</span> <span class="pre">+</span> <span class="pre">2)</span> <span class="pre">*</span> <span class="pre">(nmax</span> <span class="pre">+</span> <span class="pre">1))</span> <span class="pre">//</span> <span class="pre">2,)</span></code>.  For ordering
+scheme of the coefficients in the <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> arrays,
 see the <a class="reference internal" href="#pyharm.shc.Shc.c" title="pyharm.shc.Shc.c"><code class="xref py py-attr docutils literal notranslate"><span class="pre">c</span></code></a> and <a class="reference internal" href="#pyharm.shc.Shc.s" title="pyharm.shc.Shc.s"><code class="xref py py-attr docutils literal notranslate"><span class="pre">s</span></code></a> properties.</p></li>
 </ul>
 </div></blockquote>
@@ -514,54 +547,55 @@ the <a class="reference internal" href="#pyharm.shc.Shc.rescale" title="pyharm.s
 </div>
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.shc.Shc.nmax">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nmax</span></span><a class="headerlink" href="#pyharm.shc.Shc.nmax" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nmax</span></span><a class="headerlink" href="#pyharm.shc.Shc.nmax" title="Link to this definition">#</a></dt>
 <dd><p>Maximum harmonic degree of the spherical harmonic coefficients.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.shc.Shc.mu">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mu</span></span><a class="headerlink" href="#pyharm.shc.Shc.mu" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mu</span></span><a class="headerlink" href="#pyharm.shc.Shc.mu" title="Link to this definition">#</a></dt>
 <dd><p>Scaling parameter <span class="math notranslate nohighlight">\(\mu\)</span> associated with the spherical
 harmonic coefficients, for instance, the geocentric gravitational
 constant. In case the coefficients are not associated with any scaling
 parameter (as it is, for instance, with planetary topographies), simply
-set this variable to <code class="xref py py-obj docutils literal notranslate"><span class="pre">1.0</span></code> (not to <code class="xref py py-obj docutils literal notranslate"><span class="pre">0.0</span></code>!).</p>
+set this variable to <code class="docutils literal notranslate"><span class="pre">1.0</span></code> (not to <code class="docutils literal notranslate"><span class="pre">0.0</span></code>!).</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.shc.Shc.r">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">r</span></span><a class="headerlink" href="#pyharm.shc.Shc.r" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">r</span></span><a class="headerlink" href="#pyharm.shc.Shc.r" title="Link to this definition">#</a></dt>
 <dd><p>Radius of the reference sphere <span class="math notranslate nohighlight">\(R\)</span>, to which the spherical
 harmonic coefficients refer (are scaled). The value must be greater
 than zero. To get the unit sphere, as needed, for instance, when
-working with planetary topographies, set this variable to <code class="xref py py-obj docutils literal notranslate"><span class="pre">1.0</span></code>.</p>
+working with planetary topographies, set this variable to <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.shc.Shc.c">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">c</span></span><a class="headerlink" href="#pyharm.shc.Shc.c" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">c</span></span><a class="headerlink" href="#pyharm.shc.Shc.c" title="Link to this definition">#</a></dt>
 <dd><p>The <span class="math notranslate nohighlight">\(\bar{C}_{nm}\)</span> spherical harmonic coefficients.  A numpy
 array with the shape (((<a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a> + 2) * (<a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a> + 1)) / 2,)
-and the array structure <cite>C0,0</cite>, <cite>C1,0</cite>, …, <cite>Cnmax,0</cite>, <cite>C1,1</cite>, <cite>C2,1</cite>,
-…, <cite>Cnmax,nmax</cite>.</p>
+and the array structure <span class="math notranslate nohighlight">\(\bar{C}_{00}\)</span>, <span class="math notranslate nohighlight">\(\bar{C}_{10}\)</span>,
+…, <span class="math notranslate nohighlight">\(\bar{C}_{\mathrm{nmax},0}\)</span>, <span class="math notranslate nohighlight">\(\bar{C}_{1,1}\)</span>, …,
+<span class="math notranslate nohighlight">\(\bar{C}_{\mathrm{nmax},\mathrm{nmax}}\)</span>.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.shc.Shc.s">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">s</span></span><a class="headerlink" href="#pyharm.shc.Shc.s" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">s</span></span><a class="headerlink" href="#pyharm.shc.Shc.s" title="Link to this definition">#</a></dt>
 <dd><p>The same as <a class="reference internal" href="#pyharm.shc.Shc.c" title="pyharm.shc.Shc.c"><code class="xref py py-attr docutils literal notranslate"><span class="pre">c</span></code></a> but for the <span class="math notranslate nohighlight">\(\bar{S}_{nm}\)</span> spherical
 harmonic coefficients.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.shc.Shc.owner">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">owner</span></span><a class="headerlink" href="#pyharm.shc.Shc.owner" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">owner</span></span><a class="headerlink" href="#pyharm.shc.Shc.owner" title="Link to this definition">#</a></dt>
 <dd><ul>
-<li><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code>, the memory associated with spherical harmonic
+<li><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the memory associated with spherical harmonic
 coefficients is owned by CHarm and therefore it is automatically
 deallocated by CHarm when the user deletes <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> class
 instances or when the instances get out of scope, etc.  The
-<a class="reference internal" href="#pyharm.shc.Shc.owner" title="pyharm.shc.Shc.owner"><code class="xref py py-attr docutils literal notranslate"><span class="pre">owner</span></code></a> attribute is <code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code> for <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> instances
+<a class="reference internal" href="#pyharm.shc.Shc.owner" title="pyharm.shc.Shc.owner"><code class="xref py py-attr docutils literal notranslate"><span class="pre">owner</span></code></a> attribute is <code class="docutils literal notranslate"><span class="pre">True</span></code> for <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> instances
 returned by all factory methods <em>except</em> for the <a class="reference internal" href="#pyharm.shc.Shc.from_arrays" title="pyharm.shc.Shc.from_arrays"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_arrays()</span></code></a>
 method.</p>
 <p><strong>Examples</strong></p>
@@ -572,7 +606,7 @@ method.</p>
 </pre></div>
 </div>
 </li>
-<li><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code>, neither CHarm nor PyHarm own the memory so neither
+<li><p>If <code class="docutils literal notranslate"><span class="pre">False</span></code>, neither CHarm nor PyHarm own the memory so neither
 CHarm nor PyHarm will ever deallocate it.  This is the case of
 <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> class instances returned by the <a class="reference internal" href="#pyharm.shc.Shc.from_arrays" title="pyharm.shc.Shc.from_arrays"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_arrays()</span></code></a>
 factory method.  This method builds <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> instances from
@@ -599,15 +633,15 @@ class instance is deleted or got out of scope, etc.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.shc.Shc.from_garbage">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_garbage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.from_garbage" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_garbage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.from_garbage" title="Link to this definition">#</a></dt>
 <dd><p>Returns an <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> class instance with uninitialized spherical
-harmonic coefficients (<cite>malloc</cite> in C).</p>
+harmonic coefficients (<code class="docutils literal notranslate"><span class="pre">malloc</span></code> in C).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum spherical harmonic degree</p></li>
-<li><p><strong>mu</strong> (<em>floating point</em>) – Scaling parameter, optional.  Default is <code class="xref py py-obj docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
-<li><p><strong>r</strong> (<em>floating point</em>) – Radius of the reference sphere, optional.  Default is <code class="xref py py-obj docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
+<li><p><strong>mu</strong> (<em>floating point</em>) – Scaling parameter, optional.  Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
+<li><p><strong>r</strong> (<em>floating point</em>) – Radius of the reference sphere, optional.  Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -621,15 +655,15 @@ harmonic coefficients (<cite>malloc</cite> in C).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.shc.Shc.from_zeros">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_zeros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.from_zeros" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_zeros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.from_zeros" title="Link to this definition">#</a></dt>
 <dd><p>Returns an <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> class instance with all spherical harmonic
-coefficients initialized to zero (<cite>calloc</cite> in C).</p>
+coefficients initialized to zero (<code class="docutils literal notranslate"><span class="pre">calloc</span></code> in C).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum spherical harmonic degree</p></li>
-<li><p><strong>mu</strong> (<em>floating point</em>) – Scaling parameter, optional.  Default is <code class="xref py py-obj docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
-<li><p><strong>r</strong> (<em>floating point</em>) – Radius of the reference sphere, optional.  Default is <code class="xref py py-obj docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
+<li><p><strong>mu</strong> (<em>floating point</em>) – Scaling parameter, optional.  Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
+<li><p><strong>r</strong> (<em>floating point</em>) – Radius of the reference sphere, optional.  Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -643,22 +677,22 @@ coefficients initialized to zero (<cite>calloc</cite> in C).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.shc.Shc.from_arrays">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.from_arrays" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.from_arrays" title="Link to this definition">#</a></dt>
 <dd><p>Returns an <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> class instance with spherical harmonic
-coefficients copied from the <cite>c</cite> and <cite>s</cite> input arrays.  The copy is
+coefficients copied from the <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> input arrays.  The copy is
 shallow, meaning that the <a class="reference internal" href="#pyharm.shc.Shc.c" title="pyharm.shc.Shc.c"><code class="xref py py-attr docutils literal notranslate"><span class="pre">c</span></code></a> and <a class="reference internal" href="#pyharm.shc.Shc.s" title="pyharm.shc.Shc.s"><code class="xref py py-attr docutils literal notranslate"><span class="pre">s</span></code></a> attributes of the
 returned <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> class instance share the memory space with the
-input <cite>c</cite> and <cite>s</cite> arrays.</p>
+input <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> arrays.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum spherical harmonic degree</p></li>
-<li><p><strong>c</strong> (<em>numpy array</em><em> of </em><em>floating points</em>) – Spherical harmonic coefficients <cite>Cnm</cite>.  For details on the
-structure of the array, see <a class="reference internal" href="#pyharm.shc.Shc.c" title="pyharm.shc.Shc.c"><code class="xref py py-attr docutils literal notranslate"><span class="pre">c</span></code></a>.</p></li>
-<li><p><strong>s</strong> (<em>numpy array</em><em> of </em><em>floating points</em>) – Spherical harmonic coefficients <cite>Snm</cite>.  For details on the
-structure of the array, see <a class="reference internal" href="#pyharm.shc.Shc.s" title="pyharm.shc.Shc.s"><code class="xref py py-attr docutils literal notranslate"><span class="pre">s</span></code></a>.</p></li>
-<li><p><strong>mu</strong> (<em>floating point</em>) – Scaling parameter, optional.  Default is <code class="xref py py-obj docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
-<li><p><strong>r</strong> (<em>floating point</em>) – Radius of the reference sphere, optional.  Default is <code class="xref py py-obj docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
+<li><p><strong>c</strong> (<em>numpy array</em><em> of </em><em>floating points</em>) – Spherical harmonic coefficients <span class="math notranslate nohighlight">\(\bar{C}_{nm}\)</span>.  For details
+on the structure of the array, see <a class="reference internal" href="#pyharm.shc.Shc.c" title="pyharm.shc.Shc.c"><code class="xref py py-attr docutils literal notranslate"><span class="pre">c</span></code></a>.</p></li>
+<li><p><strong>s</strong> (<em>numpy array</em><em> of </em><em>floating points</em>) – Spherical harmonic coefficients <span class="math notranslate nohighlight">\(\bar{S}_{nm}\)</span>.  For details
+on the structure of the array, see <a class="reference internal" href="#pyharm.shc.Shc.s" title="pyharm.shc.Shc.s"><code class="xref py py-attr docutils literal notranslate"><span class="pre">s</span></code></a>.</p></li>
+<li><p><strong>mu</strong> (<em>floating point</em>) – Scaling parameter, optional.  Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
+<li><p><strong>r</strong> (<em>floating point</em>) – Radius of the reference sphere, optional.  Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -672,14 +706,14 @@ structure of the array, see <a class="reference internal" href="#pyharm.shc.Shc.
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.shc.Shc.from_file">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.from_file" title="Permalink to this definition">#</a></dt>
-<dd><p>Reads spherical harmonic coefficients up to degree <cite>nmax</cite> from the
-<cite>pathname</cite> file of a given <cite>file_type</cite>.  For time variable models
-stored in the <cite>gfc</cite> file type, <cite>epoch</cite> additionally transforms the
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.from_file" title="Link to this definition">#</a></dt>
+<dd><p>Reads spherical harmonic coefficients up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code> from the
+<code class="docutils literal notranslate"><span class="pre">pathname</span></code> file of a given <code class="docutils literal notranslate"><span class="pre">file_type</span></code>.  For time variable models
+stored in the <code class="docutils literal notranslate"><span class="pre">gfc</span></code> file type, <code class="docutils literal notranslate"><span class="pre">epoch</span></code> additionally transforms the
 coefficients to a given epoch.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>To get the maximum harmonic degree stored in <cite>pathname</cite>, use
+<p>To get the maximum harmonic degree stored in <code class="docutils literal notranslate"><span class="pre">pathname</span></code>, use
 <a class="reference internal" href="#pyharm.shc.Shc.nmax_from_file" title="pyharm.shc.Shc.nmax_from_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">nmax_from_file()</span></code></a>.</p>
 </div>
 <div class="admonition tip">
@@ -697,11 +731,11 @@ coefficients to a given epoch.</p>
 <li><p><strong>file_type</strong> (<em>str</em>) – Type of the input file</p></li>
 <li><p><strong>pathname</strong> (<em>str</em>) – Input file path</p></li>
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree to read the spherical harmonic coefficients</p></li>
-<li><p><strong>epoch</strong> (<em>str</em>) – <p>Epoch, to which spherical harmonic coefficients from <cite>gfc</cite> file
+<li><p><strong>epoch</strong> (<em>str</em>) – <p>Epoch, to which spherical harmonic coefficients from <code class="docutils literal notranslate"><span class="pre">gfc</span></code> file
 types are transformed in case of time variable gravity field
 models; optional.  For the structure of the string, refer to
 <a class="reference external" href="./api-c-shc.html">charm_shc</a>.  This input parameter is used only
-if <cite>file_type</cite> is <cite>gfc</cite>.  Default value is <cite>None</cite>.</p>
+if <code class="docutils literal notranslate"><span class="pre">file_type</span></code> is <code class="docutils literal notranslate"><span class="pre">gfc</span></code>.  Default value is <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
 </p></li>
 </ul>
 </dd>
@@ -716,13 +750,13 @@ if <cite>file_type</cite> is <cite>gfc</cite>.  Default value is <cite>None</cit
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.shc.Shc.to_file">
-<span class="sig-name descname"><span class="pre">to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formatting</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'%0.16e'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.to_file" title="Permalink to this definition">#</a></dt>
-<dd><p>Writes an <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> class instance up to degree <cite>nmax</cite> to a file
-<cite>pathname</cite> of a given <cite>file_type</cite>.  If <cite>file_type</cite> represents a text
-file (<cite>dov</cite>, <cite>tbl</cite> or <cite>mtx</cite>), <cite>formatting</cite> specifies the formatting for
-all floating point numbers.  If <cite>file_type</cite> is <cite>dov</cite> or <cite>tbl</cite>,
-<cite>ordering</cite> defines the ordering of spherical harmonic coefficients in
-the output file.</p>
+<span class="sig-name descname"><span class="pre">to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formatting</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'%0.16e'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.to_file" title="Link to this definition">#</a></dt>
+<dd><p>Writes an <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> class instance up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code> to a file
+<code class="docutils literal notranslate"><span class="pre">pathname</span></code> of a given <code class="docutils literal notranslate"><span class="pre">file_type</span></code>.  If <code class="docutils literal notranslate"><span class="pre">file_type</span></code> represents
+a text file (<code class="docutils literal notranslate"><span class="pre">dov</span></code>, <code class="docutils literal notranslate"><span class="pre">tbl</span></code> or <code class="docutils literal notranslate"><span class="pre">mtx</span></code>), <code class="docutils literal notranslate"><span class="pre">formatting</span></code> specifies the
+formatting for all floating point numbers.  If <code class="docutils literal notranslate"><span class="pre">file_type</span></code> is <code class="docutils literal notranslate"><span class="pre">dov</span></code>
+or <code class="docutils literal notranslate"><span class="pre">tbl</span></code>, <code class="docutils literal notranslate"><span class="pre">ordering</span></code> defines the ordering of spherical harmonic
+coefficients in the output file.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>To print all supported file types, use <a class="reference internal" href="#pyharm.shc.Shc.get_file_types" title="pyharm.shc.Shc.get_file_types"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_file_types()</span></code></a>:</p>
@@ -739,9 +773,9 @@ the output file.</p>
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree to write the spherical harmonic coefficients</p></li>
 <li><p><strong>pathname</strong> (<em>str</em>) – Output file path</p></li>
 <li><p><strong>formatting</strong> (<em>str</em>) – Formatting to write floating point numbers to text formats,
-optional.  Default is <code class="xref py py-obj docutils literal notranslate"><span class="pre">'%0.16e'</span></code>.</p></li>
-<li><p><strong>ordering</strong> (<em>integer</em>) – Scheme to sort spherical harmonic coefficients when <cite>file_type</cite> is
-<cite>dov</cite> or <cite>tbl</cite>, optional.  Accepted values are
+optional.  Default is <code class="docutils literal notranslate"><span class="pre">'%0.16e'</span></code>.</p></li>
+<li><p><strong>ordering</strong> (<em>integer</em>) – Scheme to sort spherical harmonic coefficients when <code class="docutils literal notranslate"><span class="pre">file_type</span></code>
+is <code class="docutils literal notranslate"><span class="pre">dov</span></code> or <code class="docutils literal notranslate"><span class="pre">tbl</span></code>, optional.  Accepted values are
 <a class="reference internal" href="#pyharm.shc.WRITE_N" title="pyharm.shc.WRITE_N"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyharm.shc.WRITE_N</span></code></a> and <a class="reference internal" href="#pyharm.shc.WRITE_M" title="pyharm.shc.WRITE_M"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyharm.shc.WRITE_M</span></code></a>.  Default
 is <a class="reference internal" href="#pyharm.shc.WRITE_N" title="pyharm.shc.WRITE_N"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyharm.shc.WRITE_N</span></code></a>.</p></li>
 </ul>
@@ -751,16 +785,16 @@ is <a class="reference internal" href="#pyharm.shc.WRITE_N" title="pyharm.shc.WR
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.shc.Shc.get_file_types">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_file_types</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.get_file_types" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_file_types</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.get_file_types" title="Link to this definition">#</a></dt>
 <dd><p>Prints all file types supported by the <a class="reference internal" href="#pyharm.shc.Shc.to_file" title="pyharm.shc.Shc.to_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_file()</span></code></a> and
 <a class="reference internal" href="#pyharm.shc.Shc.from_file" title="pyharm.shc.Shc.from_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_file()</span></code></a> methods of the <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> class.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.shc.Shc.nmax_from_file">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nmax_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.nmax_from_file" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nmax_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.nmax_from_file" title="Link to this definition">#</a></dt>
 <dd><p>Returns the maximum harmonic degree of coefficients stored in
-the <cite>pathname</cite> file that is of a given <cite>file_type</cite>.</p>
+the <code class="docutils literal notranslate"><span class="pre">pathname</span></code> file that is of a given <code class="docutils literal notranslate"><span class="pre">file_type</span></code>.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Use this method to get the maximum degree of spherical
@@ -800,27 +834,30 @@ up to its maximum harmonic degree:</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.shc.Shc.get_coeffs">
-<span class="sig-name descname"><span class="pre">get_coeffs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.get_coeffs" title="Permalink to this definition">#</a></dt>
-<dd><p>Returns spherical harmonic coefficients <cite>Cnm</cite> and <cite>Snm</cite> of degree
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> and order <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code>.  If the returned variables are arrays,
-these are deep copies, meaning that the arrays have their own memory
-space.</p>
+<span class="sig-name descname"><span class="pre">get_coeffs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.get_coeffs" title="Link to this definition">#</a></dt>
+<dd><p>Returns spherical harmonic coefficients <span class="math notranslate nohighlight">\(\bar{C}_{nm}\)</span> and
+<span class="math notranslate nohighlight">\(\bar{S}_{nm}\)</span> of degree <code class="docutils literal notranslate"><span class="pre">n</span></code> and order <code class="docutils literal notranslate"><span class="pre">m</span></code>.  If the returned
+variables are arrays, these are deep copies, meaning that the arrays
+have their own memory space.</p>
 <p>The behaviour of the method depends on the type of the input variables
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">n</span></code> and <code class="docutils literal notranslate"><span class="pre">m</span></code>.</p>
 <ul class="simple">
-<li><p>If both <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> are integers, returned are two
-spherical harmonic coefficients <cite>Cnm</cite> and <cite>Snm</cite>, each of degree <cite>n</cite>
-and order <cite>m</cite>.  The two returned values are floating points.</p></li>
-<li><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> is integer and <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> is <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, returned are
-two arrays of spherical harmonic coefficients <cite>Cnm</cite> and <cite>Snm</cite> of
-degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> and all corresponding orders <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">n</span></code>.</p></li>
-<li><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> is <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> is integer, returned are two
-arrays of spherical harmonic coefficients <cite>Cnm</cite> and <cite>Snm</cite> of order
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> and all corresponding degrees <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">m,</span> <span class="pre">m</span> <span class="pre">+</span> <span class="pre">1,</span> <span class="pre">...,</span>
-<span class="pre">self.nmax</span></code>.</p></li>
-<li><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> are lists of equal size, returned are two
-arrays of spherical harmonic coefficients <cite>Cnm</cite> and <cite>Snm</cite> of degrees
-taken from the <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> list and orders taken from the <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> list.</p></li>
+<li><p>If both <code class="docutils literal notranslate"><span class="pre">n</span></code> and <code class="docutils literal notranslate"><span class="pre">m</span></code> are integers, returned are two
+spherical harmonic coefficients <span class="math notranslate nohighlight">\(\bar{C}_{nm}\)</span> and
+<span class="math notranslate nohighlight">\(\bar{S}_{nm}\)</span>, each of degree <code class="docutils literal notranslate"><span class="pre">n</span></code> and order <code class="docutils literal notranslate"><span class="pre">m</span></code>.  The two
+returned values are floating points.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">n</span></code> is integer and <code class="docutils literal notranslate"><span class="pre">m</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, returned are
+two arrays of spherical harmonic coefficients
+<span class="math notranslate nohighlight">\(\bar{C}_{nm}\)</span> and <span class="math notranslate nohighlight">\(\bar{S}_{nm}\)</span> of degree
+<code class="docutils literal notranslate"><span class="pre">n</span></code> and all corresponding orders <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">n</span></code>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">n</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code> and <code class="docutils literal notranslate"><span class="pre">m</span></code> is integer, returned are two arrays of
+spherical harmonic coefficients <span class="math notranslate nohighlight">\(\bar{C}_{nm}\)</span> and
+<span class="math notranslate nohighlight">\(\bar{S}_{nm}\)</span> of order <code class="docutils literal notranslate"><span class="pre">m</span></code> and all corresponding
+degrees <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">m,</span> <span class="pre">m</span> <span class="pre">+</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">self.nmax</span></code>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">n</span></code> and <code class="docutils literal notranslate"><span class="pre">m</span></code> are lists of equal size, returned are two
+arrays of spherical harmonic coefficients <span class="math notranslate nohighlight">\(\bar{C}_{nm}\)</span>
+and <span class="math notranslate nohighlight">\(\bar{S}_{nm}\)</span> of degrees taken from the <code class="docutils literal notranslate"><span class="pre">n</span></code> list
+and orders taken from the <code class="docutils literal notranslate"><span class="pre">m</span></code> list.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -855,8 +892,9 @@ copies of the original spherical harmonic coefficients.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
-<li><p><strong>c</strong> (<em>floating point, numpy array of floating points</em>) – Spherical harmonic coefficient(s) <cite>Cnm</cite> of degree <cite>n</cite> and order <cite>m</cite></p></li>
-<li><p><strong>s</strong> (<em>floating point, numpy array of floating points</em>) – The same as <cite>c</cite> but with the <cite>Snm</cite> coefficient(s)</p></li>
+<li><p><strong>c</strong> (<em>floating point, numpy array of floating points</em>) – Spherical harmonic coefficient(s) <span class="math notranslate nohighlight">\(\bar{C}_{nm}\)</span> of degree
+<code class="docutils literal notranslate"><span class="pre">n</span></code> and order <code class="docutils literal notranslate"><span class="pre">m</span></code></p></li>
+<li><p><strong>s</strong> (<em>floating point, numpy array of floating points</em>) – The same as <code class="docutils literal notranslate"><span class="pre">c</span></code> but with the <span class="math notranslate nohighlight">\(\bar{S}_{nm}\)</span> coefficient(s)</p></li>
 </ul>
 </p>
 </dd>
@@ -865,34 +903,35 @@ copies of the original spherical harmonic coefficients.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.shc.Shc.set_coeffs">
-<span class="sig-name descname"><span class="pre">set_coeffs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.set_coeffs" title="Permalink to this definition">#</a></dt>
-<dd><p>Sets spherical harmonic coefficients <cite>Cnm</cite> and <cite>Snm</cite> of degree <cite>n</cite> and
-order <cite>m</cite> to the values of <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code>, respectively.</p>
+<span class="sig-name descname"><span class="pre">set_coeffs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.set_coeffs" title="Link to this definition">#</a></dt>
+<dd><p>Sets spherical harmonic coefficients <span class="math notranslate nohighlight">\(\bar{C}_{nm}\)</span> and
+<span class="math notranslate nohighlight">\(\bar{S}_{nm}\)</span> of degree <code class="docutils literal notranslate"><span class="pre">n</span></code> and order <code class="docutils literal notranslate"><span class="pre">m</span></code> to the values of
+<code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code>, respectively.</p>
 <ul class="simple">
-<li><p>If both <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> are integers, sets the spherical
-harmonic coefficients <cite>Cnm</cite> and/or <cite>Snm</cite> to the input parameters
-<code class="docutils literal notranslate"><span class="pre">c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">s</span></code>, respectively.  <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> must be floating
-point scalars.</p></li>
-<li><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> is integer and <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> is <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, sets spherical
-harmonic coefficients of degree <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> and all corresponding
-harmonic orders <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">n</span></code> to the input parameters <code class="docutils literal notranslate"><span class="pre">c</span></code>
+<li><p>If both <code class="docutils literal notranslate"><span class="pre">n</span></code> and <code class="docutils literal notranslate"><span class="pre">m</span></code> are integers, sets the spherical
+harmonic coefficients <span class="math notranslate nohighlight">\(\bar{C}_{nm}\)</span> and/or
+<span class="math notranslate nohighlight">\(\bar{S}_{nm}\)</span> to the input parameters <code class="docutils literal notranslate"><span class="pre">c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">s</span></code>,
+respectively.  <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> must be floating point scalars.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">n</span></code> is integer and <code class="docutils literal notranslate"><span class="pre">m</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, sets spherical
+harmonic coefficients of degree <code class="docutils literal notranslate"><span class="pre">n</span></code> and all corresponding
+harmonic orders <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">n</span></code> to the input parameters <code class="docutils literal notranslate"><span class="pre">c</span></code>
 and/or <code class="docutils literal notranslate"><span class="pre">s</span></code>.  <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> must be numpy floating point arrays of
-shapes <code class="xref py py-obj docutils literal notranslate"><span class="pre">(n</span> <span class="pre">+</span> <span class="pre">1,)</span></code>.</p></li>
-<li><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> is <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> is integer, sets spherical
-harmonic coefficients of order <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> and all corresponding
-harmonic degrees <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">m,</span> <span class="pre">m</span> <span class="pre">+</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">self.nmax</span></code> to the input
+shapes <code class="docutils literal notranslate"><span class="pre">(n</span> <span class="pre">+</span> <span class="pre">1,)</span></code>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">n</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code> and <code class="docutils literal notranslate"><span class="pre">m</span></code> is integer, sets spherical
+harmonic coefficients of order <code class="docutils literal notranslate"><span class="pre">m</span></code> and all corresponding
+harmonic degrees <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">m,</span> <span class="pre">m</span> <span class="pre">+</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">self.nmax</span></code> to the input
 parameters <code class="docutils literal notranslate"><span class="pre">c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">s</span></code>.  <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> must be numpy
-floating point arrays of shapes <code class="xref py py-obj docutils literal notranslate"><span class="pre">(self.nmax</span> <span class="pre">+</span> <span class="pre">1</span> <span class="pre">-</span> <span class="pre">m,)</span></code>.</p></li>
-<li><p>If <code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> are lists of equal size, sets spherical
+floating point arrays of shapes <code class="docutils literal notranslate"><span class="pre">(self.nmax</span> <span class="pre">+</span> <span class="pre">1</span> <span class="pre">-</span> <span class="pre">m,)</span></code>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">n</span></code> and <code class="docutils literal notranslate"><span class="pre">m</span></code> are lists of equal size, sets spherical
 spherical harmonic coefficients of degrees and orders taken from the
-<code class="xref py py-obj docutils literal notranslate"><span class="pre">n</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> lists, respectively, to the corresponding
+<code class="docutils literal notranslate"><span class="pre">n</span></code> and <code class="docutils literal notranslate"><span class="pre">m</span></code> lists, respectively, to the corresponding
 values taken from the input parameters <code class="docutils literal notranslate"><span class="pre">c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">s</span></code>.  The
 length of the input parameters must match.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If the object’s <a class="reference internal" href="#pyharm.shc.Shc.owner" title="pyharm.shc.Shc.owner"><code class="xref py py-obj docutils literal notranslate"><span class="pre">owner</span></code></a> attribute is <code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code>, the copy of the
-new coefficients is deep.  If <a class="reference internal" href="#pyharm.shc.Shc.owner" title="pyharm.shc.Shc.owner"><code class="xref py py-obj docutils literal notranslate"><span class="pre">owner</span></code></a> is <code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code>, the copy is
+<p>If the object’s <a class="reference internal" href="#pyharm.shc.Shc.owner" title="pyharm.shc.Shc.owner"><code class="xref py py-obj docutils literal notranslate"><span class="pre">owner</span></code></a> attribute is <code class="docutils literal notranslate"><span class="pre">True</span></code>, the copy of the
+new coefficients is deep.  If <a class="reference internal" href="#pyharm.shc.Shc.owner" title="pyharm.shc.Shc.owner"><code class="xref py py-obj docutils literal notranslate"><span class="pre">owner</span></code></a> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, the copy is
 shallow.</p>
 </div>
 <p class="rubric">Examples</p>
@@ -925,8 +964,8 @@ shallow.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>n</strong> (<em>integer</em><em>, </em><em>list</em><em> of </em><em>integers</em><em>, </em><em>None</em>) – Spherical harmonic degree, optional.</p></li>
 <li><p><strong>m</strong> (<em>integer</em><em>, </em><em>list</em><em> of </em><em>integers</em><em>, </em><em>None</em>) – Spherical harmonic order, optional.</p></li>
-<li><p><strong>c</strong> (<em>floating point</em><em>, </em><em>numpy array</em><em> of </em><em>floating points</em><em>, </em><em>None</em>) – Spherical harmonic coefficient(s) <cite>Cnm</cite>, optional.</p></li>
-<li><p><strong>s</strong> (<em>floating point</em><em>, </em><em>numpy array</em><em> of </em><em>floating points</em><em>, </em><em>None</em>) – Spherical harmonic coefficient(s) <cite>Snm</cite>, optional.</p></li>
+<li><p><strong>c</strong> (<em>floating point</em><em>, </em><em>numpy array</em><em> of </em><em>floating points</em><em>, </em><em>None</em>) – Spherical harmonic coefficient(s) <span class="math notranslate nohighlight">\(\bar{C}_{nm}\)</span>, optional.</p></li>
+<li><p><strong>s</strong> (<em>floating point</em><em>, </em><em>numpy array</em><em> of </em><em>floating points</em><em>, </em><em>None</em>) – Spherical harmonic coefficient(s) <span class="math notranslate nohighlight">\(\bar{S}_{nm}\)</span>, optional.</p></li>
 </ul>
 </dd>
 </dl>
@@ -934,7 +973,7 @@ shallow.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.shc.Shc.get_degrees_orders">
-<span class="sig-name descname"><span class="pre">get_degrees_orders</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.get_degrees_orders" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_degrees_orders</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.get_degrees_orders" title="Link to this definition">#</a></dt>
 <dd><p>Returns arrays of spherical harmonic degrees and orders matching the
 spherical harmonic coefficients stored in <a class="reference internal" href="#pyharm.shc.Shc.c" title="pyharm.shc.Shc.c"><code class="xref py py-obj docutils literal notranslate"><span class="pre">c</span></code></a> and <a class="reference internal" href="#pyharm.shc.Shc.s" title="pyharm.shc.Shc.s"><code class="xref py py-obj docutils literal notranslate"><span class="pre">s</span></code></a>.</p>
 <dl class="field-list simple">
@@ -952,9 +991,9 @@ spherical harmonic coefficients stored in <a class="reference internal" href="#p
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.shc.Shc.rescale">
-<span class="sig-name descname"><span class="pre">rescale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.rescale" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rescale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.rescale" title="Link to this definition">#</a></dt>
 <dd><p>Rescales spherical harmonic coefficients to a new scaling parameter
-<cite>mu</cite> and/or a new radius of the reference sphere <cite>r</cite>.</p>
+<code class="docutils literal notranslate"><span class="pre">mu</span></code> and/or a new radius of the reference sphere <code class="docutils literal notranslate"><span class="pre">r</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -969,12 +1008,13 @@ attribute is not changed.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.shc.Shc.dv">
-<span class="sig-name descname"><span class="pre">dv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.dv" title="Permalink to this definition">#</a></dt>
-<dd><p>Computes degree variances up to degree <cite>nmax</cite>.</p>
+<span class="sig-name descname"><span class="pre">dv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.dv" title="Link to this definition">#</a></dt>
+<dd><p>Computes degree variances up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>nmax</strong> (<em>integer</em>) – Maximum spherical harmonic degree to compute the degree variances,
-optional.  If not provided, it will be set to <a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a>.</p>
+optional.  If not provided, it will be set to the object’s
+<a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a>.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>out</strong> – A numpy floating point array with the degree variances</p>
@@ -987,12 +1027,12 @@ optional.  If not provided, it will be set to <a class="reference internal" href
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.shc.Shc.da">
-<span class="sig-name descname"><span class="pre">da</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.da" title="Permalink to this definition">#</a></dt>
-<dd><p>Computes degree amplitudes up to degree <cite>nmax</cite>.</p>
+<span class="sig-name descname"><span class="pre">da</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.da" title="Link to this definition">#</a></dt>
+<dd><p>Computes degree amplitudes up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>nmax</strong> (<em>integer</em>) – Maximum spherical harmonic degree to compute the degree amplitudes,
-optional.  If not provided, it will be set to <cite>self.nmax</cite>.</p>
+optional.  If not provided, it will be set to <code class="docutils literal notranslate"><span class="pre">self.nmax</span></code>.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>out</strong> – A numpy floating point array with the degree amplitudes</p>
@@ -1005,16 +1045,16 @@ optional.  If not provided, it will be set to <cite>self.nmax</cite>.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.shc.Shc.ddv">
-<span class="sig-name descname"><span class="pre">ddv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shcs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.ddv" title="Permalink to this definition">#</a></dt>
-<dd><p>Computes difference degree variances with respect to <cite>shcs</cite>  up to
-degree <cite>nmax</cite>.</p>
+<span class="sig-name descname"><span class="pre">ddv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shcs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.ddv" title="Link to this definition">#</a></dt>
+<dd><p>Computes difference degree variances with respect to <code class="docutils literal notranslate"><span class="pre">shcs</span></code>  up to
+degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>shcs</strong> (<a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><em>Shc</em></a>) – An instance of the <cite>Shc</cite> class.</p></li>
+<li><p><strong>shcs</strong> (<a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><em>Shc</em></a>) – An instance of the <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Shc</span></code></a> class.</p></li>
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum spherical harmonic degree to compute the degree variances,
-optional.  If not provided, <cite>nmax</cite> is set to the smallest of
-<code class="xref py py-attr docutils literal notranslate"><span class="pre">self.nmax</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">shcs.nmax</span></code>.</p></li>
+optional.  If not provided, <code class="docutils literal notranslate"><span class="pre">nmax</span></code> is set to the smallest of
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">self.nmax</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs.nmax</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1028,16 +1068,16 @@ optional.  If not provided, <cite>nmax</cite> is set to the smallest of
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.shc.Shc.dda">
-<span class="sig-name descname"><span class="pre">dda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shcs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.dda" title="Permalink to this definition">#</a></dt>
-<dd><p>Computes difference degree amplitudes with respect to <cite>shcs</cite> up to
-degree <cite>nmax</cite>.</p>
+<span class="sig-name descname"><span class="pre">dda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shcs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.dda" title="Link to this definition">#</a></dt>
+<dd><p>Computes difference degree amplitudes with respect to <code class="docutils literal notranslate"><span class="pre">shcs</span></code> up to
+degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>shcs</strong> (<a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><em>Shc</em></a>) – An instance of the <cite>Shc</cite> class.</p></li>
+<li><p><strong>shcs</strong> (<a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><em>Shc</em></a>) – An instance of the <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Shc</span></code></a> class.</p></li>
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum spherical harmonic degree to compute the degree amplitudes,
-optional.  If not provided, <cite>nmax</cite> is set to the smallest of
-<cite>self.nmax</cite> and <cite>shcs.nmax</cite>.</p></li>
+optional.  If not provided, <code class="docutils literal notranslate"><span class="pre">nmax</span></code> is set to the smallest of
+<code class="docutils literal notranslate"><span class="pre">self.nmax</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs.nmax</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1059,11 +1099,10 @@ optional.  If not provided, <cite>nmax</cite> is set to the smallest of
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="api-py.html"
@@ -1083,10 +1122,7 @@ optional.  If not provided, <cite>nmax</cite> is set to the smallest of
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -1094,6 +1130,7 @@ optional.  If not provided, <cite>nmax</cite> is set to the smallest of
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -1148,6 +1185,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2024, Blažej Bucha.
@@ -1159,7 +1197,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Feb 08, 2024.
+  Last updated on Jul 02, 2024.
   <br/>
 </p>
   </div>
@@ -1177,8 +1215,8 @@ By Blažej Bucha
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
 
   <footer class="bd-footer">
   </footer>

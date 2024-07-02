@@ -107,12 +107,11 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 LTLIBRARIES = $(noinst_LTLIBRARIES)
-libcharm@P@_err@OMP@_la_LIBADD =
-am_libcharm@P@_err@OMP@_la_OBJECTS = err_init.lo err_free.lo \
-	err_reset.lo err_set.lo err_handler.lo err_isempty.lo \
-	err_propagate.lo err_inc_level.lo
-libcharm@P@_err@OMP@_la_OBJECTS =  \
-	$(am_libcharm@P@_err@OMP@_la_OBJECTS)
+libcharm@P@_err_la_LIBADD =
+am_libcharm@P@_err_la_OBJECTS = err_init.lo err_free.lo err_reset.lo \
+	err_set.lo err_handler.lo err_isempty.lo err_propagate.lo \
+	err_inc_level.lo
+libcharm@P@_err_la_OBJECTS = $(am_libcharm@P@_err_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
@@ -156,8 +155,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libcharm@P@_err@OMP@_la_SOURCES)
-DIST_SOURCES = $(libcharm@P@_err@OMP@_la_SOURCES)
+SOURCES = $(libcharm@P@_err_la_SOURCES)
+DIST_SOURCES = $(libcharm@P@_err_la_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -170,6 +169,7 @@ ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
 AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
 AR = @AR@
+AS = @AS@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
@@ -226,7 +226,6 @@ NP_FLOAT = @NP_FLOAT@
 OBJDIR = @OBJDIR@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
-OMP = @OMP@
 OPENMP_CFLAGS = @OPENMP_CFLAGS@
 OTOOL = @OTOOL@
 OTOOL64 = @OTOOL64@
@@ -311,16 +310,16 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-noinst_LTLIBRARIES = libcharm@P@_err@OMP@.la
+noinst_LTLIBRARIES = libcharm@P@_err.la
 AM_CPPFLAGS = -I$(top_srcdir)/charm
-libcharm@P@_err@OMP@_la_SOURCES = err_init.c \
-								  err_free.c \
-								  err_reset.c \
-								  err_set.c \
-								  err_handler.c \
-								  err_isempty.c \
-								  err_propagate.c \
-								  err_inc_level.c
+libcharm@P@_err_la_SOURCES = err_init.c \
+							 err_free.c \
+							 err_reset.c \
+							 err_set.c \
+							 err_handler.c \
+							 err_isempty.c \
+							 err_propagate.c \
+							 err_inc_level.c
 
 EXTRA_DIST = *.h
 all: all-am
@@ -368,8 +367,8 @@ clean-noinstLTLIBRARIES:
 	  rm -f $${locs}; \
 	}
 
-libcharm@P@_err@OMP@.la: $(libcharm@P@_err@OMP@_la_OBJECTS) $(libcharm@P@_err@OMP@_la_DEPENDENCIES) $(EXTRA_libcharm@P@_err@OMP@_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(LINK)  $(libcharm@P@_err@OMP@_la_OBJECTS) $(libcharm@P@_err@OMP@_la_LIBADD) $(LIBS)
+libcharm@P@_err.la: $(libcharm@P@_err_la_OBJECTS) $(libcharm@P@_err_la_DEPENDENCIES) $(EXTRA_libcharm@P@_err_la_DEPENDENCIES) 
+	$(AM_V_CCLD)$(LINK)  $(libcharm@P@_err_la_OBJECTS) $(libcharm@P@_err_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

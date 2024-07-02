@@ -40,14 +40,27 @@ AC_PROG_CC
 AC_PROG_CPP
 AC_LANG(C)
 AC_PROG_CC_C_O
-if test "$ac_cv_prog_cc_c99" = "no" ; then
-    AC_MSG_ERROR([couldn't set $CC to accept C99])
-fi
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AX_COMPILER_VENDOR
-LT_INIT
+LT_INIT([win32-dll])
+dnl ===========================================================================
+
+
+
+
+
+
+dnl Check for the C99 support
+dnl ===========================================================================
+dnl Microsoft's MSVC compiler doesn't seem to support C99.  So we do no check
+dnl in this case and hope for the best.
+if test "$ax_cv_c_compiler_vendor" != "microsoft"; then
+    if test "$ac_cv_prog_cc_c99" = "no" ; then
+        AC_MSG_ERROR([couldn't set $CC to accept C99])
+    fi
+fi
 dnl ===========================================================================
 
 
@@ -68,7 +81,11 @@ dnl ===========================================================================
 
 dnl Checks for libraries
 dnl ===========================================================================
-AC_CHECK_LIB([m], [sin], [], [AC_MSG_ERROR([libm not found])])
+dnl Check the "math" library if not using MSVC, which apparently links this
+dnl library automatically
+if test "$ax_cv_c_compiler_vendor" != "microsoft"; then
+    AC_CHECK_LIB([m], [sin], [], [AC_MSG_ERROR([libm not found])])
+fi
 
 
 dnl On some older systems, librt needs to be linked separatelly
@@ -140,6 +157,7 @@ if test "$sp" = "yes"; then
 
     AC_MSG_NOTICE([compiling in single precision])
     AC_CHECK_LIB([fftw3f], [fftwf_malloc], [], [AC_MSG_ERROR([libfftw3f not found])])
+    AC_CHECK_LIB([fftw3], [fftwf_version], [AC_DEFINE([HAVE_FFTW_VERSION], [1], [Define to 1 if fftwf_version is available in the fftw3f lib.])], [])
     AC_DEFINE([CHARM_FLOAT], [1], [Define to 1 to compile in single precision.])
     AC_SUBST([PC], [F])
     AC_SUBST([P], [f])
@@ -156,6 +174,7 @@ if test "$dp" = "yes"; then
 
     AC_MSG_NOTICE([compiling in double precision])
     AC_CHECK_LIB([fftw3], [fftw_malloc], [], [AC_MSG_ERROR([libfftw3 not found])])
+    AC_CHECK_LIB([fftw3], [fftw_version], [AC_DEFINE([HAVE_FFTW_VERSION], [1], [Define to 1 if fftw_version is available in the fftw3 lib.])], [])
     AC_SUBST([PC], [])
     AC_SUBST([P], [])
     AC_SUBST([RDT], [double])
@@ -185,6 +204,7 @@ if test "$qp" = "yes"; then
     AC_MSG_NOTICE([compiling in quadruple precision])
     AC_CHECK_LIB([quadmath], [sinq], [], [AC_MSG_ERROR([libquadmath not found])])
     AC_CHECK_LIB([fftw3q], [fftwq_malloc], [], [AC_MSG_ERROR([libfftw3q not found])])
+    AC_CHECK_LIB([fftw3], [fftwq_version], [AC_DEFINE([HAVE_FFTW_VERSION], [1], [Define to 1 if fftwq_version is available in the fftw3q lib.])], [])
     AC_CHECK_HEADER([quadmath.h], [], [AC_MSG_ERROR([quadmath.h not found])])
     AC_DEFINE([CHARM_QUAD], [1], [Define to 1 to compile in quadruple precision.])
     AC_SUBST([PC], [Q])
@@ -210,7 +230,7 @@ if test "$qp" = "yes"; then
 fi
 
 
-if test "$math_isfinite" != "no" ; then
+if test "$math_isfinite" != "no"; then
    AC_DEFINE(HAVE_ISFINITE, [1], [Define to 1 if you have the isfinite macro defined in the <math.h> header file.])
 fi
 AC_MSG_NOTICE([isfinite macro in math.h found and works correctly... $math_isfinite])
@@ -248,56 +268,78 @@ if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes"; then
 fi
 
 
+dnl ---------------------------------------------------------------------------
+simd_flag1="no"
+simd_flag2="no"
+
+
 dnl --enable-avx
-dnl ---------------------------------------------------------------------------
 if test "$avx" = "yes"; then
-
     AC_MSG_NOTICE([compiling with AVX instructions enabled])
-    AC_DEFINE([HAVE_AVX_INSTRUCTIONS], [1], [Define to 1 to enable avx instructions])
-    AX_CHECK_COMPILE_FLAG([-mavx], [CFLAGS_SIMD="-mavx"], [AC_MSG_ERROR([unrecognized -mavx compiler flag.  Try using the gcc compiler.])])
-
+    AC_DEFINE([HAVE_AVX], [1], [Define to 1 to enable avx instructions])
+    if test "$ax_cv_c_compiler_vendor" = "microsoft"; then
+        simd_flag1=/arch:AVX
+    else
+        simd_flag1=-mavx
+    fi
 fi
-dnl ---------------------------------------------------------------------------
 
 
 dnl --enable-avx2
-dnl ---------------------------------------------------------------------------
 if test "$avx2" = "yes"; then
-
     AC_MSG_NOTICE([compiling with AVX2 instructions enabled])
-    AC_DEFINE([HAVE_AVX2_INSTRUCTIONS], [1], [Define to 1 to enable avx2 instructions])
-    AX_CHECK_COMPILE_FLAG([-mavx2], [CFLAGS_SIMD="-mavx2"], [AC_MSG_ERROR([unrecognized -mavx2 compiler flag.  Try using the gcc compiler.])])
-
+    AC_DEFINE([HAVE_AVX2], [1], [Define to 1 to enable avx2 instructions])
+    if test "$ax_cv_c_compiler_vendor" = "microsoft"; then
+        simd_flag1=/arch:AVX2
+    else
+        simd_flag1=-mavx2
+    fi
 fi
-dnl ---------------------------------------------------------------------------
 
 
 dnl --enable-avx-512
-dnl ---------------------------------------------------------------------------
 if test "$avx512" = "yes"; then
-
     AC_MSG_NOTICE([compiling with AVX-512 instructions enabled])
-    AC_DEFINE([HAVE_AVX512F_INSTRUCTIONS], [1], [Define to 1 to enable avx512f instructions])
-    AX_CHECK_COMPILE_FLAG([-mavx512f], [CFLAGS_SIMD="-mavx512f"], [AC_MSG_ERROR([unrecognized -mavx512f compiler flag.  Try using the gcc compiler.])])
-    AX_CHECK_COMPILE_FLAG([-mavx512dq], [CFLAGS_SIMD="-mavx512dq"], [AC_MSG_ERROR([unrecognized -mavx512dq compiler flag.  Try using the gcc compiler.])])
-
+    AC_DEFINE([HAVE_AVX512F], [1], [Define to 1 to enable avx512f instructions])
+    if test "$ax_cv_c_compiler_vendor" = "microsoft"; then
+        simd_flag1=/arch:AVX512
+    else
+        simd_flag1=-mavx512f
+        simd_flag2=-mavx512dq
+    fi
 fi
 dnl ---------------------------------------------------------------------------
 
 
 if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes"; then
 
-    AC_CHECK_FUNCS([posix_memalign], [have_posix_memalign=yes], [have_posix_memalign=no])
-    AC_CHECK_FUNCS([aligned_alloc], [have_aligned_alloc=yes], [have_aligned_alloc=no])
-    AC_CHECK_HEADER([mm_malloc.h], [AC_DEFINE([HAVE_MM_MALLOC_H], [1], [Define to 1 if you have the <mm_malloc.h> header file.])], [have_mm_malloc_h=no])
+    AX_CHECK_COMPILE_FLAG([$simd_flag1], [CFLAGS_SIMD="$simd_flag1"], [AC_MSG_ERROR([unrecognized $simd_flag1 compiler flag.  Try using the gcc compiler.])])
+    if test "$simd_flag2" != "no"; then
+        AX_CHECK_COMPILE_FLAG([$simd_flag2], [CFLAGS_SIMD="$CFLAGS_SIMD $simd_flag2"], [AC_MSG_ERROR([unrecognized $simd_flag2 compiler flag.  Try using the gcc compiler.])])
+    fi
+
+    have_posix_memalign=no
+    have_aligned_alloc=no
+    have_mm_malloc_h=no
+    have__aligned_malloc=no
+    if test "$ax_cv_c_compiler_vendor" = "microsoft"; then
+        AC_CHECK_FUNCS([_aligned_malloc], [have__aligned_malloc=yes], [have__aligned_malloc=no])
+    else
+        AC_CHECK_FUNCS([posix_memalign], [have_posix_memalign=yes], [have_posix_memalign=no])
+        AC_CHECK_FUNCS([aligned_alloc], [have_aligned_alloc=yes], [have_aligned_alloc=no])
+        AC_CHECK_HEADER([mm_malloc.h], [AC_DEFINE([HAVE_MM_MALLOC_H], [1], [Define to 1 if you have the <mm_malloc.h> header file.])], [have_mm_malloc_h=no])
+    fi
 
 
-    if test "$have_posix_memalign" = "no" -a "$have_aligned_alloc" = "no" -a "$have_mm_malloc_h" = "no"; then
+    if test "$have_posix_memalign" = "no" -a "$have_aligned_alloc" = "no" -a "$have_mm_malloc_h" = "no" -a "$have__aligned_malloc" = "no"; then
         AC_MSG_ERROR([couldn't find any system function to allocate an aligned block of memory.  Try to compile with SIMD instructions disabled.])
     fi
 
 
     AC_CHECK_HEADER([immintrin.h], [], [AC_MSG_ERROR([immintrin.h not found])])
+    if test "$ax_cv_c_compiler_vendor" = "microsoft"; then
+        AC_CHECK_HEADER([malloc.h], [], [AC_MSG_ERROR([malloc.h not found])])
+    fi
 
 
     CFLAGS="$CFLAGS $CFLAGS_SIMD"
@@ -333,6 +375,11 @@ if test "$enable_openmp" = "yes"; then
     AC_OPENMP
     AX_OPENMP([], [AC_MSG_ERROR([couldn't enable OpenMP parallelization])])
     CFLAGS="$CFLAGS $OPENMP_CFLAGS"
+    if test "$ax_cv_c_compiler_vendor" = "microsoft"; then
+        dnl Without "/openmp:llvm", the Microsoft's MSVC compiler does not
+        dnl accept data type other than "int" as the main loop variable
+        CFLAGS="$CFLAGS /openmp:llvm"
+    fi
 
 
     AC_DEFINE([CHARM_OPENMP], [1], [Define to 1 to parallelize CHarm using OpenMP.])
@@ -350,13 +397,11 @@ if test "$enable_openmp" = "yes"; then
     fi
 
 
-    AC_SUBST([OMP], [_omp])
-    AC_SUBST([CHARM_LIB], [-lcharm$P$OMP])
+    AC_SUBST([CHARM_LIB], [-lcharm])
 else
     AC_MSG_NOTICE([compiling with OpenMP parallelization disabled])
 
 
-    AC_SUBST([OMP], [])
     AC_SUBST([CHARM_LIB], [-lcharm$P])
 fi
 
@@ -441,13 +486,34 @@ dnl ===========================================================================
 
 
 
+dnl Fix bugs in MSVC
+dnl ===========================================================================
+AC_ARG_ENABLE([msvc-underscore-patch], [AS_HELP_STRING([--enable-msvc-underscore-patch], [enable on Windows if MSVC throws the "'fftw__complex': undeclared identifier" error on compilation; this is a bug in MSVC, which evidently cannot properly expand a valid C macro [default=no]])], msvc_underscore_patch=$enableval, msvc_underscore_patch=no)
+if test "$msvc_underscore_patch" == "yes"; then
+    AC_MSG_NOTICE([patching the MSVC underscore bug enabled])
+    AC_DEFINE(MSVC_UNDERSCORE_PATCH, [1], [Define to 1 to patch the MSVC underscore bug on Windows])
+fi
+dnl ===========================================================================
+
+
+
+
+
+
 dnl Export some useful user-defined options from the "./configure" call into
 dnl "config.h".
 dnl ===========================================================================
 AC_DEFINE_UNQUOTED(_CHARM_CC,["$CC"],[Used compiler.])
 AC_DEFINE_UNQUOTED(_CHARM_CFLAGS,["$CFLAGS"],[CFLAGS used to compile CHarm.])
-AC_DEFINE_UNQUOTED(_CHARM_CPPFLAGS,["$CPPFLAGS"],[CPPFLAGS used to compile CHarm.])
-AC_DEFINE_UNQUOTED(_CHARM_LDFLAGS,["$LDFLAGS"],[LDFLAGS used to compile CHarm.])
+dnl "CPPFLAGS" and "LDFLAGS" may contain "\".  In that case,
+dnl "AC_DEFINE_UNQUOTED" perfoms backslash escaping which is not desired here.
+dnl So before each "\" in these variables, we add yet another "\", so that
+dnl after the backslash escaping, we get to the original point.  This is useful
+dnl especially for Windows paths like "C:\Users\isaac\Documents\fftw".
+CPPFLAGS_MOD=`echo "$CPPFLAGS" | $SED 's/\\\\/\\\\\\\\/g'`
+LDFLAGS_MOD=`echo "$LDFLAGS" | $SED 's/\\\\/\\\\\\\\/g'`
+AC_DEFINE_UNQUOTED(_CHARM_CPPFLAGS,["$CPPFLAGS_MOD"],[CPPFLAGS used to compile CHarm.])
+AC_DEFINE_UNQUOTED(_CHARM_LDFLAGS,["$LDFLAGS_MOD"],[LDFLAGS used to compile CHarm.])
 AC_DEFINE_UNQUOTED(_CHARM_LIBS,["$LIBS"],[LDFLAGS used to compile CHarm.])
 dnl ===========================================================================
 

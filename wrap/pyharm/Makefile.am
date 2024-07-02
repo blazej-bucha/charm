@@ -1,30 +1,26 @@
-# Note that a few files from EXTRA_DIST generated during the compilation and 
-# installation will still *not* be intentionally included in distributions (see 
-# the "DEL_FILES" variable)
-EXTRA_DIST = *.py \
-			 lib
+# Note that a few files from EXTRA_DIST generated during the build process will 
+# intentionally still *not* be included in the distribution (see 
+# "del_in_derived_files")
+EXTRA_DIST = *.py
 
 
-# Files to be delete when cleaning or when packing a distribution
-DEL_FILES = __init__.py \
-			_data_types.py \
-			lib/*
-
-
-cp-lib:
-if PY
-	cp -f $(top_srcdir)/@OBJDIR@/libcharm@P@@OMP@@SHARED_EXT@ lib
-endif
-
-
-install-exec-local: cp-lib
+pyharm-build-local:
 if PY
 if SINGLE_PY
 	cd $(top_srcdir)/wrap && rm -rf pyharm@P@ && $(LN_S) pyharm pyharm@P@
 endif
-	cd $(top_srcdir) && $(PYTHON) -m pip install . --use-pep517 \
-												   --target $(pythondir)
+	cd $(top_srcdir) && CC=$(CC) $(PYTHON) -m pip install . --verbose \
+		--target $(pythondir) --upgrade --upgrade-strategy only-if-needed
 endif
+
+
+pyharm-local: remove-py-build
+	$(MAKE) pyharm-build-local
+
+
+install-exec-local: remove-py-build
+	rm -rf $(top_srcdir)/build
+	$(MAKE) pyharm-local
 
 
 uninstall-local:
@@ -37,9 +33,13 @@ if PY
 endif
 
 
+# Removes all "*.py" files derived from "*.py.in"
+del_in_derived_files=`ls *.py.in | sed 's/\.in//g' | xargs rm -f`
+
+
 # This target should be executed regardless of whether or not PyHarm is build.
-remove-files:
-	rm -f $(DEL_FILES)
+remove-py-build:
+	rm -f *.so
 	rm -rf __pycache__
 	rm -rf $(top_srcdir)/build
 	rm -rf $(top_srcdir)/wrap/pyharm.egg-info
@@ -47,13 +47,14 @@ remove-files:
 	rm -rf $(top_srcdir)/wrap/pyharmf.egg-info
 
 
-clean-local: remove-files
+clean-local: remove-py-build
+	${del_in_derived_files}
 
 
-distclean-local: remove-files
+distclean-local: remove-py-build
+	${del_in_derived_files}
 
 
 # This target should be executed regardless of whether or not PyHarm is build.
 dist-hook:
-	cd $(top_distdir)/wrap/pyharm && rm -f $(DEL_FILES)
-
+	cd $(top_distdir)/wrap/pyharm && ${del_in_derived_files}

@@ -132,6 +132,7 @@ ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
 AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
 AR = @AR@
+AS = @AS@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
@@ -188,7 +189,6 @@ NP_FLOAT = @NP_FLOAT@
 OBJDIR = @OBJDIR@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
-OMP = @OMP@
 OPENMP_CFLAGS = @OPENMP_CFLAGS@
 OTOOL = @OTOOL@
 OTOOL64 = @OTOOL64@
@@ -274,18 +274,13 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 
-# Note that a few files from EXTRA_DIST generated during the compilation and 
-# installation will still *not* be intentionally included in distributions (see 
-# the "DEL_FILES" variable)
-EXTRA_DIST = *.py \
-			 lib
+# Note that a few files from EXTRA_DIST generated during the build process will 
+# intentionally still *not* be included in the distribution (see 
+# "del_in_derived_files")
+EXTRA_DIST = *.py
 
-
-# Files to be delete when cleaning or when packing a distribution
-DEL_FILES = __init__.py \
-			_data_types.py \
-			lib/*
-
+# Removes all "*.py" files derived from "*.py.in"
+del_in_derived_files = `ls *.py.in | sed 's/\.in//g' | xargs rm -f`
 all: all-am
 
 .SUFFIXES:
@@ -488,13 +483,17 @@ uninstall-am: uninstall-local
 .PRECIOUS: Makefile
 
 
-cp-lib:
-@PY_TRUE@	cp -f $(top_srcdir)/@OBJDIR@/libcharm@P@@OMP@@SHARED_EXT@ lib
-
-install-exec-local: cp-lib
+pyharm-build-local:
 @PY_TRUE@@SINGLE_PY_TRUE@	cd $(top_srcdir)/wrap && rm -rf pyharm@P@ && $(LN_S) pyharm pyharm@P@
-@PY_TRUE@	cd $(top_srcdir) && $(PYTHON) -m pip install . --use-pep517 \
-@PY_TRUE@												   --target $(pythondir)
+@PY_TRUE@	cd $(top_srcdir) && CC=$(CC) $(PYTHON) -m pip install . --verbose \
+@PY_TRUE@		--target $(pythondir) --upgrade --upgrade-strategy only-if-needed
+
+pyharm-local: remove-py-build
+	$(MAKE) pyharm-build-local
+
+install-exec-local: remove-py-build
+	rm -rf $(top_srcdir)/build
+	$(MAKE) pyharm-local
 
 uninstall-local:
 @PY_TRUE@	rm -rf $(pythondir)/pyharm@P@
@@ -504,21 +503,23 @@ uninstall-local:
 @PY_TRUE@	rm -rf $(pythondir)/pyharm@P@-$$MAJOR.$$MINOR.$$PATCH*
 
 # This target should be executed regardless of whether or not PyHarm is build.
-remove-files:
-	rm -f $(DEL_FILES)
+remove-py-build:
+	rm -f *.so
 	rm -rf __pycache__
 	rm -rf $(top_srcdir)/build
 	rm -rf $(top_srcdir)/wrap/pyharm.egg-info
 	rm -rf $(top_srcdir)/wrap/pyharmf
 	rm -rf $(top_srcdir)/wrap/pyharmf.egg-info
 
-clean-local: remove-files
+clean-local: remove-py-build
+	${del_in_derived_files}
 
-distclean-local: remove-files
+distclean-local: remove-py-build
+	${del_in_derived_files}
 
 # This target should be executed regardless of whether or not PyHarm is build.
 dist-hook:
-	cd $(top_distdir)/wrap/pyharm && rm -f $(DEL_FILES)
+	cd $(top_distdir)/wrap/pyharm && ${del_in_derived_files}
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

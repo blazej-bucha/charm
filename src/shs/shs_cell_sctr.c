@@ -392,10 +392,11 @@ FAILURE_1_parallel:
         size_t ipv;
 
 
+        size_t i;
 #if CHARM_OPENMP
-#pragma omp for schedule(dynamic)
+#pragma omp for schedule(dynamic) private(i)
 #endif
-        for (size_t i = 0; i < SIMD_MULTIPLE(ncell, SIMD_SIZE);
+        for (i = 0; i < SIMD_MULTIPLE(ncell, SIMD_SIZE);
              i += SIMD_SIZE)
         {
             for (size_t v = 0; v < SIMD_SIZE; v++)

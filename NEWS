@@ -1,3 +1,40 @@
+CHarm 0.4.1:
+
+This is a maintenance release enabling the installation of PyHarm using `pip`.  
+A few minor bugs were additionally fixed and some minor improvements were 
+applied.
+
+* On Linux (x86_64), macOS (x86_64, ARM64) and Windows (x86_64), PyHarm can now 
+  be installed using `pip install pyharm`.
+
+* In PyHarm, the `pathname` input parameter to the `to_file` method of the 
+  `Shc` class no longer requires to specify `./` when saving to the current 
+  working directory.  `pathname` may now contain only the file name, implying 
+  the coefficients should be saved to the current working directory.
+
+* Fixed outside-of-bounds reads bug in the spherical harmonic synthesis at 
+  Driscoll--Healy grids.  The outputs of the synthesis were correct but various 
+  errors might occur rarely (e.g., segmentation fault).
+
+* Removed variable-length arrays from one specific internal routine of CHarm.  
+  CHarm is now completely free from variable-length arrays.
+
+* Functions returning NaN now use the `NAN` macro from `math.h`.  
+  Previously, `0.0 / 0.0` was used to get NaN.  Now this is only a fallback if 
+  the `NAN` macro is not found in `math.h`.
+
+* The internal parameter `SIMD_BLOCK` is now set to `4` for all kinds of AVX 
+  instruction sets.  This value seems to perform the best overall.
+
+* Changed PyHarm building process.  The C-part of PyHarm is now compiled from 
+  within Python as an extension module.
+
+* Lib names no longer have the `_omp` suffix, even if CHarm is compiled 
+  with OpenMP support.  Depending on the precision, the names are `libcharmf`, 
+  `libcharm` and `libcharmq`.  This affects the way how CHarm is linked.
+
+* Various documentation improvements.
+
 CHarm 0.4.0:
 
 This release adds new functions to synthesize the full first- and second-order 

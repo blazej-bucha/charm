@@ -28,36 +28,36 @@ from .shc import _MU, _R
 _get_module_constants('CHARM_SHA_')
 
 
-#: int: Spherical harmonic analysis of cell data using the `approximate` 
+#: int: Spherical harmonic analysis of cell data using the `approximate`
 #: quadrature method.
 CELL_AQ: int
 
 
 def point(pnt, f, nmax, mu=_MU, r=_R):
     """
-    Performs surface spherical harmonic analysis of point values :obj:`f` at
-    :obj:`pnt` up to maximum degree :obj:`nmax`.  Refer to `charm_sha 
+    Performs surface spherical harmonic analysis of point values ``f`` at
+    ``pnt`` up to maximum degree ``nmax``.  Refer to `charm_sha
     <./api-c-sha.html>`_ for the full documentation.
 
     Parameters
     ----------
     pnt : PointGridDH1, PointGridDH2, PointGridGL
-        Quadrature grid points at which :obj:`f` is sampled
+        Quadrature grid points at which ``f`` is sampled
     f : numpy array of floating points
         Signal to be harmonically analysed
     nmax : integer
         Maximum degree of the analysis
     mu : floating point
         Scaling parameter to be associated with the output spherical harmonic
-        coefficients, optional.  Default is :obj:`1.0`.
+        coefficients, optional.  Default is ``1.0``.
     r : floating point
         Radius of the reference sphere to be associated with the output
-        spherical harmonic coefficients, optional.  Default is :obj:`1.0`.
+        spherical harmonic coefficients, optional.  Default is ``1.0``.
 
     Returns
     -------
     out : Shc
-        Spherical harmonic coefficients of :obj:`f`
+        Spherical harmonic coefficients of ``f``
     """
 
     if not isinstance(pnt, _ph_crd.PointGridGL) and \
@@ -105,32 +105,32 @@ def point(pnt, f, nmax, mu=_MU, r=_R):
 
 def cell(cell, f, nmax, method, mu=_MU, r=_R):
     """
-    Performs surface spherical harmonic analysis of point values :obj:`f` at
-    :obj:`cell` up to maximum degree :obj:`nmax`.  Refer to `charm_sha 
+    Performs surface spherical harmonic analysis of point values ``f`` at
+    ``cell`` up to maximum degree ``nmax``.  Refer to `charm_sha
     <./api-c-sha.html>`_ for the full documentation.
 
     Parameters
     ----------
     cell : CellGrid
-        Grid cells at which :obj:`f` is sampled
+        Grid cells at which ``f`` is sampled
     f : numpy array of floating points
         Signal to be harmonically analysed
     nmax : integer
         Maximum degree of the analysis
     method : integer
-        Method of the spherical harmonic analysis of area-mean values.  
+        Method of the spherical harmonic analysis of area-mean values.
         Currently the only accepted value is :obj:`pyharm.sha.CELL_AQ`.
     mu : floating point
         Scaling parameter to be associated with the output spherical harmonic
-        coefficients, optional.  Default is :obj:`1.0`.
+        coefficients, optional.  Default is ``1.0``.
     r : floating point
         Radius of the reference sphere to be associated with the output
-        spherical harmonic coefficients, optional.  Default is :obj:`1.0`.
+        spherical harmonic coefficients, optional.  Default is ``1.0``.
 
     Returns
     -------
     out : Shc
-        Spherical harmonic coefficients of :obj:`f`
+        Spherical harmonic coefficients of ``f``
     """
 
     if not isinstance(cell, _ph_crd.CellGrid):

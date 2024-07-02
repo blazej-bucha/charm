@@ -161,11 +161,12 @@ enum
  * @param[out] err Error reported by the function (if any).
  *
  * */
-extern void charm@P@_sha_point(const charm@P@_point *pnt,
-                               const @RDT@ *f,
-                               unsigned long nmax,
-                               charm@P@_shc *shcs,
-                               charm@P@_err *err);
+CHARM_EXTERN void CHARM_CDECL
+                  charm@P@_sha_point(const charm@P@_point *pnt,
+                                     const @RDT@ *f,
+                                     unsigned long nmax,
+                                     charm@P@_shc *shcs,
+                                     charm@P@_err *err);
 
 
 /**
@@ -310,12 +311,13 @@ extern void charm@P@_sha_point(const charm@P@_point *pnt,
  * @param[out] err Error reported by the function (if any).
  *
  * */
-extern void charm@P@_sha_cell(const charm@P@_cell *cell,
-                              const @RDT@ *f,
-                              unsigned long nmax,
-                              int method,
-                              charm@P@_shc *shcs,
-                              charm@P@_err *err);
+CHARM_EXTERN void CHARM_CDECL
+                  charm@P@_sha_cell(const charm@P@_cell *cell,
+                                    const @RDT@ *f,
+                                    unsigned long nmax,
+                                    int method,
+                                    charm@P@_shc *shcs,
+                                    charm@P@_err *err);
 
 
 /**

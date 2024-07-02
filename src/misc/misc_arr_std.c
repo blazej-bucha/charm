@@ -9,6 +9,7 @@
 #include "../err/err_propagate.h"
 #include "misc_arr_mean.h"
 #include "misc_arr_std.h"
+#include "misc_nan.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -22,9 +23,7 @@ REAL CHARM(misc_arr_std)(const REAL *a, size_t na, CHARM(err) *err)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "The array size cannot be smaller than \"1\".");
-
-
-        return (PREC(0.0) / PREC(0.0));
+        return NAN;
     }
 
 
@@ -33,7 +32,7 @@ REAL CHARM(misc_arr_std)(const REAL *a, size_t na, CHARM(err) *err)
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
-        return (PREC(0.0) / PREC(0.0));
+        return NAN;
     }
 
 

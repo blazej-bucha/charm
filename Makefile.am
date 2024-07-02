@@ -24,27 +24,27 @@ SUBDIRS = charm \
 		  wrap/pyharm
 
 
-SUBLIBS = src/crd/libcharm@P@_crd@OMP@.la \
-		  src/err/libcharm@P@_err@OMP@.la \
-		  src/integ/libcharm@P@_integ@OMP@.la \
-		  src/leg/libcharm@P@_leg@OMP@.la \
-		  src/misc/libcharm@P@_misc@OMP@.la \
-		  src/sha/libcharm@P@_sha@OMP@.la \
-		  src/shc/libcharm@P@_shc@OMP@.la \
-		  src/shs/libcharm@P@_shs@OMP@.la \
-		  src/xnum/libcharm@P@_xnum@OMP@.la \
-		  src/glob/libcharm@P@_glob@OMP@.la \
-		  src/simd/libcharm@P@_simd@OMP@.la
+SUBLIBS = src/crd/libcharm@P@_crd.la \
+		  src/err/libcharm@P@_err.la \
+		  src/integ/libcharm@P@_integ.la \
+		  src/leg/libcharm@P@_leg.la \
+		  src/misc/libcharm@P@_misc.la \
+		  src/sha/libcharm@P@_sha.la \
+		  src/shc/libcharm@P@_shc.la \
+		  src/shs/libcharm@P@_shs.la \
+		  src/xnum/libcharm@P@_xnum.la \
+		  src/glob/libcharm@P@_glob.la \
+		  src/simd/libcharm@P@_simd.la
 
 
 CLEANFILES = charm.pc \
-			 charm[fq].pc \
-			 charm*_omp.pc
+			 charm[fq].pc
 
 
 EXTRA_DIST = AUTHORS \
 			 INSTALL \
 			 LICENSE \
+			 COPYING \
 			 NEWS \
 			 README.rst \
 			 TODO \
@@ -53,16 +53,16 @@ EXTRA_DIST = AUTHORS \
 			 pyharm-parser.py
 
 
-lib_LTLIBRARIES = libcharm@P@@OMP@.la
-libcharm@P@@OMP@_la_SOURCES =
-libcharm@P@@OMP@_la_LIBADD  = $(SUBLIBS)
-libcharm@P@@OMP@_la_CFLAGS  = $(AM_CFLAGS)
+lib_LTLIBRARIES = libcharm@P@.la
+libcharm@P@_la_SOURCES =
+libcharm@P@_la_LIBADD  = $(SUBLIBS)
+libcharm@P@_la_CFLAGS  = $(AM_CFLAGS)
 
 
-charm@P@@OMP@.pc: charm-tmpl.pc
-	cp -f charm-tmpl.pc charm@P@@OMP@.pc
+charm@P@.pc: charm-tmpl.pc
+	cp -f charm-tmpl.pc charm@P@.pc
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = charm@P@@OMP@.pc
+pkgconfig_DATA = charm@P@.pc
 
 
 .PHONY: bench
@@ -72,23 +72,21 @@ bench:
 	cd bench && $(MAKE) bench-local
 
 
+pyharm:
+if PY
+	cd wrap/pyharm && $(MAKE) pyharm-local
+else
+	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	@echo
+	@echo ERROR: --enable-python option is required to build PyHarm
+	@echo
+	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+endif
+
+
 pyharm-parser: all
 	$(PYTHON) pyharm-parser.py
 
 
 generate-reference-data:
 	cd tests && $(MAKE) generate-reference-data-local
-
-
-remove-files:
-	rm -rf __pycache__
-
-
-clean-local: remove-files
-
-
-distclean-local: remove-files
-
-
-maintainer-clean-local: remove-files
-

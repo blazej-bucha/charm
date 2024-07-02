@@ -107,8 +107,8 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 LTLIBRARIES = $(noinst_LTLIBRARIES)
-libcharm@P@_shs@OMP@_la_LIBADD =
-am_libcharm@P@_shs@OMP@_la_OBJECTS = shs_cell.lo shs_cell_grd.lo \
+libcharm@P@_shs_la_LIBADD =
+am_libcharm@P@_shs_la_OBJECTS = shs_cell.lo shs_cell_grd.lo \
 	shs_cell_isurf_coeffs.lo shs_cell_isurf.lo \
 	shs_cell_isurf_lr.lo shs_cell_isurf_offset.lo \
 	shs_cell_kernel.lo shs_cell_sctr.lo shs_cell_check_grd_lons.lo \
@@ -120,8 +120,7 @@ am_libcharm@P@_shs@OMP@_la_OBJECTS = shs_cell.lo shs_cell_grd.lo \
 	shs_r_eq_rref.lo shs_point_guru.lo \
 	shs_check_single_derivative.lo shs_check_grads.lo \
 	shs_get_mur_dorder_npar.lo
-libcharm@P@_shs@OMP@_la_OBJECTS =  \
-	$(am_libcharm@P@_shs@OMP@_la_OBJECTS)
+libcharm@P@_shs_la_OBJECTS = $(am_libcharm@P@_shs_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
@@ -181,8 +180,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libcharm@P@_shs@OMP@_la_SOURCES)
-DIST_SOURCES = $(libcharm@P@_shs@OMP@_la_SOURCES)
+SOURCES = $(libcharm@P@_shs_la_SOURCES)
+DIST_SOURCES = $(libcharm@P@_shs_la_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -195,6 +194,7 @@ ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
 AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
 AR = @AR@
+AS = @AS@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
@@ -251,7 +251,6 @@ NP_FLOAT = @NP_FLOAT@
 OBJDIR = @OBJDIR@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
-OMP = @OMP@
 OPENMP_CFLAGS = @OPENMP_CFLAGS@
 OTOOL = @OTOOL@
 OTOOL64 = @OTOOL64@
@@ -336,36 +335,36 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-noinst_LTLIBRARIES = libcharm@P@_shs@OMP@.la
+noinst_LTLIBRARIES = libcharm@P@_shs.la
 AM_CPPFLAGS = -I$(top_srcdir)/charm
-libcharm@P@_shs@OMP@_la_SOURCES = shs_cell.c \
-								  shs_cell_grd.c \
-								  shs_cell_isurf_coeffs.c \
-								  shs_cell_isurf.c \
-								  shs_cell_isurf_lr.c \
-								  shs_cell_isurf_offset.c \
-								  shs_cell_kernel.c \
-								  shs_cell_sctr.c \
-								  shs_cell_check_grd_lons.c \
-								  shs_point.c \
-								  shs_point_grads.c \
-								  shs_point_grd.c \
-								  shs_point_kernels.c \
-								  shs_point_sctr.c \
-								  shs_grd_lr.c \
-								  shs_grd_lr2.c \
-								  shs_grd_point_fft_check.c \
-								  shs_grd_cell_fft_check.c \
-								  shs_grd_fft_lc.c \
-								  shs_grd_fft.c \
-								  shs_sctr_mulc.c \
-								  shs_lc_init.c \
-								  shs_check_symm_simd.c \
-								  shs_r_eq_rref.c \
-								  shs_point_guru.c \
-								  shs_check_single_derivative.c \
-								  shs_check_grads.c \
-								  shs_get_mur_dorder_npar.c
+libcharm@P@_shs_la_SOURCES = shs_cell.c \
+							 shs_cell_grd.c \
+							 shs_cell_isurf_coeffs.c \
+							 shs_cell_isurf.c \
+							 shs_cell_isurf_lr.c \
+							 shs_cell_isurf_offset.c \
+							 shs_cell_kernel.c \
+							 shs_cell_sctr.c \
+							 shs_cell_check_grd_lons.c \
+							 shs_point.c \
+							 shs_point_grads.c \
+							 shs_point_grd.c \
+							 shs_point_kernels.c \
+							 shs_point_sctr.c \
+							 shs_grd_lr.c \
+							 shs_grd_lr2.c \
+							 shs_grd_point_fft_check.c \
+							 shs_grd_cell_fft_check.c \
+							 shs_grd_fft_lc.c \
+							 shs_grd_fft.c \
+							 shs_sctr_mulc.c \
+							 shs_lc_init.c \
+							 shs_check_symm_simd.c \
+							 shs_r_eq_rref.c \
+							 shs_point_guru.c \
+							 shs_check_single_derivative.c \
+							 shs_check_grads.c \
+							 shs_get_mur_dorder_npar.c
 
 EXTRA_DIST = *.h \
 			 shs_point_gradn.c \
@@ -416,8 +415,8 @@ clean-noinstLTLIBRARIES:
 	  rm -f $${locs}; \
 	}
 
-libcharm@P@_shs@OMP@.la: $(libcharm@P@_shs@OMP@_la_OBJECTS) $(libcharm@P@_shs@OMP@_la_DEPENDENCIES) $(EXTRA_libcharm@P@_shs@OMP@_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(LINK)  $(libcharm@P@_shs@OMP@_la_OBJECTS) $(libcharm@P@_shs@OMP@_la_LIBADD) $(LIBS)
+libcharm@P@_shs.la: $(libcharm@P@_shs_la_OBJECTS) $(libcharm@P@_shs_la_DEPENDENCIES) $(EXTRA_libcharm@P@_shs_la_DEPENDENCIES) 
+	$(AM_V_CCLD)$(LINK)  $(libcharm@P@_shs_la_OBJECTS) $(libcharm@P@_shs_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

@@ -107,12 +107,11 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 LTLIBRARIES = $(noinst_LTLIBRARIES)
-libcharm@P@_integ@OMP@_la_LIBADD =
-am_libcharm@P@_integ@OMP@_la_OBJECTS = integ_cc.lo integ_ccs.lo \
-	integ_cs.lo integ_css.lo integ_pn1m1pn2m2.lo integ_sc.lo \
-	integ_scs.lo integ_ss.lo integ_sss.lo integ_yi1n1m1yi2n2m2.lo
-libcharm@P@_integ@OMP@_la_OBJECTS =  \
-	$(am_libcharm@P@_integ@OMP@_la_OBJECTS)
+libcharm@P@_integ_la_LIBADD =
+am_libcharm@P@_integ_la_OBJECTS = integ_cc.lo integ_ccs.lo integ_cs.lo \
+	integ_css.lo integ_pn1m1pn2m2.lo integ_sc.lo integ_scs.lo \
+	integ_ss.lo integ_sss.lo integ_yi1n1m1yi2n2m2.lo
+libcharm@P@_integ_la_OBJECTS = $(am_libcharm@P@_integ_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
@@ -157,8 +156,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libcharm@P@_integ@OMP@_la_SOURCES)
-DIST_SOURCES = $(libcharm@P@_integ@OMP@_la_SOURCES)
+SOURCES = $(libcharm@P@_integ_la_SOURCES)
+DIST_SOURCES = $(libcharm@P@_integ_la_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -171,6 +170,7 @@ ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
 AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
 AR = @AR@
+AS = @AS@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
@@ -227,7 +227,6 @@ NP_FLOAT = @NP_FLOAT@
 OBJDIR = @OBJDIR@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
-OMP = @OMP@
 OPENMP_CFLAGS = @OPENMP_CFLAGS@
 OTOOL = @OTOOL@
 OTOOL64 = @OTOOL64@
@@ -312,18 +311,18 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-noinst_LTLIBRARIES = libcharm@P@_integ@OMP@.la
+noinst_LTLIBRARIES = libcharm@P@_integ.la
 AM_CPPFLAGS = -I$(top_srcdir)/charm
-libcharm@P@_integ@OMP@_la_SOURCES = integ_cc.c \
-									integ_ccs.c \
-									integ_cs.c \
-									integ_css.c \
-									integ_pn1m1pn2m2.c \
-									integ_sc.c \
-									integ_scs.c \
-									integ_ss.c \
-									integ_sss.c \
-									integ_yi1n1m1yi2n2m2.c
+libcharm@P@_integ_la_SOURCES = integ_cc.c \
+							   integ_ccs.c \
+							   integ_cs.c \
+							   integ_css.c \
+							   integ_pn1m1pn2m2.c \
+							   integ_sc.c \
+							   integ_scs.c \
+							   integ_ss.c \
+							   integ_sss.c \
+							   integ_yi1n1m1yi2n2m2.c
 
 EXTRA_DIST = *.h
 all: all-am
@@ -371,8 +370,8 @@ clean-noinstLTLIBRARIES:
 	  rm -f $${locs}; \
 	}
 
-libcharm@P@_integ@OMP@.la: $(libcharm@P@_integ@OMP@_la_OBJECTS) $(libcharm@P@_integ@OMP@_la_DEPENDENCIES) $(EXTRA_libcharm@P@_integ@OMP@_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(LINK)  $(libcharm@P@_integ@OMP@_la_OBJECTS) $(libcharm@P@_integ@OMP@_la_LIBADD) $(LIBS)
+libcharm@P@_integ.la: $(libcharm@P@_integ_la_OBJECTS) $(libcharm@P@_integ_la_DEPENDENCIES) $(EXTRA_libcharm@P@_integ_la_DEPENDENCIES) 
+	$(AM_V_CCLD)$(LINK)  $(libcharm@P@_integ_la_OBJECTS) $(libcharm@P@_integ_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

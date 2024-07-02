@@ -43,12 +43,12 @@ WRITE_M: int
 
 
 # If radius of the reference sphere is not specified by the user when creating
-# an `Shc` class instance, this value will be used by default (unit sphere).
+# an ``Shc`` class instance, this value will be used by default (unit sphere).
 _R = _pyharm_flt(1.0)
 
-# If the scaling parameter is not specified by the user when creating an `Shc`
-# class instance, this value will be used by default (implying no scaling
-# parameter).
+# If the scaling parameter is not specified by the user when creating an
+# ``Shc`` class instance, this value will be used by default (implying no
+# scaling parameter).
 _MU = _pyharm_flt(1.0)
 
 
@@ -59,7 +59,7 @@ _FILE_TYPES = ['gfc', 'bin', 'mtx', 'tbl', 'dov']
 
 
 class _Shc(_ct.Structure):
-    """ Private class to represent the `charm_shc` structure of CHarm. """
+    """ Private class to represent the ``charm_shc`` structure of CHarm. """
 
     _fields_ = [('nmax',  _ct_ulong),
                 ('mu',    _ct_flt),
@@ -99,16 +99,16 @@ class Shc:
     coeffs : None, 0 or tuple
         Determines the way of initializing spherical harmonic coefficients:
 
-            * :obj:`None` to not initialize spherical harmonic coefficients
-              (`malloc` in C),
+            * ``None`` to not initialize spherical harmonic coefficients
+              (``malloc`` in C),
 
-            * :obj:`0` to set all spherical harmonic coefficients to zero
-              (`calloc` in C),
+            * ``0`` to set all spherical harmonic coefficients to zero
+              (``calloc`` in C),
 
-            * :obj:`(c, s)` to define spherical harmonic coefficients based on
-              two numpy floating point arrays :obj:`c` and :obj:`s`, each of
-              shape :obj:`(((nmax + 2) * (nmax + 1)) // 2,)`.  For ordering
-              scheme of the coefficients in the `c` and `s` arrays,
+            * ``(c, s)`` to define spherical harmonic coefficients based on
+              two numpy floating point arrays ``c`` and ``s``, each of
+              shape ``(((nmax + 2) * (nmax + 1)) // 2,)``.  For ordering
+              scheme of the coefficients in the ``c`` and ``s`` arrays,
               see the :attr:`c` and :attr:`s` properties.
 
     Note
@@ -132,7 +132,7 @@ class Shc:
         harmonic coefficients, for instance, the geocentric gravitational
         constant. In case the coefficients are not associated with any scaling
         parameter (as it is, for instance, with planetary topographies), simply
-        set this variable to :obj:`1.0` (not to :obj:`0.0`!).
+        set this variable to ``1.0`` (not to ``0.0``!).
         """
         return self._mu
 
@@ -143,7 +143,7 @@ class Shc:
         Radius of the reference sphere :math:`R`, to which the spherical
         harmonic coefficients refer (are scaled). The value must be greater
         than zero. To get the unit sphere, as needed, for instance, when
-        working with planetary topographies, set this variable to :obj:`1.0`.
+        working with planetary topographies, set this variable to ``1.0``.
         """
         return self._r
 
@@ -153,8 +153,9 @@ class Shc:
         """
         The :math:`\\bar{C}_{nm}` spherical harmonic coefficients.  A numpy
         array with the shape (((:attr:`nmax` + 2) * (:attr:`nmax` + 1)) / 2,)
-        and the array structure `C0,0`, `C1,0`, ..., `Cnmax,0`, `C1,1`, `C2,1`,
-        ..., `Cnmax,nmax`.
+        and the array structure :math:`\\bar{C}_{00}`, :math:`\\bar{C}_{10}`,
+        ..., :math:`\\bar{C}_{\mathrm{nmax},0}`, :math:`\\bar{C}_{1,1}`, ...,
+        :math:`\\bar{C}_{\mathrm{nmax},\mathrm{nmax}}`.
         """
         return self._c
 
@@ -171,11 +172,11 @@ class Shc:
     @property
     def owner(self):
         """
-        * If :obj:`True`, the memory associated with spherical harmonic
+        * If ``True``, the memory associated with spherical harmonic
           coefficients is owned by CHarm and therefore it is automatically
           deallocated by CHarm when the user deletes :class:`Shc` class
           instances or when the instances get out of scope, etc.  The
-          :attr:`owner` attribute is :obj:`True` for :class:`Shc` instances
+          :attr:`owner` attribute is ``True`` for :class:`Shc` instances
           returned by all factory methods *except* for the :meth:`from_arrays`
           method.
 
@@ -186,7 +187,7 @@ class Shc:
           >>> del shcs # Deletes "shcs" and properly deallocates all memory
           >>>          # that is associated with "shcs"
 
-        * If :obj:`False`, neither CHarm nor PyHarm own the memory so neither
+        * If ``False``, neither CHarm nor PyHarm own the memory so neither
           CHarm nor PyHarm will ever deallocate it.  This is the case of
           :class:`Shc` class instances returned by the :meth:`from_arrays`
           factory method.  This method builds :class:`Shc` instances from
@@ -329,16 +330,16 @@ class Shc:
     def from_garbage(cls, nmax, mu=_MU, r=_R):
         """
         Returns an :class:`Shc` class instance with uninitialized spherical
-        harmonic coefficients (`malloc` in C).
+        harmonic coefficients (``malloc`` in C).
 
         Parameters
         ----------
         nmax : integer
             Maximum spherical harmonic degree
         mu : floating point
-            Scaling parameter, optional.  Default is :obj:`1.0`.
+            Scaling parameter, optional.  Default is ``1.0``.
         r : floating point
-            Radius of the reference sphere, optional.  Default is :obj:`1.0`.
+            Radius of the reference sphere, optional.  Default is ``1.0``.
 
         Returns
         -------
@@ -353,16 +354,16 @@ class Shc:
     def from_zeros(cls, nmax, mu=_MU, r=_R):
         """
         Returns an :class:`Shc` class instance with all spherical harmonic
-        coefficients initialized to zero (`calloc` in C).
+        coefficients initialized to zero (``calloc`` in C).
 
         Parameters
         ----------
         nmax : integer
             Maximum spherical harmonic degree
         mu : floating point
-            Scaling parameter, optional.  Default is :obj:`1.0`.
+            Scaling parameter, optional.  Default is ``1.0``.
         r : floating point
-            Radius of the reference sphere, optional.  Default is :obj:`1.0`.
+            Radius of the reference sphere, optional.  Default is ``1.0``.
 
         Returns
         -------
@@ -377,25 +378,25 @@ class Shc:
     def from_arrays(cls, nmax, c, s, mu=_MU, r=_R):
         """
         Returns an :class:`Shc` class instance with spherical harmonic
-        coefficients copied from the `c` and `s` input arrays.  The copy is
+        coefficients copied from the ``c`` and ``s`` input arrays.  The copy is
         shallow, meaning that the :attr:`c` and :attr:`s` attributes of the
         returned :class:`Shc` class instance share the memory space with the
-        input `c` and `s` arrays.
+        input ``c`` and ``s`` arrays.
 
         Parameters
         ----------
         nmax : integer
             Maximum spherical harmonic degree
         c : numpy array of floating points
-            Spherical harmonic coefficients `Cnm`.  For details on the
-            structure of the array, see :attr:`c`.
+            Spherical harmonic coefficients :math:`\\bar{C}_{nm}`.  For details
+            on the structure of the array, see :attr:`c`.
         s : numpy array of floating points
-            Spherical harmonic coefficients `Snm`.  For details on the
-            structure of the array, see :attr:`s`.
+            Spherical harmonic coefficients :math:`\\bar{S}_{nm}`.  For details
+            on the structure of the array, see :attr:`s`.
         mu : floating point
-            Scaling parameter, optional.  Default is :obj:`1.0`.
+            Scaling parameter, optional.  Default is ``1.0``.
         r : floating point
-            Radius of the reference sphere, optional.  Default is :obj:`1.0`.
+            Radius of the reference sphere, optional.  Default is ``1.0``.
 
         Returns
         -------
@@ -409,12 +410,12 @@ class Shc:
     @classmethod
     def from_file(cls, file_type, pathname, nmax, epoch=None):
         """
-        Reads spherical harmonic coefficients up to degree `nmax` from the
-        `pathname` file of a given `file_type`.  For time variable models
-        stored in the `gfc` file type, `epoch` additionally transforms the
+        Reads spherical harmonic coefficients up to degree ``nmax`` from the
+        ``pathname`` file of a given ``file_type``.  For time variable models
+        stored in the ``gfc`` file type, ``epoch`` additionally transforms the
         coefficients to a given epoch.
 
-        .. tip:: To get the maximum harmonic degree stored in `pathname`, use
+        .. tip:: To get the maximum harmonic degree stored in ``pathname``, use
                  :meth:`nmax_from_file`.
 
         .. tip:: To print all supported file types, use :meth:`get_file_types`:
@@ -434,11 +435,11 @@ class Shc:
         nmax : integer
             Maximum harmonic degree to read the spherical harmonic coefficients
         epoch : str
-            Epoch, to which spherical harmonic coefficients from `gfc` file
+            Epoch, to which spherical harmonic coefficients from ``gfc`` file
             types are transformed in case of time variable gravity field
             models; optional.  For the structure of the string, refer to
             `charm_shc <./api-c-shc.html>`_.  This input parameter is used only
-            if `file_type` is `gfc`.  Default value is `None`.
+            if ``file_type`` is ``gfc``.  Default value is ``None``.
 
         Returns
         -------
@@ -455,12 +456,12 @@ class Shc:
     def to_file(self, file_type, nmax, pathname, formatting='%0.16e',
                 ordering=WRITE_N):
         """
-        Writes an :class:`Shc` class instance up to degree `nmax` to a file
-        `pathname` of a given `file_type`.  If `file_type` represents a text
-        file (`dov`, `tbl` or `mtx`), `formatting` specifies the formatting for
-        all floating point numbers.  If `file_type` is `dov` or `tbl`,
-        `ordering` defines the ordering of spherical harmonic coefficients in
-        the output file.
+        Writes an :class:`Shc` class instance up to degree ``nmax`` to a file
+        ``pathname`` of a given ``file_type``.  If ``file_type`` represents
+        a text file (``dov``, ``tbl`` or ``mtx``), ``formatting`` specifies the
+        formatting for all floating point numbers.  If ``file_type`` is ``dov``
+        or ``tbl``, ``ordering`` defines the ordering of spherical harmonic
+        coefficients in the output file.
 
         .. tip:: To print all supported file types, use :meth:`get_file_types`:
 
@@ -480,10 +481,10 @@ class Shc:
             Output file path
         formatting : str
             Formatting to write floating point numbers to text formats,
-            optional.  Default is :obj:`'%0.16e'`.
+            optional.  Default is ``'%0.16e'``.
         ordering : integer
-            Scheme to sort spherical harmonic coefficients when `file_type` is
-            `dov` or `tbl`, optional.  Accepted values are
+            Scheme to sort spherical harmonic coefficients when ``file_type``
+            is ``dov`` or ``tbl``, optional.  Accepted values are
             :obj:`pyharm.shc.WRITE_N` and :obj:`pyharm.shc.WRITE_M`.  Default
             is :obj:`pyharm.shc.WRITE_N`.
         """
@@ -508,7 +509,7 @@ class Shc:
     def nmax_from_file(file_type, pathname):
         """
         Returns the maximum harmonic degree of coefficients stored in
-        the `pathname` file that is of a given `file_type`.
+        the ``pathname`` file that is of a given ``file_type``.
 
         .. tip:: Use this method to get the maximum degree of spherical
                  harmonic coefficients stored in a file and then load the file
@@ -545,30 +546,33 @@ class Shc:
 
     def get_coeffs(self, n=None, m=None):
         """
-        Returns spherical harmonic coefficients `Cnm` and `Snm` of degree
-        :obj:`n` and order :obj:`m`.  If the returned variables are arrays,
-        these are deep copies, meaning that the arrays have their own memory
-        space.
+        Returns spherical harmonic coefficients :math:`\\bar{C}_{nm}` and
+        :math:`\\bar{S}_{nm}` of degree ``n`` and order ``m``.  If the returned
+        variables are arrays, these are deep copies, meaning that the arrays
+        have their own memory space.
 
         The behaviour of the method depends on the type of the input variables
-        :obj:`n` and :obj:`m`.
+        ``n`` and ``m``.
 
-        * If both :obj:`n` and :obj:`m` are integers, returned are two
-          spherical harmonic coefficients `Cnm` and `Snm`, each of degree `n`
-          and order `m`.  The two returned values are floating points.
+        * If both ``n`` and ``m`` are integers, returned are two
+          spherical harmonic coefficients :math:`\\bar{C}_{nm}` and
+          :math:`\\bar{S}_{nm}`, each of degree ``n`` and order ``m``.  The two
+          returned values are floating points.
 
-        * If :obj:`n` is integer and :obj:`m` is :obj:`None`, returned are
-          two arrays of spherical harmonic coefficients `Cnm` and `Snm` of
-          degree :obj:`n` and all corresponding orders :obj:`m = 0, 1, ..., n`.
+        * If ``n`` is integer and ``m`` is ``None``, returned are
+          two arrays of spherical harmonic coefficients
+          :math:`\\bar{C}_{nm}` and :math:`\\bar{S}_{nm}` of degree
+          ``n`` and all corresponding orders ``m = 0, 1, ..., n``.
 
-        * If :obj:`n` is :obj:`None` and :obj:`m` is integer, returned are two
-          arrays of spherical harmonic coefficients `Cnm` and `Snm` of order
-          :obj:`m` and all corresponding degrees :obj:`n = m, m + 1, ...,
-          self.nmax`.
+        * If ``n`` is ``None`` and ``m`` is integer, returned are two arrays of
+          spherical harmonic coefficients :math:`\\bar{C}_{nm}` and
+          :math:`\\bar{S}_{nm}` of order ``m`` and all corresponding
+          degrees ``n = m, m + 1, ..., self.nmax``.
 
-        * If :obj:`n` and :obj:`m` are lists of equal size, returned are two
-          arrays of spherical harmonic coefficients `Cnm` and `Snm` of degrees
-          taken from the :obj:`n` list and orders taken from the :obj:`m` list.
+        * If ``n`` and ``m`` are lists of equal size, returned are two
+          arrays of spherical harmonic coefficients :math:`\\bar{C}_{nm}`
+          and :math:`\\bar{S}_{nm}` of degrees taken from the ``n`` list
+          and orders taken from the ``m`` list.
 
         Note
         ----
@@ -605,9 +609,10 @@ class Shc:
         Returns
         -------
         c : floating point, numpy array of floating points
-            Spherical harmonic coefficient(s) `Cnm` of degree `n` and order `m`
+            Spherical harmonic coefficient(s) :math:`\\bar{C}_{nm}` of degree
+            ``n`` and order ``m``
         s : floating point, numpy array of floating points
-            The same as `c` but with the `Snm` coefficient(s)
+            The same as ``c`` but with the :math:`\\bar{S}_{nm}` coefficient(s)
         """
 
         if n is None and m is None:
@@ -661,36 +666,37 @@ class Shc:
 
     def set_coeffs(self, n=None, m=None, c=None, s=None):
         """
-        Sets spherical harmonic coefficients `Cnm` and `Snm` of degree `n` and
-        order `m` to the values of ``c`` and ``s``, respectively.
+        Sets spherical harmonic coefficients :math:`\\bar{C}_{nm}` and
+        :math:`\\bar{S}_{nm}` of degree ``n`` and order ``m`` to the values of
+        ``c`` and ``s``, respectively.
 
-        * If both :obj:`n` and :obj:`m` are integers, sets the spherical
-          harmonic coefficients `Cnm` and/or `Snm` to the input parameters
-          ``c`` and/or ``s``, respectively.  ``c`` and ``s`` must be floating
-          point scalars.
+        * If both ``n`` and ``m`` are integers, sets the spherical
+          harmonic coefficients :math:`\\bar{C}_{nm}` and/or
+          :math:`\\bar{S}_{nm}` to the input parameters ``c`` and/or ``s``,
+          respectively.  ``c`` and ``s`` must be floating point scalars.
 
-        * If :obj:`n` is integer and :obj:`m` is :obj:`None`, sets spherical
-          harmonic coefficients of degree :obj:`n` and all corresponding
-          harmonic orders :obj:`m = 0, 1, ..., n` to the input parameters ``c``
+        * If ``n`` is integer and ``m`` is ``None``, sets spherical
+          harmonic coefficients of degree ``n`` and all corresponding
+          harmonic orders ``m = 0, 1, ..., n`` to the input parameters ``c``
           and/or ``s``.  ``c`` and ``s`` must be numpy floating point arrays of
-          shapes :obj:`(n + 1,)`.
+          shapes ``(n + 1,)``.
 
-        * If :obj:`n` is :obj:`None` and :obj:`m` is integer, sets spherical
-          harmonic coefficients of order :obj:`m` and all corresponding
-          harmonic degrees :obj:`n = m, m + 1, ..., self.nmax` to the input
+        * If ``n`` is ``None`` and ``m`` is integer, sets spherical
+          harmonic coefficients of order ``m`` and all corresponding
+          harmonic degrees ``n = m, m + 1, ..., self.nmax`` to the input
           parameters ``c`` and/or ``s``.  ``c`` and ``s`` must be numpy
-          floating point arrays of shapes :obj:`(self.nmax + 1 - m,)`.
+          floating point arrays of shapes ``(self.nmax + 1 - m,)``.
 
-        * If :obj:`n` and :obj:`m` are lists of equal size, sets spherical
+        * If ``n`` and ``m`` are lists of equal size, sets spherical
           spherical harmonic coefficients of degrees and orders taken from the
-          :obj:`n` and :obj:`m` lists, respectively, to the corresponding
+          ``n`` and ``m`` lists, respectively, to the corresponding
           values taken from the input parameters ``c`` and/or ``s``.  The
           length of the input parameters must match.
 
         Note
         ----
-        If the object's :obj:`owner` attribute is :obj:`True`, the copy of the
-        new coefficients is deep.  If :obj:`owner` is :obj:`False`, the copy is
+        If the object's :obj:`owner` attribute is ``True``, the copy of the
+        new coefficients is deep.  If :obj:`owner` is ``False``, the copy is
         shallow.
 
         Examples
@@ -725,9 +731,9 @@ class Shc:
         m : integer, list of integers, None
             Spherical harmonic order, optional.
         c : floating point, numpy array of floating points, None
-            Spherical harmonic coefficient(s) `Cnm`, optional.
+            Spherical harmonic coefficient(s) :math:`\\bar{C}_{nm}`, optional.
         s : floating point, numpy array of floating points, None
-            Spherical harmonic coefficient(s) `Snm`, optional.
+            Spherical harmonic coefficient(s) :math:`\\bar{S}_{nm}`, optional.
         """
 
         if n is None and m is None:
@@ -873,7 +879,7 @@ class Shc:
     def rescale(self, mu=None, r=None):
         """
         Rescales spherical harmonic coefficients to a new scaling parameter
-        `mu` and/or a new radius of the reference sphere `r`.
+        ``mu`` and/or a new radius of the reference sphere ``r``.
 
         Parameters
         ----------
@@ -916,13 +922,14 @@ class Shc:
 
     def dv(self, nmax=None):
         """
-        Computes degree variances up to degree `nmax`.
+        Computes degree variances up to degree ``nmax``.
 
         Parameters
         ----------
         nmax : integer
             Maximum spherical harmonic degree to compute the degree variances,
-            optional.  If not provided, it will be set to :attr:`nmax`.
+            optional.  If not provided, it will be set to the object's
+            :attr:`nmax`.
 
         Returns
         -------
@@ -935,13 +942,13 @@ class Shc:
 
     def da(self, nmax=None):
         """
-        Computes degree amplitudes up to degree `nmax`.
+        Computes degree amplitudes up to degree ``nmax``.
 
         Parameters
         ----------
         nmax : integer
             Maximum spherical harmonic degree to compute the degree amplitudes,
-            optional.  If not provided, it will be set to `self.nmax`.
+            optional.  If not provided, it will be set to ``self.nmax``.
 
         Returns
         -------
@@ -954,17 +961,17 @@ class Shc:
 
     def ddv(self, shcs, nmax=None):
         """
-        Computes difference degree variances with respect to `shcs`  up to
-        degree `nmax`.
+        Computes difference degree variances with respect to ``shcs``  up to
+        degree ``nmax``.
 
         Parameters
         ----------
         shcs : Shc
-            An instance of the `Shc` class.
+            An instance of the :obj:`Shc` class.
         nmax : integer
             Maximum spherical harmonic degree to compute the degree variances,
-            optional.  If not provided, `nmax` is set to the smallest of
-            :attr:`self.nmax` and :obj:`shcs.nmax`.
+            optional.  If not provided, ``nmax`` is set to the smallest of
+            :attr:`self.nmax` and ``shcs.nmax``.
 
         Returns
         -------
@@ -977,17 +984,17 @@ class Shc:
 
     def dda(self, shcs, nmax=None):
         """
-        Computes difference degree amplitudes with respect to `shcs` up to
-        degree `nmax`.
+        Computes difference degree amplitudes with respect to ``shcs`` up to
+        degree ``nmax``.
 
         Parameters
         ----------
         shcs : Shc
-            An instance of the `Shc` class.
+            An instance of the :obj:`Shc` class.
         nmax : integer
             Maximum spherical harmonic degree to compute the degree amplitudes,
-            optional.  If not provided, `nmax` is set to the smallest of
-            `self.nmax` and `shcs.nmax`.
+            optional.  If not provided, ``nmax`` is set to the smallest of
+            ``self.nmax`` and ``shcs.nmax``.
 
         Returns
         -------
@@ -1001,8 +1008,8 @@ class Shc:
     @staticmethod
     def _get_file_types():
         """
-        Returns a help string on all supported values of the `file_type` input
-        parameter to :meth:`to_file` and :meth:`from_file` methods of the
+        Returns a help string on all supported values of the ``file_type``
+        input parameter to :meth:`to_file` and :meth:`from_file` methods of the
         :class:`Shc` class.
         """
 
@@ -1022,10 +1029,10 @@ class Shc:
     def _Shc2Shc(self):
         """
         Private function to convert an :class:`_Shc` class instance in
-        `self._Shc.contents` to an :class:`Shc` class instance in `self`.  The
-        :attr:`c` and :attr:`s` attributes of `self` share the same memory
-        space as the corresponding attributes of `self._Shc.contents.c` and
-        `self._Shc.contents.s`.
+        ``self._Shc.contents`` to an :class:`Shc` class instance in ``self``.
+        The :attr:`c` and :attr:`s` attributes of ``self`` share the same
+        memory space as the corresponding attributes of
+        ``self._Shc.contents.c`` and ``self._Shc.contents.s``.
         """
 
         self._nmax = int(self._Shc.contents.nmax)
@@ -1067,13 +1074,13 @@ class Shc:
     def _read_shc(cls, file_type, pathname, nmax, epoch=None):
         """
         Private function to call CHarm functions to load spherical harmonic
-        coefficients up to degree `nmax` from a file of `file_type` specified
-        by `pathname`.
+        coefficients up to degree ``nmax`` from a file of ``file_type``
+        specified by ``pathname``.
 
         Parameters
         ----------
         file_type : str
-            Either `gfc`, `tbl`, `mtx` or `bin`
+            Either ``gfc``, ``tbl``, ``mtx`` or ``bin``
         pathname : str
             Input file path
         nmax : integer
@@ -1086,10 +1093,10 @@ class Shc:
         Returns
         -------
         out : Shc, integer
-            If `nmax` is a valid maximum harmonic degree, the function returns
-            an `Shc` class instance.  If `nmax` is `_NMAX_MODEL`, the function
-            returns the maximum degree found in ``pathname`` without reading
-            the coefficients inside the file.
+            If ``nmax`` is a valid maximum harmonic degree, the function
+        returns an :obj:`Shc` class instance.  If ``nmax`` is ``_NMAX_MODEL``,
+        the function returns the maximum degree found in ``pathname`` without
+        reading the coefficients inside the file.
         """
 
         Shc._check_file_type(file_type)
@@ -1185,15 +1192,15 @@ class Shc:
                    ordering=WRITE_N):
         """
         Private function to call CHarm functions to write spherical harmonic
-        coefficients up to degree `nmax` to a file `pathname` of a given
-        `file_type`.  Default formatting for floating point numbers in text
-        files is '%0.16e' and the default ordering scheme for `dov` and `tbl`
-        file types is `WRITE_N`.
+        coefficients up to degree ``nmax`` to a file ``pathname`` of a given
+        ``file_type``.  Default formatting for floating point numbers in text
+        files is '%0.16e' and the default ordering scheme for ``dov`` and
+        ``tbl`` file types is ``WRITE_N``.
 
         Parameters
         ----------
         file_type : str
-            Either `tbl`, `mtx` or `bin`
+            Either ``tbl``, ``mtx`` or ``bin``
         nmax : integer
             Maximum harmonic degree to write the spherical harmonic
             coefficients
@@ -1203,8 +1210,8 @@ class Shc:
             Formatting to write floating point numbers to text files.  Default
             is `'%0.16e'`,
         ordering : int
-            Ordering scheme for `dov` and `tbl` file types.  Default is
-            `WRITE_N`
+            Ordering scheme for ``dov`` and ``tbl`` file types.  Default is
+            ``WRITE_N``
         """
 
         Shc._check_file_type(file_type)
@@ -1285,7 +1292,7 @@ class Shc:
     def _get_m_idx(self, m):
         """
         Private function to return index of spherical harmonic coefficients
-        `Cmm` and `Smm` in `self.c` and `self.s` arrays.
+        ``Cmm`` and ``Smm`` in ``self.c`` and ``self.s`` arrays.
 
         Parameters
         ----------
@@ -1294,7 +1301,7 @@ class Shc:
 
         Returns
         -------
-        out : Index of `Cmm` and `Smm` in `self.c` and `self.s`
+        out : Index of ``Cmm`` and ``Smm`` in ``self.c`` and ``self.s``
         """
 
         return int(m * (self.nmax + 2) - (m**2 + m) / 2)
@@ -1302,8 +1309,9 @@ class Shc:
 
     def _check_nm(self, v, do_str):
         """
-        Private function to check spherical harmonic degree `v` if `do_str ==
-        'degree'` or spherical harmonic order `v` if `do_str == 'order'`.
+        Private function to check spherical harmonic degree ``v`` if ``do_str
+        == 'degree'` or spherical harmonic order ``v`` if ``do_str ==
+        'order'``.
 
         Parameters
         ----------
@@ -1406,6 +1414,10 @@ class Shc:
         """
 
         dirpath = _os.path.dirname(pathname)
+        if dirpath == '':
+            # Saving the result to the current working directory, so no
+            # directory needs to be created
+            return
 
         if not _os.path.exists(dirpath):
             _os.makedirs(dirpath, exist_ok=True)
@@ -1425,8 +1437,8 @@ class Shc:
             Either 'charm_shc_dv' or 'charm_shc_da'.
         nmax : integer
             Maximum spherical harmonic degree to compute the degree
-            amplitudes/variances, optional.  If not provided, `nmax` will be
-            set to `self.nmax`.
+            amplitudes/variances, optional.  If not provided, ``nmax`` will be
+            set to ``self.nmax``.
 
         Returns
         -------
@@ -1471,11 +1483,11 @@ class Shc:
         f : str
             Either 'charm_shc_ddv' or 'charm_shc_dda'.
         shcs : Shc
-            An instance of the `Shc` class.
+            An instance of the :obj:`Shc` class.
         nmax : integer
             Maximum spherical harmonic degree to compute the degree
-            amplitudes/variances, optional.  If not provided, `nmax` will be
-            set to `self.nmax`.
+            amplitudes/variances, optional.  If not provided, ``nmax`` will be
+            set to ``self.nmax``.
 
         Returns
         -------

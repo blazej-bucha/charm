@@ -53,6 +53,30 @@ Features
 
 .. [#f1] This routine is unique to CHarm.
 
+
+Installation
+============
+
+* **PyHarm (Python wrapper)**: On Linux (x86_64), macOS (x86_64, ARM64) and 
+  Windows (x86_64), install PyHarm using ``pip``:
+
+  .. code-block:: bash
+
+     pip install pyharm
+
+  This will install PyHarm together will all the dependencies.  These include 
+  a pre-compiled CHarm library, which is internally called by PyHarm, some 
+  other C libraries (FFTW and GOMP) and the Python package NumPy.
+
+* **CHarm (C library)**: If you are interested in the C API, you have to build 
+  CHarm from source.  This step is not required if you plan to use the Python 
+  interface only.
+
+Further installation details at 
+`https://www.charmlib.org/build/html/install.html 
+<https://www.charmlib.org/build/html/install.html>`_.
+
+
 .. _download:
 
 Source code
@@ -85,6 +109,7 @@ To list all available formats, execute ``cd docs && make help``.
 
 .. _contact:
 
+
 Contact
 =======
 
@@ -92,6 +117,14 @@ Should you have any comments, questions, bug report or criticism, please feel
 free to contact the author, Blažej Bucha, at blazej.bucha@stuba.sk.  Further
 products developed by the author can be found at `https://www.blazejbucha.com
 <https://www.blazejbucha.com>`_.
+
+
+Pronunciation
+=============
+
+We prefer to pronounce CHarm and PyHarm like the words ``see harm`` and ``pie 
+harm``.  But it is indeed quite charming to pronounce CHarm like the word 
+``charm``, especially when the library works like a charm.
 
 
 Other spherical-harmonic-based libraries

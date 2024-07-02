@@ -107,8 +107,8 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 LTLIBRARIES = $(noinst_LTLIBRARIES)
-libcharm@P@_misc@OMP@_la_LIBADD =
-am_libcharm@P@_misc@OMP@_la_OBJECTS = misc_arr_chck_lin_incr.lo \
+libcharm@P@_misc_la_LIBADD =
+am_libcharm@P@_misc_la_OBJECTS = misc_arr_chck_lin_incr.lo \
 	misc_arr_chck_symm.lo misc_arr_max.lo misc_arr_mean.lo \
 	misc_arr_min.lo misc_arr_std.lo misc_arr_rms.lo \
 	misc_is_nearly_equal.lo misc_fprintf_real.lo \
@@ -118,9 +118,9 @@ am_libcharm@P@_misc@OMP@_la_OBJECTS = misc_arr_chck_lin_incr.lo \
 	misc_polar_optimization_threshold.lo \
 	misc_buildopt_precision.lo misc_buildopt_omp_charm.lo \
 	misc_buildopt_omp_fftw.lo misc_buildopt_simd.lo \
-	misc_buildopt_isfinite.lo misc_buildopt_version_fftw.lo
-libcharm@P@_misc@OMP@_la_OBJECTS =  \
-	$(am_libcharm@P@_misc@OMP@_la_OBJECTS)
+	misc_buildopt_isfinite.lo misc_buildopt_version_fftw.lo \
+	pyinit_libcharm.lo
+libcharm@P@_misc_la_OBJECTS = $(am_libcharm@P@_misc_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
@@ -157,7 +157,7 @@ am__depfiles_remade = ./$(DEPDIR)/misc_arr_chck_lin_incr.Plo \
 	./$(DEPDIR)/misc_polar_optimization_apply.Plo \
 	./$(DEPDIR)/misc_polar_optimization_threshold.Plo \
 	./$(DEPDIR)/misc_print_info.Plo ./$(DEPDIR)/misc_str2real.Plo \
-	./$(DEPDIR)/misc_str2ul.Plo
+	./$(DEPDIR)/misc_str2ul.Plo ./$(DEPDIR)/pyinit_libcharm.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -177,8 +177,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libcharm@P@_misc@OMP@_la_SOURCES)
-DIST_SOURCES = $(libcharm@P@_misc@OMP@_la_SOURCES)
+SOURCES = $(libcharm@P@_misc_la_SOURCES)
+DIST_SOURCES = $(libcharm@P@_misc_la_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -191,6 +191,7 @@ ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
 AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
 AR = @AR@
+AS = @AS@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
@@ -247,7 +248,6 @@ NP_FLOAT = @NP_FLOAT@
 OBJDIR = @OBJDIR@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
-OMP = @OMP@
 OPENMP_CFLAGS = @OPENMP_CFLAGS@
 OTOOL = @OTOOL@
 OTOOL64 = @OTOOL64@
@@ -332,30 +332,31 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-noinst_LTLIBRARIES = libcharm@P@_misc@OMP@.la
+noinst_LTLIBRARIES = libcharm@P@_misc.la
 AM_CPPFLAGS = -I$(top_srcdir)/charm
-libcharm@P@_misc@OMP@_la_SOURCES = misc_arr_chck_lin_incr.c \
-								   misc_arr_chck_symm.c \
-								   misc_arr_max.c \
-								   misc_arr_mean.c \
-								   misc_arr_min.c \
-								   misc_arr_std.c \
-								   misc_arr_rms.c \
-								   misc_is_nearly_equal.c \
-								   misc_fprintf_real.c \
-								   misc_print_info.c \
-								   misc_get_version.c \
-								   misc_str2ul.c \
-								   misc_str2real.c \
-								   misc_calloc.c \
-								   misc_polar_optimization_apply.c \
-								   misc_polar_optimization_threshold.c \
-								   misc_buildopt_precision.c \
-								   misc_buildopt_omp_charm.c \
-								   misc_buildopt_omp_fftw.c \
-								   misc_buildopt_simd.c \
-								   misc_buildopt_isfinite.c \
-								   misc_buildopt_version_fftw.c
+libcharm@P@_misc_la_SOURCES = misc_arr_chck_lin_incr.c \
+							  misc_arr_chck_symm.c \
+							  misc_arr_max.c \
+							  misc_arr_mean.c \
+							  misc_arr_min.c \
+							  misc_arr_std.c \
+							  misc_arr_rms.c \
+							  misc_is_nearly_equal.c \
+							  misc_fprintf_real.c \
+							  misc_print_info.c \
+							  misc_get_version.c \
+							  misc_str2ul.c \
+							  misc_str2real.c \
+							  misc_calloc.c \
+							  misc_polar_optimization_apply.c \
+							  misc_polar_optimization_threshold.c \
+							  misc_buildopt_precision.c \
+							  misc_buildopt_omp_charm.c \
+							  misc_buildopt_omp_fftw.c \
+							  misc_buildopt_simd.c \
+							  misc_buildopt_isfinite.c \
+							  misc_buildopt_version_fftw.c \
+							  pyinit_libcharm.c
 
 EXTRA_DIST = *.h
 all: all-am
@@ -403,8 +404,8 @@ clean-noinstLTLIBRARIES:
 	  rm -f $${locs}; \
 	}
 
-libcharm@P@_misc@OMP@.la: $(libcharm@P@_misc@OMP@_la_OBJECTS) $(libcharm@P@_misc@OMP@_la_DEPENDENCIES) $(EXTRA_libcharm@P@_misc@OMP@_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(LINK)  $(libcharm@P@_misc@OMP@_la_OBJECTS) $(libcharm@P@_misc@OMP@_la_LIBADD) $(LIBS)
+libcharm@P@_misc.la: $(libcharm@P@_misc_la_OBJECTS) $(libcharm@P@_misc_la_DEPENDENCIES) $(EXTRA_libcharm@P@_misc_la_DEPENDENCIES) 
+	$(AM_V_CCLD)$(LINK)  $(libcharm@P@_misc_la_OBJECTS) $(libcharm@P@_misc_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -434,6 +435,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_print_info.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_str2real.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_str2ul.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pyinit_libcharm.Plo@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -568,6 +570,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/misc_print_info.Plo
 	-rm -f ./$(DEPDIR)/misc_str2real.Plo
 	-rm -f ./$(DEPDIR)/misc_str2ul.Plo
+	-rm -f ./$(DEPDIR)/pyinit_libcharm.Plo
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic
 
@@ -634,6 +637,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/misc_print_info.Plo
 	-rm -f ./$(DEPDIR)/misc_str2real.Plo
 	-rm -f ./$(DEPDIR)/misc_str2ul.Plo
+	-rm -f ./$(DEPDIR)/pyinit_libcharm.Plo
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

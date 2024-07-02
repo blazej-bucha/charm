@@ -32,7 +32,9 @@ void CHARM(misc_print_info)(void)
 #ifdef PACKAGE_BUGREPORT
     "Bug-report: " PACKAGE_BUGREPORT "\n"
 #endif
-    "License: The 3-Clause BSD License\n\n"
+    "License of the source code: The 3-Clause BSD License\n"
+    "License of the compiled library: GNU General Public License version 2 "
+        "or any later\n\n"
 
 
     );

@@ -1,6 +1,17 @@
 /* Header files */
 /* ------------------------------------------------------------------------- */
 #include <config.h>
+#ifndef SIMD
+#   include <stdlib.h>
+#elif HAVE_POSIX_MEMALIGN
+#   include <stdlib.h>
+#elif HAVE_ALIGNED_ALLOC
+#   include <stdlib.h>
+#elif HAVE_MM_MALLOC_H
+#   include <mm_malloc.h>
+#elif HAVE__ALIGNED_MALLOC
+#   include <malloc.h>
+#endif
 #include "../prec.h"
 #include "simd.h"
 #include "malloc_aligned.h"
@@ -22,7 +33,8 @@
  *
  * * If compiling with the SIMD support, used will be the first system function
  *   to allocate an aligned block of memory from the following list that is
- *   found on the host: "posix_memalign", "aligned_alloc", "_mm_malloc".
+ *   found on the host: "posix_memalign", "aligned_alloc", "_mm_malloc",
+ *   "_aligned_malloc".
  *
  * */
 void *CHARM(malloc_aligned)(size_t alignment, size_t size)
@@ -52,6 +64,8 @@ void *CHARM(malloc_aligned)(size_t alignment, size_t size)
     return aligned_alloc(alignment, size_multiple);
 #elif HAVE_MM_MALLOC_H
     return _mm_malloc(size, alignment);
+#elif HAVE__ALIGNED_MALLOC
+    return _aligned_malloc(size, alignment);
 #else
 #   error "Couldn't find any system function to allocate an aligned block of memory."
 #endif

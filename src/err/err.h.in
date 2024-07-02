@@ -192,7 +192,7 @@ typedef struct
  *
  * @returns On success, returned is a pointer to the ``charm@P@_err``
  * structure.  On error, ``NULL`` is returned.  */
-extern charm@P@_err *charm@P@_err_init(void);
+CHARM_EXTERN charm@P@_err * CHARM_CDECL charm@P@_err_init(void);
 /* ------------------------------------------------------------------------- */
 
 
@@ -203,7 +203,7 @@ extern charm@P@_err *charm@P@_err_init(void);
 /* ------------------------------------------------------------------------- */
 /** @brief Frees the memory associated with ``err``.  No operation is performed
  * if ``err`` is ``NULL``. */
-extern void charm@P@_err_free(charm@P@_err *err);
+CHARM_EXTERN void CHARM_CDECL charm@P@_err_free(charm@P@_err *err);
 /* ------------------------------------------------------------------------- */
 
 
@@ -213,7 +213,7 @@ extern void charm@P@_err_free(charm@P@_err *err);
 
 /* ------------------------------------------------------------------------- */
 /** @brief Resets ``err`` to the default empty values.  */
-extern void charm@P@_err_reset(charm@P@_err *err);
+CHARM_EXTERN void CHARM_CDECL charm@P@_err_reset(charm@P@_err *err);
 /* ------------------------------------------------------------------------- */
 
 
@@ -239,8 +239,8 @@ extern void charm@P@_err_reset(charm@P@_err *err);
  * input.
  *
  * */
-extern void charm@P@_err_handler(charm@P@_err *err,
-                                 _Bool terminate);
+CHARM_EXTERN void CHARM_CDECL charm@P@_err_handler(charm@P@_err *err,
+                                           _Bool terminate);
 /* ------------------------------------------------------------------------- */
 
 
@@ -250,7 +250,7 @@ extern void charm@P@_err_handler(charm@P@_err *err,
 
 /* ------------------------------------------------------------------------- */
 /** @brief Returns boolean ``1`` if ``err`` is empty or ``0`` otherwise.  */
-extern _Bool charm@P@_err_isempty(const charm@P@_err *err);
+CHARM_EXTERN _Bool CHARM_CDECL charm@P@_err_isempty(const charm@P@_err *err);
 /* ------------------------------------------------------------------------- */
 
 

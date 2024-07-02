@@ -18,6 +18,21 @@
 #define __CHARM@PC@_H__
 
 
+#undef CHARM_EXTERN
+#undef CHARM_CDECL
+#if defined(_WIN32)
+#   if defined(DLL_EXPORT)
+#       define CHARM_EXTERN extern __declspec(dllexport)
+#   else
+#       define CHARM_EXTERN extern __declspec(dllimport)
+#   endif
+#   define CHARM_CDECL __cdecl
+#else
+#   define CHARM_EXTERN extern
+#   define CHARM_CDECL
+#endif
+
+
 #include <charm/charm@P@_err.h>
 #include <charm/charm@P@_crd.h>
 #include <charm/charm@P@_integ.h>

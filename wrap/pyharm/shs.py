@@ -26,8 +26,8 @@ _get_module_constants('GRAD')
 
 def point(pnt, shcs, nmax):
     """
-    Performs spherical harmonic synthesis of point values from :obj:`shcs` at
-    :obj:`pnt` up to maximum degree :obj:`nmax`.  Refer to `charm_shs
+    Performs spherical harmonic synthesis of point values from ``shcs`` at
+    ``pnt`` up to maximum degree ``nmax``.  Refer to `charm_shs
     <./api-c-shs.html>`_ for the full documentation.
 
     Parameters
@@ -42,7 +42,7 @@ def point(pnt, shcs, nmax):
     Returns
     -------
     out : numpy array of floating points
-        Point values synthesized from :obj:`shcs` at :obj:`pnt`
+        Point values synthesized from ``shcs`` at ``pnt``
     """
 
     _check_crd_instance(pnt, _ph_crd._PointBase, 'pnt')
@@ -76,8 +76,8 @@ def point(pnt, shcs, nmax):
 def point_grad1(pnt, shcs, nmax):
     """
     Performs the synthesis of point values of the first-order gradient in `LNOF
-    <./definitions.html#lnof>`_ from :obj:`shcs` at :obj:`pnt` up to maximum
-    degree :obj:`nmax`.  Refer to `charm_shs <./api-c-shs.html>`_ for the full
+    <./definitions.html#lnof>`_ from ``shcs`` at ``pnt`` up to maximum
+    degree ``nmax``.  Refer to `charm_shs <./api-c-shs.html>`_ for the full
     documentation.
 
     Parameters
@@ -105,8 +105,8 @@ def point_grad1(pnt, shcs, nmax):
 def point_grad2(pnt, shcs, nmax):
     """
     Performs the synthesis of point values of the second-order gradient in
-    `LNOF <./definitions.html#lnof>`_ from :obj:`shcs` at :obj:`pnt` up to
-    maximum degree :obj:`nmax`.  Refer to `charm_shs <./api-c-shs.html>`_ for
+    `LNOF <./definitions.html#lnof>`_ from ``shcs`` at ``pnt`` up to
+    maximum degree ``nmax``.  Refer to `charm_shs <./api-c-shs.html>`_ for
     the full documentation.
 
     Parameters
@@ -197,9 +197,9 @@ def point_guru(pnt, shcs, nmax, dr, dlat, dlon):
         \\frac{1}{r^{j + k} \, \cos^k\\varphi} \, \\frac{\partial^{i + j + k}
         f}{\partial r^i \, \partial \\varphi^j \, \lambda^k}
 
-    for :math:`i = 0, 1, 2` (:obj:`dr`), :math:`j = 0, 1, 2` (:obj:`dlat`) and
-    :math:`k = 0, 1, 2` (:obj:`dlon`) satisfying :math:`i + j + k \leq 2` from
-    :obj:`shcs` at :obj:`pnt` up to maximum degree :obj:`nmax`.  Refer to
+    for :math:`i = 0, 1, 2` (``dr``), :math:`j = 0, 1, 2` (``dlat``) and
+    :math:`k = 0, 1, 2` (``dlon``) satisfying :math:`i + j + k \leq 2` from
+    ``shcs`` at ``pnt`` up to maximum degree ``nmax``.  Refer to
     `charm_shs_point_guru` in `charm_shs <./api-c-shs.html>`_ for the full
     documentation.
 
@@ -224,7 +224,7 @@ def point_guru(pnt, shcs, nmax, dr, dlat, dlon):
     Returns
     -------
     f : numpy array of floating points
-        Output quantity depending on :obj:`dr`, :obj:`dlat` and :obj:`dlon`
+        Output quantity depending on ``dr``, ``dlat`` and ``dlon``
     """
 
     _check_crd_instance(pnt, _ph_crd._PointBase, 'pnt')
@@ -283,8 +283,8 @@ def point_guru(pnt, shcs, nmax, dr, dlat, dlon):
 
 def cell(cell, shcs, nmax):
     """
-    Performs spherical harmonic synthesis of area-mean values from :obj:`shcs`
-    at :obj:`cell` up to maximum degree :obj:`nmax`.  Refer to `charm_shs
+    Performs spherical harmonic synthesis of area-mean values from ``shcs``
+    at ``cell`` up to maximum degree ``nmax``.  Refer to `charm_shs
     <./api-c-shs.html>`_ for the full documentation.
 
     Parameters
@@ -299,7 +299,7 @@ def cell(cell, shcs, nmax):
     Returns
     -------
     out : numpy array of floating points
-        Area-mean values synthesized from :obj:`shcs` at :obj:`cell`
+        Area-mean values synthesized from ``shcs`` at ``cell``
     """
 
     _check_crd_instance(cell, _ph_crd._CellBase, 'cell')
@@ -332,14 +332,14 @@ def cell(cell, shcs, nmax):
 
 def cell_isurf(cell, shcs1, nmax1, shcs2, nmax2, nmax3, nmax4):
     """
-    Performs spherical harmonic synthesis of area-mean values from :obj:`shcs1`
-    at :obj:`cell` residing on an irregular surface defined by :obj:`shcs2`.
-    The synthesis of area-mean values is done up to degree :obj:`nmax1`
-    and the irregular surface is expanded up to degree :obj:`nmax2`.
-    :obj:`nmax3` and :obj:`nmax4` represent the maximum harmonic degrees to
-    synthesize and analyze the :obj:`(shcs1.r / r)^(n + 1)` terms, where
-    :obj:`r` stands for the spherical radius of the irregular surface defined
-    by :obj:`shcs2`.  Refer to `charm_shs <./api-c-shs.html>`_ for the full
+    Performs spherical harmonic synthesis of area-mean values from ``shcs1``
+    at ``cell`` residing on an irregular surface defined by ``shcs2``.
+    The synthesis of area-mean values is done up to degree ``nmax1``
+    and the irregular surface is expanded up to degree ``nmax2``.
+    ``nmax3`` and ``nmax4`` represent the maximum harmonic degrees to
+    synthesize and analyze the ``(shcs1.r / r)^(n + 1)`` terms, where
+    ``r`` stands for the spherical radius of the irregular surface defined
+    by ``shcs2``.  Refer to `charm_shs <./api-c-shs.html>`_ for the full
     documentation.
 
     Parameters
@@ -357,15 +357,15 @@ def cell_isurf(cell, shcs1, nmax1, shcs2, nmax2, nmax3, nmax4):
     nmax2 : integer
         Maximum degree of the synthesis of the irregular surface
     nmax3 : integer
-        Maximum degree of the synthesis of :obj:`(shcs1.r / r)^(n + 1)`
+        Maximum degree of the synthesis of ``(shcs1.r / r)^(n + 1)``
     nmax4 : integer
-        Maximum degree of the analysis of :obj:`(shcs1.r / r)^(n + 1)`
+        Maximum degree of the analysis of ``(shcs1.r / r)^(n + 1)``
 
     Returns
     -------
     out : numpy array of floating points
-        Area-mean values synthesized from :obj:`shcs1` at :obj:`cell` residing
-        on the surface defined by :obj:`shcs2`
+        Area-mean values synthesized from ``shcs1`` at ``cell`` residing
+        on the surface defined by ``shcs2``
     """
 
     _check_crd_instance(cell, _ph_crd.CellGrid, 'cell')

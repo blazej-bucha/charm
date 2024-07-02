@@ -10,7 +10,7 @@
 
 
 
-const char * const CHARM(misc_get_version)(void)
+const char * CHARM(misc_get_version)(void)
 {
     return CHARM_VERSION_STRING;
 }

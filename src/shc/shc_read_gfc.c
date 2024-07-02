@@ -136,8 +136,6 @@
 #undef REAL_EPOCH
 #if CHARM_FLOAT
 #   define REAL_EPOCH double
-#elif CHARM_QUAD
-#   define REAL_EPOCH __float128
 #else
 #   define REAL_EPOCH REAL
 #endif

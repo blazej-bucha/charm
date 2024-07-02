@@ -54,7 +54,7 @@ extern "C"
  * data type (``float``, ``double`` or ``__float128``).  Experienced users may
  * (under some very specific circumstances) need the possibility to tighten or
  * relax the threshold. */
-extern @RDT@ charm@P@_glob_threshold;
+CHARM_EXTERN @RDT@ charm@P@_glob_threshold;
 
 
 /** @brief A more relaxed threshold to judge whether two floating point numbers
@@ -67,7 +67,7 @@ extern @RDT@ charm@P@_glob_threshold;
  * situations (yet narrow enough).  The current value was found to be
  * sufficient for quadrature grids associated with degrees as high as
  * ``70,000``. */
-extern @RDT@ charm@P@_glob_threshold2;
+CHARM_EXTERN @RDT@ charm@P@_glob_threshold2;
 
 
 /**
@@ -132,12 +132,12 @@ extern @RDT@ charm@P@_glob_threshold2;
 
 
 /** @brief Polar optimization parameter (default is ``100``) */
-extern unsigned long charm@P@_glob_polar_optimization_a1;
+CHARM_EXTERN unsigned long charm@P@_glob_polar_optimization_a1;
 
 
 /** @brief Polar optimization parameter (default is ``-1.0``, that is, no polar
  * optimization) */
-extern @RDT@ charm@P@_glob_polar_optimization_a2;
+CHARM_EXTERN @RDT@ charm@P@_glob_polar_optimization_a2;
 
 
 /**

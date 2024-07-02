@@ -50,9 +50,13 @@ Tested platforms
      - Windows 10 + Cygwin 3.4
      - Clang 8.0.1-1 [#f2]_
 
-.. [#f1] SIMD instructions disabled (see :ref:`installation_win`).
-.. [#f2] SIMD instructions enabled (see :ref:`installation_win`).
+   * - x86_64
+     - Windows 11
+     - MSVC 14.40.33807
+
+.. [#f1] SIMD instructions disabled (see :ref:`build_from_src_non_unix`).
+.. [#f2] SIMD instructions enabled (see :ref:`build_from_src_non_unix`).
 
 
-We would love to hear your own experience, especially on platforms not listed 
+We would love to hear your own experience, especially with platforms not listed 
 in the table!

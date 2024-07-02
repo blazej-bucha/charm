@@ -67,7 +67,7 @@ void CHARM(shs_get_mur_dorder_npar)(const CHARM(shc) *shcs,
 
 
     REAL rpow = shcs->r;
-    for (int i = 1; i <= *dorder; i++)
+    for (unsigned i = 1; i <= *dorder; i++)
         rpow *= shcs->r;
     *mur = shcs->mu / rpow;
 

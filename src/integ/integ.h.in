@@ -119,14 +119,15 @@ extern "C"
  * the ``nan`` value and the error is written to ``err``.
  *
  * */
-extern @RDT@ charm@P@_integ_pn1m1pn2m2(@RDT@ cltmin,
-                                       @RDT@ cltmax,
-                                       unsigned long n1,
-                                       unsigned long m1,
-                                       unsigned long n2,
-                                       unsigned long m2,
-                                       const charm@P@_pnmj *pnmj,
-                                       charm@P@_err *err);
+CHARM_EXTERN @RDT@ CHARM_CDECL
+                   charm@P@_integ_pn1m1pn2m2(@RDT@ cltmin,
+                                             @RDT@ cltmax,
+                                             unsigned long n1,
+                                             unsigned long m1,
+                                             unsigned long n2,
+                                             unsigned long m2,
+                                             const charm@P@_pnmj *pnmj,
+                                             charm@P@_err *err);
 
 
 
@@ -187,18 +188,19 @@ extern @RDT@ charm@P@_integ_pn1m1pn2m2(@RDT@ cltmin,
  * the ``nan`` value and the error is written to ``err``.
  *
  * */
-extern @RDT@ charm@P@_integ_yi1n1m1yi2n2m2(@RDT@ cltmin,
-                                           @RDT@ cltmax,
-                                           @RDT@ lonmin,
-                                           @RDT@ lonmax,
-                                           _Bool i1,
-                                           unsigned long n1,
-                                           unsigned long m1,
-                                           _Bool i2,
-                                           unsigned long n2,
-                                           unsigned long m2,
-                                           const charm@P@_pnmj *pnmj,
-                                           charm@P@_err *err);
+CHARM_EXTERN @RDT@ CHARM_CDECL
+                   charm@P@_integ_yi1n1m1yi2n2m2(@RDT@ cltmin,
+                                                 @RDT@ cltmax,
+                                                 @RDT@ lonmin,
+                                                 @RDT@ lonmax,
+                                                 _Bool i1,
+                                                 unsigned long n1,
+                                                 unsigned long m1,
+                                                 _Bool i2,
+                                                 unsigned long n2,
+                                                 unsigned long m2,
+                                                 const charm@P@_pnmj *pnmj,
+                                                 charm@P@_err *err);
 /* ------------------------------------------------------------------------- */
 
 

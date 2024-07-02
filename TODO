@@ -1,10 +1,6 @@
 * Add unit tests for PyHarm.
 
-* Add note in docs that "sudo make install" installs PyHarm as a root, too, 
-  even if in virtual environment.  It seems that the uninstallation must then 
-  be manual instead of using just "pip uninstall pyharm".  For now, the best 
-  solution therefore seems to be to install both CHarm and PyHarm either as 
-  a user or as a root and not combine the two.
+* Add support for the ARM's NEON instructions.
 
 * Add mechanism to tune the `SIMD_BLOCK` parameter for the host's CPU during 
   the compilation.
@@ -21,5 +17,3 @@
 * Add a global variable to control the verbosity.
 
 * Parallelize "leg_pnmj_coeffs.c".
-
-* Alternatively build CHarm with CMake on Windows.

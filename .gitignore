@@ -37,7 +37,7 @@ tests/genref_run[fq]_omp
 tests/genref-output
 wrap/pyharm/_data_types.py
 wrap/pyharm/__init__.py
-wrap/pyharm/lib/*
+wrap/pyharm/libcharm*.so
 wrap/pyharm.egg-info
 wrap/pyharm[f].egg-info
 wrap/pyharmf

@@ -21,6 +21,11 @@
 /* ------------------------------------------------------------------------- */
 
 
+#ifndef DLL_EXPORT
+#   define DLL_EXPORT
+#endif
+
+
 #undef CAT
 #define CAT(x, y) x ## y
 #undef CAT2
@@ -30,6 +35,8 @@
 #undef CHARM
 #undef REAL
 #undef PREC
+#undef FFTW
+#undef FFTWC
 #undef FFTW3_OMP
 
 
@@ -55,10 +62,7 @@
 /* At first, let's check if one precision only is defined in "config.h".  The
  * configure script does not allow this, but if CHarm is compiled without the
  * autotools, this might perhaps happen. */
-#if (CHARM_FLOAT && CHARM_DOUBLE) || \
-    (CHARM_FLOAT && CHARM_QUAD) || \
-    (CHARM_DOUBLE && CHARM_QUAD) || \
-    (CHARM_FLOAT && CHARM_DOUBLE && CHARM_QUAD)
+#if CHARM_FLOAT && CHARM_QUAD
 #   error "One precision only must be defined in config.h."
 #endif
 
@@ -75,6 +79,15 @@
 
 #   define CHARM(x)  CAT(charmf_, x)
 #   define FFTW(x)   CAT(fftwf_, x)
+#   if MSVC_UNDERSCORE_PATCH
+        /* Microsoft's MSVC compiler incorrectly expands "FFTW(complex)" to
+         * "fftw__complex" if "FFTW" is defined as above and "math.h" is
+         * included, so we need this stupid patch and to always use
+         * "FFTWC(complex)" instead of "FFTW(complex)". */
+#       define FFTWC(x)     CAT(fftwf, x)
+#   else
+#       define FFTWC        FFTW
+#   endif
 #   define REAL      float
 #   define PREC(x)   CAT(x, f)
 #   if HAVE_LIBFFTW3F_OMP
@@ -149,6 +162,12 @@
 
 #   define CHARM(x)  CAT(charmq_, x)
 #   define FFTW(x)   CAT(fftwq_, x)
+#   if MSVC_UNDERSCORE_PATCH
+        /* See above for the explanation of this */
+#       define FFTWC(x)     CAT(fftwq, x)
+#   else
+#       define FFTWC        FFTW
+#   endif
 #   define REAL      __float128
 #   define PREC(x)   CAT(x, q)
 #   if HAVE_LIBFFTW3Q_OMP
@@ -223,6 +242,12 @@
 
 #   define CHARM(x)  CAT(charm_, x)
 #   define FFTW(x)   CAT(fftw_, x)
+#   if MSVC_UNDERSCORE_PATCH
+        /* See above for the explanation of this */
+#       define FFTWC(x)     CAT(fftw, x)
+#   else
+#       define FFTWC        FFTW
+#   endif
 #   define REAL      double
 #   define PREC(x)   CAT(x,)
 #   if HAVE_LIBFFTW3_OMP

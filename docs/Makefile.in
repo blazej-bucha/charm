@@ -131,6 +131,7 @@ ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
 AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
 AR = @AR@
+AS = @AS@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
@@ -187,7 +188,6 @@ NP_FLOAT = @NP_FLOAT@
 OBJDIR = @OBJDIR@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
-OMP = @OMP@
 OPENMP_CFLAGS = @OPENMP_CFLAGS@
 OTOOL = @OTOOL@
 OTOOL64 = @OTOOL64@
@@ -274,7 +274,6 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 EXTRA_DIST = build/html \
 			 img \
-			 logo \
 			 src \
 			 Doxyfile \
 			 index.html \
@@ -512,17 +511,15 @@ uninstall-am:
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-$(top_srcdir)/@OBJDIR@/libcharm@P@@OMP@@SHARED_EXT@:
-	cd $(top_srcdir) && $(MAKE) -j
-
-lib-file: $(top_srcdir)/@OBJDIR@/libcharm@P@@OMP@@SHARED_EXT@
-	cd $(top_srcdir)/wrap/pyharm && $(MAKE) cp-lib
-
 doxygen:
 	cd $(top_srcdir) && ./config.status
 	doxygen Doxyfile
 
-$(SPHINXTARGETS) $(SPHINXTARGETS_DEL): doxygen lib-file
+$(SPHINXTARGETS) $(SPHINXTARGETS_DEL): doxygen
+	cd $(top_srcdir)/wrap/pyharm@P@ && $(MAKE) pyharm-build-local
+	cd $(top_srcdir) && rm -f ./wrap/pyharm@P@/libcharm@P@*.so
+	cd $(top_srcdir) && \
+		cp ./build/lib*/pyharm/libcharm@P@*.so ./wrap/pyharm@P@
 @DOC_PY_TRUE@@DOC_TRUE@	rm -rf build/$@
 @DOC_PY_TRUE@@DOC_TRUE@	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 @DOC_PY_FALSE@@DOC_TRUE@	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
