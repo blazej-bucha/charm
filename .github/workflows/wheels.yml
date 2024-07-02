@@ -20,11 +20,11 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Setup MSVC
-        if: startsWith(matrix.os, "windows")
+        if: startsWith(matrix.os, 'windows')
         uses: ilammy/msvc-dev-cmd@v1
 
       - name: Get CCCL wrapper for MSVC
-        if: startsWith(matrix.os, "windows")
+        if: startsWith(matrix.os, 'windows')
         run: |
           git clone https://github.com/swig/cccl cccl-repo
 
