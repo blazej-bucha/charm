@@ -11,7 +11,7 @@ shcs_file = '../../data/input/EGM96-degree10.gfc'
 
 
 # =============================================================================
-# First, let'get the maximum harmonic degree stored in "shcs_file".  This is
+# First, let's get the maximum harmonic degree stored in "shcs_file".  This is
 # especially useful to read all coefficients in "shcs_file" without knowing its
 # maximum harmonic degree a priori.
 nmax = ph.shc.Shc.nmax_from_file('gfc', shcs_file)
