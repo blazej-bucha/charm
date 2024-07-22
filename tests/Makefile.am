@@ -18,7 +18,7 @@ SOURCES = main.c \
 		  write_array.c \
 		  write_val.c \
 		  validate.c \
-		  write.c \
+		  array2file.c \
 		  modify_low_degree_coefficients.c \
 		  generate_point.c \
 		  generate_cell.c \

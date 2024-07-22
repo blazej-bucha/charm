@@ -6,7 +6,7 @@
 #include "parameters.h"
 #include "cmp_arrays.h"
 #ifdef GENREF
-#   include "write.h"
+#   include "array2file.h"
 #else
 #   include "validate.h"
 #endif
@@ -62,8 +62,8 @@ long int check_shc_rescale(void)
     sprintf(filec, "%s/shc_rescale_c%s", FOLDER, FTYPE);
     sprintf(files, "%s/shc_rescale_s%s", FOLDER, FTYPE);
 #ifdef GENREF
-    e += write(filec, shcs->c[0], shcs->nc);
-    e += write(files, shcs->s[0], shcs->ns);
+    e += array2file(filec, shcs->c[0], shcs->nc);
+    e += array2file(files, shcs->s[0], shcs->ns);
 #else
     e += validate(filec, shcs->c[0], shcs->nc, CHARM(glob_threshold));
     e += validate(files, shcs->s[0], shcs->ns, CHARM(glob_threshold));

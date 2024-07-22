@@ -115,7 +115,8 @@ am__objects_1 = genref_run@P@-main.$(OBJEXT) \
 	genref_run@P@-cmp_arrays.$(OBJEXT) \
 	genref_run@P@-write_array.$(OBJEXT) \
 	genref_run@P@-write_val.$(OBJEXT) \
-	genref_run@P@-validate.$(OBJEXT) genref_run@P@-write.$(OBJEXT) \
+	genref_run@P@-validate.$(OBJEXT) \
+	genref_run@P@-array2file.$(OBJEXT) \
 	genref_run@P@-modify_low_degree_coefficients.$(OBJEXT) \
 	genref_run@P@-generate_point.$(OBJEXT) \
 	genref_run@P@-generate_cell.$(OBJEXT) \
@@ -171,7 +172,7 @@ am__objects_2 = test_run@P@-main.$(OBJEXT) \
 	test_run@P@-cmp_arrays.$(OBJEXT) \
 	test_run@P@-write_array.$(OBJEXT) \
 	test_run@P@-write_val.$(OBJEXT) test_run@P@-validate.$(OBJEXT) \
-	test_run@P@-write.$(OBJEXT) \
+	test_run@P@-array2file.$(OBJEXT) \
 	test_run@P@-modify_low_degree_coefficients.$(OBJEXT) \
 	test_run@P@-generate_point.$(OBJEXT) \
 	test_run@P@-generate_cell.$(OBJEXT) \
@@ -232,7 +233,7 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade =  \
+am__depfiles_remade = ./$(DEPDIR)/genref_run@P@-array2file.Po \
 	./$(DEPDIR)/genref_run@P@-check_crd_cell_alloc.Po \
 	./$(DEPDIR)/genref_run@P@-check_crd_cell_init.Po \
 	./$(DEPDIR)/genref_run@P@-check_crd_point_alloc.Po \
@@ -277,9 +278,9 @@ am__depfiles_remade =  \
 	./$(DEPDIR)/genref_run@P@-module_shc.Po \
 	./$(DEPDIR)/genref_run@P@-module_shs.Po \
 	./$(DEPDIR)/genref_run@P@-validate.Po \
-	./$(DEPDIR)/genref_run@P@-write.Po \
 	./$(DEPDIR)/genref_run@P@-write_array.Po \
 	./$(DEPDIR)/genref_run@P@-write_val.Po \
+	./$(DEPDIR)/test_run@P@-array2file.Po \
 	./$(DEPDIR)/test_run@P@-check_crd_cell_alloc.Po \
 	./$(DEPDIR)/test_run@P@-check_crd_cell_init.Po \
 	./$(DEPDIR)/test_run@P@-check_crd_point_alloc.Po \
@@ -324,7 +325,6 @@ am__depfiles_remade =  \
 	./$(DEPDIR)/test_run@P@-module_shc.Po \
 	./$(DEPDIR)/test_run@P@-module_shs.Po \
 	./$(DEPDIR)/test_run@P@-validate.Po \
-	./$(DEPDIR)/test_run@P@-write.Po \
 	./$(DEPDIR)/test_run@P@-write_array.Po \
 	./$(DEPDIR)/test_run@P@-write_val.Po
 am__mv = mv -f
@@ -527,7 +527,7 @@ SOURCES = main.c \
 		  write_array.c \
 		  write_val.c \
 		  validate.c \
-		  write.c \
+		  array2file.c \
 		  modify_low_degree_coefficients.c \
 		  generate_point.c \
 		  generate_cell.c \
@@ -655,6 +655,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-array2file.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_crd_cell_alloc.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_crd_cell_init.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_crd_point_alloc.Po@am__quote@ # am--include-marker
@@ -699,9 +700,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-module_shc.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-module_shs.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-validate.Po@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-write.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-write_array.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-write_val.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-array2file.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_crd_cell_alloc.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_crd_cell_init.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_crd_point_alloc.Po@am__quote@ # am--include-marker
@@ -746,7 +747,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-module_shc.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-module_shs.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-validate.Po@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-write.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-write_array.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-write_val.Po@am__quote@ # am--include-marker
 
@@ -861,19 +861,19 @@ genref_run@P@-validate.obj: validate.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-validate.obj `if test -f 'validate.c'; then $(CYGPATH_W) 'validate.c'; else $(CYGPATH_W) '$(srcdir)/validate.c'; fi`
 
-genref_run@P@-write.o: write.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-write.o -MD -MP -MF $(DEPDIR)/genref_run@P@-write.Tpo -c -o genref_run@P@-write.o `test -f 'write.c' || echo '$(srcdir)/'`write.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-write.Tpo $(DEPDIR)/genref_run@P@-write.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='write.c' object='genref_run@P@-write.o' libtool=no @AMDEPBACKSLASH@
+genref_run@P@-array2file.o: array2file.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-array2file.o -MD -MP -MF $(DEPDIR)/genref_run@P@-array2file.Tpo -c -o genref_run@P@-array2file.o `test -f 'array2file.c' || echo '$(srcdir)/'`array2file.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-array2file.Tpo $(DEPDIR)/genref_run@P@-array2file.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='array2file.c' object='genref_run@P@-array2file.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-write.o `test -f 'write.c' || echo '$(srcdir)/'`write.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-array2file.o `test -f 'array2file.c' || echo '$(srcdir)/'`array2file.c
 
-genref_run@P@-write.obj: write.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-write.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-write.Tpo -c -o genref_run@P@-write.obj `if test -f 'write.c'; then $(CYGPATH_W) 'write.c'; else $(CYGPATH_W) '$(srcdir)/write.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-write.Tpo $(DEPDIR)/genref_run@P@-write.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='write.c' object='genref_run@P@-write.obj' libtool=no @AMDEPBACKSLASH@
+genref_run@P@-array2file.obj: array2file.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-array2file.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-array2file.Tpo -c -o genref_run@P@-array2file.obj `if test -f 'array2file.c'; then $(CYGPATH_W) 'array2file.c'; else $(CYGPATH_W) '$(srcdir)/array2file.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-array2file.Tpo $(DEPDIR)/genref_run@P@-array2file.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='array2file.c' object='genref_run@P@-array2file.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-write.obj `if test -f 'write.c'; then $(CYGPATH_W) 'write.c'; else $(CYGPATH_W) '$(srcdir)/write.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-array2file.obj `if test -f 'array2file.c'; then $(CYGPATH_W) 'array2file.c'; else $(CYGPATH_W) '$(srcdir)/array2file.c'; fi`
 
 genref_run@P@-modify_low_degree_coefficients.o: modify_low_degree_coefficients.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-modify_low_degree_coefficients.o -MD -MP -MF $(DEPDIR)/genref_run@P@-modify_low_degree_coefficients.Tpo -c -o genref_run@P@-modify_low_degree_coefficients.o `test -f 'modify_low_degree_coefficients.c' || echo '$(srcdir)/'`modify_low_degree_coefficients.c
@@ -1519,19 +1519,19 @@ test_run@P@-validate.obj: validate.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-validate.obj `if test -f 'validate.c'; then $(CYGPATH_W) 'validate.c'; else $(CYGPATH_W) '$(srcdir)/validate.c'; fi`
 
-test_run@P@-write.o: write.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-write.o -MD -MP -MF $(DEPDIR)/test_run@P@-write.Tpo -c -o test_run@P@-write.o `test -f 'write.c' || echo '$(srcdir)/'`write.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-write.Tpo $(DEPDIR)/test_run@P@-write.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='write.c' object='test_run@P@-write.o' libtool=no @AMDEPBACKSLASH@
+test_run@P@-array2file.o: array2file.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-array2file.o -MD -MP -MF $(DEPDIR)/test_run@P@-array2file.Tpo -c -o test_run@P@-array2file.o `test -f 'array2file.c' || echo '$(srcdir)/'`array2file.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-array2file.Tpo $(DEPDIR)/test_run@P@-array2file.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='array2file.c' object='test_run@P@-array2file.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-write.o `test -f 'write.c' || echo '$(srcdir)/'`write.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-array2file.o `test -f 'array2file.c' || echo '$(srcdir)/'`array2file.c
 
-test_run@P@-write.obj: write.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-write.obj -MD -MP -MF $(DEPDIR)/test_run@P@-write.Tpo -c -o test_run@P@-write.obj `if test -f 'write.c'; then $(CYGPATH_W) 'write.c'; else $(CYGPATH_W) '$(srcdir)/write.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-write.Tpo $(DEPDIR)/test_run@P@-write.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='write.c' object='test_run@P@-write.obj' libtool=no @AMDEPBACKSLASH@
+test_run@P@-array2file.obj: array2file.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-array2file.obj -MD -MP -MF $(DEPDIR)/test_run@P@-array2file.Tpo -c -o test_run@P@-array2file.obj `if test -f 'array2file.c'; then $(CYGPATH_W) 'array2file.c'; else $(CYGPATH_W) '$(srcdir)/array2file.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-array2file.Tpo $(DEPDIR)/test_run@P@-array2file.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='array2file.c' object='test_run@P@-array2file.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-write.obj `if test -f 'write.c'; then $(CYGPATH_W) 'write.c'; else $(CYGPATH_W) '$(srcdir)/write.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-array2file.obj `if test -f 'array2file.c'; then $(CYGPATH_W) 'array2file.c'; else $(CYGPATH_W) '$(srcdir)/array2file.c'; fi`
 
 test_run@P@-modify_low_degree_coefficients.o: modify_low_degree_coefficients.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-modify_low_degree_coefficients.o -MD -MP -MF $(DEPDIR)/test_run@P@-modify_low_degree_coefficients.Tpo -c -o test_run@P@-modify_low_degree_coefficients.o `test -f 'modify_low_degree_coefficients.c' || echo '$(srcdir)/'`modify_low_degree_coefficients.c
@@ -2225,7 +2225,8 @@ clean-am: clean-checkPROGRAMS clean-generic clean-libtool clean-local \
 	clean-noinstPROGRAMS mostlyclean-am
 
 distclean: distclean-am
-		-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_cell_alloc.Po
+		-rm -f ./$(DEPDIR)/genref_run@P@-array2file.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_cell_alloc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_cell_init.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_point_alloc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_point_init.Po
@@ -2269,9 +2270,9 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_shc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_shs.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-validate.Po
-	-rm -f ./$(DEPDIR)/genref_run@P@-write.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-write_array.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-write_val.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-array2file.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_crd_cell_alloc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_crd_cell_init.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_crd_point_alloc.Po
@@ -2316,7 +2317,6 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test_run@P@-module_shc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-module_shs.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-validate.Po
-	-rm -f ./$(DEPDIR)/test_run@P@-write.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-write_array.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-write_val.Po
 	-rm -f Makefile
@@ -2364,7 +2364,8 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_cell_alloc.Po
+		-rm -f ./$(DEPDIR)/genref_run@P@-array2file.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_cell_alloc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_cell_init.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_point_alloc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_point_init.Po
@@ -2408,9 +2409,9 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_shc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_shs.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-validate.Po
-	-rm -f ./$(DEPDIR)/genref_run@P@-write.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-write_array.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-write_val.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-array2file.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_crd_cell_alloc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_crd_cell_init.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_crd_point_alloc.Po
@@ -2455,7 +2456,6 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test_run@P@-module_shc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-module_shs.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-validate.Po
-	-rm -f ./$(DEPDIR)/test_run@P@-write.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-write_array.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-write_val.Po
 	-rm -f Makefile

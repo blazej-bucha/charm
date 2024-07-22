@@ -10,7 +10,7 @@
 #include "generate_point.h"
 #include "parameters.h"
 #ifdef GENREF
-#   include "write.h"
+#   include "array2file.h"
 #else
 #   include "validate.h"
 #endif
@@ -455,7 +455,7 @@ long int check_shs_point_guru(void)
                     zeros_for_singularities(grd_pnt, f[j], j);
 #ifdef GENREF
                     zeros_for_low_nmax(f[j], grd_pnt->npoint, j, nmax);
-                    e += write(file[j], f[j], grd_pnt->npoint);
+                    e += array2file(file[j], f[j], grd_pnt->npoint);
 #else
                     e += validate(file[j], f[j], grd_pnt->npoint,
 #   if GRAD_0 == 1
@@ -571,7 +571,7 @@ long int check_shs_point_guru(void)
                             zeros_for_singularities(grd_pnt, f[j], j);
 #   ifdef GENREF
                             zeros_for_low_nmax(f[j], grd_pnt->npoint, j, nmax);
-                            e += write(file[j], f[j], grd_pnt->npoint);
+                            e += array2file(file[j], f[j], grd_pnt->npoint);
 #   else
                             e += validate(file[j], f[j], grd_pnt->npoint,
 #      if GRAD_0 == 1
@@ -672,7 +672,7 @@ long int check_shs_point_guru(void)
                     zeros_for_singularities(sctr_pnt, f[j], j);
 #ifdef GENREF
                     zeros_for_low_nmax(f[j], sctr_pnt->npoint, j, nmax);
-                    e += write(file[j], f[j], sctr_pnt->npoint);
+                    e += array2file(file[j], f[j], sctr_pnt->npoint);
 #else
                     e += validate(file[j], f[j], sctr_pnt->npoint,
 #   if GRAD_0 == 1
@@ -816,8 +816,8 @@ long int check_shs_point_guru(void)
                             zeros_for_low_nmax(f[j],
                                                grd_pnt->nlat * grd_pnt->nlon,
                                                j, nmax);
-                            e += write(file[j], f[j],
-                                       grd_pnt->nlat * grd_pnt->nlon);
+                            e += array2file(file[j], f[j],
+                                            grd_pnt->nlat * grd_pnt->nlon);
 #   else
                             /* Do not use "grd_pnt->npoint" here, because
                              * "grd_pnt->nlon" has been modified. */

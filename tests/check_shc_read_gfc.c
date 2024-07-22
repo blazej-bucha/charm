@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include "../src/prec.h"
 #include "validate.h"
-#include "write.h"
+#include "array2file.h"
 #include "parameters.h"
 #include "check_shc_read_gfc.h"
 /* ------------------------------------------------------------------------- */
@@ -64,8 +64,8 @@ long int check_shc_read_gfc(void)
 
 
 #ifdef GENREF
-        e += write(file_c, shcs->c[0], shcs->nc);
-        e += write(file_s, shcs->s[0], shcs->ns);
+        e += array2file(file_c, shcs->c[0], shcs->nc);
+        e += array2file(file_s, shcs->s[0], shcs->ns);
 #else
         e += validate(file_c, shcs->c[0], shcs->nc,
                       PREC(10.0) * CHARM(glob_threshold));

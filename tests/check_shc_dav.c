@@ -5,7 +5,7 @@
 #include "../src/prec.h"
 #include "parameters.h"
 #ifdef GENREF
-#   include "write.h"
+#   include "array2file.h"
 #else
 #   include "validate.h"
 #endif
@@ -70,7 +70,7 @@ long int check_shc_dav(void (*shc_dav)(const CHARM(shc) *,
 
 
 #ifdef GENREF
-        e += write(file, f, nmax + 1);
+        e += array2file(file, f, nmax + 1);
 #else
         e += validate(file, f, nmax + 1, PREC(10.0) * CHARM(glob_threshold));
 #endif

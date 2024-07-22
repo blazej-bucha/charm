@@ -6,7 +6,7 @@
 #include "../src/prec.h"
 #include "parameters.h"
 #ifdef GENREF
-#   include "write.h"
+#   include "array2file.h"
 #else
 #   include "validate.h"
 #endif
@@ -58,9 +58,9 @@ long int check_crd_point_quad(CHARM(point) *(*quad)(unsigned long, REAL))
 
 
 #ifdef GENREF
-            e += write(file_lat, grd->lat, grd->nlat);
-            e += write(file_lon, grd->lon, grd->nlon);
-            e += write(file_r,   grd->r,   grd->nlat);
+            e += array2file(file_lat, grd->lat, grd->nlat);
+            e += array2file(file_lon, grd->lon, grd->nlon);
+            e += array2file(file_r,   grd->r,   grd->nlat);
 #else
             e += validate(file_lat, grd->lat, grd->nlat,
                           PREC(10.0) * CHARM(glob_threshold));

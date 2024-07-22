@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include "../src/prec.h"
 #include "write_array.h"
-#include "write.h"
+#include "array2file.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -15,7 +15,7 @@
 /* Writes "n" data elements from the array pointed to by "f" to a file pointed
  * to by "file".  */
 /* ------------------------------------------------------------------------- */
-long int write(char *file, REAL *f, size_t n)
+long int array2file(char *file, REAL *f, size_t n)
 {
     /* Read the reference data from "file" */
     /* --------------------------------------------------------------------- */

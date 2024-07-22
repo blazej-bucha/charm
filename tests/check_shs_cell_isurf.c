@@ -7,7 +7,7 @@
 #include "generate_cell.h"
 #include "parameters.h"
 #ifdef GENREF
-#   include "write.h"
+#   include "array2file.h"
 #else
 #   include "validate.h"
 #endif
@@ -120,7 +120,7 @@ long int check_shs_cell_isurf(void)
 
 
 #ifdef GENREF
-                e += write(file, f, grd->ncell);
+                e += array2file(file, f, grd->ncell);
 #else
                 e += validate(file, f, grd->ncell, CHARM(glob_threshold2));
 #endif
