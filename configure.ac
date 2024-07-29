@@ -73,6 +73,13 @@ dnl ===========================================================================
 AC_C_CONST
 AC_C_INLINE
 AC_TYPE_SIZE_T
+if test "$ac_cv_type_size_t" != "yes"; then
+    AC_MSG_ERROR([couldn't define size_t data type.])
+fi
+AC_TYPE_INT64_T
+if test "$ac_cv_c_int64_t" != "yes"; then
+    AC_MSG_ERROR([couldn't define a signed 64 bits wide integer.])
+fi
 dnl ===========================================================================
 
 
@@ -101,6 +108,7 @@ dnl Checks for header files
 dnl ===========================================================================
 AC_CHECK_HEADER([math.h], [], [AC_MSG_ERROR([math.h not found])])
 AC_CHECK_HEADER([stdio.h], [], [AC_MSG_ERROR([stdio.h not found])])
+AC_CHECK_HEADER([stdint.h], [], [AC_MSG_ERROR([stdint.h not found])])
 AC_CHECK_HEADER([stdlib.h], [], [AC_MSG_ERROR([stdlib.h not found])])
 AC_CHECK_HEADER([string.h], [], [AC_MSG_ERROR([string.h not found])])
 AC_CHECK_HEADER([ctype.h], [], [AC_MSG_ERROR([ctype.h not found])])

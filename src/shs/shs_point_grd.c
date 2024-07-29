@@ -2,6 +2,7 @@
 /* ------------------------------------------------------------------------- */
 #include <config.h>
 #include <stdio.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
@@ -370,7 +371,7 @@ shared(use_fft, pt, rref, r_eq_rref, dr, dlat, dlon, dorder, npar, grad)
         int FAILURE_priv = 0;
 
 
-        int  *ips           = NULL;
+        int64_t *ips        = NULL;
         REAL *ps            = NULL;
         REAL *latv          = NULL;
         REAL *tv            = NULL;
@@ -395,9 +396,9 @@ shared(use_fft, pt, rref, r_eq_rref, dr, dlat, dlon, dorder, npar, grad)
         size_t nfi = npar * nfi_1par;
 
 
-        ips = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                           nmax * SIMD_SIZE * SIMD_BLOCK,
-                                           sizeof(int));
+        ips = (int64_t *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                               nmax * SIMD_SIZE * SIMD_BLOCK,
+                                               sizeof(int64_t));
         if (ips == NULL)
         {
             FAILURE_priv = 1;

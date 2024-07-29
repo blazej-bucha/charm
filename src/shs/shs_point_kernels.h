@@ -6,6 +6,7 @@
 
 
 #include <config.h>
+#include <stdint.h>
 #include "../prec.h"
 #include "../simd/simd.h"
 #include "shs_lc_struct.h"
@@ -22,7 +23,7 @@
                  const REAL_SIMD *t,                                          \
                  const REAL_SIMD *u,                                          \
                  const REAL *ps,                                              \
-                 const int *ips,                                              \
+                 const int64_t *ips,                                          \
                  const REAL_SIMD *ratio,                                      \
                  const REAL_SIMD *ratio2,                                     \
                  const REAL_SIMD *ratiom,                                     \

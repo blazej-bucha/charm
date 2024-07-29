@@ -2,6 +2,7 @@
 /* ------------------------------------------------------------------------- */
 #include <config.h>
 #include <stdio.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
@@ -338,8 +339,8 @@ shared(pt, nfc, plan, use_fft, rref)
         size_t nfi = cell_nlon * SIMD_SIZE * SIMD_BLOCK;
 
 
-        int  *ips1          = NULL;
-        int  *ips2          = NULL;
+        int64_t *ips1       = NULL;
+        int64_t *ips2       = NULL;
         REAL *ps1           = NULL;
         REAL *ps2           = NULL;
         REAL *latminv       = NULL;
@@ -363,15 +364,17 @@ shared(pt, nfc, plan, use_fft, rref)
         REAL *cell_r2v      = NULL;
 
 
-        ips1 = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, nmax * SIMD_SIZE,
-                                            sizeof(int));
+        ips1 = (int64_t *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                                nmax * SIMD_SIZE,
+                                                sizeof(int64_t));
         if (ips1 == NULL)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-        ips2 = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, nmax *SIMD_SIZE,
-                                            sizeof(int));
+        ips2 = (int64_t *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                                nmax *SIMD_SIZE,
+                                                sizeof(int64_t));
         if (ips2 == NULL)
         {
             FAILURE_priv = 1;

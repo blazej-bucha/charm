@@ -55,6 +55,7 @@
 /* ------------------------------------------------------------------------- */
 #include <config.h>
 #include <stdio.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <math.h>
 #include "../prec.h"
@@ -760,7 +761,7 @@ void CHARM(shs_point_kernel_grad2)
                              const REAL_SIMD *t,
                              const REAL_SIMD *u,
                              const REAL *ps,
-                             const int *ips,
+                             const int64_t *ips,
                              const REAL_SIMD *ratio,
                              const REAL_SIMD *ratio2,
                              const REAL_SIMD *ratiom,

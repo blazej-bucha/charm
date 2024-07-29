@@ -2,6 +2,7 @@
 /* ------------------------------------------------------------------------- */
 #include <config.h>
 #include <stdio.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
@@ -505,8 +506,8 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
 
 
         /* ................................................................. */
-        int  *ips1    = NULL;
-        int  *ips2    = NULL;
+        int64_t *ips1 = NULL;
+        int64_t *ips2 = NULL;
         REAL *ps1     = NULL;
         REAL *ps2     = NULL;
         REAL *latminv = NULL;
@@ -530,15 +531,17 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
         FFTWC(complex) *ftmp_out = NULL;
 
 
-        ips1 = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax,
-                                            sizeof(int));
+        ips1 = (int64_t *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                                SIMD_SIZE * nmax,
+                                                sizeof(int64_t));
         if (ips1 == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        ips2 = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax,
-                                            sizeof(int));
+        ips2 = (int64_t *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                                SIMD_SIZE * nmax,
+                                                sizeof(int64_t));
         if (ips2 == NULL)
         {
             FAILURE_glob = 1;

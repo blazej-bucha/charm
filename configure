@@ -1908,6 +1908,86 @@ printf "%s\n" "$ac_res" >&6; }
 
 } # ac_fn_c_check_type
 
+# ac_fn_c_find_intX_t LINENO BITS VAR
+# -----------------------------------
+# Finds a signed integer type with width BITS, setting cache variable VAR
+# accordingly.
+ac_fn_c_find_intX_t ()
+{
+  as_lineno=${as_lineno-"$1"} as_lineno_stack=as_lineno_stack=$as_lineno_stack
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for int$2_t" >&5
+printf %s "checking for int$2_t... " >&6; }
+if eval test \${$3+y}
+then :
+  printf %s "(cached) " >&6
+else $as_nop
+  eval "$3=no"
+     # Order is important - never check a type that is potentially smaller
+     # than half of the expected target width.
+     for ac_type in int$2_t 'int' 'long int' \
+	 'long long int' 'short int' 'signed char'; do
+       cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+$ac_includes_default
+	     enum { N = $2 / 2 - 1 };
+int
+main (void)
+{
+static int test_array [1 - 2 * !(0 < ($ac_type) ((((($ac_type) 1 << N) << N) - 1) * 2 + 1))];
+test_array [0] = 0;
+return test_array [0];
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"
+then :
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+$ac_includes_default
+	        enum { N = $2 / 2 - 1 };
+int
+main (void)
+{
+static int test_array [1 - 2 * !(($ac_type) ((((($ac_type) 1 << N) << N) - 1) * 2 + 1)
+		 < ($ac_type) ((((($ac_type) 1 << N) << N) - 1) * 2 + 2))];
+test_array [0] = 0;
+return test_array [0];
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"
+then :
+
+else $as_nop
+  case $ac_type in #(
+  int$2_t) :
+    eval "$3=yes" ;; #(
+  *) :
+    eval "$3=\$ac_type" ;;
+esac
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext
+       if eval test \"x\$"$3"\" = x"no"
+then :
+
+else $as_nop
+  break
+fi
+     done
+fi
+eval ac_res=\$$3
+	       { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_res" >&5
+printf "%s\n" "$ac_res" >&6; }
+  eval $as_lineno_stack; ${as_lineno_stack:+:} unset as_lineno
+
+} # ac_fn_c_find_intX_t
+
 # ac_fn_c_try_run LINENO
 # ----------------------
 # Try to run conftest.$ac_ext, and return whether this succeeded. Assumes that
@@ -13754,6 +13834,21 @@ printf "%s\n" "#define size_t unsigned int" >>confdefs.h
 
 fi
 
+if test "$ac_cv_type_size_t" != "yes"; then
+    as_fn_error $? "couldn't define size_t data type." "$LINENO" 5
+fi
+ac_fn_c_find_intX_t "$LINENO" "64" "ac_cv_c_int64_t"
+case $ac_cv_c_int64_t in #(
+  no|yes) ;; #(
+  *)
+
+printf "%s\n" "#define int64_t $ac_cv_c_int64_t" >>confdefs.h
+;;
+esac
+
+if test "$ac_cv_c_int64_t" != "yes"; then
+    as_fn_error $? "couldn't define a signed 64 bits wide integer." "$LINENO" 5
+fi
 
 
 
@@ -13892,6 +13987,14 @@ then :
 
 else $as_nop
   as_fn_error $? "stdio.h not found" "$LINENO" 5
+fi
+
+ac_fn_c_check_header_compile "$LINENO" "stdint.h" "ac_cv_header_stdint_h" "$ac_includes_default"
+if test "x$ac_cv_header_stdint_h" = xyes
+then :
+
+else $as_nop
+  as_fn_error $? "stdint.h not found" "$LINENO" 5
 fi
 
 ac_fn_c_check_header_compile "$LINENO" "stdlib.h" "ac_cv_header_stdlib_h" "$ac_includes_default"
