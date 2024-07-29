@@ -6,7 +6,6 @@
 
 
 #include <config.h>
-#include <stdint.h>
 #include "../prec.h"
 #include "../simd/simd.h"
 
@@ -29,8 +28,8 @@ extern void CHARM(shs_cell_kernel)(unsigned long, unsigned long,
                                    REAL_SIMD,
                                    const REAL *,
                                    const REAL *,
-                                   const int64_t *,
-                                   const int64_t *,
+                                   const I_32_64 *,
+                                   const I_32_64 *,
                                    REAL_SIMD *,
                                    REAL_SIMD *,
                                    REAL_SIMD *,

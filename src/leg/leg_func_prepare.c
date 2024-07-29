@@ -1,7 +1,6 @@
 /* Header files */
 /* ------------------------------------------------------------------------- */
 #include <config.h>
-#include <stdint.h>
 #include <math.h>
 #include "../prec.h"
 #include "../simd/simd.h"
@@ -18,7 +17,7 @@
  * (2012). */
 void CHARM(leg_func_prepare)(const REAL *u,
                              REAL *ps,
-                             int64_t *ips,
+                             I_32_64 *ips,
                              const REAL *dm,
                              unsigned long nmax)
 {
@@ -28,7 +27,7 @@ void CHARM(leg_func_prepare)(const REAL *u,
 
 
     REAL y[SIMD_SIZE], x[SIMD_SIZE];
-    int64_t ix[SIMD_SIZE];
+    I_32_64 ix[SIMD_SIZE];
     for (size_t v = 0; v < SIMD_SIZE; v++)
     {
          x[v] = ROOT3 * u[v];

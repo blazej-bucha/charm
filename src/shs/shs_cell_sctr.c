@@ -2,7 +2,6 @@
 /* ------------------------------------------------------------------------- */
 #include <config.h>
 #include <stdio.h>
-#include <stdint.h>
 #include <stdlib.h>
 #include <math.h>
 #include "../prec.h"
@@ -179,8 +178,8 @@ shared(ncell, FAILURE_glob, mur, err, rref)
         int FAILURE_priv = 0;
 
 
-        int64_t *ips1 = NULL;
-        int64_t *ips2 = NULL;
+        I_32_64 *ips1 = NULL;
+        I_32_64 *ips2 = NULL;
         REAL *ps1     = NULL;
         REAL *ps2     = NULL;
         REAL *t1v     = NULL;
@@ -200,17 +199,17 @@ shared(ncell, FAILURE_glob, mur, err, rref)
         REAL *cell_rv = NULL;
 
 
-        ips1 = (int64_t *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+        ips1 = (I_32_64 *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
                                                 nmax * SIMD_SIZE,
-                                                sizeof(int64_t));
+                                                sizeof(I_32_64));
         if (ips1 == NULL)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-        ips2 = (int64_t *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+        ips2 = (I_32_64 *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
                                                 nmax * SIMD_SIZE,
-                                                sizeof(int64_t));
+                                                sizeof(I_32_64));
         if (ips2 == NULL)
         {
             FAILURE_priv = 1;

@@ -76,10 +76,8 @@ AC_TYPE_SIZE_T
 if test "$ac_cv_type_size_t" != "yes"; then
     AC_MSG_ERROR([couldn't define size_t data type.])
 fi
+AC_TYPE_INT32_T
 AC_TYPE_INT64_T
-if test "$ac_cv_c_int64_t" != "yes"; then
-    AC_MSG_ERROR([couldn't define a signed 64 bits wide integer.])
-fi
 dnl ===========================================================================
 
 
@@ -170,6 +168,11 @@ if test "$sp" = "yes"; then
     AC_SUBST([PC], [F])
     AC_SUBST([P], [f])
     AC_SUBST([RDT], [float])
+
+
+    if test "$ac_cv_c_int32_t" != "yes"; then
+        AC_MSG_ERROR([couldn't define a signed 32 bits wide integer.])
+    fi
 fi
 
 
@@ -186,6 +189,11 @@ if test "$dp" = "yes"; then
     AC_SUBST([PC], [])
     AC_SUBST([P], [])
     AC_SUBST([RDT], [double])
+
+
+    if test "$ac_cv_c_int64_t" != "yes"; then
+        AC_MSG_ERROR([couldn't define a signed 64 bits wide integer.])
+    fi
 fi
 
 
@@ -218,6 +226,11 @@ if test "$qp" = "yes"; then
     AC_SUBST([PC], [Q])
     AC_SUBST([P], [q])
     AC_SUBST([RDT], [__float128])
+
+
+    if test "$ac_cv_c_int64_t" != "yes"; then
+        AC_MSG_ERROR([couldn't define a signed 64 bits wide integer.])
+    fi
 
 
     dnl On FreeBSD, the "isfinite" macro does not seem to compile/work properly

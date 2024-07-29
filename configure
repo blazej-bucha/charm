@@ -13837,6 +13837,15 @@ fi
 if test "$ac_cv_type_size_t" != "yes"; then
     as_fn_error $? "couldn't define size_t data type." "$LINENO" 5
 fi
+ac_fn_c_find_intX_t "$LINENO" "32" "ac_cv_c_int32_t"
+case $ac_cv_c_int32_t in #(
+  no|yes) ;; #(
+  *)
+
+printf "%s\n" "#define int32_t $ac_cv_c_int32_t" >>confdefs.h
+;;
+esac
+
 ac_fn_c_find_intX_t "$LINENO" "64" "ac_cv_c_int64_t"
 case $ac_cv_c_int64_t in #(
   no|yes) ;; #(
@@ -13846,9 +13855,6 @@ printf "%s\n" "#define int64_t $ac_cv_c_int64_t" >>confdefs.h
 ;;
 esac
 
-if test "$ac_cv_c_int64_t" != "yes"; then
-    as_fn_error $? "couldn't define a signed 64 bits wide integer." "$LINENO" 5
-fi
 
 
 
@@ -14244,6 +14250,11 @@ printf "%s\n" "#define CHARM_FLOAT 1" >>confdefs.h
 
     RDT=float
 
+
+
+    if test "$ac_cv_c_int32_t" != "yes"; then
+        as_fn_error $? "couldn't define a signed 32 bits wide integer." "$LINENO" 5
+    fi
 fi
 
 
@@ -14346,6 +14357,11 @@ fi
 
     RDT=double
 
+
+
+    if test "$ac_cv_c_int64_t" != "yes"; then
+        as_fn_error $? "couldn't define a signed 64 bits wide integer." "$LINENO" 5
+    fi
 fi
 
 
@@ -14555,6 +14571,11 @@ printf "%s\n" "#define CHARM_QUAD 1" >>confdefs.h
 
     RDT=__float128
 
+
+
+    if test "$ac_cv_c_int64_t" != "yes"; then
+        as_fn_error $? "couldn't define a signed 64 bits wide integer." "$LINENO" 5
+    fi
 
 
                     if test "$math_isfinite" = "yes" ; then

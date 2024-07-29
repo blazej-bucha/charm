@@ -2,7 +2,6 @@
 /* ------------------------------------------------------------------------- */
 #include <config.h>
 #include <stdio.h>
-#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
@@ -351,7 +350,7 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
 
 
         /* ................................................................. */
-        int64_t *ips  = NULL;
+        I_32_64 *ips  = NULL;
         REAL *ps  = NULL;
 #if !(CHARM_OPENMP)
         REAL *anm = NULL;
@@ -369,9 +368,9 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
         FFTWC(complex) *ftmp_out = NULL;
 
 
-        ips = (int64_t *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+        ips = (I_32_64 *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
                                                SIMD_SIZE * SIMD_BLOCK * nmax,
-                                               sizeof(int64_t));
+                                               sizeof(I_32_64));
         if (ips == NULL)
         {
             FAILURE_glob = 1;

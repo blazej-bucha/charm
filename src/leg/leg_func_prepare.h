@@ -6,7 +6,6 @@
 
 
 #include <config.h>
-#include <stdint.h>
 #include "../prec.h"
 
 
@@ -18,7 +17,7 @@ extern "C"
 
 extern void CHARM(leg_func_prepare)(const REAL *,
                                     REAL *,
-                                    int64_t *,
+                                    I_32_64 *,
                                     const REAL *,
                                     unsigned long);
 

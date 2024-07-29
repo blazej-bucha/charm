@@ -2,7 +2,6 @@
 /* ------------------------------------------------------------------------- */
 #include <config.h>
 #include <stdio.h>
-#include <stdint.h>
 #include <stdlib.h>
 #include <math.h>
 #include "../prec.h"
@@ -178,7 +177,7 @@ shared(r_eq_rref, dr, dlat, dlon, npar, grad, dorder)
         int FAILURE_priv = 0;
 
 
-        int64_t *ips  = NULL;
+        I_32_64 *ips  = NULL;
         REAL *ps      = NULL;
         REAL *tv      = NULL;
         REAL *uv      = NULL;
@@ -192,9 +191,9 @@ shared(r_eq_rref, dr, dlat, dlon, npar, grad, dorder)
         REAL *enm     = NULL;
 
 
-        ips = (int64_t *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+        ips = (I_32_64 *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
                                                nmax * SIMD_SIZE * SIMD_BLOCK,
-                                               sizeof(int64_t));
+                                               sizeof(I_32_64));
         if (ips == NULL)
         {
             FAILURE_priv = 1;

@@ -2,7 +2,6 @@
 /* ------------------------------------------------------------------------- */
 #include <config.h>
 #include <stdio.h>
-#include <stdint.h>
 #include <stdlib.h>
 #include <math.h>
 #include "../leg/leg_func_xnum.h"
@@ -33,8 +32,8 @@ void CHARM(shs_cell_kernel)(unsigned long nmax,
                             REAL_SIMD u2,
                             const REAL *ps1,
                             const REAL *ps2,
-                            const int64_t *ips1,
-                            const int64_t *ips2,
+                            const I_32_64 *ips1,
+                            const I_32_64 *ips2,
                             REAL_SIMD *imm0,
                             REAL_SIMD *imm1,
                             REAL_SIMD *imm2,
