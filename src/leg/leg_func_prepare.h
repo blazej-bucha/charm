@@ -17,7 +17,7 @@ extern "C"
 
 extern void CHARM(leg_func_prepare)(const REAL *,
                                     REAL *,
-                                    I_32_64 *,
+                                    INT *,
                                     const REAL *,
                                     unsigned long);
 

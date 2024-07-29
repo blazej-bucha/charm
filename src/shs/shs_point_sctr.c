@@ -177,7 +177,7 @@ shared(r_eq_rref, dr, dlat, dlon, npar, grad, dorder)
         int FAILURE_priv = 0;
 
 
-        I_32_64 *ips  = NULL;
+        INT *ips      = NULL;
         REAL *ps      = NULL;
         REAL *tv      = NULL;
         REAL *uv      = NULL;
@@ -191,9 +191,9 @@ shared(r_eq_rref, dr, dlat, dlon, npar, grad, dorder)
         REAL *enm     = NULL;
 
 
-        ips = (I_32_64 *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                               nmax * SIMD_SIZE * SIMD_BLOCK,
-                                               sizeof(I_32_64));
+        ips = (INT *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                           nmax * SIMD_SIZE * SIMD_BLOCK,
+                                           sizeof(INT));
         if (ips == NULL)
         {
             FAILURE_priv = 1;

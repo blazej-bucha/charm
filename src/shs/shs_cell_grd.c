@@ -338,8 +338,8 @@ shared(pt, nfc, plan, use_fft, rref)
         size_t nfi = cell_nlon * SIMD_SIZE * SIMD_BLOCK;
 
 
-        I_32_64 *ips1       = NULL;
-        I_32_64 *ips2       = NULL;
+        INT *ips1           = NULL;
+        INT *ips2           = NULL;
         REAL *ps1           = NULL;
         REAL *ps2           = NULL;
         REAL *latminv       = NULL;
@@ -363,17 +363,15 @@ shared(pt, nfc, plan, use_fft, rref)
         REAL *cell_r2v      = NULL;
 
 
-        ips1 = (I_32_64 *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                                nmax * SIMD_SIZE,
-                                                sizeof(I_32_64));
+        ips1 = (INT *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                            nmax * SIMD_SIZE, sizeof(INT));
         if (ips1 == NULL)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-        ips2 = (I_32_64 *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                                nmax *SIMD_SIZE,
-                                                sizeof(I_32_64));
+        ips2 = (INT *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                            nmax * SIMD_SIZE, sizeof(INT));
         if (ips2 == NULL)
         {
             FAILURE_priv = 1;

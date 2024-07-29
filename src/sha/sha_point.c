@@ -350,7 +350,7 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
 
 
         /* ................................................................. */
-        I_32_64 *ips  = NULL;
+        INT *ips  = NULL;
         REAL *ps  = NULL;
 #if !(CHARM_OPENMP)
         REAL *anm = NULL;
@@ -368,9 +368,9 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
         FFTWC(complex) *ftmp_out = NULL;
 
 
-        ips = (I_32_64 *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                               SIMD_SIZE * SIMD_BLOCK * nmax,
-                                               sizeof(I_32_64));
+        ips = (INT *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                           SIMD_SIZE * SIMD_BLOCK * nmax,
+                                           sizeof(INT));
         if (ips == NULL)
         {
             FAILURE_glob = 1;

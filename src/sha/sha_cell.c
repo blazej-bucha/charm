@@ -505,8 +505,8 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
 
 
         /* ................................................................. */
-        I_32_64 *ips1 = NULL;
-        I_32_64 *ips2 = NULL;
+        INT *ips1     = NULL;
+        INT *ips2     = NULL;
         REAL *ps1     = NULL;
         REAL *ps2     = NULL;
         REAL *latminv = NULL;
@@ -530,17 +530,15 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
         FFTWC(complex) *ftmp_out = NULL;
 
 
-        ips1 = (I_32_64 *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                                SIMD_SIZE * nmax,
-                                                sizeof(I_32_64));
+        ips1 = (INT *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                            SIMD_SIZE * nmax, sizeof(INT));
         if (ips1 == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        ips2 = (I_32_64 *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                                SIMD_SIZE * nmax,
-                                                sizeof(I_32_64));
+        ips2 = (INT *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                            SIMD_SIZE * nmax, sizeof(INT));
         if (ips2 == NULL)
         {
             FAILURE_glob = 1;

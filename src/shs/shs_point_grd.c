@@ -370,7 +370,7 @@ shared(use_fft, pt, rref, r_eq_rref, dr, dlat, dlon, dorder, npar, grad)
         int FAILURE_priv = 0;
 
 
-        I_32_64 *ips        = NULL;
+        INT *ips            = NULL;
         REAL *ps            = NULL;
         REAL *latv          = NULL;
         REAL *tv            = NULL;
@@ -395,9 +395,9 @@ shared(use_fft, pt, rref, r_eq_rref, dr, dlat, dlon, dorder, npar, grad)
         size_t nfi = npar * nfi_1par;
 
 
-        ips = (I_32_64 *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                               nmax * SIMD_SIZE * SIMD_BLOCK,
-                                               sizeof(I_32_64));
+        ips = (INT *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                           nmax * SIMD_SIZE * SIMD_BLOCK,
+                                           sizeof(INT));
         if (ips == NULL)
         {
             FAILURE_priv = 1;

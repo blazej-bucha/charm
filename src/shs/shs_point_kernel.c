@@ -760,7 +760,7 @@ void CHARM(shs_point_kernel_grad2)
                              const REAL_SIMD *t,
                              const REAL_SIMD *u,
                              const REAL *ps,
-                             const I_32_64 *ips,
+                             const INT *ips,
                              const REAL_SIMD *ratio,
                              const REAL_SIMD *ratio2,
                              const REAL_SIMD *ratiom,

@@ -34,7 +34,7 @@
 
 #undef CHARM
 #undef REAL
-#undef I_32_64
+#undef INT
 #undef PREC
 #undef FFTW
 #undef FFTWC
@@ -93,7 +93,7 @@
 #       define FFTWC        FFTW
 #   endif
 #   define REAL      float
-#   define I_32_64   int32_t
+#   define INT       int32_t
 #   define PREC(x)   CAT(x, f)
 #   if HAVE_LIBFFTW3F_OMP
 #       define FFTW3_OMP 1
@@ -174,7 +174,7 @@
 #       define FFTWC        FFTW
 #   endif
 #   define REAL      __float128
-#   define I_32_64   int64_t
+#   define INT       int64_t
 #   define PREC(x)   CAT(x, q)
 #   if HAVE_LIBFFTW3Q_OMP
 #       define FFTW3_OMP 1
@@ -255,7 +255,7 @@
 #       define FFTWC        FFTW
 #   endif
 #   define REAL      double
-#   define I_32_64   int64_t
+#   define INT       int64_t
 #   define PREC(x)   CAT(x,)
 #   if HAVE_LIBFFTW3_OMP
 #       define FFTW3_OMP 1

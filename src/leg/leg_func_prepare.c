@@ -17,7 +17,7 @@
  * (2012). */
 void CHARM(leg_func_prepare)(const REAL *u,
                              REAL *ps,
-                             I_32_64 *ips,
+                             INT *ips,
                              const REAL *dm,
                              unsigned long nmax)
 {
@@ -27,7 +27,7 @@ void CHARM(leg_func_prepare)(const REAL *u,
 
 
     REAL y[SIMD_SIZE], x[SIMD_SIZE];
-    I_32_64 ix[SIMD_SIZE];
+    INT ix[SIMD_SIZE];
     for (size_t v = 0; v < SIMD_SIZE; v++)
     {
          x[v] = ROOT3 * u[v];
