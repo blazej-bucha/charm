@@ -28,7 +28,6 @@ long int check_simd_neg_r(void)
     REAL_SIMD x_ref = SET1_R(PREC(1.5));
 
 
-    NEG_R_INIT;
     if (MOVEMASK(EQ_R(NEG_R(x), x_ref)) != SIMD_TRUE)
     {
         printf("        WARNING: The \"NEG_R\" macro does not work "

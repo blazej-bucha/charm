@@ -28,7 +28,6 @@ long int check_simd_abs_r(void)
     REAL_SIMD x_ref = SET1_R(PREC(1.5));
 
 
-    ABS_R_INIT;
     if (MOVEMASK(EQ_R(ABS_R(x), x_ref)) != SIMD_TRUE)
     {
         printf("        WARNING: The \"ABS_R\" macro does not work "

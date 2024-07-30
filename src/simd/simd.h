@@ -57,7 +57,6 @@
 #undef ADD_RI
 #undef SUB_R
 #undef SUB_RI
-#undef NEG_R_INIT
 #undef NEG_R
 #undef SIGNBIT
 #undef SET1_R
@@ -66,7 +65,6 @@
 #undef LOADU_R
 #undef SUM_R
 #undef ABS_R
-#undef ABS_R_INIT
 #undef NONSIGNBITS
 #undef SIMD_MULTIPLE
 #undef CAST_RI2R
@@ -329,43 +327,34 @@
 
     /* Absolute value of a SIMD vector */
     /* ..................................................................... */
-    /* Compute the absolute value of all elements of a SIMD vector using the
-     * "ABS_R" macro.  Before using "ABS_R" in a code, the "ABS_R_INIT" macro
-     * must be called, ideally only once outside any loop. */
 #   ifdef CHARM_FLOAT
 #       define NONSIGNBITS 0x7FFFFFFF
 #   else
 #       define NONSIGNBITS 0x7FFFFFFFFFFFFFFFLL
 #   endif
 #   if HAVE_AVX || HAVE_AVX2
-#       define ABS_R_INIT   REAL_SIMD NONSIGNBITS_R = \
-                                        PF(castsi256)(PINT2(set1)(NONSIGNBITS))
+#       define ABS_R(x)     PF(and)(PF(castsi256)(PINT2(set1)(NONSIGNBITS)), \
+                                    (x))
 #   elif HAVE_AVX512F
-#       define ABS_R_INIT   REAL_SIMD NONSIGNBITS_R = \
-                                        PF(castsi512)(PINT2(set1)(NONSIGNBITS))
+#       define ABS_R(x)     PF(and)(PF(castsi512)(PINT2(set1)(NONSIGNBITS)), \
+                                    (x))
 #   endif
-#   define ABS_R(x)     PF(and)(NONSIGNBITS_R, (x))
     /* ..................................................................... */
 
 
 
     /* Change the sign of a SIMD vector */
     /* ..................................................................... */
-    /* Similarly as with the "ABS_R" macro, also "NEG_R_INIT" must be called
-     * before calling "NEG_R", ideally only once outside any loop. */
 #   ifdef CHARM_FLOAT
 #       define SIGNBIT 0x80000000
 #   else
 #       define SIGNBIT 0x8000000000000000LL
 #   endif
 #   if HAVE_AVX || HAVE_AVX2
-#       define NEG_R_INIT   REAL_SIMD SIGNBIT_R = \
-                                        PF(castsi256)(PINT2(set1)(SIGNBIT))
+#       define NEG_R(x)     PF(xor)((x), PF(castsi256)(PINT2(set1)(SIGNBIT)))
 #   elif HAVE_AVX512F
-#       define NEG_R_INIT   REAL_SIMD SIGNBIT_R = \
-                                        PF(castsi512)(PINT2(set1)(SIGNBIT))
+#       define NEG_R(x)     PF(xor)((x), PF(castsi512)(PINT2(set1)(SIGNBIT)))
 #   endif
-#   define NEG_R(x)     PF(xor)((x), SIGNBIT_R)
     /* ..................................................................... */
 
 
@@ -438,13 +427,11 @@
 
 
     /* Absolute value.  The "FABS" macro is defined in "../prec.h". */
-#   define ABS_R_INIT
 #   define NONSIGNBITS
 #   define ABS_R                FABS
 
 
     /* Change the sign. */
-#   define NEG_R_INIT
 #   define SIGNBIT
 #   define NEG_R(x)             (-(x))
 

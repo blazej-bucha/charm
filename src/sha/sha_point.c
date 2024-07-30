@@ -342,7 +342,6 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
         REAL_SIMD  tmp1_r,  tmp2_r;
         MASK_SIMD  mask1, mask2;
         MASK2_SIMD mask3;
-        ABS_R_INIT;
 #endif
         REAL_SIMD symm[SIMD_BLOCK], latsin[SIMD_BLOCK];
         REAL_SIMD am[SIMD_BLOCK],   bm[SIMD_BLOCK];
@@ -576,7 +575,6 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
 #   ifdef SIMD
 #       define SIMD_VARS shared(zero_ri, one_ri, mone_ri, zero_r) \
                          shared(BIG_r, BIGI_r, BIGS_r, BIGSI_r) \
-                         shared(NONSIGNBITS_R) \
                          private(tmp1_r, tmp2_r, mask1, mask2, mask3)
 #   else
 #       define SIMD_VARS

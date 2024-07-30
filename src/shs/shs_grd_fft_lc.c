@@ -65,9 +65,6 @@ void CHARM(shs_grd_fft_lc)(unsigned long m,
     _Bool is_cell_grd = CHARM(crd_cell_isGrid)(grd_type);
     size_t simd_blk = (is_cell_grd) ? 1 : SIMD_BLOCK;
     size_t size_blk = SIMD_SIZE * simd_blk;
-#ifdef SIMD
-    NEG_R_INIT;
-#endif
     size_t l;
     size_t idx  = m * 2 * size_blk;
     size_t idx2 = idx + size_blk;

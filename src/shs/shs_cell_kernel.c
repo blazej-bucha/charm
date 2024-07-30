@@ -67,8 +67,6 @@ void CHARM(shs_cell_kernel)(unsigned long nmax,
     REAL_SIMD  tmp1_r,  tmp2_r;
     MASK_SIMD  mask1, mask2;
     MASK2_SIMD mask3;
-    ABS_R_INIT;
-    NEG_R_INIT;
 #endif
 
 

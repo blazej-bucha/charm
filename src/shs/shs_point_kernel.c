@@ -619,9 +619,6 @@ static inline void swap(REAL_SIMD **x,
 /* Change sign of all elements of "x". */
 static inline void change_sign(REAL_SIMD *x)
 {
-    NEG_R_INIT;
-
-
     for (size_t i = 0; i < SIMD_BLOCK; i++)
         x[i] = NEG_R(x[i]);
 
@@ -784,10 +781,6 @@ void CHARM(shs_point_kernel_grad2)
     REAL_SIMD  tmp1_r,  tmp2_r;
     MASK_SIMD  mask1, mask2;
     MASK2_SIMD mask3;
-#endif
-    ABS_R_INIT;
-#if (DLAT > 0) || (KERNEL_GRAD > 0)
-    NEG_R_INIT;
 #endif
     const REAL_SIMD one = SET1_R(PREC(1.0));
 
