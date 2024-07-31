@@ -1,3 +1,8 @@
+Upcomming release:
+
+* Improved performance of spherical harmonic analysis of point data values by 
+  10 %.
+
 CHarm 0.4.1:
 
 This is a maintenance release enabling the installation of PyHarm using `pip`.  

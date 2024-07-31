@@ -35,6 +35,19 @@
 
 /* Macros */
 /* ------------------------------------------------------------------------- */
+#define CS_SUM(cs, pnm, ab)                                                   \
+    cs_sum = SET_ZERO_R;                                                      \
+    for (l = 0; l < SIMD_BLOCK; l++)                                          \
+    {                                                                         \
+        cs_sum = ADD_R(cs_sum, MUL_R((pnm)[l], (ab)[l]));                     \
+    }                                                                         \
+    (cs) += SUM_R(cs_sum);
+
+
+
+
+
+
 #define LOOP_ITER(n, a, b)                                                    \
     anms = SET1_R(anm[(n)]);                                                  \
     bnms = SET1_R(bnm[(n)]);                                                  \
@@ -47,16 +60,8 @@
     }                                                                         \
                                                                               \
                                                                               \
-    for (l = 0; l < SIMD_BLOCK; l++)                                          \
-    {                                                                         \
-        shcs->c[m][idx] += SUM_R(MUL_R(pnm2[l], a[l]));                       \
-    }                                                                         \
-                                                                              \
-                                                                              \
-    for (l = 0; l < SIMD_BLOCK; l++)                                          \
-    {                                                                         \
-        shcs->s[m][idx] += SUM_R(MUL_R(pnm2[l], b[l]));                       \
-    }                                                                         \
+    CS_SUM(shcs->c[m][idx], pnm2, a);                                         \
+    CS_SUM(shcs->s[m][idx], pnm2, b);                                         \
                                                                               \
                                                                               \
     idx++;
@@ -647,6 +652,9 @@ FAILURE_1_parallel:
                  * before the allocation failure. */
                 goto FAILURE_2_parallel;
             }
+
+
+            REAL_SIMD cs_sum;
             /* ............................................................. */
 
 
@@ -701,22 +709,18 @@ FAILURE_1_parallel:
 
                     /* P00 */
                     for (l = 0; l < SIMD_BLOCK; l++)
-                    {
                         pnm0[l] = SET1_R(PREC(1.0));
-                        /* C00 */
-                        shcs->c[0][0] += SUM_R(MUL_R(pnm0[l], amp[l]));
-                    }
+                    /* C00 */
+                    CS_SUM(shcs->c[0][0], pnm0, amp);
 
 
-                    /* P10 */
                     if (nmax >= 1)
                     {
+                        /* P10 */
                         for (l = 0; l < SIMD_BLOCK; l++)
-                        {
                             pnm1[l] = MUL_R(ROOT3_r, t[l]);
-                            /* C10 */
-                            shcs->c[0][1] += SUM_R(MUL_R(pnm1[l], amm[l]));
-                        }
+                        /* C10 */
+                        CS_SUM(shcs->c[0][1], pnm1, amm);
                     }
 
 
@@ -748,13 +752,8 @@ FAILURE_1_parallel:
                             }
 
 
-                            for (l = 0; l < SIMD_BLOCK; l++)
-                            {
-                                /* C20, C30, ..., Cnmax,0 */
-                                shcs->c[0][n] += SUM_R(MUL_R(pnm2[l],
-                                                       (npm_even) ? amp[l] :
-                                                                    amm[l]));
-                            }
+                            /* C20, C30, ..., Cnmax,0 */
+                            CS_SUM(shcs->c[0][n], pnm2, npm_even ? amp : amm);
                         }
                     }
                     /* ----------------------------------------------------- */
@@ -789,11 +788,8 @@ FAILURE_1_parallel:
 
 
                     /* Cm,m; Sm,m */
-                    for (l = 0; l < SIMD_BLOCK; l++)
-                    {
-                        shcs->c[m][0] += SUM_R(MUL_R(pnm0[l], amp[l]));
-                        shcs->s[m][0] += SUM_R(MUL_R(pnm0[l], bmp[l]));
-                    }
+                    CS_SUM(shcs->c[m][0], pnm0, amp);
+                    CS_SUM(shcs->s[m][0], pnm0, bmp);
                     /* ----------------------------------------------------- */
 
 
@@ -826,11 +822,8 @@ FAILURE_1_parallel:
 
 
                         /* Cm+1,m; Sm+1,m */
-                        for (l = 0; l < SIMD_BLOCK; l++)
-                        {
-                            shcs->c[m][1] += SUM_R(MUL_R(pnm1[l], amm[l]));
-                            shcs->s[m][1] += SUM_R(MUL_R(pnm1[l], bmm[l]));
-                        }
+                        CS_SUM(shcs->c[m][1], pnm1, amm);
+                        CS_SUM(shcs->s[m][1], pnm1, bmm);
 
 
                         /* Loop over degrees */
@@ -886,26 +879,10 @@ FAILURE_1_parallel:
 
 
                             /* Cm+2,m, Cm+3,m, ... and Sm+2,m, Sm+3,m, ... */
-                            if (npm_even)
-                            {
-                                for (l = 0; l < SIMD_BLOCK; l++)
-                                     shcs->c[m][idx] += SUM_R(MUL_R(pnm2[l],
-                                                                    amp[l]));
-                                for (l = 0; l < SIMD_BLOCK; l++)
-                                     shcs->s[m][idx] += SUM_R(MUL_R(pnm2[l],
-                                                                    bmp[l]));
-                            }
-                            else
-                            {
-                                for (l = 0; l < SIMD_BLOCK; l++)
-                                     shcs->c[m][idx] += SUM_R(MUL_R(pnm2[l],
-                                                                    amm[l]));
-                                for (l = 0; l < SIMD_BLOCK; l++)
-                                     shcs->s[m][idx] += SUM_R(MUL_R(pnm2[l],
-                                                                    bmm[l]));
-                            }
-
-
+                            CS_SUM(shcs->c[m][idx], pnm2,
+                                   npm_even ? amp : amm);
+                            CS_SUM(shcs->s[m][idx], pnm2,
+                                   npm_even ? bmp : bmm);
                         }
 
 
