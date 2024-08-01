@@ -1,9 +1,13 @@
-Upcomming release:
+Upcoming release:
 
 * Added support for NEON SIMD instructions on ARM64 CPUs (v8 or newer).
 
-* Improved performance of spherical harmonic analysis of point data values by 
-  10 %.
+* Improved performance of spherical harmonic analysis and synthesis of point 
+  data values by about 20 % or more.  In spherical harmonic analysis, we 
+  reduced expensive horizontal sums of SIMD vectors (SUM_R), leading to an 
+  improvement of about 10 %.  In SIMD macros computing Legendre functions, some 
+  unnecessary blends could be removed by suitable initializations.  This gained 
+  about 20 % for both the analysis and the synthesis.
 
 CHarm 0.4.1:
 
