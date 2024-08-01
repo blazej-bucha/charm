@@ -1,5 +1,7 @@
 Upcomming release:
 
+* Added support for NEON SIMD instructions on ARM64 CPUs (v8 or newer).
+
 * Improved performance of spherical harmonic analysis of point data values by 
   10 %.
 

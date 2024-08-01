@@ -17,7 +17,7 @@
  * on the "SIMD_REAL" macro). */
 _Bool CHARM(shs_check_symm_simd)(REAL_SIMD v)
 {
-    if (MOVEMASK(EQ_R(v, SET_ZERO_R)) != SIMD_TRUE)
+    if (!MASK_TRUE_ALL((EQ_R(v, SET_ZERO_R))))
         return 1;
     else
         return 0;

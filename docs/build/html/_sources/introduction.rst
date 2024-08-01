@@ -41,7 +41,7 @@ Features
 * Supports `OpenMP <https://www.openmp.org/>`_ parallelization for
   shared-memory architectures.
 
-* Supports AVX, AVX2 and AVX-512 SIMD CPU instructions to improve the 
+* Supports AVX, AVX2, AVX-512 and NEON SIMD CPU instructions to improve the 
   performance.
 
 * Performs discrete FFT by `FFTW <http://www.fftw.org/>`_.

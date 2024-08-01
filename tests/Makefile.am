@@ -58,7 +58,10 @@ SOURCES = main.c \
 		  check_shc_alloc.c \
 		  check_shc_init.c \
 		  check_simd_abs_r.c \
-		  check_simd_neg_r.c
+		  check_simd_neg_r.c \
+		  check_simd_sum_r.c \
+		  check_simd_masks.c \
+		  check_simd_blend_r.c
 
 
 # Source code of the test program

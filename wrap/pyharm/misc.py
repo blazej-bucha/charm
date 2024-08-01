@@ -103,7 +103,10 @@ def buildopt_simd():
       (``--enable-avx2``),
 
     * ``3`` if CHarm was compiled with AVX-512 instructions enabled
-      (``--enable-avx-512``).
+      (``--enable-avx-512``),
+
+    * ``4`` if CHarm was compiled with NEON instructions enabled
+      (``--enable-neon``).
     """
 
     func          = _libcharm[_CHARM + 'misc_buildopt_simd']

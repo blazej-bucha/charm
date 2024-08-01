@@ -838,6 +838,7 @@ enable_quad_precision
 enable_avx
 enable_avx2
 enable_avx_512
+enable_neon
 enable_openmp
 enable_python
 with_python_sys_prefix
@@ -1505,12 +1506,14 @@ Optional Features:
                           floating point numbers) [default=yes]
   --enable-quad-precision compile in quadruple precision (__float128 data type
                           for floating point numbers) [default=no]
-  --enable-avx            enable AVX instructions to improve performance
-                          [default=no]
-  --enable-avx2           enable AVX2 instructions to improve performance
-                          [default=no]
-  --enable-avx-512        enable AVX-512 instructions to improve performance
-                          [default=no]
+  --enable-avx            enable AVX instructions on x86_64 to improve
+                          performance [default=no]
+  --enable-avx2           enable AVX2 instructions on x86_64 to improve
+                          performance [default=no]
+  --enable-avx-512        enable AVX-512 on x86_64 instructions to improve
+                          performance [default=no]
+  --enable-neon           enable NEON instructions on ARM64 to improve
+                          performance [default=no]
   --enable-openmp         enable OpenMP parallelization [default=no]
   --disable-openmp        do not use OpenMP
   --enable-python         enable Python interface (PyHarm) [default=no]
@@ -14663,19 +14666,36 @@ else $as_nop
   avx512=no
 fi
 
+# Check whether --enable-neon was given.
+if test ${enable_neon+y}
+then :
+  enableval=$enable_neon; neon=$enableval
+else $as_nop
+  neon=no
+fi
+
 
 
 if test "$avx" = "yes" -a "$avx2" = "yes"; then
     as_fn_error $? "more than one type of SIMD instructions enabled" "$LINENO" 5
 fi
-if test "$avx2" = "yes" -a "$avx512" = "yes"; then
-    as_fn_error $? "more than one type of SIMD instructions enabled" "$LINENO" 5
-fi
 if test "$avx" = "yes" -a "$avx512" = "yes"; then
     as_fn_error $? "more than one type of SIMD instructions enabled" "$LINENO" 5
 fi
-if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes"; then
-    if test "$dp" != "yes" -a "$sp" != "yes"; then
+if test "$avx" = "yes" -a "$neon" = "yes"; then
+    as_fn_error $? "more than one type of SIMD instructions enabled" "$LINENO" 5
+fi
+if test "$avx2" = "yes" -a "$avx512" = "yes"; then
+    as_fn_error $? "more than one type of SIMD instructions enabled" "$LINENO" 5
+fi
+if test "$avx2" = "yes" -a "$neon" = "yes"; then
+    as_fn_error $? "more than one type of SIMD instructions enabled" "$LINENO" 5
+fi
+if test "$avx512" = "yes" -a "$neon" = "yes"; then
+    as_fn_error $? "more than one type of SIMD instructions enabled" "$LINENO" 5
+fi
+if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes" -o "$neon" = "yes"; then
+    if test "$qp" = "yes"; then
         as_fn_error $? "SIMD instructions are not supported in quadruple precision" "$LINENO" 5
     fi
 fi
@@ -14728,9 +14748,19 @@ printf "%s\n" "#define HAVE_AVX512F 1" >>confdefs.h
 fi
 
 
-if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes"; then
+if test "$neon" = "yes"; then
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: compiling with NEON instructions enabled" >&5
+printf "%s\n" "$as_me: compiling with NEON instructions enabled" >&6;}
 
-    as_CACHEVAR=`printf "%s\n" "ax_cv_check_cflags__$simd_flag1" | $as_tr_sh`
+printf "%s\n" "#define HAVE_NEON 1" >>confdefs.h
+
+            fi
+
+
+if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes" -o "$neon" = "yes"; then
+
+    if test "$neon" != "yes"; then
+        as_CACHEVAR=`printf "%s\n" "ax_cv_check_cflags__$simd_flag1" | $as_tr_sh`
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether C compiler accepts $simd_flag1" >&5
 printf %s "checking whether C compiler accepts $simd_flag1... " >&6; }
 if eval test \${$as_CACHEVAR+y}
@@ -14770,8 +14800,8 @@ else $as_nop
   as_fn_error $? "unrecognized $simd_flag1 compiler flag.  Try using the gcc compiler." "$LINENO" 5
 fi
 
-    if test "$simd_flag2" != "no"; then
-        as_CACHEVAR=`printf "%s\n" "ax_cv_check_cflags__$simd_flag2" | $as_tr_sh`
+        if test "$simd_flag2" != "no"; then
+            as_CACHEVAR=`printf "%s\n" "ax_cv_check_cflags__$simd_flag2" | $as_tr_sh`
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether C compiler accepts $simd_flag2" >&5
 printf %s "checking whether C compiler accepts $simd_flag2... " >&6; }
 if eval test \${$as_CACHEVAR+y}
@@ -14811,6 +14841,7 @@ else $as_nop
   as_fn_error $? "unrecognized $simd_flag2 compiler flag.  Try using the gcc compiler." "$LINENO" 5
 fi
 
+        fi
     fi
 
     have_posix_memalign=no
@@ -14876,7 +14907,25 @@ fi
     fi
 
 
-    ac_fn_c_check_header_compile "$LINENO" "immintrin.h" "ac_cv_header_immintrin_h" "$ac_includes_default"
+    if test "$neon" = "yes"; then
+        ac_fn_c_check_header_compile "$LINENO" "arm_neon.h" "ac_cv_header_arm_neon_h" "$ac_includes_default"
+if test "x$ac_cv_header_arm_neon_h" = xyes
+then :
+
+else $as_nop
+  as_fn_error $? "arm_neon.h not found" "$LINENO" 5
+fi
+
+        ac_fn_c_check_header_compile "$LINENO" "stdint.h" "ac_cv_header_stdint_h" "$ac_includes_default"
+if test "x$ac_cv_header_stdint_h" = xyes
+then :
+
+else $as_nop
+  as_fn_error $? "stdint.h not found" "$LINENO" 5
+fi
+
+    else
+        ac_fn_c_check_header_compile "$LINENO" "immintrin.h" "ac_cv_header_immintrin_h" "$ac_includes_default"
 if test "x$ac_cv_header_immintrin_h" = xyes
 then :
 
@@ -14884,6 +14933,7 @@ else $as_nop
   as_fn_error $? "immintrin.h not found" "$LINENO" 5
 fi
 
+    fi
     if test "$ax_cv_c_compiler_vendor" = "microsoft"; then
         ac_fn_c_check_header_compile "$LINENO" "malloc.h" "ac_cv_header_malloc_h" "$ac_includes_default"
 if test "x$ac_cv_header_malloc_h" = xyes

@@ -32,7 +32,7 @@ _Bool CHARM(misc_polar_optimization_apply)(unsigned long m,
     {
         MASK2_SIMD test  = LT_R(threshold,
                                 SUB_R(m_simd, MUL_R(nmax_simd, sinlat[i])));
-        if (MOVEMASK((test)) != SIMD_TRUE)
+        if (!MASK_TRUE_ALL(test))
             return 0;
     }
 

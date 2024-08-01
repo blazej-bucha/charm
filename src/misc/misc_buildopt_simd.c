@@ -19,8 +19,9 @@ int CHARM(misc_buildopt_simd)(void)
     return BUILDOPT_SIMD_AVX2;
 #elif HAVE_AVX512F
     return BUILDOPT_SIMD_AVX512;
-#endif
-#if !(HAVE_AVX) && !(HAVE_AVX2) && !(HAVE_AVX512F)
+#elif HAVE_NEON
+    return BUILDOPT_SIMD_NEON;
+#else
     return BUILDOPT_SIMD_NONE;
 #endif
 }

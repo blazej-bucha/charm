@@ -268,22 +268,32 @@ dnl ===========================================================================
 
 dnl SIMD
 dnl ===========================================================================
-AC_ARG_ENABLE([avx], [AS_HELP_STRING([--enable-avx], [enable AVX instructions to improve performance [default=no]])], avx=$enableval, avx=no)
-AC_ARG_ENABLE([avx2], [AS_HELP_STRING([--enable-avx2], [enable AVX2 instructions to improve performance [default=no]])], avx2=$enableval, avx2=no)
-AC_ARG_ENABLE([avx-512], [AS_HELP_STRING([--enable-avx-512], [enable AVX-512 instructions to improve performance [default=no]])], avx512=$enableval, avx512=no)
+AC_ARG_ENABLE([avx], [AS_HELP_STRING([--enable-avx], [enable AVX instructions on x86_64 to improve performance [default=no]])], avx=$enableval, avx=no)
+AC_ARG_ENABLE([avx2], [AS_HELP_STRING([--enable-avx2], [enable AVX2 instructions on x86_64 to improve performance [default=no]])], avx2=$enableval, avx2=no)
+AC_ARG_ENABLE([avx-512], [AS_HELP_STRING([--enable-avx-512], [enable AVX-512 on x86_64 instructions to improve performance [default=no]])], avx512=$enableval, avx512=no)
+AC_ARG_ENABLE([neon], [AS_HELP_STRING([--enable-neon], [enable NEON instructions on ARM64 to improve performance [default=no]])], neon=$enableval, neon=no)
 
 
 if test "$avx" = "yes" -a "$avx2" = "yes"; then
     AC_MSG_ERROR([more than one type of SIMD instructions enabled])
 fi
-if test "$avx2" = "yes" -a "$avx512" = "yes"; then
-    AC_MSG_ERROR([more than one type of SIMD instructions enabled])
-fi
 if test "$avx" = "yes" -a "$avx512" = "yes"; then
     AC_MSG_ERROR([more than one type of SIMD instructions enabled])
 fi
-if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes"; then
-    if test "$dp" != "yes" -a "$sp" != "yes"; then
+if test "$avx" = "yes" -a "$neon" = "yes"; then
+    AC_MSG_ERROR([more than one type of SIMD instructions enabled])
+fi
+if test "$avx2" = "yes" -a "$avx512" = "yes"; then
+    AC_MSG_ERROR([more than one type of SIMD instructions enabled])
+fi
+if test "$avx2" = "yes" -a "$neon" = "yes"; then
+    AC_MSG_ERROR([more than one type of SIMD instructions enabled])
+fi
+if test "$avx512" = "yes" -a "$neon" = "yes"; then
+    AC_MSG_ERROR([more than one type of SIMD instructions enabled])
+fi
+if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes" -o "$neon" = "yes"; then
+    if test "$qp" = "yes"; then
         AC_MSG_ERROR([SIMD instructions are not supported in quadruple precision])
     fi
 fi
@@ -329,14 +339,26 @@ if test "$avx512" = "yes"; then
         simd_flag2=-mavx512dq
     fi
 fi
+
+
+dnl --enable-neon
+if test "$neon" = "yes"; then
+    AC_MSG_NOTICE([compiling with NEON instructions enabled])
+    AC_DEFINE([HAVE_NEON], [1], [Define to 1 to enable neon instructions])
+    dnl With NEON, we do not add compiler flags due to the large variety of the
+    dnl flags.  The flags must be specified by the user using the "CFLAGS"
+    dnl variable.
+fi
 dnl ---------------------------------------------------------------------------
 
 
-if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes"; then
+if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes" -o "$neon" = "yes"; then
 
-    AX_CHECK_COMPILE_FLAG([$simd_flag1], [CFLAGS_SIMD="$simd_flag1"], [AC_MSG_ERROR([unrecognized $simd_flag1 compiler flag.  Try using the gcc compiler.])])
-    if test "$simd_flag2" != "no"; then
-        AX_CHECK_COMPILE_FLAG([$simd_flag2], [CFLAGS_SIMD="$CFLAGS_SIMD $simd_flag2"], [AC_MSG_ERROR([unrecognized $simd_flag2 compiler flag.  Try using the gcc compiler.])])
+    if test "$neon" != "yes"; then
+        AX_CHECK_COMPILE_FLAG([$simd_flag1], [CFLAGS_SIMD="$simd_flag1"], [AC_MSG_ERROR([unrecognized $simd_flag1 compiler flag.  Try using the gcc compiler.])])
+        if test "$simd_flag2" != "no"; then
+            AX_CHECK_COMPILE_FLAG([$simd_flag2], [CFLAGS_SIMD="$CFLAGS_SIMD $simd_flag2"], [AC_MSG_ERROR([unrecognized $simd_flag2 compiler flag.  Try using the gcc compiler.])])
+        fi
     fi
 
     have_posix_memalign=no
@@ -357,7 +379,11 @@ if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes"; then
     fi
 
 
-    AC_CHECK_HEADER([immintrin.h], [], [AC_MSG_ERROR([immintrin.h not found])])
+    if test "$neon" = "yes"; then
+        AC_CHECK_HEADER([arm_neon.h], [], [AC_MSG_ERROR([arm_neon.h not found])])
+    else
+        AC_CHECK_HEADER([immintrin.h], [], [AC_MSG_ERROR([immintrin.h not found])])
+    fi
     if test "$ax_cv_c_compiler_vendor" = "microsoft"; then
         AC_CHECK_HEADER([malloc.h], [], [AC_MSG_ERROR([malloc.h not found])])
     fi

@@ -72,14 +72,14 @@ extern "C"
            (mask1) = EQ_RI((ix), (zero_ri));                                  \
            (pnm0)  = BLEND_R((zero_r), (x), CAST_RI2R((mask1)));              \
            (mask2) = (mask1);                                                 \
-           if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                     \
+           if (MASK_TRUE_ALL(CAST_RI2R(mask2)))                               \
                goto goto_label;                                               \
                                                                               \
                                                                               \
            (mask1) = GT_RI((mone_ri), (ix));                                  \
            (pnm0)  = BLEND_R((pnm0), (zero_r), CAST_RI2R((mask1)));           \
            (mask2) = OR_MASK((mask1), (mask2));                               \
-           if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                     \
+           if (MASK_TRUE_ALL(CAST_RI2R(mask2)))                               \
                goto goto_label;                                               \
                                                                               \
                                                                               \
@@ -87,7 +87,7 @@ extern "C"
            (pnm0)  = BLEND_R((pnm0), MUL_R((x), (BIGI_r)),                    \
                              CAST_RI2R((mask1)));                             \
            (mask2) = OR_MASK((mask1), (mask2));                               \
-           if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                     \
+           if (MASK_TRUE_ALL(CAST_RI2R(mask2)))                               \
                goto goto_label;                                               \
                                                                               \
                                                                               \
@@ -117,14 +117,14 @@ extern "C"
                                                                               \
            (w)    = ABS_R((x));                                               \
            (mask3) = GE_R((w), (BIGS_r));                                     \
-           if (MOVEMASK((mask3)) != 0)                                        \
+           if (MASK_TRUE_ANY(mask3))                                          \
            {                                                                  \
                 (x) = BLEND_R((x), MUL_R((x), (BIGI_r)), (mask3));            \
                (ix) = BLEND_RI((ix), ADD_RI((ix), (one_ri)),                  \
                                CAST_R2RI((mask3)));                           \
            }                                                                  \
            (mask3) = LT_R((w), (BIGSI_r));                                    \
-           if (MOVEMASK((mask3)) != 0)                                        \
+           if (MASK_TRUE_ANY(mask3))                                          \
            {                                                                  \
                 (x) = BLEND_R((x), MUL_R((x), (BIG_r)), (mask3));             \
                (ix) = BLEND_RI((ix), SUB_RI((ix), (one_ri)),                  \
@@ -135,14 +135,14 @@ extern "C"
            (mask1) = EQ_RI((ix), (zero_ri));                                  \
            (pnm1)  = BLEND_R((zero_r), (x), CAST_RI2R((mask1)));              \
            (mask2) = (mask1);                                                 \
-           if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                     \
+           if (MASK_TRUE_ALL(CAST_RI2R(mask2)))                               \
                goto goto_label;                                               \
                                                                               \
                                                                               \
            (mask1) = GT_RI((mone_ri), (ix));                                  \
            (pnm1)  = BLEND_R((pnm1), (zero_r), CAST_RI2R((mask1)));           \
            (mask2) = OR_MASK((mask1), (mask2));                               \
-           if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                     \
+           if (MASK_TRUE_ALL(CAST_RI2R(mask2)))                               \
                goto goto_label;                                               \
                                                                               \
                                                                               \
@@ -150,7 +150,7 @@ extern "C"
            (pnm1)  = BLEND_R((pnm1), MUL_R((x), (BIGI_r)),                    \
                              CAST_RI2R((mask1)));                             \
            (mask2) = OR_MASK((mask1), (mask2));                               \
-           if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                     \
+           if (MASK_TRUE_ALL(CAST_RI2R(mask2)))                               \
                goto goto_label;                                               \
                                                                               \
                                                                               \
@@ -189,7 +189,7 @@ extern "C"
                (tmp2_r) = BLEND_R((y), (y), CAST_RI2R((mask1)));              \
                (iz)     = BLEND_RI((zero_ri), (ix), (mask1));                 \
                (mask2)  = (mask1);                                            \
-               if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                 \
+               if (MASK_TRUE_ALL(CAST_RI2R(mask2)))                           \
                    goto goto_label1;                                          \
                                                                               \
                                                                               \
@@ -199,7 +199,7 @@ extern "C"
                                   CAST_RI2R((mask1)));                        \
                (iz)     = BLEND_RI((iz), (ix), (mask1));                      \
                (mask2)  = OR_MASK((mask1), (mask2));                          \
-               if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                 \
+               if (MASK_TRUE_ALL(CAST_RI2R(mask2)))                           \
                    goto goto_label1;                                          \
                                                                               \
                                                                               \
@@ -209,7 +209,7 @@ extern "C"
                (tmp2_r) = BLEND_R((tmp2_r), (y), CAST_RI2R((mask1)));         \
                (iz)     = BLEND_RI((iz), (iy), (mask1));                      \
                (mask2)  = OR_MASK((mask1), (mask2));                          \
-               if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                 \
+               if (MASK_TRUE_ALL(CAST_RI2R(mask2)))                           \
                    goto goto_label1;                                          \
                                                                               \
                                                                               \
@@ -218,7 +218,7 @@ extern "C"
                (tmp2_r) = BLEND_R((tmp2_r), (zero_r), CAST_RI2R((mask1)));    \
                (iz)     = BLEND_RI((iz), (ix), (mask1));                      \
                (mask2)  = OR_MASK((mask1), (mask2));                          \
-               if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                 \
+               if (MASK_TRUE_ALL(CAST_RI2R(mask2)))                           \
                    goto goto_label1;                                          \
                                                                               \
                                                                               \
@@ -232,14 +232,14 @@ extern "C"
                                                                               \
                (w)    = ABS_R((z));                                           \
                (mask3) = GE_R((w), (BIGS_r));                                 \
-               if (MOVEMASK((mask3)) != 0)                                    \
+               if (MASK_TRUE_ANY(mask3))                                      \
                {                                                              \
                     (z) = BLEND_R((z), MUL_R((z), (BIGI_r)), (mask3));        \
                    (iz) = BLEND_RI((iz), ADD_RI((iz), (one_ri)),              \
                                    CAST_R2RI((mask3)));                       \
                }                                                              \
                (mask3) = LT_R((w), (BIGSI_r));                                \
-               if (MOVEMASK((mask3)) != 0)                                    \
+               if (MASK_TRUE_ANY(mask3))                                      \
                {                                                              \
                     (z) = BLEND_R((z), MUL_R((z), (BIG_r)), (mask3));         \
                    (iz) = BLEND_RI((iz), SUB_RI((iz), (one_ri)),              \
@@ -256,14 +256,14 @@ extern "C"
                (mask1) = EQ_RI((iz), (zero_ri));                              \
                (pnm2)  = BLEND_R((zero_r), (z), CAST_RI2R((mask1)));          \
                (mask2) = (mask1);                                             \
-               if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                 \
+               if (MASK_TRUE_ALL(CAST_RI2R(mask2)))                           \
                    goto goto_label2;                                          \
                                                                               \
                                                                               \
                (mask1) = GT_RI((mone_ri), (iz));                              \
                (pnm2)  = BLEND_R((pnm2), (zero_r), CAST_RI2R((mask1)));       \
                (mask2) = OR_MASK((mask1), (mask2));                           \
-               if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                 \
+               if (MASK_TRUE_ALL(CAST_RI2R(mask2)))                           \
                    goto goto_label2;                                          \
                                                                               \
                                                                               \
@@ -271,7 +271,7 @@ extern "C"
                (pnm2)  = BLEND_R((pnm2), MUL_R((z), (BIGI_r)),                \
                                  CAST_RI2R((mask1)));                         \
                (mask2) = OR_MASK((mask1), (mask2));                           \
-               if (MOVEMASK(CAST_RI2R((mask2))) == SIMD_TRUE)                 \
+               if (MASK_TRUE_ALL(CAST_RI2R(mask2)))                           \
                    goto goto_label2;                                          \
                                                                               \
                                                                               \
@@ -280,10 +280,8 @@ extern "C"
                                                                               \
                                                                               \
     goto_label2:                                                              \
-               if ((MOVEMASK(CAST_RI2R(EQ_RI((ix), (zero_ri)))) ==            \
-                    SIMD_TRUE) &&                                             \
-                   (MOVEMASK(CAST_RI2R(EQ_RI((iy), (zero_ri)))) ==            \
-                    SIMD_TRUE))                                               \
+               if (MASK_TRUE_ALL(CAST_RI2R(EQ_RI((ix), (zero_ri)))) &&        \
+                   MASK_TRUE_ALL(CAST_RI2R(EQ_RI((iy), (zero_ri)))))          \
                    /* Excellent, dynamical switching can be applied from */   \
                    /* now on for all degrees, so no X-numbers! */             \
                    /* IMPORTANTLY, this may not work with other */            \
