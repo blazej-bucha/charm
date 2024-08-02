@@ -65,6 +65,7 @@ CHARM(pnmj) *CHARM(leg_pnmj_init)(unsigned long nmax,
     }
 
 
+    pnmj->pnmj[0] = NULL;
     if (ordering == CHARM_LEG_PMNJ)
     {
         for (unsigned long m = 0; m <= nmax; m++)
