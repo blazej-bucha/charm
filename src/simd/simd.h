@@ -38,7 +38,8 @@
 
 #undef SIMD
 #undef SIMD_SIZE
-#undef SIMD_BLOCK
+#undef SIMD_BLOCK_A
+#undef SIMD_BLOCK_S
 #undef SIMD_MEMALIGN
 #undef SIMD_TRUE
 #undef REAL_SIMD
@@ -257,10 +258,13 @@
 #   endif
 
 
-    /* The "SIMD_BLOCK" value can be played with.  It has no effect on the
-     * accuracy, but affects the performance.  Too low or too high values can
-     * decrease the computation speed. */
-#   define SIMD_BLOCK 4
+    /* The "SIMD_BLOCK_A" and "SIMD_BLOCK_S" values can be played with.  They
+     * have no effect on the accuracy, but affect the performance.  Too low or
+     * too high values can decrease the computation speed.  "SIMD_BLOCK_A" is
+     * used in with the spherical harmonic analysis and "SIMD_BLOCK_S" is used
+     * with the synthesis. */
+#   define SIMD_BLOCK_A 8
+#   define SIMD_BLOCK_S 4
 
 
 #   define MUL_R(x, y)         PF(mul)((x), (y))
@@ -527,10 +531,8 @@
 
 
 #   define SIMD_SIZE     1
-    /* The "SIMD_BLOCK" value can be played with.  It has no effect on the
-     * accuracy, but affects the performance.  Too low or too high values can
-     * decrease the computation speed. */
-#   define SIMD_BLOCK    8
+#   define SIMD_BLOCK_A  8  /* See the description in the SIMD section */
+#   define SIMD_BLOCK_S  8  /* See the description in the SIMD section */
 #   define SIMD_TRUE     1
 #   define SIMD_MEMALIGN 0
 #   define REAL_SIMD     REAL

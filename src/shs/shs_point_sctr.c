@@ -168,7 +168,7 @@ shared(f, shcs, nmax, pnt, npnt, dm, r, ri, FAILURE_glob, mur, err, pt, rref) \
 shared(r_eq_rref, dr, dlat, dlon, npar, grad, dorder)
 #endif
     {
-        REAL_SIMD fi[SHS_MAX_NPAR * SIMD_BLOCK];
+        REAL_SIMD fi[SHS_MAX_NPAR * SIMD_BLOCK_S];
 
 
         /* ................................................................. */
@@ -192,7 +192,7 @@ shared(r_eq_rref, dr, dlat, dlon, npar, grad, dorder)
 
 
         ips = (INT *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                           nmax * SIMD_SIZE * SIMD_BLOCK,
+                                           nmax * SIMD_SIZE * SIMD_BLOCK_S,
                                            sizeof(INT));
         if (ips == NULL)
         {
@@ -200,7 +200,7 @@ shared(r_eq_rref, dr, dlat, dlon, npar, grad, dorder)
             goto FAILURE_1_parallel;
         }
         ps = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                           nmax * SIMD_SIZE * SIMD_BLOCK,
+                                           nmax * SIMD_SIZE * SIMD_BLOCK_S,
                                            sizeof(REAL));
         if (ps == NULL)
         {
@@ -222,7 +222,7 @@ shared(r_eq_rref, dr, dlat, dlon, npar, grad, dorder)
             goto FAILURE_1_parallel;
         }
         lonv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                             SIMD_SIZE * SIMD_BLOCK,
+                                             SIMD_SIZE * SIMD_BLOCK_S,
                                              sizeof(REAL));
         if (lonv == NULL)
         {
@@ -324,15 +324,15 @@ FAILURE_1_parallel:
         size_t ipv, l, idx;
 
 
-        REAL_SIMD t[SIMD_BLOCK], u[SIMD_BLOCK];
-        REAL_SIMD pnt_r[SIMD_BLOCK];
-        REAL_SIMD ratio[SIMD_BLOCK], ratiom[SIMD_BLOCK];
-        for (l = 0; l < SIMD_BLOCK; l++)
+        REAL_SIMD t[SIMD_BLOCK_S], u[SIMD_BLOCK_S];
+        REAL_SIMD pnt_r[SIMD_BLOCK_S];
+        REAL_SIMD ratio[SIMD_BLOCK_S], ratiom[SIMD_BLOCK_S];
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             ratio[l] = ratiom[l] = SET_ZERO_R;
         CHARM(lc) lc;
         CHARM(shs_lc_init)(&lc);
-        REAL_SIMD zeros[SIMD_BLOCK];
-        for (l = 0; l < SIMD_BLOCK; l++)
+        REAL_SIMD zeros[SIMD_BLOCK_S];
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             zeros[l] = SET_ZERO_R;
         REAL_SIMD clonim, slonim;
         REAL_SIMD tmp = SET_ZERO_R;
@@ -343,10 +343,10 @@ FAILURE_1_parallel:
 #if CHARM_OPENMP
 #pragma omp for schedule(dynamic) private(i)
 #endif
-        for (i = 0; i < SIMD_MULTIPLE(npnt, SIMD_SIZE * SIMD_BLOCK);
-             i += SIMD_SIZE * SIMD_BLOCK)
+        for (i = 0; i < SIMD_MULTIPLE(npnt, SIMD_SIZE * SIMD_BLOCK_S);
+             i += SIMD_SIZE * SIMD_BLOCK_S)
         {
-            for (l = 0; l < SIMD_BLOCK; l++)
+            for (l = 0; l < SIMD_BLOCK_S; l++)
             {
                 for (size_t v = 0; v < SIMD_SIZE; v++)
                 {
@@ -382,7 +382,7 @@ FAILURE_1_parallel:
             }
 
 
-            for (size_t p = 0; p < SHS_MAX_NPAR * SIMD_BLOCK; p++)
+            for (size_t p = 0; p < SHS_MAX_NPAR * SIMD_BLOCK_S; p++)
                 fi[p] = SET_ZERO_R;
 
 
@@ -393,7 +393,7 @@ FAILURE_1_parallel:
 
                 /* Apply polar optimization if asked to do so */
                 if (CHARM(misc_polar_optimization_apply)(m, nmax, &u[0],
-                                                         SIMD_BLOCK, pt))
+                                                         SIMD_BLOCK_S, pt))
                     goto UPDATE_RATIOS;
 
 
@@ -482,7 +482,7 @@ FAILURE_1_parallel:
                 m_real = (REAL)m;
 
 
-                for (l = 0; l < SIMD_BLOCK; l++)
+                for (l = 0; l < SIMD_BLOCK_S; l++)
                 {
                     for (size_t v = 0; v < SIMD_SIZE; v++)
                     {
@@ -500,26 +500,26 @@ FAILURE_1_parallel:
 
                     if (grad > 0)
                     {
-                        idx += SIMD_BLOCK;
+                        idx += SIMD_BLOCK_S;
                         LC_CS(r);
 
 
-                        idx += SIMD_BLOCK;
+                        idx += SIMD_BLOCK_S;
                         LC_CS(p);
                     }
 
 
                     if (grad > 1)
                     {
-                        idx += SIMD_BLOCK;
+                        idx += SIMD_BLOCK_S;
                         LC_CS(rr);
 
 
-                        idx += SIMD_BLOCK;
+                        idx += SIMD_BLOCK_S;
                         LC_CS(rp);
 
 
-                        idx += SIMD_BLOCK;
+                        idx += SIMD_BLOCK_S;
                         LC_CS(pp);
                     }
                 }
@@ -527,7 +527,7 @@ FAILURE_1_parallel:
 
 
 UPDATE_RATIOS:
-                for (l = 0; l < SIMD_BLOCK; l++)
+                for (l = 0; l < SIMD_BLOCK_S; l++)
                     ratiom[l] = MUL_R(ratiom[l], ratio[l]);
 
 
@@ -538,7 +538,7 @@ UPDATE_RATIOS:
             /* Final part of the synthesis */
             for (size_t p = 0; p < npar; p++)
                 CHARM(shs_sctr_mulc)(i, npnt, pnt->type, mur, tmp, tmpv,
-                                     &fi[p * SIMD_BLOCK], f[p]);
+                                     &fi[p * SIMD_BLOCK_S], f[p]);
 
 
         } /* End of the loop over the evaluation points */

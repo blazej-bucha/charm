@@ -24,7 +24,7 @@ void CHARM(shs_sctr_mulc)(size_t i,
 {
     size_t ipv;
     size_t il;
-    size_t simd_blk = CHARM(crd_cell_isSctr)(type) ? 1 : SIMD_BLOCK;
+    size_t simd_blk = CHARM(crd_cell_isSctr)(type) ? 1 : SIMD_BLOCK_S;
     REAL_SIMD c = SET1_R(mur);
 
 

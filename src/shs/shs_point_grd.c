@@ -391,12 +391,12 @@ shared(use_fft, pt, rref, r_eq_rref, dr, dlat, dlon, dorder, npar, grad)
         REAL *fi2           = NULL;
 
 
-        size_t nfi_1par = pnt_nlon * SIMD_SIZE * SIMD_BLOCK;
+        size_t nfi_1par = pnt_nlon * SIMD_SIZE * SIMD_BLOCK_S;
         size_t nfi = npar * nfi_1par;
 
 
         ips = (INT *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                           nmax * SIMD_SIZE * SIMD_BLOCK,
+                                           nmax * SIMD_SIZE * SIMD_BLOCK_S,
                                            sizeof(INT));
         if (ips == NULL)
         {
@@ -404,7 +404,7 @@ shared(use_fft, pt, rref, r_eq_rref, dr, dlat, dlon, dorder, npar, grad)
             goto FAILURE_1_parallel;
         }
         ps = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                           nmax * SIMD_SIZE * SIMD_BLOCK,
+                                           nmax * SIMD_SIZE * SIMD_BLOCK_S,
                                            sizeof(REAL));
         if (ps == NULL)
         {
@@ -433,7 +433,7 @@ shared(use_fft, pt, rref, r_eq_rref, dr, dlat, dlon, dorder, npar, grad)
             goto FAILURE_1_parallel;
         }
         symmv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                              SIMD_SIZE * SIMD_BLOCK,
+                                              SIMD_SIZE * SIMD_BLOCK_S,
                                               sizeof(REAL));
         if (symmv == NULL)
         {
@@ -441,7 +441,7 @@ shared(use_fft, pt, rref, r_eq_rref, dr, dlat, dlon, dorder, npar, grad)
             goto FAILURE_1_parallel;
         }
         latsinv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                                SIMD_SIZE * SIMD_BLOCK,
+                                                SIMD_SIZE * SIMD_BLOCK_S,
                                                 sizeof(REAL));
         if (latsinv == NULL)
         {
@@ -495,7 +495,7 @@ shared(use_fft, pt, rref, r_eq_rref, dr, dlat, dlon, dorder, npar, grad)
             memset(fc, 0, nfc * sizeof(FFTWC(complex)));
             fc_simd = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
                                                     npar * nfc * SIMD_SIZE *
-                                                    SIMD_BLOCK * 2,
+                                                    SIMD_BLOCK_S * 2,
                                                     sizeof(REAL));
             if (fc_simd == NULL)
             {
@@ -538,8 +538,9 @@ shared(use_fft, pt, rref, r_eq_rref, dr, dlat, dlon, dorder, npar, grad)
                 memset(fc2, 0, nfc * sizeof(FFTWC(complex)));
                 fc2_simd = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
                                                          npar * nfc *
-                                                         SIMD_SIZE * SIMD_BLOCK
-                                                         * 2, sizeof(REAL));
+                                                         SIMD_SIZE *
+                                                         SIMD_BLOCK_S * 2,
+                                                         sizeof(REAL));
                 if (fc2_simd == NULL)
                 {
                     FAILURE_priv = 1;
@@ -602,14 +603,14 @@ FAILURE_1_parallel:
 
 
         size_t ipv, l;
-        const size_t size_blk2 = SIMD_SIZE * SIMD_BLOCK * 2;
+        const size_t size_blk2 = SIMD_SIZE * SIMD_BLOCK_S * 2;
 
 
-        REAL_SIMD t[SIMD_BLOCK], u[SIMD_BLOCK], symm_simd[SIMD_BLOCK];
-        REAL_SIMD pnt_r[SIMD_BLOCK], pnt_r2[SIMD_BLOCK];
-        REAL_SIMD ratio[SIMD_BLOCK], ratio2[SIMD_BLOCK];
-        REAL_SIMD ratiom[SIMD_BLOCK], ratio2m[SIMD_BLOCK];
-        for (l = 0; l < SIMD_BLOCK; l++)
+        REAL_SIMD t[SIMD_BLOCK_S], u[SIMD_BLOCK_S], symm_simd[SIMD_BLOCK_S];
+        REAL_SIMD pnt_r[SIMD_BLOCK_S], pnt_r2[SIMD_BLOCK_S];
+        REAL_SIMD ratio[SIMD_BLOCK_S], ratio2[SIMD_BLOCK_S];
+        REAL_SIMD ratiom[SIMD_BLOCK_S], ratio2m[SIMD_BLOCK_S];
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             ratio[l] = ratio2[l] = ratiom[l] = ratio2m[l] = SET_ZERO_R;
         CHARM(lc) lc;
         CHARM(shs_lc_init)(&lc);
@@ -619,10 +620,10 @@ FAILURE_1_parallel:
 #if CHARM_OPENMP
 #pragma omp for schedule(dynamic) private(i)
 #endif
-        for (i = 0; i < SIMD_MULTIPLE(nlatdo, SIMD_SIZE * SIMD_BLOCK);
-             i += SIMD_SIZE * SIMD_BLOCK)
+        for (i = 0; i < SIMD_MULTIPLE(nlatdo, SIMD_SIZE * SIMD_BLOCK_S);
+             i += SIMD_SIZE * SIMD_BLOCK_S)
         {
-            for (l = 0; l < SIMD_BLOCK; l++)
+            for (l = 0; l < SIMD_BLOCK_S; l++)
             {
                 for (size_t v = 0; v < SIMD_SIZE; v++)
                 {
@@ -730,7 +731,7 @@ FAILURE_1_parallel:
 
                 /* Apply polar optimization if asked to do so */
                 if (CHARM(misc_polar_optimization_apply)(m, nmax, &u[0],
-                                                         SIMD_BLOCK, pt))
+                                                         SIMD_BLOCK_S, pt))
                     goto UPDATE_RATIOS;
 
 
@@ -825,7 +826,7 @@ FAILURE_1_parallel:
 
 
 UPDATE_RATIOS:
-                for (l = 0; l < SIMD_BLOCK; l++)
+                for (l = 0; l < SIMD_BLOCK_S; l++)
                 {
                     ratiom[l] = MUL_R(ratiom[l], ratio[l]);
                     if (symm)

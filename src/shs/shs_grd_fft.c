@@ -40,7 +40,7 @@ void CHARM(shs_grd_fft)(size_t i,
 {
     size_t ipv, row, idx, lss, lssv, lssidx;
     _Bool is_cell_grd = CHARM(crd_cell_isGrid)(grd_type);
-    size_t simd_blk = (is_cell_grd) ? 1 : SIMD_BLOCK;
+    size_t simd_blk = (is_cell_grd) ? 1 : SIMD_BLOCK_S;
     size_t size_blk = SIMD_SIZE * simd_blk;
     REAL dsigma;
     REAL c = mur;

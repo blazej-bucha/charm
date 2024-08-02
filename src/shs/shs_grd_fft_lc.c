@@ -63,7 +63,7 @@ void CHARM(shs_grd_fft_lc)(unsigned long m,
 {
     REAL_SIMD c = (m == 0) ? SET1_R(PREC(1.0)) : SET1_R(PREC(0.5));
     _Bool is_cell_grd = CHARM(crd_cell_isGrid)(grd_type);
-    size_t simd_blk = (is_cell_grd) ? 1 : SIMD_BLOCK;
+    size_t simd_blk = (is_cell_grd) ? 1 : SIMD_BLOCK_S;
     size_t size_blk = SIMD_SIZE * simd_blk;
     size_t l;
     size_t idx  = m * 2 * size_blk;
@@ -90,7 +90,7 @@ void CHARM(shs_grd_fft_lc)(unsigned long m,
 
 
         /* With cells, "lc->a", "lc->b", "lc->a2" and "lc->b2" implicitly
-         * assume that "SIMD_BLOCK" is "1". */
+         * assume that "SIMD_BLOCK_S" is "1". */
         for (l = 0; l < simd_blk; l++)
         {
             STORE_R(&fc_tmp[idx + l * SIMD_SIZE],
@@ -141,7 +141,7 @@ void CHARM(shs_grd_fft_lc)(unsigned long m,
 
         if (grad > 0)
         {
-            size_t q = nfc * SIMD_SIZE * SIMD_BLOCK * 2;
+            size_t q = nfc * SIMD_SIZE * SIMD_BLOCK_S * 2;
             size_t pnfc = q;
 
 
