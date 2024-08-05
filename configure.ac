@@ -125,15 +125,16 @@ dnl ===========================================================================
 dnl Check the presence of some C macros
 dnl ===========================================================================
 dnl Do we have the "isfinite" macro in "math.h"?
+AC_MSG_CHECKING([for isfinite macro in math.h])
 math_isfinite=no
 AC_RUN_IFELSE([AC_LANG_PROGRAM([
 #include <stdlib.h>
 #include <math.h>
 ], [
-#ifndef isfinite
-exit(1);
-#endif
+if (isfinite(NAN) || isfinite(sqrt(-1.0)) || isfinite(log(0.0)) || !isfinite(1.0))
+    exit(1);
 ])], [math_isfinite=yes])
+AC_MSG_RESULT([$math_isfinite])
 dnl ===========================================================================
 
 
@@ -233,10 +234,11 @@ if test "$qp" = "yes"; then
     fi
 
 
-    dnl On FreeBSD, the "isfinite" macro does not seem to compile/work properly
+    dnl On FreeBSD, the "isfinite" macro does not seem to work properly
     dnl with the "__float128" data type.  We therefore need to additionally
     dnl check whether an actual code that employes the macro can be compiled
     dnl and whether it returns the expected value.
+    AC_MSG_CHECKING([for isfinite macro in math.h in quadruple precision])
     if test "$math_isfinite" = "yes" ; then
         dnl Reset the value of $math_isfinite
         math_isfinite=no
@@ -244,17 +246,17 @@ if test "$qp" = "yes"; then
         #include <stdlib.h>
         #include <math.h>
         ], [
-        if (!isfinite(1.0q))
+        if (isfinite(NAN) || isfinite(sqrtq(-1.0q)) || isfinite(log(1.0q)) || !isfinite(1.0q))
             exit(1);
         ])], [math_isfinite=yes])
     fi
+    AC_MSG_RESULT([$math_isfinite])
 fi
 
 
 if test "$math_isfinite" != "no"; then
    AC_DEFINE(HAVE_ISFINITE, [1], [Define to 1 if you have the isfinite macro defined in the <math.h> header file.])
 fi
-AC_MSG_NOTICE([isfinite macro in math.h found and works correctly... $math_isfinite])
 
 
 dnl Documentation can only be built if compiling CHarm in double precision

@@ -14076,6 +14076,8 @@ fi
 
 
 
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for isfinite macro in math.h" >&5
+printf %s "checking for isfinite macro in math.h... " >&6; }
 math_isfinite=no
 if test "$cross_compiling" = yes
 then :
@@ -14094,9 +14096,8 @@ int
 main (void)
 {
 
-#ifndef isfinite
-exit(1);
-#endif
+if (isfinite(NAN) || isfinite(sqrt(-1.0)) || isfinite(log(0.0)) || !isfinite(1.0))
+    exit(1);
 
   ;
   return 0;
@@ -14110,6 +14111,8 @@ rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext \
   conftest.$ac_objext conftest.beam conftest.$ac_ext
 fi
 
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $math_isfinite" >&5
+printf "%s\n" "$math_isfinite" >&6; }
 
 
 
@@ -14581,7 +14584,9 @@ printf "%s\n" "#define CHARM_QUAD 1" >>confdefs.h
     fi
 
 
-                    if test "$math_isfinite" = "yes" ; then
+                    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for isfinite macro in math.h in quadruple precision" >&5
+printf %s "checking for isfinite macro in math.h in quadruple precision... " >&6; }
+    if test "$math_isfinite" = "yes" ; then
                 math_isfinite=no
         if test "$cross_compiling" = yes
 then :
@@ -14600,7 +14605,7 @@ int
 main (void)
 {
 
-        if (!isfinite(1.0q))
+        if (isfinite(NAN) || isfinite(sqrtq(-1.0q)) || isfinite(log(1.0q)) || !isfinite(1.0q))
             exit(1);
 
   ;
@@ -14616,6 +14621,8 @@ rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext \
 fi
 
     fi
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $math_isfinite" >&5
+printf "%s\n" "$math_isfinite" >&6; }
 fi
 
 
@@ -14624,8 +14631,6 @@ if test "$math_isfinite" != "no"; then
 printf "%s\n" "#define HAVE_ISFINITE 1" >>confdefs.h
 
 fi
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: isfinite macro in math.h found and works correctly... $math_isfinite" >&5
-printf "%s\n" "$as_me: isfinite macro in math.h found and works correctly... $math_isfinite" >&6;}
 
 
  if test "$dp" = "yes"; then
@@ -14914,14 +14919,6 @@ then :
 
 else $as_nop
   as_fn_error $? "arm_neon.h not found" "$LINENO" 5
-fi
-
-        ac_fn_c_check_header_compile "$LINENO" "stdint.h" "ac_cv_header_stdint_h" "$ac_includes_default"
-if test "x$ac_cv_header_stdint_h" = xyes
-then :
-
-else $as_nop
-  as_fn_error $? "stdint.h not found" "$LINENO" 5
 fi
 
     else
