@@ -68,7 +68,10 @@ long int check_simd_blend_r(void)
 
     REAL_SIMD xv = BLEND_R(FALSE, TRUE, EQ_R(ZERO, ZERO));  /* "mask" is all
                                                              * true */
-    REAL x[SIMD_SIZE];
+
+
+    REAL *x = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                            sizeof(REAL));
     STORE_R(&x[0], xv);
 
 
@@ -123,6 +126,7 @@ long int check_simd_blend_r(void)
     }
 
 
+    CHARM(free_aligned)(x);
     CHARM(free_aligned)(xref);
 
 
