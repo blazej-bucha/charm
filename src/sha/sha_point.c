@@ -487,6 +487,7 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
         _Bool npm_even; /* True if "n + m" is even */
         size_t l, ipv; /* "i + v" */
         _Bool ds[SIMD_BLOCK_A]; /* Dynamical switching */
+        REAL_SIMD cs_sum;
 
 
         /* Loop over latitudes */
@@ -591,7 +592,7 @@ shared(nmax, symm, r, ri, a, b, a2, b2, shcs, t, u, ps, ips) \
 shared(latsin, pt, ROOT3_r, FAILURE_glob, err) \
 private(m, am, bm, a2m, b2m, amp, amm, bmp, bmm, anms, bnms) \
 private(x, ix, y, iy, wlf, ixy, z, iz) \
-private(pnm0, pnm1, pnm2, npm_even, ds, l) SIMD_VARS
+private(pnm0, pnm1, pnm2, npm_even, ds, l, cs_sum) SIMD_VARS
             {
             /* ............................................................. */
             /* An indicator for failed memory initializations on each thread,
@@ -652,9 +653,6 @@ FAILURE_1_parallel:
                  * before the allocation failure. */
                 goto FAILURE_2_parallel;
             }
-
-
-            REAL_SIMD cs_sum;
             /* ............................................................. */
 
 
