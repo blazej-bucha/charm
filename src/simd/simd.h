@@ -295,7 +295,7 @@
 #       define BLEND_R(x, y, mask)   PF(mask_blend)((mask), (x), (y))
 #       define MOVEMASK(x)           (x)
 #   elif HAVE_NEON
-#       define BLEND_R(x, y, mask)   PF(bsl)(VREINT_US(mask), (y), (x))
+#       define BLEND_R(x, y, mask)   PF(bsl)(VREINT_UF(mask), (y), (x))
 #   endif
 
 
