@@ -7,7 +7,7 @@ CHarm 0.4.2:
   analysis, expensive horizontal sums of SIMD vectors (`SUM_R`) were reduced 
   (~10 % improvement).  In SIMD macros computing Legendre functions, some 
   unnecessary blends were be removed by suitable initializations (~20 
-  % improments in analysis and synthesis).
+  % improvements in analysis and synthesis).
 
 * The internal parameter `SIMD_BLOCK` was split to `SIMD_BLOCK_A` and 
   `SIMD_BLOCK_S` that are used with spherical harmonic analysis and synthesis, 
