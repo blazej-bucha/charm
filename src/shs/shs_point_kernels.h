@@ -22,7 +22,7 @@
                  const REAL_SIMD *t,                                          \
                  const REAL_SIMD *u,                                          \
                  const REAL *ps,                                              \
-                 const int *ips,                                              \
+                 const INT *ips,                                              \
                  const REAL_SIMD *ratio,                                      \
                  const REAL_SIMD *ratio2,                                     \
                  const REAL_SIMD *ratiom,                                     \

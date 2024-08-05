@@ -34,6 +34,7 @@
 
 #undef CHARM
 #undef REAL
+#undef INT
 #undef PREC
 #undef FFTW
 #undef FFTWC
@@ -67,6 +68,9 @@
 #endif
 
 
+#include <stdint.h>
+
+
 /* ------------------------------------------------------------------------- */
 /* Single precision */
 /* ------------------------------------------------------------------------- */
@@ -89,6 +93,7 @@
 #       define FFTWC        FFTW
 #   endif
 #   define REAL      float
+#   define INT       int32_t
 #   define PREC(x)   CAT(x, f)
 #   if HAVE_LIBFFTW3F_OMP
 #       define FFTW3_OMP 1
@@ -169,6 +174,7 @@
 #       define FFTWC        FFTW
 #   endif
 #   define REAL      __float128
+#   define INT       int64_t
 #   define PREC(x)   CAT(x, q)
 #   if HAVE_LIBFFTW3Q_OMP
 #       define FFTW3_OMP 1
@@ -249,6 +255,7 @@
 #       define FFTWC        FFTW
 #   endif
 #   define REAL      double
+#   define INT       int64_t
 #   define PREC(x)   CAT(x,)
 #   if HAVE_LIBFFTW3_OMP
 #       define FFTW3_OMP 1

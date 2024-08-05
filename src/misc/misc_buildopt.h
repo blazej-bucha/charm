@@ -58,6 +58,10 @@ extern "C"
 #define BUILDOPT_SIMD_AVX512 3
 
 
+#undef BUILDOPT_SIMD_NEON
+#define BUILDOPT_SIMD_NEON 4
+
+
 #undef LIB_NA_STR
 #define LIB_NA_STR "n/a"
 

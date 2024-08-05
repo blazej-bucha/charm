@@ -31,7 +31,7 @@ void CHARM(shs_grd_lr2)(size_t i,
     /* Look into "shs_grd_fft" for the explanation of these variables */
     size_t ipv, row, lss, lssv;
     _Bool is_cell_grd = CHARM(crd_cell_isGrid)(grd_type);
-    size_t simd_blk = (is_cell_grd) ? 1 : SIMD_BLOCK;
+    size_t simd_blk = (is_cell_grd) ? 1 : SIMD_BLOCK_S;
     size_t size_blk = SIMD_SIZE * simd_blk;
     REAL dsigma;
     REAL ctmp = c;

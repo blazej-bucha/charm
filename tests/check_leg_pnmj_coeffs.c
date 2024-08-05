@@ -5,7 +5,7 @@
 #include "../src/prec.h"
 #include "parameters.h"
 #ifdef GENREF
-#   include "write.h"
+#   include "array2file.h"
 #else
 #   include "validate.h"
 #endif
@@ -76,7 +76,8 @@ long int check_leg_pnmj_coeffs(void)
 
 
 #ifdef GENREF
-                        e += write(file, pnmj->pnmj[m][n - m], (n / 2) + 1);
+                        e += array2file(file, pnmj->pnmj[m][n - m],
+                                        (n / 2) + 1);
 #else
                         e += validate(file, pnmj->pnmj[m][n - m], (n / 2) + 1,
                                       PREC(10.0) * CHARM(glob_threshold));
@@ -94,8 +95,8 @@ long int check_leg_pnmj_coeffs(void)
 
 
 #ifdef GENREF
-                        e += write(file, pnmj->pnmj[m][j],
-                                   nmax2 - CHARM_MAX(m, 2 * j) + 1);
+                        e += array2file(file, pnmj->pnmj[m][j],
+                                        nmax2 - CHARM_MAX(m, 2 * j) + 1);
 #else
                         e += validate(file, pnmj->pnmj[m][j],
                                       nmax2 - CHARM_MAX(m, 2 * j) + 1,

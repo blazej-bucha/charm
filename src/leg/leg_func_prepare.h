@@ -15,7 +15,10 @@ extern "C"
 #endif
 
 
-extern void CHARM(leg_func_prepare)(const REAL *, REAL *, int *, const REAL *,
+extern void CHARM(leg_func_prepare)(const REAL *,
+                                    REAL *,
+                                    INT *,
+                                    const REAL *,
                                     unsigned long);
 
 

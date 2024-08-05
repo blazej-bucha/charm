@@ -73,6 +73,11 @@ dnl ===========================================================================
 AC_C_CONST
 AC_C_INLINE
 AC_TYPE_SIZE_T
+if test "$ac_cv_type_size_t" != "yes"; then
+    AC_MSG_ERROR([couldn't define size_t data type.])
+fi
+AC_TYPE_INT32_T
+AC_TYPE_INT64_T
 dnl ===========================================================================
 
 
@@ -101,6 +106,7 @@ dnl Checks for header files
 dnl ===========================================================================
 AC_CHECK_HEADER([math.h], [], [AC_MSG_ERROR([math.h not found])])
 AC_CHECK_HEADER([stdio.h], [], [AC_MSG_ERROR([stdio.h not found])])
+AC_CHECK_HEADER([stdint.h], [], [AC_MSG_ERROR([stdint.h not found])])
 AC_CHECK_HEADER([stdlib.h], [], [AC_MSG_ERROR([stdlib.h not found])])
 AC_CHECK_HEADER([string.h], [], [AC_MSG_ERROR([string.h not found])])
 AC_CHECK_HEADER([ctype.h], [], [AC_MSG_ERROR([ctype.h not found])])
@@ -119,15 +125,16 @@ dnl ===========================================================================
 dnl Check the presence of some C macros
 dnl ===========================================================================
 dnl Do we have the "isfinite" macro in "math.h"?
+AC_MSG_CHECKING([for isfinite macro in math.h])
 math_isfinite=no
 AC_RUN_IFELSE([AC_LANG_PROGRAM([
 #include <stdlib.h>
 #include <math.h>
 ], [
-#ifndef isfinite
-exit(1);
-#endif
+if (isfinite(NAN) || isfinite(sqrt(-1.0)) || isfinite(log(0.0)) || !isfinite(1.0))
+    exit(1);
 ])], [math_isfinite=yes])
+AC_MSG_RESULT([$math_isfinite])
 dnl ===========================================================================
 
 
@@ -162,6 +169,11 @@ if test "$sp" = "yes"; then
     AC_SUBST([PC], [F])
     AC_SUBST([P], [f])
     AC_SUBST([RDT], [float])
+
+
+    if test "$ac_cv_c_int32_t" != "yes"; then
+        AC_MSG_ERROR([couldn't define a signed 32 bits wide integer.])
+    fi
 fi
 
 
@@ -178,6 +190,11 @@ if test "$dp" = "yes"; then
     AC_SUBST([PC], [])
     AC_SUBST([P], [])
     AC_SUBST([RDT], [double])
+
+
+    if test "$ac_cv_c_int64_t" != "yes"; then
+        AC_MSG_ERROR([couldn't define a signed 64 bits wide integer.])
+    fi
 fi
 
 
@@ -212,10 +229,16 @@ if test "$qp" = "yes"; then
     AC_SUBST([RDT], [__float128])
 
 
-    dnl On FreeBSD, the "isfinite" macro does not seem to compile/work properly
+    if test "$ac_cv_c_int64_t" != "yes"; then
+        AC_MSG_ERROR([couldn't define a signed 64 bits wide integer.])
+    fi
+
+
+    dnl On FreeBSD, the "isfinite" macro does not seem to work properly
     dnl with the "__float128" data type.  We therefore need to additionally
     dnl check whether an actual code that employes the macro can be compiled
     dnl and whether it returns the expected value.
+    AC_MSG_CHECKING([for isfinite macro in math.h in quadruple precision])
     if test "$math_isfinite" = "yes" ; then
         dnl Reset the value of $math_isfinite
         math_isfinite=no
@@ -223,17 +246,17 @@ if test "$qp" = "yes"; then
         #include <stdlib.h>
         #include <math.h>
         ], [
-        if (!isfinite(1.0q))
+        if (isfinite(NAN) || isfinite(sqrtq(-1.0q)) || isfinite(log(1.0q)) || !isfinite(1.0q))
             exit(1);
         ])], [math_isfinite=yes])
     fi
+    AC_MSG_RESULT([$math_isfinite])
 fi
 
 
 if test "$math_isfinite" != "no"; then
    AC_DEFINE(HAVE_ISFINITE, [1], [Define to 1 if you have the isfinite macro defined in the <math.h> header file.])
 fi
-AC_MSG_NOTICE([isfinite macro in math.h found and works correctly... $math_isfinite])
 
 
 dnl Documentation can only be built if compiling CHarm in double precision
@@ -247,22 +270,32 @@ dnl ===========================================================================
 
 dnl SIMD
 dnl ===========================================================================
-AC_ARG_ENABLE([avx], [AS_HELP_STRING([--enable-avx], [enable AVX instructions to improve performance [default=no]])], avx=$enableval, avx=no)
-AC_ARG_ENABLE([avx2], [AS_HELP_STRING([--enable-avx2], [enable AVX2 instructions to improve performance [default=no]])], avx2=$enableval, avx2=no)
-AC_ARG_ENABLE([avx-512], [AS_HELP_STRING([--enable-avx-512], [enable AVX-512 instructions to improve performance [default=no]])], avx512=$enableval, avx512=no)
+AC_ARG_ENABLE([avx], [AS_HELP_STRING([--enable-avx], [enable AVX instructions on x86_64 to improve performance [default=no]])], avx=$enableval, avx=no)
+AC_ARG_ENABLE([avx2], [AS_HELP_STRING([--enable-avx2], [enable AVX2 instructions on x86_64 to improve performance [default=no]])], avx2=$enableval, avx2=no)
+AC_ARG_ENABLE([avx-512], [AS_HELP_STRING([--enable-avx-512], [enable AVX-512 on x86_64 instructions to improve performance [default=no]])], avx512=$enableval, avx512=no)
+AC_ARG_ENABLE([neon], [AS_HELP_STRING([--enable-neon], [enable NEON instructions on ARM64 to improve performance [default=no]])], neon=$enableval, neon=no)
 
 
 if test "$avx" = "yes" -a "$avx2" = "yes"; then
     AC_MSG_ERROR([more than one type of SIMD instructions enabled])
 fi
-if test "$avx2" = "yes" -a "$avx512" = "yes"; then
-    AC_MSG_ERROR([more than one type of SIMD instructions enabled])
-fi
 if test "$avx" = "yes" -a "$avx512" = "yes"; then
     AC_MSG_ERROR([more than one type of SIMD instructions enabled])
 fi
-if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes"; then
-    if test "$dp" != "yes" -a "$sp" != "yes"; then
+if test "$avx" = "yes" -a "$neon" = "yes"; then
+    AC_MSG_ERROR([more than one type of SIMD instructions enabled])
+fi
+if test "$avx2" = "yes" -a "$avx512" = "yes"; then
+    AC_MSG_ERROR([more than one type of SIMD instructions enabled])
+fi
+if test "$avx2" = "yes" -a "$neon" = "yes"; then
+    AC_MSG_ERROR([more than one type of SIMD instructions enabled])
+fi
+if test "$avx512" = "yes" -a "$neon" = "yes"; then
+    AC_MSG_ERROR([more than one type of SIMD instructions enabled])
+fi
+if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes" -o "$neon" = "yes"; then
+    if test "$qp" = "yes"; then
         AC_MSG_ERROR([SIMD instructions are not supported in quadruple precision])
     fi
 fi
@@ -308,14 +341,26 @@ if test "$avx512" = "yes"; then
         simd_flag2=-mavx512dq
     fi
 fi
+
+
+dnl --enable-neon
+if test "$neon" = "yes"; then
+    AC_MSG_NOTICE([compiling with NEON instructions enabled])
+    AC_DEFINE([HAVE_NEON], [1], [Define to 1 to enable neon instructions])
+    dnl With NEON, we do not add compiler flags due to the large variety of the
+    dnl flags.  The flags must be specified by the user using the "CFLAGS"
+    dnl variable.
+fi
 dnl ---------------------------------------------------------------------------
 
 
-if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes"; then
+if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes" -o "$neon" = "yes"; then
 
-    AX_CHECK_COMPILE_FLAG([$simd_flag1], [CFLAGS_SIMD="$simd_flag1"], [AC_MSG_ERROR([unrecognized $simd_flag1 compiler flag.  Try using the gcc compiler.])])
-    if test "$simd_flag2" != "no"; then
-        AX_CHECK_COMPILE_FLAG([$simd_flag2], [CFLAGS_SIMD="$CFLAGS_SIMD $simd_flag2"], [AC_MSG_ERROR([unrecognized $simd_flag2 compiler flag.  Try using the gcc compiler.])])
+    if test "$neon" != "yes"; then
+        AX_CHECK_COMPILE_FLAG([$simd_flag1], [CFLAGS_SIMD="$simd_flag1"], [AC_MSG_ERROR([unrecognized $simd_flag1 compiler flag.  Try using the gcc compiler.])])
+        if test "$simd_flag2" != "no"; then
+            AX_CHECK_COMPILE_FLAG([$simd_flag2], [CFLAGS_SIMD="$CFLAGS_SIMD $simd_flag2"], [AC_MSG_ERROR([unrecognized $simd_flag2 compiler flag.  Try using the gcc compiler.])])
+        fi
     fi
 
     have_posix_memalign=no
@@ -336,7 +381,11 @@ if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes"; then
     fi
 
 
-    AC_CHECK_HEADER([immintrin.h], [], [AC_MSG_ERROR([immintrin.h not found])])
+    if test "$neon" = "yes"; then
+        AC_CHECK_HEADER([arm_neon.h], [], [AC_MSG_ERROR([arm_neon.h not found])])
+    else
+        AC_CHECK_HEADER([immintrin.h], [], [AC_MSG_ERROR([immintrin.h not found])])
+    fi
     if test "$ax_cv_c_compiler_vendor" = "microsoft"; then
         AC_CHECK_HEADER([malloc.h], [], [AC_MSG_ERROR([malloc.h not found])])
     fi

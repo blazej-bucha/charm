@@ -7,7 +7,7 @@
 #include "generate_cell.h"
 #include "parameters.h"
 #ifdef GENREF
-#   include "write.h"
+#   include "array2file.h"
 #else
 #   include "validate.h"
 #endif
@@ -141,7 +141,7 @@ long int check_shs_cell(void)
                         CHARM(shs_cell)(grd_cell, shcs_pot, nmax, f, err);
                         CHARM(err_handler)(err, 1);
 #ifdef GENREF
-                        e += write(file, f, grd_cell->ncell);
+                        e += array2file(file, f, grd_cell->ncell);
 #else
                         e += validate(file, f, grd_cell->ncell,
                                       CHARM(glob_threshold2));
@@ -211,7 +211,7 @@ long int check_shs_cell(void)
                 CHARM(shs_cell)(sctr_cell, shcs_pot, nmax, f, err);
                 CHARM(err_handler)(err, 1);
 #ifdef GENREF
-                e += write(file, f, sctr_cell->ncell);
+                e += array2file(file, f, sctr_cell->ncell);
 #else
                 e += validate(file, f, sctr_cell->ncell,
                               CHARM(glob_threshold2));

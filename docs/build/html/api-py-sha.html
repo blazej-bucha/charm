@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>pyharm.sha &#8212; CHarm 0.4.1 documentation</title>
+    <title>pyharm.sha &#8212; CHarm 0.4.2 documentation</title>
   
   
   
@@ -37,7 +37,7 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="_static/documentation_options.js?v=a3cf13c8"></script>
+    <script src="_static/documentation_options.js?v=b4bb93ae"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -49,7 +49,7 @@
     <link rel="prev" title="pyharm.shs" href="api-py-shs.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Jul 02, 2024"/>
+    <meta name="docbuild:last-update" content="Aug 05, 2024"/>
   </head>
   
   
@@ -141,7 +141,7 @@
     <script>document.write(`<img src="_static/charm-logo.svg" class="logo__image only-dark" alt=""/>`);</script>
   
   
-    <p class="title logo__title">CHarm v0.4.1</p>
+    <p class="title logo__title">CHarm v0.4.2</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -458,7 +458,7 @@ quadrature method.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyharm.sha.point">
-<span class="sig-prename descclassname"><span class="pre">pyharm.sha.</span></span><span class="sig-name descname"><span class="pre">point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.sha.point" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">pyharm.sha.</span></span><span class="sig-name descname"><span class="pre">point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.sha.point" title="Link to this definition">#</a></dt>
 <dd><p>Performs surface spherical harmonic analysis of point values <code class="docutils literal notranslate"><span class="pre">f</span></code> at
 <code class="docutils literal notranslate"><span class="pre">pnt</span></code> up to maximum degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to <a class="reference external" href="./api-c-sha.html">charm_sha</a> for the full documentation.</p>
 <dl class="field-list simple">
@@ -484,7 +484,7 @@ spherical harmonic coefficients, optional.  Default is <code class="docutils lit
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyharm.sha.cell">
-<span class="sig-prename descclassname"><span class="pre">pyharm.sha.</span></span><span class="sig-name descname"><span class="pre">cell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cell</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.sha.cell" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">pyharm.sha.</span></span><span class="sig-name descname"><span class="pre">cell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cell</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.sha.cell" title="Link to this definition">#</a></dt>
 <dd><p>Performs surface spherical harmonic analysis of point values <code class="docutils literal notranslate"><span class="pre">f</span></code> at
 <code class="docutils literal notranslate"><span class="pre">cell</span></code> up to maximum degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to <a class="reference external" href="./api-c-sha.html">charm_sha</a> for the full documentation.</p>
 <dl class="field-list simple">
@@ -593,7 +593,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jul 02, 2024.
+  Last updated on Aug 05, 2024.
   <br/>
 </p>
   </div>

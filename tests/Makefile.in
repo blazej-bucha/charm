@@ -115,7 +115,8 @@ am__objects_1 = genref_run@P@-main.$(OBJEXT) \
 	genref_run@P@-cmp_arrays.$(OBJEXT) \
 	genref_run@P@-write_array.$(OBJEXT) \
 	genref_run@P@-write_val.$(OBJEXT) \
-	genref_run@P@-validate.$(OBJEXT) genref_run@P@-write.$(OBJEXT) \
+	genref_run@P@-validate.$(OBJEXT) \
+	genref_run@P@-array2file.$(OBJEXT) \
 	genref_run@P@-modify_low_degree_coefficients.$(OBJEXT) \
 	genref_run@P@-generate_point.$(OBJEXT) \
 	genref_run@P@-generate_cell.$(OBJEXT) \
@@ -155,7 +156,10 @@ am__objects_1 = genref_run@P@-main.$(OBJEXT) \
 	genref_run@P@-check_shc_alloc.$(OBJEXT) \
 	genref_run@P@-check_shc_init.$(OBJEXT) \
 	genref_run@P@-check_simd_abs_r.$(OBJEXT) \
-	genref_run@P@-check_simd_neg_r.$(OBJEXT)
+	genref_run@P@-check_simd_neg_r.$(OBJEXT) \
+	genref_run@P@-check_simd_sum_r.$(OBJEXT) \
+	genref_run@P@-check_simd_masks.$(OBJEXT) \
+	genref_run@P@-check_simd_blend_r.$(OBJEXT)
 am_genref_run@P@_OBJECTS = $(am__objects_1)
 genref_run@P@_OBJECTS = $(am_genref_run@P@_OBJECTS)
 genref_run@P@_DEPENDENCIES = $(top_builddir)/libcharm@P@.la
@@ -171,7 +175,7 @@ am__objects_2 = test_run@P@-main.$(OBJEXT) \
 	test_run@P@-cmp_arrays.$(OBJEXT) \
 	test_run@P@-write_array.$(OBJEXT) \
 	test_run@P@-write_val.$(OBJEXT) test_run@P@-validate.$(OBJEXT) \
-	test_run@P@-write.$(OBJEXT) \
+	test_run@P@-array2file.$(OBJEXT) \
 	test_run@P@-modify_low_degree_coefficients.$(OBJEXT) \
 	test_run@P@-generate_point.$(OBJEXT) \
 	test_run@P@-generate_cell.$(OBJEXT) \
@@ -210,7 +214,10 @@ am__objects_2 = test_run@P@-main.$(OBJEXT) \
 	test_run@P@-check_shc_alloc.$(OBJEXT) \
 	test_run@P@-check_shc_init.$(OBJEXT) \
 	test_run@P@-check_simd_abs_r.$(OBJEXT) \
-	test_run@P@-check_simd_neg_r.$(OBJEXT)
+	test_run@P@-check_simd_neg_r.$(OBJEXT) \
+	test_run@P@-check_simd_sum_r.$(OBJEXT) \
+	test_run@P@-check_simd_masks.$(OBJEXT) \
+	test_run@P@-check_simd_blend_r.$(OBJEXT)
 am_test_run@P@_OBJECTS = $(am__objects_2)
 test_run@P@_OBJECTS = $(am_test_run@P@_OBJECTS)
 test_run@P@_DEPENDENCIES = $(top_builddir)/libcharm@P@.la
@@ -232,7 +239,7 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade =  \
+am__depfiles_remade = ./$(DEPDIR)/genref_run@P@-array2file.Po \
 	./$(DEPDIR)/genref_run@P@-check_crd_cell_alloc.Po \
 	./$(DEPDIR)/genref_run@P@-check_crd_cell_init.Po \
 	./$(DEPDIR)/genref_run@P@-check_crd_point_alloc.Po \
@@ -261,7 +268,10 @@ am__depfiles_remade =  \
 	./$(DEPDIR)/genref_run@P@-check_shs_point_grad2.Po \
 	./$(DEPDIR)/genref_run@P@-check_shs_point_guru.Po \
 	./$(DEPDIR)/genref_run@P@-check_simd_abs_r.Po \
+	./$(DEPDIR)/genref_run@P@-check_simd_blend_r.Po \
+	./$(DEPDIR)/genref_run@P@-check_simd_masks.Po \
 	./$(DEPDIR)/genref_run@P@-check_simd_neg_r.Po \
+	./$(DEPDIR)/genref_run@P@-check_simd_sum_r.Po \
 	./$(DEPDIR)/genref_run@P@-check_struct.Po \
 	./$(DEPDIR)/genref_run@P@-cmp_arrays.Po \
 	./$(DEPDIR)/genref_run@P@-cmp_vals.Po \
@@ -277,9 +287,9 @@ am__depfiles_remade =  \
 	./$(DEPDIR)/genref_run@P@-module_shc.Po \
 	./$(DEPDIR)/genref_run@P@-module_shs.Po \
 	./$(DEPDIR)/genref_run@P@-validate.Po \
-	./$(DEPDIR)/genref_run@P@-write.Po \
 	./$(DEPDIR)/genref_run@P@-write_array.Po \
 	./$(DEPDIR)/genref_run@P@-write_val.Po \
+	./$(DEPDIR)/test_run@P@-array2file.Po \
 	./$(DEPDIR)/test_run@P@-check_crd_cell_alloc.Po \
 	./$(DEPDIR)/test_run@P@-check_crd_cell_init.Po \
 	./$(DEPDIR)/test_run@P@-check_crd_point_alloc.Po \
@@ -308,7 +318,10 @@ am__depfiles_remade =  \
 	./$(DEPDIR)/test_run@P@-check_shs_point_grad2.Po \
 	./$(DEPDIR)/test_run@P@-check_shs_point_guru.Po \
 	./$(DEPDIR)/test_run@P@-check_simd_abs_r.Po \
+	./$(DEPDIR)/test_run@P@-check_simd_blend_r.Po \
+	./$(DEPDIR)/test_run@P@-check_simd_masks.Po \
 	./$(DEPDIR)/test_run@P@-check_simd_neg_r.Po \
+	./$(DEPDIR)/test_run@P@-check_simd_sum_r.Po \
 	./$(DEPDIR)/test_run@P@-check_struct.Po \
 	./$(DEPDIR)/test_run@P@-cmp_arrays.Po \
 	./$(DEPDIR)/test_run@P@-cmp_vals.Po \
@@ -324,7 +337,6 @@ am__depfiles_remade =  \
 	./$(DEPDIR)/test_run@P@-module_shc.Po \
 	./$(DEPDIR)/test_run@P@-module_shs.Po \
 	./$(DEPDIR)/test_run@P@-validate.Po \
-	./$(DEPDIR)/test_run@P@-write.Po \
 	./$(DEPDIR)/test_run@P@-write_array.Po \
 	./$(DEPDIR)/test_run@P@-write_val.Po
 am__mv = mv -f
@@ -527,7 +539,7 @@ SOURCES = main.c \
 		  write_array.c \
 		  write_val.c \
 		  validate.c \
-		  write.c \
+		  array2file.c \
 		  modify_low_degree_coefficients.c \
 		  generate_point.c \
 		  generate_cell.c \
@@ -567,7 +579,10 @@ SOURCES = main.c \
 		  check_shc_alloc.c \
 		  check_shc_init.c \
 		  check_simd_abs_r.c \
-		  check_simd_neg_r.c
+		  check_simd_neg_r.c \
+		  check_simd_sum_r.c \
+		  check_simd_masks.c \
+		  check_simd_blend_r.c
 
 
 # Source code of the test program
@@ -655,6 +670,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-array2file.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_crd_cell_alloc.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_crd_cell_init.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_crd_point_alloc.Po@am__quote@ # am--include-marker
@@ -683,7 +699,10 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_shs_point_grad2.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_shs_point_guru.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_simd_abs_r.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_simd_blend_r.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_simd_masks.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_simd_neg_r.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_simd_sum_r.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_struct.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-cmp_arrays.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-cmp_vals.Po@am__quote@ # am--include-marker
@@ -699,9 +718,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-module_shc.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-module_shs.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-validate.Po@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-write.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-write_array.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-write_val.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-array2file.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_crd_cell_alloc.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_crd_cell_init.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_crd_point_alloc.Po@am__quote@ # am--include-marker
@@ -730,7 +749,10 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_shs_point_grad2.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_shs_point_guru.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_simd_abs_r.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_simd_blend_r.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_simd_masks.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_simd_neg_r.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_simd_sum_r.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_struct.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-cmp_arrays.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-cmp_vals.Po@am__quote@ # am--include-marker
@@ -746,7 +768,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-module_shc.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-module_shs.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-validate.Po@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-write.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-write_array.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-write_val.Po@am__quote@ # am--include-marker
 
@@ -861,19 +882,19 @@ genref_run@P@-validate.obj: validate.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-validate.obj `if test -f 'validate.c'; then $(CYGPATH_W) 'validate.c'; else $(CYGPATH_W) '$(srcdir)/validate.c'; fi`
 
-genref_run@P@-write.o: write.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-write.o -MD -MP -MF $(DEPDIR)/genref_run@P@-write.Tpo -c -o genref_run@P@-write.o `test -f 'write.c' || echo '$(srcdir)/'`write.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-write.Tpo $(DEPDIR)/genref_run@P@-write.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='write.c' object='genref_run@P@-write.o' libtool=no @AMDEPBACKSLASH@
+genref_run@P@-array2file.o: array2file.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-array2file.o -MD -MP -MF $(DEPDIR)/genref_run@P@-array2file.Tpo -c -o genref_run@P@-array2file.o `test -f 'array2file.c' || echo '$(srcdir)/'`array2file.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-array2file.Tpo $(DEPDIR)/genref_run@P@-array2file.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='array2file.c' object='genref_run@P@-array2file.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-write.o `test -f 'write.c' || echo '$(srcdir)/'`write.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-array2file.o `test -f 'array2file.c' || echo '$(srcdir)/'`array2file.c
 
-genref_run@P@-write.obj: write.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-write.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-write.Tpo -c -o genref_run@P@-write.obj `if test -f 'write.c'; then $(CYGPATH_W) 'write.c'; else $(CYGPATH_W) '$(srcdir)/write.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-write.Tpo $(DEPDIR)/genref_run@P@-write.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='write.c' object='genref_run@P@-write.obj' libtool=no @AMDEPBACKSLASH@
+genref_run@P@-array2file.obj: array2file.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-array2file.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-array2file.Tpo -c -o genref_run@P@-array2file.obj `if test -f 'array2file.c'; then $(CYGPATH_W) 'array2file.c'; else $(CYGPATH_W) '$(srcdir)/array2file.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-array2file.Tpo $(DEPDIR)/genref_run@P@-array2file.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='array2file.c' object='genref_run@P@-array2file.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-write.obj `if test -f 'write.c'; then $(CYGPATH_W) 'write.c'; else $(CYGPATH_W) '$(srcdir)/write.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-array2file.obj `if test -f 'array2file.c'; then $(CYGPATH_W) 'array2file.c'; else $(CYGPATH_W) '$(srcdir)/array2file.c'; fi`
 
 genref_run@P@-modify_low_degree_coefficients.o: modify_low_degree_coefficients.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-modify_low_degree_coefficients.o -MD -MP -MF $(DEPDIR)/genref_run@P@-modify_low_degree_coefficients.Tpo -c -o genref_run@P@-modify_low_degree_coefficients.o `test -f 'modify_low_degree_coefficients.c' || echo '$(srcdir)/'`modify_low_degree_coefficients.c
@@ -1435,6 +1456,48 @@ genref_run@P@-check_simd_neg_r.obj: check_simd_neg_r.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_simd_neg_r.obj `if test -f 'check_simd_neg_r.c'; then $(CYGPATH_W) 'check_simd_neg_r.c'; else $(CYGPATH_W) '$(srcdir)/check_simd_neg_r.c'; fi`
 
+genref_run@P@-check_simd_sum_r.o: check_simd_sum_r.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_simd_sum_r.o -MD -MP -MF $(DEPDIR)/genref_run@P@-check_simd_sum_r.Tpo -c -o genref_run@P@-check_simd_sum_r.o `test -f 'check_simd_sum_r.c' || echo '$(srcdir)/'`check_simd_sum_r.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_simd_sum_r.Tpo $(DEPDIR)/genref_run@P@-check_simd_sum_r.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_simd_sum_r.c' object='genref_run@P@-check_simd_sum_r.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_simd_sum_r.o `test -f 'check_simd_sum_r.c' || echo '$(srcdir)/'`check_simd_sum_r.c
+
+genref_run@P@-check_simd_sum_r.obj: check_simd_sum_r.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_simd_sum_r.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-check_simd_sum_r.Tpo -c -o genref_run@P@-check_simd_sum_r.obj `if test -f 'check_simd_sum_r.c'; then $(CYGPATH_W) 'check_simd_sum_r.c'; else $(CYGPATH_W) '$(srcdir)/check_simd_sum_r.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_simd_sum_r.Tpo $(DEPDIR)/genref_run@P@-check_simd_sum_r.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_simd_sum_r.c' object='genref_run@P@-check_simd_sum_r.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_simd_sum_r.obj `if test -f 'check_simd_sum_r.c'; then $(CYGPATH_W) 'check_simd_sum_r.c'; else $(CYGPATH_W) '$(srcdir)/check_simd_sum_r.c'; fi`
+
+genref_run@P@-check_simd_masks.o: check_simd_masks.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_simd_masks.o -MD -MP -MF $(DEPDIR)/genref_run@P@-check_simd_masks.Tpo -c -o genref_run@P@-check_simd_masks.o `test -f 'check_simd_masks.c' || echo '$(srcdir)/'`check_simd_masks.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_simd_masks.Tpo $(DEPDIR)/genref_run@P@-check_simd_masks.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_simd_masks.c' object='genref_run@P@-check_simd_masks.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_simd_masks.o `test -f 'check_simd_masks.c' || echo '$(srcdir)/'`check_simd_masks.c
+
+genref_run@P@-check_simd_masks.obj: check_simd_masks.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_simd_masks.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-check_simd_masks.Tpo -c -o genref_run@P@-check_simd_masks.obj `if test -f 'check_simd_masks.c'; then $(CYGPATH_W) 'check_simd_masks.c'; else $(CYGPATH_W) '$(srcdir)/check_simd_masks.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_simd_masks.Tpo $(DEPDIR)/genref_run@P@-check_simd_masks.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_simd_masks.c' object='genref_run@P@-check_simd_masks.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_simd_masks.obj `if test -f 'check_simd_masks.c'; then $(CYGPATH_W) 'check_simd_masks.c'; else $(CYGPATH_W) '$(srcdir)/check_simd_masks.c'; fi`
+
+genref_run@P@-check_simd_blend_r.o: check_simd_blend_r.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_simd_blend_r.o -MD -MP -MF $(DEPDIR)/genref_run@P@-check_simd_blend_r.Tpo -c -o genref_run@P@-check_simd_blend_r.o `test -f 'check_simd_blend_r.c' || echo '$(srcdir)/'`check_simd_blend_r.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_simd_blend_r.Tpo $(DEPDIR)/genref_run@P@-check_simd_blend_r.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_simd_blend_r.c' object='genref_run@P@-check_simd_blend_r.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_simd_blend_r.o `test -f 'check_simd_blend_r.c' || echo '$(srcdir)/'`check_simd_blend_r.c
+
+genref_run@P@-check_simd_blend_r.obj: check_simd_blend_r.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_simd_blend_r.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-check_simd_blend_r.Tpo -c -o genref_run@P@-check_simd_blend_r.obj `if test -f 'check_simd_blend_r.c'; then $(CYGPATH_W) 'check_simd_blend_r.c'; else $(CYGPATH_W) '$(srcdir)/check_simd_blend_r.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_simd_blend_r.Tpo $(DEPDIR)/genref_run@P@-check_simd_blend_r.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_simd_blend_r.c' object='genref_run@P@-check_simd_blend_r.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_simd_blend_r.obj `if test -f 'check_simd_blend_r.c'; then $(CYGPATH_W) 'check_simd_blend_r.c'; else $(CYGPATH_W) '$(srcdir)/check_simd_blend_r.c'; fi`
+
 test_run@P@-main.o: main.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-main.o -MD -MP -MF $(DEPDIR)/test_run@P@-main.Tpo -c -o test_run@P@-main.o `test -f 'main.c' || echo '$(srcdir)/'`main.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-main.Tpo $(DEPDIR)/test_run@P@-main.Po
@@ -1519,19 +1582,19 @@ test_run@P@-validate.obj: validate.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-validate.obj `if test -f 'validate.c'; then $(CYGPATH_W) 'validate.c'; else $(CYGPATH_W) '$(srcdir)/validate.c'; fi`
 
-test_run@P@-write.o: write.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-write.o -MD -MP -MF $(DEPDIR)/test_run@P@-write.Tpo -c -o test_run@P@-write.o `test -f 'write.c' || echo '$(srcdir)/'`write.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-write.Tpo $(DEPDIR)/test_run@P@-write.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='write.c' object='test_run@P@-write.o' libtool=no @AMDEPBACKSLASH@
+test_run@P@-array2file.o: array2file.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-array2file.o -MD -MP -MF $(DEPDIR)/test_run@P@-array2file.Tpo -c -o test_run@P@-array2file.o `test -f 'array2file.c' || echo '$(srcdir)/'`array2file.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-array2file.Tpo $(DEPDIR)/test_run@P@-array2file.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='array2file.c' object='test_run@P@-array2file.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-write.o `test -f 'write.c' || echo '$(srcdir)/'`write.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-array2file.o `test -f 'array2file.c' || echo '$(srcdir)/'`array2file.c
 
-test_run@P@-write.obj: write.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-write.obj -MD -MP -MF $(DEPDIR)/test_run@P@-write.Tpo -c -o test_run@P@-write.obj `if test -f 'write.c'; then $(CYGPATH_W) 'write.c'; else $(CYGPATH_W) '$(srcdir)/write.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-write.Tpo $(DEPDIR)/test_run@P@-write.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='write.c' object='test_run@P@-write.obj' libtool=no @AMDEPBACKSLASH@
+test_run@P@-array2file.obj: array2file.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-array2file.obj -MD -MP -MF $(DEPDIR)/test_run@P@-array2file.Tpo -c -o test_run@P@-array2file.obj `if test -f 'array2file.c'; then $(CYGPATH_W) 'array2file.c'; else $(CYGPATH_W) '$(srcdir)/array2file.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-array2file.Tpo $(DEPDIR)/test_run@P@-array2file.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='array2file.c' object='test_run@P@-array2file.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-write.obj `if test -f 'write.c'; then $(CYGPATH_W) 'write.c'; else $(CYGPATH_W) '$(srcdir)/write.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-array2file.obj `if test -f 'array2file.c'; then $(CYGPATH_W) 'array2file.c'; else $(CYGPATH_W) '$(srcdir)/array2file.c'; fi`
 
 test_run@P@-modify_low_degree_coefficients.o: modify_low_degree_coefficients.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-modify_low_degree_coefficients.o -MD -MP -MF $(DEPDIR)/test_run@P@-modify_low_degree_coefficients.Tpo -c -o test_run@P@-modify_low_degree_coefficients.o `test -f 'modify_low_degree_coefficients.c' || echo '$(srcdir)/'`modify_low_degree_coefficients.c
@@ -2093,6 +2156,48 @@ test_run@P@-check_simd_neg_r.obj: check_simd_neg_r.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_simd_neg_r.obj `if test -f 'check_simd_neg_r.c'; then $(CYGPATH_W) 'check_simd_neg_r.c'; else $(CYGPATH_W) '$(srcdir)/check_simd_neg_r.c'; fi`
 
+test_run@P@-check_simd_sum_r.o: check_simd_sum_r.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_simd_sum_r.o -MD -MP -MF $(DEPDIR)/test_run@P@-check_simd_sum_r.Tpo -c -o test_run@P@-check_simd_sum_r.o `test -f 'check_simd_sum_r.c' || echo '$(srcdir)/'`check_simd_sum_r.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_simd_sum_r.Tpo $(DEPDIR)/test_run@P@-check_simd_sum_r.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_simd_sum_r.c' object='test_run@P@-check_simd_sum_r.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_simd_sum_r.o `test -f 'check_simd_sum_r.c' || echo '$(srcdir)/'`check_simd_sum_r.c
+
+test_run@P@-check_simd_sum_r.obj: check_simd_sum_r.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_simd_sum_r.obj -MD -MP -MF $(DEPDIR)/test_run@P@-check_simd_sum_r.Tpo -c -o test_run@P@-check_simd_sum_r.obj `if test -f 'check_simd_sum_r.c'; then $(CYGPATH_W) 'check_simd_sum_r.c'; else $(CYGPATH_W) '$(srcdir)/check_simd_sum_r.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_simd_sum_r.Tpo $(DEPDIR)/test_run@P@-check_simd_sum_r.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_simd_sum_r.c' object='test_run@P@-check_simd_sum_r.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_simd_sum_r.obj `if test -f 'check_simd_sum_r.c'; then $(CYGPATH_W) 'check_simd_sum_r.c'; else $(CYGPATH_W) '$(srcdir)/check_simd_sum_r.c'; fi`
+
+test_run@P@-check_simd_masks.o: check_simd_masks.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_simd_masks.o -MD -MP -MF $(DEPDIR)/test_run@P@-check_simd_masks.Tpo -c -o test_run@P@-check_simd_masks.o `test -f 'check_simd_masks.c' || echo '$(srcdir)/'`check_simd_masks.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_simd_masks.Tpo $(DEPDIR)/test_run@P@-check_simd_masks.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_simd_masks.c' object='test_run@P@-check_simd_masks.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_simd_masks.o `test -f 'check_simd_masks.c' || echo '$(srcdir)/'`check_simd_masks.c
+
+test_run@P@-check_simd_masks.obj: check_simd_masks.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_simd_masks.obj -MD -MP -MF $(DEPDIR)/test_run@P@-check_simd_masks.Tpo -c -o test_run@P@-check_simd_masks.obj `if test -f 'check_simd_masks.c'; then $(CYGPATH_W) 'check_simd_masks.c'; else $(CYGPATH_W) '$(srcdir)/check_simd_masks.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_simd_masks.Tpo $(DEPDIR)/test_run@P@-check_simd_masks.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_simd_masks.c' object='test_run@P@-check_simd_masks.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_simd_masks.obj `if test -f 'check_simd_masks.c'; then $(CYGPATH_W) 'check_simd_masks.c'; else $(CYGPATH_W) '$(srcdir)/check_simd_masks.c'; fi`
+
+test_run@P@-check_simd_blend_r.o: check_simd_blend_r.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_simd_blend_r.o -MD -MP -MF $(DEPDIR)/test_run@P@-check_simd_blend_r.Tpo -c -o test_run@P@-check_simd_blend_r.o `test -f 'check_simd_blend_r.c' || echo '$(srcdir)/'`check_simd_blend_r.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_simd_blend_r.Tpo $(DEPDIR)/test_run@P@-check_simd_blend_r.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_simd_blend_r.c' object='test_run@P@-check_simd_blend_r.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_simd_blend_r.o `test -f 'check_simd_blend_r.c' || echo '$(srcdir)/'`check_simd_blend_r.c
+
+test_run@P@-check_simd_blend_r.obj: check_simd_blend_r.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_simd_blend_r.obj -MD -MP -MF $(DEPDIR)/test_run@P@-check_simd_blend_r.Tpo -c -o test_run@P@-check_simd_blend_r.obj `if test -f 'check_simd_blend_r.c'; then $(CYGPATH_W) 'check_simd_blend_r.c'; else $(CYGPATH_W) '$(srcdir)/check_simd_blend_r.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_simd_blend_r.Tpo $(DEPDIR)/test_run@P@-check_simd_blend_r.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_simd_blend_r.c' object='test_run@P@-check_simd_blend_r.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_simd_blend_r.obj `if test -f 'check_simd_blend_r.c'; then $(CYGPATH_W) 'check_simd_blend_r.c'; else $(CYGPATH_W) '$(srcdir)/check_simd_blend_r.c'; fi`
+
 mostlyclean-libtool:
 	-rm -f *.lo
 
@@ -2225,7 +2330,8 @@ clean-am: clean-checkPROGRAMS clean-generic clean-libtool clean-local \
 	clean-noinstPROGRAMS mostlyclean-am
 
 distclean: distclean-am
-		-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_cell_alloc.Po
+		-rm -f ./$(DEPDIR)/genref_run@P@-array2file.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_cell_alloc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_cell_init.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_point_alloc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_point_init.Po
@@ -2253,7 +2359,10 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_shs_point_grad2.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_shs_point_guru.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_simd_abs_r.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_simd_blend_r.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_simd_masks.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_simd_neg_r.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_simd_sum_r.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_struct.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-cmp_arrays.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-cmp_vals.Po
@@ -2269,9 +2378,9 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_shc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_shs.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-validate.Po
-	-rm -f ./$(DEPDIR)/genref_run@P@-write.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-write_array.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-write_val.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-array2file.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_crd_cell_alloc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_crd_cell_init.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_crd_point_alloc.Po
@@ -2300,7 +2409,10 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test_run@P@-check_shs_point_grad2.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_shs_point_guru.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_simd_abs_r.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_simd_blend_r.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_simd_masks.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_simd_neg_r.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_simd_sum_r.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_struct.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-cmp_arrays.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-cmp_vals.Po
@@ -2316,7 +2428,6 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test_run@P@-module_shc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-module_shs.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-validate.Po
-	-rm -f ./$(DEPDIR)/test_run@P@-write.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-write_array.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-write_val.Po
 	-rm -f Makefile
@@ -2364,7 +2475,8 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_cell_alloc.Po
+		-rm -f ./$(DEPDIR)/genref_run@P@-array2file.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_cell_alloc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_cell_init.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_point_alloc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_point_init.Po
@@ -2392,7 +2504,10 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_shs_point_grad2.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_shs_point_guru.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_simd_abs_r.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_simd_blend_r.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_simd_masks.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_simd_neg_r.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_simd_sum_r.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_struct.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-cmp_arrays.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-cmp_vals.Po
@@ -2408,9 +2523,9 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_shc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_shs.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-validate.Po
-	-rm -f ./$(DEPDIR)/genref_run@P@-write.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-write_array.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-write_val.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-array2file.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_crd_cell_alloc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_crd_cell_init.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_crd_point_alloc.Po
@@ -2439,7 +2554,10 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test_run@P@-check_shs_point_grad2.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_shs_point_guru.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_simd_abs_r.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_simd_blend_r.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_simd_masks.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_simd_neg_r.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_simd_sum_r.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_struct.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-cmp_arrays.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-cmp_vals.Po
@@ -2455,7 +2573,6 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test_run@P@-module_shc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-module_shs.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-validate.Po
-	-rm -f ./$(DEPDIR)/test_run@P@-write.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-write_array.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-write_val.Po
 	-rm -f Makefile

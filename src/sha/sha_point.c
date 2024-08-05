@@ -35,28 +35,33 @@
 
 /* Macros */
 /* ------------------------------------------------------------------------- */
+#define CS_SUM(cs, pnm, ab)                                                   \
+    cs_sum = SET_ZERO_R;                                                      \
+    for (l = 0; l < SIMD_BLOCK_A; l++)                                        \
+    {                                                                         \
+        cs_sum = ADD_R(cs_sum, MUL_R((pnm)[l], (ab)[l]));                     \
+    }                                                                         \
+    (cs) += SUM_R(cs_sum);
+
+
+
+
+
+
 #define LOOP_ITER(n, a, b)                                                    \
     anms = SET1_R(anm[(n)]);                                                  \
     bnms = SET1_R(bnm[(n)]);                                                  \
                                                                               \
                                                                               \
-    for (l = 0; l < SIMD_BLOCK; l++)                                          \
+    for (l = 0; l < SIMD_BLOCK_A; l++)                                        \
     {                                                                         \
         PNM_RECURRENCE(x[l], y[l], pnm2[l], t[l], anms, bnms);                \
         RECURRENCE_NEXT_ITER(y[l], x[l], pnm2[l]);                            \
     }                                                                         \
                                                                               \
                                                                               \
-    for (l = 0; l < SIMD_BLOCK; l++)                                          \
-    {                                                                         \
-        shcs->c[m][idx] += SUM_R(MUL_R(pnm2[l], a[l]));                       \
-    }                                                                         \
-                                                                              \
-                                                                              \
-    for (l = 0; l < SIMD_BLOCK; l++)                                          \
-    {                                                                         \
-        shcs->s[m][idx] += SUM_R(MUL_R(pnm2[l], b[l]));                       \
-    }                                                                         \
+    CS_SUM(shcs->c[m][idx], pnm2, a);                                         \
+    CS_SUM(shcs->s[m][idx], pnm2, b);                                         \
                                                                               \
                                                                               \
     idx++;
@@ -324,11 +329,11 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
 
 
     {
-        REAL_SIMD pnm0[SIMD_BLOCK], pnm1[SIMD_BLOCK], pnm2[SIMD_BLOCK];
-        REAL_SIMD x[SIMD_BLOCK], y[SIMD_BLOCK], z[SIMD_BLOCK];
-        REAL_SIMD t[SIMD_BLOCK], u[SIMD_BLOCK];
-        RI_SIMD   ix[SIMD_BLOCK], iy[SIMD_BLOCK], iz[SIMD_BLOCK];
-        RI_SIMD   ixy[SIMD_BLOCK];
+        REAL_SIMD pnm0[SIMD_BLOCK_A], pnm1[SIMD_BLOCK_A], pnm2[SIMD_BLOCK_A];
+        REAL_SIMD x[SIMD_BLOCK_A], y[SIMD_BLOCK_A], z[SIMD_BLOCK_A];
+        REAL_SIMD t[SIMD_BLOCK_A], u[SIMD_BLOCK_A];
+        RI_SIMD   ix[SIMD_BLOCK_A], iy[SIMD_BLOCK_A], iz[SIMD_BLOCK_A];
+        RI_SIMD   ixy[SIMD_BLOCK_A];
         const REAL_SIMD ROOT3_r = SET1_R(ROOT3);
 #ifdef SIMD
         const RI_SIMD    zero_ri = SET_ZERO_RI;
@@ -342,15 +347,14 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
         REAL_SIMD  tmp1_r,  tmp2_r;
         MASK_SIMD  mask1, mask2;
         MASK2_SIMD mask3;
-        ABS_R_INIT;
 #endif
-        REAL_SIMD symm[SIMD_BLOCK], latsin[SIMD_BLOCK];
-        REAL_SIMD am[SIMD_BLOCK],   bm[SIMD_BLOCK];
-        REAL_SIMD a2m[SIMD_BLOCK],  b2m[SIMD_BLOCK];
+        REAL_SIMD symm[SIMD_BLOCK_A], latsin[SIMD_BLOCK_A];
+        REAL_SIMD am[SIMD_BLOCK_A],   bm[SIMD_BLOCK_A];
+        REAL_SIMD a2m[SIMD_BLOCK_A],  b2m[SIMD_BLOCK_A];
 
 
         /* ................................................................. */
-        int *ips  = NULL;
+        INT *ips  = NULL;
         REAL *ps  = NULL;
 #if !(CHARM_OPENMP)
         REAL *anm = NULL;
@@ -368,16 +372,16 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
         FFTWC(complex) *ftmp_out = NULL;
 
 
-        ips = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                           SIMD_SIZE * SIMD_BLOCK * nmax,
-                                           sizeof(int));
+        ips = (INT *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                           SIMD_SIZE * SIMD_BLOCK_A * nmax,
+                                           sizeof(INT));
         if (ips == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
         ps = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                           SIMD_SIZE * SIMD_BLOCK * nmax,
+                                           SIMD_SIZE * SIMD_BLOCK_A * nmax,
                                            sizeof(REAL));
         if (ps == NULL)
         {
@@ -427,7 +431,7 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
             goto FAILURE_1;
         }
         a = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                          SIMD_SIZE * SIMD_BLOCK *
+                                          SIMD_SIZE * SIMD_BLOCK_A *
                                           pnt_nlon_fft, sizeof(REAL));
         if (a == NULL)
         {
@@ -435,7 +439,7 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
             goto FAILURE_1;
         }
         b = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                          SIMD_SIZE * SIMD_BLOCK *
+                                          SIMD_SIZE * SIMD_BLOCK_A *
                                           pnt_nlon_fft, sizeof(REAL));
         if (b == NULL)
         {
@@ -443,7 +447,7 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
             goto FAILURE_1;
         }
         a2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                           SIMD_SIZE * SIMD_BLOCK *
+                                           SIMD_SIZE * SIMD_BLOCK_A *
                                            pnt_nlon_fft, sizeof(REAL));
         if (a2 == NULL)
         {
@@ -451,7 +455,7 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
             goto FAILURE_1;
         }
         b2 = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
-                                           SIMD_SIZE * SIMD_BLOCK *
+                                           SIMD_SIZE * SIMD_BLOCK_A *
                                            pnt_nlon_fft, sizeof(REAL));
         if (b2 == NULL)
         {
@@ -476,20 +480,21 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
 
 
         REAL_SIMD anms, bnms;
-        REAL_SIMD amp[SIMD_BLOCK], amm[SIMD_BLOCK];
-        REAL_SIMD bmp[SIMD_BLOCK], bmm[SIMD_BLOCK];
+        REAL_SIMD amp[SIMD_BLOCK_A], amm[SIMD_BLOCK_A];
+        REAL_SIMD bmp[SIMD_BLOCK_A], bmm[SIMD_BLOCK_A];
         REAL cw;
         REAL_SIMD wlf;
         _Bool npm_even; /* True if "n + m" is even */
         size_t l, ipv; /* "i + v" */
-        _Bool ds[SIMD_BLOCK]; /* Dynamical switching */
+        _Bool ds[SIMD_BLOCK_A]; /* Dynamical switching */
+        REAL_SIMD cs_sum;
 
 
         /* Loop over latitudes */
-        for (size_t i = 0; i < SIMD_MULTIPLE(nlatdo, SIMD_SIZE * SIMD_BLOCK);
-             i += SIMD_SIZE * SIMD_BLOCK)
+        for (size_t i = 0; i < SIMD_MULTIPLE(nlatdo, SIMD_SIZE * SIMD_BLOCK_A);
+             i += SIMD_SIZE * SIMD_BLOCK_A)
         {
-            for (l = 0; l < SIMD_BLOCK; l++)
+            for (l = 0; l < SIMD_BLOCK_A; l++)
             {
                 for (size_t v = 0; v < SIMD_SIZE; v++)
                 {
@@ -523,9 +528,9 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
                     cw = c * pnt->w[ipv];
                     for (size_t j = 0; j < pnt_nlon_fft; j++)
                     {
-                        a[j * (SIMD_SIZE * SIMD_BLOCK) +
+                        a[j * (SIMD_SIZE * SIMD_BLOCK_A) +
                           l * SIMD_SIZE + v]  =  cw * ftmp_out[j][0];
-                        b[j * (SIMD_SIZE * SIMD_BLOCK) +
+                        b[j * (SIMD_SIZE * SIMD_BLOCK_A) +
                           l * SIMD_SIZE + v]  = -cw * ftmp_out[j][1];
                     }
                     /* ----------------------------------------------------- */
@@ -543,9 +548,9 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
                         cw = c * pnt->w[pnt_nlat - ipv - 1];
                         for (size_t j = 0; j < pnt_nlon_fft; j++)
                         {
-                            a2[j * (SIMD_SIZE * SIMD_BLOCK) +
+                            a2[j * (SIMD_SIZE * SIMD_BLOCK_A) +
                                l * SIMD_SIZE + v]  =  cw * ftmp_out[j][0];
-                            b2[j * (SIMD_SIZE * SIMD_BLOCK) +
+                            b2[j * (SIMD_SIZE * SIMD_BLOCK_A) +
                                l * SIMD_SIZE + v]  = -cw * ftmp_out[j][1];
                         }
                     }
@@ -576,7 +581,6 @@ void CHARM(sha_point)(const CHARM(point) *pnt, const REAL *f,
 #   ifdef SIMD
 #       define SIMD_VARS shared(zero_ri, one_ri, mone_ri, zero_r) \
                          shared(BIG_r, BIGI_r, BIGS_r, BIGSI_r) \
-                         shared(NONSIGNBITS_R) \
                          private(tmp1_r, tmp2_r, mask1, mask2, mask3)
 #   else
 #       define SIMD_VARS
@@ -588,7 +592,7 @@ shared(nmax, symm, r, ri, a, b, a2, b2, shcs, t, u, ps, ips) \
 shared(latsin, pt, ROOT3_r, FAILURE_glob, err) \
 private(m, am, bm, a2m, b2m, amp, amm, bmp, bmm, anms, bnms) \
 private(x, ix, y, iy, wlf, ixy, z, iz) \
-private(pnm0, pnm1, pnm2, npm_even, ds, l) SIMD_VARS
+private(pnm0, pnm1, pnm2, npm_even, ds, l, cs_sum) SIMD_VARS
             {
             /* ............................................................. */
             /* An indicator for failed memory initializations on each thread,
@@ -660,7 +664,7 @@ FAILURE_1_parallel:
 
                 /* Apply polar optimization if asked to do so */
                 if (CHARM(misc_polar_optimization_apply)(m, nmax, &u[0],
-                                                         SIMD_BLOCK, pt))
+                                                         SIMD_BLOCK_A, pt))
                     continue;
 
 
@@ -671,15 +675,15 @@ FAILURE_1_parallel:
 
                 /* Some useful substitutions */
                 /* --------------------------------------------------------- */
-                for (l = 0; l < SIMD_BLOCK; l++)
+                for (l = 0; l < SIMD_BLOCK_A; l++)
                 {
-                    am[l]  = LOAD_R(&a[(SIMD_SIZE * SIMD_BLOCK) * m +
+                    am[l]  = LOAD_R(&a[(SIMD_SIZE * SIMD_BLOCK_A) * m +
                                        l * SIMD_SIZE]);
-                    bm[l]  = LOAD_R(&b[(SIMD_SIZE * SIMD_BLOCK) * m +
+                    bm[l]  = LOAD_R(&b[(SIMD_SIZE * SIMD_BLOCK_A) * m +
                                        l * SIMD_SIZE]);
-                    a2m[l] = LOAD_R(&a2[(SIMD_SIZE * SIMD_BLOCK) * m +
+                    a2m[l] = LOAD_R(&a2[(SIMD_SIZE * SIMD_BLOCK_A) * m +
                                         l * SIMD_SIZE]);
-                    b2m[l] = LOAD_R(&b2[(SIMD_SIZE * SIMD_BLOCK) * m +
+                    b2m[l] = LOAD_R(&b2[(SIMD_SIZE * SIMD_BLOCK_A) * m +
                                         l * SIMD_SIZE]);
 
 
@@ -702,23 +706,19 @@ FAILURE_1_parallel:
                     /* ----------------------------------------------------- */
 
                     /* P00 */
-                    for (l = 0; l < SIMD_BLOCK; l++)
-                    {
+                    for (l = 0; l < SIMD_BLOCK_A; l++)
                         pnm0[l] = SET1_R(PREC(1.0));
-                        /* C00 */
-                        shcs->c[0][0] += SUM_R(MUL_R(pnm0[l], amp[l]));
-                    }
+                    /* C00 */
+                    CS_SUM(shcs->c[0][0], pnm0, amp);
 
 
-                    /* P10 */
                     if (nmax >= 1)
                     {
-                        for (l = 0; l < SIMD_BLOCK; l++)
-                        {
+                        /* P10 */
+                        for (l = 0; l < SIMD_BLOCK_A; l++)
                             pnm1[l] = MUL_R(ROOT3_r, t[l]);
-                            /* C10 */
-                            shcs->c[0][1] += SUM_R(MUL_R(pnm1[l], amm[l]));
-                        }
+                        /* C10 */
+                        CS_SUM(shcs->c[0][1], pnm1, amm);
                     }
 
 
@@ -739,7 +739,7 @@ FAILURE_1_parallel:
                             bnms = SET1_R(bnm[n]);
 
 
-                            for (l = 0; l < SIMD_BLOCK; l++)
+                            for (l = 0; l < SIMD_BLOCK_A; l++)
                             {
                                 pnm2[l] = SUB_R(MUL_R(MUL_R(anms,
                                                             t[l]), pnm1[l]),
@@ -750,13 +750,8 @@ FAILURE_1_parallel:
                             }
 
 
-                            for (l = 0; l < SIMD_BLOCK; l++)
-                            {
-                                /* C20, C30, ..., Cnmax,0 */
-                                shcs->c[0][n] += SUM_R(MUL_R(pnm2[l],
-                                                       (npm_even) ? amp[l] :
-                                                                    amm[l]));
-                            }
+                            /* C20, C30, ..., Cnmax,0 */
+                            CS_SUM(shcs->c[0][n], pnm2, npm_even ? amp : amm);
                         }
                     }
                     /* ----------------------------------------------------- */
@@ -767,7 +762,7 @@ FAILURE_1_parallel:
 
                     /* Sectorial harmonics */
                     /* ----------------------------------------------------- */
-                    for (l = 0; l < SIMD_BLOCK; l++)
+                    for (l = 0; l < SIMD_BLOCK_A; l++)
                     {
 #ifdef SIMD
                         PNM_SECTORIAL_XNUM_SIMD(x[l], ix[l],
@@ -791,11 +786,8 @@ FAILURE_1_parallel:
 
 
                     /* Cm,m; Sm,m */
-                    for (l = 0; l < SIMD_BLOCK; l++)
-                    {
-                        shcs->c[m][0] += SUM_R(MUL_R(pnm0[l], amp[l]));
-                        shcs->s[m][0] += SUM_R(MUL_R(pnm0[l], bmp[l]));
-                    }
+                    CS_SUM(shcs->c[m][0], pnm0, amp);
+                    CS_SUM(shcs->s[m][0], pnm0, bmp);
                     /* ----------------------------------------------------- */
 
 
@@ -807,7 +799,7 @@ FAILURE_1_parallel:
                         bnms = SET1_R(bnm[m + 1]);
 
 
-                        for (l = 0; l < SIMD_BLOCK; l++)
+                        for (l = 0; l < SIMD_BLOCK_A; l++)
                         {
 #ifdef SIMD
                             PNM_SEMISECTORIAL_XNUM_SIMD(x[l], y[l],
@@ -828,16 +820,13 @@ FAILURE_1_parallel:
 
 
                         /* Cm+1,m; Sm+1,m */
-                        for (l = 0; l < SIMD_BLOCK; l++)
-                        {
-                            shcs->c[m][1] += SUM_R(MUL_R(pnm1[l], amm[l]));
-                            shcs->s[m][1] += SUM_R(MUL_R(pnm1[l], bmm[l]));
-                        }
+                        CS_SUM(shcs->c[m][1], pnm1, amm);
+                        CS_SUM(shcs->s[m][1], pnm1, bmm);
 
 
                         /* Loop over degrees */
                         /* ------------------------------------------------- */
-                        for (l = 0; l < SIMD_BLOCK; l++)
+                        for (l = 0; l < SIMD_BLOCK_A; l++)
                             ds[l] = 0;
 
 
@@ -851,7 +840,7 @@ FAILURE_1_parallel:
                         unsigned long n;
                         unsigned long idx = 2;
                         for (n = (m + 2);
-                             CHARM(leg_func_use_xnum(ds, SIMD_BLOCK)) &&
+                             CHARM(leg_func_use_xnum(ds, SIMD_BLOCK_A)) &&
                              n <= nmax;
                              n++, npm_even = !npm_even, idx++)
                         {
@@ -860,7 +849,7 @@ FAILURE_1_parallel:
 
 
                             /* Compute tesseral Legendre function */
-                            for (l = 0; l < SIMD_BLOCK; l++)
+                            for (l = 0; l < SIMD_BLOCK_A; l++)
                             {
 #ifdef SIMD
                                 PNM_TESSERAL_XNUM_SIMD(x[l], y[l], z[l],
@@ -888,26 +877,10 @@ FAILURE_1_parallel:
 
 
                             /* Cm+2,m, Cm+3,m, ... and Sm+2,m, Sm+3,m, ... */
-                            if (npm_even)
-                            {
-                                for (l = 0; l < SIMD_BLOCK; l++)
-                                     shcs->c[m][idx] += SUM_R(MUL_R(pnm2[l],
-                                                                    amp[l]));
-                                for (l = 0; l < SIMD_BLOCK; l++)
-                                     shcs->s[m][idx] += SUM_R(MUL_R(pnm2[l],
-                                                                    bmp[l]));
-                            }
-                            else
-                            {
-                                for (l = 0; l < SIMD_BLOCK; l++)
-                                     shcs->c[m][idx] += SUM_R(MUL_R(pnm2[l],
-                                                                    amm[l]));
-                                for (l = 0; l < SIMD_BLOCK; l++)
-                                     shcs->s[m][idx] += SUM_R(MUL_R(pnm2[l],
-                                                                    bmm[l]));
-                            }
-
-
+                            CS_SUM(shcs->c[m][idx], pnm2,
+                                   npm_even ? amp : amm);
+                            CS_SUM(shcs->s[m][idx], pnm2,
+                                   npm_even ? bmp : bmm);
                         }
 
 

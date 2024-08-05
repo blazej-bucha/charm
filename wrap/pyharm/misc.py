@@ -103,7 +103,10 @@ def buildopt_simd():
       (``--enable-avx2``),
 
     * ``3`` if CHarm was compiled with AVX-512 instructions enabled
-      (``--enable-avx-512``).
+      (``--enable-avx-512``),
+
+    * ``4`` if CHarm was compiled with NEON instructions enabled
+      (``--enable-neon``).
     """
 
     func          = _libcharm[_CHARM + 'misc_buildopt_simd']
@@ -131,9 +134,11 @@ def buildopt_isfinite():
     in the system's ``math.h`` header file before the compilation.  Otherwise,
     zero is returned.
 
-    On some systems, the ``isfinite`` macro is available in ``math.h`` but is
-    not working correctly with ``__float128`` floating point data type
-    (quadruple precision).  In that case, zero is returned.
+    On some systems, ``isfinite`` is available in ``math.h``, but it is not
+    working correctly with ``__float128`` floating point data type (quadruple
+    precision).  The macro may also not work correctly with the ``-ffast-math``
+    compiler flag (e.g., ``gcc`` and ``clang``).  In these cases, zero is
+    returned.
     """
 
     func          = _libcharm[_CHARM + 'misc_buildopt_isfinite']

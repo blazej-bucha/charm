@@ -25,6 +25,9 @@ The CHarm binaries were compiled using the following settings.
   error like ``Illegal instruction``, this means your CPU does not support AVX.  
   In that case, you have to build PyHarm from source and avoid using any set of 
   AVX instructions (see :ref:`build_from_src`).
+* On 64-bit ARM CPUs, ``--enable-neon`` to enable SIMD parallelization using 
+  the NEON instruction set.  NEON instructions should be supported by all 
+  ARM64-based MacBooks.
 * ``-O3 -ffast-math -Wall -Wpedantic`` compiler flags on Linux and macOS and 
   ``/O2 /fp:fast /FS /GL`` on Windows to optimize the library for best 
   performance.  Importantly, you should be aware that ``-ffast-math`` and 
@@ -46,7 +49,3 @@ The CHarm binaries were compiled using the following settings.
 
    This will print some useful compilation details about your particular PyHarm 
    build.
-
-.. note::
-   On ARM CPUs, the SIMD parallelization through the NEON instruction set is 
-   not yet supported, but it is on the TODO list.

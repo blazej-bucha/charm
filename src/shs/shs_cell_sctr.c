@@ -178,8 +178,8 @@ shared(ncell, FAILURE_glob, mur, err, rref)
         int FAILURE_priv = 0;
 
 
-        int  *ips1    = NULL;
-        int  *ips2    = NULL;
+        INT *ips1     = NULL;
+        INT *ips2     = NULL;
         REAL *ps1     = NULL;
         REAL *ps2     = NULL;
         REAL *t1v     = NULL;
@@ -199,15 +199,15 @@ shared(ncell, FAILURE_glob, mur, err, rref)
         REAL *cell_rv = NULL;
 
 
-        ips1 = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, nmax * SIMD_SIZE,
-                                            sizeof(int));
+        ips1 = (INT *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                            nmax * SIMD_SIZE, sizeof(INT));
         if (ips1 == NULL)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-        ips2 = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, nmax * SIMD_SIZE,
-                                            sizeof(int));
+        ips2 = (INT *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                            nmax * SIMD_SIZE, sizeof(INT));
         if (ips2 == NULL)
         {
             FAILURE_priv = 1;

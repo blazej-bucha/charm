@@ -73,7 +73,7 @@ void CHARM(shs_grd_lr)(unsigned long m,
                        REAL *fi2)
 {
     _Bool is_cell_grd = CHARM(crd_cell_isGrid)(grd_type);
-    size_t simd_blk = is_cell_grd ? 1 : SIMD_BLOCK;
+    size_t simd_blk = is_cell_grd ? 1 : SIMD_BLOCK_S;
     size_t size_blk = SIMD_SIZE * simd_blk;
     size_t lss, jsize_blk;
 
@@ -96,7 +96,7 @@ void CHARM(shs_grd_lr)(unsigned long m,
 
 
         /* With cells, "a", "b", "a2" and "b2" implicitly assume that
-         * "SIMD_BLOCK" is "1". */
+         * "SIMD_BLOCK_S" is "1". */
         lc->a[0] = MUL_R(lc->a[0], SET1_R(m2sm2dl));
         lc->b[0] = MUL_R(lc->b[0], SET1_R(m2sm2dl)); /* Remember that "b = 0.0"
                                           * for "m == 0.0", so it can safely be
@@ -122,7 +122,7 @@ void CHARM(shs_grd_lr)(unsigned long m,
     REAL       lontmp = (REAL)m * lon0;
     REAL_SIMD clontmp = SET1_R(COS(lontmp));
     REAL_SIMD slontmp = SET1_R(SIN(lontmp));
-    REAL_SIMD dm0[SHS_MAX_NPAR * SIMD_BLOCK];
+    REAL_SIMD dm0[SHS_MAX_NPAR * SIMD_BLOCK_S];
     size_t par_simd_blk, par_nfi_1par;
     LC_CS_init( , 0, , 0, 0);
     if (grad > 0)
@@ -138,7 +138,7 @@ void CHARM(shs_grd_lr)(unsigned long m,
     }
 
 
-    REAL_SIMD dm02[SHS_MAX_NPAR * SIMD_BLOCK];
+    REAL_SIMD dm02[SHS_MAX_NPAR * SIMD_BLOCK_S];
     if (symm)
     {
         LC_CS_init( , 0, 2, 0, 0);
@@ -166,7 +166,7 @@ void CHARM(shs_grd_lr)(unsigned long m,
      lontmp = (REAL)m * (lon0 + deltalon);
     clontmp = SET1_R(COS(lontmp));
     slontmp = SET1_R(SIN(lontmp));
-    REAL_SIMD dm1[SHS_MAX_NPAR * SIMD_BLOCK];
+    REAL_SIMD dm1[SHS_MAX_NPAR * SIMD_BLOCK_S];
     LC_CS_init( , 0, , 1, size_blk);
     if (grad > 0)
     {
@@ -181,7 +181,7 @@ void CHARM(shs_grd_lr)(unsigned long m,
     }
 
 
-    REAL_SIMD dm12[SHS_MAX_NPAR * SIMD_BLOCK];
+    REAL_SIMD dm12[SHS_MAX_NPAR * SIMD_BLOCK_S];
     if (symm)
     {
         LC_CS_init( , 0, 2, 1, size_blk);
@@ -207,7 +207,7 @@ void CHARM(shs_grd_lr)(unsigned long m,
     /* The third and all the remaining longitude points/cells */
     /* ..................................................................... */
     REAL_SIMD cmdlon2 = SET1_R(PREC(2.0) * COS((REAL)m * deltalon));
-    REAL_SIMD dm2[SHS_MAX_NPAR * SIMD_BLOCK];
+    REAL_SIMD dm2[SHS_MAX_NPAR * SIMD_BLOCK_S];
     for (size_t j = 2; j < nlon; j++)
     {
         jsize_blk = j * size_blk;
@@ -226,7 +226,7 @@ void CHARM(shs_grd_lr)(unsigned long m,
     }
 
 
-    REAL_SIMD dm22[SHS_MAX_NPAR * SIMD_BLOCK];
+    REAL_SIMD dm22[SHS_MAX_NPAR * SIMD_BLOCK_S];
     if (symm)
     {
         for (size_t j = 2; j < nlon; j++)

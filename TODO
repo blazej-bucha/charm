@@ -1,7 +1,5 @@
 * Add unit tests for PyHarm.
 
-* Add support for the ARM's NEON instructions.
-
 * Add mechanism to tune the `SIMD_BLOCK` parameter for the host's CPU during 
   the compilation.
 

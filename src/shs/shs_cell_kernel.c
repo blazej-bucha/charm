@@ -32,8 +32,8 @@ void CHARM(shs_cell_kernel)(unsigned long nmax,
                             REAL_SIMD u2,
                             const REAL *ps1,
                             const REAL *ps2,
-                            const int *ips1,
-                            const int *ips2,
+                            const INT *ips1,
+                            const INT *ips2,
                             REAL_SIMD *imm0,
                             REAL_SIMD *imm1,
                             REAL_SIMD *imm2,
@@ -67,8 +67,6 @@ void CHARM(shs_cell_kernel)(unsigned long nmax,
     REAL_SIMD  tmp1_r,  tmp2_r;
     MASK_SIMD  mask1, mask2;
     MASK2_SIMD mask3;
-    ABS_R_INIT;
-    NEG_R_INIT;
 #endif
 
 

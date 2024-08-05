@@ -12,7 +12,9 @@
 
 
 
-/* Compares elements of two arrays up to some threshold */
+/* Write "n" floating point values from an array pointed to by "arr" to
+ * a stream.  On success, returned is "0".  Any return value other than "0"
+ * implies an error. */
 /* ------------------------------------------------------------------------- */
 long int write_array(REAL *arr, size_t n, FILE *fptr)
 {

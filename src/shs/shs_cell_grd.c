@@ -335,11 +335,11 @@ shared(pt, nfc, plan, use_fft, rref)
         int FAILURE_priv = 0;
 
 
-        size_t nfi = cell_nlon * SIMD_SIZE * SIMD_BLOCK;
+        size_t nfi = cell_nlon * SIMD_SIZE * SIMD_BLOCK_S;
 
 
-        int  *ips1          = NULL;
-        int  *ips2          = NULL;
+        INT *ips1           = NULL;
+        INT *ips2           = NULL;
         REAL *ps1           = NULL;
         REAL *ps2           = NULL;
         REAL *latminv       = NULL;
@@ -363,15 +363,15 @@ shared(pt, nfc, plan, use_fft, rref)
         REAL *cell_r2v      = NULL;
 
 
-        ips1 = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, nmax * SIMD_SIZE,
-                                            sizeof(int));
+        ips1 = (INT *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                            nmax * SIMD_SIZE, sizeof(INT));
         if (ips1 == NULL)
         {
             FAILURE_priv = 1;
             goto FAILURE_1_parallel;
         }
-        ips2 = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, nmax *SIMD_SIZE,
-                                            sizeof(int));
+        ips2 = (INT *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                            nmax * SIMD_SIZE, sizeof(INT));
         if (ips2 == NULL)
         {
             FAILURE_priv = 1;
@@ -753,14 +753,15 @@ FAILURE_1_parallel:
                 /* The two function calls that follow require "CHARM(lc)" as an
                  * input, so it is prepared here.  We did not want to use
                  * "CHARM(lc)", however, in the previous function call.  The
-                 * reason is that "CHARM(lc)" assumes "SIMD_BLOCK" larger than
-                 * "1" but with cells, the block size is always "1".  In that
-                 * case, it may be suboptimal to create "CHARM(lc)" for some
-                 * "BLOCK_SIZE > 1", but use it only for a single block (lots
-                 * of useless memory jumps that may reduce cache efficiency).
-                 * In the two function calls that follow, the memory jumps are,
-                 * however, not at all critical, so they can rely on
-                 * "CHARM(lc)" without deteriorating the performance. */
+                 * reason is that "CHARM(lc)" assumes "SIMD_BLOCK_S" larger
+                 * than "1" but with cells, the block size is always "1".  In
+                 * that case, it may be suboptimal to create "CHARM(lc)" for
+                 * some "BLOCK_SIZE > 1", but use it only for a single block
+                 * (lots of useless memory jumps that may reduce cache
+                 * efficiency).  In the two function calls that follow, the
+                 * memory jumps are, however, not at all critical, so they can
+                 * rely on "CHARM(lc)" without deteriorating the
+                 * performance. */
                 lc.a[0]  = a;
                 lc.b[0]  = b;
                 lc.a2[0] = a2;

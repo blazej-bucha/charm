@@ -28,11 +28,10 @@ long int check_simd_neg_r(void)
     REAL_SIMD x_ref = SET1_R(PREC(1.5));
 
 
-    NEG_R_INIT;
-    if (MOVEMASK(EQ_R(NEG_R(x), x_ref)) != SIMD_TRUE)
+    if (!MASK_TRUE_ALL(EQ_R(NEG_R(x), x_ref)))
     {
-        printf("        WARNING: The \"NEG_R\" macro does not work "
-               "correctly with negative floating point numbers!\n");
+        printf("\n        WARNING: Negative floating point numbers didn't "
+               "pass!\n");
         e += 1;
     }
 
@@ -40,10 +39,10 @@ long int check_simd_neg_r(void)
 
     x     = SET1_R(PREC(1.5));
     x_ref = SET1_R(PREC(-1.5));
-    if (MOVEMASK(EQ_R(NEG_R(x), x_ref)) != SIMD_TRUE)
+    if (!MASK_TRUE_ALL(EQ_R(NEG_R(x), x_ref)))
     {
-        printf("        WARNING: The \"NEG_R\" macro does not work "
-               "correctly with positive floating point numbers!\n");
+        printf("\n        WARNING: Positive floating point numbers didn't "
+               "pass!\n");
         e += 1;
     }
 

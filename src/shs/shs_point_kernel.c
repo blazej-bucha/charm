@@ -230,12 +230,12 @@
 
 
 /* This macro computes the first-order derivatives of Legendre functions for
- * all latitudes within a "SIMD_BLOCK" if "DLAT > 0".  Otherwise, it does
+ * all latitudes within a "SIMD_BLOCK_S" if "DLAT > 0".  Otherwise, it does
  * nothing. */
 #undef DPNM_RECURRENCE_BLOCK
 #if DLAT > 0
 #   define DPNM_RECURRENCE_BLOCK                                              \
-        for (l = 0; l < SIMD_BLOCK; l++)                                      \
+        for (l = 0; l < SIMD_BLOCK_S; l++)                                    \
         {                                                                     \
             DPNM_RECURRENCE((dpnm2[l]), (x[l]), (pnm2[l]), (tu[l]),           \
                             (u_rec[l]), (ns), (enms));                        \
@@ -246,12 +246,12 @@
 
 
 /* This macro computes the second-order derivatives of Legendre functions for
- * all latitudes within a "SIMD_BLOCK" if "DLAT > 1".  Otherwise, it does
+ * all latitudes within a "SIMD_BLOCK_S" if "DLAT > 1".  Otherwise, it does
  * nothing. */
 #undef DDPNM_RECURRENCE_BLOCK
 #if DLAT > 1
 #   define DDPNM_RECURRENCE_BLOCK                                             \
-        for (l = 0; l < SIMD_BLOCK; l++)                                      \
+        for (l = 0; l < SIMD_BLOCK_S; l++)                                    \
         {                                                                     \
             DDPNM_RECURRENCE((ddpnm2[l]), (dpnm2[l]), (pnm2[l]),              \
                              (tu[l]), (u2_rec[l]), (m2s), (nn1s));            \
@@ -267,7 +267,7 @@
 #if KERNEL_GRAD == 0
 
 #   define GRAD0_LC(PM_R, ab, i, cs)                                          \
-           for (l = 0; l < SIMD_BLOCK; l++)                                   \
+           for (l = 0; l < SIMD_BLOCK_S; l++)                                 \
            {                                                                  \
                lc->CAT(ab, i)[l] = PM_R(lc->CAT(ab, i)[l],                    \
                                         MUL_R(CAT2(ratio, i, n)[l],           \
@@ -275,7 +275,7 @@
            }
 
 #   define GRAD0_LC_R1(PM_R, ab, i, cs)                                       \
-           for (l = 0; l < SIMD_BLOCK; l++)                                   \
+           for (l = 0; l < SIMD_BLOCK_S; l++)                                 \
            {                                                                  \
                lc->CAT(ab, i)[l] = PM_R(lc->CAT(ab, i)[l],                    \
                                         CAT2(leg_, cs, nm)[l]);               \
@@ -292,19 +292,19 @@
 #if KERNEL_GRAD > 0
 
 #   define GRAD1_LC(PM1_R, PM2_R, ab, i, cs)                                  \
-           for (l = 0; l < SIMD_BLOCK; l++)                                   \
+           for (l = 0; l < SIMD_BLOCK_S; l++)                                 \
            {                                                                  \
                lc->CAT(ab, i)[l] = PM1_R(lc->CAT(ab, i)[l],                   \
                                          MUL_R(CAT2(ratio, i, n)[l],          \
                                                CAT2(leg_, cs, nm)[l]));       \
            }                                                                  \
-           for (l = 0; l < SIMD_BLOCK; l++)                                   \
+           for (l = 0; l < SIMD_BLOCK_S; l++)                                 \
            {                                                                  \
                lc->CAT2(ab, r, i)[l] = PM1_R(lc->CAT2(ab, r, i)[l],           \
                                              MUL_R(CAT2(ratio, i, n)[l],      \
                                                    CAT2(leg_, cs, nm_r)[l])); \
            }                                                                  \
-           for (l = 0; l < SIMD_BLOCK; l++)                                   \
+           for (l = 0; l < SIMD_BLOCK_S; l++)                                 \
            {                                                                  \
                lc->CAT2(ab, p, i)[l] = PM2_R(lc->CAT2(ab, p, i)[l],           \
                                              MUL_R(CAT2(ratio, i, n)[l],      \
@@ -312,17 +312,17 @@
            }
 
 #   define GRAD1_LC_R1(PM1_R, PM2_R, ab, i, cs)                               \
-           for (l = 0; l < SIMD_BLOCK; l++)                                   \
+           for (l = 0; l < SIMD_BLOCK_S; l++)                                 \
            {                                                                  \
                lc->CAT(ab, i)[l] = PM1_R(lc->CAT(ab, i)[l],                   \
                                          CAT2(leg_, cs, nm)[l]);              \
            }                                                                  \
-           for (l = 0; l < SIMD_BLOCK; l++)                                   \
+           for (l = 0; l < SIMD_BLOCK_S; l++)                                 \
            {                                                                  \
                lc->CAT2(ab, r, i)[l] = PM1_R(lc->CAT2(ab, r, i)[l],           \
                                              CAT2(leg_, cs, nm_r)[l]);        \
            }                                                                  \
-           for (l = 0; l < SIMD_BLOCK; l++)                                   \
+           for (l = 0; l < SIMD_BLOCK_S; l++)                                 \
            {                                                                  \
                lc->CAT2(ab, p, i)[l] = PM2_R(lc->CAT2(ab, p, i)[l],           \
                                              CAT2(leg_, cs, nm_p)[l]);        \
@@ -339,19 +339,19 @@
 #if KERNEL_GRAD > 1
 
 #   define GRAD2_LC(PM1_R, PM2_R, ab, i, cs)                                  \
-           for (l = 0; l < SIMD_BLOCK; l++)                                   \
+           for (l = 0; l < SIMD_BLOCK_S; l++)                                 \
            {                                                                  \
                lc->CAT2(ab, rr, i)[l] = PM1_R(lc->CAT2(ab, rr, i)[l],         \
                                               MUL_R(CAT2(ratio, i, n)[l],     \
                                                   CAT2(leg_, cs, nm_rr)[l])); \
            }                                                                  \
-           for (l = 0; l < SIMD_BLOCK; l++)                                   \
+           for (l = 0; l < SIMD_BLOCK_S; l++)                                 \
            {                                                                  \
                lc->CAT2(ab, rp, i)[l] = PM2_R(lc->CAT2(ab, rp, i)[l],         \
                                               MUL_R(CAT2(ratio, i, n)[l],     \
                                                   CAT2(leg_, cs, nm_rp)[l])); \
            }                                                                  \
-           for (l = 0; l < SIMD_BLOCK; l++)                                   \
+           for (l = 0; l < SIMD_BLOCK_S; l++)                                 \
            {                                                                  \
                lc->CAT2(ab, pp, i)[l] = PM1_R(lc->CAT2(ab, pp, i)[l],         \
                                               MUL_R(CAT2(ratio, i, n)[l],     \
@@ -359,17 +359,17 @@
            }
 
 #   define GRAD2_LC_R1(PM1_R, PM2_R, ab, i, cs)                               \
-           for (l = 0; l < SIMD_BLOCK; l++)                                   \
+           for (l = 0; l < SIMD_BLOCK_S; l++)                                 \
            {                                                                  \
                lc->CAT2(ab, rr, i)[l] = PM1_R(lc->CAT2(ab, rr, i)[l],         \
                                               CAT2(leg_, cs, nm_rr)[l]);      \
            }                                                                  \
-           for (l = 0; l < SIMD_BLOCK; l++)                                   \
+           for (l = 0; l < SIMD_BLOCK_S; l++)                                 \
            {                                                                  \
                lc->CAT2(ab, rp, i)[l] = PM2_R(lc->CAT2(ab, rp, i)[l],         \
                                               CAT2(leg_, cs, nm_rp)[l]);      \
            }                                                                  \
-           for (l = 0; l < SIMD_BLOCK; l++)                                   \
+           for (l = 0; l < SIMD_BLOCK_S; l++)                                 \
            {                                                                  \
                lc->CAT2(ab, pp, i)[l] = PM1_R(lc->CAT2(ab, pp, i)[l],         \
                                               CAT2(leg_, cs, nm_pp)[l]);      \
@@ -386,13 +386,13 @@
 #if KERNEL_GRAD == 0
 #   if DR == 0
 #       define GRAD0_LEGCS(pnm, cs)                                           \
-              for (l = 0; l < SIMD_BLOCK; l++)                                \
+              for (l = 0; l < SIMD_BLOCK_S; l++)                              \
               {                                                               \
                   CAT2(leg_, cs, nm)[l] = MUL_R(DIFF(pnm[l]), CAT(cs, nm));   \
               }
 #   else
 #       define GRAD0_LEGCS(pnm, cs)                                           \
-              for (l = 0; l < SIMD_BLOCK; l++)                                \
+              for (l = 0; l < SIMD_BLOCK_S; l++)                              \
               {                                                               \
                   CAT2(leg_, cs, nm)[l] = MUL_R(DIFF(pnm[l]), CAT(cs, nm));   \
                   CAT2(leg_, cs, nm)[l] = MUL_R(ampl, CAT2(leg_, cs, nm)[l]); \
@@ -408,15 +408,15 @@
 #undef GRAD1_LEGCS
 #if KERNEL_GRAD > 0
 #   define GRAD1_LEGCS(pnm, dpnm, cs)                                         \
-        for (l = 0; l < SIMD_BLOCK; l++)                                      \
+        for (l = 0; l < SIMD_BLOCK_S; l++)                                    \
         {                                                                     \
             CAT2(leg_, cs, nm)[l] = MUL_R(pnm[l], CAT(cs, nm));               \
         }                                                                     \
-        for (l = 0; l < SIMD_BLOCK; l++)                                      \
+        for (l = 0; l < SIMD_BLOCK_S; l++)                                    \
         {                                                                     \
             CAT2(leg_, cs, nm_r)[l] = MUL_R(ampl1, CAT2(leg_, cs, nm)[l]);    \
         }                                                                     \
-        for (l = 0; l < SIMD_BLOCK; l++)                                      \
+        for (l = 0; l < SIMD_BLOCK_S; l++)                                    \
         {                                                                     \
             CAT2(leg_, cs, nm_p)[l] = MUL_R(dpnm[l], CAT(cs, nm));            \
         }
@@ -430,15 +430,15 @@
 #undef GRAD2_LEGCS
 #if KERNEL_GRAD > 1
 #   define GRAD2_LEGCS(pnm, cs)                                               \
-        for (l = 0; l < SIMD_BLOCK; l++)                                      \
+        for (l = 0; l < SIMD_BLOCK_S; l++)                                    \
         {                                                                     \
             CAT2(leg_, cs, nm_rr)[l] = MUL_R(ampl2, CAT2(leg_, cs, nm_r)[l]); \
         }                                                                     \
-        for (l = 0; l < SIMD_BLOCK; l++)                                      \
+        for (l = 0; l < SIMD_BLOCK_S; l++)                                    \
         {                                                                     \
             CAT2(leg_, cs, nm_rp)[l] = MUL_R(ampl1, CAT2(leg_, cs, nm_p)[l]); \
         }                                                                     \
-        for (l = 0; l < SIMD_BLOCK; l++)                                      \
+        for (l = 0; l < SIMD_BLOCK_S; l++)                                    \
         {                                                                     \
             CAT2(leg_, cs, nm_pp)[l] = MUL_R(pnm[l], CAT(cs, nm));            \
         }
@@ -469,7 +469,7 @@
     GRAD1_LC(ADD_R, ADD_R, b, , s);                                           \
     GRAD2_LC(ADD_R, ADD_R, a, , c);                                           \
     GRAD2_LC(ADD_R, ADD_R, b, , s);                                           \
-    for (l = 0; l < SIMD_BLOCK; l++)                                          \
+    for (l = 0; l < SIMD_BLOCK_S; l++)                                        \
     {                                                                         \
         ration[l] = MUL_R(ration[l], ratio[l]);                               \
     }                                                                         \
@@ -483,7 +483,7 @@
         GRAD1_LC(PM1_R, PM2_R, b, 2, s);                                      \
         GRAD2_LC(PM1_R, PM2_R, a, 2, c);                                      \
         GRAD2_LC(PM1_R, PM2_R, b, 2, s);                                      \
-        for (l = 0; l < SIMD_BLOCK; l++)                                      \
+        for (l = 0; l < SIMD_BLOCK_S; l++)                                    \
         {                                                                     \
             ratio2n[l] = MUL_R(ratio2n[l], ratio2[l]);                        \
         }                                                                     \
@@ -546,7 +546,7 @@
     AMPL((n));                                                                \
                                                                               \
                                                                               \
-    for (l = 0; l < SIMD_BLOCK; l++)                                          \
+    for (l = 0; l < SIMD_BLOCK_S; l++)                                        \
     {                                                                         \
         PNM_RECURRENCE(x[l], y[l], pnm2[l], t[l], anms, bnms);                \
     }                                                                         \
@@ -554,7 +554,7 @@
     DDPNM_RECURRENCE_BLOCK;                                                   \
                                                                               \
                                                                               \
-    for (l = 0; l < SIMD_BLOCK; l++)                                          \
+    for (l = 0; l < SIMD_BLOCK_S; l++)                                        \
     {                                                                         \
         RECURRENCE_NEXT_ITER(y[l], x[l], pnm2[l]);                            \
     }                                                                         \
@@ -619,10 +619,7 @@ static inline void swap(REAL_SIMD **x,
 /* Change sign of all elements of "x". */
 static inline void change_sign(REAL_SIMD *x)
 {
-    NEG_R_INIT;
-
-
-    for (size_t i = 0; i < SIMD_BLOCK; i++)
+    for (size_t i = 0; i < SIMD_BLOCK_S; i++)
         x[i] = NEG_R(x[i]);
 
 
@@ -640,11 +637,11 @@ static inline void apply_m_factor(REAL_SIMD m_factor,
                                   REAL_SIMD *x,
                                   REAL_SIMD *y)
 {
-    for (size_t i = 0; i < SIMD_BLOCK; i++)
+    for (size_t i = 0; i < SIMD_BLOCK_S; i++)
         x[i] = MUL_R(m_factor, x[i]);
 
 
-    for (size_t i = 0; i < SIMD_BLOCK; i++)
+    for (size_t i = 0; i < SIMD_BLOCK_S; i++)
         y[i] = MUL_R(m_factor, y[i]);
 
 
@@ -760,7 +757,7 @@ void CHARM(shs_point_kernel_grad2)
                              const REAL_SIMD *t,
                              const REAL_SIMD *u,
                              const REAL *ps,
-                             const int *ips,
+                             const INT *ips,
                              const REAL_SIMD *ratio,
                              const REAL_SIMD *ratio2,
                              const REAL_SIMD *ratiom,
@@ -770,8 +767,9 @@ void CHARM(shs_point_kernel_grad2)
                              CHARM(lc) *lc
                              )
 {
-    REAL_SIMD w, x[SIMD_BLOCK], y[SIMD_BLOCK], z[SIMD_BLOCK];
-    RI_SIMD ixy[SIMD_BLOCK], ix[SIMD_BLOCK], iy[SIMD_BLOCK], iz[SIMD_BLOCK];
+    REAL_SIMD w, x[SIMD_BLOCK_S], y[SIMD_BLOCK_S], z[SIMD_BLOCK_S];
+    RI_SIMD ixy[SIMD_BLOCK_S], ix[SIMD_BLOCK_S], iy[SIMD_BLOCK_S];
+    RI_SIMD iz[SIMD_BLOCK_S];
 #ifdef SIMD
     const RI_SIMD    zero_ri = SET_ZERO_RI;
     const RI_SIMD    one_ri  = SET1_RI(1);
@@ -785,57 +783,53 @@ void CHARM(shs_point_kernel_grad2)
     MASK_SIMD  mask1, mask2;
     MASK2_SIMD mask3;
 #endif
-    ABS_R_INIT;
-#if (DLAT > 0) || (KERNEL_GRAD > 0)
-    NEG_R_INIT;
-#endif
     const REAL_SIMD one = SET1_R(PREC(1.0));
 
 
     size_t l;
-    REAL_SIMD pnm0[SIMD_BLOCK], pnm1[SIMD_BLOCK], pnm2[SIMD_BLOCK];
+    REAL_SIMD pnm0[SIMD_BLOCK_S], pnm1[SIMD_BLOCK_S], pnm2[SIMD_BLOCK_S];
 #if DLAT > 0
-    REAL_SIMD dpnm0[SIMD_BLOCK], dpnm1[SIMD_BLOCK], dpnm2[SIMD_BLOCK];
+    REAL_SIMD dpnm0[SIMD_BLOCK_S], dpnm1[SIMD_BLOCK_S], dpnm2[SIMD_BLOCK_S];
 #endif
 #if DLAT > 1
-    REAL_SIMD ddpnm0[SIMD_BLOCK], ddpnm1[SIMD_BLOCK], ddpnm2[SIMD_BLOCK];
+    REAL_SIMD ddpnm0[SIMD_BLOCK_S], ddpnm1[SIMD_BLOCK_S], ddpnm2[SIMD_BLOCK_S];
 #endif
 #if (DLAT > 0) || (DLON > 0)
-    REAL_SIMD u_rec[SIMD_BLOCK];
-    for (l = 0; l < SIMD_BLOCK; l++)
+    REAL_SIMD u_rec[SIMD_BLOCK_S];
+    for (l = 0; l < SIMD_BLOCK_S; l++)
         u_rec[l] = DIV_R(one, u[l]);  /* 1 / cos(lat) */
 #endif
 
 
 #if DLAT > 0
-    REAL_SIMD tu[SIMD_BLOCK];
-    for (l = 0; l < SIMD_BLOCK; l++)
+    REAL_SIMD tu[SIMD_BLOCK_S];
+    for (l = 0; l < SIMD_BLOCK_S; l++)
         tu[l] = MUL_R(t[l], u_rec[l]);  /* sin(lat) / cos(lat) */
 #endif
 #if (DLAT > 1) || (DLON > 1)
-    REAL_SIMD u2_rec[SIMD_BLOCK];
-    for (l = 0; l < SIMD_BLOCK; l++)
+    REAL_SIMD u2_rec[SIMD_BLOCK_S];
+    for (l = 0; l < SIMD_BLOCK_S; l++)
         u2_rec[l] = MUL_R(u_rec[l], u_rec[l]);  /* 1 / cos(lat)^2 */
 #endif
-    REAL_SIMD leg_cnm[SIMD_BLOCK], leg_snm[SIMD_BLOCK];
+    REAL_SIMD leg_cnm[SIMD_BLOCK_S], leg_snm[SIMD_BLOCK_S];
 #if KERNEL_GRAD > 0
-    REAL_SIMD leg_cnm_r[SIMD_BLOCK], leg_snm_r[SIMD_BLOCK];
-    REAL_SIMD leg_cnm_p[SIMD_BLOCK], leg_snm_p[SIMD_BLOCK];
+    REAL_SIMD leg_cnm_r[SIMD_BLOCK_S], leg_snm_r[SIMD_BLOCK_S];
+    REAL_SIMD leg_cnm_p[SIMD_BLOCK_S], leg_snm_p[SIMD_BLOCK_S];
 #endif
 #if KERNEL_GRAD > 1
-    REAL_SIMD leg_cnm_rr[SIMD_BLOCK], leg_snm_rr[SIMD_BLOCK];
-    REAL_SIMD leg_cnm_rp[SIMD_BLOCK], leg_snm_rp[SIMD_BLOCK];
-    REAL_SIMD leg_cnm_pp[SIMD_BLOCK], leg_snm_pp[SIMD_BLOCK];
+    REAL_SIMD leg_cnm_rr[SIMD_BLOCK_S], leg_snm_rr[SIMD_BLOCK_S];
+    REAL_SIMD leg_cnm_rp[SIMD_BLOCK_S], leg_snm_rp[SIMD_BLOCK_S];
+    REAL_SIMD leg_cnm_pp[SIMD_BLOCK_S], leg_snm_pp[SIMD_BLOCK_S];
 #endif
     const REAL_SIMD ROOT3_r = SET1_R(ROOT3);
 
 
-    REAL_SIMD ration[SIMD_BLOCK];
-    REAL_SIMD ratio2n[SIMD_BLOCK];
+    REAL_SIMD ration[SIMD_BLOCK_S];
+    REAL_SIMD ratio2n[SIMD_BLOCK_S];
 
 
     /* (R / r)^(n + 1 + dorder) */
-    for (l = 0; l < SIMD_BLOCK; l++)
+    for (l = 0; l < SIMD_BLOCK_S; l++)
     {
         /* (R / r)^(n + 1) */
         ration[l]  = ratiom[l];
@@ -856,9 +850,9 @@ void CHARM(shs_point_kernel_grad2)
 
     _Bool npm_even; /* True if "n + m" is even */
     _Bool symm = 0;
-    for (l = 0; l < SIMD_BLOCK; l++)
+    for (l = 0; l < SIMD_BLOCK_S; l++)
         symm = symm || CHARM(shs_check_symm_simd)(symm_simd[l]);
-    _Bool ds[SIMD_BLOCK]; /* Dynamical switching */
+    _Bool ds[SIMD_BLOCK_S]; /* Dynamical switching */
 
 
     REAL_SIMD anms, bnms;
@@ -883,14 +877,14 @@ void CHARM(shs_point_kernel_grad2)
 
 
     /* Reset "a2" and "b2".  Required. */
-    for (l = 0; l < SIMD_BLOCK; l++)
+    for (l = 0; l < SIMD_BLOCK_S; l++)
         lc->a2[l] = lc->b2[l] = SET_ZERO_R;
 #if KERNEL_GRAD > 0
-    for (l = 0; l < SIMD_BLOCK; l++)
+    for (l = 0; l < SIMD_BLOCK_S; l++)
         lc->ar2[l] = lc->br2[l] = lc->ap2[l] = lc->bp2[l] = SET_ZERO_R;
 #endif
 #if KERNEL_GRAD > 1
-    for (l = 0; l < SIMD_BLOCK; l++)
+    for (l = 0; l < SIMD_BLOCK_S; l++)
         lc->arr2[l] = lc->brr2[l] = lc->arp2[l] = lc->brp2[l] =
             lc->app2[l] = lc->bpp2[l] = SET_ZERO_R;
 #endif
@@ -906,14 +900,14 @@ void CHARM(shs_point_kernel_grad2)
         AMPL(0);
 
 
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             pnm0[l] = one;
 #if DLAT > 0
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             dpnm0[l] = SET_ZERO_R;
 #endif
 #if DLAT > 1
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             ddpnm0[l] = SET_ZERO_R;
 #endif
 
@@ -927,31 +921,31 @@ void CHARM(shs_point_kernel_grad2)
 #if KERNEL_GRAD > 1
         GRAD2_LEGCS(ddpnm0, c);
 #endif
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             lc->a[l] = MUL_R(ration[l], leg_cnm[l]);
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             lc->b[l] = SET_ZERO_R;
 #if KERNEL_GRAD > 0
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             lc->ar[l] = MUL_R(ration[l], leg_cnm_r[l]);
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             lc->br[l] = SET_ZERO_R;
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             lc->ap[l] = MUL_R(ration[l], leg_cnm_p[l]);
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             lc->bp[l] = SET_ZERO_R;
 #endif
 #if KERNEL_GRAD > 1
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             lc->arr[l] = MUL_R(ration[l], leg_cnm_rr[l]);
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             lc->arp[l] = MUL_R(ration[l], leg_cnm_rp[l]);
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             lc->app[l] = MUL_R(ration[l], leg_cnm_pp[l]);
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             lc->brr[l] = lc->brp[l] = lc->bpp[l] = SET_ZERO_R;
 #endif
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             ration[l] = MUL_R(ration[l], ratio[l]);
 
 
@@ -959,20 +953,20 @@ void CHARM(shs_point_kernel_grad2)
         {
 #if KERNEL_GRAD == 0
             GRAD0_LC(SIGN2, a, 2, c);
-            for (l = 0; l < SIMD_BLOCK; l++)
+            for (l = 0; l < SIMD_BLOCK_S; l++)
                 lc->b2[l] = SET_ZERO_R;
 #endif
 #if KERNEL_GRAD > 0
             GRAD1_LC(ADD_R, ADD_R, a, 2, c);
-            for (l = 0; l < SIMD_BLOCK; l++)
+            for (l = 0; l < SIMD_BLOCK_S; l++)
                 lc->b2[l] = lc->br2[l] = lc->bp2[l] = SET_ZERO_R;
 #endif
 #if KERNEL_GRAD > 1
             GRAD2_LC(ADD_R, SUB_R, a, 2, c);
-            for (l = 0; l < SIMD_BLOCK; l++)
+            for (l = 0; l < SIMD_BLOCK_S; l++)
                 lc->brr2[l] = lc->brp2[l] = lc->bpp2[l] = SET_ZERO_R;
 #endif
-            for (l = 0; l < SIMD_BLOCK; l++)
+            for (l = 0; l < SIMD_BLOCK_S; l++)
                 ratio2n[l] = MUL_R(ratio2n[l], ratio2[l]);
         }
 
@@ -984,14 +978,14 @@ void CHARM(shs_point_kernel_grad2)
             AMPL(1);
 
 
-            for (l = 0; l < SIMD_BLOCK; l++)
+            for (l = 0; l < SIMD_BLOCK_S; l++)
                 pnm1[l] = MUL_R(ROOT3_r, t[l]);
 #if DLAT > 0
-            for (l = 0; l < SIMD_BLOCK; l++)
+            for (l = 0; l < SIMD_BLOCK_S; l++)
                 dpnm1[l] = MUL_R(ROOT3_r, u[l]);
 #endif
 #if DLAT > 1
-            for (l = 0; l < SIMD_BLOCK; l++)
+            for (l = 0; l < SIMD_BLOCK_S; l++)
                 ddpnm1[l] = NEG_R(pnm1[l]);
 #endif
 
@@ -1014,7 +1008,7 @@ void CHARM(shs_point_kernel_grad2)
 #if KERNEL_GRAD > 1
             GRAD2_LC(ADD_R, ADD_R, a, , c);
 #endif
-            for (l = 0; l < SIMD_BLOCK; l++)
+            for (l = 0; l < SIMD_BLOCK_S; l++)
                 ration[l]  = MUL_R(ration[l], ratio[l]);
 
 
@@ -1029,7 +1023,7 @@ void CHARM(shs_point_kernel_grad2)
 #if KERNEL_GRAD > 1
                 GRAD2_LC(SUB_R, ADD_R, a, 2, c);
 #endif
-                for (l = 0; l < SIMD_BLOCK; l++)
+                for (l = 0; l < SIMD_BLOCK_S; l++)
                     ratio2n[l] = MUL_R(ratio2n[l], ratio2[l]);
             }
         }
@@ -1059,16 +1053,16 @@ void CHARM(shs_point_kernel_grad2)
                 AMPL(n);
 
 
-                for (l = 0; l < SIMD_BLOCK; l++)
+                for (l = 0; l < SIMD_BLOCK_S; l++)
                     PNM_RECURRENCE(pnm1[l], pnm0[l], pnm2[l], t[l], anms,
                                    bnms);
 #if DLAT > 0
-                for (l = 0; l < SIMD_BLOCK; l++)
+                for (l = 0; l < SIMD_BLOCK_S; l++)
                     DPNM_RECURRENCE(dpnm2[l], pnm1[l], pnm2[l], tu[l],
                                     u_rec[l], ns, enms);
 #endif
 #if DLAT > 1
-                for (l = 0; l < SIMD_BLOCK; l++)
+                for (l = 0; l < SIMD_BLOCK_S; l++)
                     DDPNM_RECURRENCE(ddpnm2[l], dpnm2[l], pnm2[l], tu[l],
                                      u2_rec[l], m2s, nn1s);
 #endif
@@ -1094,11 +1088,11 @@ void CHARM(shs_point_kernel_grad2)
 #if KERNEL_GRAD > 1
                 GRAD2_LC(ADD_R, ADD_R, a, , c);
 #endif
-                for (l = 0; l < SIMD_BLOCK; l++)
+                for (l = 0; l < SIMD_BLOCK_S; l++)
                     ration[l]  = MUL_R(ration[l], ratio[l]);
 
 
-                for (l = 0; l < SIMD_BLOCK; l++)
+                for (l = 0; l < SIMD_BLOCK_S; l++)
                     RECURRENCE_NEXT_ITER(pnm0[l], pnm1[l], pnm2[l]);
 
 
@@ -1128,7 +1122,7 @@ void CHARM(shs_point_kernel_grad2)
                         GRAD2_LC(SUB_R, ADD_R, a, 2, c);
 #endif
                     }
-                    for (l = 0; l < SIMD_BLOCK; l++)
+                    for (l = 0; l < SIMD_BLOCK_S; l++)
                         ratio2n[l] = MUL_R(ratio2n[l], ratio2[l]);
                 }
             }
@@ -1152,7 +1146,7 @@ void CHARM(shs_point_kernel_grad2)
         AMPL(m);
 
 
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
         {
 #ifdef SIMD
             PNM_SECTORIAL_XNUM_SIMD(x[l], ix[l],
@@ -1171,11 +1165,11 @@ void CHARM(shs_point_kernel_grad2)
 #endif
         }
 #if DLAT > 0
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             dpnm0[l] = NEG_R(MUL_R(MUL_R(MUL_R(ns, t[l]), u_rec[l]), pnm0[l]));
 #endif
 #if DLAT > 1
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             DDPNM_RECURRENCE(ddpnm0[l], dpnm0[l], pnm0[l], tu[l], u2_rec[l],
                              m2s, nn1s);
 #endif
@@ -1195,35 +1189,35 @@ void CHARM(shs_point_kernel_grad2)
 #endif
 
 
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             lc->a[l] = MUL_R(ration[l], leg_cnm[l]);
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             lc->b[l] = MUL_R(ration[l], leg_snm[l]);
 #if KERNEL_GRAD > 0
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             lc->ar[l] = MUL_R(ration[l], leg_cnm_r[l]);
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             lc->ap[l] = MUL_R(ration[l], leg_cnm_p[l]);
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             lc->br[l] = MUL_R(ration[l], leg_snm_r[l]);
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             lc->bp[l] = MUL_R(ration[l], leg_snm_p[l]);
 #endif
 #if KERNEL_GRAD > 1
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             lc->arr[l] = MUL_R(ration[l], leg_cnm_rr[l]);
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             lc->arp[l] = MUL_R(ration[l], leg_cnm_rp[l]);
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             lc->app[l] = MUL_R(ration[l], leg_cnm_pp[l]);
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             lc->brr[l] = MUL_R(ration[l], leg_snm_rr[l]);
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             lc->brp[l] = MUL_R(ration[l], leg_snm_rp[l]);
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             lc->bpp[l] = MUL_R(ration[l], leg_snm_pp[l]);
 #endif
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             ration[l] = MUL_R(ration[l], ratio[l]);
 
 
@@ -1241,7 +1235,7 @@ void CHARM(shs_point_kernel_grad2)
             GRAD2_LC(ADD_R, SUB_R, a, 2, c);
             GRAD2_LC(ADD_R, SUB_R, b, 2, s);
 #endif
-            for (l = 0; l < SIMD_BLOCK; l++)
+            for (l = 0; l < SIMD_BLOCK_S; l++)
                 ratio2n[l] = MUL_R(ratio2n[l], ratio2[l]);
         }
         /* ----------------------------------------------------- */
@@ -1265,7 +1259,7 @@ void CHARM(shs_point_kernel_grad2)
             AMPL(m + 1);
 
 
-            for (l = 0; l < SIMD_BLOCK; l++)
+            for (l = 0; l < SIMD_BLOCK_S; l++)
             {
 #ifdef SIMD
                 PNM_SEMISECTORIAL_XNUM_SIMD(x[l], y[l], ix[l], iy[l], w, t[l],
@@ -1279,12 +1273,12 @@ void CHARM(shs_point_kernel_grad2)
 #endif
             }
 #if DLAT > 0
-            for (l = 0; l < SIMD_BLOCK; l++)
+            for (l = 0; l < SIMD_BLOCK_S; l++)
                 DPNM_RECURRENCE(dpnm1[l], pnm0[l], pnm1[l], tu[l], u_rec[l],
                                 ns, enms);
 #endif
 #if DLAT > 1
-            for (l = 0; l < SIMD_BLOCK; l++)
+            for (l = 0; l < SIMD_BLOCK_S; l++)
                 DDPNM_RECURRENCE(ddpnm1[l], dpnm1[l], pnm1[l], tu[l],
                                  u2_rec[l], m2s, nn1s);
 #endif
@@ -1316,7 +1310,7 @@ void CHARM(shs_point_kernel_grad2)
             GRAD2_LC(ADD_R, ADD_R, a, , c);
             GRAD2_LC(ADD_R, ADD_R, b, , s);
 #endif
-            for (l = 0; l < SIMD_BLOCK; l++)
+            for (l = 0; l < SIMD_BLOCK_S; l++)
                 ration[l] = MUL_R(ration[l], ratio[l]);
 
 
@@ -1334,14 +1328,14 @@ void CHARM(shs_point_kernel_grad2)
                 GRAD2_LC(SUB_R, ADD_R, a, 2, c);
                 GRAD2_LC(SUB_R, ADD_R, b, 2, s);
 #endif
-                for (l = 0; l < SIMD_BLOCK; l++)
+                for (l = 0; l < SIMD_BLOCK_S; l++)
                     ratio2n[l] = MUL_R(ratio2n[l], ratio2[l]);
             }
 
 
             /* Loop over degrees */
             /* ------------------------------------------------- */
-            for (l = 0; l < SIMD_BLOCK; l++)
+            for (l = 0; l < SIMD_BLOCK_S; l++)
                 ds[l] = 0;
 
 
@@ -1354,7 +1348,7 @@ void CHARM(shs_point_kernel_grad2)
             unsigned long n;
             unsigned long idx = 2;
             for (n = (m + 2);
-                 CHARM(leg_func_use_xnum(ds, SIMD_BLOCK)) && n <= nmax;
+                 CHARM(leg_func_use_xnum(ds, SIMD_BLOCK_S)) && n <= nmax;
                  n++, npm_even = !npm_even, idx++)
             {
                 anms = SET1_R(anm[n]);
@@ -1372,7 +1366,7 @@ void CHARM(shs_point_kernel_grad2)
 
 
                 /* Compute tesseral Legendre function */
-                for (l = 0; l < SIMD_BLOCK; l++)
+                for (l = 0; l < SIMD_BLOCK_S; l++)
                 {
 #ifdef SIMD
                     PNM_TESSERAL_XNUM_SIMD(x[l], y[l], z[l],
@@ -1389,14 +1383,14 @@ void CHARM(shs_point_kernel_grad2)
 #endif
                 }
 #if DLAT > 0
-                for (l = 0; l < SIMD_BLOCK; l++)
+                for (l = 0; l < SIMD_BLOCK_S; l++)
                     DPNM_RECURRENCE(dpnm2[l], pnm1[l], pnm2[l], tu[l],
                                     u_rec[l], ns, enms);
-                for (l = 0; l < SIMD_BLOCK; l++)
+                for (l = 0; l < SIMD_BLOCK_S; l++)
                     pnm1[l]  = pnm2[l];
 #endif
 #if DLAT > 1
-                for (l = 0; l < SIMD_BLOCK; l++)
+                for (l = 0; l < SIMD_BLOCK_S; l++)
                     DDPNM_RECURRENCE(ddpnm2[l], dpnm2[l], pnm2[l], tu[l],
                                      u2_rec[l], m2s, nn1s);
 #endif
@@ -1428,7 +1422,7 @@ void CHARM(shs_point_kernel_grad2)
                 GRAD2_LC(ADD_R, ADD_R, a, , c);
                 GRAD2_LC(ADD_R, ADD_R, b, , s);
 #endif
-                for (l = 0; l < SIMD_BLOCK; l++)
+                for (l = 0; l < SIMD_BLOCK_S; l++)
                     ration[l] = MUL_R(ration[l], ratio[l]);
 
 
@@ -1464,7 +1458,7 @@ void CHARM(shs_point_kernel_grad2)
                         GRAD2_LC(SUB_R, ADD_R, b, 2, s);
 #endif
                     }
-                    for (l = 0; l < SIMD_BLOCK; l++)
+                    for (l = 0; l < SIMD_BLOCK_S; l++)
                         ratio2n[l] = MUL_R(ratio2n[l], ratio2[l]);
                 }
             }
@@ -1584,13 +1578,13 @@ DR_DERIVATIVE:
 #   if DLON == 1
 
 #       define CLAT_TERM(x)                                                   \
-            for (l = 0; l < SIMD_BLOCK; l++)                                  \
+            for (l = 0; l < SIMD_BLOCK_S; l++)                                \
                 lc->x[l] = MUL_R(u_rec[l], lc->x[l]);
 
 #   elif DLON == 2
 
 #       define CLAT_TERM(x)                                                   \
-            for (l = 0; l < SIMD_BLOCK; l++)                                  \
+            for (l = 0; l < SIMD_BLOCK_S; l++)                                \
                 lc->x[l] = MUL_R(u2_rec[l], lc->x[l]);
 
 #   else
@@ -1643,7 +1637,7 @@ DR_DERIVATIVE:
     /* Now divide the lumped coefficients by the "cos(lat)" term. */
 #undef Y
 #define Y(x)                                                                  \
-    for (l = 0; l < SIMD_BLOCK; l++)                                          \
+    for (l = 0; l < SIMD_BLOCK_S; l++)                                        \
         lc->x[l] = MUL_R(u_rec[l], lc->x[l]);
 
 
@@ -1661,7 +1655,7 @@ DR_DERIVATIVE:
     /* ..................................................................... */
 #undef XX
 #define XX(ab, i)                                                             \
-    for (l = 0; l < SIMD_BLOCK; l++)                                          \
+    for (l = 0; l < SIMD_BLOCK_S; l++)                                        \
         lc->CAT2(ab, pp, i)[l] = ADD_R(lc->CAT2(ab, r, i)[l],                 \
                                        lc->CAT2(ab, pp, i)[l]);
 
@@ -1684,16 +1678,17 @@ DR_DERIVATIVE:
      * "dlon2" overwrites these with the second order longitudinal derivatives
      * and later we need also the first order derivatives, which need to be
      * derived from the original variables. */
-    REAL_SIMD a_[SIMD_BLOCK], a_2[SIMD_BLOCK], b_[SIMD_BLOCK], b_2[SIMD_BLOCK];
-    for (l = 0; l < SIMD_BLOCK; l++)
+    REAL_SIMD a_[SIMD_BLOCK_S], a_2[SIMD_BLOCK_S];
+    REAL_SIMD b_[SIMD_BLOCK_S], b_2[SIMD_BLOCK_S];
+    for (l = 0; l < SIMD_BLOCK_S; l++)
         a_[l] = lc->a[l];
-    for (l = 0; l < SIMD_BLOCK; l++)
+    for (l = 0; l < SIMD_BLOCK_S; l++)
         b_[l] = lc->b[l];
     if (symm)
     {
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             a_2[l] = lc->a2[l];
-        for (l = 0; l < SIMD_BLOCK; l++)
+        for (l = 0; l < SIMD_BLOCK_S; l++)
             b_2[l] = lc->b2[l];
     }
     REAL_SIMD *aptr_  = &a_[0];
@@ -1709,7 +1704,7 @@ DR_DERIVATIVE:
      * "PM" input parameter. */
 #undef YY
 #define YY(ab, PM, i)                                                         \
-    for (l = 0; l < SIMD_BLOCK; l++)                                          \
+    for (l = 0; l < SIMD_BLOCK_S; l++)                                        \
         lc->CAT(ab, i)[l] = ADD_R(PM(MUL_R(u2_rec[l],                         \
                                            lc->CAT(ab, i)[l]),                \
                                      MUL_R(tu[l], lc->CAT2(ab, p, i)[l])),    \
@@ -1730,7 +1725,7 @@ DR_DERIVATIVE:
     /* ..................................................................... */
 #undef XZ
 #define XZ(ab, i)                                                             \
-    for (l = 0; l < SIMD_BLOCK; l++)                                          \
+    for (l = 0; l < SIMD_BLOCK_S; l++)                                        \
         lc->CAT2(ab, rp, i)[l] = SUB_R(lc->CAT2(ab, rp, i)[l],                \
                                        lc->CAT2(ab, p, i)[l]);
 
@@ -1757,7 +1752,7 @@ DR_DERIVATIVE:
 
 #undef XY
 #define XY(ab, PM, i)                                                         \
-    for (l = 0; l < SIMD_BLOCK; l++)                                          \
+    for (l = 0; l < SIMD_BLOCK_S; l++)                                        \
         lc->CAT2(ab, p, i)[l] = PM(NEG_R(MUL_R(u_rec[l],                      \
                                                lc->CAT2(ab, p, i)[l])),       \
                                    MUL_R(MUL_R(tu[l], u_rec[l]),              \
@@ -1784,7 +1779,7 @@ DR_DERIVATIVE:
 
 #undef YZ
 #define YZ(ab, i)                                                             \
-    for (l = 0; l < SIMD_BLOCK; l++)                                          \
+    for (l = 0; l < SIMD_BLOCK_S; l++)                                        \
         lc->CAT2(ab, r, i)[l] = MUL_R(u_rec[l],                               \
                                       SUB_R(CAT2(ab, ptr_, i)[l],             \
                                             lc->CAT2(ab, r, i)[l]));

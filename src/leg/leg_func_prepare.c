@@ -15,7 +15,10 @@
 /* Computes sectorial Legendre functions for internal purposes.  The function
  * is based on the "alfsp" Fortran subroutine (Table 2) due to Fukushima
  * (2012). */
-void CHARM(leg_func_prepare)(const REAL *u, REAL *ps, int *ips, const REAL *dm,
+void CHARM(leg_func_prepare)(const REAL *u,
+                             REAL *ps,
+                             INT *ips,
+                             const REAL *dm,
                              unsigned long nmax)
 {
     /* No sectorial Legendre functions for maximum harmonic degree "0" */
@@ -24,7 +27,7 @@ void CHARM(leg_func_prepare)(const REAL *u, REAL *ps, int *ips, const REAL *dm,
 
 
     REAL y[SIMD_SIZE], x[SIMD_SIZE];
-    int ix[SIMD_SIZE];
+    INT ix[SIMD_SIZE];
     for (size_t v = 0; v < SIMD_SIZE; v++)
     {
          x[v] = ROOT3 * u[v];

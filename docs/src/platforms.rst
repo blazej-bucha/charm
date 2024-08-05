@@ -37,6 +37,10 @@ Tested platforms
      - macOS Big Sur 11.4
      - Clang 12.0.5, GCC 10.3.0
 
+   * - AArch64
+     - LineageOS 21 (Android derivative)
+     - Clang 18.1.8
+
    * - x86_64
      - Windows 10 + Windows Subsystem for Linux (Debian GNU/Linux, "bullseye" 
        release)

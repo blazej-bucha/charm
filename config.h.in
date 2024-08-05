@@ -69,6 +69,9 @@
 /* Define to 1 if you have the <mm_malloc.h> header file. */
 #undef HAVE_MM_MALLOC_H
 
+/* Define to 1 to enable neon instructions */
+#undef HAVE_NEON
+
 /* Define if OpenMP is enabled */
 #undef HAVE_OPENMP
 
@@ -163,6 +166,14 @@
 #ifndef __cplusplus
 #undef inline
 #endif
+
+/* Define to the type of a signed integer type of width exactly 32 bits if
+   such a type exists and the standard includes do not define it. */
+#undef int32_t
+
+/* Define to the type of a signed integer type of width exactly 64 bits if
+   such a type exists and the standard includes do not define it. */
+#undef int64_t
 
 /* Define to `unsigned int' if <sys/types.h> does not define. */
 #undef size_t

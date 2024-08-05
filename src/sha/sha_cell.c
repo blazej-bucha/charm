@@ -487,8 +487,6 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
         REAL_SIMD  tmp1_r,  tmp2_r;
         MASK_SIMD  mask1, mask2;
         MASK2_SIMD mask3;
-        ABS_R_INIT;
-        NEG_R_INIT;
 #endif
         REAL_SIMD symm_simd, latsin;
         REAL_SIMD am, bm, a2m, b2m;
@@ -505,8 +503,8 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
 
 
         /* ................................................................. */
-        int  *ips1    = NULL;
-        int  *ips2    = NULL;
+        INT *ips1     = NULL;
+        INT *ips2     = NULL;
         REAL *ps1     = NULL;
         REAL *ps2     = NULL;
         REAL *latminv = NULL;
@@ -530,15 +528,15 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
         FFTWC(complex) *ftmp_out = NULL;
 
 
-        ips1 = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax,
-                                            sizeof(int));
+        ips1 = (INT *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                            SIMD_SIZE * nmax, sizeof(INT));
         if (ips1 == NULL)
         {
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-        ips2 = (int *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE * nmax,
-                                            sizeof(int));
+        ips2 = (INT *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
+                                            SIMD_SIZE * nmax, sizeof(INT));
         if (ips2 == NULL)
         {
             FAILURE_glob = 1;
@@ -848,7 +846,6 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
 #   ifdef SIMD
 #       define SIMD_VARS shared(zero_ri, one_ri, mone_ri, zero_r) \
                          shared(BIG_r, BIGI_r, BIGS_r, BIGSI_r) \
-                         shared(NONSIGNBITS_R, SIGNBIT_R) \
                          private(tmp1_r, tmp2_r, mask1, mask2, mask3)
 #   else
 #       define SIMD_VARS

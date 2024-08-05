@@ -7,7 +7,7 @@
 #include "parameters.h"
 #include "generate_cell.h"
 #ifdef GENREF
-#   include "write.h"
+#   include "array2file.h"
 #else
 #   include "validate.h"
 #endif
@@ -167,10 +167,10 @@ long int check_sha_cell(void)
 
 
 #ifdef GENREF
-                        e += write(file_c, shcs_out->c[0],
-                                      ((nmax + 2) * (nmax + 1)) / 2);
-                        e += write(file_s, shcs_out->s[0],
-                                      ((nmax + 2) * (nmax + 1)) / 2);
+                        e += array2file(file_c, shcs_out->c[0],
+                                        ((nmax + 2) * (nmax + 1)) / 2);
+                        e += array2file(file_s, shcs_out->s[0],
+                                        ((nmax + 2) * (nmax + 1)) / 2);
 #else
                         e += validate(file_c, shcs_out->c[0],
                                       ((nmax + 2) * (nmax + 1)) / 2,

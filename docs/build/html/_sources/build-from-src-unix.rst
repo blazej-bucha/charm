@@ -154,18 +154,30 @@ following flags to the ``./configure`` call.
   ``omp_set_num_threads(N)`` or by using the ``OMP_NUM_THREADS`` environment 
   variable.
 
-* ``--enable-avx`` or ``--enable-avx2`` or ``--enable-avx-512`` to enable AVX, 
-  AVX2 or AVX-512 CPU instructions, respectively (all disabled by default).
+* ``--enable-avx`` or ``--enable-avx2`` or ``--enable-avx-512`` or 
+  ``--enable-neon`` to enable AVX, AVX2, AVX-512 or NEON CPU instructions, 
+  respectively (all disabled by default).
 
   AVX, AVX2 and AVX-512 are SIMD instructions introduced by Intel in 2011, 2013 
-  and 2017, respectively.  The most critical number crunching parts of CHarm 
-  are hand-written to take advantage of these instructions in order to 
-  significantly improve the performance.  As a general rule, it is strongly 
-  recommended to enable the latest set of AVX instructions that are supported 
-  by your processor.  On many Linux distributions, you can find all the 
-  supported CPU instructions by executing ``lscpu``.  On the hardware level, 
-  SIMD instructions are not supported in quadruple precision, thus can be 
-  enabled only when compiling in single or double precision.
+  and 2017, respectively, that are most likely available on any recent x86_64 
+  CPUs.  The most critical number crunching parts of CHarm are hand-written to 
+  take advantage of these instructions in order to significantly improve the 
+  performance.  As a general rule, it is strongly recommended to enable the 
+  latest set of AVX instructions that are supported by your processor.  On many 
+  Linux distributions, you can find all the supported CPU instructions by 
+  executing ``lscpu``.
+
+  NEON are SIMD instructions available on ARM CPUs.  64-bit ARMv8 CPUs or newer 
+  are required.  To enable NEON, you may need to manually specify proper 
+  compiler flags in addition to using the ``--enable-neon`` option.  The reason 
+  is that there is a large number of associated flags, so the ``configure`` 
+  script does not try to guess the proper one(s).  To specify the compiler 
+  flags, use the ``CFLAGS`` environment variable (see below; with the AVX 
+  family of CPUs, no additional compiler flags are needed).
+
+  On the hardware level, SIMD instructions are not supported in quadruple 
+  precision, therefore they can be enabled only when compiling in single or 
+  double precision.
 
 * ``--prefix=/your/custom/path`` to specify a custom installation path for
   CHarm (default is ``--prefix=/usr/local``).

@@ -15,9 +15,9 @@ extern "C"
 #endif
 
 
-extern long int write(char *,
-                      REAL *,
-                      size_t);
+extern long int array2file(char *,
+                           REAL *,
+                           size_t);
 
 
 #ifdef __cplusplus

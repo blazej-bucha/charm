@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Building from source on Unix-based operating systems &#8212; CHarm 0.4.1 documentation</title>
+    <title>Building from source on Unix-based operating systems &#8212; CHarm 0.4.2 documentation</title>
   
   
   
@@ -37,7 +37,7 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="_static/documentation_options.js?v=a3cf13c8"></script>
+    <script src="_static/documentation_options.js?v=b4bb93ae"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -49,7 +49,7 @@
     <link rel="prev" title="Building from source" href="build-from-src.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Jul 02, 2024"/>
+    <meta name="docbuild:last-update" content="Aug 05, 2024"/>
   </head>
   
   
@@ -141,7 +141,7 @@
     <script>document.write(`<img src="_static/charm-logo.svg" class="logo__image only-dark" alt=""/>`);</script>
   
   
-    <p class="title logo__title">CHarm v0.4.1</p>
+    <p class="title logo__title">CHarm v0.4.2</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -576,17 +576,27 @@ default).</p>
 <code class="docutils literal notranslate"><span class="pre">omp_set_num_threads(N)</span></code> or by using the <code class="docutils literal notranslate"><span class="pre">OMP_NUM_THREADS</span></code> environment
 variable.</p>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--enable-avx</span></code> or <code class="docutils literal notranslate"><span class="pre">--enable-avx2</span></code> or <code class="docutils literal notranslate"><span class="pre">--enable-avx-512</span></code> to enable AVX,
-AVX2 or AVX-512 CPU instructions, respectively (all disabled by default).</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">--enable-avx</span></code> or <code class="docutils literal notranslate"><span class="pre">--enable-avx2</span></code> or <code class="docutils literal notranslate"><span class="pre">--enable-avx-512</span></code> or
+<code class="docutils literal notranslate"><span class="pre">--enable-neon</span></code> to enable AVX, AVX2, AVX-512 or NEON CPU instructions,
+respectively (all disabled by default).</p>
 <p>AVX, AVX2 and AVX-512 are SIMD instructions introduced by Intel in 2011, 2013
-and 2017, respectively.  The most critical number crunching parts of CHarm
-are hand-written to take advantage of these instructions in order to
-significantly improve the performance.  As a general rule, it is strongly
-recommended to enable the latest set of AVX instructions that are supported
-by your processor.  On many Linux distributions, you can find all the
-supported CPU instructions by executing <code class="docutils literal notranslate"><span class="pre">lscpu</span></code>.  On the hardware level,
-SIMD instructions are not supported in quadruple precision, thus can be
-enabled only when compiling in single or double precision.</p>
+and 2017, respectively, that are most likely available on any recent x86_64
+CPUs.  The most critical number crunching parts of CHarm are hand-written to
+take advantage of these instructions in order to significantly improve the
+performance.  As a general rule, it is strongly recommended to enable the
+latest set of AVX instructions that are supported by your processor.  On many
+Linux distributions, you can find all the supported CPU instructions by
+executing <code class="docutils literal notranslate"><span class="pre">lscpu</span></code>.</p>
+<p>NEON are SIMD instructions available on ARM CPUs.  64-bit ARMv8 CPUs or newer
+are required.  To enable NEON, you may need to manually specify proper
+compiler flags in addition to using the <code class="docutils literal notranslate"><span class="pre">--enable-neon</span></code> option.  The reason
+is that there is a large number of associated flags, so the <code class="docutils literal notranslate"><span class="pre">configure</span></code>
+script does not try to guess the proper one(s).  To specify the compiler
+flags, use the <code class="docutils literal notranslate"><span class="pre">CFLAGS</span></code> environment variable (see below; with the AVX
+family of CPUs, no additional compiler flags are needed).</p>
+<p>On the hardware level, SIMD instructions are not supported in quadruple
+precision, therefore they can be enabled only when compiling in single or
+double precision.</p>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--prefix=/your/custom/path</span></code> to specify a custom installation path for
 CHarm (default is <code class="docutils literal notranslate"><span class="pre">--prefix=/usr/local</span></code>).</p></li>
@@ -919,7 +929,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jul 02, 2024.
+  Last updated on Aug 05, 2024.
   <br/>
 </p>
   </div>

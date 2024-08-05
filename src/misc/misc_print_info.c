@@ -79,6 +79,8 @@ void CHARM(misc_print_info)(void)
         printf("avx2");
     else if (ret == BUILDOPT_SIMD_AVX512)
         printf("avx-512");
+    else if (ret == BUILDOPT_SIMD_NEON)
+        printf("neon");
     else
         printf("unsupported value, recompile CHarm");
     printf("\n");

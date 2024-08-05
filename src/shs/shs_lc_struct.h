@@ -17,7 +17,7 @@
  * arrays, as there is some logic behind it to offer reasonable caching. */
 typedef struct
 {
-    REAL_SIMD _all[LC_BLOCKS * SIMD_BLOCK];
+    REAL_SIMD _all[LC_BLOCKS * SIMD_BLOCK_S];
 
     REAL_SIMD *a;     /* "pnm" */
     REAL_SIMD *b;     /* "pnm" */

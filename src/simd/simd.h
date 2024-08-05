@@ -25,9 +25,9 @@
 /* At first, let's check if one type of SIMD instruction only is defined in
  * "config.h".  The configure script does not allow this, but if CHarm is
  * compiled without the autotools, this might perhaps happen. */
-#if (HAVE_AVX  && HAVE_AVX2) || \
-    (HAVE_AVX2 && HAVE_AVX512F) || \
-    (HAVE_AVX  && HAVE_AVX512F)
+#if (HAVE_AVX  && (HAVE_AVX2 || HAVE_AVX512F || HAVE_NEON)) || \
+    (HAVE_AVX2 && (HAVE_AVX512F || HAVE_NEON)) || \
+    (HAVE_AVX512F && HAVE_NEON)
 #   error "One type of SIMD instructions only can be defined in config.h."
 #endif
 
@@ -38,7 +38,8 @@
 
 #undef SIMD
 #undef SIMD_SIZE
-#undef SIMD_BLOCK
+#undef SIMD_BLOCK_A
+#undef SIMD_BLOCK_S
 #undef SIMD_MEMALIGN
 #undef SIMD_TRUE
 #undef REAL_SIMD
@@ -48,6 +49,7 @@
 #undef MASK2_SIMD
 #undef P
 #undef PF
+#undef BITS
 #undef PINT
 #undef PINT2
 #undef PF_MASK
@@ -57,7 +59,6 @@
 #undef ADD_RI
 #undef SUB_R
 #undef SUB_RI
-#undef NEG_R_INIT
 #undef NEG_R
 #undef SIGNBIT
 #undef SET1_R
@@ -66,11 +67,16 @@
 #undef LOADU_R
 #undef SUM_R
 #undef ABS_R
-#undef ABS_R_INIT
 #undef NONSIGNBITS
 #undef SIMD_MULTIPLE
 #undef CAST_RI2R
 #undef CAST_R2RI
+#undef VREINT_FU
+#undef VREINT_UF
+#undef VREINT_FS
+#undef VREINT_SF
+#undef VREINT_US
+#undef VREINT_SU
 #undef SET_ZERO_R
 #undef SET_ZERO_I
 #undef SET_ZERO_RI
@@ -89,13 +95,15 @@
 #undef BLEND_R
 #undef BLEND_RI
 #undef MOVEMASK
+#undef MASK_TRUE_ALL
+#undef MASK_TRUE_ANY
 
 
 
 
 
 
-#if HAVE_AVX || HAVE_AVX2 || HAVE_AVX512F
+#if HAVE_AVX || HAVE_AVX2 || HAVE_AVX512F || HAVE_NEON
     /* If "SIMD" is defined, CHarm is being compiled with SIMD support. */
 #   define SIMD
 #endif
@@ -115,7 +123,16 @@
 
     /* Header files */
     /* --------------------------------------------------------------------- */
-#   include <immintrin.h>
+#   if HAVE_AVX || HAVE_AVX2 || HAVE_AVX512F
+#       include <immintrin.h>
+#   elif HAVE_NEON
+#       if defined(__GNUC__) || defined(__clang__)
+#           if !defined(__ARM_NEON) && !defined(__ARM_NEON__)
+#               error "NEON instructions not available, try -mfpu=neon or equivalent"
+#           endif
+#       endif
+#       include <arm_neon.h>
+#   endif
 #   include <math.h>
     /* --------------------------------------------------------------------- */
 
@@ -196,13 +213,58 @@
 #       define INT_SIMD          __m512i
 #       define RI_SIMD           INT_SIMD
 
+#   elif HAVE_NEON
+
+        /* With NEON, "SIMD_TRUE" is the same for both single and double
+         * precision */
+#       define SIMD_TRUE     0xFFFFFFFF
+
+#       if CHARM_FLOAT /* Single precision */
+
+#           define SIMD_SIZE     4
+#           define BITS(x)       x ## 32
+#           define REAL_SIMD     float32x4_t
+#           define INT_SIMD      int32x4_t
+#           define PF(x)         v ## x ## q_f32
+#           define VREINT_FU     vreinterpretq_f32_u32
+#           define VREINT_UF     vreinterpretq_u32_f32
+#           define VREINT_FS     vreinterpretq_f32_s32
+#           define VREINT_SF     vreinterpretq_s32_f32
+#           define VREINT_US     vreinterpretq_u32_s32
+#           define VREINT_SU     vreinterpretq_s32_u32
+
+#       else /* Double precision */
+
+#           define SIMD_SIZE     2
+#           define BITS(x)       x ## 64
+#           define REAL_SIMD     float64x2_t
+#           define INT_SIMD      int64x2_t
+#           define PF(x)         v ## x ## q_f64
+#           define VREINT_FU     vreinterpretq_f64_u64
+#           define VREINT_UF     vreinterpretq_u64_f64
+#           define VREINT_FS     vreinterpretq_f64_s64
+#           define VREINT_SF     vreinterpretq_s64_f64
+#           define VREINT_US     vreinterpretq_u64_s64
+#           define VREINT_SU     vreinterpretq_s64_u64
+
+#       endif
+
+#       define SIMD_MEMALIGN     16
+#       define RI_SIMD           INT_SIMD
+#       define MASK_SIMD         RI_SIMD
+#       define MASK2_SIMD        REAL_SIMD
+
+
 #   endif
 
 
-    /* The "SIMD_BLOCK" value can be played with.  It has no effect on the
-     * accuracy, but affects the performance.  Too low or too high values can
-     * decrease the computation speed. */
-#   define SIMD_BLOCK 4
+    /* The "SIMD_BLOCK_A" and "SIMD_BLOCK_S" values can be played with.  They
+     * have no effect on the accuracy, but affect the performance.  Too low or
+     * too high values can decrease the computation speed.  "SIMD_BLOCK_A" is
+     * used in with the spherical harmonic analysis and "SIMD_BLOCK_S" is used
+     * with the synthesis. */
+#   define SIMD_BLOCK_A 8
+#   define SIMD_BLOCK_S 4
 
 
 #   define MUL_R(x, y)         PF(mul)((x), (y))
@@ -211,11 +273,19 @@
 #   define SUB_R(x, y)         PF(sub)((x), (y))
 
 
-#   define SET1_R(x)           PF(set1)((x))
-#   define LOAD_R(x)           PF(load)((x))
-#   define LOADU_R(x)          PF(loadu)((x))
-#   define STORE_R(ptr, x)     PF(store)((ptr), (x))
-#   define STOREU_R(ptr, x)    PF(storeu)((ptr), (x))
+#   if HAVE_AVX || HAVE_AVX2 || HAVE_AVX512F
+#       define SET1_R(x)           PF(set1)((x))
+#       define LOAD_R(x)           PF(load)((x))
+#       define LOADU_R(x)          PF(loadu)((x))
+#       define STORE_R(ptr, x)     PF(store)((ptr), (x))
+#       define STOREU_R(ptr, x)    PF(storeu)((ptr), (x))
+#   elif HAVE_NEON
+#       define SET1_R(x)           BITS(vdupq_n_f)((x))
+#       define LOAD_R(x)           PF(ld1)((x))
+#       define LOADU_R             LOAD_R
+#       define STORE_R(ptr, x)     PF(st1)(ptr, x)
+#       define STOREU_R            STORE_R
+#   endif
 
 
 #   if HAVE_AVX || HAVE_AVX2
@@ -224,19 +294,31 @@
 #   elif HAVE_AVX512F
 #       define BLEND_R(x, y, mask)   PF(mask_blend)((mask), (x), (y))
 #       define MOVEMASK(x)           (x)
+#   elif HAVE_NEON
+#       define BLEND_R(x, y, mask)   PF(bsl)(VREINT_UF(mask), (y), (x))
 #   endif
 
 
-#   define AND_R(x, y)          PF(and)((x), (y))
-#   define OR_R(x, y)           PF(or)((x), (y))
-#   if HAVE_AVX || HAVE_AVX2
-#       define EQ_R(x, y)       PF(cmp)((x), (y), _CMP_EQ_OQ)
-#       define GE_R(x, y)       PF(cmp)((x), (y), _CMP_GE_OQ)
-#       define LT_R(x, y)       PF(cmp)((x), (y), _CMP_LT_OQ)
-#   elif HAVE_AVX512F
-#       define EQ_R(x, y)       PF_MASK(cmp)((x), (y), _CMP_EQ_OQ)
-#       define GE_R(x, y)       PF_MASK(cmp)((x), (y), _CMP_GE_OQ)
-#       define LT_R(x, y)       PF_MASK(cmp)((x), (y), _CMP_LT_OQ)
+#   if HAVE_AVX || HAVE_AVX2 || HAVE_AVX512F
+#       define AND_R(x, y)          PF(and)((x), (y))
+#       define OR_R(x, y)           PF(or)((x), (y))
+#       if HAVE_AVX || HAVE_AVX2
+#           define EQ_R(x, y)       PF(cmp)((x), (y), _CMP_EQ_OQ)
+#           define GE_R(x, y)       PF(cmp)((x), (y), _CMP_GE_OQ)
+#           define LT_R(x, y)       PF(cmp)((x), (y), _CMP_LT_OQ)
+#       elif HAVE_AVX512F
+#           define EQ_R(x, y)       PF_MASK(cmp)((x), (y), _CMP_EQ_OQ)
+#           define GE_R(x, y)       PF_MASK(cmp)((x), (y), _CMP_GE_OQ)
+#           define LT_R(x, y)       PF_MASK(cmp)((x), (y), _CMP_LT_OQ)
+#       endif
+#   elif HAVE_NEON
+#       define AND_R(x, y)          VREINT_FU(BITS(vandq_u)(\
+                                              VREINT_UF((x)), VREINT_UF((y))))
+#       define OR_R(x, y)           VREINT_FU(BITS(vorrq_u)(\
+                                              VREINT_UF((x)), VREINT_UF((y))))
+#       define EQ_R(x, y)           VREINT_FU(PF(ceq)((x), (y)))
+#       define GE_R(x, y)           VREINT_FU(PF(cge)((x), (y)))
+#       define LT_R(x, y)           VREINT_FU(PF(clt)((x), (y)))
 #   endif
 
 
@@ -324,59 +406,73 @@
 #       define ANDNOT_MASK(x)         _knot_mask8((x))
 #       define BLEND_RI(x, y, mask)   PINT(mask_blend)((mask), (x), (y))
 
+#   elif HAVE_NEON
+
+#       define SET1_RI(x)             BITS(vdupq_n_s)((x))
+#       define LOAD_RI(x)             BITS(vld1q_s)((x))
+#       define CAST_R2RI(x)           VREINT_SF((x))
+#       define CAST_RI2R(x)           VREINT_FS((x))
+#       define EQ_RI(x, y)            VREINT_SU(BITS(vceqq_s)((x), (y)))
+#       define GT_RI(x, y)            VREINT_SU(BITS(vcgtq_s)((x), (y)))
+#       define ADD_RI(x, y)           BITS(vaddq_s)((x), (y))
+#       define SUB_RI(x, y)           BITS(vsubq_s)((x), (y))
+#       define AND_RI(x, y)           BITS(vandq_s)((x), (y))
+#       define OR_MASK(x, y)          BITS(vorrq_s)((x), (y))
+#       define SET_ZERO_R             SET1_R(PREC(0.0))
+#       define SET_ZERO_I             SET1_RI(0)
+#       define SET_ZERO_RI            SET_ZERO_I
+#       define ANDNOT_MASK(x)         EQ_RI((x), SET_ZERO_RI)
+#       define BLEND_RI(x, y, mask)   BITS(vbslq_s)(VREINT_US(mask), (y), (x))
+
 #   endif
 
 
     /* Absolute value of a SIMD vector */
     /* ..................................................................... */
-    /* Compute the absolute value of all elements of a SIMD vector using the
-     * "ABS_R" macro.  Before using "ABS_R" in a code, the "ABS_R_INIT" macro
-     * must be called, ideally only once outside any loop. */
 #   ifdef CHARM_FLOAT
 #       define NONSIGNBITS 0x7FFFFFFF
 #   else
 #       define NONSIGNBITS 0x7FFFFFFFFFFFFFFFLL
 #   endif
+
+
 #   if HAVE_AVX || HAVE_AVX2
-#       define ABS_R_INIT   REAL_SIMD NONSIGNBITS_R = \
-                                        PF(castsi256)(PINT2(set1)(NONSIGNBITS))
+#       define ABS_R(x)     PF(and)(PF(castsi256)(PINT2(set1)(NONSIGNBITS)), \
+                                    (x))
 #   elif HAVE_AVX512F
-#       define ABS_R_INIT   REAL_SIMD NONSIGNBITS_R = \
-                                        PF(castsi512)(PINT2(set1)(NONSIGNBITS))
+#       define ABS_R(x)     PF(and)(PF(castsi512)(PINT2(set1)(NONSIGNBITS)), \
+                                    (x))
+#   elif HAVE_NEON
+#       define ABS_R(x)     PF(abs)((x))
 #   endif
-#   define ABS_R(x)     PF(and)(NONSIGNBITS_R, (x))
     /* ..................................................................... */
 
 
 
     /* Change the sign of a SIMD vector */
     /* ..................................................................... */
-    /* Similarly as with the "ABS_R" macro, also "NEG_R_INIT" must be called
-     * before calling "NEG_R", ideally only once outside any loop. */
 #   ifdef CHARM_FLOAT
 #       define SIGNBIT 0x80000000
 #   else
 #       define SIGNBIT 0x8000000000000000LL
 #   endif
+
+
 #   if HAVE_AVX || HAVE_AVX2
-#       define NEG_R_INIT   REAL_SIMD SIGNBIT_R = \
-                                        PF(castsi256)(PINT2(set1)(SIGNBIT))
+#       define NEG_R(x)     PF(xor)((x), PF(castsi256)(PINT2(set1)(SIGNBIT)))
 #   elif HAVE_AVX512F
-#       define NEG_R_INIT   REAL_SIMD SIGNBIT_R = \
-                                        PF(castsi512)(PINT2(set1)(SIGNBIT))
+#       define NEG_R(x)     PF(xor)((x), PF(castsi512)(PINT2(set1)(SIGNBIT)))
+#   elif HAVE_NEON
+        /* It seems that ARM CPUs could be either big or little endian.  To be
+         * on the safe side, we do not swap the sign bit but instead do "0
+         * - x". */
+#       define NEG_R(x)     SUB_R(SET_ZERO_R, (x))
 #   endif
-#   define NEG_R(x)     PF(xor)((x), SIGNBIT_R)
     /* ..................................................................... */
 
 
-    /* Get the smallest multiple of "x" that is equal to or larger
-     * than "multiple". */
-#   define SIMD_MULTIPLE(x, multiple) ((((x) + \
-                                         (multiple) - 1) / (multiple)) * \
-                                       (multiple))
-
-
     /* Sum all elements of a SIMD vector. */
+    /* ..................................................................... */
 #   if HAVE_AVX || HAVE_AVX2
         inline static REAL SUM_R(REAL_SIMD x)
         {
@@ -392,6 +488,42 @@
         }
 #   elif HAVE_AVX512F
 #       define SUM_R(x)    PF(reduce_add)((x))
+#   elif HAVE_NEON
+#       define SUM_R(x)	   PF(addv)((x))
+#   endif
+    /* ..................................................................... */
+
+
+    /* Get the smallest multiple of "x" that is equal to or larger
+     * than "multiple". */
+#   define SIMD_MULTIPLE(x, multiple) ((((x) + \
+                                         (multiple) - 1) / (multiple)) * \
+                                       (multiple))
+
+
+#   if HAVE_AVX || HAVE_AVX2 || HAVE_AVX512F
+
+        /* If mask "MASK_SIMD x" was obtained by macros such as "GT_RI", etc.,
+         * then it must be casted by "CAST_RI2R" as
+         * "MASK_TRUE_ALL(CAST_RI2R(x))". */
+#       define MASK_TRUE_ALL(x)     (MOVEMASK((x)) == SIMD_TRUE)
+
+        /* This macro is used only with mask "MASK2_SIMD x" without any
+         * cast. */
+#       define MASK_TRUE_ANY(x)     (MOVEMASK((x)) != 0)
+
+#   elif HAVE_NEON
+
+#       if CHARM_FLOAT
+#           define MASK_TRUE_ALL(x)   (vminvq_u32(VREINT_UF((x))) == SIMD_TRUE)
+#           define MASK_TRUE_ANY(x)   (vmaxvq_u32(VREINT_UF((x))) == SIMD_TRUE)
+#       else
+#           define MASK_TRUE_ALL(x)   (vminvq_u32(vreinterpretq_u32_u64(\
+                                       VREINT_UF((x)))) == SIMD_TRUE)
+#           define MASK_TRUE_ANY(x)   (vmaxvq_u32(vreinterpretq_u32_u64(\
+                                       VREINT_UF((x)))) == SIMD_TRUE)
+#       endif
+
 #   endif
 
 
@@ -399,10 +531,8 @@
 
 
 #   define SIMD_SIZE     1
-    /* The "SIMD_BLOCK" value can be played with.  It has no effect on the
-     * accuracy, but affects the performance.  Too low or too high values can
-     * decrease the computation speed. */
-#   define SIMD_BLOCK    8
+#   define SIMD_BLOCK_A  8  /* See the description in the SIMD section */
+#   define SIMD_BLOCK_S  8  /* See the description in the SIMD section */
 #   define SIMD_TRUE     1
 #   define SIMD_MEMALIGN 0
 #   define REAL_SIMD     REAL
@@ -430,7 +560,10 @@
 
 #   define EQ_R(x, y)           ((x) == (y))
 #   define LT_R(x, y)           ((x) < (y))
-#   define MOVEMASK(x)          (x)
+
+
+#   define CAST_RI2R(x)         (x)
+#   define CAST_R2RI(x)         (x)
 
 
 #   define MASK_SIMD            int
@@ -438,13 +571,11 @@
 
 
     /* Absolute value.  The "FABS" macro is defined in "../prec.h". */
-#   define ABS_R_INIT
 #   define NONSIGNBITS
 #   define ABS_R                FABS
 
 
     /* Change the sign. */
-#   define NEG_R_INIT
 #   define SIGNBIT
 #   define NEG_R(x)             (-(x))
 
@@ -452,7 +583,12 @@
 #   define SIMD_MULTIPLE(x, multiple) (x)
 
 
+#   define MASK_TRUE_ALL(x)     (x)
+#   define MASK_TRUE_ANY(x)     (x)
+
+
 #endif
+
 
 
 #endif
