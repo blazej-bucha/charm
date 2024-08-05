@@ -53,7 +53,7 @@ jobs:
             if [ "$RUNNER_ARCH" == "ARM64" ]; then
               #  NEON instructions are not yet supported, so no SIMD in this 
               #  case
-              ./configure --enable-openmp --enable-python --with-gnu-ld
+              ./configure --enable-openmp --enable-neon --enable-python --with-gnu-ld
             else
               ./configure --enable-openmp --enable-avx --enable-python --with-gnu-ld
             fi
