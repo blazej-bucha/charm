@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Building from source on Unix-based operating systems &#8212; CHarm 0.4.1-dev documentation</title>
+    <title>Building from source on Unix-based operating systems &#8212; CHarm 0.4.2 documentation</title>
   
   
   
@@ -37,7 +37,7 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="_static/documentation_options.js?v=01d87af8"></script>
+    <script src="_static/documentation_options.js?v=b4bb93ae"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -49,7 +49,7 @@
     <link rel="prev" title="Building from source" href="build-from-src.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Jul 30, 2024"/>
+    <meta name="docbuild:last-update" content="Aug 05, 2024"/>
   </head>
   
   
@@ -141,7 +141,7 @@
     <script>document.write(`<img src="_static/charm-logo.svg" class="logo__image only-dark" alt=""/>`);</script>
   
   
-    <p class="title logo__title">CHarm v0.4.1-dev</p>
+    <p class="title logo__title">CHarm v0.4.2</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -593,10 +593,7 @@ compiler flags in addition to using the <code class="docutils literal notranslat
 is that there is a large number of associated flags, so the <code class="docutils literal notranslate"><span class="pre">configure</span></code>
 script does not try to guess the proper one(s).  To specify the compiler
 flags, use the <code class="docutils literal notranslate"><span class="pre">CFLAGS</span></code> environment variable (see below; with the AVX
-family of CPUs, no additional compiler flags are needed).  Contrary to AVX,
-NEON with double-precision-based CHarm does seem to yield any significant
-improvement.  In single precision, the performance gain is significant.  This
-indicates there still remain some memory-related bottlenecks in CHarm.</p>
+family of CPUs, no additional compiler flags are needed).</p>
 <p>On the hardware level, SIMD instructions are not supported in quadruple
 precision, therefore they can be enabled only when compiling in single or
 double precision.</p>
@@ -932,7 +929,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jul 30, 2024.
+  Last updated on Aug 05, 2024.
   <br/>
 </p>
   </div>

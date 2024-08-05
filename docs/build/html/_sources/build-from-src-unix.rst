@@ -173,10 +173,7 @@ following flags to the ``./configure`` call.
   is that there is a large number of associated flags, so the ``configure`` 
   script does not try to guess the proper one(s).  To specify the compiler 
   flags, use the ``CFLAGS`` environment variable (see below; with the AVX 
-  family of CPUs, no additional compiler flags are needed).  Contrary to AVX, 
-  NEON with double-precision-based CHarm does seem to yield any significant 
-  improvement.  In single precision, the performance gain is significant.  This 
-  indicates there still remain some memory-related bottlenecks in CHarm.
+  family of CPUs, no additional compiler flags are needed).
 
   On the hardware level, SIMD instructions are not supported in quadruple 
   precision, therefore they can be enabled only when compiling in single or 

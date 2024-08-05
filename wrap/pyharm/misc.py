@@ -138,7 +138,7 @@ def buildopt_isfinite():
     working correctly with ``__float128`` floating point data type (quadruple
     precision).  The macro may also not work correctly with the ``-ffast-math``
     compiler flag (e.g., ``gcc`` and ``clang``).  In these cases, zero is
-    returned. */
+    returned.
     """
 
     func          = _libcharm[_CHARM + 'misc_buildopt_isfinite']

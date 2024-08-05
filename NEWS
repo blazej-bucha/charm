@@ -1,4 +1,4 @@
-Upcoming release:
+CHarm 0.4.2:
 
 * Added support for NEON SIMD instructions on ARM64 CPUs (v8 or newer).
 
