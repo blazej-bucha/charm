@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include "../src/prec.h"
 #include "../src/simd/simd.h"
+#include "../src/simd/calloc_aligned.h"
+#include "../src/simd/free_aligned.h"
 #include "cmp_arrays.h"
 #include "check_simd_blend_r.h"
 /* ------------------------------------------------------------------------- */
@@ -70,7 +72,8 @@ long int check_simd_blend_r(void)
     STORE_R(&x[0], xv);
 
 
-    REAL xref[SIMD_SIZE];
+    REAL *xref = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                               sizeof(REAL));
     for (size_t i = 0; i < SIMD_SIZE; i++)
         xref[i] = TRUE_VAL_REAL;
 
@@ -118,6 +121,9 @@ long int check_simd_blend_r(void)
             e += 1;
         }
     }
+
+
+    CHARM(free_aligned)(xref);
 
 
     return e;

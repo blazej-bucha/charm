@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include "../src/prec.h"
 #include "../src/simd/simd.h"
+#include "../src/simd/calloc_aligned.h"
+#include "../src/simd/free_aligned.h"
 #include "../src/misc/misc_is_nearly_equal.h"
 #include "check_simd_sum_r.h"
 #include "cmp_vals.h"
@@ -21,7 +23,8 @@ long int check_simd_sum_r(void)
 
 
     /* Test array "x = [0, 1, 2, ..., SIMD_SIZE - 1]" */
-    REAL x[SIMD_SIZE];
+    REAL *x = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                            sizeof(REAL));
     for (int i = 0; i < SIMD_SIZE; i++)
         x[i] = (REAL)i;
 
@@ -31,6 +34,9 @@ long int check_simd_sum_r(void)
 
 
     e += cmp_vals(SUM_R(LOAD_R(x)), ref, CHARM(glob_threshold));
+
+
+    CHARM(free_aligned)(x);
 
 
     return e;

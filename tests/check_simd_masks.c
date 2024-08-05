@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <math.h>
 #include "../src/prec.h"
+#include "../src/simd/calloc_aligned.h"
+#include "../src/simd/free_aligned.h"
 #include "../src/simd/simd.h"
 #include "check_simd_masks.h"
 /* ------------------------------------------------------------------------- */
@@ -63,7 +65,8 @@ long int check_simd_mask_true_all(void)
     /* Create several mask such that "mask = [1, 0, 0, ..., 0, 0]", "mask = [1,
      * 1, 0, ..., 0, 0], ..., "mask = [1, 1, 1, ..., 1, 0]", where the length
      * of the arrays is given by "SIMD_SIZE". */
-    INT x[SIMD_SIZE];
+    INT *x = (INT *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                          sizeof(INT));
     const RI_SIMD mone = SET1_RI(-1);
     for (int j = 0; j < SIMD_SIZE - 1; j++)
     {
@@ -80,6 +83,7 @@ long int check_simd_mask_true_all(void)
             e += 1;
         }
     }
+    CHARM(free_aligned)(x);
 #else
     /* No SIMD */
 
@@ -136,15 +140,16 @@ long int check_simd_mask_true_any(void)
     /* Create several mask such that "mask = [1, 0, 0, ..., 0, 0]", "mask = [1,
      * 1, 0, ..., 0, 0], ..., "mask = [1, 1, 1, ..., 1, 0]", where the length
      * of the arrays is given by "SIMD_SIZE". */
-    REAL x[SIMD_SIZE];
+    REAL *x = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
+                                            sizeof(REAL));
     for (int j = 0; j < SIMD_SIZE - 1; j++)
     {
         int k;
         for (k = 0; k <= j; k++)
-            x[k] = 0;
+            x[k] = (REAL)0;
 
         for (; k < SIMD_SIZE; k++)
-            x[k] = -k;
+            x[k] = (REAL)-k;
 
         if (!MASK_TRUE_ANY(GE_R(LOAD_R(x), zero)))
         {
@@ -152,6 +157,7 @@ long int check_simd_mask_true_any(void)
             e += 1;
         }
     }
+    CHARM(free_aligned)(x);
 #else
     /* No SIMD */
 
