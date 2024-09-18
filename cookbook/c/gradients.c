@@ -140,9 +140,11 @@ int main(void)
                                                               * */
     double tmp;
     for (size_t i = 1; i < grd->npoint; i++)
+    {
         tmp = fabs(f[0][i] + f[3][i] + f[5][i]);
         if (tmp > trace_error)
             trace_error = tmp;
+    }
 
 
     printf("The largest error of the gravitational tensor trace is "
