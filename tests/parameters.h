@@ -143,6 +143,11 @@
 #define NMAX2 (15UL)
 
 
+/* Maximum degree for quadrature tests */
+#undef NMAX_QUAD
+#define NMAX_QUAD (10UL)
+
+
 /* Maximum degrees to test dynamical switching and loop unrolling in point
  * synthesis and analysis */
 #undef NMAX_DS_MIN
