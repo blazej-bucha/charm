@@ -34,6 +34,8 @@ Upcoming release:
 
 * Docs improvements.
 
+* Renamed `charm_err.issaturated` to `charm_err.saturated`.
+
 
 CHarm 0.4.2:
 

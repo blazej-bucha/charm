@@ -15,7 +15,7 @@
  * a part of the API. */
 void CHARM(err_inc_level)(CHARM(err) *err)
 {
-    if ((err == NULL) || err->issaturated)
+    if ((err == NULL) || err->saturated)
         return;
 
 
@@ -26,7 +26,7 @@ void CHARM(err_inc_level)(CHARM(err) *err)
     /* If the "CHARM_ERR_MAX_LEVEL" has been reached, mark the error structure
      * as saturated to prevent further error propagation. */
     if (err->level >= CHARM_ERR_MAX_LEVEL)
-        err->issaturated = 1;
+        err->saturated = 1;
 
 
     return;

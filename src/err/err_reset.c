@@ -37,7 +37,7 @@ void CHARM(err_reset)(CHARM(err) *err)
     memset(err->msg, '\0', CHARM_ERR_MAX_MSG * sizeof(char));
 
 
-    err->issaturated = 0;
+    err->saturated = 0;
 
 
     return;

@@ -186,11 +186,13 @@ typedef struct
     char *msg;
 
 
-    /** Signalizes whether or not the levels of the error structure are
-     * saturated due to the error propagations.  If true, the structure can no
-     * longer store most recent error propagations.  This should never happen,
-     * though, since ``::CHARM_ERR_MAX_LEVEL`` is chosen large enough. */
-    _Bool issaturated;
+    /** * ``0`` if the error structure can accomocate one or more error
+     *    propagations.
+     *
+     * * ``1`` if the error structure is saturated and can no longer store the
+     *   most recent error propagations (this should never happen, though,
+     *   since ``::CHARM_ERR_MAX_LEVEL`` is large enough). */
+    _Bool saturated;
 
 
     /** * ``0`` if the error structure was created by ``charm@P@_err_init()``.
