@@ -746,7 +746,7 @@ class Shc:
                                  f'do not match ({len(n)} vs. {len(m)}).')
 
             def set_cs(x, cs_str):
-                _check_flt_ndarray(c, 1, 'The \'{cs_str}\' variable')
+                _check_flt_ndarray(x, 1, 'The \'{cs_str}\' variable')
 
                 if len(x) != len(n):
                     msg  = f'The length of \'{cs_str}\' is {len(x)}, but must '
