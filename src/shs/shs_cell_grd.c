@@ -327,7 +327,7 @@ void CHARM(shs_cell_grd)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
     unsigned long lc_err_glob = 0;
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel default(none) \
 shared(f, shcs, nmax, cell, cell_nlat, cell_nlon, dm, en, fn, gm, hm, r, ri) \
 shared(nlatdo, lon0, deltalon, even, symm, FAILURE_glob, mur, err, cell_type) \
@@ -564,7 +564,7 @@ shared(pt, nfc, plan, use_fft, rref, lc_err_glob)
 
 
 FAILURE_1_parallel:
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp critical
 #endif
         {
@@ -580,7 +580,7 @@ FAILURE_1_parallel:
 
 
         /* Now we have to wait until all the threads get here. */
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp barrier
 #endif
         /* OK, now let's check on each thread whether there is at least one
@@ -589,7 +589,7 @@ FAILURE_1_parallel:
         {
             /* Ooops, there was indeed a memory allocation failure.  So let the
              * master thread write down the error to the "err" variable. */
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp master
 #endif
             if (CHARM(err_isempty)(err))
@@ -627,7 +627,7 @@ FAILURE_1_parallel:
 
 
         size_t i;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp for schedule(dynamic) private(i)
 #endif
         for (i = 0; i < SIMD_MULTIPLE(nlatdo, SIMD_SIZE);
@@ -818,7 +818,7 @@ UPDATE_RATIOS:
         } /* End of the loop over latitude parallels */
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp critical
 #endif
         {

@@ -27,7 +27,7 @@
 #include "../misc/misc_is_nearly_equal.h"
 #include "../misc/misc_polar_optimization_threshold.h"
 #include "../misc/misc_polar_optimization_apply.h"
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #   include <omp.h>
 #endif
 #include "../simd/simd.h"
@@ -438,7 +438,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell,
 
     /* Create a plan for FFT */
     /* --------------------------------------------------------------------- */
-#if CHARM_OPENMP && FFTW3_OMP
+#if HAVE_OPENMP && FFTW3_OMP
     int err_fftw = FFTW(init_threads)();
     if (err_fftw == 0)
     {
@@ -546,7 +546,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell,
         REAL *b       = NULL;
         REAL *a2      = NULL;
         REAL *b2      = NULL;
-#if !(CHARM_OPENMP)
+#if !(HAVE_OPENMP)
         REAL *anm     = NULL;
         REAL *bnm     = NULL;
 #endif
@@ -671,7 +671,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell,
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-#if !(CHARM_OPENMP)
+#if !(HAVE_OPENMP)
         anm = (REAL *)calloc(nmax + 1, sizeof(REAL));
         if (anm == NULL)
         {
@@ -794,9 +794,9 @@ void CHARM(sha_cell)(const CHARM(cell) *cell,
 
 
             /* Pre-compute the sectorial "imm" integrals.  This is necessary
-             * for the "defined(CHARM_OPENMP)" parallelization strategy, but
-             * can be used (and in fact it is) also with the other
-             * parallelization strategies. */
+             * for the "defined(HAVE_OPENMP)" parallelization strategy, but can
+             * be used (and in fact it is) also with the other parallelization
+             * strategies. */
             /* ------------------------------------------------------------- */
             for (unsigned long m = 1; m <= nmax; m++)
             {
@@ -867,7 +867,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell,
             /* Loop over harmonic orders */
             /* ------------------------------------------------------------- */
             unsigned long m;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 
 
 #   undef SIMD_VARS
@@ -1361,7 +1361,7 @@ FAILURE_1_parallel:
 
 
             } /* End of the loop over harmonic orders */
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 FAILURE_2_parallel:
             free(anm);  free(bnm);
             }
@@ -1386,7 +1386,7 @@ FAILURE_1:
         CHARM(free_aligned)(ips1);    CHARM(free_aligned)(ps1);
         CHARM(free_aligned)(ips2);    CHARM(free_aligned)(ps2);
         CHARM(free_aligned)(latminv); CHARM(free_aligned)(latmaxv);
-#if !(CHARM_OPENMP)
+#if !(HAVE_OPENMP)
         free(anm);  free(bnm);
 #endif
         CHARM(free_aligned)(a);    CHARM(free_aligned)(b);
@@ -1413,7 +1413,7 @@ FAILURE:
     free(r); free(ri); free(dm); free(en); free(fn); free(gm); free(hm);
     FFTW(destroy_plan)(plan);
     FFTW(cleanup)();
-#if CHARM_OPENMP && FFTW3_OMP
+#if HAVE_OPENMP && FFTW3_OMP
     FFTW(cleanup_threads)();
 #else
     FFTW(cleanup)();
@@ -1438,7 +1438,7 @@ FAILURE:
 
 
     unsigned long m;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
     #pragma omp parallel for default(none) shared(shcs, nmax, c2) private(m)
 #endif
     for (m = 0; m <= nmax; m++)

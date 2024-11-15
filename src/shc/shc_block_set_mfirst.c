@@ -22,7 +22,7 @@ void CHARM(shc_block_set_mfirst)(CHARM(shc_block) *shcs_block,
                                  unsigned long mfirst,
                                  CHARM(err) *err)
 {
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp master
 #endif
     {

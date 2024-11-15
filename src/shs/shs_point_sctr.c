@@ -339,7 +339,7 @@ BARRIER_1:
 #endif
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel default(none) \
 shared(nmax, err, pt, t, u, ratio, ri, r, ips, ps, dorder, dr, dlat, dlon) \
 shared(grad, r_eq_rref, shcs, shcs_block, lonv, fi, npar) \
@@ -387,13 +387,13 @@ private(l, idx) MPI_VARS
                                    );
         if (!CHARM(err_isempty)(err))
         {
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp master
 #endif
             CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp barrier
 #endif
             goto BARRIER_2;
@@ -459,13 +459,13 @@ private(l, idx) MPI_VARS
         do
         {
 #if HAVE_MPI
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp master
 #endif
             have_order = CHARM(shc_block_have_order)(shcs_block, m);
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp barrier
 #endif
             if (shcs->distributed && !have_order)
@@ -485,14 +485,14 @@ BARRIER_2:
             if (CHARM(err_omp_mpi)(&err_glob, &err_priv,
                                    CHARM_ERR_MALLOC_FAILURE, CHARM_EMEM, err))
             {
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp master
 #endif
                 if (!CHARM(err_isempty)(err))
                     CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp barrier
 #endif
                 goto FAILURE_2;
@@ -508,7 +508,7 @@ BARRIER_2:
 
           /* OpenMP requires the presence of the initializer in the for loop
            * that follows, even though "m" is defined */
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp for schedule(dynamic)
 #endif
             for (m = mmin; m <= mmax; m++)
@@ -658,7 +658,7 @@ BARRIER_2:
         while (m <= nmax);
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp critical
 #endif
         {

@@ -44,7 +44,7 @@ void CHARM(shc_block_set_coeffs)(CHARM(shc) *shcs
 
 
 #if HAVE_MPI
-#   if CHARM_OPENMP
+#   if HAVE_OPENMP
 #pragma omp master
 #   endif
     {
@@ -140,7 +140,7 @@ EXIT_STRUCTURED_BLOCK:
     free(c);
     free(s);
     }
-#   if CHARM_OPENMP
+#   if HAVE_OPENMP
 #pragma omp barrier
 #   endif
 #endif

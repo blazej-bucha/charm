@@ -102,7 +102,7 @@ CHARM(point) *CHARM(crd_point_gl_chunk)(unsigned long nmax,
     REAL thold = CHARM(glob_threshold);
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel default(none) shared(glg, L, L_fp, c1, ERROR_glob) \
     shared(local_nlat, imin, imax, thold)
 #endif
@@ -114,7 +114,7 @@ CHARM(point) *CHARM(crd_point_gl_chunk)(unsigned long nmax,
 
 
     unsigned long i;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp for
 #endif
     for (i = imin; i < imax; i++)
@@ -184,7 +184,7 @@ CHARM(point) *CHARM(crd_point_gl_chunk)(unsigned long nmax,
     }
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp critical
 #endif
     {

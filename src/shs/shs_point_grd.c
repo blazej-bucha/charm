@@ -6,7 +6,7 @@
 #include <string.h>
 #include <math.h>
 #include <fftw3.h>
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #   include <omp.h>
 #endif
 #if HAVE_MPI
@@ -390,7 +390,7 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt,
     /* --------------------------------------------------------------------- */
     if (use_fft)
     {
-#if CHARM_OPENMP && FFTW3_OMP
+#if HAVE_OPENMP && FFTW3_OMP
         if (FFTW(init_threads)() == 0)
         {
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFFTWINIT,
@@ -695,7 +695,7 @@ BARRIER_1:
 #endif
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel default(none) \
 shared(nmax, err, dorder, pt, t, u, ri, r, ips, ps, dr, dlat, dlon) \
 shared(symm_simd, ratio, ratio2, r_eq_rref, shcs, shcs_block) \
@@ -732,13 +732,13 @@ private(l) MPI_VARS
                                    );
         if (!CHARM(err_isempty)(err))
         {
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp master
 #endif
             CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp barrier
 #endif
             goto BARRIER_2;
@@ -799,13 +799,13 @@ private(l) MPI_VARS
         do
         {
 #if HAVE_MPI
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp master
 #endif
             have_order = CHARM(shc_block_have_order)(shcs_block, m);
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp barrier
 #endif
 
@@ -826,14 +826,14 @@ BARRIER_2:
             if (CHARM(err_omp_mpi)(&err_glob, &err_priv,
                                    CHARM_ERR_MALLOC_FAILURE, CHARM_EMEM, err))
             {
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp master
 #endif
                 if (!CHARM(err_isempty)(err))
                     CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp barrier
 #endif
                 goto FAILURE_2;
@@ -847,7 +847,7 @@ BARRIER_2:
             unsigned long mmax = CHARM_MIN(shcs_block->mlast, nmax);
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp for schedule(dynamic)
 #endif
             for (m = mmin; m <= mmax; m++)
@@ -962,7 +962,7 @@ BARRIER_2:
          * threads and combine them */
         if (!use_fft)
         {
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp critical
 #endif
             {
@@ -975,7 +975,7 @@ BARRIER_2:
 
             if (symm)
             {
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp critical
 #endif
                 for (l = 0; l < nfi; l++)
@@ -1039,7 +1039,7 @@ FAILURE_1:
     if (use_fft)
     {
         FFTW(destroy_plan)(plan);
-#if CHARM_OPENMP && FFTW3_OMP
+#if HAVE_OPENMP && FFTW3_OMP
         FFTW(cleanup_threads)();
 #else
         FFTW(cleanup)();

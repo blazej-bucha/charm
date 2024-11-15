@@ -37,17 +37,17 @@ int CHARM(err_omp_mpi)(int *err_glob,
     /* First, detect an error across OpenMP threads and write it to "err" if
      * any */
     /* --------------------------------------------------------------------- */
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp critical
 #endif
     *err_glob += *err_priv;
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp barrier
 #endif
     if (*err_glob && CHARM(err_isempty)(err))
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp master
 #endif
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, err_code, err_msg);
@@ -58,7 +58,7 @@ int CHARM(err_omp_mpi)(int *err_glob,
     /* Now do the same but across MPI processes */
     /* --------------------------------------------------------------------- */
     *err_priv = 0;
-#   if CHARM_OPENMP
+#   if HAVE_OPENMP
 #pragma omp master
 #   endif
     {
@@ -68,7 +68,7 @@ int CHARM(err_omp_mpi)(int *err_glob,
     }
 
 
-#   if CHARM_OPENMP
+#   if HAVE_OPENMP
 #pragma omp critical
 #   endif
     *err_glob += *err_priv;
@@ -76,7 +76,7 @@ int CHARM(err_omp_mpi)(int *err_glob,
 #endif
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp barrier
 #endif
     return *err_glob;

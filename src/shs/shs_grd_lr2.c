@@ -98,7 +98,7 @@ void CHARM(shs_grd_lr2)(size_t i,
             }
             else
             {
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel for default(shared) private(j)
 #endif
                 LOOP1;
@@ -114,7 +114,7 @@ void CHARM(shs_grd_lr2)(size_t i,
                 }
                 else
                 {
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel for default(shared) private(j)
 #endif
                     LOOP2;

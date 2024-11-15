@@ -43,7 +43,7 @@ void CHARM(shc_block_get_coeffs)(const CHARM(shc) *shcs
 
 #if HAVE_MPI
     /* This code is for distributed "charm_shc" structures only */
-#   if CHARM_OPENMP
+#   if HAVE_OPENMP
 #pragma omp master
 #   endif
     {
@@ -90,7 +90,7 @@ void CHARM(shc_block_get_coeffs)(const CHARM(shc) *shcs
 EXIT_STRUCTURED_BLOCK:
     ;
     }
-#   if CHARM_OPENMP
+#   if HAVE_OPENMP
 #pragma omp barrier
 #   endif
 #endif

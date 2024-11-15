@@ -31,7 +31,7 @@ void CHARM(crd_point_dh_lat_w_chunk)(CHARM(point) *dh,
     unsigned long imax = local_0_start + local_nlat_north;
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel default(none) shared(nmax, dh, c, L, M_PI_2L) \
 shared(imin, imax, local_nlat, local_0_start, thold)
 #endif
@@ -41,7 +41,7 @@ shared(imin, imax, local_nlat, local_0_start, thold)
 
 
     unsigned long i;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp for
 #endif
     for (i = imin; i < imax; i++)

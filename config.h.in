@@ -8,9 +8,6 @@
 /* Define to 1 to compile in single precision. */
 #undef CHARM_FLOAT
 
-/* Define to 1 to parallelize CHarm using OpenMP. */
-#undef CHARM_OPENMP
-
 /* Define to 1 to compile in quadruple precision. */
 #undef CHARM_QUAD
 

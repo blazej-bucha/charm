@@ -7,7 +7,7 @@
 #include <limits.h>
 #include <math.h>
 #include <fftw3.h>
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #   include <omp.h>
 #endif
 #include "../prec.h"
@@ -330,7 +330,7 @@ void CHARM(sha_point)(const CHARM(point) *pnt,
     /* Create a plan for FFT */
     /* --------------------------------------------------------------------- */
     {
-#if CHARM_OPENMP && FFTW3_OMP
+#if HAVE_OPENMP && FFTW3_OMP
         if (FFTW(init_threads)() == 0)
         {
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFFTWINIT,
@@ -568,7 +568,7 @@ BARRIER_1:
 
 
         /* ------------------------------------------------------------- */
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 
 
 #   undef SIMD_VARS1
@@ -674,14 +674,14 @@ BARRIER_2:
         if (CHARM(err_omp_mpi)(&err_glob, &err_priv, CHARM_ERR_MALLOC_FAILURE,
                                CHARM_EMEM, err))
         {
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp master
 #endif
             if (!CHARM(err_isempty)(err))
                 CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp barrier
 #endif
             goto FAILURE_2;
@@ -707,7 +707,7 @@ BARRIER_2:
             unsigned long mmax = CHARM_MIN(shcs_block->mlast, nmax);
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp for schedule(dynamic)
 #endif
             for (m = mmin; m <= mmax; m++)
@@ -995,14 +995,14 @@ BARRIER_2:
             if (CHARM(err_omp_mpi)(&err_glob, &err_priv,
                                    CHARM_ERR_MALLOC_FAILURE, CHARM_EMEM, err))
             {
-#   if CHARM_OPENMP
+#   if HAVE_OPENMP
 #pragma omp master
 #   endif
                 if (!CHARM(err_isempty)(err))
                     CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
 
 
-#   if CHARM_OPENMP
+#   if HAVE_OPENMP
 #pragma omp barrier
 #   endif
                 goto FAILURE_2;
@@ -1066,7 +1066,7 @@ FAILURE_1:
     FFTW(free)(ftmp_in);
     FFTW(free)(ftmp_out);
     FFTW(destroy_plan)(plan);
-#if CHARM_OPENMP && FFTW3_OMP
+#if HAVE_OPENMP && FFTW3_OMP
     FFTW(cleanup_threads)();
 #else
     FFTW(cleanup)();

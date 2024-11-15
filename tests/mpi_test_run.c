@@ -21,7 +21,7 @@
 
 int main(int argc, char *argv[])
 {
-#if CHARM_OPENMP
+#if HAVE_OPENMP
     int provided;
     MPI_Init_thread(&argc, &argv, MPI_THREAD_FUNNELED, &provided);
     if (provided != MPI_THREAD_FUNNELED)

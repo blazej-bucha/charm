@@ -16378,9 +16378,6 @@ fi
     fi
 
 
-
-printf "%s\n" "#define CHARM_OPENMP 1" >>confdefs.h
-
     ac_fn_c_check_header_compile "$LINENO" "omp.h" "ac_cv_header_omp_h" "$ac_includes_default"
 if test "x$ac_cv_header_omp_h" = xyes
 then :
@@ -16581,14 +16578,14 @@ printf "%s\n" "$as_me: compiling with MPI parallelization enabled" >&6;}
     fi
 
 
-            { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for the MPI standard version 2.2 or newer" >&5
-printf %s "checking for the MPI standard version 2.2 or newer... " >&6; }
+            { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for the MPI standard version 3.0 or newer" >&5
+printf %s "checking for the MPI standard version 3.0 or newer... " >&6; }
     cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 
     #include "mpi.h"
-    #if (MPI_VERSION * 100 + MPI_SUBVERSION * 10 < 220)
-    #error "MPI standard 2.2 or newer is required"
+    #if (MPI_VERSION * 100 + MPI_SUBVERSION * 10 < 300)
+    #error "MPI standard 3.0 or newer is required"
     #endif
 
 _ACEOF
@@ -16600,7 +16597,7 @@ else $as_nop
 
        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
 printf "%s\n" "no" >&6; }
-       as_fn_error $? "MPI standard 2.2 or newer is required" "$LINENO" 5
+       as_fn_error $? "MPI standard 3.0 or newer is required" "$LINENO" 5
 
 fi
 rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext

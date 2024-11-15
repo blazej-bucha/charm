@@ -15,7 +15,7 @@
 
 void CHARM(shc_block_reset_coeffs)(CHARM(shc_block) *shcs_block)
 {
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp master
 #endif
     {

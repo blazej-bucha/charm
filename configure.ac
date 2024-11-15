@@ -433,7 +433,6 @@ if test "$enable_openmp" = "yes"; then
     fi
 
 
-    AC_DEFINE([CHARM_OPENMP], [1], [Define to 1 to parallelize CHarm using OpenMP.])
     AC_CHECK_HEADER([omp.h], [], [AC_MSG_ERROR([omp.h not found])])
 
 

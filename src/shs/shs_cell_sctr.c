@@ -166,7 +166,7 @@ void CHARM(shs_cell_sctr)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
     REAL_SIMD rref = SET1_R(shcs->r);
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel default(none) \
 shared(f, shcs, nmax, cell, dm, en, fn, gm, hm, r, ri, pt) \
 shared(ncell, FAILURE_glob, mur, err, rref)
@@ -333,7 +333,7 @@ shared(ncell, FAILURE_glob, mur, err, rref)
 
 
 FAILURE_1_parallel:
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp critical
 #endif
         {
@@ -349,7 +349,7 @@ FAILURE_1_parallel:
 
 
         /* Now we have to wait until all the threads get here. */
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp barrier
 #endif
         /* OK, now let's check on each thread whether there is at least one
@@ -358,7 +358,7 @@ FAILURE_1_parallel:
         {
             /* Ooops, there was indeed a memory allocation failure.  So let the
              * master thread write down the error to the "err" variable. */
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp master
 #endif
             if (CHARM(err_isempty)(err))
@@ -393,7 +393,7 @@ FAILURE_1_parallel:
 
 
         size_t i;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp for schedule(dynamic) private(i)
 #endif
         for (i = 0; i < SIMD_MULTIPLE(ncell, SIMD_SIZE);
