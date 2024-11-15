@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../src/prec.h"
+#include "../src/simd/simd.h"
 #include "generate_cell.h"
 #include "parameters.h"
 #include "error_messages.h"
@@ -194,8 +195,10 @@ long int check_shs_cell(void)
     /* Scattered cells */
     /* --------------------------------------------------------------------- */
     {
-    size_t nlat[NSCTR] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-    size_t nlon[NSCTR] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    size_t nlat[NSCTR] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 20, 30, 30 + 1};
+    size_t nlon[NSCTR];
+    for (size_t i = 0; i < NSCTR; i++)
+        nlon[i] = nlat[i];
 
 
     CHARM(cell) *sctr_cell = NULL;

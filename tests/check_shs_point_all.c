@@ -6,6 +6,7 @@
 #include <string.h>
 #include <math.h>
 #include "../src/prec.h"
+#include "../src/simd/simd.h"
 #include "../src/shs/shs_check_single_derivative.h"
 #include "generate_point.h"
 #include "parameters.h"
@@ -653,8 +654,10 @@ SHS_0POINTS_ERROR:
     /* Scattered points */
     /* ..................................................................... */
     {
-    size_t nlat[NSCTR] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-    size_t nlon[NSCTR] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    size_t nlat[NSCTR] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 20, 30, 30 + 1};
+    size_t nlon[NSCTR];
+    for (size_t i = 0; i < NSCTR; i++)
+        nlon[i] = nlat[i];
 
 
     CHARM(point) *sctr_pnt = NULL;

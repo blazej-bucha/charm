@@ -188,7 +188,7 @@
 
 /* Number of scattered points/cells to test SHS. */
 #undef NSCTR
-#define NSCTR (9)
+#define NSCTR (12)
 
 
 /* Path to the folder with the reference test data */
