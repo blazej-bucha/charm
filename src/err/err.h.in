@@ -134,6 +134,11 @@ enum
 /**
  * Message to be printed when ``malloc`` or ``calloc`` fails. */
 #define CHARM_ERR_MALLOC_FAILURE "Memory allocation failure."
+
+
+#undef  CHARM_ERR_FFTW_INIT_FAILURE
+/** Message to be printed when FFTW fails to initialize OpenMP threads. */
+#define CHARM_ERR_FFTW_INIT_FAILURE "FFTW failed to initialize OpenMP threads."
 /* ------------------------------------------------------------------------- */
 
 

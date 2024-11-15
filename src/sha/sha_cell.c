@@ -443,7 +443,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell,
     if (err_fftw == 0)
     {
         CHARM(err_set)(err, __FILE__, __LINE__,  __func__, CHARM_EFFTWINIT,
-                       "FFTW failed to initialize threads.");
+                       CHARM_ERR_FFTW_INIT_FAILURE);
         return;
     }
 

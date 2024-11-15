@@ -334,7 +334,7 @@ void CHARM(sha_point)(const CHARM(point) *pnt,
         if (FFTW(init_threads)() == 0)
         {
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFFTWINIT,
-                           "FFTW failed to initialize threads.");
+                           CHARM_ERR_FFTW_INIT_FAILURE);
             goto BARRIER_1;
         }
 
