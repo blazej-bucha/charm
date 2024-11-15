@@ -12,6 +12,7 @@ SUBDIRS = charm \
 		  src/shc \
 		  src/shs \
 		  src/xnum \
+		  src/mpi \
 		  src/glob \
 		  src/simd \
 		  . \
@@ -35,6 +36,9 @@ SUBLIBS = src/crd/libcharm@P@_crd.la \
 		  src/xnum/libcharm@P@_xnum.la \
 		  src/glob/libcharm@P@_glob.la \
 		  src/simd/libcharm@P@_simd.la
+if MPI
+SUBLIBS += src/mpi/libcharm@P@_mpi.la
+endif
 
 
 CLEANFILES = charm.pc \

@@ -94,6 +94,7 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/ax_check_compile_flag.m4 \
 	$(top_srcdir)/m4/ax_compiler_vendor.m4 \
 	$(top_srcdir)/m4/ax_gcc_version.m4 \
 	$(top_srcdir)/m4/ax_openmp.m4 \
+	$(top_srcdir)/m4/ax_prog_cc_mpi.m4 \
 	$(top_srcdir)/m4/ax_split_version.m4 \
 	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/ltoptions.m4 \
 	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
@@ -110,7 +111,8 @@ LTLIBRARIES = $(noinst_LTLIBRARIES)
 libcharm@P@_err_la_LIBADD =
 am_libcharm@P@_err_la_OBJECTS = err_init.lo err_free.lo err_reset.lo \
 	err_set.lo err_handler.lo err_isempty.lo err_propagate.lo \
-	err_inc_level.lo
+	err_inc_level.lo err_omp_mpi.lo err_is_null_ptr.lo \
+	err_check_distribution.lo
 libcharm@P@_err_la_OBJECTS = $(am_libcharm@P@_err_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -131,11 +133,12 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/err_free.Plo \
-	./$(DEPDIR)/err_handler.Plo ./$(DEPDIR)/err_inc_level.Plo \
-	./$(DEPDIR)/err_init.Plo ./$(DEPDIR)/err_isempty.Plo \
-	./$(DEPDIR)/err_propagate.Plo ./$(DEPDIR)/err_reset.Plo \
-	./$(DEPDIR)/err_set.Plo
+am__depfiles_remade = ./$(DEPDIR)/err_check_distribution.Plo \
+	./$(DEPDIR)/err_free.Plo ./$(DEPDIR)/err_handler.Plo \
+	./$(DEPDIR)/err_inc_level.Plo ./$(DEPDIR)/err_init.Plo \
+	./$(DEPDIR)/err_is_null_ptr.Plo ./$(DEPDIR)/err_isempty.Plo \
+	./$(DEPDIR)/err_omp_mpi.Plo ./$(DEPDIR)/err_propagate.Plo \
+	./$(DEPDIR)/err_reset.Plo ./$(DEPDIR)/err_set.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -220,6 +223,8 @@ MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
 MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
+MPICC = @MPICC@
+MPIEXEC = @MPIEXEC@
 NM = @NM@
 NMEDIT = @NMEDIT@
 NP_FLOAT = @NP_FLOAT@
@@ -253,6 +258,7 @@ SHARED_EXT = @SHARED_EXT@
 SHELL = @SHELL@
 STRIP = @STRIP@
 VERSION = @VERSION@
+WITH_MPI = @WITH_MPI@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -272,6 +278,7 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 builddir = @builddir@
+check_mpiexec = @check_mpiexec@
 datadir = @datadir@
 datarootdir = @datarootdir@
 docdir = @docdir@
@@ -319,7 +326,10 @@ libcharm@P@_err_la_SOURCES = err_init.c \
 							 err_handler.c \
 							 err_isempty.c \
 							 err_propagate.c \
-							 err_inc_level.c
+							 err_inc_level.c \
+							 err_omp_mpi.c \
+							 err_is_null_ptr.c \
+							 err_check_distribution.c
 
 EXTRA_DIST = *.h
 all: all-am
@@ -376,11 +386,14 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/err_check_distribution.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/err_free.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/err_handler.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/err_inc_level.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/err_init.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/err_is_null_ptr.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/err_isempty.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/err_omp_mpi.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/err_propagate.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/err_reset.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/err_set.Plo@am__quote@ # am--include-marker
@@ -496,11 +509,14 @@ clean-am: clean-generic clean-libtool clean-noinstLTLIBRARIES \
 	mostlyclean-am
 
 distclean: distclean-am
-		-rm -f ./$(DEPDIR)/err_free.Plo
+		-rm -f ./$(DEPDIR)/err_check_distribution.Plo
+	-rm -f ./$(DEPDIR)/err_free.Plo
 	-rm -f ./$(DEPDIR)/err_handler.Plo
 	-rm -f ./$(DEPDIR)/err_inc_level.Plo
 	-rm -f ./$(DEPDIR)/err_init.Plo
+	-rm -f ./$(DEPDIR)/err_is_null_ptr.Plo
 	-rm -f ./$(DEPDIR)/err_isempty.Plo
+	-rm -f ./$(DEPDIR)/err_omp_mpi.Plo
 	-rm -f ./$(DEPDIR)/err_propagate.Plo
 	-rm -f ./$(DEPDIR)/err_reset.Plo
 	-rm -f ./$(DEPDIR)/err_set.Plo
@@ -548,11 +564,14 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f ./$(DEPDIR)/err_free.Plo
+		-rm -f ./$(DEPDIR)/err_check_distribution.Plo
+	-rm -f ./$(DEPDIR)/err_free.Plo
 	-rm -f ./$(DEPDIR)/err_handler.Plo
 	-rm -f ./$(DEPDIR)/err_inc_level.Plo
 	-rm -f ./$(DEPDIR)/err_init.Plo
+	-rm -f ./$(DEPDIR)/err_is_null_ptr.Plo
 	-rm -f ./$(DEPDIR)/err_isempty.Plo
+	-rm -f ./$(DEPDIR)/err_omp_mpi.Plo
 	-rm -f ./$(DEPDIR)/err_propagate.Plo
 	-rm -f ./$(DEPDIR)/err_reset.Plo
 	-rm -f ./$(DEPDIR)/err_set.Plo

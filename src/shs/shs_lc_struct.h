@@ -13,11 +13,24 @@
 #define LC_BLOCKS (24)
 
 
-/* Structure to store the lumped coefficients.  Do not change the order of the
- * arrays, as there is some logic behind it to offer reasonable caching. */
+/* Structure to store the lumped coefficients. */
 typedef struct
 {
+#if HAVE_MPI
+    /* In this case, the memory will be allocated and freed dynamically */
+    REAL_SIMD *_all;
+#else
+    /* In this case, "_all" is allocated statically.
+     *
+     * Importantly, with SIMD instructions it is absolutely crucial for the
+     * "_all" member to be the first member of the structure, because it is of
+     * "REAL_SIMD" data type, so its memory must be aligned.  We achieve this
+     * by considering that the C standard guarantees that the pointers to
+     * a structure and to its first member are equal.  So all we need to do is
+     * to allocate aligned memory for the whole structure, see "shs_lc_init.c"
+     * for details. */
     REAL_SIMD _all[LC_BLOCKS * SIMD_BLOCK_S];
+#endif
 
     REAL_SIMD *a;     /* "pnm" */
     REAL_SIMD *b;     /* "pnm" */
@@ -51,6 +64,11 @@ typedef struct
     REAL_SIMD *brr2;  /* "(n + 1) * (n + 2) * pnm" */
     REAL_SIMD *brp2;  /* "(n + 1) * dpnm" */
     REAL_SIMD *bpp2;  /* "ddpnm" */
+
+
+    /* The shs point kernels do not use the error structure, so this variable
+     * is used to indicate an error in the kernels back to the caller. */
+    _Bool error;
 } CHARM(lc);
 
 

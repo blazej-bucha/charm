@@ -41,6 +41,9 @@
 #include <charm/charm@P@_sha.h>
 #include <charm/charm@P@_shc.h>
 #include <charm/charm@P@_shs.h>
+#if @WITH_MPI@
+#   include <charm/charm@P@_mpi.h>
+#endif
 #include <charm/charm@P@_glob.h>
 
 

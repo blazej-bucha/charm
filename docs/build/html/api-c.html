@@ -50,7 +50,7 @@
     <link rel="prev" title="Interfaces" href="api.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Aug 05, 2024"/>
+    <meta name="docbuild:last-update" content="Nov 15, 2024"/>
   </head>
   
   
@@ -185,6 +185,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html">charm_err</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-mpi.html">charm_mpi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-glob.html">charm_glob</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
 </ul>
@@ -467,6 +468,12 @@ omitted.  The list of the differences is given in
 <li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc1cE"><code class="docutils literal notranslate"><span class="pre">charm_shc::c</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc1sE"><code class="docutils literal notranslate"><span class="pre">charm_shc::s</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc5ownerE"><code class="docutils literal notranslate"><span class="pre">charm_shc::owner</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc11distributedE"><code class="docutils literal notranslate"><span class="pre">charm_shc::distributed</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc8local_ncE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_nc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc8local_nsE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_ns</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc12local_nchunkE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_nchunk</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc11local_orderE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_order</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc4commE"><code class="docutils literal notranslate"><span class="pre">charm_shc::comm</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -477,8 +484,11 @@ omitted.  The list of the differences is given in
 <li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv420charm_crd_point_initi6size_t6size_tPdPdPd"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_init()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv420charm_crd_point_freeP11charm_point"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_free()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv418charm_crd_point_glmd"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_gl()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv424charm_crd_point_gl_shapemP6size_tP6size_t"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_gl_shape()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv419charm_crd_point_dh1md"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_dh1()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv425charm_crd_point_dh1_shapemP6size_tP6size_t"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_dh1_shape()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv419charm_crd_point_dh2md"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_dh2()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv425charm_crd_point_dh2_shapemP6size_tP6size_t"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_dh2_shape()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv421charm_crd_cell_malloci6size_t6size_t"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_malloc()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv421charm_crd_cell_calloci6size_t6size_t"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_calloc()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv419charm_crd_cell_initi6size_t6size_tPdPdPdPdPd"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_init()</span></code></a></li>
@@ -503,6 +513,12 @@ omitted.  The list of the differences is given in
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point1rE"><code class="docutils literal notranslate"><span class="pre">charm_point::r</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point1wE"><code class="docutils literal notranslate"><span class="pre">charm_point::w</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point5ownerE"><code class="docutils literal notranslate"><span class="pre">charm_point::owner</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point11distributedE"><code class="docutils literal notranslate"><span class="pre">charm_point::distributed</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point10local_nlatE"><code class="docutils literal notranslate"><span class="pre">charm_point::local_nlat</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point10local_nlonE"><code class="docutils literal notranslate"><span class="pre">charm_point::local_nlon</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point12local_npointE"><code class="docutils literal notranslate"><span class="pre">charm_point::local_npoint</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point13local_0_startE"><code class="docutils literal notranslate"><span class="pre">charm_point::local_0_start</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point4commE"><code class="docutils literal notranslate"><span class="pre">charm_point::comm</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv410charm_cell"><code class="docutils literal notranslate"><span class="pre">charm_cell</span></code></a><ul>
@@ -568,9 +584,11 @@ omitted.  The list of the differences is given in
 <li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv422charm_misc_get_versionv"><code class="docutils literal notranslate"><span class="pre">charm_misc_get_version()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv421charm_misc_print_infov"><code class="docutils literal notranslate"><span class="pre">charm_misc_print_info()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv429charm_misc_buildopt_precisionv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_precision()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv424charm_misc_buildopt_simdv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_simd()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv436charm_misc_buildopt_simd_vector_sizev"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_simd_vector_size()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv429charm_misc_buildopt_omp_charmv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_omp_charm()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv428charm_misc_buildopt_omp_fftwv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_omp_fftw()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv424charm_misc_buildopt_simdv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_simd()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv423charm_misc_buildopt_mpiv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_mpi()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv432charm_misc_buildopt_version_fftwv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_version_fftw()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv428charm_misc_buildopt_isfinitev"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_isfinite()</span></code></a></li>
 </ul>
@@ -583,6 +601,7 @@ omitted.  The list of the differences is given in
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4NUt1_114CHARM_EFUNCARGE"><code class="docutils literal notranslate"><span class="pre">&#64;1::CHARM_EFUNCARG</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4NUt1_113CHARM_EFILEIOE"><code class="docutils literal notranslate"><span class="pre">&#64;1::CHARM_EFILEIO</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4NUt1_115CHARM_EFFTWINITE"><code class="docutils literal notranslate"><span class="pre">&#64;1::CHARM_EFFTWINIT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4NUt1_117CHARM_EMPIPROCESSE"><code class="docutils literal notranslate"><span class="pre">&#64;1::CHARM_EMPIPROCESS</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-err.html#_CPPv414charm_err_initv"><code class="docutils literal notranslate"><span class="pre">charm_err_init()</span></code></a></li>
@@ -598,8 +617,25 @@ omitted.  The list of the differences is given in
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err4codeE"><code class="docutils literal notranslate"><span class="pre">charm_err::code</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err3msgE"><code class="docutils literal notranslate"><span class="pre">charm_err::msg</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err11issaturatedE"><code class="docutils literal notranslate"><span class="pre">charm_err::issaturated</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err11distributedE"><code class="docutils literal notranslate"><span class="pre">charm_err::distributed</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err4commE"><code class="docutils literal notranslate"><span class="pre">charm_err::comm</span></code></a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api-c-mpi.html">charm_mpi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api-c-mpi.html#_CPPv418charm_mpi_shc_initmddPdPd6size_tPKm8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_shc_init()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-mpi.html#_CPPv420charm_mpi_shc_mallocmdd6size_tPKm8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_shc_malloc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-mpi.html#_CPPv420charm_mpi_shc_callocmdd6size_tPKm8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_shc_calloc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-mpi.html#_CPPv423charm_mpi_shc_local_ncsm6size_tPKmP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_shc_local_ncs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-mpi.html#_CPPv424charm_mpi_crd_point_initi6size_t6size_t6size_tPdPdPd8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_crd_point_init()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-mpi.html#_CPPv426charm_mpi_crd_point_malloci6size_t6size_t6size_t8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_crd_point_malloc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-mpi.html#_CPPv426charm_mpi_crd_point_calloci6size_t6size_t6size_t8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_crd_point_calloc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-mpi.html#_CPPv422charm_mpi_crd_point_glmd6size_t6size_t8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_crd_point_gl()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-mpi.html#_CPPv423charm_mpi_crd_point_dh1md6size_t6size_t8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_crd_point_dh1()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-mpi.html#_CPPv423charm_mpi_crd_point_dh2md6size_t6size_t8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_crd_point_dh2()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-mpi.html#_CPPv418charm_mpi_err_init8MPI_Comm"><code class="docutils literal notranslate"><span class="pre">charm_mpi_err_init()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-mpi.html#_CPPv421charm_mpi_err_isemptyPK9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_err_isempty()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api-c-glob.html">charm_glob</a><ul>
@@ -607,6 +643,9 @@ omitted.  The list of the differences is given in
 <li class="toctree-l2"><a class="reference internal" href="api-c-glob.html#_CPPv421charm_glob_threshold2"><code class="docutils literal notranslate"><span class="pre">charm_glob_threshold2</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-glob.html#_CPPv432charm_glob_polar_optimization_a1"><code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a1</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-glob.html#_CPPv432charm_glob_polar_optimization_a2"><code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a2</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-glob.html#_CPPv436charm_glob_shc_block_nmax_multiplier"><code class="docutils literal notranslate"><span class="pre">charm_glob_shc_block_nmax_multiplier</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-glob.html#_CPPv435charm_glob_sha_block_lat_multiplier"><code class="docutils literal notranslate"><span class="pre">charm_glob_sha_block_lat_multiplier</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-glob.html#_CPPv435charm_glob_shs_block_lat_multiplier"><code class="docutils literal notranslate"><span class="pre">charm_glob_shs_block_lat_multiplier</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api-c-charm.html">charm</a></li>
@@ -678,7 +717,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Aug 05, 2024.
+  Last updated on Nov 15, 2024.
   <br/>
 </p>
   </div>

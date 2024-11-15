@@ -5,6 +5,7 @@
 #include "../src/prec.h"
 #include "parameters.h"
 #include "check_struct.h"
+#include "cell_touch_array_elements.h"
 #include "check_crd_cell_alloc.h"
 /* ------------------------------------------------------------------------- */
 
@@ -68,23 +69,18 @@ long int check_crd_cell_alloc(CHARM(cell) *(*crd_cell_alloc)(int,
                     {
                         e += check_struct_ptr(cell, NULL, NEQ, INVALID,
                                               func_call_str,
-                                              "didn't return a NULL pointer");
+                                              "didn't return NULL pointer");
                         continue;
                     }
                 }
 
 
-                if ((i == 0) || (j == 0))
-                    /* In this case, "NULL" should be returned */
-                    e += check_struct_ptr(cell, NULL, NEQ, INVALID,
-                                          func_call_str,
-                                          "didn't return a NULL pointer");
-                else
-                    /* In this case, a valid pointer should be returned */
-                    e += check_struct_ptr(cell, NULL, EQ, VALID, func_call_str,
-                                          "returned a NULL pointer");
+                /* In this case, a valid pointer should be returned */
+                e += check_struct_ptr(cell, NULL, EQ, VALID, func_call_str,
+                                      "returned NULL pointer");
 
 
+                cell_touch_array_elements(cell);
                 CHARM(crd_cell_free)(cell);
             }
         }
@@ -93,7 +89,7 @@ long int check_crd_cell_alloc(CHARM(cell) *(*crd_cell_alloc)(int,
 
 
     /* Check that invalid value of "type" causes the allocation function to
-     * return a NULL pointer */
+     * return NULL pointer */
     /* --------------------------------------------------------------------- */
     type = 9999;
     cell = crd_cell_alloc(type, nlat, nlon);
@@ -101,7 +97,7 @@ long int check_crd_cell_alloc(CHARM(cell) *(*crd_cell_alloc)(int,
 
 
     e += check_struct_ptr(cell, NULL, NEQ, INVALID, func_call_str,
-                          "didn't return a NULL pointer");
+                          "didn't return NULL pointer");
 
 
     CHARM(crd_cell_free)(cell);
@@ -116,44 +112,44 @@ long int check_crd_cell_alloc(CHARM(cell) *(*crd_cell_alloc)(int,
 
 
     e += check_struct_int(cell->type, CHARM_CRD_CELL_GRID, NEQ, VALID,
-                          func_call_str, "returned a wrong value of \"type\"");
+                          func_call_str, "returned wrong value of \"type\"");
 
 
     e += check_struct_size_t(cell->nlat, nlat, NEQ, VALID, func_call_str,
-                             "returned a wrong value of \"nlat\"");
+                             "returned wrong value of \"nlat\"");
 
 
     e += check_struct_size_t(cell->nlon, nlon, NEQ, VALID, func_call_str,
-                             "returned a wrong value of \"nlon\"");
+                             "returned wrong value of \"nlon\"");
 
 
     e += check_struct_size_t(cell->ncell, nlat * nlon, NEQ, VALID,
                              func_call_str,
-                             "returned a wrong value of \"ncell\"");
+                             "returned wrong value of \"ncell\"");
 
 
     e += check_struct_ptr(cell->latmin, NULL, EQ, VALID, func_call_str,
-                          "returned a NULL pointer for \"latmin\"");
+                          "returned NULL pointer for \"latmin\"");
 
 
     e += check_struct_ptr(cell->latmax, NULL, EQ, VALID, func_call_str,
-                          "returned a NULL pointer for \"latmax\"");
+                          "returned NULL pointer for \"latmax\"");
 
 
     e += check_struct_ptr(cell->lonmin, NULL, EQ, VALID, func_call_str,
-                          "returned a NULL pointer for \"lonmin\"");
+                          "returned NULL pointer for \"lonmin\"");
 
 
     e += check_struct_ptr(cell->lonmax, NULL, EQ, VALID, func_call_str,
-                          "returned a NULL pointer for \"lonmax\"");
+                          "returned NULL pointer for \"lonmax\"");
 
 
     e += check_struct_ptr(cell->r, NULL, EQ, VALID, func_call_str,
-                          "returned a NULL pointer for \"r\"");
+                          "returned NULL pointer for \"r\"");
 
 
     e += check_struct__Bool(cell->owner, 1, NEQ, VALID, func_call_str,
-                            "returned a wrong value of \"owner\"");
+                            "returned wrong value of \"owner\"");
 
 
     CHARM(crd_cell_free)(cell);

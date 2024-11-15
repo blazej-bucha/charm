@@ -13,6 +13,7 @@
 #include "../xnum/xnum_x2f.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
+#include "../err/err_check_distribution.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -24,8 +25,16 @@ void CHARM(leg_pnmj_coeffs)(CHARM(pnmj) *pnmj,
                             unsigned long nmax,
                             CHARM(err) *err)
 {
-    /* An error check for the size of the "CHARM(pnmj)" structure */
+    /* Error checks */
     /* --------------------------------------------------------------------- */
+    CHARM(err_check_distribution)(err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
     if (nmax > pnmj->nmax)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,

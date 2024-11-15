@@ -112,7 +112,7 @@ points/cells.
   * ``nlat`` spherical radii over a single grid meridian.
 
   The grid has in total ``nlat * nlon`` points.  The spherical radius ``r`` may
-  vary with the latitude, but is implicitly consider as constant in the
+  vary with the latitude, but is implicitly considered to be constant in the
   longitudinal direction (hence the ``nlat`` number of radii).
 
   CHarm does not store all ``nlat * nlon`` grid coordinates, but only the grid
@@ -164,6 +164,137 @@ points/cells.
 
    Routines implementing the definitions of evaluation points/cells are
    gathered in :ref:`charm_crd` and :ref:`pyharm_crd`.
+
+
+Symmetric grids
+---------------
+
+In CHarm, grid-wise computations are most efficient when the grids are 
+symmetric with respect to the equator.  CHarm then takes advantage of the 
+equatorial symmetry of Legendre functions and thus improves the computation 
+speed.
+
+With scattered points/cells, CHarm never applies the symmetry property of 
+Legendre functions.
+
+Symmetric point grids
+~~~~~~~~~~~~~~~~~~~~~
+
+Here are some examples of **symmetric** point grids.  Shown are only latitudes, 
+as longitudes do not affect the equatorial grid symmetry.  The units are 
+degrees for a more intuitive understanding but the function inputs are always 
+in radians.
+
+- Equator included:
+
+  .. code-block:: none
+
+       -90.0, -60.0, -30.0, 0.0, 30.0, 60.0, 90.0
+
+  or
+
+  .. code-block:: none
+
+       -80.0, -60.0, -40.0, -20.0, 0.0, 20.0, 40.0, 60.0, 80.0
+
+- Equator excluded:
+
+  .. code-block:: none
+
+       -35.0, -25.0, -15.0, -5.0, 5.0, 15.0, 25.0, 35.0
+
+  or
+
+  .. code-block:: none
+
+       -90.0, -85.0, -80.0, 80.0, 85.0, 90.0
+
+- Varying spacing, equator excluded:
+
+  .. code-block:: none
+
+       -90.0, -80.0, -75.0, -70.0, -69.0, 69.0, 70.0, 75.0, 80.0, 90.0
+
+Now some **non-symmetric** point grids:
+
+- The negative latitude of ``-90.0 deg`` does not have its positive
+  counterpart:
+
+  .. code-block:: none
+
+       -90.0, -60.0, -30.0, 0.0, 30.0, 60.0
+
+- The relative difference between ``fabs(-4.99)`` and ``fabs(5.0)`` is
+  larger than the CHarm's internal threshold limit (see :ref:`charm_glob`):
+
+  .. code-block:: none
+
+       -35.0, -25.0, -15.0, -4.99, 5.0, 15.0, 25.0, 35.0
+
+- This one is obviosly not symmetric:
+
+  .. code-block:: none
+
+        80, 70, 60, 50, 40, 30, 25, 20, 15
+
+- Any grid with one latitude parallel only:
+
+  .. code-block:: none
+
+        45
+
+  or
+
+  .. code-block:: none
+
+        0
+
+
+In other words, the grid is symmetric in the latitudinal direction,
+provided that all positive latitudes have their negative counterparts at
+the right places.  The zero latitude, i.e., the equator, may be present in the 
+grid.
+
+
+Symmetric grids of cells
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+A *symmetric* grid of cells could look like (shown are only the minimum and the 
+maximum cell latitudes ``latmin`` and ``latmax``, respectively):
+
+.. code-block:: none
+
+           latmin: -90.0, -60.0, -30.0,  0.0, 30.0, 60.0
+           latmax: -60.0, -30.0,   0.0, 30.0, 60.0, 90.0
+
+.. code-block:: none
+
+           latmin: -35.0, -25.0, -15.0, -5.0,  5.0, 15.0, 25.0
+           latmax: -25.0, -15.0,  -5.0,  5.0, 15.0, 25.0, 35.0
+
+.. code-block:: none
+
+           latmin: -90.0, -85.0, 80.0, 85.0
+           latmax: -85.0, -80.0, 85.0, 90.0
+
+.. code-block:: none
+
+           latmin: -90.0, -80.0, -75.0, -70.0, 69.0, 70.0, 75.0, 80.0
+           latmax: -80.0, -75.0, -70.0, -69.0, 70.0, 75.0, 80.0, 90.0
+
+Next follow some *non-symmetric* grid of cells:
+
+.. code-block:: none
+
+           latmin: -90.0, -60.0, -30.0,  0.0, 30.0
+           latmax: -60.0, -30.0,   0.0, 30.0, 60.0
+
+.. code-block:: none
+
+           latmin: -35.0, -25.0, -15.0,     5.0, 15.0, 25.0
+           latmax: -25.0, -15.0,  -4.99,   15.0, 25.0, 35.0
+
+
 
 
 Surface spherical harmonics

@@ -1,8 +1,8 @@
 /* This header file is not a part of API. */
 
 
-#ifndef __CRD_POINT_DH_LATS_WEIGHTS_H__
-#define __CRD_POINT_DH_LATS_WEIGHTS_H__
+#ifndef __CRD_POINT_GET_LOCAL_NLON_H__
+#define __CRD_POINT_GET_LOCAL_NLON_H__
 
 
 #include <config.h>
@@ -15,7 +15,7 @@ extern "C"
 #endif
 
 
-extern void CHARM(crd_point_dh_lats_weights)(CHARM(point) *, unsigned long);
+extern size_t CHARM(crd_point_get_local_nlon)(const CHARM(point) *);
 
 
 #ifdef __cplusplus
@@ -24,3 +24,4 @@ extern void CHARM(crd_point_dh_lats_weights)(CHARM(point) *, unsigned long);
 
 
 #endif
+

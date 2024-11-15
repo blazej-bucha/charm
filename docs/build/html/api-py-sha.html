@@ -49,7 +49,7 @@
     <link rel="prev" title="pyharm.shs" href="api-py-shs.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Aug 05, 2024"/>
+    <meta name="docbuild:last-update" content="Nov 15, 2024"/>
   </head>
   
   
@@ -184,6 +184,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html">charm_err</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-mpi.html">charm_mpi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-glob.html">charm_glob</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
 </ul>
@@ -458,7 +459,7 @@ quadrature method.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyharm.sha.point">
-<span class="sig-prename descclassname"><span class="pre">pyharm.sha.</span></span><span class="sig-name descname"><span class="pre">point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.sha.point" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">pyharm.sha.</span></span><span class="sig-name descname"><span class="pre">point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.sha.point" title="Link to this definition">#</a></dt>
 <dd><p>Performs surface spherical harmonic analysis of point values <code class="docutils literal notranslate"><span class="pre">f</span></code> at
 <code class="docutils literal notranslate"><span class="pre">pnt</span></code> up to maximum degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to <a class="reference external" href="./api-c-sha.html">charm_sha</a> for the full documentation.</p>
 <dl class="field-list simple">
@@ -484,7 +485,7 @@ spherical harmonic coefficients, optional.  Default is <code class="docutils lit
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyharm.sha.cell">
-<span class="sig-prename descclassname"><span class="pre">pyharm.sha.</span></span><span class="sig-name descname"><span class="pre">cell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cell</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.sha.cell" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">pyharm.sha.</span></span><span class="sig-name descname"><span class="pre">cell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cell</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.sha.cell" title="Link to this definition">#</a></dt>
 <dd><p>Performs surface spherical harmonic analysis of point values <code class="docutils literal notranslate"><span class="pre">f</span></code> at
 <code class="docutils literal notranslate"><span class="pre">cell</span></code> up to maximum degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.  Refer to <a class="reference external" href="./api-c-sha.html">charm_sha</a> for the full documentation.</p>
 <dl class="field-list simple">
@@ -593,7 +594,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Aug 05, 2024.
+  Last updated on Nov 15, 2024.
   <br/>
 </p>
   </div>

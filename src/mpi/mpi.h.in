@@ -1,0 +1,914 @@
+/** \file charm@P@_mpi.h
+ *
+ * Module to work with CHarm on distributed memory systems.
+ *
+ * The routines are split into three categories.  Functions related to:
+ *
+ * * spherical harmonic coefficients (``charm@P@_shc``),
+ *
+ * * evaluation points (``charm@P@_point``) and
+ *
+ * * error handling (``charm@P@_err``).
+ *
+ * Except for routines from this module, structures ``charm@P@_shc``,
+ * ``charm@P@_point`` and ``charm@P@_err`` distributed among MPI processes
+ * should only enter the following functions:
+ *
+ * * ``charm@P@_shc_free()`` (to free ``charm@P@_shc`` returned by functions
+ *   from this module),
+ *
+ * * ``charm@P@_crd_point_free()`` (to free ``charm@P@_point`` returned by
+ *   functions from this module),
+ *
+ * * ``charm@P@_err_free()``, ``charm@P@_err_reset()``,
+ *   ``charm@P@_err_handler()`` (to free, reset and handle errors in
+ *   ``charm@P@_err``),
+ *
+ * * ``charm@P@_shs_point()`` (to perform distributed spherical harmonic
+ *   synthesis),
+ *
+ * * ``charm@P@_sha_point()`` (to perform distributed spherical harmonic
+ *   analysis).
+ *
+ * The rest of the CHarm's routines requires non-distributed structures
+ * ``charm@P@_shc``, ``charm@P@_point`` and ``charm@P@_err``.
+ *
+ * For each function in this module, an example usage is provided.  Note that
+ * we often use ``if`` statements to feed MPI processes by data.  While this is
+ * perfectly valid, this is not usually done in practice.  Still, this approach
+ * is hopefully beneficial for learning purposes.
+ *
+ * @note All routines from this module are collective communication functions.
+ * They must therefore always be called by all participating MPI processes.
+ * Furthermore, using the structures ``charm@P@_shc``, ``charm@P@_point`` and
+ * ``charm@P@_err`` returned by the routines from this module as inputs to
+ * functions from other modules (e.g., ``charm@P@_shs_point()``) makes that
+ * particular routines collective communication functions.
+ *
+ * @note The performance of ``charm@P@_sha_point()`` and
+ * ``charm@P@_shs_point()`` depends enormously on
+ * ``::charm@P@_glob_shc_block_nmax_multiplier``,
+ * ``::charm@P@_glob_sha_block_lat_multiplier`` and
+ * ``::charm@P@_glob_shs_block_lat_multiplier``.  To properly tune these
+ * parameters, see the  <a href="./api-c-glob.html"> documentation</a> and the
+ * <a href="./cookbook-c.html#distributed-computing-with-mpi"> cookbook</a>.
+ *
+ * @note An MPI implementation is required to support the MPI standard version
+ * 3.0 (September 2012) or newer.
+ *
+ * @note This documentation is written for double precision version of CHarm.
+ *
+ * */
+
+
+
+
+
+
+#ifndef __CHARM@PC@_MPI_H__
+#define __CHARM@PC@_MPI_H__
+
+
+/* Header files needed by this module */
+/* ------------------------------------------------------------------------- */
+#include <stdio.h>
+#include <charm/charm@P@_crd.h>
+#include <charm/charm@P@_err.h>
+#include <mpi.h>
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* Function prototypes */
+/* ------------------------------------------------------------------------- */
+/** @name Spherical harmonic coefficients
+ *
+ * @{
+ * */
+
+
+/** @brief The same as ``charm@P@_shc_init()`` but for ``charm@P@_shc``
+ * distributed among MPI processes in ``comm``.
+ *
+ * Function parameters that are new with respect to ``charm@P@_shc_init()`` are
+ * explained below.
+ *
+ * The ``c`` and ``s`` pointers must have an access to the number of elements
+ * returned by ``charm@P@_mpi_shc_local_ncs()``.  The ordering of spherical
+ * harmonic coefficients in ``c`` and ``s`` depends on ``local_order`` (see
+ * ``charm@P@_shc.local_order``).
+ *
+ * The example below illustrates how to create a distributed ``charm_shc``
+ * structure with this function.  We assume that ``rank`` represents the rank
+ * of MPI processes and the size of the MPI communicator ``comm`` is ``3``.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *
+ *   .. code-block:: c
+ *
+ *          // The maximum harmonic degree of spherical harmonic coefficients
+ *          unsigned nmax = 10;
+ *
+ *
+ *          // The number of chunks of spherical harmonic coefficients for
+ *          // individual MPI processes
+ *          size_t local_nchunk;
+ *          if (rank == 2)
+ *              local_nchunk = 1;
+ *          else
+ *              local_nchunk = 2;
+ *
+ *
+ *          // Now define the chunks of spherical harmonic coefficients by
+ *          // specifying their first and last spherical harmonic order
+ *          unsigned long local_order[4];
+ *          if (rank == 0)  // Process with rank "0"
+ *          {
+ *              // The first chunk will consist of all spherical harmonic
+ *              // coefficients of order "0"
+ *              local_order[0] = 0;
+ *              local_order[1] = 0;
+ *
+ *
+ *              // The second chunk will hold all coefficients of orders from
+ *              // "1" to "2"
+ *              local_order[2] = 1;
+ *              local_order[3] = 2;
+ *          }
+ *          else if (rank == 1)  // Process with rank "1"
+ *          {
+ *              // The first chunk at another MPI process will consist of all
+ *              // coefficients of orders from "3" to "5"
+ *              local_order[0] = 3;
+ *              local_order[1] = 5;
+ *
+ *
+ *              // The second chunk consists of all coefficients of order "6"
+ *              local_order[2] = 6;
+ *              local_order[3] = 6;
+ *          }
+ *          else if (rank == 2)  // Process with rank "2"
+ *          {
+ *              // This process has one chunk only, starting at order "7" and
+ *              // ending at "10"
+ *              local_order[0] = 7;
+ *              local_order[1] = 10;
+ *          }
+ *
+ *
+ *          // Initialize an error structure
+ *          charm_err *err = charm_mpi_err_init();
+ *          if (err == NULL)
+ *              exit(1);
+ *
+ *
+ *          // "local_ncs" is the total amount of spherical harmonic
+ *          // coefficients that is stored locally by the individual MPI
+ *          // processes
+ *          size_t local_ncs = charm_mpi_shc_local_ncs(nmax, local_nchunk,
+ *                                                     local_order, err);
+ *          charm_err_handler(err, 1);
+ *
+ *
+ *          // Allocate arrays that will store spherical harmonic coefficients
+ *          double *c = (double *)malloc(local_ncs * sizeof(double));
+ *          if (c == NULL)
+ *              exit(1);
+ *          double *s = (double *)malloc(local_ncs * sizeof(double));
+ *          if (s == NULL)
+ *              exit(1);
+ *
+ *
+ *          // You can now fill "c" and "s" with some reasonable data.
+ *          // Alternatively, you can do this with "shcs->c" and "shcs->s"
+ *          // after "shcs" is created below.  It doesn't matter, as "c" points
+ *          // to the same location in the memory as "shcs->c".  The same is
+ *          // also true for "s" and "shcs->s".
+ *
+ *
+ *          // Create a distributed "charm_shc" structure
+ *          charm_shc *shcs = charm_mpi_shc_init(nmax, 1.0, 1.0, c, s,
+ *                                               local_nchunk, local_order,
+ *                                               comm, err);
+ *          charm_err_handler(err, 1);
+ *
+ *
+ *          // Now is the time to do some heavy lifting with "shcs"
+ *
+ *
+ *          // Once you no longer need "shcs", free it as usually
+ *          charm_shc_free(shcs);
+ *          free(c);
+ *          free(s);
+ *          charm_err_free(err);
+ *
+ * \endverbatim
+ *
+ * @param[in] local_nchunk See ``charm@P@_shc.local_nchunk``.
+ *
+ * @param[in] local_order See ``charm@P@_shc.local_order``.
+ *
+ * @param[in] comm MPI communicator.
+ *
+ * @param[out] err Error reported by the function (if any).
+ *
+ * @returns If all processes succeeded, returned is a pointer to the
+ * ``charm@P@_shc`` structure.  If one or more processes failed, all processes
+ * return a ``NULL`` pointer and an error message is written to ``err``. */
+CHARM_EXTERN charm@P@_shc * CHARM_CDECL
+    charm@P@_mpi_shc_init(unsigned long nmax,
+                          @RDT@ mu,
+                          @RDT@ r,
+                          @RDT@ *c,
+                          @RDT@ *s,
+                          size_t local_nchunk,
+                          const unsigned long *local_order,
+                          MPI_Comm comm,
+                          charm@P@_err *err);
+
+
+/** @brief The same as ``charm@P@_shc_malloc()`` but for ``charm@P@_shc``
+ * distributed among MPI processes in ``comm``.
+ *
+ * For an example usage, see ``charm@P@_mpi_shc_init()``.  All you need to
+ * change is to replace ``charm@P@_mpi_shc_init()`` by
+ * ``charm@P@_mpi_shc_malloc()`` and not to use ``c`` and ``s`` as input
+ * parameters to ``charm@P@_mpi_shc_malloc()``.
+ *
+ * Function parameters that are new with respect to ``charm@P@_shc_malloc()``
+ * are explained below.
+ *
+ * @param[in] local_nchunk See ``charm@P@_shc.local_nchunk``.
+ *
+ * @param[in] local_order See ``charm@P@_shc.local_order``.
+ *
+ * @param[in] comm MPI communicator.
+ *
+ * @param[out] err Error reported by the function (if any).
+ *
+ * @returns If all processes succeeded, returned is a pointer to the
+ * ``charm@P@_shc`` structure.  If one or more processes failed, all processes
+ * return a ``NULL`` pointer and an error message is written to ``err``. */
+CHARM_EXTERN charm@P@_shc * CHARM_CDECL
+    charm@P@_mpi_shc_malloc(unsigned long nmax,
+                            @RDT@ mu,
+                            @RDT@ r,
+                            size_t local_nchunk,
+                            const unsigned long *local_order,
+                            MPI_Comm comm,
+                            charm@P@_err *err);
+
+
+/** @brief The same as ``charm@P@_mpi_shc_malloc()`` but all spherical harmonic
+ * coefficients are initialized to zero. */
+CHARM_EXTERN charm@P@_shc * CHARM_CDECL
+    charm@P@_mpi_shc_calloc(unsigned long nmax,
+                            @RDT@ mu,
+                            @RDT@ r,
+                            size_t local_nchunk,
+                            const unsigned long *local_order,
+                            MPI_Comm comm,
+                            charm@P@_err *err);
+
+
+/** @brief Returns the number of \f$\bar{C}_{nm}\f$ coefficients that are
+ * stored locally by the ``charm@P@_shc`` structure when its maximum harmonic
+ * degree is ``nmax`` and there are ``local_nchunk`` local chunks given by
+ * harmonic orders ``local_order``.  The same number of coefficients applies to
+ * \f$\bar{S}_{nm}\f$, too.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *
+ *      .. tip::
+ *
+ *          There are two use cases of this routine.
+ *
+ *          - Use it before calling ``charm@P@_mpi_shc_init()`` to get the
+ *            number of elements that the ``c`` and ``s`` input pointers must
+ *            have access to.
+ *
+ *          - Use it before calling ``charm@P@_mpi_shc_malloc()`` or
+ *            ``charm@P@_mpi_shc_calloc()`` to get the number of elements that
+ *            will be locally allocated to ``charm@P@_shc.c`` and
+ *            ``charm@P@_shc.s``.
+ *
+ * \endverbatim
+ *
+ * @param[in] nmax Maximum harmonic degree of the ``charm@P@_shc`` structure.
+ *
+ * @param[in] local_nchunk See ``charm@P@_shc.local_nchunk``.
+ *
+ * @param[in] local_order See ``charm@P@_shc.local_order``.
+ *
+ * @param[out] err Error reported by the function (if any).
+ *
+ * @returns On success, returned is the total number of \f$\bar{C}_{nm}\f$ and
+ * \f$\bar{S}_{nm}\f$ coefficients that CHarm associates with the local portion
+ * of ``charm@P@_shc.c`` and ``charm@P@_shc.s`` for a given chunk(s).  On
+ * error, ``0`` is returned and the error message is written to ``err``.
+ *
+ * */
+CHARM_EXTERN size_t CHARM_CDECL
+    charm@P@_mpi_shc_local_ncs(unsigned long nmax,
+                               size_t local_nchunk,
+                               const unsigned long *local_order,
+                               charm@P@_err *err);
+
+
+/**
+ * @}
+ * */
+
+
+/* ......................................................................... */
+
+
+/** @name Evaluation points
+ *
+ * @{
+ * */
+
+
+/** @brief The same as ``charm@P@_crd_point_init()`` but for ``charm@P@_point``
+ * distributed among MPI processes in ``comm``.
+ *
+ * Function parameters that are new with respect to
+ * ``charm@P@_crd_point_init()`` are explained below.  The ``lat`` and ``r``
+ * pointers must have an access to ``local_nlat`` elements.  The ``lon``
+ * pointer requires ``local_nlon`` elements.
+ *
+ * **Examples**:
+ *
+ * * *Scattered points*:
+ *
+ *   Assume that you have ``6`` scattered points that you want to distribute
+ *   among ``3`` MPI processes. Let the latitudes of the points be ``lat0``,
+ *   ``lat1``, ``...``, ``lat5``. Assume that you want to have, say, the first
+ *   three latitudes at the MPI process with rank ``0``, then two points at
+ *   rank ``1`` and the last point at rank ``2``.  Finally, let's assume that
+ *   ``rank`` denotes the rank of MPI processes and ``comm`` is the MPI
+ *   communicator.  Then, you could write:
+ *
+ *   \verbatim embed:rst:leading-asterisk
+ *
+ *    .. code-block:: c
+ *
+ *       size_t local_nlat, local_0_start;
+ *       if (rank == 0)
+ *       {
+ *           local_nlat    = 3;
+ *           local_0_start = 0;
+ *       }
+ *       else if (rank == 1)
+ *       {
+ *           local_nlat    = 2;
+ *           local_0_start = 3;
+ *       }
+ *       else if (rank == 2)
+ *       {
+ *           local_nlat    = 1;
+ *           local_0_start = 5;
+ *       }
+ *
+ *
+ *       double *lat = (double *)malloc(local_nlat * sizeof(double));
+ *       if (lat == NULL)
+ *           exit(1);
+ *       size_t local_nlon = local_nlat;
+ *       double *lon = (double *)malloc(local_nlon * sizeof(double));
+ *       if (lon == NULL)
+ *           exit(1);
+ *       double *r = (double *)malloc(local_nlat * sizeof(double));
+ *       if (r == NULL)
+ *           exit(1);
+ *
+ *
+ *       // At the process with "rank == 0", set "lat[0]", "lat[1]" and
+ *       // "lat[2]" to the first three latitudes of your six points, "lat0",
+ *       // "lat1", "lat2".
+ *       // At the process with "rank == 1", set "lat[0]" and "lat[1]" to
+ *       // the next two latitudes of your six points, "lat3" and "lat4".
+ *       // At the process with "rank == 2", set "lat[0]" to
+ *       // the last latitude, "lat5".
+ *
+ *
+ *       // Similarly, set the longitudes and spherical radii.
+ *
+ *
+ *       // Initialize an error structure
+ *       charm_err *err = charm_mpi_err_init();
+ *       if (err == NULL)
+ *           exit(1);
+ *
+ *
+ *       charm_point *pnt = charm_mpi_crd_point_init(CHARM_CRD_POINT_SCATTERED,
+ *                                                   local_nlat, local_nlon,
+ *                                                   local_0_start, lat, lon,
+ *                                                   r, comm, err);
+ *       charm_err_handler(err, 1);
+ *
+ *
+ *       // Once you no longer need "pnt", free it as usually
+ *       charm_crd_point_free(pnt);
+ *       charm_err_free(err);
+ *
+ *   \endverbatim
+ *
+ * * *Non-symmetric point grids*:
+ *
+ *   Assume that you have the same six latitudes as in the previous example
+ *   with scattered points and you also have ten longitudes, so
+ *   that your grid has ``6`` times ``10`` points.  Finally, assume that your
+ *   grid is non-symmetric with respect to the equator (details on symmetric
+ *   and non-symmetric grids <a
+ *   href="./definitions.html#symmetric-grids">here</a>).
+ *
+ *   You can initialize the ``charm_point`` structure in the same way as in the
+ *   example with scatter points with two differences.  First, your value of
+ *   ``local_nlon`` will now be ``10`` and you must set of course all the ten
+ *   elements of ``lon`` to your longitudes.  All ten longitudes must be equal
+ *   at all MPI processes.  Second, you need to set the first
+ *   input parameter ``type`` in ``charm_mpi_crd_point_init`` to
+ *   ``::CHARM_CRD_POINT_GRID``.
+ *
+ * * *Symmetric point grids*:
+ *
+ *   There is a special way to tell CHarm that your grid is symmetric with
+ *   respect to the equator.  As a general rule, a symmetric grid must be
+ *   distributed across MPI processes in such a way that local portions of the
+ *   grid at all processes are symmetric (details on symmetric and
+ *   non-symmetric grids <a
+ *   href="./definitions.html#symmetric-grids">here</a>).
+ *
+ *   Let's say that you have three MPI processes in ``comm`` and with ranks
+ *   ``rank``.  You have ``7`` grid latitudes ``1.5``, ``1.0``, ``0.5``,
+ *   ``0.0``, ``-0.5``, ``-1.0``, ``-1.5``.  You also have ``10``
+ *   longitudes and ``7`` spherical radii (their values are irrelevant
+ *   here).  Then, you can write (observe carefully the variable
+ *   ``local_0_start``):
+ *
+ *
+ *   \verbatim embed:rst:leading-asterisk
+ *
+ *     .. code-block:: c
+ *
+ *       size_t local_nlat, local_0_start;
+ *       if (rank == 0)
+ *       {
+ *           // This process will hold latitudes "1.5" and "-1.5"
+ *           local_nlat    = 2;
+ *           local_0_start = 0;  // "1.5" is the first grid latitude
+ *       }
+ *       else if (rank == 1)
+ *       {
+ *           // Latitudes "1.0", "-1.0"
+ *           local_nlat    = 2;
+ *           local_0_start = 1; // "1.0" is the second grid latitude
+ *       }
+ *       else if (rank == 2)
+ *       {
+ *           // Latitude "0.5", "0.0", "-0.5"
+ *           local_nlat    = 3;
+ *           local_0_start = 2;  // "0.5" is the third grid latitude
+ *                               // Should "rank == 1" have, say, four
+ *                               // latitudes ("1.0", "0.9", "-0.9", "-1.0"),
+ *                               // then "local_0_start" would be "3" here.
+ *       }
+ *
+ *
+ *      double *lat = (double *)malloc(local_nlat * sizeof(double));
+ *      if (lat == NULL)
+ *          exit(1);
+ *      if (rank == 0)
+ *      {
+ *          lat[0] = 1.5;
+ *          lat[1] = -1.5;
+ *      }
+ *      else if (rank == 1)
+ *      {
+ *          lat[0] = 1.0;
+ *          lat[1] = -1.0;
+ *      }
+ *      else if (rank == 2)
+ *      {
+ *          lat[0] = 0.5;
+ *          lat[1] = 0.0;
+ *          lat[2] = -0.5;
+ *      }
+ *
+ *
+ *      // Note that the latitudes are symmetric with respect to the equator at
+ *      // *each* MPI process.  This is very important.
+ *      // Also note that "local_0_start" is approached differently with
+ *      // symmetric grids.
+ *
+ *
+ *      // Some longitudes
+ *      size_t local_nlon = 10;
+ *      double *lon = (double *)malloc(local_nlon * sizeof(double));
+ *      if (lon == NULL)
+ *          exit(1);
+ *      for (size_t i = 0; i < local_nlon; i++)
+ *          lon[i] = (double)i / 10.0;
+ *
+ *
+ *      // Some spherical radii
+ *      double *r = (double *)malloc(local_nlat * sizeof(double));
+ *      if (r == NULL)
+ *          exit(1);
+ *      for (size_t i = 0; i < local_nlat; i++)
+ *          r[i] = 1.0;
+ *
+ *
+ *       charm_point *pnt = charm_mpi_crd_point_init(CHARM_CRD_POINT_GRID,
+ *                                                   local_nlat, local_nlon,
+ *                                                   local_0_start, lat, lon,
+ *                                                   r, comm, err);
+ *       charm_err_handler(err, 1);
+ *
+ *
+ *       charm_crd_point_free(pnt);
+ *       charm_err_free(err);
+ *       free(lat);
+ *       free(lon);
+ *       free(r);
+ *
+ *   \endverbatim
+ *
+ *
+ * @param[in] local_nlat The same as ``charm@P@_point.nlat``, but for the
+ *  latitudes stored locally.
+ *
+ * @param[in] local_0_start See ``charm@P@_point.local_0_start``.
+ *
+ * @param[in] comm MPI communicator.
+ *
+ * @param[out] err Error reported by the function (if any).
+ *
+ * @returns If all processes succeeded, returned is a pointer to the
+ * ``charm@P@_point`` structure.  If one or more processes failed, all
+ * processes return a ``NULL`` pointer and an error message is written to
+ * ``err``. */
+CHARM_EXTERN charm@P@_point * CHARM_CDECL
+    charm@P@_mpi_crd_point_init(int type,
+                                size_t local_nlat,
+                                size_t local_nlon,
+                                size_t local_0_start,
+                                @RDT@ *lat,
+                                @RDT@ *lon,
+                                @RDT@ *r,
+                                MPI_Comm comm,
+                                charm@P@_err *err);
+
+
+
+
+/** @brief The same as ``charm@P@_crd_point_malloc()`` but for
+ * ``charm@P@_point`` distributed among MPI processes in ``comm``.
+ *
+ * Function parameters that are new with respect to
+ * ``charm@P@_crd_point_malloc()`` are explained below.
+ *
+ * For a use case, see the example with scattered points and non-symmetric
+ * point grids in ``charm@P@_mpi_crd_point_init()``.  You only have to replace
+ * ``charm@P@_mpi_crd_point_init()`` by ``charm@P@_mpi_crd_point_malloc()`` and
+ * not to use ``lat``, ``lon`` and ``r`` as input parameters to
+ * ``charm@P@_mpi_crd_point_malloc()``.
+ *
+ * @note This routine is capable of returning a non-symmetric point grid only.
+ * The input parameter ``local_0_start`` must therefore be always be approached
+ * as shown for non-symmetric point grids in ``charm@P@_mpi_crd_point_init()``.
+ * This is because this function does not initialize the memory for
+ * ``charm@P@_point.lat``, so the latitudes are specified only after this
+ * function has been called.  There is therefore no way for CHarm to know by
+ * which latitudes will the structure be fed in by the user.  If you want to be
+ * sure that your distributed ``charm@P@_point`` structure will be considered
+ * as symmetric, use ``charm@P@_mpi_crd_point_init()`` instead.
+ *
+ * @param[in] local_nlat See ``charm@P@_point.local_nlat``.
+ *
+ * @param[in] local_0_start See ``charm@P@_point.local_0_start``.
+ *
+ * @param[in] comm MPI communicator.
+ *
+ * @param[out] err Error reported by the function (if any).
+ *
+ * @returns If all processes succeeded, returned is a pointer to the
+ * ``charm@P@_point`` structure.  If one or more processes failed, all
+ * processes return a ``NULL`` pointer and an error message is written to
+ * ``err``.
+ *
+ * */
+CHARM_EXTERN charm@P@_point * CHARM_CDECL
+    charm@P@_mpi_crd_point_malloc(int type,
+                                  size_t local_nlat,
+                                  size_t local_nlon,
+                                  size_t local_0_start,
+                                  MPI_Comm comm,
+                                  charm@P@_err *err);
+
+
+/** @brief The same as ``charm@P@_mpi_crd_point_malloc()`` but all array
+ *  elements are initialized to zero. */
+CHARM_EXTERN charm@P@_point * CHARM_CDECL
+    charm@P@_mpi_crd_point_calloc(int type,
+                                  size_t local_nlat,
+                                  size_t local_nlon,
+                                  size_t local_0_start,
+                                  MPI_Comm comm,
+                                  charm@P@_err *err);
+
+
+/** @brief The same as ``charm@P@_crd_point_gl()`` but for ``charm@P@_point``
+ * distributed among MPI processes in ``comm``.
+ *
+ * Function parameters that are new with respect to ``charm@P@_crd_point_gl()``
+ * are explained below.
+ *
+ * Building a distributed ``charm@P@_point`` structure for Gauss-Legendre
+ * grids depends on the parity of ``nmax``.
+ *
+ * * If ``nmax`` is even, ``local_nlat`` must be odd at one process and even at
+ *   all the remaining processes in ``comm``.  The process with odd
+ *   ``local_nlat`` must include the equator.
+ *
+ * * If ``nmax`` is odd, ``local_nlat`` must be even at all processes within
+ *   ``comm``.
+ *
+ * The code example below shows how to compute a distributed Gauss-Legendre
+ * grid.  We assume that ``rank`` denotes the rank of MPI processes and that
+ * there are ``3`` MPI processes within the communicator ``comm``.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *
+ *   .. code-block:: c
+ *
+ *          // Maximum harmonic degree
+ *          unsigned long nmax = 10;
+ *
+ *
+ *          // For our "nmax = 10", "nlat" will be "11" (you can check this
+ *          // with "charm_crd_point_gl_shape").  We will thus have the
+ *          // following latitudes in the Gauss--Legendre grid: "lat0, lat1,
+ *          // lat2, ..., lat10".
+ *
+ *
+ *          size_t local_nlat, local_0_start;
+ *          if (rank == 0)
+ *          {
+ *              // This MPI process will hold 2 latitudes, "lat1" and "lat9".
+ *              local_nlat    = 2;
+ *              local_0_start = 1;
+ *          }
+ *          else if (rank == 1)
+ *          {
+ *              // This process also holds two latitudes, "lat0" and "lat10".
+ *              // We intentionally put "lat0" to the process of rank "1" to
+ *              // demonstrate that CHarm does not care about which chunk is
+ *              // stored is by which MPI process.
+ *              local_nlat    = 2;
+ *              local_0_start = 0;
+ *          }
+ *          else if (rank == 2)
+ *          {
+ *              // "nmax" is even, so the process holding the equator must have
+ *              // odd value of "local_nlat".
+ *              // This process will hold seven latitudes, "lat2, lat3, ...,
+ *              // lat8".
+ *              local_nlat    = 7;
+ *              local_0_start = 2;
+ *          }
+ *
+ *
+ *          // Initialize an error structure
+ *          charm_err *err = charm_mpi_err_init();
+ *          if (err == NULL)
+ *              exit(1);
+ *
+ *
+ *          // Compute the Gauss--Legendre grid
+ *          charm_point *glg = charm_mpi_crd_point_gl(nmax, 1.0,
+ *                                                    local_nlat,
+ *                                                    local_0_start, comm,
+ *                                                    err);
+ *          charm_err_handler(err, 1);
+ *
+ *
+ *          // Once you no longer need "glg", free it as usually
+ *          charm_crd_point_free(glg);
+ *          charm_err_free(err);
+ *
+ * \endverbatim
+ *
+ * @param[in] local_nlat See ``charm@P@_point.local_nlat``.
+ *
+ * @param[in] local_0_start See ``charm@P@_point.local_0_start``.
+ *
+ * @param[in] comm MPI communicator.
+ *
+ * @param[out] err Error reported by the function (if any).
+ *
+ * @returns If all processes succeeded, returned is a pointer to the
+ * ``charm@P@_point`` structure.  If one or more processes failed, all
+ * processes return a ``NULL`` pointer and an error message is written to
+ * ``err``.
+ *
+ * */
+CHARM_EXTERN charm@P@_point * CHARM_CDECL
+    charm@P@_mpi_crd_point_gl(unsigned long nmax,
+                              @RDT@ r,
+                              size_t local_nlat,
+                              size_t local_0_start,
+                              MPI_Comm comm,
+                              charm@P@_err *err);
+
+
+/** @brief The same as ``charm@P@_crd_point_dh1()`` but for ``charm@P@_point``
+ * distributed among MPI processes in ``comm``.
+ *
+ * Function parameters that are new with respect to
+ * ``charm@P@_crd_point_dh1()`` are explained below.
+ *
+ * There are some restrictions on ``local_nlat`` and ``local_0_start``.
+ *
+ * * Two processes must have odd value of ``local_nlat`` and all the remaining
+ *   processes must have even ``local_nlat``.  As an exception, if
+ *   one process holds all latitudes of the Driscoll-Healy grid, then
+ *   ``local_nlat`` is always even.
+ *
+ * * One process with odd ``local_nlat`` must have ``local_0_start`` set to
+ *   ``0``.  In other words, the process holding the north pole must have
+ *   odd ``local_nlat``.
+ *
+ * * The other process with odd ``local_nlat`` must contain the equator.
+ *
+ *
+ *
+ * The code example below shows how to compute a distributed Driscoll-Healy
+ * grid.  We assume that ``rank`` denotes the rank of MPI processes and that
+ * there are ``3`` MPI processes within the communicator ``comm``.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *
+ *   .. code-block:: c
+ *
+ *          // Maximum harmonic degree
+ *          unsigned long nmax = 10;
+ *
+ *
+ *          // For our "nmax = 10", "nlat" will be "22" (you can check this
+ *          // with "charm_crd_point_dh1_shape").  We will thus have the
+ *          // following latitudes in the Driscoll-Healy grid: "lat0, lat1,
+ *          // lat2, ..., lat21".
+ *
+ *
+ *          size_t local_nlat, local_0_start;
+ *          if (rank == 0)
+ *          {
+ *              // This process holds the north pole, hence odd
+ *              // "local_nlat_dh".  The latitudes available to this process
+ *              // are "lat0", "lat1", "lat21".  Remember that "lat21" is not
+ *              // the south pole.
+ *              local_nlat    = 3;
+ *              local_0_start = 0;
+ *          }
+ *          else if (rank == 1)
+ *          {
+ *              // This process holds the equator "lat11", hence odd
+ *              // "local_nlat_dh"
+ *              local_nlat    = 1;
+ *              local_0_start = 11;
+ *          }
+ *          else if (rank == 2)
+ *          {
+ *              // All the remaining latitudes of the Driscoll--Healy grid:
+ *              // "lat2", "lat3", ...,"lat10", "lat12", "lat13", ..., "lat20".
+ *              local_nlat    = 18;
+ *              local_0_start = 2;
+ *          }
+ *
+ *
+ *          // Initialize an error structure
+ *          charm_err *err = charm_mpi_err_init();
+ *          if (err == NULL)
+ *              exit(1);
+ *
+ *
+ *          // Compute the Driscoll--Healy grid
+ *          charm_point *dh1 = charm_mpi_crd_point_dh1(nmax, 1.0,
+ *                                                     local_nlat,
+ *                                                     local_0_start, comm,
+ *                                                     err);
+ *          charm_err_handler(err, 1);
+ *
+ *
+ *          // Once you no longer need "dh1", free it as usually
+ *          charm_crd_point_free(dh1);
+ *          charm_err_free(err);
+ *
+ * \endverbatim
+ *
+ * @param[in] local_nlat See ``charm@P@_point.local_nlat``.
+ *
+ * @param[in] local_0_start See ``charm@P@_point.local_0_start``.
+ *
+ * @param[in] comm MPI communicator.
+ *
+ * @param[out] err Error reported by the function (if any).
+ *
+ * @returns If all processes succeeded, returned is a pointer to the
+ * ``charm@P@_point`` structure.  If one or more processes failed, all
+ * processes return a ``NULL`` pointer and an error message is written to
+ * ``err``.
+ *
+ * */
+CHARM_EXTERN charm@P@_point * CHARM_CDECL
+    charm@P@_mpi_crd_point_dh1(unsigned long nmax,
+                               @RDT@ r,
+                               size_t local_nlat,
+                               size_t local_0_start,
+                               MPI_Comm comm,
+                               charm@P@_err *err);
+
+
+/** @brief The same as ``charm_mpi_crd_point_dh1()`` but for the equiangular
+ * modification of the Driscoll-Healy grid after Wieczorek and Meschede (2018).
+ * */
+CHARM_EXTERN charm@P@_point * CHARM_CDECL
+    charm@P@_mpi_crd_point_dh2(unsigned long nmax,
+                               @RDT@ r,
+                               size_t local_nlat,
+                               size_t local_0_start,
+                               MPI_Comm comm,
+                               charm@P@_err *err);
+
+
+/**
+ * @}
+ * */
+
+
+/* ......................................................................... */
+
+
+/** @name Error handling
+ *
+ * @{
+ * */
+
+
+/** @brief The same as ``charm@P@_err_init()`` but for ``charm@P@_err``
+ * distributed among processes in the MPI communicator ``comm``.
+ *
+ * @returns If all processes succeeded, returned is a pointer to the
+ * ``charm@P@_err`` structure.  If one or more processes failed, all processes
+ * return a ``NULL`` pointer.  */
+CHARM_EXTERN charm@P@_err * CHARM_CDECL charm@P@_mpi_err_init(MPI_Comm comm);
+
+
+/** @brief The same as ``charm@P@_err_isempty()`` but for both distributed
+ * (``err->distributed == 1``) and non-distributed (``err->distributed == 0``)
+ * ``charm@P@_err`` structures.
+ *
+ * @returns Returns boolean ``1`` if ``err`` is empty at all processes in
+ * ``err->comm``.  If ``err`` is not empty at one or more processes, ``0`` is
+ * returned.*/
+CHARM_EXTERN _Bool CHARM_CDECL 
+    charm@P@_mpi_err_isempty(const charm@P@_err *err);
+
+
+/**
+ * @}
+ * */
+
+
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+#ifdef __cplusplus
+}
+#endif
+/* ------------------------------------------------------------------------- */
+
+
+#endif

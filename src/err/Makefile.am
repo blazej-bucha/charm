@@ -11,7 +11,10 @@ libcharm@P@_err_la_SOURCES = err_init.c \
 							 err_handler.c \
 							 err_isempty.c \
 							 err_propagate.c \
-							 err_inc_level.c
+							 err_inc_level.c \
+							 err_omp_mpi.c \
+							 err_is_null_ptr.c \
+							 err_check_distribution.c
 
 
 EXTRA_DIST = *.h

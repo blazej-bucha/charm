@@ -15,9 +15,13 @@ extern "C"
 #endif
 
 
-extern long int cmp_vals(REAL,
-                         REAL,
-                         REAL);
+extern long int cmp_vals_real(REAL,
+                              REAL,
+                              REAL);
+
+
+extern long int cmp_vals_ulong(unsigned long,
+                               unsigned long);
 
 
 #ifdef __cplusplus

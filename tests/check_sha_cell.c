@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "../src/prec.h"
 #include "parameters.h"
+#include "error_messages.h"
 #include "generate_cell.h"
 #ifdef GENREF
 #   include "array2file.h"
@@ -27,7 +28,7 @@ long int check_sha_cell(void)
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        fprintf(stderr, "Failed to initialize an \"err\" structure.\n");
+        fprintf(stderr, ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
     /* --------------------------------------------------------------------- */
@@ -43,7 +44,7 @@ long int check_sha_cell(void)
                                              PREC(1.0));
     if (shcs_ref == NULL)
     {
-        fprintf(stderr, "Failed to initialize a \"shc\" structure.\n");
+        fprintf(stderr, ERR_MSG_SHC);
         exit(CHARM_FAILURE);
     }
 
@@ -105,8 +106,7 @@ long int check_sha_cell(void)
                                                           nlat[i], nlon[i]);
                         if (grd_cell == NULL)
                         {
-                            fprintf(stderr, "Failed to initialize a "
-                                            "\"crd\" structure\n");
+                            fprintf(stderr, ERR_MSG_CELL);
                             exit(CHARM_FAILURE);
                         }
 
@@ -124,7 +124,7 @@ long int check_sha_cell(void)
                         f = (REAL *)malloc(grd_cell->ncell * sizeof(REAL));
                         if (f == NULL)
                         {
-                            fprintf(stderr, "malloc failure.\n");
+                            fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
                             exit(CHARM_FAILURE);
                         }
 
@@ -133,8 +133,7 @@ long int check_sha_cell(void)
                                                      shcs_ref->r);
                         if (shcs_out == NULL)
                         {
-                            fprintf(stderr, "Failed to initialize a "
-                                            "\"shc\" structure\n");
+                            fprintf(stderr, ERR_MSG_SHC);
                             exit(CHARM_FAILURE);
                         }
 
@@ -189,6 +188,30 @@ long int check_sha_cell(void)
             }
         }
     }
+
+
+    /* Check that analysis with zero cells in "charm_cell" do not produce any
+     * kind of error */
+    /* ..................................................................... */
+    f = NULL;
+    grd_cell = CHARM(crd_cell_malloc)(CHARM_CRD_CELL_GRID, 0, 0);
+    shcs_out = CHARM(shc_malloc)(SHCS_NMAX_POT, PREC(1.0), PREC(1.0));
+
+
+    CHARM(sha_cell)(grd_cell, f, shcs_out->nmax, CHARM_SHA_CELL_AQ, shcs_out,
+                    err);
+    if (!CHARM(err_isempty)(err))
+    {
+        printf("\n        WARNING: Analysis with zero cells didn't pass!\n");
+        e += 1;
+    }
+
+
+    CHARM(err_reset)(err);
+    CHARM(shc_free)(shcs_out);
+    CHARM(crd_cell_free)(grd_cell);
+    free(f);
+    /* ..................................................................... */
     /* --------------------------------------------------------------------- */
 
 

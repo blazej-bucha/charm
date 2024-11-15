@@ -9,8 +9,11 @@
 #include "shs_point_sctr.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
+#include "../err/err_check_distribution.h"
+#include "../shc/shc_check_distribution.h"
 #include "../crd/crd_point_isSctr.h"
 #include "../crd/crd_point_isGrid.h"
+#include "../crd/crd_point_check_distribution.h"
 #include "shs_point_gradn.h"
 /* ------------------------------------------------------------------------- */
 
@@ -42,6 +45,30 @@ void CHARM(shs_point_grad2)
 {
     /* Some trivial initial error checks */
     /* --------------------------------------------------------------------- */
+    CHARM(err_check_distribution)(err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
+    CHARM(shc_check_distribution)(shcs, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
+    CHARM(crd_point_check_distribution)(pnt, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
     if (nmax > shcs->nmax)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,

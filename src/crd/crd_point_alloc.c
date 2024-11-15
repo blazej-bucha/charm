@@ -15,7 +15,9 @@
 
 
 
-CHARM(point) *CHARM(crd_point_alloc)(int type, size_t nlat, size_t nlon,
+CHARM(point) *CHARM(crd_point_alloc)(int type,
+                                     size_t nlat,
+                                     size_t nlon,
                                      void *(*alloc)(size_t))
 {
     /* Check the inputs */
@@ -34,19 +36,25 @@ CHARM(point) *CHARM(crd_point_alloc)(int type, size_t nlat, size_t nlon,
     REAL *w           = NULL;
 
 
-    lat = (REAL *)alloc(nlat * sizeof(REAL));
-    if (lat == NULL)
-        goto FAILURE;
+    if (nlat > 0)
+    {
+        lat = (REAL *)alloc(nlat * sizeof(REAL));
+        if (lat == NULL)
+            goto FAILURE;
 
 
-    lon = (REAL *)alloc(nlon * sizeof(REAL));
-    if (lon == NULL)
-        goto FAILURE;
+        r = (REAL *)alloc(nlat * sizeof(REAL));
+        if (r == NULL)
+            goto FAILURE;
+    }
 
 
-    r = (REAL *)alloc(nlat * sizeof(REAL));
-    if (r == NULL)
-        goto FAILURE;
+    if (nlon > 0)
+    {
+        lon = (REAL *)alloc(nlon * sizeof(REAL));
+        if (lon == NULL)
+            goto FAILURE;
+    }
 
 
     pnt = CHARM(crd_point_init)(type, nlat, nlon, lat, lon, r);

@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "../src/prec.h"
 #include "parameters.h"
+#include "error_messages.h"
 #ifdef GENREF
 #   include "array2file.h"
 #else
@@ -23,7 +24,7 @@ long int check_leg_pnmj_coeffs(void)
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        printf("Failed to initialize the \"err\" structure.\n");
+        fprintf(stderr, ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -54,8 +55,7 @@ long int check_leg_pnmj_coeffs(void)
                                                      CHARM_LEG_PMJN);
             if (pnmj == NULL)
             {
-                fprintf(stderr, "Failed to initialize the \"pnmj\" "
-                                "structure.\n");
+                fprintf(stderr, ERR_MSG_PNMJ);
                 exit(CHARM_FAILURE);
             }
 

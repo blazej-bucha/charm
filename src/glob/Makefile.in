@@ -94,6 +94,7 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/ax_check_compile_flag.m4 \
 	$(top_srcdir)/m4/ax_compiler_vendor.m4 \
 	$(top_srcdir)/m4/ax_gcc_version.m4 \
 	$(top_srcdir)/m4/ax_openmp.m4 \
+	$(top_srcdir)/m4/ax_prog_cc_mpi.m4 \
 	$(top_srcdir)/m4/ax_split_version.m4 \
 	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/ltoptions.m4 \
 	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
@@ -108,7 +109,10 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 LTLIBRARIES = $(noinst_LTLIBRARIES)
 libcharm@P@_glob_la_LIBADD =
-am_libcharm@P@_glob_la_OBJECTS = glob.lo
+am_libcharm@P@_glob_la_OBJECTS = glob.lo \
+	glob_get_sha_block_lat_multiplier.lo \
+	glob_get_shs_block_lat_multiplier.lo \
+	glob_get_shc_block_nmax_multiplier.lo
 libcharm@P@_glob_la_OBJECTS = $(am_libcharm@P@_glob_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -129,7 +133,10 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/glob.Plo
+am__depfiles_remade = ./$(DEPDIR)/glob.Plo \
+	./$(DEPDIR)/glob_get_sha_block_lat_multiplier.Plo \
+	./$(DEPDIR)/glob_get_shc_block_nmax_multiplier.Plo \
+	./$(DEPDIR)/glob_get_shs_block_lat_multiplier.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -214,6 +221,8 @@ MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
 MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
+MPICC = @MPICC@
+MPIEXEC = @MPIEXEC@
 NM = @NM@
 NMEDIT = @NMEDIT@
 NP_FLOAT = @NP_FLOAT@
@@ -247,6 +256,7 @@ SHARED_EXT = @SHARED_EXT@
 SHELL = @SHELL@
 STRIP = @STRIP@
 VERSION = @VERSION@
+WITH_MPI = @WITH_MPI@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -266,6 +276,7 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 builddir = @builddir@
+check_mpiexec = @check_mpiexec@
 datadir = @datadir@
 datarootdir = @datarootdir@
 docdir = @docdir@
@@ -306,7 +317,11 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 noinst_LTLIBRARIES = libcharm@P@_glob.la
 AM_CPPFLAGS = -I$(top_srcdir)/charm
-libcharm@P@_glob_la_SOURCES = glob.c
+libcharm@P@_glob_la_SOURCES = glob.c \
+							  glob_get_sha_block_lat_multiplier.c \
+							  glob_get_shs_block_lat_multiplier.c \
+							  glob_get_shc_block_nmax_multiplier.c
+
 all: all-am
 
 .SUFFIXES:
@@ -362,6 +377,9 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glob.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glob_get_sha_block_lat_multiplier.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glob_get_shc_block_nmax_multiplier.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glob_get_shs_block_lat_multiplier.Plo@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -475,6 +493,9 @@ clean-am: clean-generic clean-libtool clean-noinstLTLIBRARIES \
 
 distclean: distclean-am
 		-rm -f ./$(DEPDIR)/glob.Plo
+	-rm -f ./$(DEPDIR)/glob_get_sha_block_lat_multiplier.Plo
+	-rm -f ./$(DEPDIR)/glob_get_shc_block_nmax_multiplier.Plo
+	-rm -f ./$(DEPDIR)/glob_get_shs_block_lat_multiplier.Plo
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic
 
@@ -520,6 +541,9 @@ installcheck-am:
 
 maintainer-clean: maintainer-clean-am
 		-rm -f ./$(DEPDIR)/glob.Plo
+	-rm -f ./$(DEPDIR)/glob_get_sha_block_lat_multiplier.Plo
+	-rm -f ./$(DEPDIR)/glob_get_shc_block_nmax_multiplier.Plo
+	-rm -f ./$(DEPDIR)/glob_get_shs_block_lat_multiplier.Plo
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

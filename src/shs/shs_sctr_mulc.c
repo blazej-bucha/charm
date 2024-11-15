@@ -5,6 +5,7 @@
 #include "../prec.h"
 #include "../simd/simd.h"
 #include "../crd/crd_cell_isSctr.h"
+#include "../glob/glob_get_shs_block_lat_multiplier.h"
 #include "shs_sctr_mulc.h"
 /* ------------------------------------------------------------------------- */
 
@@ -22,9 +23,16 @@ void CHARM(shs_sctr_mulc)(size_t i,
                           REAL_SIMD *fi,
                           REAL *f)
 {
+#if HAVE_MPI
+    const size_t BLOCK_S = CHARM(glob_get_shs_block_lat_multiplier)();
+#else
+#   define BLOCK_S SIMD_BLOCK_S
+#endif
+
+
     size_t ipv;
     size_t il;
-    size_t simd_blk = CHARM(crd_cell_isSctr)(type) ? 1 : SIMD_BLOCK_S;
+    size_t simd_blk = CHARM(crd_cell_isSctr)(type) ? 1 : BLOCK_S;
     REAL_SIMD c = SET1_R(mur);
 
 

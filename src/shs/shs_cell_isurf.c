@@ -15,8 +15,10 @@
 #include "../integ/integ_sss.h"
 #include "../crd/crd_check_cells.h"
 #include "../crd/crd_cell_isGrid.h"
+#include "../shc/shc_check_distribution.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
+#include "../err/err_check_distribution.h"
 #include "../simd/simd.h"
 #include "../simd/malloc_aligned.h"
 #include "../simd/calloc_aligned.h"
@@ -30,13 +32,41 @@
 
 
 void CHARM(shs_cell_isurf)(const CHARM(cell) *cell,
-                           const CHARM(shc) *shcs1, unsigned long nmax1,
-                           const CHARM(shc) *shcs2, unsigned long nmax2,
-                           unsigned long nmax3, unsigned long nmax4,
-                           REAL *f, CHARM(err) *err)
+                           const CHARM(shc) *shcs1,
+                           unsigned long nmax1,
+                           const CHARM(shc) *shcs2,
+                           unsigned long nmax2,
+                           unsigned long nmax3,
+                           unsigned long nmax4,
+                           REAL *f,
+                           CHARM(err) *err)
 {
     /* Some error checks */
     /* --------------------------------------------------------------------- */
+    CHARM(err_check_distribution)(err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
+    CHARM(shc_check_distribution)(shcs1, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
+    CHARM(shc_check_distribution)(shcs2, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
     if (!CHARM(crd_cell_isGrid)(cell->type))
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
@@ -80,6 +110,12 @@ void CHARM(shs_cell_isurf)(const CHARM(cell) *cell,
                        "\"1.0\".");
         return;
     }
+
+
+    /* Do nothing if the total number of cells in "cell" is zero, which is
+     * a valid case */
+    if (cell->ncell == 0)
+        return;
 
 
     /* Check whether "cell->lonmin" and "cell->lonmax" are linearly increasing

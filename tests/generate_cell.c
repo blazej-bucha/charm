@@ -3,6 +3,8 @@
 #include <config.h>
 #include <stdio.h>
 #include "../src/prec.h"
+#include "../src/crd/crd_cell_isGrid.h"
+#include "../src/crd/crd_cell_isSctr.h"
 #include "generate_cell.h"
 /* ------------------------------------------------------------------------- */
 
@@ -11,15 +13,17 @@
 
 
 
-void CHARM(generate_cell)(CHARM(cell) *grd, REAL r, REAL lat_rng, REAL lon_rng)
+void CHARM(generate_cell)(CHARM(cell) *grd,
+                          REAL r,
+                          REAL lat_rng,
+                          REAL lon_rng)
 {
-    size_t nlat  = grd->nlat;
-    size_t nlon  = grd->nlon;
-    int grd_type = grd->type;
+    const size_t nlat  = grd->nlat;
+    const size_t nlon  = grd->nlon;
+    const int grd_type = grd->type;
 
 
-    if ((grd_type == CHARM_CRD_CELL_GRID) ||
-        (grd_type == CHARM_CRD_CELL_SCATTERED))
+    if (CHARM(crd_cell_isGrid)(grd_type) || CHARM(crd_cell_isSctr)(grd_type))
     {
         for (size_t l = 0; l < nlat; l++)
         {
@@ -36,7 +40,7 @@ void CHARM(generate_cell)(CHARM(cell) *grd, REAL r, REAL lat_rng, REAL lon_rng)
     }
     else
     {
-        fprintf(stderr, "Wrong grid type.\n");
+        fprintf(stderr, "Wrong cell type.\n");
         exit(CHARM_FAILURE);
     }
 

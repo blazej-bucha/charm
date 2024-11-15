@@ -93,6 +93,7 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/ax_check_compile_flag.m4 \
 	$(top_srcdir)/m4/ax_compiler_vendor.m4 \
 	$(top_srcdir)/m4/ax_gcc_version.m4 \
 	$(top_srcdir)/m4/ax_openmp.m4 \
+	$(top_srcdir)/m4/ax_prog_cc_mpi.m4 \
 	$(top_srcdir)/m4/ax_split_version.m4 \
 	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/ltoptions.m4 \
 	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
@@ -182,6 +183,8 @@ MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
 MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
+MPICC = @MPICC@
+MPIEXEC = @MPIEXEC@
 NM = @NM@
 NMEDIT = @NMEDIT@
 NP_FLOAT = @NP_FLOAT@
@@ -215,6 +218,7 @@ SHARED_EXT = @SHARED_EXT@
 SHELL = @SHELL@
 STRIP = @STRIP@
 VERSION = @VERSION@
+WITH_MPI = @WITH_MPI@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -234,6 +238,7 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 builddir = @builddir@
+check_mpiexec = @check_mpiexec@
 datadir = @datadir@
 datarootdir = @datarootdir@
 docdir = @docdir@
@@ -513,6 +518,17 @@ help:
 
 doxygen:
 	cd $(top_srcdir) && ./config.status
+@DOC_PY_MPI_FALSE@@DOC_TRUE@	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@DOC_PY_MPI_FALSE@@DOC_TRUE@	@echo
+@DOC_PY_MPI_FALSE@@DOC_TRUE@	@echo ERROR: Python interface and MPI are required to build the documentation
+@DOC_PY_MPI_FALSE@@DOC_TRUE@	@echo
+@DOC_PY_MPI_FALSE@@DOC_TRUE@	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@DOC_FALSE@	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@DOC_FALSE@	@echo
+@DOC_FALSE@	@echo ERROR: Documentation can only be built if CHarm is compiled in \
+@DOC_FALSE@		  double precision
+@DOC_FALSE@	@echo
+@DOC_FALSE@	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	doxygen Doxyfile
 
 $(SPHINXTARGETS) $(SPHINXTARGETS_DEL): doxygen
@@ -520,19 +536,8 @@ $(SPHINXTARGETS) $(SPHINXTARGETS_DEL): doxygen
 	cd $(top_srcdir) && rm -f ./wrap/pyharm@P@/libcharm@P@*.so
 	cd $(top_srcdir) && \
 		cp ./build/lib*/pyharm/libcharm@P@*.so ./wrap/pyharm@P@
-@DOC_PY_TRUE@@DOC_TRUE@	rm -rf build/$@
-@DOC_PY_TRUE@@DOC_TRUE@	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
-@DOC_PY_FALSE@@DOC_TRUE@	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-@DOC_PY_FALSE@@DOC_TRUE@	@echo
-@DOC_PY_FALSE@@DOC_TRUE@	@echo ERROR: Python interface is required to build the documentation
-@DOC_PY_FALSE@@DOC_TRUE@	@echo
-@DOC_PY_FALSE@@DOC_TRUE@	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-@DOC_FALSE@	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-@DOC_FALSE@	@echo
-@DOC_FALSE@	@echo ERROR: Documentation can only be built if CHarm is compiled in \
-@DOC_FALSE@		  double precision
-@DOC_FALSE@	@echo
-@DOC_FALSE@	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	rm -rf build/$@
+	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 remove-doc-files:
 	rm -rf xml

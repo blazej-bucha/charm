@@ -7,6 +7,7 @@
 #include "../prec.h"
 #include "../simd/simd.h"
 #include "../crd/crd_cell_isGrid.h"
+#include "../glob/glob_get_shs_block_lat_multiplier.h"
 #include "shs_grd_fft.h"
 /* ------------------------------------------------------------------------- */
 
@@ -38,9 +39,16 @@ void CHARM(shs_grd_fft)(size_t i,
                         REAL *ftmp,
                         REAL *f)
 {
+#if HAVE_MPI
+    const size_t BLOCK_S = CHARM(glob_get_shs_block_lat_multiplier)();
+#else
+#   define BLOCK_S SIMD_BLOCK_S
+#endif
+
+
     size_t ipv, row, idx, lss, lssv, lssidx;
     _Bool is_cell_grd = CHARM(crd_cell_isGrid)(grd_type);
-    size_t simd_blk = (is_cell_grd) ? 1 : SIMD_BLOCK_S;
+    size_t simd_blk = (is_cell_grd) ? 1 : BLOCK_S;
     size_t size_blk = SIMD_SIZE * simd_blk;
     REAL dsigma;
     REAL c = mur;

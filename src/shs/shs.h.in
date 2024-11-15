@@ -108,56 +108,9 @@ extern "C"
  *
  * * To improve the computational speed, exploited is the symmetry of Legendre 
  *   functions with respect to the equator. This is done *automatically*, 
- *   provided that the grid stored in ``pnt`` is recognized as symmetric with 
- *   respect to the equator. Below are shown some examples of symmetric and 
- *   non-symmetric grids. (While these examples use the unit degrees for a more 
- *   intuitive understanding, note that the function inputs assume radians.)
- *
- * * Examples of some **symmetric** grids (shown are only latitudes
- *   ``pnt->lat``, the longitudes ``pnt->lon`` do not affect the grid
- *   symmetry):
- *
- *   - Equator included:
- *
- *          -90.0, -60.0, -30.0, 0.0, 30.0, 60.0, 90.0
- *
- *     or
- *
- *          -80.0, -60.0, -40.0, -20.0, 0.0, 20.0, 40.0, 60.0, 80.0
- *
- *   - Equator excluded:
- *
- *          -35.0, -25.0, -15.0, -5.0, 5.0, 15.0, 25.0, 35.0
- *
- *     or
- *
- *          -90.0, -85.0, -80.0, 80.0, 85.0, 90.0
- *
- *   - Varying spacing, equator excluded:
- *
- *          -90.0, -80.0, -75.0, -70.0, -69.0, 69.0, 70.0, 75.0, 80.0, 90.0
- *
- * * Examples of some **non-symmetric** grids (shown are only latitudes again):
- *
- *   - The negative latitude of ``-90.0 deg`` does not have its positive 
- *     counterpart
- *
- *          -90.0, -60.0, -30.0, 0.0, 30.0, 60.0
- *
- *   - The relative difference between ``fabs(-4.99)`` and ``fabs(5.0)`` is
- *     larger than ``::charm@P@_glob_threshold2`` (see <a
- *     href="./api-c-glob.html">charm@P@_glob</a>):
- *
- *          -35.0, -25.0, -15.0, -4.99, 5.0, 15.0, 25.0, 35.0
- *
- *
- * * In other words, the grid is symmetric in the latitudinal direction, 
- *   provided that all positive latitudes have their negative counterparts at 
- *   the right places.  The check is done within a given threshold to suppress
- *   numerical inaccuracies, see the ``::charm@P@_glob_threshold2`` variable in
- *   the <a href="./api-c-glob.html">charm@P@_glob</a> module. The zero
- *   latitude, i.e., the equator, may be present in the grid (again, within the
- *   specified numerical threshold ``::charm@P@_glob_threshold2``).
+ *   provided that the grid stored in ``pnt`` is recognized as symmetric with
+ *   respect to the equator. Symmetric and non-symmetric grids are explained <a
+ *   href="./definitions.html#symmetric-grids">here</a>.
  *
  * * The longitudes of the grid must be sampled increasingly with equal 
  *   spacing, that is, the difference between any two consecutive longitudes 
@@ -565,79 +518,14 @@ CHARM_EXTERN void CHARM_CDECL
  *
  * * To improve the computational speed, exploited is the symmetry of Legendre 
  *   functions with respect to the equator. This is done *automatically*, 
- *   provided that the grid stored in ``cell`` is recognized as symmetric with 
- *   respect to the equator. Below are shown some examples of symmetric and 
- *   non-symmetric grids. (While these examples use the unit degrees for a more 
- *   intuitive understanding, note that the function inputs assume radians.)
+ *   provided that the grid stored in ``cell`` is recognized as symmetric with
+ *   respect to the equator. Symmetric and non-symmetric grids are explained <a
+ *   href="./definitions.html#symmetric-grids">here</a>.
  *
- * * *Examples of some symmetric grids* (shown are only the minimum and the 
- *   maximum latitudes ``latmin`` and ``latmax``, respectively; the longitudes 
- *   do not affect the grid symmetry):
- *
- *   \verbatim embed:rst:leading-asterisk
- *    .. code-block:: none
- *
- *              latmin: -90.0, -60.0, -30.0,  0.0, 30.0, 60.0
- *              latmax: -60.0, -30.0,   0.0, 30.0, 60.0, 90.0
- *
- *   \endverbatim
- *
- *   \verbatim embed:rst:leading-asterisk
- *    .. code-block:: none
- *
- *              latmin: -35.0, -25.0, -15.0, -5.0,  5.0, 15.0, 25.0
- *              latmax: -25.0, -15.0,  -5.0,  5.0, 15.0, 25.0, 35.0
- *
- *   \endverbatim
- *
- *   \verbatim embed:rst:leading-asterisk
- *    .. code-block:: none
- *
- *              latmin: -90.0, -85.0, 80.0, 85.0
- *              latmax: -85.0, -80.0, 85.0, 90.0
- *
- *   \endverbatim
- *
- *   \verbatim embed:rst:leading-asterisk
- *    .. code-block:: none
- *
- *              latmin: -90.0, -80.0, -75.0, -70.0, 69.0, 70.0, 75.0, 80.0
- *              latmax: -80.0, -75.0, -70.0, -69.0, 70.0, 75.0, 80.0, 90.0
- *
- *   \endverbatim
- * */
-/**
- * * *Examples of some grids that are not considered as symmetric* (shown are 
- *   again only latitudes):
- *
- *   \verbatim embed:rst:leading-asterisk
- *    .. code-block:: none
- *
- *              latmin: -90.0, -60.0, -30.0,  0.0, 30.0
- *              latmax: -60.0, -30.0,   0.0, 30.0, 60.0
- *
- *   \endverbatim
- *
- *   \verbatim embed:rst:leading-asterisk
- *    .. code-block:: none
- *
- *              latmin: -35.0, -25.0, -15.0,     5.0, 15.0, 25.0
- *              latmax: -25.0, -15.0,  -4.99,   15.0, 25.0, 35.0
- *
- *   \endverbatim
- *
- * * In other words, the grid is symmetric in the latitudinal direction, 
- *   provided that all positive latitudes have their negative counterparts at 
- *   the right places.  The check is done within a given threshold to suppress
- *   numerical inaccuracies, see the ``::charm@P@_glob_threshold2`` variable in
- *   the <a href="./api-c-glob.html">charm@P@_glob</a> module. The zero
- *   latitude, i.e., the equator, may be present in the grid (again, within the
- *   specified numerical threshold ``::charm@P@_glob_threshold2``).
- *
- * * The longitudes of the grid must be sampled increasingly with equal 
- *   spacing, that is, the difference between any two consecutive minimum cell 
- *   longitudes must be positive and constant and the same holds for the 
- *   maximum cell longitudes as well; moreover, the step in minimum cell 
+ * * The longitudes of the grid must be sampled increasingly with equal
+ *   spacing, that is, the difference between any two consecutive minimum cell
+ *   longitudes must be positive and constant and the same holds for the
+ *   maximum cell longitudes as well; moreover, the step in minimum cell
  *   longitudes must be equal to the step in maximum cell longitudes.  Two 
  *   examples of an acceptable longitudinal sampling (shown are minimum and 
  *   maximum longitudes of grid cells):

@@ -18,12 +18,15 @@ libcharm@P@_misc_la_SOURCES = misc_arr_chck_lin_incr.c \
 							  misc_str2ul.c \
 							  misc_str2real.c \
 							  misc_calloc.c \
+							  misc_check_radius.c \
 							  misc_polar_optimization_apply.c \
 							  misc_polar_optimization_threshold.c \
 							  misc_buildopt_precision.c \
 							  misc_buildopt_omp_charm.c \
 							  misc_buildopt_omp_fftw.c \
 							  misc_buildopt_simd.c \
+							  misc_buildopt_simd_vector_size.c \
+							  misc_buildopt_mpi.c \
 							  misc_buildopt_isfinite.c \
 							  misc_buildopt_version_fftw.c \
 							  pyinit_libcharm.c

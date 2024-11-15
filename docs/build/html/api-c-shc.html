@@ -50,7 +50,7 @@
     <link rel="prev" title="CHarm (C API)" href="api-c.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Aug 05, 2024"/>
+    <meta name="docbuild:last-update" content="Nov 15, 2024"/>
   </head>
   
   
@@ -185,6 +185,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html">charm_err</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-mpi.html">charm_mpi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-glob.html">charm_glob</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
 </ul>
@@ -450,6 +451,12 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc1cE"><code class="docutils literal notranslate"><span class="pre">charm_shc::c</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc1sE"><code class="docutils literal notranslate"><span class="pre">charm_shc::s</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc5ownerE"><code class="docutils literal notranslate"><span class="pre">charm_shc::owner</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc11distributedE"><code class="docutils literal notranslate"><span class="pre">charm_shc::distributed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc8local_ncE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_nc</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc8local_nsE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_ns</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc12local_nchunkE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_nchunk</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc11local_orderE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_order</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc4commE"><code class="docutils literal notranslate"><span class="pre">charm_shc::comm</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -503,7 +510,7 @@ document.write(`
 <dd><p>Allocates spherical harmonic coefficients up to degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>. The <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1a241fa5b0edae9a1574e948e5a6269b68"><span class="std std-ref"><span class="pre">charm_shc.mu</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1a847dadddf26eeffc5b5060f4f745d20a"><span class="std std-ref"><span class="pre">charm_shc.r</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1afa2a47ef5dfb21b8c01fa506b17859af"><span class="std std-ref"><span class="pre">charm_shc.owner</span></span></a></code> members are set to <code class="docutils literal notranslate"><span class="pre">mu</span></code>, <code class="docutils literal notranslate"><span class="pre">r</span></code> and <code class="docutils literal notranslate"><span class="pre">1</span></code>, respectively. The spherical harmonic coefficients are uninitialized, so their values are undefined. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code class="docutils literal notranslate"><span class="pre">r</span></code> must be greater than zero. </p>
+<p><code class="docutils literal notranslate"><span class="pre">r</span></code> must be larger than zero. </p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -581,7 +588,7 @@ The <code class="docutils literal notranslate"><span class="pre">c</span></code>
 </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code class="docutils literal notranslate"><span class="pre">r</span></code> must be greater than zero. </p>
+<p><code class="docutils literal notranslate"><span class="pre">r</span></code> must be larger than zero. </p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -1110,9 +1117,15 @@ The path to the output file in <code class="docutils literal notranslate"><span 
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv49charm_shc">
 <span id="_CPPv39charm_shc"></span><span id="_CPPv29charm_shc"></span><span id="charm_shc"></span><span class="target" id="structcharm__shc"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_shc</span></span></span><a class="headerlink" href="#_CPPv49charm_shc" title="Link to this definition">#</a><br /></dt>
-<dd><p>Structure to store spherical harmonic coefficients and some associated data. </p>
+<dd><p>Structure to store spherical harmonic coefficients and some associated data.</p>
+<p>If CHarm is compiled with the MPI support, the data of the structure can be distributed across MPI processes. This is useful if your dataset is so large that it would not fit into the RAM of a single computing node. The members of the structure are therefore divided into two groups.</p>
+<p><ul class="simple">
+<li><p>Members common to both non-distributed and distributed structures. These are always accessible.</p></li>
+<li><p>Members specific to distributed structures only. These are accessible only when CHarm was compiled with the MPI support. </p></li>
+</ul>
+</p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-members-common-to-non-distributed-and-distributed-structures">Members common to non-distributed and distributed structures</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N9charm_shc4nmaxE">
 <span id="_CPPv3N9charm_shc4nmaxE"></span><span id="_CPPv2N9charm_shc4nmaxE"></span><span id="charm_shc::nmax__unsigned-l"></span><span class="target" id="structcharm__shc_1a1eb06a3601467c3a4d11d09527ca5c7d"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nmax</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc4nmaxE" title="Link to this definition">#</a><br /></dt>
@@ -1128,19 +1141,19 @@ The path to the output file in <code class="docutils literal notranslate"><span 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N9charm_shc1rE">
 <span id="_CPPv3N9charm_shc1rE"></span><span id="_CPPv2N9charm_shc1rE"></span><span id="charm_shc::r__double"></span><span class="target" id="structcharm__shc_1a847dadddf26eeffc5b5060f4f745d20a"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">r</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc1rE" title="Link to this definition">#</a><br /></dt>
-<dd><p>Radius of the reference sphere <span class="math notranslate nohighlight">\(R\)</span>, to which the spherical harmonic coefficients refer (are scaled). The value must be greater than zero. To get the unit sphere, as needed, for instance, when working with planetary topographies, set this variable to <code class="docutils literal notranslate"><span class="pre">1.0</span></code>. </p>
+<dd><p>Radius of the reference sphere <span class="math notranslate nohighlight">\(R\)</span>, to which the spherical harmonic coefficients refer (are scaled). The value must be larger than zero. To get the unit sphere, as needed, for instance, when working with planetary topographies, set this variable to <code class="docutils literal notranslate"><span class="pre">1.0</span></code>. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N9charm_shc2ncE">
 <span id="_CPPv3N9charm_shc2ncE"></span><span id="_CPPv2N9charm_shc2ncE"></span><span id="charm_shc::nc__s"></span><span class="target" id="structcharm__shc_1ad185b3c1c7ef5d327fb7c382f6d4f486"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nc</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc2ncE" title="Link to this definition">#</a><br /></dt>
-<dd><p>Total number of spherical harmonic coefficients <span class="math notranslate nohighlight">\(\bar{C}_{nm}\)</span>. </p>
+<dd><p>Total number of spherical harmonic coefficients <span class="math notranslate nohighlight">\(\bar{C}_{nm}\)</span>. The value is always larger than zero. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N9charm_shc2nsE">
 <span id="_CPPv3N9charm_shc2nsE"></span><span id="_CPPv2N9charm_shc2nsE"></span><span id="charm_shc::ns__s"></span><span class="target" id="structcharm__shc_1a36033e975da459d60220cbb32560848a"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ns</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc2nsE" title="Link to this definition">#</a><br /></dt>
-<dd><p>Total number of spherical harmonic coefficients <span class="math notranslate nohighlight">\(\bar{S}_{nm}\)</span>. </p>
+<dd><p>Total number of spherical harmonic coefficients <span class="math notranslate nohighlight">\(\bar{S}_{nm}\)</span>. The value is always larger than zero. </p>
 </dd></dl>
 
 <dl class="cpp var">
@@ -1189,8 +1202,92 @@ Assuming the <code class="docutils literal notranslate"><a class="reference inte
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N9charm_shc5ownerE">
 <span id="_CPPv3N9charm_shc5ownerE"></span><span id="_CPPv2N9charm_shc5ownerE"></span><span id="charm_shc::owner___Bool"></span><span class="target" id="structcharm__shc_1afa2a47ef5dfb21b8c01fa506b17859af"></span><span class="n"><span class="pre">_Bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">owner</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc5ownerE" title="Link to this definition">#</a><br /></dt>
-<dd><p>If <code class="docutils literal notranslate"><span class="pre">1</span></code>, the spherical harmonic coefficients in <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1aec89546b6e791b22c41e47531cae878f"><span class="std std-ref"><span class="pre">charm_shc.c</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1a6818b02906586ec66ddf28095c779558"><span class="std std-ref"><span class="pre">charm_shc.s</span></span></a></code> were allocated by CHarm, so <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1ac787c43697c5383d38c392d427b78669"><span class="std std-ref"><span class="pre">charm_shc_free()</span></span></a></code> deallocates them. If <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1afa2a47ef5dfb21b8c01fa506b17859af"><span class="std std-ref"><span class="pre">charm_shc.owner</span></span></a></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code>, the coefficients in <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1aec89546b6e791b22c41e47531cae878f"><span class="std std-ref"><span class="pre">charm_shc.c</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1a6818b02906586ec66ddf28095c779558"><span class="std std-ref"><span class="pre">charm_shc.s</span></span></a></code> were allocated outside CHarm, so <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1ac787c43697c5383d38c392d427b78669"><span class="std std-ref"><span class="pre">charm_shc_free()</span></span></a></code> does <em>not</em> deallocate them (the user allocated this memory outside CHarm, so the user should free the memory outside CHarm as well).</p>
-<p><code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1afa2a47ef5dfb21b8c01fa506b17859af"><span class="std std-ref"><span class="pre">charm_shc.owner</span></span></a></code> is set to <code class="docutils literal notranslate"><span class="pre">1</span></code> for <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> returned by <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a4895f2b307f1ce52ed05804ab6db9df8"><span class="std std-ref"><span class="pre">charm_shc_malloc()</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1abc13dd997021be52d8f317562738ad14"><span class="std std-ref"><span class="pre">charm_shc_calloc()</span></span></a></code>. <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a634b6af02cca801de4e51c2248d72b20"><span class="std std-ref"><span class="pre">charm_shc_init()</span></span></a></code> returns <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> with <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1afa2a47ef5dfb21b8c01fa506b17859af"><span class="std std-ref"><span class="pre">charm_shc.owner</span></span></a></code> set to <code class="docutils literal notranslate"><span class="pre">0</span></code>. </p>
+<dd><p><ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">1</span></code>, the spherical harmonic coefficients in <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1aec89546b6e791b22c41e47531cae878f"><span class="std std-ref"><span class="pre">charm_shc.c</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1a6818b02906586ec66ddf28095c779558"><span class="std std-ref"><span class="pre">charm_shc.s</span></span></a></code> were allocated by CHarm, so <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1ac787c43697c5383d38c392d427b78669"><span class="std std-ref"><span class="pre">charm_shc_free()</span></span></a></code> deallocates them. This is the case with <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> returned by <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a4895f2b307f1ce52ed05804ab6db9df8"><span class="std std-ref"><span class="pre">charm_shc_malloc()</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1abc13dd997021be52d8f317562738ad14"><span class="std std-ref"><span class="pre">charm_shc_calloc()</span></span></a></code>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">0</span></code>, the coefficients in <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1aec89546b6e791b22c41e47531cae878f"><span class="std std-ref"><span class="pre">charm_shc.c</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1a6818b02906586ec66ddf28095c779558"><span class="std std-ref"><span class="pre">charm_shc.s</span></span></a></code> were allocated outside CHarm, so <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1ac787c43697c5383d38c392d427b78669"><span class="std std-ref"><span class="pre">charm_shc_free()</span></span></a></code> does <em>not</em> deallocate them (the user allocated this memory outside CHarm, so the user should free the memory outside CHarm as well). This is the case with <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> returned by <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a634b6af02cca801de4e51c2248d72b20"><span class="std std-ref"><span class="pre">charm_shc_init()</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="api-c-mpi.html#charm__mpi_8h_1ade483c15d62f78323d77488f72d00eb7"><span class="std std-ref"><span class="pre">charm_mpi_shc_init()</span></span></a></code>. </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N9charm_shc11distributedE">
+<span id="_CPPv3N9charm_shc11distributedE"></span><span id="_CPPv2N9charm_shc11distributedE"></span><span id="charm_shc::distributed___Bool"></span><span class="target" id="structcharm__shc_1a8d7afa2ae075e75529008ec97ee20b1b"></span><span class="n"><span class="pre">_Bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">distributed</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc11distributedE" title="Link to this definition">#</a><br /></dt>
+<dd><p><ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">0</span></code>, the structure is not distributed, meaning that each process (be it an OpenMP or MPI process) accesses the same data through <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1aec89546b6e791b22c41e47531cae878f"><span class="std std-ref"><span class="pre">charm_shc.c</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1a6818b02906586ec66ddf28095c779558"><span class="std std-ref"><span class="pre">charm_shc.s</span></span></a></code> and, if compiled with MPI support, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1adf572eb83bceaabf961e8abd47f9422c"><span class="std std-ref"><span class="pre">charm_shc.local_order</span></span></a></code>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">1</span></code>, the structure is distributed across MPI processes, that is, each MPI process accesses different data through <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1aec89546b6e791b22c41e47531cae878f"><span class="std std-ref"><span class="pre">charm_shc.c</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1a6818b02906586ec66ddf28095c779558"><span class="std std-ref"><span class="pre">charm_shc.s</span></span></a></code> and, if compiled with MPI support, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1adf572eb83bceaabf961e8abd47f9422c"><span class="std std-ref"><span class="pre">charm_shc.local_order</span></span></a></code>.</p></li>
+</ul>
+</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If CHarm was compiled without the MPI support (default), <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1a8d7afa2ae075e75529008ec97ee20b1b"><span class="std std-ref"><span class="pre">charm_shc.distributed</span></span></a></code> is always <code class="docutils literal notranslate"><span class="pre">0</span></code>. </p>
+</div>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-members-available-to-distributed-structures-only">Members available to distributed structures only</p>
+<p><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The members that follow are available only when CHarm is compiled with the MPI support (<code class="docutils literal notranslate"><span class="pre">--enable-mpi</span></code>, refer to <a class="reference external" href="./api-c-mpi.html">charm_mpi</a> for further details). </p>
+</div>
+</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N9charm_shc8local_ncE">
+<span id="_CPPv3N9charm_shc8local_ncE"></span><span id="_CPPv2N9charm_shc8local_ncE"></span><span id="charm_shc::local_nc__s"></span><span class="target" id="structcharm__shc_1ac5b507aadfd79bf5aae97450fe4151c7"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">local_nc</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc8local_ncE" title="Link to this definition">#</a><br /></dt>
+<dd><p>Total number of spherical harmonic coefficients <span class="math notranslate nohighlight">\(\bar{C}_{nm}\)</span> locally accessible to an MPI process. If <code class="docutils literal notranslate"><span class="pre">0</span></code>, no coefficients are stored locally. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N9charm_shc8local_nsE">
+<span id="_CPPv3N9charm_shc8local_nsE"></span><span id="_CPPv2N9charm_shc8local_nsE"></span><span id="charm_shc::local_ns__s"></span><span class="target" id="structcharm__shc_1ace7c509afd88322a954e88fc8c83a130"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">local_ns</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc8local_nsE" title="Link to this definition">#</a><br /></dt>
+<dd><p>Total number of spherical harmonic coefficients <span class="math notranslate nohighlight">\(\bar{S}_{nm}\)</span> locally accessible to an MPI process. If <code class="docutils literal notranslate"><span class="pre">0</span></code>, no coefficients are stored locally. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N9charm_shc12local_nchunkE">
+<span id="_CPPv3N9charm_shc12local_nchunkE"></span><span id="_CPPv2N9charm_shc12local_nchunkE"></span><span id="charm_shc::local_nchunk__s"></span><span class="target" id="structcharm__shc_1ac39effb39d17225fe9e75e4d25602fd7"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">local_nchunk</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc12local_nchunkE" title="Link to this definition">#</a><br /></dt>
+<dd><p>Total number of chunks of spherical harmonic orders that are stored locally. If <code class="docutils literal notranslate"><span class="pre">0</span></code>, no chunks are stored locally. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N9charm_shc11local_orderE">
+<span id="_CPPv3N9charm_shc11local_orderE"></span><span id="_CPPv2N9charm_shc11local_orderE"></span><span id="charm_shc::local_order__unsigned-lP"></span><span class="target" id="structcharm__shc_1adf572eb83bceaabf961e8abd47f9422c"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">local_order</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc11local_orderE" title="Link to this definition">#</a><br /></dt>
+<dd><p>Spherical harmonic orders specifying chunks of spherical harmonic coefficients that are locally available to an MPI process. The pointer is <code class="docutils literal notranslate"><span class="pre">NULL</span></code> if <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1ac39effb39d17225fe9e75e4d25602fd7"><span class="std std-ref"><span class="pre">charm_shc.local_nchunk</span></span></a></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<p>Assume there is <code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">=</span> <a class="reference internal" href="#structcharm__shc_1ac39effb39d17225fe9e75e4d25602fd7"><span class="std std-ref"><span class="pre">charm_shc.local_nchunk</span></span></a></code> local chunks. The pointer <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1adf572eb83bceaabf961e8abd47f9422c"><span class="std std-ref"><span class="pre">charm_shc.local_order</span></span></a></code> points to an array of <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">k</span></code> elements having the structure:</p>
+<p><div class="math notranslate nohighlight">
+\[\underbrace{m_0, m_1}_{\textrm{chunk 0}} | \underbrace{m_2,
+m_3}_{\textrm{chunk 1}} | \underbrace{...}_{\textrm{chunks 2 to }k
+- 2} | \underbrace{m_{2k - 2}, m_{2k - 1}}_{\textrm{chunk }k
+- 1}{,}\]</div>
+</p>
+<p>where <span class="math notranslate nohighlight">\(m_{2j}\)</span> and <span class="math notranslate nohighlight">\(m_{2j + 1}\)</span>, <span class="math notranslate nohighlight">\(j = 0, 1, ..., k - 1\)</span>, denote the minimum and the maximum orders of the chunks, respectively. Spherical harmonic coefficients <span class="math notranslate nohighlight">\(\bar{C}_{nm}\)</span> and <span class="math notranslate nohighlight">\(\bar{S}_{nm}\)</span> of all degrees <span class="math notranslate nohighlight">\(n = m, m + 1, ...,
+  n_{\textrm{max}}\)</span> and orders <span class="math notranslate nohighlight">\(m = m_{2j}, ..., m_{2j + 1}\)</span>, <span class="math notranslate nohighlight">\(j
+  = 0, 1, ..., k - 1\)</span>, are accessible to an MPI process through <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1aec89546b6e791b22c41e47531cae878f"><span class="std std-ref"><span class="pre">charm_shc.c</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1a6818b02906586ec66ddf28095c779558"><span class="std std-ref"><span class="pre">charm_shc.s</span></span></a></code>. The ordering of the coefficients in <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1aec89546b6e791b22c41e47531cae878f"><span class="std std-ref"><span class="pre">charm_shc.c</span></span></a></code> is then as follows:</p>
+<p><div class="math notranslate nohighlight">
+\[\underbrace{\bar{C}_{m_0, m_0}, \bar{C}_{m_0 + 1, m_0}, ...,
+\bar{C}_{\mathrm{nmax}, m_0}, \bar{C}_{m_0 + 1, m_0 + 1},
+... ,\bar{C}_{\mathrm{nmax}, m_0 + 1}, ..., \bar{C}_{\mathrm{nmax},
+m_1}}_{\textrm{chunk 0}} | \underbrace{\bar{C}_{m_2, m_2}, ...,
+\bar{C}_{\mathrm{nmax}, m_3}}_{\textrm{chunk 1}}
+| \underbrace{...}_{\textrm{chunks 2 to }k - 2}
+| \underbrace{\bar{C}_{m_{2k - 2}, m_{2k - 2}}, ...,
+\bar{C}_{\mathrm{nmax}}, m_{2k - 1}}_{\textrm{chunk }k - 1}{.}\]</div>
+</p>
+<p>The total number of these coefficients is stored in <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1ac5b507aadfd79bf5aae97450fe4151c7"><span class="std std-ref"><span class="pre">charm_shc.local_nc</span></span></a></code>. It can also be determined a priori by <code class="docutils literal notranslate"><a class="reference internal" href="api-c-mpi.html#charm__mpi_8h_1a952e6317796066ccc56bb647c5bb73d0"><span class="std std-ref"><span class="pre">charm_mpi_shc_local_ncs()</span></span></a></code>. The same ordering and the number of coefficients applies to <span class="math notranslate nohighlight">\(\bar{S}_{nm}\)</span> in <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1a6818b02906586ec66ddf28095c779558"><span class="std std-ref"><span class="pre">charm_shc.s</span></span></a></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Whenever creating <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> through the CHarm’s API, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1adf572eb83bceaabf961e8abd47f9422c"><span class="std std-ref"><span class="pre">charm_shc.local_order</span></span></a></code> is always a deep copy of the user’s original data <code class="docutils literal notranslate"><span class="pre">local_order</span></code>. Users can therefore safely free their original <code class="docutils literal notranslate"><span class="pre">local_order</span></code> array after creating <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sounds complicated? It isn’t! Have a look at the <a class="reference external" href="./api-c-mpi.html">charm_mpi</a> module and the <a class="reference external" href="./cookbook-c.html#distributed-computing-with-mpi">cookbook</a>. </p>
+</div>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N9charm_shc4commE">
+<span id="_CPPv3N9charm_shc4commE"></span><span id="_CPPv2N9charm_shc4commE"></span><span id="charm_shc::comm__MPI_Comm"></span><span class="target" id="structcharm__shc_1a8afc7fe9223b4686016c2263c30e504c"></span><span class="n"><span class="pre">MPI_Comm</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">comm</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc4commE" title="Link to this definition">#</a><br /></dt>
+<dd><p>MPI communicator defining the group of MPI processes to distribute the structure across. </p>
 </dd></dl>
 
 </div>
@@ -1275,6 +1372,12 @@ Assuming the <code class="docutils literal notranslate"><a class="reference inte
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc1cE"><code class="docutils literal notranslate"><span class="pre">charm_shc::c</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc1sE"><code class="docutils literal notranslate"><span class="pre">charm_shc::s</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc5ownerE"><code class="docutils literal notranslate"><span class="pre">charm_shc::owner</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc11distributedE"><code class="docutils literal notranslate"><span class="pre">charm_shc::distributed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc8local_ncE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_nc</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc8local_nsE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_ns</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc12local_nchunkE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_nchunk</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc11local_orderE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_order</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc4commE"><code class="docutils literal notranslate"><span class="pre">charm_shc::comm</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1310,7 +1413,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Aug 05, 2024.
+  Last updated on Nov 15, 2024.
   <br/>
 </p>
   </div>

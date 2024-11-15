@@ -19,8 +19,11 @@ CHarm (the C library)
 
 .. _charm_requirements:
 
-Requirements
+Dependencies
 ~~~~~~~~~~~~
+
+Mandatory
+"""""""""
 
 * C compiler supporting C99.  `GCC <https://gcc.gnu.org/>`_ is recommended 
   (available by default on most Linux distributions).  Other compilers that are 
@@ -39,14 +42,20 @@ Requirements
 
 * `FFTW <http://www.fftw.org/>`_ for discrete fast Fourier transforms.
 
+Optional
+""""""""
+
+* `MPI <https://www.mpi-forum.org/>`_ for parallelization on distributed-memory 
+  systems (e.g., high-performance computing clusters).
+
 
 .. _installation_linux:
 
 Installation on Linux
 ~~~~~~~~~~~~~~~~~~~~~
 
-At first, we will install FFTW and then we will proceed with the installation
-of CHarm.
+At first, we will install FFTW and (optionally) MPI, after which we will 
+proceed with the installation of CHarm.
 
 .. _installation_FFTW_linux:
 
@@ -102,6 +111,23 @@ FFTW can either be installed via you package manager or built from the source.
   ``configure`` script.  If you do not want to parallelize FFTW, you may omit
   the ``--enable-openmp`` flag.
 
+.. _installation_MPI_linux:
+
+MPI installation
+""""""""""""""""
+
+Skip this chapter if you do not intend to use CHarm on distributed-memory 
+system like HPC clusters.
+
+Choose an MPI implementation (e.g., `OpenMPI <https://www.open-mpi.org/>`_, 
+`MPICH <https://www.mpich.org/>`_) and either build the MPI library from source 
+or install it using your package manager.
+
+Importantly, the MPI implementation must support the MPI standard version 3.0 
+(September 2012) or newer.  Since the MPI standard does not support the 
+``__float128`` data type, CHarm in quadruple precision cannot be built with the 
+MPI support.
+
 
 .. _default_installation_charm_linux:
 
@@ -114,8 +140,9 @@ If you
 * have installed FFTW (version ``3.X.X``) to the default path available to the
   compiler,
 * want a double precision version of CHarm,
+* do not want to enable SIMD CPU instructions,
 * do not want OpenMP parallelization,
-* do not want to enable SIMD CPU instructions, and
+* do not want MPI parallelization,
 * have root privileges,
 
 you may simply execute the following commands:
@@ -147,13 +174,6 @@ following flags to the ``./configure`` call.
   for floating point numbers, respectively).  If not specified, double 
   precision is used as default.
 
-* ``--enable-openmp`` to enable OpenMP parallelization (no parallelization by 
-  default).
-
-  The number of threads can be set either in your code by 
-  ``omp_set_num_threads(N)`` or by using the ``OMP_NUM_THREADS`` environment 
-  variable.
-
 * ``--enable-avx`` or ``--enable-avx2`` or ``--enable-avx-512`` or 
   ``--enable-neon`` to enable AVX, AVX2, AVX-512 or NEON CPU instructions, 
   respectively (all disabled by default).
@@ -179,19 +199,49 @@ following flags to the ``./configure`` call.
   precision, therefore they can be enabled only when compiling in single or 
   double precision.
 
+* ``--enable-openmp`` to enable OpenMP parallelization for shared-memory 
+  architectures (no parallelization by default).
+
+  The number of threads can be set either in your code by 
+  ``omp_set_num_threads(N)`` or by using the ``OMP_NUM_THREADS`` environment 
+  variable.
+
+* ``--enable-mpi`` to enable MPI parallelization for shared- and 
+  distributed-memory architectures (no parallelization by default).
+
+  MPI parallelization combined with distributed-memory systems like HPC 
+  clusters allows you to conduct spherical harmonic transforms up to a few 
+  hundred thousands.  The basic idea is to distribute the signal and spherical 
+  harmonic coefficients over several computing nodes, because these data may 
+  consume hundreds of GBs of RAM.  Such an amount of memory is only rarely 
+  available on a single shared-memory system.
+
+  In addition to HPC clusters, you can also take advantage of MPI if you have 
+  a few ordinary PCs connected through some network protocol (e.g., SSH).  This 
+  will allow you to distribute your large data sets across your PCs.
+
+  Finally, MPI works on shared-memory architectures, too.  However, in the case 
+  of CHarm, there are generally no or little advantages over OpenMP.  For 
+  shared-memory systems, most users should therefore prefer OpenMP over MPI.
+
+  For best performance with high-degree spherical harmonic transforms, you can 
+  (and in fact should) combine MPI with OpenMP and SIMD.
+
 * ``--prefix=/your/custom/path`` to specify a custom installation path for
   CHarm (default is ``--prefix=/usr/local``).
 
-* ``LDFLAGS=-L/your/path/to/FFTW/lib`` to specify a custom path to your FFTW
-  libs (empty by default, that is, default is to assume that FFTW is accessible
-  to the compiler).
+* ``LDFLAGS`` to specify a custom path to your FFTW (and optionally MPI) libs, 
+  e.g., ``LDFLAGS="-L/your/path/to/FFTW/lib -L/your/another/path/to/MPI/lib"`` 
+  (empty by default, that is, default is to assume that these libraries are 
+  accessible to the compiler).
 
-  You only need to specify the path to the FFTW library; the lib files
-  themselves are linked automatically.
+  You only need to specify the path; the lib files themselves are linked 
+  automatically.
 
-* ``CPPFLAGS=-I/your/path/to/FFTW/include`` to specify a custom path to your
-  FFTW header file (empty by default, that is, default is to assume that FFTW
-  is accessible to the compiler).
+* ``CPPFLAGS`` to specify a custom path to your FFTW (optionally MPI) header 
+  files, e.g., ``CPPFLAGS="-I/your/path/to/FFTW/include 
+  -I/your/another/path/to/MPI/include"`` (empty by default, that is, default is 
+  to assume the header file(s) is accessible to the compiler).
 
 * ``--disable-shared`` to not compile CHarm as a shared library.
 
@@ -285,6 +335,13 @@ preferably with GCC.  The latter is strongly recommended on macOS.
   ``CC=gcc`` (GCC version number omitted), as this will still likely call 
   Clang.
 
+
+MPI installation
+""""""""""""""""
+
+See :ref:`MPI installation on Linux <installation_MPI_linux>`.
+
+
 CHarm installation
 """"""""""""""""""
 
@@ -331,7 +388,7 @@ Before reading this chapter, make sure you know how to compile :ref:`CHarm
 Requirements
 ~~~~~~~~~~~~
 
-*Additional* prerequisites when compared with :ref:`requirements 
+*Additional* prerequisites when compared with :ref:`dependencies 
 <charm_requirements>`:
 
 * Python interpreter 3.6 or newer,
@@ -342,6 +399,8 @@ Requirements
 
 * Python module `ctypes <https://docs.python.org/3/library/ctypes.html>`_ 
   (reasonably old version).
+
+PyHarm does not support the MPI parallelization.
 
 
 Building PyHarm

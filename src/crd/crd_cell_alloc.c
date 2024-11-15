@@ -14,7 +14,9 @@
 
 
 
-CHARM(cell) *CHARM(crd_cell_alloc)(int type, size_t nlat, size_t nlon,
+CHARM(cell) *CHARM(crd_cell_alloc)(int type,
+                                   size_t nlat,
+                                   size_t nlon,
                                    void *(*alloc)(size_t))
 {
     /* Check the inputs */
@@ -34,29 +36,35 @@ CHARM(cell) *CHARM(crd_cell_alloc)(int type, size_t nlat, size_t nlon,
     REAL *r           = NULL;
 
 
-    latmin = (REAL *)alloc(nlat * sizeof(REAL));
-    if (latmin == NULL)
-        goto FAILURE;
+    if (nlat > 0)
+    {
+        latmin = (REAL *)alloc(nlat * sizeof(REAL));
+        if (latmin == NULL)
+            goto FAILURE;
 
 
-    latmax = (REAL *)alloc(nlat * sizeof(REAL));
-    if (latmax == NULL)
-        goto FAILURE;
+        latmax = (REAL *)alloc(nlat * sizeof(REAL));
+        if (latmax == NULL)
+            goto FAILURE;
 
 
-    lonmin = (REAL *)alloc(nlon * sizeof(REAL));
-    if (lonmin == NULL)
-        goto FAILURE;
+        r = (REAL *)alloc(nlat * sizeof(REAL));
+        if (r == NULL)
+            goto FAILURE;
+    }
 
 
-    lonmax = (REAL *)alloc(nlon * sizeof(REAL));
-    if (lonmax == NULL)
-        goto FAILURE;
+    if (nlon > 0)
+    {
+        lonmin = (REAL *)alloc(nlon * sizeof(REAL));
+        if (lonmin == NULL)
+            goto FAILURE;
 
 
-    r = (REAL *)alloc(nlat * sizeof(REAL));
-    if (r == NULL)
-        goto FAILURE;
+        lonmax = (REAL *)alloc(nlon * sizeof(REAL));
+        if (lonmax == NULL)
+            goto FAILURE;
+    }
 
 
     cell = CHARM(crd_cell_init)(type, nlat, nlon, latmin, latmax,

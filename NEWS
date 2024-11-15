@@ -1,3 +1,40 @@
+Upcoming release:
+
+* Added support for MPI parallelization.
+
+  Spherical harmonic synthesis/analysis of point data can now also be conducted 
+  on systems with distributed memory.  These could be, for instance, nodes of 
+  high-performance computing clusters or a few ordinary PCs interconnected via 
+  some network protocol (e.g., SSH).  MPI makes it possible to distribute 
+  spherical harmonic coefficients and the signal to be analyzed/synthesized 
+  among a number of independent shared-memory systems that can communicate 
+  together.  As a result, it is now fairly possible to perform spherical 
+  harmonic transforms up to degrees as high as 100,000 and beyond.
+
+  Full documentation and cookbook-style examples are available at 
+  https://www.charmlib.org.
+
+* Added module `mpi`.
+
+* Added routines:
+
+    * `charm_crd_point_gl_shape`,
+    * `charm_crd_point_dh1_shape`,
+    * `charm_crd_point_dh2_shape`,
+    * `charm_misc_buildopt_simd_vector_size`,
+    * `charm_misc_buildopt_mpi`.
+
+* Added members to structures:
+
+    * `charm_shc`,
+    * `charm_point`,
+    * `charm_err`.
+
+* Improved test suite.
+
+* Docs improvements.
+
+
 CHarm 0.4.2:
 
 * Added support for NEON SIMD instructions on ARM64 CPUs (v8 or newer).

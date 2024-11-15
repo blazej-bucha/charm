@@ -6,6 +6,7 @@
 #include "../prec.h"
 #include "../misc/misc_str2ul.h"
 #include "../misc/misc_str2real.h"
+#include "../misc/misc_check_radius.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
 #include "shc_read_mtdt.h"
@@ -117,11 +118,10 @@ void CHARM(shc_read_mtdt)(FILE *stream,
     }
 
 
-    if (*r <= PREC(0.0))
+    CHARM(misc_check_radius)(*r, err);
+    if (!CHARM(err_isempty)(err))
     {
-        CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFILEIO,
-                       "The radius of the reference "
-                       "sphere must be larger than zero.");
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
         return;
     }
     /* ..................................................................... */

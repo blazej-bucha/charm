@@ -33,7 +33,7 @@ long int check_simd_sum_r(void)
     REAL ref = (SIMD_SIZE * (SIMD_SIZE - PREC(1.0))) / PREC(2.0);
 
 
-    e += cmp_vals(SUM_R(LOAD_R(x)), ref, CHARM(glob_threshold));
+    e += cmp_vals_real(SUM_R(LOAD_R(x)), ref, CHARM(glob_threshold));
 
 
     CHARM(free_aligned)(x);

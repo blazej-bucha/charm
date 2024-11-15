@@ -50,7 +50,7 @@
     <link rel="prev" title="charm_crd" href="api-c-crd.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Aug 05, 2024"/>
+    <meta name="docbuild:last-update" content="Nov 15, 2024"/>
   </head>
   
   
@@ -185,6 +185,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html">charm_err</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-mpi.html">charm_mpi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-glob.html">charm_glob</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
 </ul>
@@ -475,40 +476,7 @@ document.write(`
 <p>The synthesis is parallelized using OpenMP.</p>
 <p><strong>Notes on evaluation points organized in grids</strong> (not relevant for scattered points)</p>
 <p><ul class="simple">
-<li><p>To improve the computational speed, exploited is the symmetry of Legendre functions with respect to the equator. This is done <em>automatically</em>, provided that the grid stored in <code class="docutils literal notranslate"><span class="pre">pnt</span></code> is recognized as symmetric with respect to the equator. Below are shown some examples of symmetric and non-symmetric grids. (While these examples use the unit degrees for a more intuitive understanding, note that the function inputs assume radians.)</p></li>
-<li><p>Examples of some <strong>symmetric</strong> grids (shown are only latitudes <code class="docutils literal notranslate"><span class="pre">pnt-&gt;lat</span></code>, the longitudes <code class="docutils literal notranslate"><span class="pre">pnt-&gt;lon</span></code> do not affect the grid symmetry):<ul>
-<li><p>Equator included: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">-</span><span class="mf">90.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">60.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">30.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="mf">60.0</span><span class="p">,</span> <span class="mf">90.0</span>
-</pre></div>
-</div>
- or <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">-</span><span class="mf">80.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">60.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">40.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">20.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">,</span> <span class="mf">60.0</span><span class="p">,</span> <span class="mf">80.0</span>
-</pre></div>
-</div>
-</p></li>
-<li><p>Equator excluded: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">-</span><span class="mf">35.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">25.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">15.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">,</span> <span class="mf">35.0</span>
-</pre></div>
-</div>
- or <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">-</span><span class="mf">90.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">85.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">80.0</span><span class="p">,</span> <span class="mf">80.0</span><span class="p">,</span> <span class="mf">85.0</span><span class="p">,</span> <span class="mf">90.0</span>
-</pre></div>
-</div>
-</p></li>
-<li><p>Varying spacing, equator excluded: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">-</span><span class="mf">90.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">80.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">75.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">70.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">69.0</span><span class="p">,</span> <span class="mf">69.0</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">,</span> <span class="mf">75.0</span><span class="p">,</span> <span class="mf">80.0</span><span class="p">,</span> <span class="mf">90.0</span>
-</pre></div>
-</div>
-</p></li>
-</ul>
-</p></li>
-<li><p>Examples of some <strong>non-symmetric</strong> grids (shown are only latitudes again):<ul>
-<li><p>The negative latitude of <code class="docutils literal notranslate"><span class="pre">-90.0</span> <span class="pre">deg</span></code> does not have its positive counterpart <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">-</span><span class="mf">90.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">60.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">30.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="mf">60.0</span>
-</pre></div>
-</div>
-</p></li>
-<li><p>The relative difference between <code class="docutils literal notranslate"><span class="pre">fabs(-4.99)</span></code> and <code class="docutils literal notranslate"><span class="pre">fabs(5.0)</span></code> is larger than <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1afb419caab47d66aff55c04d1339b4f7d"><span class="std std-ref"><span class="pre">charm_glob_threshold2</span></span></a></code> (see <a class="reference external" href="./api-c-glob.html">charm_glob</a>): <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">-</span><span class="mf">35.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">25.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">15.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.99</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">,</span> <span class="mf">35.0</span>
-</pre></div>
-</div>
-</p></li>
-</ul>
-</p></li>
-<li><p>In other words, the grid is symmetric in the latitudinal direction, provided that all positive latitudes have their negative counterparts at the right places. The check is done within a given threshold to suppress numerical inaccuracies, see the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1afb419caab47d66aff55c04d1339b4f7d"><span class="std std-ref"><span class="pre">charm_glob_threshold2</span></span></a></code> variable in the <a class="reference external" href="./api-c-glob.html">charm_glob</a> module. The zero latitude, i.e., the equator, may be present in the grid (again, within the specified numerical threshold <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1afb419caab47d66aff55c04d1339b4f7d"><span class="std std-ref"><span class="pre">charm_glob_threshold2</span></span></a></code>).</p></li>
+<li><p>To improve the computational speed, exploited is the symmetry of Legendre functions with respect to the equator. This is done <em>automatically</em>, provided that the grid stored in <code class="docutils literal notranslate"><span class="pre">pnt</span></code> is recognized as symmetric with respect to the equator. Symmetric and non-symmetric grids are explained <a class="reference external" href="./definitions.html#symmetric-grids">here</a>.</p></li>
 <li><p>The longitudes of the grid must be sampled increasingly with equal spacing, that is, the difference between any two consecutive longitudes must be positive and constant. The function performs a check on this. If the longitudes do not pass the test, an error message is written to <code class="docutils literal notranslate"><span class="pre">err</span></code> and the program returns to the caller.</p></li>
 </ul>
 </p>
@@ -750,42 +718,7 @@ f}{\partial r^i \, \partial \varphi^j \, \lambda^k}\]</div>
 <p>The synthesis is parallelized using OpenMP.</p>
 <p><strong>Notes on evaluation cells organized in grids</strong> (not relevant for scattered cells)</p>
 <p><ul>
-<li><p>To improve the computational speed, exploited is the symmetry of Legendre functions with respect to the equator. This is done <em>automatically</em>, provided that the grid stored in <code class="docutils literal notranslate"><span class="pre">cell</span></code> is recognized as symmetric with respect to the equator. Below are shown some examples of symmetric and non-symmetric grids. (While these examples use the unit degrees for a more intuitive understanding, note that the function inputs assume radians.)</p></li>
-<li><p><em>Examples of some symmetric grids</em> (shown are only the minimum and the maximum latitudes <code class="docutils literal notranslate"><span class="pre">latmin</span></code> and <code class="docutils literal notranslate"><span class="pre">latmax</span></code>, respectively; the longitudes do not affect the grid symmetry):</p>
-<p><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>latmin: -90.0, -60.0, -30.0,  0.0, 30.0, 60.0
-latmax: -60.0, -30.0,   0.0, 30.0, 60.0, 90.0
-</pre></div>
-</div>
-</p>
-<p><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>latmin: -35.0, -25.0, -15.0, -5.0,  5.0, 15.0, 25.0
-latmax: -25.0, -15.0,  -5.0,  5.0, 15.0, 25.0, 35.0
-</pre></div>
-</div>
-</p>
-<p><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>latmin: -90.0, -85.0, 80.0, 85.0
-latmax: -85.0, -80.0, 85.0, 90.0
-</pre></div>
-</div>
-</p>
-<p><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>latmin: -90.0, -80.0, -75.0, -70.0, 69.0, 70.0, 75.0, 80.0
-latmax: -80.0, -75.0, -70.0, -69.0, 70.0, 75.0, 80.0, 90.0
-</pre></div>
-</div>
-</p>
-</li>
-<li><p><em>Examples of some grids that are not considered as symmetric</em> (shown are again only latitudes):</p>
-<p><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>latmin: -90.0, -60.0, -30.0,  0.0, 30.0
-latmax: -60.0, -30.0,   0.0, 30.0, 60.0
-</pre></div>
-</div>
-</p>
-<p><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>latmin: -35.0, -25.0, -15.0,     5.0, 15.0, 25.0
-latmax: -25.0, -15.0,  -4.99,   15.0, 25.0, 35.0
-</pre></div>
-</div>
-</p>
-</li>
-<li><p>In other words, the grid is symmetric in the latitudinal direction, provided that all positive latitudes have their negative counterparts at the right places. The check is done within a given threshold to suppress numerical inaccuracies, see the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1afb419caab47d66aff55c04d1339b4f7d"><span class="std std-ref"><span class="pre">charm_glob_threshold2</span></span></a></code> variable in the <a class="reference external" href="./api-c-glob.html">charm_glob</a> module. The zero latitude, i.e., the equator, may be present in the grid (again, within the specified numerical threshold <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1afb419caab47d66aff55c04d1339b4f7d"><span class="std std-ref"><span class="pre">charm_glob_threshold2</span></span></a></code>).</p></li>
+<li><p>To improve the computational speed, exploited is the symmetry of Legendre functions with respect to the equator. This is done <em>automatically</em>, provided that the grid stored in <code class="docutils literal notranslate"><span class="pre">cell</span></code> is recognized as symmetric with respect to the equator. Symmetric and non-symmetric grids are explained <a class="reference external" href="./definitions.html#symmetric-grids">here</a>.</p></li>
 <li><p>The longitudes of the grid must be sampled increasingly with equal spacing, that is, the difference between any two consecutive minimum cell longitudes must be positive and constant and the same holds for the maximum cell longitudes as well; moreover, the step in minimum cell longitudes must be equal to the step in maximum cell longitudes. Two examples of an acceptable longitudinal sampling (shown are minimum and maximum longitudes of grid cells):</p>
 <p><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>lonmin: 0.0, 1.0, 2.0, 3.0, 4.0, 5.0
 lonmax: 1.0, 2.0, 3.0, 4.0, 5.0, 6.0
@@ -994,7 +927,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Aug 05, 2024.
+  Last updated on Nov 15, 2024.
   <br/>
 </p>
   </div>

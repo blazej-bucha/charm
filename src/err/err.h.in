@@ -25,6 +25,14 @@
 #define __CHARM@PC@_ERR_H__
 
 
+/* Header files required by this module */
+/* ------------------------------------------------------------------------- */
+#if @WITH_MPI@
+#   include <mpi.h>
+#endif
+/* ------------------------------------------------------------------------- */
+
+
 
 
 
@@ -107,7 +115,12 @@ enum
 
     /**
      * Error in threads initialization by FFTW. */
-    CHARM_EFFTWINIT
+    CHARM_EFFTWINIT,
+
+
+    /**
+     * Error reported by some other MPI process within the communicator. */
+    CHARM_EMPIPROCESS
 };
 /* ------------------------------------------------------------------------- */
 
@@ -178,6 +191,26 @@ typedef struct
      * longer store most recent error propagations.  This should never happen,
      * though, since ``::CHARM_ERR_MAX_LEVEL`` is chosen large enough. */
     _Bool issaturated;
+
+
+    /** * ``0`` if the error structure was created by ``charm@P@_err_init()``.
+     *
+     * * ``1`` if the error structure was created by
+     *   ``charm@P@_mpi_err_init()``. */
+    _Bool distributed;
+
+
+#if @WITH_MPI@
+    /** MPI communicator defining the group of MPI processes that share the
+     * error structure.
+     *
+     * @note This member is available only when CHarm is compiled with the MPI
+     * support (``--enable-mpi``, refer to <a
+     * href="./api-c-mpi.html">charm@P@_mpi</a> for further details).
+     *
+     * */
+    MPI_Comm comm;
+#endif
 } charm@P@_err;
 /* ------------------------------------------------------------------------- */
 

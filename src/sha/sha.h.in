@@ -106,7 +106,7 @@ enum
  * or the Driscoll-Healy one.  The type of the quadrature to be applied is 
  * determined by ``pnt->type``.
  *
- * The loop over latitudes is parallelized using OpenMP.
+ * The function is parallelized using OpenMP.
  *
  * The function exploits the symmetry property of Legendre functions with 
  * respect to the equator, thereby improving its performance.  For further
@@ -216,7 +216,7 @@ CHARM_EXTERN void CHARM_CDECL
  * @details Applied is the approximate numerical quadrature due to Colombo
  * (1981).
  *
- * The loop over latitudes is parallelized using OpenMP.
+ * The function is parallelized using OpenMP.
  *
  * **A note on grid cells**
  *

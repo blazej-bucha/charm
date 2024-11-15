@@ -15,7 +15,9 @@
 
 
 
-int CHARM(crd_cell_check_inputs)(int type, size_t nlat, size_t nlon)
+int CHARM(crd_cell_check_inputs)(int type,
+                                 size_t nlat,
+                                 size_t nlon)
 {
     /* Check the inputs */
     /* --------------------------------------------------------------------- */
@@ -24,16 +26,11 @@ int CHARM(crd_cell_check_inputs)(int type, size_t nlat, size_t nlon)
         return 1;
 
 
-    /* At least one cell is required. */
-    if (nlat < 1 || nlon < 1)
-        return 2;
-
-
     /* For scattered cells, "nlat" must be equal to "nlon" */
     if (CHARM(crd_cell_isSctr)(type))
     {
         if (nlat != nlon)
-            return 3;
+            return 2;
     }
 
 

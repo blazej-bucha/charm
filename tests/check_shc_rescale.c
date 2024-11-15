@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "../src/prec.h"
 #include "parameters.h"
+#include "error_messages.h"
 #include "cmp_arrays.h"
 #ifdef GENREF
 #   include "array2file.h"
@@ -34,7 +35,7 @@ long int check_shc_rescale(void)
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        printf("Failed to initialize the \"err\" structure.\n");
+        fprintf(stderr, ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -42,7 +43,7 @@ long int check_shc_rescale(void)
     CHARM(shc) *shcs = CHARM(shc_calloc)(SHCS_NMAX_POT, PREC(1.0), PREC(1.0));
     if (shcs == NULL)
     {
-        fprintf(stderr, "Failed to initialize a \"shc\" structure.\n");
+        fprintf(stderr, ERR_MSG_SHC);
         exit(CHARM_FAILURE);
     }
 

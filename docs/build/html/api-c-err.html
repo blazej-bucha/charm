@@ -45,11 +45,11 @@
     <link rel="icon" href="_static/charm-logo.svg"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="charm_glob" href="api-c-glob.html" />
+    <link rel="next" title="charm_mpi" href="api-c-mpi.html" />
     <link rel="prev" title="charm_misc" href="api-c-misc.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Aug 05, 2024"/>
+    <meta name="docbuild:last-update" content="Nov 15, 2024"/>
   </head>
   
   
@@ -184,6 +184,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">charm_err</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-mpi.html">charm_mpi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-glob.html">charm_glob</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
 </ul>
@@ -424,6 +425,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_114CHARM_EFUNCARGE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EFUNCARG</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_EFILEIOE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EFILEIO</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_115CHARM_EFFTWINITE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EFFTWINIT</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_117CHARM_EMPIPROCESSE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EMPIPROCESS</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv414charm_err_initv"><code class="docutils literal notranslate"><span class="pre">charm_err_init()</span></code></a></li>
@@ -439,6 +441,8 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4codeE"><code class="docutils literal notranslate"><span class="pre">charm_err::code</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err3msgE"><code class="docutils literal notranslate"><span class="pre">charm_err::msg</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err11issaturatedE"><code class="docutils literal notranslate"><span class="pre">charm_err::issaturated</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err11distributedE"><code class="docutils literal notranslate"><span class="pre">charm_err::distributed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4commE"><code class="docutils literal notranslate"><span class="pre">charm_err::comm</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -541,6 +545,12 @@ document.write(`
 <dd><p>Error in threads initialization by FFTW. </p>
 </dd></dl>
 
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4NUt1_117CHARM_EMPIPROCESSE">
+<span id="_CPPv3NUt1_117CHARM_EMPIPROCESSE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7aa9eafeb93d9935a7dd70ad6f68791c7b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_EMPIPROCESS</span></span></span><a class="headerlink" href="#_CPPv4NUt1_117CHARM_EMPIPROCESSE" title="Link to this definition">#</a><br /></dt>
+<dd><p>Error reported by some other MPI process within the communicator. </p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -641,6 +651,26 @@ document.write(`
 <dd><p>Signalizes whether or not the levels of the error structure are saturated due to the error propagations. If true, the structure can no longer store most recent error propagations. This should never happen, though, since <code class="docutils literal notranslate"><a class="reference internal" href="#charm__err_8h_1a49e5d96b857828ae82cccca933919b4b"><span class="std std-ref"><span class="pre">CHARM_ERR_MAX_LEVEL</span></span></a></code> is chosen large enough. </p>
 </dd></dl>
 
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N9charm_err11distributedE">
+<span id="_CPPv3N9charm_err11distributedE"></span><span id="_CPPv2N9charm_err11distributedE"></span><span id="charm_err::distributed___Bool"></span><span class="target" id="structcharm__err_1a68230ac2ea5e0b06fec159f4e8c96d3c"></span><span class="n"><span class="pre">_Bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">distributed</span></span></span><a class="headerlink" href="#_CPPv4N9charm_err11distributedE" title="Link to this definition">#</a><br /></dt>
+<dd><p><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code> if the error structure was created by <code class="docutils literal notranslate"><a class="reference internal" href="#charm__err_8h_1a59ab2cbc7522349517985b3c2bc4fa67"><span class="std std-ref"><span class="pre">charm_err_init()</span></span></a></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code> if the error structure was created by <code class="docutils literal notranslate"><a class="reference internal" href="api-c-mpi.html#charm__mpi_8h_1a47da1e651334e9aed3bb61368c211f82"><span class="std std-ref"><span class="pre">charm_mpi_err_init()</span></span></a></code>. </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N9charm_err4commE">
+<span id="_CPPv3N9charm_err4commE"></span><span id="_CPPv2N9charm_err4commE"></span><span id="charm_err::comm__MPI_Comm"></span><span class="target" id="structcharm__err_1ad47b94aea64a959a398cb19509a7565a"></span><span class="n"><span class="pre">MPI_Comm</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">comm</span></span></span><a class="headerlink" href="#_CPPv4N9charm_err4commE" title="Link to this definition">#</a><br /></dt>
+<dd><p>MPI communicator defining the group of MPI processes that share the error structure.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This member is available only when CHarm is compiled with the MPI support (<code class="docutils literal notranslate"><span class="pre">--enable-mpi</span></code>, refer to <a class="reference external" href="./api-c-mpi.html">charm_mpi</a> for further details). </p>
+</div>
+</dd></dl>
+
 </div>
 </dd></dl>
 
@@ -667,11 +697,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="api-c-glob.html"
+       href="api-c-mpi.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">charm_glob</p>
+        <p class="prev-next-title">charm_mpi</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -698,6 +728,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_114CHARM_EFUNCARGE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EFUNCARG</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_EFILEIOE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EFILEIO</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_115CHARM_EFFTWINITE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EFFTWINIT</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_117CHARM_EMPIPROCESSE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EMPIPROCESS</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv414charm_err_initv"><code class="docutils literal notranslate"><span class="pre">charm_err_init()</span></code></a></li>
@@ -713,6 +744,8 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4codeE"><code class="docutils literal notranslate"><span class="pre">charm_err::code</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err3msgE"><code class="docutils literal notranslate"><span class="pre">charm_err::msg</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err11issaturatedE"><code class="docutils literal notranslate"><span class="pre">charm_err::issaturated</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err11distributedE"><code class="docutils literal notranslate"><span class="pre">charm_err::distributed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4commE"><code class="docutils literal notranslate"><span class="pre">charm_err::comm</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -748,7 +781,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Aug 05, 2024.
+  Last updated on Nov 15, 2024.
   <br/>
 </p>
   </div>

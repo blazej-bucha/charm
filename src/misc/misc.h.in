@@ -6,8 +6,8 @@
  * \verbatim embed:rst:leading-asterisk
  *      .. note::
  *
- *          All functions that deal with numerics are written in double 
- *          precision.
+ *          This documentation is written for double precision version of
+ *          CHarm.
  *
  * \endverbatim
  *
@@ -130,6 +130,39 @@ CHARM_EXTERN int CHARM_CDECL charm@P@_misc_buildopt_precision(void);
 
 
 
+/** @brief Returns:
+ *
+ * * ``0`` if CHarm was compiled with SIMD instructions disabled,
+ *
+ * * ``1`` if CHarm was compiled with AVX instructions enabled
+ *   (``--enable-avx``),
+ *
+ * * ``2`` if CHarm was compiled with AVX2 instructions enabled
+ *   (``--enable-avx2``),
+ *
+ * * ``3`` if CHarm was compiled with AVX-512 instructions enabled
+ *   (``--enable-avx-512``),
+ *
+ * * ``4`` if CHarm was compiled with NEON instructions enabled
+ *   (``--enable-neon``).
+ *
+ * */
+CHARM_EXTERN int CHARM_CDECL charm@P@_misc_buildopt_simd(void);
+
+
+
+
+
+
+/** @brief Returns the size of SIMD vectors if CHarm was compiled with SIMD
+ * instructions enabled and ``1`` otherwise (SIMD instructions disabled). */
+CHARM_EXTERN int CHARM_CDECL charm@P@_misc_buildopt_simd_vector_size(void);
+
+
+
+
+
+
 /** @brief Returns a non-zero value if CHarm was compiled with the OpenMP
  * parallelization enabled (``--enable-openmp``).  Otherwise, zero is
  * returned. */
@@ -151,24 +184,9 @@ CHARM_EXTERN int CHARM_CDECL charm@P@_misc_buildopt_omp_fftw(void);
 
 
 
-/** @brief Returns:
- *
- * * ``0`` if CHarm was compiled with SIMD instructions disabled,
- *
- * * ``1`` if CHarm was compiled with AVX instructions enabled
- *   (``--enable-avx``),
- *
- * * ``2`` if CHarm was compiled with AVX2 instructions enabled
- *   (``--enable-avx2``),
- *
- * * ``3`` if CHarm was compiled with AVX-512 instructions enabled
- *   (``--enable-avx-512``),
- *
- * * ``4`` if CHarm was compiled with NEON instructions enabled
- *   (``--enable-neon``).
- *
- * */
-CHARM_EXTERN int CHARM_CDECL charm@P@_misc_buildopt_simd(void);
+/** @brief Returns a non-zero value if CHarm was compiled with the MPI
+ * parallelization enabled (``--enable-mpi``).  Otherwise, zero is returned. */
+CHARM_EXTERN int CHARM_CDECL charm@P@_misc_buildopt_mpi(void);
 
 
 

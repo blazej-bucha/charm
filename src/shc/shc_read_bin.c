@@ -5,7 +5,10 @@
 #include <stdlib.h>
 #include "../prec.h"
 #include "../err/err_set.h"
+#include "../err/err_propagate.h"
+#include "../err/err_check_distribution.h"
 #include "shc_reset_coeffs.h"
+#include "shc_check_distribution.h"
 #include "shc_read_nmax_only.h"
 /* ------------------------------------------------------------------------- */
 
@@ -16,7 +19,10 @@
 
 /* Function prototypes */
 /* ------------------------------------------------------------------------- */
-static int read_cnmsnm(FILE *, unsigned long, unsigned long, int,
+static int read_cnmsnm(FILE *,
+                       unsigned long,
+                       unsigned long,
+                       int,
                        CHARM(shc) *);
 /* ------------------------------------------------------------------------- */
 
@@ -30,6 +36,31 @@ unsigned long CHARM(shc_read_bin)(const char *pathname,
                                   CHARM(shc) *shcs,
                                   CHARM(err) *err)
 {
+    /* ===================================================================== */
+    CHARM(err_check_distribution)(err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return CHARM_SHC_NMAX_ERROR;
+    }
+
+
+    if (!CHARM(shc_read_nmax_only)(nmax, shcs))
+    {
+        CHARM(shc_check_distribution)(shcs, err);
+        if (!CHARM(err_isempty)(err))
+        {
+            CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+            return CHARM_SHC_NMAX_ERROR;
+        }
+    }
+    /* ===================================================================== */
+
+
+
+
+
+
     /* Open "pathname" to read */
     /* ===================================================================== */
     FILE *fptr = fopen(pathname, "rb");

@@ -46,7 +46,7 @@
     <link rel="search" title="Search" href="search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Aug 05, 2024"/>
+    <meta name="docbuild:last-update" content="Nov 15, 2024"/>
   </head>
   
   
@@ -183,6 +183,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html">charm_err</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-mpi.html">charm_mpi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-glob.html">charm_glob</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
 </ul>
@@ -398,13 +399,15 @@ document.write(`
 </li>
       <li><a href="api-c-err.html#_CPPv4NUt1_115CHARM_EFFTWINITE">[anonymous]::CHARM_EFFTWINIT (C++ enumerator)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-c-err.html#_CPPv4NUt1_113CHARM_EFILEIOE">[anonymous]::CHARM_EFILEIO (C++ enumerator)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-c-err.html#_CPPv4NUt1_114CHARM_EFUNCARGE">[anonymous]::CHARM_EFUNCARG (C++ enumerator)</a>
 </li>
       <li><a href="api-c-err.html#_CPPv4NUt1_110CHARM_EMEME">[anonymous]::CHARM_EMEM (C++ enumerator)</a>
+</li>
+      <li><a href="api-c-err.html#_CPPv4NUt1_117CHARM_EMPIPROCESSE">[anonymous]::CHARM_EMPIPROCESS (C++ enumerator)</a>
 </li>
       <li><a href="api-c-err.html#_CPPv4NUt1_113CHARM_FAILUREE">[anonymous]::CHARM_FAILURE (C++ enumerator)</a>
 </li>
@@ -428,6 +431,8 @@ document.write(`
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-py-misc.html#pyharm.misc.buildopt_isfinite">buildopt_isfinite() (in module pyharm.misc)</a>
 </li>
+      <li><a href="api-py-misc.html#pyharm.misc.buildopt_mpi">buildopt_mpi() (in module pyharm.misc)</a>
+</li>
       <li><a href="api-py-misc.html#pyharm.misc.buildopt_omp_charm">buildopt_omp_charm() (in module pyharm.misc)</a>
 </li>
       <li><a href="api-py-misc.html#pyharm.misc.buildopt_omp_fftw">buildopt_omp_fftw() (in module pyharm.misc)</a>
@@ -437,6 +442,8 @@ document.write(`
       <li><a href="api-py-misc.html#pyharm.misc.buildopt_precision">buildopt_precision() (in module pyharm.misc)</a>
 </li>
       <li><a href="api-py-misc.html#pyharm.misc.buildopt_simd">buildopt_simd() (in module pyharm.misc)</a>
+</li>
+      <li><a href="api-py-misc.html#pyharm.misc.buildopt_simd_vector_size">buildopt_simd_vector_size() (in module pyharm.misc)</a>
 </li>
       <li><a href="api-py-misc.html#pyharm.misc.buildopt_version_fftw">buildopt_version_fftw() (in module pyharm.misc)</a>
 </li>
@@ -498,11 +505,17 @@ document.write(`
 </li>
       <li><a href="api-c-crd.html#_CPPv419charm_crd_point_dh1md">charm_crd_point_dh1 (C++ function)</a>
 </li>
+      <li><a href="api-c-crd.html#_CPPv425charm_crd_point_dh1_shapemP6size_tP6size_t">charm_crd_point_dh1_shape (C++ function)</a>
+</li>
       <li><a href="api-c-crd.html#_CPPv419charm_crd_point_dh2md">charm_crd_point_dh2 (C++ function)</a>
+</li>
+      <li><a href="api-c-crd.html#_CPPv425charm_crd_point_dh2_shapemP6size_tP6size_t">charm_crd_point_dh2_shape (C++ function)</a>
 </li>
       <li><a href="api-c-crd.html#_CPPv420charm_crd_point_freeP11charm_point">charm_crd_point_free (C++ function)</a>
 </li>
       <li><a href="api-c-crd.html#_CPPv418charm_crd_point_glmd">charm_crd_point_gl (C++ function)</a>
+</li>
+      <li><a href="api-c-crd.html#_CPPv424charm_crd_point_gl_shapemP6size_tP6size_t">charm_crd_point_gl_shape (C++ function)</a>
 </li>
       <li><a href="api-c-crd.html#_CPPv420charm_crd_point_initi6size_t6size_tPdPdPd">charm_crd_point_init (C++ function)</a>
 </li>
@@ -511,6 +524,10 @@ document.write(`
       <li><a href="api-c-err.html#_CPPv49charm_err">charm_err (C++ struct)</a>
 </li>
       <li><a href="api-c-err.html#_CPPv4N9charm_err4codeE">charm_err::code (C++ member)</a>
+</li>
+      <li><a href="api-c-err.html#_CPPv4N9charm_err4commE">charm_err::comm (C++ member)</a>
+</li>
+      <li><a href="api-c-err.html#_CPPv4N9charm_err11distributedE">charm_err::distributed (C++ member)</a>
 </li>
       <li><a href="api-c-err.html#_CPPv4N9charm_err4fileE">charm_err::file (C++ member)</a>
 </li>
@@ -550,6 +567,12 @@ document.write(`
 </li>
       <li><a href="api-c-glob.html#_CPPv432charm_glob_polar_optimization_a2">charm_glob_polar_optimization_a2 (C++ member)</a>
 </li>
+      <li><a href="api-c-glob.html#_CPPv435charm_glob_sha_block_lat_multiplier">charm_glob_sha_block_lat_multiplier (C++ member)</a>
+</li>
+      <li><a href="api-c-glob.html#_CPPv436charm_glob_shc_block_nmax_multiplier">charm_glob_shc_block_nmax_multiplier (C++ member)</a>
+</li>
+      <li><a href="api-c-glob.html#_CPPv435charm_glob_shs_block_lat_multiplier">charm_glob_shs_block_lat_multiplier (C++ member)</a>
+</li>
       <li><a href="api-c-glob.html#_CPPv420charm_glob_threshold">charm_glob_threshold (C++ member)</a>
 </li>
       <li><a href="api-c-glob.html#_CPPv421charm_glob_threshold2">charm_glob_threshold2 (C++ member)</a>
@@ -576,8 +599,8 @@ document.write(`
 </li>
       <li><a href="api-c-misc.html#_CPPv428charm_misc_buildopt_isfinitev">charm_misc_buildopt_isfinite (C++ function)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-c-misc.html#_CPPv423charm_misc_buildopt_mpiv">charm_misc_buildopt_mpi (C++ function)</a>
+</li>
       <li><a href="api-c-misc.html#_CPPv429charm_misc_buildopt_omp_charmv">charm_misc_buildopt_omp_charm (C++ function)</a>
 </li>
       <li><a href="api-c-misc.html#_CPPv428charm_misc_buildopt_omp_fftwv">charm_misc_buildopt_omp_fftw (C++ function)</a>
@@ -586,11 +609,39 @@ document.write(`
 </li>
       <li><a href="api-c-misc.html#_CPPv424charm_misc_buildopt_simdv">charm_misc_buildopt_simd (C++ function)</a>
 </li>
+      <li><a href="api-c-misc.html#_CPPv436charm_misc_buildopt_simd_vector_sizev">charm_misc_buildopt_simd_vector_size (C++ function)</a>
+</li>
       <li><a href="api-c-misc.html#_CPPv432charm_misc_buildopt_version_fftwv">charm_misc_buildopt_version_fftw (C++ function)</a>
 </li>
       <li><a href="api-c-misc.html#_CPPv422charm_misc_get_versionv">charm_misc_get_version (C++ function)</a>
 </li>
       <li><a href="api-c-misc.html#_CPPv421charm_misc_print_infov">charm_misc_print_info (C++ function)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-c-mpi.html#_CPPv426charm_mpi_crd_point_calloci6size_t6size_t6size_t8MPI_CommP9charm_err">charm_mpi_crd_point_calloc (C++ function)</a>
+</li>
+      <li><a href="api-c-mpi.html#_CPPv423charm_mpi_crd_point_dh1md6size_t6size_t8MPI_CommP9charm_err">charm_mpi_crd_point_dh1 (C++ function)</a>
+</li>
+      <li><a href="api-c-mpi.html#_CPPv423charm_mpi_crd_point_dh2md6size_t6size_t8MPI_CommP9charm_err">charm_mpi_crd_point_dh2 (C++ function)</a>
+</li>
+      <li><a href="api-c-mpi.html#_CPPv422charm_mpi_crd_point_glmd6size_t6size_t8MPI_CommP9charm_err">charm_mpi_crd_point_gl (C++ function)</a>
+</li>
+      <li><a href="api-c-mpi.html#_CPPv424charm_mpi_crd_point_initi6size_t6size_t6size_tPdPdPd8MPI_CommP9charm_err">charm_mpi_crd_point_init (C++ function)</a>
+</li>
+      <li><a href="api-c-mpi.html#_CPPv426charm_mpi_crd_point_malloci6size_t6size_t6size_t8MPI_CommP9charm_err">charm_mpi_crd_point_malloc (C++ function)</a>
+</li>
+      <li><a href="api-c-mpi.html#_CPPv418charm_mpi_err_init8MPI_Comm">charm_mpi_err_init (C++ function)</a>
+</li>
+      <li><a href="api-c-mpi.html#_CPPv421charm_mpi_err_isemptyPK9charm_err">charm_mpi_err_isempty (C++ function)</a>
+</li>
+      <li><a href="api-c-mpi.html#_CPPv420charm_mpi_shc_callocmdd6size_tPKm8MPI_CommP9charm_err">charm_mpi_shc_calloc (C++ function)</a>
+</li>
+      <li><a href="api-c-mpi.html#_CPPv418charm_mpi_shc_initmddPdPd6size_tPKm8MPI_CommP9charm_err">charm_mpi_shc_init (C++ function)</a>
+</li>
+      <li><a href="api-c-mpi.html#_CPPv423charm_mpi_shc_local_ncsm6size_tPKmP9charm_err">charm_mpi_shc_local_ncs (C++ function)</a>
+</li>
+      <li><a href="api-c-mpi.html#_CPPv420charm_mpi_shc_mallocmdd6size_tPKm8MPI_CommP9charm_err">charm_mpi_shc_malloc (C++ function)</a>
 </li>
       <li><a href="api-c-leg.html#_CPPv410charm_pnmj">charm_pnmj (C++ struct)</a>
 </li>
@@ -604,7 +655,19 @@ document.write(`
 </li>
       <li><a href="api-c-crd.html#_CPPv411charm_point">charm_point (C++ struct)</a>
 </li>
+      <li><a href="api-c-crd.html#_CPPv4N11charm_point4commE">charm_point::comm (C++ member)</a>
+</li>
+      <li><a href="api-c-crd.html#_CPPv4N11charm_point11distributedE">charm_point::distributed (C++ member)</a>
+</li>
       <li><a href="api-c-crd.html#_CPPv4N11charm_point3latE">charm_point::lat (C++ member)</a>
+</li>
+      <li><a href="api-c-crd.html#_CPPv4N11charm_point13local_0_startE">charm_point::local_0_start (C++ member)</a>
+</li>
+      <li><a href="api-c-crd.html#_CPPv4N11charm_point10local_nlatE">charm_point::local_nlat (C++ member)</a>
+</li>
+      <li><a href="api-c-crd.html#_CPPv4N11charm_point10local_nlonE">charm_point::local_nlon (C++ member)</a>
+</li>
+      <li><a href="api-c-crd.html#_CPPv4N11charm_point12local_npointE">charm_point::local_npoint (C++ member)</a>
 </li>
       <li><a href="api-c-crd.html#_CPPv4N11charm_point3lonE">charm_point::lon (C++ member)</a>
 </li>
@@ -629,6 +692,18 @@ document.write(`
       <li><a href="api-c-shc.html#_CPPv49charm_shc">charm_shc (C++ struct)</a>
 </li>
       <li><a href="api-c-shc.html#_CPPv4N9charm_shc1cE">charm_shc::c (C++ member)</a>
+</li>
+      <li><a href="api-c-shc.html#_CPPv4N9charm_shc4commE">charm_shc::comm (C++ member)</a>
+</li>
+      <li><a href="api-c-shc.html#_CPPv4N9charm_shc11distributedE">charm_shc::distributed (C++ member)</a>
+</li>
+      <li><a href="api-c-shc.html#_CPPv4N9charm_shc8local_ncE">charm_shc::local_nc (C++ member)</a>
+</li>
+      <li><a href="api-c-shc.html#_CPPv4N9charm_shc12local_nchunkE">charm_shc::local_nchunk (C++ member)</a>
+</li>
+      <li><a href="api-c-shc.html#_CPPv4N9charm_shc8local_nsE">charm_shc::local_ns (C++ member)</a>
+</li>
+      <li><a href="api-c-shc.html#_CPPv4N9charm_shc11local_orderE">charm_shc::local_order (C++ member)</a>
 </li>
       <li><a href="api-c-shc.html#_CPPv4N9charm_shc2muE">charm_shc::mu (C++ member)</a>
 </li>
@@ -1105,10 +1180,18 @@ document.write(`
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-py-shc.html#pyharm.shc.Shc.s">s (pyharm.shc.Shc property)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-py-shc.html#pyharm.shc.Shc.set_coeffs">set_coeffs() (pyharm.shc.Shc method)</a>
 </li>
+      <li><a href="api-py-crd.html#pyharm.crd.PointGridDH1.shape">shape() (pyharm.crd.PointGridDH1 static method)</a>
+
+      <ul>
+        <li><a href="api-py-crd.html#pyharm.crd.PointGridDH2.shape">(pyharm.crd.PointGridDH2 static method)</a>
+</li>
+        <li><a href="api-py-crd.html#pyharm.crd.PointGridGL.shape">(pyharm.crd.PointGridGL static method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-py-shc.html#pyharm.shc.Shc">Shc (class in pyharm.shc)</a>
 </li>
   </ul></td>
@@ -1203,7 +1286,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Aug 05, 2024.
+  Last updated on Nov 15, 2024.
   <br/>
 </p>
   </div>

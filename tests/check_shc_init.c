@@ -2,8 +2,10 @@
 /* ------------------------------------------------------------------------- */
 #include <config.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "../src/prec.h"
 #include "parameters.h"
+#include "shc_touch_array_elements.h"
 #include "check_struct.h"
 #include "check_shc_init.h"
 /* ------------------------------------------------------------------------- */
@@ -30,7 +32,7 @@ long int check_shc_init(void)
     REAL *c = (REAL *)malloc(ncs * sizeof(REAL));
     if (c == NULL)
     {
-        fprintf(stderr, "malloc failure.\n");
+        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 
@@ -38,7 +40,7 @@ long int check_shc_init(void)
     REAL *s = (REAL *)malloc(ncs * sizeof(REAL));
     if (s == NULL)
     {
-        fprintf(stderr, "malloc failure.\n");
+        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 
@@ -48,21 +50,26 @@ long int check_shc_init(void)
 
 
     e += check_struct_ptr(shcs, NULL, EQ, VALID, func_call_str,
-                          "returned a NULL pointer");
+                          "returned NULL pointer");
 
 
     e += check_struct_ptr(shcs->c[0], c, NEQ, VALID, func_call_str,
-                          "returned a wrong value of \"c\"");
+                          "returned wrong value of \"c\"");
 
 
     e += check_struct_ptr(shcs->s[0], s, NEQ, VALID, func_call_str,
-                          "returned a wrong value of \"s\"");
+                          "returned wrong value of \"s\"");
 
 
     e += check_struct__Bool(shcs->owner, 0, NEQ, VALID, func_call_str,
-                            "returned a wrong value of \"owner\"");
+                            "returned wrong value of \"owner\"");
 
 
+    e += check_struct__Bool(shcs->distributed, 0, NEQ, VALID, func_call_str,
+                            "returned wrong value of \"distributed\"");
+
+
+    shc_touch_array_elements(shcs);
     CHARM(shc_free)(shcs);
     free(c);
     free(s);

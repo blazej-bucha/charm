@@ -57,6 +57,18 @@ void CHARM(shs_point_guru)(const CHARM(point) *pnt,
 
 
 
+    /* Do nothing if the total number of points in "pnt" is zero, which is
+     * a valid case */
+    /* --------------------------------------------------------------------- */
+    if (pnt->npoint == 0)
+        return;
+    /* --------------------------------------------------------------------- */
+
+
+
+
+
+
     /* Now do the synthesis */
     /* --------------------------------------------------------------------- */
     if (CHARM(crd_point_isSctr)(pnt->type))

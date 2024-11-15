@@ -3,6 +3,9 @@
 #include <config.h>
 #include <stdio.h>
 #include "../src/prec.h"
+#include "testing_msg.h"
+#include "test_suite_start.h"
+#include "test_suite_end.h"
 #include "module_shs.h"
 #include "module_shc.h"
 #include "module_crd.h"
@@ -17,16 +20,6 @@
 
 
 
-/* ------------------------------------------------------------------------- */
-#undef TESTING_MSG
-#define TESTING_MSG(x) printf("Testing the " x " module...\n");
-/* ------------------------------------------------------------------------- */
-
-
-
-
-
-
 /* Program to test CHarm.
  *
  * If compiled with the symbolic constant "GENREF" defined, instead of a check
@@ -34,15 +27,7 @@
  * saved to "FOLDER" from "parameters.h". */
 int main(void)
 {
-    printf("\n==================================\n");
-    printf("\nStart of the test suite\n\n");
-
-
-    /* Print version number, etc. of the compiled CHarm library */
-    printf("Printing info on CHarm...\n");
-    printf("..................................\n");
-    CHARM(misc_print_info());
-    printf("..................................\n\n");
+    test_suite_start();
 
 
     TESTING_MSG("shc");
@@ -75,15 +60,9 @@ int main(void)
 
 
     printf("\n");
-    if (e)
-        printf("%ld unexpected %s in total\n",
-               e, e == 1 ? "result" : "results");
-    else
-        printf("All tests passed\n");
-    printf("\n");
-    printf("End of the test suite\n");
-    printf("\n");
-    printf("==================================\n\n");
+
+
+    test_suite_end(e);
 
 
     return CHARM_SUCCESS;

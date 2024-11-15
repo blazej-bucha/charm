@@ -915,6 +915,7 @@ INPUT                  = ../charm/charm.h \
                          ../charm/charm_sha.h \
                          ../charm/charm_shc.h \
                          ../charm/charm_shs.h \
+                         ../charm/charm_mpi.h \
                          ../charm/charm_glob.h
 
 # This tag can be used to specify the character encoding of the source files

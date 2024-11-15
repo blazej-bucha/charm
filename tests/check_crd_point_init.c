@@ -2,9 +2,11 @@
 /* ------------------------------------------------------------------------- */
 #include <config.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "../src/prec.h"
 #include "parameters.h"
 #include "check_struct.h"
+#include "point_touch_array_elements.h"
 #include "check_crd_point_init.h"
 /* ------------------------------------------------------------------------- */
 
@@ -28,7 +30,7 @@ long int check_crd_point_init(void)
     REAL *lat = (REAL *)malloc(nlat * sizeof(REAL));
     if (lat == NULL)
     {
-        fprintf(stderr, "malloc failure.\n");
+        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 
@@ -36,7 +38,7 @@ long int check_crd_point_init(void)
     REAL *lon = (REAL *)malloc(nlon * sizeof(REAL));
     if (lon == NULL)
     {
-        fprintf(stderr, "malloc failure.\n");
+        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 
@@ -44,7 +46,7 @@ long int check_crd_point_init(void)
     REAL *r = (REAL *)malloc(nlat * sizeof(REAL));
     if (r == NULL)
     {
-        fprintf(stderr, "malloc failure.\n");
+        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 
@@ -55,25 +57,30 @@ long int check_crd_point_init(void)
 
 
     e += check_struct_ptr(pnt, NULL, EQ, VALID, func_call_str,
-                          "returned a NULL pointer");
+                          "returned NULL pointer");
 
 
     e += check_struct_ptr(pnt->lat, lat, NEQ, VALID, func_call_str,
-                          "returned a wrong value of \"lat\"");
+                          "returned wrong value of \"lat\"");
 
 
     e += check_struct_ptr(pnt->lon, lon, NEQ, VALID, func_call_str,
-                          "returned a wrong value of \"lon\"");
+                          "returned wrong value of \"lon\"");
 
 
     e += check_struct_ptr(pnt->r, r, NEQ, VALID, func_call_str,
-                          "returned a wrong value of \"r\"");
+                          "returned wrong value of \"r\"");
 
 
     e += check_struct__Bool(pnt->owner, 0, NEQ, VALID, func_call_str,
-                            "returned a wrong value of \"owner\"");
+                            "returned wrong value of \"owner\"");
 
 
+    e += check_struct__Bool(pnt->distributed, 0, NEQ, VALID, func_call_str,
+                            "returned wrong value of \"distributed\"");
+
+
+    point_touch_array_elements(pnt);
     CHARM(crd_point_free)(pnt);
     free(lat);
     free(lon);

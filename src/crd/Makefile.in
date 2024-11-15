@@ -94,6 +94,7 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/ax_check_compile_flag.m4 \
 	$(top_srcdir)/m4/ax_compiler_vendor.m4 \
 	$(top_srcdir)/m4/ax_gcc_version.m4 \
 	$(top_srcdir)/m4/ax_openmp.m4 \
+	$(top_srcdir)/m4/ax_prog_cc_mpi.m4 \
 	$(top_srcdir)/m4/ax_split_version.m4 \
 	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/ltoptions.m4 \
 	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
@@ -110,14 +111,25 @@ LTLIBRARIES = $(noinst_LTLIBRARIES)
 libcharm@P@_crd_la_LIBADD =
 am_libcharm@P@_crd_la_OBJECTS = crd_point_alloc.lo crd_point_malloc.lo \
 	crd_point_calloc.lo crd_point_init.lo crd_point_free.lo \
-	crd_point_check_inputs.lo crd_point_gl.lo crd_point_dh1.lo \
-	crd_point_dh2.lo crd_point_dh_lats_weights.lo \
-	crd_cell_alloc.lo crd_cell_malloc.lo crd_cell_calloc.lo \
-	crd_cell_init.lo crd_cell_free.lo crd_cell_check_inputs.lo \
-	crd_grd_check_symm.lo crd_check_cells.lo crd_point_isGrid.lo \
-	crd_point_isCustGrid.lo crd_point_isQuadGrid.lo \
-	crd_point_isSctr.lo crd_isPoint.lo crd_cell_isGrid.lo \
-	crd_cell_isSctr.lo crd_isCell.lo
+	crd_point_check_inputs.lo crd_point_quad_nlat_north.lo \
+	crd_point_gl_chunk.lo crd_point_quad.lo crd_point_quad_l.lo \
+	crd_point_gl.lo crd_point_gl_shape.lo crd_point_dh1.lo \
+	crd_point_dh2.lo crd_point_dh_chunk.lo crd_point_dh1_chunk.lo \
+	crd_point_dh1_shape.lo crd_point_dh2_chunk.lo \
+	crd_point_dh2_shape.lo crd_point_dh_lat_w_chunk.lo \
+	crd_point_npoint.lo crd_cell_alloc.lo crd_cell_malloc.lo \
+	crd_cell_calloc.lo crd_cell_init.lo crd_cell_free.lo \
+	crd_cell_check_inputs.lo crd_grd_check_symm.lo \
+	crd_check_cells.lo crd_point_isGrid.lo crd_point_isCustGrid.lo \
+	crd_point_isQuadGrid.lo crd_point_isGLGrid.lo \
+	crd_point_isDHGrid.lo crd_point_isDH1Grid.lo \
+	crd_point_isDH2Grid.lo crd_point_isSctr.lo \
+	crd_point_isEmpty.lo crd_point_issymm.lo \
+	crd_point_quad_equator.lo crd_point_quad_get_nmax_from_nlat.lo \
+	crd_point_get_local_nlat.lo crd_point_get_local_nlon.lo \
+	crd_point_get_local_0_start.lo crd_isPoint.lo \
+	crd_cell_isGrid.lo crd_cell_isSctr.lo crd_isCell.lo \
+	crd_point_check_distribution.lo
 libcharm@P@_crd_la_OBJECTS = $(am_libcharm@P@_crd_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -149,16 +161,41 @@ am__depfiles_remade = ./$(DEPDIR)/crd_cell_alloc.Plo \
 	./$(DEPDIR)/crd_grd_check_symm.Plo ./$(DEPDIR)/crd_isCell.Plo \
 	./$(DEPDIR)/crd_isPoint.Plo ./$(DEPDIR)/crd_point_alloc.Plo \
 	./$(DEPDIR)/crd_point_calloc.Plo \
+	./$(DEPDIR)/crd_point_check_distribution.Plo \
 	./$(DEPDIR)/crd_point_check_inputs.Plo \
-	./$(DEPDIR)/crd_point_dh1.Plo ./$(DEPDIR)/crd_point_dh2.Plo \
-	./$(DEPDIR)/crd_point_dh_lats_weights.Plo \
-	./$(DEPDIR)/crd_point_free.Plo ./$(DEPDIR)/crd_point_gl.Plo \
+	./$(DEPDIR)/crd_point_dh1.Plo \
+	./$(DEPDIR)/crd_point_dh1_chunk.Plo \
+	./$(DEPDIR)/crd_point_dh1_shape.Plo \
+	./$(DEPDIR)/crd_point_dh2.Plo \
+	./$(DEPDIR)/crd_point_dh2_chunk.Plo \
+	./$(DEPDIR)/crd_point_dh2_shape.Plo \
+	./$(DEPDIR)/crd_point_dh_chunk.Plo \
+	./$(DEPDIR)/crd_point_dh_lat_w_chunk.Plo \
+	./$(DEPDIR)/crd_point_free.Plo \
+	./$(DEPDIR)/crd_point_get_local_0_start.Plo \
+	./$(DEPDIR)/crd_point_get_local_nlat.Plo \
+	./$(DEPDIR)/crd_point_get_local_nlon.Plo \
+	./$(DEPDIR)/crd_point_gl.Plo \
+	./$(DEPDIR)/crd_point_gl_chunk.Plo \
+	./$(DEPDIR)/crd_point_gl_shape.Plo \
 	./$(DEPDIR)/crd_point_init.Plo \
 	./$(DEPDIR)/crd_point_isCustGrid.Plo \
+	./$(DEPDIR)/crd_point_isDH1Grid.Plo \
+	./$(DEPDIR)/crd_point_isDH2Grid.Plo \
+	./$(DEPDIR)/crd_point_isDHGrid.Plo \
+	./$(DEPDIR)/crd_point_isEmpty.Plo \
+	./$(DEPDIR)/crd_point_isGLGrid.Plo \
 	./$(DEPDIR)/crd_point_isGrid.Plo \
 	./$(DEPDIR)/crd_point_isQuadGrid.Plo \
 	./$(DEPDIR)/crd_point_isSctr.Plo \
-	./$(DEPDIR)/crd_point_malloc.Plo
+	./$(DEPDIR)/crd_point_issymm.Plo \
+	./$(DEPDIR)/crd_point_malloc.Plo \
+	./$(DEPDIR)/crd_point_npoint.Plo \
+	./$(DEPDIR)/crd_point_quad.Plo \
+	./$(DEPDIR)/crd_point_quad_equator.Plo \
+	./$(DEPDIR)/crd_point_quad_get_nmax_from_nlat.Plo \
+	./$(DEPDIR)/crd_point_quad_l.Plo \
+	./$(DEPDIR)/crd_point_quad_nlat_north.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -243,6 +280,8 @@ MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
 MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
+MPICC = @MPICC@
+MPIEXEC = @MPIEXEC@
 NM = @NM@
 NMEDIT = @NMEDIT@
 NP_FLOAT = @NP_FLOAT@
@@ -276,6 +315,7 @@ SHARED_EXT = @SHARED_EXT@
 SHELL = @SHELL@
 STRIP = @STRIP@
 VERSION = @VERSION@
+WITH_MPI = @WITH_MPI@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -295,6 +335,7 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 builddir = @builddir@
+check_mpiexec = @check_mpiexec@
 datadir = @datadir@
 datarootdir = @datarootdir@
 docdir = @docdir@
@@ -341,10 +382,21 @@ libcharm@P@_crd_la_SOURCES = crd_point_alloc.c \
 							 crd_point_init.c \
 							 crd_point_free.c \
 							 crd_point_check_inputs.c \
+							 crd_point_quad_nlat_north.c \
+							 crd_point_gl_chunk.c \
+							 crd_point_quad.c \
+							 crd_point_quad_l.c \
 							 crd_point_gl.c \
+							 crd_point_gl_shape.c \
 							 crd_point_dh1.c \
 							 crd_point_dh2.c \
-							 crd_point_dh_lats_weights.c \
+							 crd_point_dh_chunk.c \
+							 crd_point_dh1_chunk.c \
+							 crd_point_dh1_shape.c \
+							 crd_point_dh2_chunk.c \
+							 crd_point_dh2_shape.c \
+							 crd_point_dh_lat_w_chunk.c \
+							 crd_point_npoint.c \
 							 crd_cell_alloc.c \
 							 crd_cell_malloc.c \
 							 crd_cell_calloc.c \
@@ -356,11 +408,23 @@ libcharm@P@_crd_la_SOURCES = crd_point_alloc.c \
 							 crd_point_isGrid.c \
 							 crd_point_isCustGrid.c \
 							 crd_point_isQuadGrid.c \
+							 crd_point_isGLGrid.c \
+							 crd_point_isDHGrid.c \
+							 crd_point_isDH1Grid.c \
+							 crd_point_isDH2Grid.c \
 							 crd_point_isSctr.c \
+							 crd_point_isEmpty.c \
+							 crd_point_issymm.c \
+							 crd_point_quad_equator.c \
+							 crd_point_quad_get_nmax_from_nlat.c \
+							 crd_point_get_local_nlat.c \
+							 crd_point_get_local_nlon.c \
+							 crd_point_get_local_0_start.c \
 							 crd_isPoint.c \
 							 crd_cell_isGrid.c \
 							 crd_cell_isSctr.c \
-							 crd_isCell.c
+							 crd_isCell.c \
+							 crd_point_check_distribution.c
 
 EXTRA_DIST = *.h
 all: all-am
@@ -431,18 +495,41 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_isPoint.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_alloc.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_calloc.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_check_distribution.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_check_inputs.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_dh1.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_dh1_chunk.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_dh1_shape.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_dh2.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_dh_lats_weights.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_dh2_chunk.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_dh2_shape.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_dh_chunk.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_dh_lat_w_chunk.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_free.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_get_local_0_start.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_get_local_nlat.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_get_local_nlon.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_gl.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_gl_chunk.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_gl_shape.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_init.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_isCustGrid.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_isDH1Grid.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_isDH2Grid.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_isDHGrid.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_isEmpty.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_isGLGrid.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_isGrid.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_isQuadGrid.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_isSctr.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_issymm.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_malloc.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_npoint.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_quad.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_quad_equator.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_quad_get_nmax_from_nlat.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_quad_l.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/crd_point_quad_nlat_north.Plo@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -569,18 +656,41 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/crd_isPoint.Plo
 	-rm -f ./$(DEPDIR)/crd_point_alloc.Plo
 	-rm -f ./$(DEPDIR)/crd_point_calloc.Plo
+	-rm -f ./$(DEPDIR)/crd_point_check_distribution.Plo
 	-rm -f ./$(DEPDIR)/crd_point_check_inputs.Plo
 	-rm -f ./$(DEPDIR)/crd_point_dh1.Plo
+	-rm -f ./$(DEPDIR)/crd_point_dh1_chunk.Plo
+	-rm -f ./$(DEPDIR)/crd_point_dh1_shape.Plo
 	-rm -f ./$(DEPDIR)/crd_point_dh2.Plo
-	-rm -f ./$(DEPDIR)/crd_point_dh_lats_weights.Plo
+	-rm -f ./$(DEPDIR)/crd_point_dh2_chunk.Plo
+	-rm -f ./$(DEPDIR)/crd_point_dh2_shape.Plo
+	-rm -f ./$(DEPDIR)/crd_point_dh_chunk.Plo
+	-rm -f ./$(DEPDIR)/crd_point_dh_lat_w_chunk.Plo
 	-rm -f ./$(DEPDIR)/crd_point_free.Plo
+	-rm -f ./$(DEPDIR)/crd_point_get_local_0_start.Plo
+	-rm -f ./$(DEPDIR)/crd_point_get_local_nlat.Plo
+	-rm -f ./$(DEPDIR)/crd_point_get_local_nlon.Plo
 	-rm -f ./$(DEPDIR)/crd_point_gl.Plo
+	-rm -f ./$(DEPDIR)/crd_point_gl_chunk.Plo
+	-rm -f ./$(DEPDIR)/crd_point_gl_shape.Plo
 	-rm -f ./$(DEPDIR)/crd_point_init.Plo
 	-rm -f ./$(DEPDIR)/crd_point_isCustGrid.Plo
+	-rm -f ./$(DEPDIR)/crd_point_isDH1Grid.Plo
+	-rm -f ./$(DEPDIR)/crd_point_isDH2Grid.Plo
+	-rm -f ./$(DEPDIR)/crd_point_isDHGrid.Plo
+	-rm -f ./$(DEPDIR)/crd_point_isEmpty.Plo
+	-rm -f ./$(DEPDIR)/crd_point_isGLGrid.Plo
 	-rm -f ./$(DEPDIR)/crd_point_isGrid.Plo
 	-rm -f ./$(DEPDIR)/crd_point_isQuadGrid.Plo
 	-rm -f ./$(DEPDIR)/crd_point_isSctr.Plo
+	-rm -f ./$(DEPDIR)/crd_point_issymm.Plo
 	-rm -f ./$(DEPDIR)/crd_point_malloc.Plo
+	-rm -f ./$(DEPDIR)/crd_point_npoint.Plo
+	-rm -f ./$(DEPDIR)/crd_point_quad.Plo
+	-rm -f ./$(DEPDIR)/crd_point_quad_equator.Plo
+	-rm -f ./$(DEPDIR)/crd_point_quad_get_nmax_from_nlat.Plo
+	-rm -f ./$(DEPDIR)/crd_point_quad_l.Plo
+	-rm -f ./$(DEPDIR)/crd_point_quad_nlat_north.Plo
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic
 
@@ -639,18 +749,41 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/crd_isPoint.Plo
 	-rm -f ./$(DEPDIR)/crd_point_alloc.Plo
 	-rm -f ./$(DEPDIR)/crd_point_calloc.Plo
+	-rm -f ./$(DEPDIR)/crd_point_check_distribution.Plo
 	-rm -f ./$(DEPDIR)/crd_point_check_inputs.Plo
 	-rm -f ./$(DEPDIR)/crd_point_dh1.Plo
+	-rm -f ./$(DEPDIR)/crd_point_dh1_chunk.Plo
+	-rm -f ./$(DEPDIR)/crd_point_dh1_shape.Plo
 	-rm -f ./$(DEPDIR)/crd_point_dh2.Plo
-	-rm -f ./$(DEPDIR)/crd_point_dh_lats_weights.Plo
+	-rm -f ./$(DEPDIR)/crd_point_dh2_chunk.Plo
+	-rm -f ./$(DEPDIR)/crd_point_dh2_shape.Plo
+	-rm -f ./$(DEPDIR)/crd_point_dh_chunk.Plo
+	-rm -f ./$(DEPDIR)/crd_point_dh_lat_w_chunk.Plo
 	-rm -f ./$(DEPDIR)/crd_point_free.Plo
+	-rm -f ./$(DEPDIR)/crd_point_get_local_0_start.Plo
+	-rm -f ./$(DEPDIR)/crd_point_get_local_nlat.Plo
+	-rm -f ./$(DEPDIR)/crd_point_get_local_nlon.Plo
 	-rm -f ./$(DEPDIR)/crd_point_gl.Plo
+	-rm -f ./$(DEPDIR)/crd_point_gl_chunk.Plo
+	-rm -f ./$(DEPDIR)/crd_point_gl_shape.Plo
 	-rm -f ./$(DEPDIR)/crd_point_init.Plo
 	-rm -f ./$(DEPDIR)/crd_point_isCustGrid.Plo
+	-rm -f ./$(DEPDIR)/crd_point_isDH1Grid.Plo
+	-rm -f ./$(DEPDIR)/crd_point_isDH2Grid.Plo
+	-rm -f ./$(DEPDIR)/crd_point_isDHGrid.Plo
+	-rm -f ./$(DEPDIR)/crd_point_isEmpty.Plo
+	-rm -f ./$(DEPDIR)/crd_point_isGLGrid.Plo
 	-rm -f ./$(DEPDIR)/crd_point_isGrid.Plo
 	-rm -f ./$(DEPDIR)/crd_point_isQuadGrid.Plo
 	-rm -f ./$(DEPDIR)/crd_point_isSctr.Plo
+	-rm -f ./$(DEPDIR)/crd_point_issymm.Plo
 	-rm -f ./$(DEPDIR)/crd_point_malloc.Plo
+	-rm -f ./$(DEPDIR)/crd_point_npoint.Plo
+	-rm -f ./$(DEPDIR)/crd_point_quad.Plo
+	-rm -f ./$(DEPDIR)/crd_point_quad_equator.Plo
+	-rm -f ./$(DEPDIR)/crd_point_quad_get_nmax_from_nlat.Plo
+	-rm -f ./$(DEPDIR)/crd_point_quad_l.Plo
+	-rm -f ./$(DEPDIR)/crd_point_quad_nlat_north.Plo
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

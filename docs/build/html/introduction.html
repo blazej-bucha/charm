@@ -49,7 +49,7 @@
     <link rel="prev" title="Welcome to CHarm" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Aug 05, 2024"/>
+    <meta name="docbuild:last-update" content="Nov 15, 2024"/>
   </head>
   
   
@@ -184,6 +184,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html">charm_err</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-mpi.html">charm_mpi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-glob.html">charm_glob</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
 </ul>
@@ -461,10 +462,12 @@ potential) on band-limited irregular surfaces (e.g., on the Earth’s
 surface). <a class="footnote-reference brackets" href="#f1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></li>
 <li><p>Computes Fourier coefficients of fully-normalized associated Legendre
 functions of the first kind up to ultra-high harmonic degrees.</p></li>
+<li><p>Supports SIMD parallelization on the level of a single CPU core (AVX, AVX2,
+AVX-512 and NEON).</p></li>
 <li><p>Supports <a class="reference external" href="https://www.openmp.org/">OpenMP</a> parallelization for
 shared-memory architectures.</p></li>
-<li><p>Supports AVX, AVX2, AVX-512 and NEON SIMD CPU instructions to improve the
-performance.</p></li>
+<li><p>Supports <a class="reference external" href="https://www.mpi-forum.org/">MPI</a> parallelization for shared- and
+distributed-memory architectures.</p></li>
 <li><p>Performs discrete FFT by <a class="reference external" href="http://www.fftw.org/">FFTW</a>.</p></li>
 <li><p>Ships with a Python wrapper to enable high-level programming while retaining
 the efficiency of the C language.  The wrapper, called PyHarm, wraps CHarm
@@ -513,10 +516,11 @@ interface only.</p></li>
 at <a class="reference external" href="https://www.charmlib.org">https://www.charmlib.org</a>.</p>
 <p>A pre-compiled HTML documentation is also available in <code class="docutils literal notranslate"><span class="pre">docs/build/html</span></code>.
 Alternatively, it can be built by executing <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code> after the
-<code class="docutils literal notranslate"><span class="pre">configure</span></code> call (requires <code class="docutils literal notranslate"><span class="pre">doxygen</span></code> and Python modules <code class="docutils literal notranslate"><span class="pre">sphinx</span></code>,
-<code class="docutils literal notranslate"><span class="pre">sphinx_book_theme</span></code> and <code class="docutils literal notranslate"><span class="pre">breathe</span></code>).  Other formats of the documentation,
-for instance, a PDF file, can be built with <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">docs</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span> <span class="pre">latexpdf</span></code>, etc.
-To list all available formats, execute <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">docs</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span> <span class="pre">help</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">configure</span></code> call (requires <code class="docutils literal notranslate"><span class="pre">--enable-python</span></code>, <code class="docutils literal notranslate"><span class="pre">--enable-mpi</span></code>, <code class="docutils literal notranslate"><span class="pre">doxygen</span></code>
+and Python modules <code class="docutils literal notranslate"><span class="pre">sphinx</span></code>, <code class="docutils literal notranslate"><span class="pre">sphinx_book_theme</span></code> and <code class="docutils literal notranslate"><span class="pre">breathe</span></code>).  Other
+formats of the documentation, for instance, a PDF file, can be built with <code class="docutils literal notranslate"><span class="pre">cd</span>
+<span class="pre">docs</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span> <span class="pre">latexpdf</span></code>, etc.  To list all available formats, execute <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">docs</span>
+<span class="pre">&amp;&amp;</span> <span class="pre">make</span> <span class="pre">help</span></code>.</p>
 </section>
 <section id="contact">
 <span id="id2"></span><h2>Contact<a class="headerlink" href="#contact" title="Link to this heading">#</a></h2>
@@ -653,7 +657,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Aug 05, 2024.
+  Last updated on Nov 15, 2024.
   <br/>
 </p>
   </div>

@@ -33,6 +33,7 @@
 
 
 #undef CHARM
+#undef CHARM_SUFFIX
 #undef REAL
 #undef INT
 #undef PREC
@@ -81,8 +82,9 @@
 #   include "../charm/charmf.h"
 
 
-#   define CHARM(x)  CAT(charmf_, x)
-#   define FFTW(x)   CAT(fftwf_, x)
+#   define CHARM(x)         CAT(charmf_, x)
+#   define CHARM_SUFFIX     "f"
+#   define FFTW(x)          CAT(fftwf_, x)
 #   if MSVC_UNDERSCORE_PATCH
         /* Microsoft's MSVC compiler incorrectly expands "FFTW(complex)" to
          * "fftw__complex" if "FFTW" is defined as above and "math.h" is
@@ -165,8 +167,9 @@
 #   include "../charm/charmq.h"
 
 
-#   define CHARM(x)  CAT(charmq_, x)
-#   define FFTW(x)   CAT(fftwq_, x)
+#   define CHARM(x)         CAT(charmq_, x)
+#   define CHARM_SUFFIX     "q"
+#   define FFTW(x)          CAT(fftwq_, x)
 #   if MSVC_UNDERSCORE_PATCH
         /* See above for the explanation of this */
 #       define FFTWC(x)     CAT(fftwq, x)
@@ -246,8 +249,9 @@
 #   include "../charm/charm.h"
 
 
-#   define CHARM(x)  CAT(charm_, x)
-#   define FFTW(x)   CAT(fftw_, x)
+#   define CHARM(x)         CAT(charm_, x)
+#   define CHARM_SUFFIX     ""
+#   define FFTW(x)          CAT(fftw_, x)
 #   if MSVC_UNDERSCORE_PATCH
         /* See above for the explanation of this */
 #       define FFTWC(x)     CAT(fftw, x)

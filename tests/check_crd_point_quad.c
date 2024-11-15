@@ -5,11 +5,13 @@
 #include <string.h>
 #include "../src/prec.h"
 #include "parameters.h"
+#include "error_messages.h"
 #ifdef GENREF
 #   include "array2file.h"
 #else
 #   include "validate.h"
 #endif
+#include "point_touch_array_elements.h"
 #include "check_crd_point_quad.h"
 /* ------------------------------------------------------------------------- */
 
@@ -38,7 +40,7 @@ long int check_crd_point_quad(CHARM(point) *(*quad)(unsigned long, REAL))
             grd = quad(nmax, r);
             if (grd == NULL)
             {
-                fprintf(stderr, "Failed to initialize a crd structure\n");
+                fprintf(stderr, ERR_MSG_POINT);
                 exit(CHARM_FAILURE);
             }
 
@@ -71,6 +73,7 @@ long int check_crd_point_quad(CHARM(point) *(*quad)(unsigned long, REAL))
 #endif
 
 
+            point_touch_array_elements(grd);
             CHARM(crd_point_free)(grd);
         }
     }

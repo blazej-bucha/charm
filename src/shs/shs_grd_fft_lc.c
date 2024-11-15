@@ -7,6 +7,7 @@
 #include "../simd/simd.h"
 #include "../crd/crd_point_isGrid.h"
 #include "../crd/crd_cell_isGrid.h"
+#include "../glob/glob_get_shs_block_lat_multiplier.h"
 #include "shs_lc_struct.h"
 #include "shs_max_npar.h"
 #include "shs_point_gradn.h"
@@ -61,9 +62,16 @@ void CHARM(shs_grd_fft_lc)(unsigned long m,
                            REAL *fc_tmp,
                            REAL *fc2_tmp)
 {
+#if HAVE_MPI
+    const size_t BLOCK_S = CHARM(glob_get_shs_block_lat_multiplier)();
+#else
+#   define BLOCK_S SIMD_BLOCK_S
+#endif
+
+
     REAL_SIMD c = (m == 0) ? SET1_R(PREC(1.0)) : SET1_R(PREC(0.5));
     _Bool is_cell_grd = CHARM(crd_cell_isGrid)(grd_type);
-    size_t simd_blk = (is_cell_grd) ? 1 : SIMD_BLOCK_S;
+    size_t simd_blk = (is_cell_grd) ? 1 : BLOCK_S;
     size_t size_blk = SIMD_SIZE * simd_blk;
     size_t l;
     size_t idx  = m * 2 * size_blk;
@@ -90,7 +98,7 @@ void CHARM(shs_grd_fft_lc)(unsigned long m,
 
 
         /* With cells, "lc->a", "lc->b", "lc->a2" and "lc->b2" implicitly
-         * assume that "SIMD_BLOCK_S" is "1". */
+         * assume that "BLOCK_S" is "1". */
         for (l = 0; l < simd_blk; l++)
         {
             STORE_R(&fc_tmp[idx + l * SIMD_SIZE],
@@ -141,7 +149,7 @@ void CHARM(shs_grd_fft_lc)(unsigned long m,
 
         if (grad > 0)
         {
-            size_t q = nfc * SIMD_SIZE * SIMD_BLOCK_S * 2;
+            size_t q = nfc * SIMD_SIZE * BLOCK_S * 2;
             size_t pnfc = q;
 
 

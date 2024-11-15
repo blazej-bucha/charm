@@ -94,6 +94,7 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/ax_check_compile_flag.m4 \
 	$(top_srcdir)/m4/ax_compiler_vendor.m4 \
 	$(top_srcdir)/m4/ax_gcc_version.m4 \
 	$(top_srcdir)/m4/ax_openmp.m4 \
+	$(top_srcdir)/m4/ax_prog_cc_mpi.m4 \
 	$(top_srcdir)/m4/ax_split_version.m4 \
 	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/ltoptions.m4 \
 	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
@@ -110,11 +111,17 @@ LTLIBRARIES = $(noinst_LTLIBRARIES)
 libcharm@P@_shc_la_LIBADD =
 am_libcharm@P@_shc_la_OBJECTS = shc_da.lo shc_dda.lo shc_ddv.lo \
 	shc_dv.lo shc_alloc.lo shc_malloc.lo shc_calloc.lo shc_init.lo \
-	shc_free.lo shc_read_bin.lo shc_read_mtx.lo shc_read_tbl.lo \
-	shc_read_dov.lo shc_read_gfc.lo shc_read_mtdt.lo \
-	shc_read_nmax_only.lo shc_write_bin.lo shc_write_mtx.lo \
-	shc_write_tbl.lo shc_write_dov.lo shc_write_mtdt.lo \
-	shc_rescale.lo shc_reset_coeffs.lo shc_get_nmax_model.lo
+	shc_init_chunk.lo shc_block_init.lo shc_block_free.lo \
+	shc_block_have_order.lo shc_block_get_coeffs.lo \
+	shc_block_set_coeffs.lo shc_block_nan.lo shc_block_get_idx.lo \
+	shc_block_get_mlast_ncs_root.lo shc_block_reset_coeffs.lo \
+	shc_block_set_mfirst.lo shc_check_chunk_orders.lo \
+	shc_local_ncs.lo shc_free.lo shc_read_bin.lo shc_read_mtx.lo \
+	shc_read_tbl.lo shc_read_dov.lo shc_read_gfc.lo \
+	shc_read_mtdt.lo shc_read_nmax_only.lo shc_write_bin.lo \
+	shc_write_mtx.lo shc_write_tbl.lo shc_write_dov.lo \
+	shc_write_mtdt.lo shc_rescale.lo shc_reset_coeffs.lo \
+	shc_get_nmax_model.lo shc_check_distribution.lo
 libcharm@P@_shc_la_OBJECTS = $(am_libcharm@P@_shc_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -136,10 +143,22 @@ DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/shc_alloc.Plo \
-	./$(DEPDIR)/shc_calloc.Plo ./$(DEPDIR)/shc_da.Plo \
+	./$(DEPDIR)/shc_block_free.Plo \
+	./$(DEPDIR)/shc_block_get_coeffs.Plo \
+	./$(DEPDIR)/shc_block_get_idx.Plo \
+	./$(DEPDIR)/shc_block_get_mlast_ncs_root.Plo \
+	./$(DEPDIR)/shc_block_have_order.Plo \
+	./$(DEPDIR)/shc_block_init.Plo ./$(DEPDIR)/shc_block_nan.Plo \
+	./$(DEPDIR)/shc_block_reset_coeffs.Plo \
+	./$(DEPDIR)/shc_block_set_coeffs.Plo \
+	./$(DEPDIR)/shc_block_set_mfirst.Plo \
+	./$(DEPDIR)/shc_calloc.Plo \
+	./$(DEPDIR)/shc_check_chunk_orders.Plo \
+	./$(DEPDIR)/shc_check_distribution.Plo ./$(DEPDIR)/shc_da.Plo \
 	./$(DEPDIR)/shc_dda.Plo ./$(DEPDIR)/shc_ddv.Plo \
 	./$(DEPDIR)/shc_dv.Plo ./$(DEPDIR)/shc_free.Plo \
 	./$(DEPDIR)/shc_get_nmax_model.Plo ./$(DEPDIR)/shc_init.Plo \
+	./$(DEPDIR)/shc_init_chunk.Plo ./$(DEPDIR)/shc_local_ncs.Plo \
 	./$(DEPDIR)/shc_malloc.Plo ./$(DEPDIR)/shc_read_bin.Plo \
 	./$(DEPDIR)/shc_read_dov.Plo ./$(DEPDIR)/shc_read_gfc.Plo \
 	./$(DEPDIR)/shc_read_mtdt.Plo ./$(DEPDIR)/shc_read_mtx.Plo \
@@ -232,6 +251,8 @@ MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
 MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
+MPICC = @MPICC@
+MPIEXEC = @MPIEXEC@
 NM = @NM@
 NMEDIT = @NMEDIT@
 NP_FLOAT = @NP_FLOAT@
@@ -265,6 +286,7 @@ SHARED_EXT = @SHARED_EXT@
 SHELL = @SHELL@
 STRIP = @STRIP@
 VERSION = @VERSION@
+WITH_MPI = @WITH_MPI@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -284,6 +306,7 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 builddir = @builddir@
+check_mpiexec = @check_mpiexec@
 datadir = @datadir@
 datarootdir = @datarootdir@
 docdir = @docdir@
@@ -332,6 +355,19 @@ libcharm@P@_shc_la_SOURCES = shc_da.c \
 							 shc_malloc.c \
 							 shc_calloc.c \
 							 shc_init.c \
+							 shc_init_chunk.c \
+							 shc_block_init.c \
+							 shc_block_free.c \
+							 shc_block_have_order.c \
+							 shc_block_get_coeffs.c \
+							 shc_block_set_coeffs.c \
+							 shc_block_nan.c \
+							 shc_block_get_idx.c \
+							 shc_block_get_mlast_ncs_root.c \
+							 shc_block_reset_coeffs.c \
+							 shc_block_set_mfirst.c \
+							 shc_check_chunk_orders.c \
+							 shc_local_ncs.c \
 							 shc_free.c \
 							 shc_read_bin.c \
 							 shc_read_mtx.c \
@@ -347,7 +383,8 @@ libcharm@P@_shc_la_SOURCES = shc_da.c \
 							 shc_write_mtdt.c \
 							 shc_rescale.c \
 							 shc_reset_coeffs.c \
-							 shc_get_nmax_model.c
+							 shc_get_nmax_model.c \
+							 shc_check_distribution.c
 
 EXTRA_DIST = *.h
 all: all-am
@@ -405,7 +442,19 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_alloc.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_block_free.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_block_get_coeffs.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_block_get_idx.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_block_get_mlast_ncs_root.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_block_have_order.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_block_init.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_block_nan.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_block_reset_coeffs.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_block_set_coeffs.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_block_set_mfirst.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_calloc.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_check_chunk_orders.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_check_distribution.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_da.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_dda.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_ddv.Plo@am__quote@ # am--include-marker
@@ -413,6 +462,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_free.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_get_nmax_model.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_init.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_init_chunk.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_local_ncs.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_malloc.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_read_bin.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_read_dov.Plo@am__quote@ # am--include-marker
@@ -541,7 +592,19 @@ clean-am: clean-generic clean-libtool clean-noinstLTLIBRARIES \
 
 distclean: distclean-am
 		-rm -f ./$(DEPDIR)/shc_alloc.Plo
+	-rm -f ./$(DEPDIR)/shc_block_free.Plo
+	-rm -f ./$(DEPDIR)/shc_block_get_coeffs.Plo
+	-rm -f ./$(DEPDIR)/shc_block_get_idx.Plo
+	-rm -f ./$(DEPDIR)/shc_block_get_mlast_ncs_root.Plo
+	-rm -f ./$(DEPDIR)/shc_block_have_order.Plo
+	-rm -f ./$(DEPDIR)/shc_block_init.Plo
+	-rm -f ./$(DEPDIR)/shc_block_nan.Plo
+	-rm -f ./$(DEPDIR)/shc_block_reset_coeffs.Plo
+	-rm -f ./$(DEPDIR)/shc_block_set_coeffs.Plo
+	-rm -f ./$(DEPDIR)/shc_block_set_mfirst.Plo
 	-rm -f ./$(DEPDIR)/shc_calloc.Plo
+	-rm -f ./$(DEPDIR)/shc_check_chunk_orders.Plo
+	-rm -f ./$(DEPDIR)/shc_check_distribution.Plo
 	-rm -f ./$(DEPDIR)/shc_da.Plo
 	-rm -f ./$(DEPDIR)/shc_dda.Plo
 	-rm -f ./$(DEPDIR)/shc_ddv.Plo
@@ -549,6 +612,8 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/shc_free.Plo
 	-rm -f ./$(DEPDIR)/shc_get_nmax_model.Plo
 	-rm -f ./$(DEPDIR)/shc_init.Plo
+	-rm -f ./$(DEPDIR)/shc_init_chunk.Plo
+	-rm -f ./$(DEPDIR)/shc_local_ncs.Plo
 	-rm -f ./$(DEPDIR)/shc_malloc.Plo
 	-rm -f ./$(DEPDIR)/shc_read_bin.Plo
 	-rm -f ./$(DEPDIR)/shc_read_dov.Plo
@@ -609,7 +674,19 @@ installcheck-am:
 
 maintainer-clean: maintainer-clean-am
 		-rm -f ./$(DEPDIR)/shc_alloc.Plo
+	-rm -f ./$(DEPDIR)/shc_block_free.Plo
+	-rm -f ./$(DEPDIR)/shc_block_get_coeffs.Plo
+	-rm -f ./$(DEPDIR)/shc_block_get_idx.Plo
+	-rm -f ./$(DEPDIR)/shc_block_get_mlast_ncs_root.Plo
+	-rm -f ./$(DEPDIR)/shc_block_have_order.Plo
+	-rm -f ./$(DEPDIR)/shc_block_init.Plo
+	-rm -f ./$(DEPDIR)/shc_block_nan.Plo
+	-rm -f ./$(DEPDIR)/shc_block_reset_coeffs.Plo
+	-rm -f ./$(DEPDIR)/shc_block_set_coeffs.Plo
+	-rm -f ./$(DEPDIR)/shc_block_set_mfirst.Plo
 	-rm -f ./$(DEPDIR)/shc_calloc.Plo
+	-rm -f ./$(DEPDIR)/shc_check_chunk_orders.Plo
+	-rm -f ./$(DEPDIR)/shc_check_distribution.Plo
 	-rm -f ./$(DEPDIR)/shc_da.Plo
 	-rm -f ./$(DEPDIR)/shc_dda.Plo
 	-rm -f ./$(DEPDIR)/shc_ddv.Plo
@@ -617,6 +694,8 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/shc_free.Plo
 	-rm -f ./$(DEPDIR)/shc_get_nmax_model.Plo
 	-rm -f ./$(DEPDIR)/shc_init.Plo
+	-rm -f ./$(DEPDIR)/shc_init_chunk.Plo
+	-rm -f ./$(DEPDIR)/shc_local_ncs.Plo
 	-rm -f ./$(DEPDIR)/shc_malloc.Plo
 	-rm -f ./$(DEPDIR)/shc_read_bin.Plo
 	-rm -f ./$(DEPDIR)/shc_read_dov.Plo

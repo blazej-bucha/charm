@@ -49,7 +49,7 @@
     <link rel="prev" title="pyharm.shc" href="api-py-shc.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Aug 05, 2024"/>
+    <meta name="docbuild:last-update" content="Nov 15, 2024"/>
   </head>
   
   
@@ -184,6 +184,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html">charm_err</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-mpi.html">charm_mpi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-glob.html">charm_glob</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
 </ul>
@@ -442,6 +443,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridGL"><code class="docutils literal notranslate"><span class="pre">PointGridGL</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridGL.w"><code class="docutils literal notranslate"><span class="pre">PointGridGL.w</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridGL.nmax"><code class="docutils literal notranslate"><span class="pre">PointGridGL.nmax</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridGL.shape"><code class="docutils literal notranslate"><span class="pre">PointGridGL.shape()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridGL.lat"><code class="docutils literal notranslate"><span class="pre">PointGridGL.lat</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridGL.lon"><code class="docutils literal notranslate"><span class="pre">PointGridGL.lon</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridGL.npoint"><code class="docutils literal notranslate"><span class="pre">PointGridGL.npoint</span></code></a></li>
@@ -452,6 +454,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH1"><code class="docutils literal notranslate"><span class="pre">PointGridDH1</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH1.w"><code class="docutils literal notranslate"><span class="pre">PointGridDH1.w</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH1.nmax"><code class="docutils literal notranslate"><span class="pre">PointGridDH1.nmax</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH1.shape"><code class="docutils literal notranslate"><span class="pre">PointGridDH1.shape()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH1.lat"><code class="docutils literal notranslate"><span class="pre">PointGridDH1.lat</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH1.lon"><code class="docutils literal notranslate"><span class="pre">PointGridDH1.lon</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH1.npoint"><code class="docutils literal notranslate"><span class="pre">PointGridDH1.npoint</span></code></a></li>
@@ -462,6 +465,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH2"><code class="docutils literal notranslate"><span class="pre">PointGridDH2</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH2.w"><code class="docutils literal notranslate"><span class="pre">PointGridDH2.w</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH2.nmax"><code class="docutils literal notranslate"><span class="pre">PointGridDH2.nmax</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH2.shape"><code class="docutils literal notranslate"><span class="pre">PointGridDH2.shape()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH2.lat"><code class="docutils literal notranslate"><span class="pre">PointGridDH2.lat</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH2.lon"><code class="docutils literal notranslate"><span class="pre">PointGridDH2.lon</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH2.npoint"><code class="docutils literal notranslate"><span class="pre">PointGridDH2.npoint</span></code></a></li>
@@ -833,7 +837,7 @@ longitudes and spherical radii taken from <code class="docutils literal notransl
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridGL">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyharm.crd.</span></span><span class="sig-name descname"><span class="pre">PointGridGL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGridGL" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyharm.crd.</span></span><span class="sig-name descname"><span class="pre">PointGridGL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGridGL" title="Link to this definition">#</a></dt>
 <dd><p>Class for Gauss–Legendre point grids.</p>
 <p>For details, refer to <a class="reference external" href="./api-c-crd.html">charm_crd</a>.</p>
 <p>Create a <a class="reference internal" href="#pyharm.crd.PointGridGL" title="pyharm.crd.PointGridGL"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointGridGL</span></code></a> class instance like this:</p>
@@ -865,6 +869,26 @@ attributes nor its array elements are writeable.</p>
 <dt class="sig sig-object py" id="pyharm.crd.PointGridGL.nmax">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nmax</span></span><a class="headerlink" href="#pyharm.crd.PointGridGL.nmax" title="Link to this definition">#</a></dt>
 <dd><p>Maximum harmonic degree associated with the quadrature grid points.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyharm.crd.PointGridGL.shape">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGridGL.shape" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of latitudes <code class="docutils literal notranslate"><span class="pre">nlat</span></code> and the number of longitudes
+<code class="docutils literal notranslate"><span class="pre">nlon</span></code> of the Gauss-Legendre grid that corresponds to the maximum
+harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree of the Gauss-Legendre grid</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>nlat</strong> (<em>integer</em>) – Number of latitudes</p></li>
+<li><p><strong>nlon</strong> (<em>integer</em>) – Number of longitudes</p></li>
+</ul>
+</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
@@ -901,7 +925,7 @@ attributes nor its array elements are writeable.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridDH1">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyharm.crd.</span></span><span class="sig-name descname"><span class="pre">PointGridDH1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGridDH1" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyharm.crd.</span></span><span class="sig-name descname"><span class="pre">PointGridDH1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGridDH1" title="Link to this definition">#</a></dt>
 <dd><p>Class for non-equiangular Driscoll–Healy point grids.</p>
 <p>For details, refer to <a class="reference external" href="./api-c-crd.html">charm_crd</a>.</p>
 <p>Create a <a class="reference internal" href="#pyharm.crd.PointGridDH1" title="pyharm.crd.PointGridDH1"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointGridDH1</span></code></a> class instance like this:</p>
@@ -933,6 +957,26 @@ attributes nor its array elements are writeable.</p>
 <dt class="sig sig-object py" id="pyharm.crd.PointGridDH1.nmax">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nmax</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH1.nmax" title="Link to this definition">#</a></dt>
 <dd><p>Maximum harmonic degree associated with the quadrature grid points.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyharm.crd.PointGridDH1.shape">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGridDH1.shape" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of latitudes <code class="docutils literal notranslate"><span class="pre">nlat</span></code> and the number of longitudes
+<code class="docutils literal notranslate"><span class="pre">nlon</span></code> of the non-equiangular Driscoll-Healy grid that corresponds to
+the maximum harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree of the Driscoll-Healy grid</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>nlat</strong> (<em>integer</em>) – Number of latitudes</p></li>
+<li><p><strong>nlon</strong> (<em>integer</em>) – Number of longitudes</p></li>
+</ul>
+</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
@@ -969,7 +1013,7 @@ attributes nor its array elements are writeable.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridDH2">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyharm.crd.</span></span><span class="sig-name descname"><span class="pre">PointGridDH2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGridDH2" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyharm.crd.</span></span><span class="sig-name descname"><span class="pre">PointGridDH2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGridDH2" title="Link to this definition">#</a></dt>
 <dd><p>Class for equiangular Driscoll–Healy point grids.</p>
 <p>For details, refer to <a class="reference external" href="./api-c-crd.html">charm_crd</a>.</p>
 <p>Create a <a class="reference internal" href="#pyharm.crd.PointGridDH2" title="pyharm.crd.PointGridDH2"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointGridDH2</span></code></a> class instance like this:</p>
@@ -1001,6 +1045,26 @@ attributes nor its array elements are writeable.</p>
 <dt class="sig sig-object py" id="pyharm.crd.PointGridDH2.nmax">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nmax</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH2.nmax" title="Link to this definition">#</a></dt>
 <dd><p>Maximum harmonic degree associated with the quadrature grid points.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyharm.crd.PointGridDH2.shape">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGridDH2.shape" title="Link to this definition">#</a></dt>
+<dd><p>Returns the number of latitudes <code class="docutils literal notranslate"><span class="pre">nlat</span></code> and the number of longitudes
+<code class="docutils literal notranslate"><span class="pre">nlon</span></code> of the equiangular Driscoll-Healy grid that corresponds to
+the maximum harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree of the Driscoll-Healy grid</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>nlat</strong> (<em>integer</em>) – Number of latitudes</p></li>
+<li><p><strong>nlon</strong> (<em>integer</em>) – Number of longitudes</p></li>
+</ul>
+</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
@@ -1457,6 +1521,7 @@ spherical radii taken from <code class="docutils literal notranslate"><span clas
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridGL"><code class="docutils literal notranslate"><span class="pre">PointGridGL</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridGL.w"><code class="docutils literal notranslate"><span class="pre">PointGridGL.w</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridGL.nmax"><code class="docutils literal notranslate"><span class="pre">PointGridGL.nmax</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridGL.shape"><code class="docutils literal notranslate"><span class="pre">PointGridGL.shape()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridGL.lat"><code class="docutils literal notranslate"><span class="pre">PointGridGL.lat</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridGL.lon"><code class="docutils literal notranslate"><span class="pre">PointGridGL.lon</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridGL.npoint"><code class="docutils literal notranslate"><span class="pre">PointGridGL.npoint</span></code></a></li>
@@ -1467,6 +1532,7 @@ spherical radii taken from <code class="docutils literal notranslate"><span clas
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH1"><code class="docutils literal notranslate"><span class="pre">PointGridDH1</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH1.w"><code class="docutils literal notranslate"><span class="pre">PointGridDH1.w</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH1.nmax"><code class="docutils literal notranslate"><span class="pre">PointGridDH1.nmax</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH1.shape"><code class="docutils literal notranslate"><span class="pre">PointGridDH1.shape()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH1.lat"><code class="docutils literal notranslate"><span class="pre">PointGridDH1.lat</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH1.lon"><code class="docutils literal notranslate"><span class="pre">PointGridDH1.lon</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH1.npoint"><code class="docutils literal notranslate"><span class="pre">PointGridDH1.npoint</span></code></a></li>
@@ -1477,6 +1543,7 @@ spherical radii taken from <code class="docutils literal notranslate"><span clas
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH2"><code class="docutils literal notranslate"><span class="pre">PointGridDH2</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH2.w"><code class="docutils literal notranslate"><span class="pre">PointGridDH2.w</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH2.nmax"><code class="docutils literal notranslate"><span class="pre">PointGridDH2.nmax</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH2.shape"><code class="docutils literal notranslate"><span class="pre">PointGridDH2.shape()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH2.lat"><code class="docutils literal notranslate"><span class="pre">PointGridDH2.lat</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH2.lon"><code class="docutils literal notranslate"><span class="pre">PointGridDH2.lon</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.crd.PointGridDH2.npoint"><code class="docutils literal notranslate"><span class="pre">PointGridDH2.npoint</span></code></a></li>
@@ -1543,7 +1610,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Aug 05, 2024.
+  Last updated on Nov 15, 2024.
   <br/>
 </p>
   </div>

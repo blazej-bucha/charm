@@ -13,7 +13,7 @@
 /* Maximum harmonic degree of the input topography in "SHCS_IN_PATH_TOPO_MTX" 
  * */
 #undef SHCS_NMAX_TOPO
-#define SHCS_NMAX_TOPO (4)
+#define SHCS_NMAX_TOPO (4UL)
 
 
 /* Path to input spherical harmonic coefficients of the topography in the 
@@ -39,7 +39,7 @@
 /* Maximum harmonic degree of the input potential in "SHCS_IN_PATH_POT_MTX", 
  * "SHCS_IN_PATH_POT_GFC" and "SHCS_IN_PATH_POT_TBL" */
 #undef SHCS_NMAX_POT
-#define SHCS_NMAX_POT (10)
+#define SHCS_NMAX_POT (10UL)
 
 
 /* Path to input spherical harmonic coefficients of the potential in the matrix 
@@ -118,7 +118,7 @@
 
 /* Size of char arrays for long string */
 #undef NSTR_LONG
-#define NSTR_LONG (2024)
+#define NSTR_LONG (1024)
 
 
 /* Size of char arrays for short string */
@@ -134,21 +134,29 @@
 /* Maximum degree for harmonic analysis and synthesis (except for the area-mean
  * values on irregular surfaces) */
 #undef NMAX
-#define NMAX (4)
+#define NMAX (4UL)
 
 
 /* Auxiliary maximum degree to synthesize area-mean values on irregular
  * surfaces */
 #undef NMAX2
-#define NMAX2 (15)
+#define NMAX2 (15UL)
 
 
 /* Maximum degrees to test dynamical switching and loop unrolling in point
  * synthesis and analysis */
 #undef NMAX_DS_MIN
-#define NMAX_DS_MIN (150)
+#define NMAX_DS_MIN (150UL)
 #undef NMAX_DS_MAX
-#define NMAX_DS_MAX (154)
+#define NMAX_DS_MAX (154UL)
+
+
+/* Maximum harmonic degree to check the distribution of "charm_shc" and
+ * "charm_point".  Cannot be too low, because some of the algorithms to
+ * distribute spherical harmonic coefficients across MPI processes are not
+ * completely robust. */
+#undef NMAX_MPI
+#define NMAX_MPI (50UL)
 
 
 /* Number of radial layers to test for the solid synthesis and analysis. */
@@ -281,6 +289,14 @@
 /* Epoch for time variable "gfc" models */
 #undef TVG_EPOCH
 #define TVG_EPOCH "20020305.1245"
+
+
+#if HAVE_MPI
+/* Maximum number of chunks to split spherical harmonic coefficients at
+ * a single process */
+#undef NCHUNK_MAX
+#define NCHUNK_MAX 3
+#endif
 
 
 #endif

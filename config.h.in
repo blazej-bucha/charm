@@ -69,6 +69,21 @@
 /* Define to 1 if you have the <mm_malloc.h> header file. */
 #undef HAVE_MM_MALLOC_H
 
+/* Define if you have the MPI library. */
+#undef HAVE_MPI
+
+/* Define to 1 if you have the MPI_Allgather_c function. */
+#undef HAVE_MPI_ALLGATHER_C
+
+/* Define to 1 if you have the MPI_Gatherv_c function. */
+#undef HAVE_MPI_GATHERV_C
+
+/* Define to 1 if you have the MPI_Ibcast_c function. */
+#undef HAVE_MPI_IBCAST_C
+
+/* Define to 1 if you have the MPI_Ireduce_c function. */
+#undef HAVE_MPI_IREDUCE_C
+
 /* Define to 1 to enable neon instructions */
 #undef HAVE_NEON
 

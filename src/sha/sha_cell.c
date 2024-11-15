@@ -3,11 +3,13 @@
 #include <config.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 #include <math.h>
 #include <fftw3.h>
 #include "../prec.h"
 #include "../shc/shc_reset_coeffs.h"
+#include "../shc/shc_check_distribution.h"
 #include "../shs/shs_cell_check_grd_lons.h"
 #include "../leg/leg_func_anm_bnm.h"
 #include "../leg/leg_func_dm.h"
@@ -21,6 +23,7 @@
 #include "../crd/crd_cell_isGrid.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
+#include "../err/err_check_distribution.h"
 #include "../misc/misc_is_nearly_equal.h"
 #include "../misc/misc_polar_optimization_threshold.h"
 #include "../misc/misc_polar_optimization_apply.h"
@@ -37,12 +40,31 @@
 
 
 
-void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
-                     unsigned long nmax, int method, CHARM(shc) *shcs,
+void CHARM(sha_cell)(const CHARM(cell) *cell,
+                     const REAL *f,
+                     unsigned long nmax,
+                     int method,
+                     CHARM(shc) *shcs,
                      CHARM(err) *err)
 {
     /* Some trivial initial error checks */
     /* --------------------------------------------------------------------- */
+    CHARM(err_check_distribution)(err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
+    CHARM(shc_check_distribution)(shcs, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
     if (method != CHARM_SHA_CELL_AQ)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
@@ -70,6 +92,11 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
                        "coefficients (\"shcs->nmax\").");
         return;
     }
+
+
+    /* Do nothing if there are no cells in "cell" */
+    if (cell->ncell == 0)
+        return;
 
 
     /* Get the radius of the sphere "r0", on which the analysis will be
@@ -692,7 +719,8 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
                  * applied */
                 /* --------------------------------------------------------- */
                 ipv = i + v;
-                CHARM(crd_grd_check_symm)(ipv, v, cell->type, nlatdo, symm,
+                CHARM(crd_grd_check_symm)(ipv, v, 0, SIZE_MAX, cell->type,
+                                          nlatdo, symm,
                                           even, symmv, latsinv);
 
 

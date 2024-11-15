@@ -94,6 +94,7 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/ax_check_compile_flag.m4 \
 	$(top_srcdir)/m4/ax_compiler_vendor.m4 \
 	$(top_srcdir)/m4/ax_gcc_version.m4 \
 	$(top_srcdir)/m4/ax_openmp.m4 \
+	$(top_srcdir)/m4/ax_prog_cc_mpi.m4 \
 	$(top_srcdir)/m4/ax_split_version.m4 \
 	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/ltoptions.m4 \
 	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
@@ -113,11 +114,12 @@ am_libcharm@P@_misc_la_OBJECTS = misc_arr_chck_lin_incr.lo \
 	misc_arr_min.lo misc_arr_std.lo misc_arr_rms.lo \
 	misc_is_nearly_equal.lo misc_fprintf_real.lo \
 	misc_print_info.lo misc_get_version.lo misc_str2ul.lo \
-	misc_str2real.lo misc_calloc.lo \
+	misc_str2real.lo misc_calloc.lo misc_check_radius.lo \
 	misc_polar_optimization_apply.lo \
 	misc_polar_optimization_threshold.lo \
 	misc_buildopt_precision.lo misc_buildopt_omp_charm.lo \
 	misc_buildopt_omp_fftw.lo misc_buildopt_simd.lo \
+	misc_buildopt_simd_vector_size.lo misc_buildopt_mpi.lo \
 	misc_buildopt_isfinite.lo misc_buildopt_version_fftw.lo \
 	pyinit_libcharm.lo
 libcharm@P@_misc_la_OBJECTS = $(am_libcharm@P@_misc_la_OBJECTS)
@@ -146,12 +148,15 @@ am__depfiles_remade = ./$(DEPDIR)/misc_arr_chck_lin_incr.Plo \
 	./$(DEPDIR)/misc_arr_min.Plo ./$(DEPDIR)/misc_arr_rms.Plo \
 	./$(DEPDIR)/misc_arr_std.Plo \
 	./$(DEPDIR)/misc_buildopt_isfinite.Plo \
+	./$(DEPDIR)/misc_buildopt_mpi.Plo \
 	./$(DEPDIR)/misc_buildopt_omp_charm.Plo \
 	./$(DEPDIR)/misc_buildopt_omp_fftw.Plo \
 	./$(DEPDIR)/misc_buildopt_precision.Plo \
 	./$(DEPDIR)/misc_buildopt_simd.Plo \
+	./$(DEPDIR)/misc_buildopt_simd_vector_size.Plo \
 	./$(DEPDIR)/misc_buildopt_version_fftw.Plo \
-	./$(DEPDIR)/misc_calloc.Plo ./$(DEPDIR)/misc_fprintf_real.Plo \
+	./$(DEPDIR)/misc_calloc.Plo ./$(DEPDIR)/misc_check_radius.Plo \
+	./$(DEPDIR)/misc_fprintf_real.Plo \
 	./$(DEPDIR)/misc_get_version.Plo \
 	./$(DEPDIR)/misc_is_nearly_equal.Plo \
 	./$(DEPDIR)/misc_polar_optimization_apply.Plo \
@@ -242,6 +247,8 @@ MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
 MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
+MPICC = @MPICC@
+MPIEXEC = @MPIEXEC@
 NM = @NM@
 NMEDIT = @NMEDIT@
 NP_FLOAT = @NP_FLOAT@
@@ -275,6 +282,7 @@ SHARED_EXT = @SHARED_EXT@
 SHELL = @SHELL@
 STRIP = @STRIP@
 VERSION = @VERSION@
+WITH_MPI = @WITH_MPI@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -294,6 +302,7 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 builddir = @builddir@
+check_mpiexec = @check_mpiexec@
 datadir = @datadir@
 datarootdir = @datarootdir@
 docdir = @docdir@
@@ -348,12 +357,15 @@ libcharm@P@_misc_la_SOURCES = misc_arr_chck_lin_incr.c \
 							  misc_str2ul.c \
 							  misc_str2real.c \
 							  misc_calloc.c \
+							  misc_check_radius.c \
 							  misc_polar_optimization_apply.c \
 							  misc_polar_optimization_threshold.c \
 							  misc_buildopt_precision.c \
 							  misc_buildopt_omp_charm.c \
 							  misc_buildopt_omp_fftw.c \
 							  misc_buildopt_simd.c \
+							  misc_buildopt_simd_vector_size.c \
+							  misc_buildopt_mpi.c \
 							  misc_buildopt_isfinite.c \
 							  misc_buildopt_version_fftw.c \
 							  pyinit_libcharm.c
@@ -421,12 +433,15 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_arr_rms.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_arr_std.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_buildopt_isfinite.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_buildopt_mpi.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_buildopt_omp_charm.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_buildopt_omp_fftw.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_buildopt_precision.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_buildopt_simd.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_buildopt_simd_vector_size.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_buildopt_version_fftw.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_calloc.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_check_radius.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_fprintf_real.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_get_version.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/misc_is_nearly_equal.Plo@am__quote@ # am--include-marker
@@ -556,12 +571,15 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/misc_arr_rms.Plo
 	-rm -f ./$(DEPDIR)/misc_arr_std.Plo
 	-rm -f ./$(DEPDIR)/misc_buildopt_isfinite.Plo
+	-rm -f ./$(DEPDIR)/misc_buildopt_mpi.Plo
 	-rm -f ./$(DEPDIR)/misc_buildopt_omp_charm.Plo
 	-rm -f ./$(DEPDIR)/misc_buildopt_omp_fftw.Plo
 	-rm -f ./$(DEPDIR)/misc_buildopt_precision.Plo
 	-rm -f ./$(DEPDIR)/misc_buildopt_simd.Plo
+	-rm -f ./$(DEPDIR)/misc_buildopt_simd_vector_size.Plo
 	-rm -f ./$(DEPDIR)/misc_buildopt_version_fftw.Plo
 	-rm -f ./$(DEPDIR)/misc_calloc.Plo
+	-rm -f ./$(DEPDIR)/misc_check_radius.Plo
 	-rm -f ./$(DEPDIR)/misc_fprintf_real.Plo
 	-rm -f ./$(DEPDIR)/misc_get_version.Plo
 	-rm -f ./$(DEPDIR)/misc_is_nearly_equal.Plo
@@ -623,12 +641,15 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/misc_arr_rms.Plo
 	-rm -f ./$(DEPDIR)/misc_arr_std.Plo
 	-rm -f ./$(DEPDIR)/misc_buildopt_isfinite.Plo
+	-rm -f ./$(DEPDIR)/misc_buildopt_mpi.Plo
 	-rm -f ./$(DEPDIR)/misc_buildopt_omp_charm.Plo
 	-rm -f ./$(DEPDIR)/misc_buildopt_omp_fftw.Plo
 	-rm -f ./$(DEPDIR)/misc_buildopt_precision.Plo
 	-rm -f ./$(DEPDIR)/misc_buildopt_simd.Plo
+	-rm -f ./$(DEPDIR)/misc_buildopt_simd_vector_size.Plo
 	-rm -f ./$(DEPDIR)/misc_buildopt_version_fftw.Plo
 	-rm -f ./$(DEPDIR)/misc_calloc.Plo
+	-rm -f ./$(DEPDIR)/misc_check_radius.Plo
 	-rm -f ./$(DEPDIR)/misc_fprintf_real.Plo
 	-rm -f ./$(DEPDIR)/misc_get_version.Plo
 	-rm -f ./$(DEPDIR)/misc_is_nearly_equal.Plo

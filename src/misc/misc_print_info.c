@@ -53,6 +53,24 @@ void CHARM(misc_print_info)(void)
     printf("\n");
 
 
+    printf("SIMD: ");
+    ret = CHARM(misc_buildopt_simd)();
+    if (ret == BUILDOPT_SIMD_NONE)
+        printf("disabled");
+    else if (ret == BUILDOPT_SIMD_AVX)
+        printf("avx");
+    else if (ret == BUILDOPT_SIMD_AVX2)
+        printf("avx2");
+    else if (ret == BUILDOPT_SIMD_AVX512)
+        printf("avx-512");
+    else if (ret == BUILDOPT_SIMD_NEON)
+        printf("neon");
+    else
+        printf("unsupported value, recompile CHarm");
+    printf(" (vector size %d)", CHARM(misc_buildopt_simd_vector_size)());
+    printf("\n");
+
+
     printf("OpenMP in CHarm: ");
     if (CHARM(misc_buildopt_omp_charm)())
         printf("enabled");
@@ -69,20 +87,11 @@ void CHARM(misc_print_info)(void)
     printf("\n");
 
 
-    printf("SIMD parallelism: ");
-    ret = CHARM(misc_buildopt_simd)();
-    if (ret == BUILDOPT_SIMD_NONE)
-        printf("none");
-    else if (ret == BUILDOPT_SIMD_AVX)
-        printf("avx");
-    else if (ret == BUILDOPT_SIMD_AVX2)
-        printf("avx2");
-    else if (ret == BUILDOPT_SIMD_AVX512)
-        printf("avx-512");
-    else if (ret == BUILDOPT_SIMD_NEON)
-        printf("neon");
+    printf("MPI: ");
+    if (CHARM(misc_buildopt_mpi)())
+        printf("enabled");
     else
-        printf("unsupported value, recompile CHarm");
+        printf("disabled");
     printf("\n");
 
 
