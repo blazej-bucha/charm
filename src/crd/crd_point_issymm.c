@@ -6,7 +6,7 @@
 #include "../prec.h"
 #include "../crd/crd_point_isEmpty.h"
 #include "../crd/crd_point_isGrid.h"
-#include "../misc/misc_is_nearly_equal.h"
+#include "../misc/misc_arr_chck_symm.h"
 #include "crd_point_issymm.h"
 /* ------------------------------------------------------------------------- */
 
@@ -31,30 +31,24 @@ _Bool CHARM(crd_point_issymm)(const CHARM(point) *pnt)
 #else
     local_nlat = pnt->nlat;
 #endif
-    if (local_nlat < 2)
+
+
+    /* Now "pnt" has at least one latitude */
+
+
+    CHARM(err) *err = CHARM(err_init)();
+    if (err == NULL)
         return 0;
 
 
-    /* Now "pnt" has to be a non-empty grid with more than 1 latitude */
+    int ret = CHARM(misc_arr_chck_symm)(pnt->lat, local_nlat, PREC(0.0),
+                                        CHARM(glob_threshold), err);
+    if (!CHARM(err_isempty)(err))
+        ret = 9999;
 
 
-    /* Check locally that each positive latitude has its negative counterpart.
-     * We do this also with the zero latitude if present. */
-    for (size_t i = 0; i < (local_nlat + 1) / 2; i++)
-        if (!CHARM(misc_is_nearly_equal)(FABS(pnt->lat[i]),
-                                         FABS(pnt->lat[local_nlat - 1 - i]),
-                                         CHARM(glob_threshold)))
-            return 0;
+    CHARM(err_free)(err);
 
 
-    /* If the local number of latitudes is odd and is larger than "1", the
-     * latitude in the middle must be zero for a grid to be symmetric */
-    if (local_nlat % 2)
-        if (!CHARM(misc_is_nearly_equal)(pnt->lat[local_nlat / 2],
-                                         PREC(0.0),
-                                         CHARM(glob_threshold)))
-            return 0;
-
-
-    return 1;
+    return ret == 0;
 }
