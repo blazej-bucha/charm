@@ -30,6 +30,8 @@ Upcoming release:
     * `charm_point`,
     * `charm_err`.
 
+* Bug fix in `pyharm.shc.Shc.set_coeffs()` by @avocakerok (#1).
+
 * Improved test suite.
 
 * Docs improvements.
