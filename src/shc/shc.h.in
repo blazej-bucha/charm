@@ -695,7 +695,7 @@ CHARM_EXTERN unsigned long CHARM_CDECL
  * default epoch into ``epoch``. Error reported by the function (if any) is
  * written to ``err``. *gfc* is a format for gravity field models defined by
  * ICGEM at <a
- * href="http://icgem.gfz-potsdam.de/ICGEM-Format-2023.pdf">http://icgem.gfz-potsdam.de/ICGEM-Format-2023.pdf</a>.
+ * href="https://icgem.gfz-potsdam.de/docs/ICGEM-Format-2023.pdf">https://icgem.gfz-potsdam.de/docs/ICGEM-Format-2023.pdf</a>.
  *
  * The date string in ``epoch`` must follow either the pattern ``yyyyMMdd``
  * (e.g., ``"20050217"`` for Feb 17, 2005) or ``yyyyMMdd.hhmm`` (e.g.,
