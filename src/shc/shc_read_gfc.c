@@ -608,7 +608,8 @@ FAILURE_NMAX:
             }
             nmax_found = 1;
         }
-        else if (strcmp(key_str, SHC_READ_GFC_GM) == 0)
+        else if ((strcmp(key_str, SHC_READ_GFC_EARTH_GM) == 0) ||
+                 (strcmp(key_str, SHC_READ_GFC_GM) == 0))
         {
             mu_err   = 0;
             mu_file  = CHARM(misc_str2real)(val_str, "", err);
@@ -718,7 +719,7 @@ FAILURE_FORMAT:
     if (!nmax_found)
         not_found_keyword = SHC_READ_GFC_NMAX;
     else if (!mu_found)
-        not_found_keyword = SHC_READ_GFC_GM;
+        not_found_keyword = SHC_READ_GFC_ALL_GM_KEYWORDS;
     else if (!r_found)
         not_found_keyword = SHC_READ_GFC_R;
     else if (!errors_found)
@@ -754,7 +755,7 @@ FAILURE_FORMAT:
         else if (mu_err)
         {
             strcpy(val_str, mu_err_str);
-            strcpy(key_str, SHC_READ_GFC_GM);
+            strcpy(key_str, SHC_READ_GFC_ALL_GM_KEYWORDS);
             goto FAILURE_MU;
         }
         else if (r_err)

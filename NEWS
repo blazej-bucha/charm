@@ -32,6 +32,9 @@ Upcoming release:
 
 * Bug fix in `pyharm.shc.Shc.set_coeffs()` by @avocakerok (#1).
 
+* Added support for the `gravity_constant` keyword that appears in `gfc` models 
+  of celestial bodies.
+
 * Improved test suite.
 
 * Docs improvements.
