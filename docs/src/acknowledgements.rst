@@ -1,7 +1,7 @@
 Acknowledgements
 ================
 
-Since July 2024 to June 2026, CHarm is being developed within a project funded 
+From July 2024 to June 2026, CHarm is being developed within a project funded 
 by the EU NextGenerationEU through the Recovery and Resilience Plan for 
 Slovakia under the project No. 09I03-03-V04-00273.
 
