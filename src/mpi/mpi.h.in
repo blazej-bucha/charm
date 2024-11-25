@@ -53,6 +53,15 @@
  * parameters, see the  <a href="./api-c-glob.html"> documentation</a> and the
  * <a href="./cookbook-c.html#distributed-computing-with-mpi"> cookbook</a>.
  *
+ * @note If CHarm is compiled with the MPI support (``--enable-mpi``),
+ * spherical harmonic transforms on shared-memory systems will generally be
+ * slightly slower compared to when the MPI support is disabled.  This is true
+ * if even none of the data are actually distributed.  This is the price to be
+ * paid for having the ``::charm@P@_glob_sha_block_lat_multiplier`` and
+ * ``::charm@P@_glob_shs_block_lat_multiplier`` variables, which require to
+ * dynamically allocate memory in the computationally most expensive parts of
+ * CHarm.
+ *
  * @note An MPI implementation is required to support the MPI standard version
  * 3.0 (September 2012) or newer.
  *
