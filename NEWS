@@ -1,5 +1,10 @@
 Upcoming release:
 
+This release adds support for MPI parallelization on distributed-memory systems 
+and fixes one bug.  Added is support for Python 3.13 and support for Python 3.9 
+and macOS 10.x is dropped.  The API is backward compatible except for one minor 
+change (see below).
+
 * Added support for MPI parallelization.
 
   Spherical harmonic synthesis/analysis of point data can now also be conducted 
@@ -31,6 +36,8 @@ Upcoming release:
     * `charm_err`.
 
 * Bug fix in `pyharm.shc.Shc.set_coeffs()` by @avocakerok (#1).
+
+* Added support for Python 3.13, dropped support for Python 3.9 and macOS 10.x.
 
 * Added support for the `gravity_constant` keyword that appears in `gfc` models 
   of celestial bodies.
