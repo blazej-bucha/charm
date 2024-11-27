@@ -33,7 +33,6 @@ libcharm@P@_shs_la_SOURCES = shs_cell.c \
 							 shs_check_single_derivative.c \
 							 shs_check_grads.c \
 							 shs_get_mur_dorder_npar.c \
-							 shs_ratios.c \
 							 shs_get_imax.c
 
 

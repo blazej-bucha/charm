@@ -58,7 +58,6 @@
 #include "shs_lc_init.h"
 #include "shs_lc_free.h"
 #include "shs_max_npar.h"
-#include "shs_ratios.h"
 #include "shs_get_imax.h"
 #include "shs_point_grd.h"
 /* ------------------------------------------------------------------------- */
@@ -785,7 +784,10 @@ private(l) MPI_VARS
         MISC_SD_CALLOC_REAL_SIMD_ERR(ratio2m, BLOCK_S, SIMD_BLOCK_S, err,
                                      BARRIER_2);
         for (l = 0; l < BLOCK_S; l++)
-            ratiom[l] = ratio2m[l] = SET_ZERO_R;
+            ratiom[l] = ratio[l];
+        if (symm)
+            for (l = 0; l < BLOCK_S; l++)
+                ratio2m[l] = ratio2[l];
         /* ------------------------------------------------------------- */
 
 
@@ -859,7 +861,24 @@ BARRIER_2:
 
 
                 /* Compute "(R / r)^(m + 1)" ("m" is not a typo) */
-                CHARM(shs_ratios)(ratio, ratio2, symm, m, ratiom, ratio2m);
+                if (!r_eq_rref)
+                {
+                    for (l = 0; l < BLOCK_S; l++)
+                        ratiom[l] = ratio[l];
+                    if (symm)
+                        for (l = 0; l < BLOCK_S; l++)
+                            ratio2m[l] = ratio2[l];
+
+
+                    for (unsigned long mtmp = 1; mtmp <= m; mtmp++)
+                    {
+                        for (l = 0; l < BLOCK_S; l++)
+                            ratiom[l] = MUL_R(ratiom[l], ratio[l]);
+                        if (symm)
+                            for (l = 0; l < BLOCK_S; l++)
+                                ratio2m[l] = MUL_R(ratio2m[l], ratio2[l]);
+                    }
+                }
 
 
                 /* "anm" and "bnm" coefficients for Legendre recurrence

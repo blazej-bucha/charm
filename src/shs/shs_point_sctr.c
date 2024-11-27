@@ -40,7 +40,6 @@
 #include "shs_get_mur_dorder_npar.h"
 #include "shs_point_gradn.h"
 #include "shs_max_npar.h"
-#include "shs_ratios.h"
 #include "shs_get_imax.h"
 #include "shs_point_sctr.h"
 /* ------------------------------------------------------------------------- */
@@ -441,7 +440,7 @@ private(l, idx) MPI_VARS
         for (l = 0; l < BLOCK_S; l++)
             zeros[l] = SET_ZERO_R;
         for (l = 0; l < BLOCK_S; l++)
-            ratiom[l] = SET_ZERO_R;
+            ratiom[l] = ratio[l];
         for (l = 0; l < SHS_MAX_NPAR * BLOCK_S; l++)
             fi_thread[l] = SET_ZERO_R;
         /* ------------------------------------------------------------- */
@@ -520,7 +519,16 @@ BARRIER_2:
 
 
                 /* Compute "(R / r)^(m + 1)" ("m" is not a typo) */
-                CHARM(shs_ratios)(ratio, NULL, 0, m, ratiom, NULL);
+                if (!r_eq_rref)
+                {
+                    for (l = 0; l < BLOCK_S; l++)
+                        ratiom[l] = ratio[l];
+
+
+                    for (unsigned long mtmp = 1; mtmp <= m; mtmp++)
+                        for (l = 0; l < BLOCK_S; l++)
+                            ratiom[l] = MUL_R(ratiom[l], ratio[l]);
+                }
 
 
                 /* "anm" and "bnm" coefficients for Legendre recurrence
