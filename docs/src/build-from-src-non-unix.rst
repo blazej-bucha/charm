@@ -26,4 +26,4 @@ add the standard installation utilities (e.g. make) that are not found on
 Windows normally.  Next, you may want to use the `CCCL 
 <https://github.com/swig/cccl>`_ wrapper for MSVC.  Finally, follow the 
 instructions found in :ref:`build_from_src_unix`.  In fact, this is how we 
-build the Python wheels for Windows that are available from PyPI.
+built the Python wheels for Windows that are available from PyPI.
