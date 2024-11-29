@@ -18,6 +18,7 @@
 #define __CHARM@PC@_H__
 
 
+/*! \cond PRIVATE */
 #undef CHARM_EXTERN
 #undef CHARM_CDECL
 #if defined(_WIN32)
@@ -31,6 +32,7 @@
 #   define CHARM_EXTERN extern
 #   define CHARM_CDECL
 #endif
+/*! \endcond */
 
 
 #include <charm/charm@P@_err.h>

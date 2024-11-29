@@ -690,8 +690,7 @@ class PointGrid(_PointBase):
             * ``(lat, lon, r)`` to define the object's latitudes, longitudes
               and spherical radii, respectively.  The ``lat``, ``lon``
               and ``r`` variables must be numpy floating point arrays of the
-              dimension ``1``.  The shape of ``lat`` and ``lon`` as
-              well as the shape of ``lat`` and ``r`` must match.
+              dimension ``1``.  The shape of ``lat`` and ``r`` must match.
 
     Note
     ----

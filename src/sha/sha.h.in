@@ -155,8 +155,8 @@ enum
  * beyond ``nmax_signal`` in ``f``, than the output coefficients are computed 
  * exactly for all ``nmax <= nmax_signal``.
  *
- * @param[out] shcs Output spherical harmonic coefficients (see
- * ``charm@P@_shc``).
+ * @param[in,out] shcs Output spherical harmonic coefficients (see
+         *                         ``charm@P@_shc``).
  *
  * @param[out] err Error reported by the function (if any).
  *
@@ -305,7 +305,7 @@ CHARM_EXTERN void CHARM_CDECL
  * only method currently supported is the approximate quadrature
  * ``::CHARM_SHA_CELL_AQ``.
  *
- * @param[out] shcs Output spherical harmonic coefficients (see
+ * @param[in,out] shcs Output spherical harmonic coefficients (see
  * ``charm@P@_shc``).
  *
  * @param[out] err Error reported by the function (if any).
