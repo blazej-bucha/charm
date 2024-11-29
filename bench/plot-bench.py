@@ -93,6 +93,25 @@ print("Ploting the wall-clock times...")
 fig, ax = plt.subplots(figsize=(14.0 / 2.54, 10.0 / 2.54))
 ax.loglog(sha_t[:, 0], sha_t[:, 1], marker='o', label="SHA")
 ax.loglog(shs_t[:, 0], shs_t[:, 1], marker='v', label="SHS")
+
+xmin_fig, xmax_fig = ax.get_xlim()
+
+xmin = sha_t[:, 0].min()
+xmax = sha_t[:, 0].max()
+y = 1.0 / 60.0
+ax.text(xmin, y + 0.005, '1 sec')
+ax.hlines(y, xmin, xmax, colors='black', linestyles='dashed')
+y = 1.0
+ax.text(xmin, y + 0.3, '1 min')
+ax.hlines(y, xmin, xmax, colors='black', linestyles='dashed')
+y = 60.0
+ax.text(xmin, y + 10, '1 hour')
+ax.hlines(y, xmin, xmax, colors='black', linestyles='dashed')
+
+
+ax.set_xlim(xmin_fig, xmax_fig)
+
+
 ax.set_xlabel("Maximum harmonic degree")
 ax.set_ylabel("Wall-clock time (minutes)")
 
@@ -106,7 +125,7 @@ ax.yaxis.set_minor_locator(y_minor)
 ax.yaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
 
 ax.grid(visible=True)
-ax.legend()
+ax.legend(loc='lower right')
 
 outfile = path + "bench" + prec + "-time.png"
 print("Saving the plot to %s..." % outfile)
