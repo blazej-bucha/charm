@@ -21,7 +21,7 @@ requirements can be plotted by the ``plot-memory.py`` script that can be found
 inside the same directory.
 
 .. warning::
-    The benchmark program may require up 56 GBs of RAM!  Do not execute it if 
+    The benchmark program may require up 75 GBs of RAM!  Do not execute it if 
     you do not have that much RAM available. Alternatively, modify the
     ``nmax_all`` array inside ``./bench/bench.c``.
 
