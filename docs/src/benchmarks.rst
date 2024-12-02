@@ -6,7 +6,7 @@ This section demonstrates the accuracy, the computation speed and the memory
 requirements of spherical harmonic analysis and synthesis of point data values.  
 Applied is the Gauss--Legendre quadrature, which offers the best performance.  
 The grid size is ``(N + 1) * (2 * N + 2)``, where ``N`` is the maximum harmonic 
-degree of the synthesize/analysis.  All tests were executed on a PC with the 
+degree of the synthesis/analysis.  All tests were executed on a PC with the 
 Intel(R) Core(TM) i7-6800K CPU @ 3.40GHz and 126 GBs of RAM.  CHarm was 
 compiled using ``GCC`` with ``--enable-openmp``, ``--enable-avx2`` and 
 ``CFLAGS="-O3 -ffast-math"`` installation flags.  The MPI parallelization was 
