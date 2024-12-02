@@ -520,15 +520,18 @@ doxygen:
 	cd $(top_srcdir) && ./config.status
 @DOC_PY_MPI_FALSE@@DOC_TRUE@	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 @DOC_PY_MPI_FALSE@@DOC_TRUE@	@echo
-@DOC_PY_MPI_FALSE@@DOC_TRUE@	@echo ERROR: Python interface and MPI are required to build the documentation
+@DOC_PY_MPI_FALSE@@DOC_TRUE@	@echo ERROR: Python interface and MPI are required to build the \
+@DOC_PY_MPI_FALSE@@DOC_TRUE@		  documentation
 @DOC_PY_MPI_FALSE@@DOC_TRUE@	@echo
 @DOC_PY_MPI_FALSE@@DOC_TRUE@	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@DOC_PY_MPI_FALSE@@DOC_TRUE@	@exit 1
 @DOC_FALSE@	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 @DOC_FALSE@	@echo
 @DOC_FALSE@	@echo ERROR: Documentation can only be built if CHarm is compiled in \
 @DOC_FALSE@		  double precision
 @DOC_FALSE@	@echo
 @DOC_FALSE@	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@DOC_FALSE@	@exit 1
 	doxygen Doxyfile
 
 $(SPHINXTARGETS) $(SPHINXTARGETS_DEL): doxygen

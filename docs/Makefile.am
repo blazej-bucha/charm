@@ -50,9 +50,11 @@ if DOC
 if !DOC_PY_MPI
 	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	@echo
-	@echo ERROR: Python interface and MPI are required to build the documentation
+	@echo ERROR: Python interface and MPI are required to build the \
+		  documentation
 	@echo
 	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	@exit 1
 endif
 else
 	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -61,6 +63,7 @@ else
 		  double precision
 	@echo
 	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	@exit 1
 endif
 	doxygen Doxyfile
 
