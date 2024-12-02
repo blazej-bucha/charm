@@ -9,9 +9,9 @@ The grid size is ``(N + 1) * (2 * N + 2)``, where ``N`` is the maximum harmonic
 degree of the synthesize/analysis.  All tests were executed on a PC with the 
 Intel(R) Core(TM) i7-6800K CPU @ 3.40GHz and 126 GBs of RAM.  CHarm was 
 compiled using ``GCC`` with ``--enable-openmp``, ``--enable-avx2`` and 
-``CFLAGS="-O3 -ffast-math"`` installation flags.  All 6 CPU cores were employed 
-with hyperthreading enabled.  Polar optimization was disabled unless explicitly 
-stated otherwise.
+``CFLAGS="-O3 -ffast-math"`` installation flags.  The MPI parallelization was 
+not enabled.  All 6 CPU cores were employed with hyperthreading enabled.  Polar 
+optimization was disabled unless explicitly stated otherwise.
 
 The benchmarks can be executed by ``make bench`` after running ``./configure`` 
 and ``make``.  The outputs from the benchmark program (the accuracy and 

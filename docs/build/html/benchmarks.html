@@ -54,7 +54,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.4.2-dev" />
-    <meta name="docbuild:last-update" content="Nov 29, 2024"/>
+    <meta name="docbuild:last-update" content="Dec 02, 2024"/>
   </head>
   
   
@@ -436,9 +436,9 @@ The grid size is <code class="docutils literal notranslate"><span class="pre">(N
 degree of the synthesize/analysis.  All tests were executed on a PC with the
 Intel(R) Core(TM) i7-6800K CPU &#64; 3.40GHz and 126 GBs of RAM.  CHarm was
 compiled using <code class="docutils literal notranslate"><span class="pre">GCC</span></code> with <code class="docutils literal notranslate"><span class="pre">--enable-openmp</span></code>, <code class="docutils literal notranslate"><span class="pre">--enable-avx2</span></code> and
-<code class="docutils literal notranslate"><span class="pre">CFLAGS=&quot;-O3</span> <span class="pre">-ffast-math&quot;</span></code> installation flags.  All 6 CPU cores were employed
-with hyperthreading enabled.  Polar optimization was disabled unless explicitly
-stated otherwise.</p>
+<code class="docutils literal notranslate"><span class="pre">CFLAGS=&quot;-O3</span> <span class="pre">-ffast-math&quot;</span></code> installation flags.  The MPI parallelization was
+not enabled.  All 6 CPU cores were employed with hyperthreading enabled.  Polar
+optimization was disabled unless explicitly stated otherwise.</p>
 <p>The benchmarks can be executed by <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">bench</span></code> after running <code class="docutils literal notranslate"><span class="pre">./configure</span></code>
 and <code class="docutils literal notranslate"><span class="pre">make</span></code>.  The outputs from the benchmark program (the accuracy and
 wall-clock times) can be plotted by a Python script <code class="docutils literal notranslate"><span class="pre">plot-bench.py</span></code> inside
@@ -638,7 +638,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Nov 29, 2024.
+  Last updated on Dec 02, 2024.
   <br/>
 </p>
   </div>

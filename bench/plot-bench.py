@@ -94,21 +94,23 @@ fig, ax = plt.subplots(figsize=(14.0 / 2.54, 10.0 / 2.54))
 ax.loglog(sha_t[:, 0], sha_t[:, 1], marker='o', label="SHA")
 ax.loglog(shs_t[:, 0], shs_t[:, 1], marker='v', label="SHS")
 
+ymin_fig, ymax_fig = ax.get_ylim()
 xmin_fig, xmax_fig = ax.get_xlim()
 
 xmin = sha_t[:, 0].min()
 xmax = sha_t[:, 0].max()
 y = 1.0 / 60.0
 ax.text(xmin, y + 0.005, '1 sec')
-ax.hlines(y, xmin, xmax, colors='black', linestyles='dashed')
+ax.hlines(y, xmin, xmax, colors='black', linestyles='dashed', linewidth=0.75)
 y = 1.0
 ax.text(xmin, y + 0.3, '1 min')
-ax.hlines(y, xmin, xmax, colors='black', linestyles='dashed')
+ax.hlines(y, xmin, xmax, colors='black', linestyles='dashed', linewidth=0.75)
 y = 60.0
 ax.text(xmin, y + 10, '1 hour')
-ax.hlines(y, xmin, xmax, colors='black', linestyles='dashed')
+ax.hlines(y, xmin, xmax, colors='black', linestyles='dashed', linewidth=0.75)
 
 
+ax.set_ylim(ymin_fig, ymax_fig)
 ax.set_xlim(xmin_fig, xmax_fig)
 
 
