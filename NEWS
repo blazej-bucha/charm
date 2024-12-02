@@ -1,4 +1,4 @@
-Upcoming release:
+CHarm 0.4.3:
 
 This release adds support for MPI parallelization on distributed-memory systems 
 and fixes one bug.  Added is support for Python 3.13 and support for Python 3.9 
