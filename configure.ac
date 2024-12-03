@@ -36,6 +36,8 @@ dnl ===========================================================================
 
 dnl Checks for programs
 dnl ===========================================================================
+dnl "AX_PROG_CC_MPI" must be called before "AC_PROG_CC" and friends
+AX_PROG_CC_MPI([test "$enable_mpi" = yes],[],[if test "$enable_mpi" = yes; then AC_MSG_FAILURE([MPI compiler requested, but couldn't use MPI.]) fi])
 AC_PROG_CC
 AC_PROG_CPP
 AC_LANG(C)
@@ -431,7 +433,6 @@ if test "$enable_openmp" = "yes"; then
     fi
 
 
-    AC_DEFINE([CHARM_OPENMP], [1], [Define to 1 to parallelize CHarm using OpenMP.])
     AC_CHECK_HEADER([omp.h], [], [AC_MSG_ERROR([omp.h not found])])
 
 
@@ -456,6 +457,65 @@ fi
 
 
 AM_CONDITIONAL(OPENMP, test "$enable_openmp" = "yes")
+dnl ===========================================================================
+
+
+
+
+
+
+dnl MPI
+dnl ===========================================================================
+AC_ARG_ENABLE([mpi], [AS_HELP_STRING([--enable-mpi], [enable MPI parallelization [default=no]])])
+
+
+if test "$enable_mpi" = "yes"; then
+    AC_MSG_NOTICE([compiling with MPI parallelization enabled])
+
+
+    if test "$qp" = "yes"; then
+        AC_MSG_ERROR([the MPI standard does not support quadruple precision])
+    fi
+
+
+    dnl The MPI standard version 3.0 or newer is required.  The following code
+    dnl snippet is heavily inspired by the "MPFR" installation script
+    AC_MSG_CHECKING(for the MPI standard version 3.0 or newer)
+    AC_COMPILE_IFELSE([AC_LANG_SOURCE([[
+    #include "mpi.h"
+    #if (MPI_VERSION * 100 + MPI_SUBVERSION * 10 < 300)
+    #error "MPI standard 3.0 or newer is required"
+    #endif
+      ]])],[AC_MSG_RESULT(yes)],[
+       AC_MSG_RESULT(no)
+       AC_MSG_ERROR([MPI standard 3.0 or newer is required])
+    ])
+
+
+    AC_SEARCH_LIBS(MPI_Ibcast_c, mpi, [AC_DEFINE([HAVE_MPI_IBCAST_C], 1, [Define to 1 if you have the MPI_Ibcast_c function.])], [AC_MSG_WARN([MPI_Ibcast_c not found; the amount of data transmitted by MPI processes will be limited by the range of the "int" data type which may be suboptimal])])
+    AC_SEARCH_LIBS(MPI_Ireduce_c, mpi, [AC_DEFINE([HAVE_MPI_IREDUCE_C], 1, [Define to 1 if you have the MPI_Ireduce_c function.])], [AC_MSG_WARN([MPI_Ireduce_c not found; the amount of data transmitted by MPI processes will be limited by the range of the "int" data type which may be suboptimal])])
+    AC_SEARCH_LIBS(MPI_Allgather_c, mpi, [AC_DEFINE([HAVE_MPI_ALLGATHER_C], 1, [Define to 1 if you have the MPI_Allgather_c function.])], [AC_MSG_WARN([MPI_Allgather_c not found; the amount of data transmitted by MPI processes will be limited by the range of the "int" data type which may be suboptimal])])
+    AC_SEARCH_LIBS(MPI_Gatherv_c, mpi, [AC_DEFINE([HAVE_MPI_GATHERV_C], 1, [Define to 1 if you have the MPI_Gatherv_c function.])], [AC_MSG_WARN([MPI_Gatherv_c not found; the amount of data transmitted by MPI processes will be limited by the range of the "int" data type which may be suboptimal])])
+
+
+    dnl "mpiexec" is required to run the test suite for the "mpi" module
+    AC_CHECK_PROG(check_mpiexec, mpiexec, yes, no)
+    if test "$check_mpiexec" = "yes"; then
+        MPIEXEC=mpiexec
+    else
+        AC_MSG_ERROR([mpiexec binary not found])
+    fi
+    AC_SUBST(MPIEXEC)
+
+
+    AC_SUBST([WITH_MPI], [1])
+else
+    AC_MSG_NOTICE([compiling with MPI parallelization disabled])
+
+
+    AC_SUBST([WITH_MPI], [0])
+fi
+AM_CONDITIONAL(MPI, test "$enable_mpi" = "yes")
 dnl ===========================================================================
 
 
@@ -521,8 +581,8 @@ fi
 AM_CONDITIONAL(PY, test "$py" = "yes")
 
 
-dnl Python interface must be enabled to build the documentation
-AM_CONDITIONAL(DOC_PY, test "$py" = "yes")
+dnl Python interface and MPI must be enabled to build the documentation
+AM_CONDITIONAL(DOC_PY_MPI, test "$py" = "yes" -a "$enable_mpi" = "yes")
 
 
 dnl For single precision version of PyHarm, a symlink "wrap/pyharmf" is create
@@ -581,6 +641,7 @@ AC_CONFIG_FILES([Makefile \
                  charm/charm${P}_sha.h:src/sha/sha.h.in \
                  charm/charm${P}_shc.h:src/shc/shc.h.in \
                  charm/charm${P}_shs.h:src/shs/shs.h.in \
+                 charm/charm${P}_mpi.h:src/mpi/mpi.h.in \
                  charm/charm${P}_glob.h:src/glob/glob.h.in \
                  charm/Makefile \
                  src/Makefile \
@@ -593,6 +654,7 @@ AC_CONFIG_FILES([Makefile \
                  src/shc/Makefile \
                  src/shs/Makefile \
                  src/xnum/Makefile \
+                 src/mpi/Makefile \
                  src/glob/Makefile \
                  src/simd/Makefile \
                  tests/Makefile \

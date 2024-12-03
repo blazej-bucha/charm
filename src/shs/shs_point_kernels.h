@@ -8,13 +8,20 @@
 #include <config.h>
 #include "../prec.h"
 #include "../simd/simd.h"
+#include "../shc/shc_block_struct.h"
 #include "shs_lc_struct.h"
+
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 
 
 #undef IO_PARS
 #define IO_PARS (unsigned long nmax,                                          \
                  unsigned long m,                                             \
-                 const CHARM(shc) *shcs,                                      \
+                 const CHARM(shc_block) *shcs_block,                          \
                  _Bool is_ratio_one,                                          \
                  const REAL *anm,                                             \
                  const REAL *bnm,                                             \
@@ -44,6 +51,11 @@ extern void CHARM(shs_point_kernel_dr1_dlat0_dlon1) IO_PARS;
 extern void CHARM(shs_point_kernel_dr0_dlat1_dlon1) IO_PARS;
 extern void CHARM(shs_point_kernel_grad1) IO_PARS;
 extern void CHARM(shs_point_kernel_grad2) IO_PARS;
+
+
+#ifdef __cplusplus
+}
+#endif
 
 
 #endif

@@ -40,8 +40,17 @@ extern "C"
 #define SHC_READ_GFC_NMAX "max_degree"
 
 
+#undef SHC_READ_GFC_EARTH_GM
+#define SHC_READ_GFC_EARTH_GM "earth_gravity_constant"
+
+
 #undef SHC_READ_GFC_GM
-#define SHC_READ_GFC_GM "earth_gravity_constant"
+#define SHC_READ_GFC_GM "gravity_constant"
+
+
+#undef SHC_READ_GFC_ALL_GM_KEYWORDS
+#define SHC_READ_GFC_ALL_GM_KEYWORDS SHC_READ_GFC_EARTH_GM "\" or \"" \
+                                     SHC_READ_GFC_GM
 
 
 #undef SHC_READ_GFC_R

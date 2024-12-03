@@ -29,12 +29,12 @@
  * e.g. "shc_malloc(10, 1.0, 1.0)",
  *
  * "err_str" should be an error string explaining what happened but should not
- * happen, e.g. "returned a NULL pointer" or "didn't return a NULL pointer". */
-void print_msg(char *vi,
-               char *func_call_str,
-               char *err_str)
+ * happen, e.g. "returned NULL pointer" or "didn't return a NULL pointer". */
+void print_msg(const char *vi,
+               const char *func_call_str,
+               const char *err_str)
 {
-    printf("\n            ERROR: %s function call %s %s",
+    printf("\n            ERROR: %s function call \"%s\" %s",
            vi, func_call_str, err_str);
     fflush(stdout);
 
@@ -68,9 +68,9 @@ void print_msg(char *vi,
         long int CHECK_STRUCT_TYPE(DATA_TYPE in,                              \
                                    DATA_TYPE ref,                             \
                                    _Bool eq,                                  \
-                                   char *vi,                                  \
-                                   char *func_call_str,                       \
-                                   char *err_str)                             \
+                                   const char *vi,                            \
+                                   const char *func_call_str,                 \
+                                   const char *err_str)                       \
         {                                                                     \
             long int e = 0;                                                   \
                                                                               \
@@ -105,9 +105,9 @@ void print_msg(char *vi,
 long int check_struct_REAL(REAL in,
                            REAL ref,
                            _Bool eq,
-                           char *vi,
-                           char *func_call_str,
-                           char *err_str)
+                           const char *vi,
+                           const char *func_call_str,
+                           const char *err_str)
 {
     long int e = 0;
 

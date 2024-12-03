@@ -20,7 +20,7 @@ void CHARM(err_set)(CHARM(err) *err,
                     int code,
                     const char *msg)
 {
-    if ((err == NULL) || (err->issaturated))
+    if ((err == NULL) || (err->saturated))
         return;
 
 

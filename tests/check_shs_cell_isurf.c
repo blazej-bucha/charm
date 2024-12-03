@@ -6,6 +6,7 @@
 #include "../src/prec.h"
 #include "generate_cell.h"
 #include "parameters.h"
+#include "error_messages.h"
 #ifdef GENREF
 #   include "array2file.h"
 #else
@@ -28,7 +29,7 @@ long int check_shs_cell_isurf(void)
                                              PREC(1.0));
     if (shcs_pot == NULL)
     {
-        fprintf(stderr, "Failed to initialize a \"shc\" structure.\n");
+        fprintf(stderr, ERR_MSG_SHC);
         exit(CHARM_FAILURE);
     }
 
@@ -37,7 +38,7 @@ long int check_shs_cell_isurf(void)
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        fprintf(stderr, "Failed to initialize a \"err\" structure.\n");
+        fprintf(stderr, ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -58,7 +59,7 @@ long int check_shs_cell_isurf(void)
                                               PREC(1.0));
     if (shcs_topo == NULL)
     {
-        fprintf(stderr, "Failed to initialize a \"shc\" structure.\n");
+        fprintf(stderr, ERR_MSG_SHC);
         exit(CHARM_FAILURE);
     }
 
@@ -68,14 +69,37 @@ long int check_shs_cell_isurf(void)
     /* --------------------------------------------------------------------- */
 
 
+    /* Check whether zero cells in "charm_cell" do not produce any kind of
+     * error (see "check_shs_point_all.c" for details) */
+    /* --------------------------------------------------------------------- */
+    long int e = 0;
+    REAL *f    = NULL;
+
+
+    CHARM(cell) *grd_0cells = NULL;
+    grd_0cells = CHARM(crd_cell_malloc)(CHARM_CRD_CELL_GRID, 0, 0);
+
+
+    CHARM(shs_cell_isurf)(grd_0cells, shcs_pot, NMAX, shcs_topo,
+                          NMAX, NMAX2, NMAX2, f, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        printf("\n        WARNING: Synthesis with zero cells didn't pass!\n");
+        e += 1;
+    }
+
+
+    CHARM(err_reset)(err);
+    CHARM(crd_cell_free)(grd_0cells);
+    /* --------------------------------------------------------------------- */
+
+
     /* SHS of area-mean values on irregular surfaces */
     /* --------------------------------------------------------------------- */
     size_t nlat[NCUSTOM_GRD_ISURF] = {1, 2, 10};
     size_t nlon[NCUSTOM_GRD_ISURF] = {1, 6, 22};
 
 
-    long int e          = 0;
-    REAL *f             = NULL;
     CHARM(cell) *grd    = NULL;
     REAL rref           = (REAL)(RREF);
     shcs_topo->c[0][0] += rref; /* Reference the topography to a sphere */
@@ -92,8 +116,7 @@ long int check_shs_cell_isurf(void)
                                              nlat[i], nlon[i]);
                 if (grd == NULL)
                 {
-                    fprintf(stderr, "Failed to initialize a " "\"crd\" "
-                                    "structure\n");
+                    fprintf(stderr, ERR_MSG_POINT);
                     exit(CHARM_FAILURE);
                 }
 
@@ -109,7 +132,7 @@ long int check_shs_cell_isurf(void)
                 f = (REAL *)malloc(grd->ncell * sizeof(REAL));
                 if (f == NULL)
                 {
-                    fprintf(stderr, "malloc failure.\n");
+                    fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
                     exit(CHARM_FAILURE);
                 }
 

@@ -19,7 +19,7 @@ void CHARM(err_propagate)(CHARM(err) *err,
                           unsigned int line,
                           const char *func)
 {
-    if ((err == NULL) || err->issaturated)
+    if ((err == NULL) || err->saturated)
         return;
 
 

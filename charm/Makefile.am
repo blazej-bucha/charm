@@ -8,6 +8,9 @@ pkginclude_HEADERS = charm@P@.h \
 					 charm@P@_shc.h \
 					 charm@P@_shs.h \
 					 charm@P@_glob.h
+if MPI
+pkginclude_HEADERS += charm@P@_mpi.h
+endif
 
 
 remove-header-files:

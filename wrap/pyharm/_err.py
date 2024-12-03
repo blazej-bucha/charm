@@ -32,7 +32,7 @@ class _Err(_ct.Structure):
                 ('func',        _ct.POINTER(_ct.POINTER(_ct.c_char))),
                 ('code',        _ct_int),
                 ('msg',         _ct.POINTER(_ct.c_char)),
-                ('issaturated', _ct.c_bool)]
+                ('saturated', _ct.c_bool)]
 
 
 class CHarmError(Exception):
@@ -81,7 +81,7 @@ def free(a):
 
 def isempty(a):
     """
-    Returns `True` if an instance of the `_Err` class `a` is empty or `False` 
+    Returns `True` if an instance of the `_Err` class `a` is empty or `False`
     otherwise.
 
     Parameters
@@ -162,8 +162,8 @@ def handler(a, terminate):
         err_msg += f'   File \'{f[:idx1]}\', line: {e.line[l]}, '
         err_msg += f'function: \'{func[:idx2]}\'\n\n'
 
-    if e.issaturated:
-        err_msg += '   Warning: The levels of the error object are '
+    if e.saturated:
+        err_msg += '   Warning: The error structure is '
         err_msg += 'saturated.  Most recent function calls may therefore '
         err_msg += 'not be reported.\n'
         err_msg += f'\n'

@@ -15,8 +15,10 @@
 #include "../integ/integ_sss.h"
 #include "../crd/crd_check_cells.h"
 #include "../crd/crd_cell_isGrid.h"
+#include "../shc/shc_check_distribution.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
+#include "../err/err_check_distribution.h"
 #include "../simd/simd.h"
 #include "../simd/malloc_aligned.h"
 #include "../simd/calloc_aligned.h"
@@ -30,13 +32,41 @@
 
 
 void CHARM(shs_cell_isurf)(const CHARM(cell) *cell,
-                           const CHARM(shc) *shcs1, unsigned long nmax1,
-                           const CHARM(shc) *shcs2, unsigned long nmax2,
-                           unsigned long nmax3, unsigned long nmax4,
-                           REAL *f, CHARM(err) *err)
+                           const CHARM(shc) *shcs1,
+                           unsigned long nmax1,
+                           const CHARM(shc) *shcs2,
+                           unsigned long nmax2,
+                           unsigned long nmax3,
+                           unsigned long nmax4,
+                           REAL *f,
+                           CHARM(err) *err)
 {
     /* Some error checks */
     /* --------------------------------------------------------------------- */
+    CHARM(err_check_distribution)(err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
+    CHARM(shc_check_distribution)(shcs1, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
+    CHARM(shc_check_distribution)(shcs2, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
     if (!CHARM(crd_cell_isGrid)(cell->type))
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
@@ -80,6 +110,12 @@ void CHARM(shs_cell_isurf)(const CHARM(cell) *cell,
                        "\"1.0\".");
         return;
     }
+
+
+    /* Do nothing if the total number of cells in "cell" is zero, which is
+     * a valid case */
+    if (cell->ncell == 0)
+        return;
 
 
     /* Check whether "cell->lonmin" and "cell->lonmax" are linearly increasing
@@ -193,7 +229,7 @@ void CHARM(shs_cell_isurf)(const CHARM(cell) *cell,
     size = (nmax1 + 1) * (nmax3 + 1) * SIMD_SIZE;
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel default(none) \
 shared(cell, DELTAlon, lon0, deltalon, cell_nlat, cell_nlon) \
 shared(nmax1, nmax3, f, cnm1cnm3, cnm1snm3, snm1cnm3, snm1snm3) \
@@ -282,7 +318,7 @@ shared(FAILURE_glob, mur, size, err)
 
 
 FAILURE_1_parallel:
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp critical
 #endif
     {
@@ -297,7 +333,7 @@ FAILURE_1_parallel:
 
 
     /* Now we have to wait until all the threads get here. */
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp barrier
 #endif
     /* OK, now let's check on each thread whether there is at least one failed
@@ -306,7 +342,7 @@ FAILURE_1_parallel:
     {
         /* Ooops, there was indeed a memory allocation failure.  So let the
          * master thread write down the error to the "err" variable. */
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp master
 #endif
         if (CHARM(err_isempty)(err))
@@ -337,7 +373,7 @@ FAILURE_1_parallel:
 
     /* Loop over the latitude cells */
     size_t i;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp for schedule(dynamic) private(i)
 #endif
     for (i = 0; i < SIMD_MULTIPLE(cell_nlat, SIMD_SIZE);

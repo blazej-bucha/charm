@@ -6,8 +6,10 @@
 #include "../prec.h"
 #include "../misc/misc_fprintf_real.h"
 #include "shc_write_mtdt.h"
+#include "shc_check_distribution.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
+#include "../err/err_check_distribution.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -22,6 +24,28 @@ void CHARM(shc_write_tbl)(const CHARM(shc) *shcs,
                           const char *pathname,
                           CHARM(err) *err)
 {
+    /* --------------------------------------------------------------------- */
+    CHARM(err_check_distribution)(err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
+    CHARM(shc_check_distribution)(shcs, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+    /* --------------------------------------------------------------------- */
+
+
+
+
+
+
     /* Open "pathname" to write */
     /* --------------------------------------------------------------------- */
     FILE *fptr = fopen(pathname, "w");

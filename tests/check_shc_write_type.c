@@ -6,6 +6,7 @@
 #include "cmp_vals.h"
 #include "cmp_arrays.h"
 #include "parameters.h"
+#include "error_messages.h"
 #include "check_shc_read_type.h"
 #include "check_shc_write_type.h"
 /* ------------------------------------------------------------------------- */
@@ -42,7 +43,7 @@ long int check_shc_write_type(int shc_write_type)
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        fprintf(stderr, "Failed to initialize an \"err\" structure.\n");
+        fprintf(stderr, ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -52,7 +53,7 @@ long int check_shc_write_type(int shc_write_type)
                                              PREC(1.0));
     if (shcs_ref == NULL)
     {
-        fprintf(stderr, "Failed to initlize a \"shc\" structure");
+        fprintf(stderr, ERR_MSG_SHC);
         exit(CHARM_FAILURE);
     }
     CHARM(shc_read_gfc)(SHCS_IN_PATH_POT_GFC, SHCS_NMAX_POT, NULL, shcs_ref,
@@ -91,7 +92,7 @@ long int check_shc_write_type(int shc_write_type)
                                               PREC(1.0));
     if (shcs_type == NULL)
     {
-        fprintf(stderr, "Failed to initlize a \"shc\" structure");
+        fprintf(stderr, ERR_MSG_SHC);
         exit(CHARM_FAILURE);
     }
     if (shc_write_type == 0)
@@ -119,10 +120,10 @@ long int check_shc_write_type(int shc_write_type)
      * read functions */
     int long e = 0;
     e += (shcs_ref->nmax != shcs_type->nmax) ? 1 : 0;
-    e += cmp_vals(shcs_ref->mu, shcs_type->mu,
-                  PREC(10.0) * CHARM(glob_threshold));
-    e += cmp_vals(shcs_ref->r, shcs_type->r,
-                  PREC(10.0) * CHARM(glob_threshold));
+    e += cmp_vals_real(shcs_ref->mu, shcs_type->mu,
+                       PREC(10.0) * CHARM(glob_threshold));
+    e += cmp_vals_real(shcs_ref->r, shcs_type->r,
+                       PREC(10.0) * CHARM(glob_threshold));
 
 
 

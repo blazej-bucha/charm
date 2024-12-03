@@ -6,6 +6,7 @@
 #include "cmp_vals.h"
 #include "cmp_arrays.h"
 #include "parameters.h"
+#include "error_messages.h"
 #include "check_shc_read_type.h"
 /* ------------------------------------------------------------------------- */
 
@@ -30,7 +31,7 @@ long int check_shc_read_type(unsigned long (*shc_read_type)(const char *,
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        fprintf(stderr, "Failed to initialize an \"err\" structure.\n");
+        fprintf(stderr, ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -43,7 +44,7 @@ long int check_shc_read_type(unsigned long (*shc_read_type)(const char *,
                                              PREC(1.0));
     if (shcs_ref == NULL)
     {
-        fprintf(stderr, "Failed to initlize a \"shc\" structure");
+        fprintf(stderr, ERR_MSG_SHC);
         exit(CHARM_FAILURE);
     }
     CHARM(shc_read_gfc)(SHCS_IN_PATH_POT_GFC, SHCS_NMAX_POT, NULL, shcs_ref,
@@ -56,7 +57,7 @@ long int check_shc_read_type(unsigned long (*shc_read_type)(const char *,
                                               PREC(1.0));
     if (shcs_type == NULL)
     {
-        fprintf(stderr, "Failed to initlize a \"shc\" structure");
+        fprintf(stderr, ERR_MSG_SHC);
         exit(CHARM_FAILURE);
     }
     if (shc_read_type == CHARM(shc_read_tbl))
@@ -71,10 +72,10 @@ long int check_shc_read_type(unsigned long (*shc_read_type)(const char *,
 
 
     e += (shcs_ref->nmax != shcs_type->nmax) ? 1 : 0;
-    e += cmp_vals(shcs_ref->mu, shcs_type->mu,
-                  PREC(10.0) * CHARM(glob_threshold));
-    e += cmp_vals(shcs_ref->r, shcs_type->r,
-                  PREC(10.0) * CHARM(glob_threshold));
+    e += cmp_vals_real(shcs_ref->mu, shcs_type->mu,
+                       PREC(10.0) * CHARM(glob_threshold));
+    e += cmp_vals_real(shcs_ref->r, shcs_type->r,
+                       PREC(10.0) * CHARM(glob_threshold));
     e += cmp_arrays(shcs_ref->c[0], shcs_type->c[0], shcs_type->nc,
                     PREC(10.0) * CHARM(glob_threshold));
     e += cmp_arrays(shcs_ref->s[0], shcs_type->s[0], shcs_type->ns,
@@ -82,6 +83,26 @@ long int check_shc_read_type(unsigned long (*shc_read_type)(const char *,
 
 
     CHARM(shc_free)(shcs_type);
+
+
+    /* Check reading the maximum degree of the file only */
+    /* --------------------------------------------------------------------- */
+    unsigned long nmax_out = CHARM_SHC_NMAX_ERROR;
+    if (shc_read_type == CHARM(shc_read_tbl))
+        nmax_out = shc_read_type(SHCS_IN_PATH_POT_TBL, CHARM_SHC_NMAX_MODEL,
+                                 NULL, err);
+    else if (shc_read_type == CHARM(shc_read_mtx))
+        nmax_out = shc_read_type(SHCS_IN_PATH_POT_MTX, CHARM_SHC_NMAX_MODEL,
+                                 NULL, err);
+    else if (shc_read_type == CHARM(shc_read_bin))
+        nmax_out = shc_read_type(SHCS_OUT_PATH_POT_BIN, CHARM_SHC_NMAX_MODEL,
+                                 NULL, err);
+    else if (shc_read_type == CHARM(shc_read_dov))
+        nmax_out = shc_read_type(SHCS_IN_PATH_POT_DOV, CHARM_SHC_NMAX_MODEL,
+                                 NULL, err);
+    CHARM(err_handler)(err, 1);
+    e += cmp_vals_ulong(nmax_out, SHCS_NMAX_POT);
+    /* --------------------------------------------------------------------- */
 
 
     CHARM(err_free)(err);

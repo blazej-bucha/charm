@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>CHarm &#8212; CHarm 0.4.2 documentation</title>
+    <title>CHarm &#8212; CHarm 0.4.3 documentation</title>
   
   
   
@@ -16,29 +16,32 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-
-  
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
   
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="_static/documentation_options.js?v=b4bb93ae"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/documentation_options.js?v=0f4711b3"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'cookbook-c';</script>
@@ -49,7 +52,8 @@
     <link rel="prev" title="Cookbook" href="cookbook.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Aug 05, 2024"/>
+  <meta name="docsearch:version" content="0.4.3" />
+    <meta name="docbuild:last-update" content="Dec 02, 2024"/>
   </head>
   
   
@@ -65,19 +69,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -85,7 +78,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -93,8 +85,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -110,7 +102,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -125,6 +118,8 @@
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="index.html">
   
@@ -138,23 +133,19 @@
     
     
     <img src="_static/charm-logo.svg" class="logo__image only-light" alt=""/>
-    <script>document.write(`<img src="_static/charm-logo.svg" class="logo__image only-dark" alt=""/>`);</script>
+    <img src="_static/charm-logo.svg" class="logo__image only-dark pst-js-only" alt=""/>
   
   
-    <p class="title logo__title">CHarm v0.4.2</p>
+    <p class="title logo__title">CHarm v0.4.3</p>
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
@@ -184,6 +175,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html">charm_err</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-mpi.html">charm_mpi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-glob.html">charm_glob</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
 </ul>
@@ -205,6 +197,7 @@
 <li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acknowledgements.html">Acknowledgements</a></li>
 </ul>
 
     </div>
@@ -376,24 +369,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -424,6 +409,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#first-and-second-order-gradients-gravitational-vector-and-tensor">First- and second-order gradients (gravitational vector and tensor)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-coefficients-of-legendre-functions">Fourier coefficients of Legendre functions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integrals">Integrals</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distributed-computing-with-mpi">Distributed computing with MPI</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#charm-in-single-and-quadruple-precision">CHarm in single and quadruple precision</a><ul class="nav section-nav flex-column">
@@ -1423,9 +1409,11 @@ gravitational tensor in the <a class="reference internal" href="definitions.html
 <span class="cm">                                                              * */</span>
 <span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">tmp</span><span class="p">;</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">grd</span><span class="o">-&gt;</span><span class="n">npoint</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="n">tmp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fabs</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">f</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">f</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="n">i</span><span class="p">]);</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tmp</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">trace_error</span><span class="p">)</span>
 <span class="w">            </span><span class="n">trace_error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tmp</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
 
 <span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;The largest error of the gravitational tensor trace is &quot;</span>
@@ -1524,7 +1512,7 @@ gravitational tensor in the <a class="reference internal" href="definitions.html
 </section>
 <section id="integrals">
 <h3>Integrals<a class="headerlink" href="#integrals" title="Link to this heading">#</a></h3>
-<p>Finally, let’s compute an integral of a product of two spherical harmonics over
+<p>Let’s compute an integral of a product of two spherical harmonics over
 a restricted domain on the unit sphere.  Then, we do the same, but with the
 product of Legendre functions only.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
@@ -1618,6 +1606,440 @@ product of Legendre functions only.</p>
 </pre></div>
 </div>
 </section>
+<section id="distributed-computing-with-mpi">
+<h3>Distributed computing with MPI<a class="headerlink" href="#distributed-computing-with-mpi" title="Link to this heading">#</a></h3>
+<p>This example shows how to use CHarm with distributed-memory systems using MPI.</p>
+<p>Compile the source code with <code class="docutils literal notranslate"><span class="pre">mpicc</span></code> or similar, e.g., by:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mpicc<span class="w"> </span>mpi.c<span class="w"> </span>-l:libcharm.a<span class="w"> </span>-lfftw3<span class="w"> </span>-lm
+</pre></div>
+</div>
+<p>Launch the program using three MPI processes (required by the program), e.g.,:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">3</span><span class="w"> </span>./a.out
+</pre></div>
+</div>
+<p>As a side note, you can run the program using an actual distributed-memory
+system but also using an ordinary shared-memory system having at least 3 CPUs.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;mpi.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;charm/charm.h&gt;</span>
+
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="cm">/* Initialize MPI execution environment */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+<span class="w">    </span><span class="n">MPI_Init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">argv</span><span class="p">);</span>
+
+
+<span class="w">    </span><span class="cm">/* Note that the previous &quot;MPI_Init&quot; call does not allow to combined MPI</span>
+<span class="cm">     * and OpenMP parallelization techniques.  For best performance, however,</span>
+<span class="cm">     * it is strongly advised to combine indeed MPI and OpenMP.</span>
+<span class="cm">     *</span>
+<span class="cm">     * Briefly, the recommended strategy is to use one MPI process per</span>
+<span class="cm">     * shared-memory system.  This will minimize the data transfer between the</span>
+<span class="cm">     * computing nodes, which, in case of high-degree spherical harmonics</span>
+<span class="cm">     * transforms, is usually the bottleneck.  Then, within each shared-memory</span>
+<span class="cm">     * system, all OpenMP threads can be used.</span>
+<span class="cm">     *</span>
+<span class="cm">     * For best performance, we recommend to use the MPI&#39;s</span>
+<span class="cm">     * &quot;MPI_THREAD_FUNNELED&quot; parallelization mode (only the thread that called</span>
+<span class="cm">     * &quot;MPI_Init_thread&quot; will make MPI calls).  Remember that to combine MPI</span>
+<span class="cm">     * and OpenMP, the MPI execution environment has to be initialized like</span>
+<span class="cm">     * this:</span>
+<span class="cm">     *</span>
+<span class="cm">     * int provided;</span>
+<span class="cm">     * MPI_Init_thread(&amp;argc, &amp;argv, MPI_THREAD_FUNNELED, &amp;provided);</span>
+<span class="cm">     * if (provided != MPI_THREAD_FUNNELED)</span>
+<span class="cm">     * {</span>
+<span class="cm">     *     fprintf(stderr, &quot;MPI didn&#39;t provide MPI_THREAD_FUNNELED\n&quot;);</span>
+<span class="cm">     *     exit(CHARM_FAILURE);</span>
+<span class="cm">     * }</span>
+<span class="cm">     *</span>
+<span class="cm">     * */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+<span class="w">    </span><span class="cm">/* Identify who I am and the number of MPI processes */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+<span class="w">    </span><span class="cm">/* MPI communicator */</span>
+<span class="w">    </span><span class="n">MPI_Comm</span><span class="w"> </span><span class="n">comm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MPI_COMM_WORLD</span><span class="p">;</span>
+
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rank</span><span class="p">;</span><span class="w">  </span><span class="cm">/* This is who I am */</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">;</span><span class="w">  </span><span class="cm">/* This is the total number of MPI processes */</span>
+<span class="w">    </span><span class="n">MPI_Comm_rank</span><span class="p">(</span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rank</span><span class="p">);</span>
+<span class="w">    </span><span class="n">MPI_Comm_size</span><span class="p">(</span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">size</span><span class="p">);</span>
+
+
+<span class="w">    </span><span class="cm">/* We assume this code is launched at 3 MPI processes. */</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;This program must be launched at 3 MPI processes.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+<span class="w">    </span><span class="cm">/* Initialize an error structure */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+<span class="w">    </span><span class="cm">/* Note that we do not call &quot;charm_err_init&quot; with distributed computing */</span>
+<span class="w">    </span><span class="n">charm_err</span><span class="w"> </span><span class="o">*</span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">charm_mpi_err_init</span><span class="p">(</span><span class="n">comm</span><span class="p">);</span>
+
+
+<span class="w">    </span><span class="cm">/* If the previous function call failed at any process, &quot;err&quot; will be</span>
+<span class="cm">     * &quot;NULL&quot; at all processes in &quot;comm&quot;. */</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to create the </span><span class="se">\&quot;</span><span class="s">charm_err</span><span class="se">\&quot;</span><span class="s"> structure&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+<span class="w">    </span><span class="cm">/* Make up some fake spherical harmonic coefficients up to degree &quot;10&quot; */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+<span class="w">    </span><span class="cm">/* Maximum harmonic degree of spherical harmonic coefficients */</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">nmax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+
+
+<span class="w">    </span><span class="cm">/* Each MPI process may hold zero, one or more chunks of spherical harmonic</span>
+<span class="cm">     * coefficients.  A chunk of spherical harmonic coefficients denotes all</span>
+<span class="cm">     * spherical harmonic coefficients of orders &quot;m1, m1 + 1, ..., m2&quot;.</span>
+<span class="cm">     *</span>
+<span class="cm">     * In this example, the MPI processes with ranks &quot;0&quot; and &quot;1&quot; will hold two</span>
+<span class="cm">     * chunks while only a single chunk will be assigned to rank &quot;2&quot;.  This is</span>
+<span class="cm">     * just to demonstrate that the number of chunks may vary across MPI</span>
+<span class="cm">     * processes.</span>
+<span class="cm">     *</span>
+<span class="cm">     * Not shown here, but it is absolutely OK for some processes to store zero</span>
+<span class="cm">     * chunks, that is, no spherical harmonic coefficients at all.  For</span>
+<span class="cm">     * instance, if you have &quot;100&quot; MPI processes and you want to create the</span>
+<span class="cm">     * &quot;charm_shc&quot; structure up to degree &quot;0&quot;, you assign one chunk starting</span>
+<span class="cm">     * and ending at order &quot;0&quot; to one process and zero chunks to all the</span>
+<span class="cm">     * remaining &quot;99&quot; processes.  */</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">local_nchunk</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="w">        </span><span class="n">local_nchunk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">        </span><span class="n">local_nchunk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+
+
+<span class="w">    </span><span class="cm">/* To split spherical harmonic coefficients among MPI processes (that is,</span>
+<span class="cm">     * to define chunks), we need an array of &quot;2 * local_nchunk&quot; elements.  For</span>
+<span class="cm">     * ranks &quot;0&quot; and &quot;1&quot;, we thus need four elements but only two elements for</span>
+<span class="cm">     * rank &quot;2&quot;.  For simplicity, we allocate here, however, an array of four</span>
+<span class="cm">     * elements for all processes which is fine.</span>
+<span class="cm">     *</span>
+<span class="cm">     * In the example below, we hard-coded the chunks for demonstration</span>
+<span class="cm">     * purposes.  However, this is likely not the strategy you will use in</span>
+<span class="cm">     * practice, especially if the number of MPI processes is large.  Instead,</span>
+<span class="cm">     * you&#39;ll probably fill &quot;local_order&quot; based on the &quot;local_nchunk&quot;, &quot;size&quot;</span>
+<span class="cm">     * and &quot;rank&quot; variables or so. */</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">local_order</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="cm">/* The first chunk will consist of all spherical harmonic coefficients</span>
+<span class="cm">         * of order &quot;0&quot; */</span>
+<span class="w">        </span><span class="n">local_order</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="n">local_order</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+
+<span class="w">        </span><span class="cm">/* The second chunk will hold all coefficients of orders from &quot;1&quot; to</span>
+<span class="cm">         * &quot;2&quot; */</span>
+<span class="w">        </span><span class="n">local_order</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">local_order</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="cm">/* The first chunk at another MPI process will consist of all</span>
+<span class="cm">         * coefficients of orders from &quot;3&quot; to &quot;5&quot; */</span>
+<span class="w">        </span><span class="n">local_order</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">        </span><span class="n">local_order</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+
+
+<span class="w">        </span><span class="cm">/* The second chunk consists of all coefficients of order &quot;6&quot; */</span>
+<span class="w">        </span><span class="n">local_order</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
+<span class="w">        </span><span class="n">local_order</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="cm">/* This process has one chunk only, starting at order &quot;7&quot; and ending at</span>
+<span class="cm">         * &quot;10&quot; */</span>
+<span class="w">        </span><span class="n">local_order</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span>
+<span class="w">        </span><span class="n">local_order</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+
+<span class="w">    </span><span class="cm">/* Note that CHarm offers rather flexible distribution of spherical</span>
+<span class="cm">     * harmonic coefficients among MPI processes.  This has many benefits.  If</span>
+<span class="cm">     * one of your computing nodes has lower/higher RAM capacity than the other</span>
+<span class="cm">     * nodes, you can assign lower/higher number of spherical harmonic</span>
+<span class="cm">     * coefficients to this process.  Or you can distribute all coefficients</span>
+<span class="cm">     * evenly among all processes to ensure the memory consumption on all nodes</span>
+<span class="cm">     * will be even and so on and so forth. */</span>
+
+
+<span class="w">    </span><span class="cm">/* Now allocate the memory for a distributed &quot;charm_shc&quot; structure.  The</span>
+<span class="cm">     * structure will be distributed among all MPI processed in &quot;comm&quot; based on</span>
+<span class="cm">     * our &quot;local_nchunk&quot; and &quot;local_order&quot;. */</span>
+<span class="w">    </span><span class="n">charm_shc</span><span class="w"> </span><span class="o">*</span><span class="n">shcs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">charm_mpi_shc_malloc</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">local_nchunk</span><span class="p">,</span>
+<span class="w">                                           </span><span class="n">local_order</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+
+
+<span class="w">    </span><span class="cm">/* At this point, we have to check that the previous function call was</span>
+<span class="cm">     * successful.  We can do this either be verifying that &quot;shcs&quot; is not</span>
+<span class="cm">     * &quot;NULL&quot; and/or we can use the CHarm&#39;s error handler.</span>
+<span class="cm">     *</span>
+<span class="cm">     * Many things could go wrong when calling &quot;charm_mpi_shc_malloc&quot; and other</span>
+<span class="cm">     * routines from the &quot;mpi&quot; module.  For instance, there might be not enough</span>
+<span class="cm">     * memory available at some computing node(s), the partitioning of</span>
+<span class="cm">     * spherical harmonic coefficients to chunks might be wrong (e.g., by</span>
+<span class="cm">     * leaving some gaps by not specifying some spherical harmonic order(s) in</span>
+<span class="cm">     * &quot;local_order&quot;, or by introducing overlaps between some chunks), the MPI</span>
+<span class="cm">     * communicator &quot;comm&quot; might be invalid and so on. You should therefore</span>
+<span class="cm">     * always call an error handler.  It will try to describe the cause of the</span>
+<span class="cm">     * error, hopefully allowing you to easily fix it. */</span>
+<span class="w">    </span><span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+
+
+<span class="w">    </span><span class="cm">/* Now fill &quot;shcs&quot; with some fake spherical harmonic coefficients.</span>
+<span class="cm">     * Usually, you will read these coefficients from files on your hard drive.</span>
+<span class="cm">     * But for simplicity, we use some artificial coefficients in this example.</span>
+<span class="cm">     * */</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">shcs</span><span class="o">-&gt;</span><span class="n">local_nchunk</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">shcs</span><span class="o">-&gt;</span><span class="n">local_order</span><span class="p">[</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">j</span><span class="p">];</span>
+<span class="w">             </span><span class="n">m</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">shcs</span><span class="o">-&gt;</span><span class="n">local_order</span><span class="p">[</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span><span class="w"> </span><span class="n">m</span><span class="o">++</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">shcs</span><span class="o">-&gt;</span><span class="n">nmax</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="o">++</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="n">shcs</span><span class="o">-&gt;</span><span class="n">c</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">m</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="p">)(</span><span class="n">m</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
+<span class="w">                </span><span class="n">shcs</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">m</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="p">)(</span><span class="n">m</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+
+<span class="w">    </span><span class="cm">/* Important: Never access coefficients that are not owned by the process</span>
+<span class="cm">     * that is trying to access the coefficients.</span>
+<span class="cm">     *</span>
+<span class="cm">     * For instance, all coefficients of order &quot;8&quot; are now owned by (stored at)</span>
+<span class="cm">     * MPI process with rank &quot;2&quot;.  This</span>
+<span class="cm">     *</span>
+<span class="cm">     *      &quot;shcs-&gt;c[8][8 - 8]&quot;</span>
+<span class="cm">     *</span>
+<span class="cm">     * will thus fail badly at processes with ranks other than &quot;2&quot;. */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+<span class="w">    </span><span class="cm">/* Now let&#39;s prepare a Gauss--Legendre grid that will be distributed among</span>
+<span class="cm">     * the MPI processes */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+<span class="w">    </span><span class="cm">/* Get the number of latitudes and longitudes of the Gauss--Legendre grid</span>
+<span class="cm">     * that correspond to maximum harmonic degree &quot;nmax&quot; */</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">nlat</span><span class="p">,</span><span class="w"> </span><span class="n">nlon</span><span class="p">;</span>
+<span class="w">    </span><span class="n">charm_crd_point_gl_shape</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">nlat</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">nlon</span><span class="p">);</span>
+
+
+<span class="w">    </span><span class="cm">/* For our &quot;nmax = 10&quot;, &quot;nlat&quot; will be &quot;11&quot;.  We will thus have the</span>
+<span class="cm">     * following latitudes in the Gauss--Legendre grid: &quot;lat0, lat1, lat2, ...,</span>
+<span class="cm">     * lat10&quot;. */</span>
+
+
+<span class="w">    </span><span class="cm">/* Similarly as we specified chunks of spherical harmonic coefficients, now</span>
+<span class="cm">     * we have to split the Gauss--Legendre grid into latitudinal chunks.</span>
+<span class="cm">     * Naturally, the sum of &quot;local_nlat&quot; across all processes much match</span>
+<span class="cm">     * &quot;nlat&quot;.  This is automatically checked when calling</span>
+<span class="cm">     * &quot;charm_mpi_crd_point_gl&quot; below.</span>
+<span class="cm">     *</span>
+<span class="cm">     * Again, assigning no latitudinal chunks to some MPI process is fairly OK.</span>
+<span class="cm">     * Below, this would translate into assigning &quot;0&quot; to &quot;local_nlat&quot; at one or</span>
+<span class="cm">     * more processes.  This would of course necessitate to increase</span>
+<span class="cm">     * &quot;local_nlat&quot; at other processes. */</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">local_nlat</span><span class="p">,</span><span class="w"> </span><span class="n">local_0_start</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="cm">/* This MPI process will hold 2 latitudes, &quot;lat1&quot; and &quot;lat9&quot;. */</span>
+<span class="w">        </span><span class="n">local_nlat</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">        </span><span class="n">local_0_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="cm">/* This process also holds two latitudes, &quot;lat0&quot; and &quot;lat10&quot;.  We</span>
+<span class="cm">         * intentionally put &quot;lat0&quot; to the process of rank &quot;1&quot; to demonstrate</span>
+<span class="cm">         * that CHarm does not care about which chunk is stored by which MPI</span>
+<span class="cm">         * process. */</span>
+<span class="w">        </span><span class="n">local_nlat</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">        </span><span class="n">local_0_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="cm">/* This process holds seven latitudes, &quot;lat2, lat3, ..., lat8&quot; */</span>
+<span class="w">        </span><span class="n">local_nlat</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span>
+<span class="w">        </span><span class="n">local_0_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="cm">/* Note that &quot;lat0 = -lat10&quot;, &quot;lat1 = -lat9&quot;, ..., that is Gauss--Legendre</span>
+<span class="cm">     * grids are symmetric with respect to the equator.  In case of symmetric</span>
+<span class="cm">     * grids in general, each process must hold the latitudes at both</span>
+<span class="cm">     * hemisphere.  The only exception is that MPI process, which holds the</span>
+<span class="cm">     * equator (if there is any).  In that case, &quot;local_nlat&quot; must be odd.</span>
+<span class="cm">     * This happens with Gauss--Legendre grids and even &quot;nmax&quot;.  See the</span>
+<span class="cm">     * documentation to &quot;charm_mpi_crd_point_gl&quot;. */</span>
+
+
+<span class="w">    </span><span class="n">charm_point</span><span class="w"> </span><span class="o">*</span><span class="n">glg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">charm_mpi_crd_point_gl</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span><span class="w"> </span><span class="n">shcs</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">local_nlat</span><span class="p">,</span>
+<span class="w">                                              </span><span class="n">local_0_start</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">    </span><span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+<span class="w">    </span><span class="cm">/* Let&#39;s print the latitudes, spherical radii and integration weights in</span>
+<span class="cm">     * &quot;glg&quot;.  The longitudes are not printed as they are the same at all</span>
+<span class="cm">     * processes.  The data will be printed in the rank order. */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">;</span><span class="w"> </span><span class="n">r</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">r</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">glg</span><span class="o">-&gt;</span><span class="n">local_nlat</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">                </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;rank %d: glg-&gt;lat[%zu] = %23.16e, &quot;</span>
+<span class="w">                       </span><span class="s">&quot;glg-&gt;r[%zu] = %23.16e, glg-&gt;w[%zu] = %23.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<span class="w">                       </span><span class="n">rank</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">glg</span><span class="o">-&gt;</span><span class="n">lat</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">glg</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">glg</span><span class="o">-&gt;</span><span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">        </span><span class="p">}</span>
+
+
+<span class="w">        </span><span class="n">MPI_Barrier</span><span class="p">(</span><span class="n">comm</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+<span class="w">    </span><span class="cm">/* At this point, we have spherical harmonic coefficients in &quot;shcs&quot; as well</span>
+<span class="cm">     * as computing points in &quot;glg&quot; distributed across MPI processes, so we can</span>
+<span class="cm">     * do some distributed spherical harmonic synthesis and analysis. */</span>
+
+
+<span class="w">    </span><span class="cm">/* Spherical harmonic synthesis */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+<span class="w">    </span><span class="cm">/* At this point, each process holds &quot;glg-&gt;local_npoint&quot; points.  The sum</span>
+<span class="cm">     * of &quot;glg-&gt;local_npoint&quot; across all MPI processes thus yields the total</span>
+<span class="cm">     * number of grid points &quot;glg-&gt;npoint&quot;.  Let&#39;s now allocate memory for the</span>
+<span class="cm">     * local signal &quot;f&quot; that is to be synthesized by each MPI process */</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">glg</span><span class="o">-&gt;</span><span class="n">local_npoint</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;malloc failure.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+
+<span class="w">    </span><span class="cm">/* Do the synthesis */</span>
+<span class="w">    </span><span class="n">charm_shs_point</span><span class="p">(</span><span class="n">glg</span><span class="p">,</span><span class="w"> </span><span class="n">shcs</span><span class="p">,</span><span class="w"> </span><span class="n">shcs</span><span class="o">-&gt;</span><span class="n">nmax</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">    </span><span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+
+
+<span class="w">    </span><span class="cm">/* Note that &quot;f&quot; is now distributed among MPI processes.  The distribution</span>
+<span class="cm">     * is given by &quot;glg&quot;. */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+<span class="w">    </span><span class="cm">/* Spherical harmonic analysis */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+<span class="w">    </span><span class="cm">/* Now we want to compute by spherical harmonic analysis coefficients from</span>
+<span class="cm">     * &quot;f&quot;, which is distributed.  First, we need to allocate a new distributed</span>
+<span class="cm">     * &quot;charm_shc&quot; structure.  For simplicity, the distribution will be the</span>
+<span class="cm">     * same as with &quot;shcs&quot; but this is not required. */</span>
+<span class="w">    </span><span class="n">charm_shc</span><span class="w"> </span><span class="o">*</span><span class="n">shcs_out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">charm_mpi_shc_malloc</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">local_nchunk</span><span class="p">,</span>
+<span class="w">                                               </span><span class="n">local_order</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">    </span><span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+
+
+<span class="w">    </span><span class="cm">/* Now the analysis.  Note that the number of locally stored points in</span>
+<span class="cm">     * &quot;glg&quot; (&quot;glg-&gt;local_npoint&quot;) must match the number of elements in &quot;f&quot; and</span>
+<span class="cm">     * that the elements of &quot;f&quot; must be ordered properly. */</span>
+<span class="w">    </span><span class="n">charm_sha_point</span><span class="p">(</span><span class="n">glg</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="n">shcs_out</span><span class="o">-&gt;</span><span class="n">nmax</span><span class="p">,</span><span class="w"> </span><span class="n">shcs_out</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">    </span><span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+
+
+<span class="w">    </span><span class="cm">/* &quot;shcs&quot; and &quot;shcs_out&quot; are the same, as can easily be verified.  Their</span>
+<span class="cm">     * differences should not exceed the order of, say, &quot;10**-13&quot; or so.  We</span>
+<span class="cm">     * print the outputs first in order according to the rank of the process</span>
+<span class="cm">     * and then in order given by &quot;local_order&quot;. */</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">;</span><span class="w"> </span><span class="n">r</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">r</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">shcs</span><span class="o">-&gt;</span><span class="n">local_nchunk</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">shcs</span><span class="o">-&gt;</span><span class="n">local_order</span><span class="p">[</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">j</span><span class="p">];</span>
+<span class="w">                     </span><span class="n">m</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">shcs</span><span class="o">-&gt;</span><span class="n">local_order</span><span class="p">[</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span><span class="w"> </span><span class="n">m</span><span class="o">++</span><span class="p">)</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">shcs</span><span class="o">-&gt;</span><span class="n">nmax</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="o">++</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;rank %d: Cref_{%2lu, %2lu} = %0.16e, &quot;</span>
+<span class="w">                               </span><span class="s">&quot;Cnew_{%2lu, %2lu} = %0.16e, diff = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<span class="w">                               </span><span class="n">rank</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">shcs</span><span class="o">-&gt;</span><span class="n">c</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">m</span><span class="p">],</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">,</span>
+<span class="w">                               </span><span class="n">shcs_out</span><span class="o">-&gt;</span><span class="n">c</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">m</span><span class="p">],</span>
+<span class="w">                               </span><span class="n">shcs</span><span class="o">-&gt;</span><span class="n">c</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">m</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">shcs_out</span><span class="o">-&gt;</span><span class="n">c</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">m</span><span class="p">]);</span>
+<span class="w">                        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;rank %d: Sref_{%2lu, %2lu} = %0.16e, &quot;</span>
+<span class="w">                               </span><span class="s">&quot;Snew_{%2lu, %2lu} = %0.16e, diff = %0.16e</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<span class="w">                               </span><span class="n">rank</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">shcs</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">m</span><span class="p">],</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">,</span>
+<span class="w">                               </span><span class="n">shcs_out</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">m</span><span class="p">],</span>
+<span class="w">                               </span><span class="n">shcs</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">m</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">shcs_out</span><span class="o">-&gt;</span><span class="n">s</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">m</span><span class="p">]);</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+
+
+<span class="w">        </span><span class="n">MPI_Barrier</span><span class="p">(</span><span class="n">comm</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+<span class="w">    </span><span class="cm">/* IMPORTANT NOTE */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+<span class="w">    </span><span class="cm">/* CHarm has some global parameters that should be tuned to get the best</span>
+<span class="cm">     * performance with MPI.  For instance, there is the</span>
+<span class="cm">     * &quot;charm_glob_sha_block_lat_multiplier&quot; variable, which has enormous</span>
+<span class="cm">     * impact on the performance of &quot;charm_sha_point&quot; in real-world high-degree</span>
+<span class="cm">     * applications.</span>
+<span class="cm">     *</span>
+<span class="cm">     * For demonstration purposes, let&#39;s change its value now and repeat the</span>
+<span class="cm">     * analysis.  This has no effect on the results of course.</span>
+<span class="cm">     *</span>
+<span class="cm">     * See the documentation of the &quot;glob&quot; module for this and other associated</span>
+<span class="cm">     * variables. */</span>
+<span class="w">    </span><span class="n">charm_glob_sha_block_lat_multiplier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="w">    </span><span class="n">charm_sha_point</span><span class="p">(</span><span class="n">glg</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="n">shcs_out</span><span class="o">-&gt;</span><span class="n">nmax</span><span class="p">,</span><span class="w"> </span><span class="n">shcs_out</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">    </span><span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+<span class="w">    </span><span class="cm">/* Free the memory */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+<span class="w">    </span><span class="n">free</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
+<span class="w">    </span><span class="n">charm_shc_free</span><span class="p">(</span><span class="n">shcs</span><span class="p">);</span>
+<span class="w">    </span><span class="n">charm_shc_free</span><span class="p">(</span><span class="n">shcs_out</span><span class="p">);</span>
+<span class="w">    </span><span class="n">charm_crd_point_free</span><span class="p">(</span><span class="n">glg</span><span class="p">);</span>
+<span class="w">    </span><span class="n">charm_err_free</span><span class="p">(</span><span class="n">err</span><span class="p">);</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Great, all done by process %d of %d!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">rank</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
+
+
+<span class="w">    </span><span class="n">MPI_Finalize</span><span class="p">();</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+<span class="w">    </span><span class="n">exit</span><span class="p">(</span><span class="n">CHARM_SUCCESS</span><span class="p">);</span>
+<span class="w">    </span><span class="cm">/* ===================================================================== */</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
 </section>
 <section id="charm-in-single-and-quadruple-precision">
 <span id="charm-in-single-and-quad-precision"></span><h2>CHarm in single and quadruple precision<a class="headerlink" href="#charm-in-single-and-quadruple-precision" title="Link to this heading">#</a></h2>
@@ -1705,7 +2127,8 @@ with the static library might look like this:</p>
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1721,6 +2144,7 @@ with the static library might look like this:</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#first-and-second-order-gradients-gravitational-vector-and-tensor">First- and second-order gradients (gravitational vector and tensor)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-coefficients-of-legendre-functions">Fourier coefficients of Legendre functions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integrals">Integrals</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distributed-computing-with-mpi">Distributed computing with MPI</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#charm-in-single-and-quadruple-precision">CHarm in single and quadruple precision</a><ul class="nav section-nav flex-column">
@@ -1761,7 +2185,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Aug 05, 2024.
+  Last updated on Dec 02, 2024.
   <br/>
 </p>
   </div>
@@ -1779,8 +2203,8 @@ By Blažej Bucha
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

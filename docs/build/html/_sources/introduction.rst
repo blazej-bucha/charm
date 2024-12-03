@@ -38,11 +38,14 @@ Features
 * Computes Fourier coefficients of fully-normalized associated Legendre
   functions of the first kind up to ultra-high harmonic degrees.
 
+* Supports SIMD parallelization on the level of a single CPU core (AVX, AVX2, 
+  AVX-512 and NEON).
+
 * Supports `OpenMP <https://www.openmp.org/>`_ parallelization for
   shared-memory architectures.
 
-* Supports AVX, AVX2, AVX-512 and NEON SIMD CPU instructions to improve the 
-  performance.
+* Supports `MPI <https://www.mpi-forum.org/>`_ parallelization for shared- and 
+  distributed-memory architectures.
 
 * Performs discrete FFT by `FFTW <http://www.fftw.org/>`_.
 
@@ -66,7 +69,7 @@ Installation
 
   This will install PyHarm together will all the dependencies.  These include 
   a pre-compiled CHarm library, which is internally called by PyHarm, some 
-  other C libraries (FFTW and GOMP) and the Python package NumPy.
+  other C libraries (FFTW and OpenMP library) and the Python package NumPy.
 
 * **CHarm (C library)**: If you are interested in the C API, you have to build 
   CHarm from source.  This step is not required if you plan to use the Python 
@@ -101,10 +104,11 @@ at `https://www.charmlib.org <https://www.charmlib.org>`_.
 
 A pre-compiled HTML documentation is also available in ``docs/build/html``.  
 Alternatively, it can be built by executing ``make html`` after the 
-``configure`` call (requires ``doxygen`` and Python modules ``sphinx``, 
-``sphinx_book_theme`` and ``breathe``).  Other formats of the documentation, 
-for instance, a PDF file, can be built with ``cd docs && make latexpdf``, etc.  
-To list all available formats, execute ``cd docs && make help``.
+``configure`` call (requires ``--enable-python``, ``--enable-mpi``, ``doxygen`` 
+and Python modules ``sphinx``, ``sphinx_book_theme`` and ``breathe``).  Other 
+formats of the documentation, for instance, a PDF file, can be built with ``cd 
+docs && make latexpdf``, etc.  To list all available formats, execute ``cd docs 
+&& make help``.
 
 
 .. _contact:

@@ -46,6 +46,21 @@ else:
     runtime_library_dirs = library_dirs
 
 
+src_files = glob.glob('src/crd/*.c') + \
+            glob.glob('src/err/*c') + \
+            glob.glob('src/glob/*c') + \
+            glob.glob('src/integ/*.c') + \
+            glob.glob('src/leg/*.c') + \
+            glob.glob('src/misc/*c') + \
+            glob.glob('src/sha/*c') + \
+            glob.glob('src/shc/*c') + \
+            glob.glob('src/shs/*c') + \
+            glob.glob('src/simd/*c') + \
+            glob.glob('src/xnum/*c')
+if @WITH_MPI@:
+    src_files += glob.glob('src/mpi/*c')
+
+
 setup(name='pyharm@P@',
       version=ver,
       description='Python wrapper for CHarm, a C library to work with '
@@ -62,7 +77,7 @@ setup(name='pyharm@P@',
       ext_modules=[
             Extension(
                 name='pyharm@P@.libcharm@P@',
-                sources=glob.glob('src/**/*.c'),
+                sources=src_files,
                 extra_compile_args=to_list(extra_compile_args, ' '),
                 include_dirs=['.', './src'] + include_dirs,
                 library_dirs=library_dirs,

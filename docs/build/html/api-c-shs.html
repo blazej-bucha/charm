@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>charm_shs &#8212; CHarm 0.4.2 documentation</title>
+    <title>charm_shs &#8212; CHarm 0.4.3 documentation</title>
   
   
   
@@ -16,29 +16,32 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-
-  
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
   
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="_static/documentation_options.js?v=b4bb93ae"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/documentation_options.js?v=0f4711b3"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -50,7 +53,8 @@
     <link rel="prev" title="charm_crd" href="api-c-crd.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Aug 05, 2024"/>
+  <meta name="docsearch:version" content="0.4.3" />
+    <meta name="docbuild:last-update" content="Dec 02, 2024"/>
   </head>
   
   
@@ -66,19 +70,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -86,7 +79,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -94,8 +86,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -111,7 +103,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -126,6 +119,8 @@
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="index.html">
   
@@ -139,23 +134,19 @@
     
     
     <img src="_static/charm-logo.svg" class="logo__image only-light" alt=""/>
-    <script>document.write(`<img src="_static/charm-logo.svg" class="logo__image only-dark" alt=""/>`);</script>
+    <img src="_static/charm-logo.svg" class="logo__image only-dark pst-js-only" alt=""/>
   
   
-    <p class="title logo__title">CHarm v0.4.2</p>
+    <p class="title logo__title">CHarm v0.4.3</p>
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
@@ -185,6 +176,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html">charm_err</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-mpi.html">charm_mpi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-glob.html">charm_glob</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
 </ul>
@@ -206,6 +198,7 @@
 <li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acknowledgements.html">Acknowledgements</a></li>
 </ul>
 
     </div>
@@ -377,24 +370,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -475,40 +460,7 @@ document.write(`
 <p>The synthesis is parallelized using OpenMP.</p>
 <p><strong>Notes on evaluation points organized in grids</strong> (not relevant for scattered points)</p>
 <p><ul class="simple">
-<li><p>To improve the computational speed, exploited is the symmetry of Legendre functions with respect to the equator. This is done <em>automatically</em>, provided that the grid stored in <code class="docutils literal notranslate"><span class="pre">pnt</span></code> is recognized as symmetric with respect to the equator. Below are shown some examples of symmetric and non-symmetric grids. (While these examples use the unit degrees for a more intuitive understanding, note that the function inputs assume radians.)</p></li>
-<li><p>Examples of some <strong>symmetric</strong> grids (shown are only latitudes <code class="docutils literal notranslate"><span class="pre">pnt-&gt;lat</span></code>, the longitudes <code class="docutils literal notranslate"><span class="pre">pnt-&gt;lon</span></code> do not affect the grid symmetry):<ul>
-<li><p>Equator included: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">-</span><span class="mf">90.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">60.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">30.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="mf">60.0</span><span class="p">,</span> <span class="mf">90.0</span>
-</pre></div>
-</div>
- or <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">-</span><span class="mf">80.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">60.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">40.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">20.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">,</span> <span class="mf">60.0</span><span class="p">,</span> <span class="mf">80.0</span>
-</pre></div>
-</div>
-</p></li>
-<li><p>Equator excluded: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">-</span><span class="mf">35.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">25.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">15.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">,</span> <span class="mf">35.0</span>
-</pre></div>
-</div>
- or <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">-</span><span class="mf">90.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">85.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">80.0</span><span class="p">,</span> <span class="mf">80.0</span><span class="p">,</span> <span class="mf">85.0</span><span class="p">,</span> <span class="mf">90.0</span>
-</pre></div>
-</div>
-</p></li>
-<li><p>Varying spacing, equator excluded: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">-</span><span class="mf">90.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">80.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">75.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">70.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">69.0</span><span class="p">,</span> <span class="mf">69.0</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">,</span> <span class="mf">75.0</span><span class="p">,</span> <span class="mf">80.0</span><span class="p">,</span> <span class="mf">90.0</span>
-</pre></div>
-</div>
-</p></li>
-</ul>
-</p></li>
-<li><p>Examples of some <strong>non-symmetric</strong> grids (shown are only latitudes again):<ul>
-<li><p>The negative latitude of <code class="docutils literal notranslate"><span class="pre">-90.0</span> <span class="pre">deg</span></code> does not have its positive counterpart <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">-</span><span class="mf">90.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">60.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">30.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="mf">60.0</span>
-</pre></div>
-</div>
-</p></li>
-<li><p>The relative difference between <code class="docutils literal notranslate"><span class="pre">fabs(-4.99)</span></code> and <code class="docutils literal notranslate"><span class="pre">fabs(5.0)</span></code> is larger than <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1afb419caab47d66aff55c04d1339b4f7d"><span class="std std-ref"><span class="pre">charm_glob_threshold2</span></span></a></code> (see <a class="reference external" href="./api-c-glob.html">charm_glob</a>): <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">-</span><span class="mf">35.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">25.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">15.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.99</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">,</span> <span class="mf">35.0</span>
-</pre></div>
-</div>
-</p></li>
-</ul>
-</p></li>
-<li><p>In other words, the grid is symmetric in the latitudinal direction, provided that all positive latitudes have their negative counterparts at the right places. The check is done within a given threshold to suppress numerical inaccuracies, see the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1afb419caab47d66aff55c04d1339b4f7d"><span class="std std-ref"><span class="pre">charm_glob_threshold2</span></span></a></code> variable in the <a class="reference external" href="./api-c-glob.html">charm_glob</a> module. The zero latitude, i.e., the equator, may be present in the grid (again, within the specified numerical threshold <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1afb419caab47d66aff55c04d1339b4f7d"><span class="std std-ref"><span class="pre">charm_glob_threshold2</span></span></a></code>).</p></li>
+<li><p>To improve the computational speed, exploited is the symmetry of Legendre functions with respect to the equator. This is done <em>automatically</em>, provided that the grid stored in <code class="docutils literal notranslate"><span class="pre">pnt</span></code> is recognized as symmetric with respect to the equator. Symmetric and non-symmetric grids are explained <a class="reference external" href="./definitions.html#symmetric-grids">here</a>.</p></li>
 <li><p>The longitudes of the grid must be sampled increasingly with equal spacing, that is, the difference between any two consecutive longitudes must be positive and constant. The function performs a check on this. If the longitudes do not pass the test, an error message is written to <code class="docutils literal notranslate"><span class="pre">err</span></code> and the program returns to the caller.</p></li>
 </ul>
 </p>
@@ -750,42 +702,7 @@ f}{\partial r^i \, \partial \varphi^j \, \lambda^k}\]</div>
 <p>The synthesis is parallelized using OpenMP.</p>
 <p><strong>Notes on evaluation cells organized in grids</strong> (not relevant for scattered cells)</p>
 <p><ul>
-<li><p>To improve the computational speed, exploited is the symmetry of Legendre functions with respect to the equator. This is done <em>automatically</em>, provided that the grid stored in <code class="docutils literal notranslate"><span class="pre">cell</span></code> is recognized as symmetric with respect to the equator. Below are shown some examples of symmetric and non-symmetric grids. (While these examples use the unit degrees for a more intuitive understanding, note that the function inputs assume radians.)</p></li>
-<li><p><em>Examples of some symmetric grids</em> (shown are only the minimum and the maximum latitudes <code class="docutils literal notranslate"><span class="pre">latmin</span></code> and <code class="docutils literal notranslate"><span class="pre">latmax</span></code>, respectively; the longitudes do not affect the grid symmetry):</p>
-<p><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>latmin: -90.0, -60.0, -30.0,  0.0, 30.0, 60.0
-latmax: -60.0, -30.0,   0.0, 30.0, 60.0, 90.0
-</pre></div>
-</div>
-</p>
-<p><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>latmin: -35.0, -25.0, -15.0, -5.0,  5.0, 15.0, 25.0
-latmax: -25.0, -15.0,  -5.0,  5.0, 15.0, 25.0, 35.0
-</pre></div>
-</div>
-</p>
-<p><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>latmin: -90.0, -85.0, 80.0, 85.0
-latmax: -85.0, -80.0, 85.0, 90.0
-</pre></div>
-</div>
-</p>
-<p><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>latmin: -90.0, -80.0, -75.0, -70.0, 69.0, 70.0, 75.0, 80.0
-latmax: -80.0, -75.0, -70.0, -69.0, 70.0, 75.0, 80.0, 90.0
-</pre></div>
-</div>
-</p>
-</li>
-<li><p><em>Examples of some grids that are not considered as symmetric</em> (shown are again only latitudes):</p>
-<p><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>latmin: -90.0, -60.0, -30.0,  0.0, 30.0
-latmax: -60.0, -30.0,   0.0, 30.0, 60.0
-</pre></div>
-</div>
-</p>
-<p><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>latmin: -35.0, -25.0, -15.0,     5.0, 15.0, 25.0
-latmax: -25.0, -15.0,  -4.99,   15.0, 25.0, 35.0
-</pre></div>
-</div>
-</p>
-</li>
-<li><p>In other words, the grid is symmetric in the latitudinal direction, provided that all positive latitudes have their negative counterparts at the right places. The check is done within a given threshold to suppress numerical inaccuracies, see the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1afb419caab47d66aff55c04d1339b4f7d"><span class="std std-ref"><span class="pre">charm_glob_threshold2</span></span></a></code> variable in the <a class="reference external" href="./api-c-glob.html">charm_glob</a> module. The zero latitude, i.e., the equator, may be present in the grid (again, within the specified numerical threshold <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1afb419caab47d66aff55c04d1339b4f7d"><span class="std std-ref"><span class="pre">charm_glob_threshold2</span></span></a></code>).</p></li>
+<li><p>To improve the computational speed, exploited is the symmetry of Legendre functions with respect to the equator. This is done <em>automatically</em>, provided that the grid stored in <code class="docutils literal notranslate"><span class="pre">cell</span></code> is recognized as symmetric with respect to the equator. Symmetric and non-symmetric grids are explained <a class="reference external" href="./definitions.html#symmetric-grids">here</a>.</p></li>
 <li><p>The longitudes of the grid must be sampled increasingly with equal spacing, that is, the difference between any two consecutive minimum cell longitudes must be positive and constant and the same holds for the maximum cell longitudes as well; moreover, the step in minimum cell longitudes must be equal to the step in maximum cell longitudes. Two examples of an acceptable longitudinal sampling (shown are minimum and maximum longitudes of grid cells):</p>
 <p><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>lonmin: 0.0, 1.0, 2.0, 3.0, 4.0, 5.0
 lonmax: 1.0, 2.0, 3.0, 4.0, 5.0, 6.0
@@ -946,7 +863,8 @@ This function can only be used with evaluation cells organized in a grid, that i
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -994,7 +912,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Aug 05, 2024.
+  Last updated on Dec 02, 2024.
   <br/>
 </p>
   </div>
@@ -1012,8 +930,8 @@ By Blažej Bucha
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -18,39 +18,39 @@ extern "C"
 extern long int check_struct__Bool(_Bool,
                                    _Bool,
                                    _Bool,
-                                   char *,
-                                   char *,
-                                   char *);
+                                   const char *,
+                                   const char *,
+                                   const char *);
 extern long int check_struct_int(int,
                                  int,
                                  _Bool,
-                                 char *,
-                                 char *,
-                                 char *);
+                                 const char *,
+                                 const char *,
+                                 const char *);
 extern long int check_struct_size_t(size_t,
                                     size_t,
                                     _Bool,
-                                    char *,
-                                    char *,
-                                    char *);
+                                    const char *,
+                                    const char *,
+                                    const char *);
 extern long int check_struct_ulong(unsigned long,
                                    unsigned long,
                                    _Bool,
-                                   char *,
-                                   char *,
-                                   char *);
+                                   const char *,
+                                   const char *,
+                                   const char *);
 extern long int check_struct_REAL(REAL,
                                   REAL,
                                   _Bool,
-                                  char *,
-                                  char *,
-                                  char *);
+                                  const char *,
+                                  const char *,
+                                  const char *);
 extern long int check_struct_ptr(void *,
                                  void *,
                                  _Bool,
-                                 char *,
-                                 char *,
-                                 char *);
+                                 const char *,
+                                 const char *,
+                                 const char *);
 
 
 #ifdef __cplusplus

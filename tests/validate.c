@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "parameters.h"
+#include "error_messages.h"
 #include "../src/prec.h"
 #include "../src/misc/misc_str2real.h"
 #include "cmp_arrays.h"
@@ -33,7 +34,7 @@ long int validate(char *file, REAL *f, size_t n, REAL eps)
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        fprintf(stderr, "Failed to initialize the \"err\" structure.\n");
+        fprintf(stderr, ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -47,7 +48,7 @@ long int validate(char *file, REAL *f, size_t n, REAL eps)
     REAL *fref = (REAL *)malloc(n * sizeof(REAL));
     if (fref == NULL)
     {
-        fprintf(stderr, "malloc failure.\n");
+        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 

@@ -15,8 +15,16 @@ extern "C"
 #endif
 
 
-extern void CHARM(crd_grd_check_symm)(size_t, size_t, int, size_t, _Bool,
-                                      _Bool, REAL *, REAL*);
+extern void CHARM(crd_grd_check_symm)(size_t,
+                                      size_t,
+                                      size_t,
+                                      size_t,
+                                      int,
+                                      size_t,
+                                      _Bool,
+                                      _Bool,
+                                      REAL *,
+                                      REAL*);
 
 
 #ifdef __cplusplus

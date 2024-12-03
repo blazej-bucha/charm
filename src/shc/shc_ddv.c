@@ -5,7 +5,10 @@
 #include <stdlib.h>
 #include "../prec.h"
 #include "../err/err_set.h"
+#include "../err/err_propagate.h"
+#include "../err/err_check_distribution.h"
 #include "../misc/misc_is_nearly_equal.h"
+#include "shc_check_distribution.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -13,11 +16,38 @@
 
 
 
-void CHARM(shc_ddv)(const CHARM(shc) *shcs1, const CHARM(shc) *shcs2,
-                    unsigned long nmax, REAL *ddv, CHARM(err) *err)
+void CHARM(shc_ddv)(const CHARM(shc) *shcs1,
+                    const CHARM(shc) *shcs2,
+                    unsigned long nmax,
+                    REAL *ddv,
+                    CHARM(err) *err)
 {
     /* Some error checks */
     /* --------------------------------------------------------------------- */
+    CHARM(err_check_distribution)(err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
+    CHARM(shc_check_distribution)(shcs1, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
+    CHARM(shc_check_distribution)(shcs2, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
     if (nmax > shcs1->nmax)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,

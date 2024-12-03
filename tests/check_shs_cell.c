@@ -4,8 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../src/prec.h"
+#include "../src/simd/simd.h"
 #include "generate_cell.h"
 #include "parameters.h"
+#include "error_messages.h"
 #ifdef GENREF
 #   include "array2file.h"
 #else
@@ -28,7 +30,7 @@ long int check_shs_cell(void)
                                              PREC(1.0));
     if (shcs_pot == NULL)
     {
-        fprintf(stderr, "Failed to initialize a \"shc\" structure.\n");
+        fprintf(stderr, ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -37,7 +39,7 @@ long int check_shs_cell(void)
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        fprintf(stderr, "Failed to initialize a \"err\" structure.\n");
+        fprintf(stderr, ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -56,10 +58,36 @@ long int check_shs_cell(void)
 
 
 
+    /* Check whether zero cells in "charm_cell" do not produce any kind of
+     * error (see "check_shs_point_all.c" for details) */
+    /* --------------------------------------------------------------------- */
+    long int e = 0;
+    REAL *f    = NULL;
+
+
+    CHARM(cell) *sctr_0cells = NULL;
+    sctr_0cells = CHARM(crd_cell_malloc)(CHARM_CRD_CELL_SCATTERED, 0, 0);
+
+
+    CHARM(shs_cell)(sctr_0cells, shcs_pot, shcs_pot->nmax, f, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        printf("\n        WARNING: Synthesis with zero cells didn't pass!\n");
+        e += 1;
+    }
+
+
+    CHARM(err_reset)(err);
+    CHARM(crd_cell_free)(sctr_0cells);
+    /* --------------------------------------------------------------------- */
+
+
+
+
+
+
     /* Custom cell grids */
-    /* ..................................................................... */
-    long int e            = 0;
-    REAL *f               = NULL;
+    /* --------------------------------------------------------------------- */
     CHARM(cell) *grd_cell = NULL;
     char file[NSTR_LONG];
 
@@ -101,8 +129,7 @@ long int check_shs_cell(void)
                                                           nlat[i], nlon[i]);
                         if (grd_cell == NULL)
                         {
-                            fprintf(stderr, "Failed to initialize a "
-                                            "\"crd\" structure\n");
+                            fprintf(stderr, ERR_MSG_CELL);
                             exit(CHARM_FAILURE);
                         }
 
@@ -133,7 +160,7 @@ long int check_shs_cell(void)
                         f = (REAL *)malloc(grd_cell->ncell * sizeof(REAL));
                         if (f == NULL)
                         {
-                            fprintf(stderr, "malloc failure.\n");
+                            fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
                             exit(CHARM_FAILURE);
                         }
 
@@ -158,7 +185,7 @@ long int check_shs_cell(void)
         }
     }
     }
-    /* ..................................................................... */
+    /* --------------------------------------------------------------------- */
 
 
 
@@ -166,10 +193,12 @@ long int check_shs_cell(void)
 
 
     /* Scattered cells */
-    /* ..................................................................... */
+    /* --------------------------------------------------------------------- */
     {
-    size_t nlat[NSCTR] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-    size_t nlon[NSCTR] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    size_t nlat[NSCTR] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 20, 30, 30 + 1};
+    size_t nlon[NSCTR];
+    for (size_t i = 0; i < NSCTR; i++)
+        nlon[i] = nlat[i];
 
 
     CHARM(cell) *sctr_cell = NULL;
@@ -186,8 +215,7 @@ long int check_shs_cell(void)
                                                    nlat[i], nlon[i]);
                 if (sctr_cell == NULL)
                 {
-                    fprintf(stderr, "Failed to initialize a \"crd\" "
-                            "structure\n");
+                    fprintf(stderr, ERR_MSG_CELL);
                     exit(CHARM_FAILURE);
                 }
 
@@ -203,7 +231,7 @@ long int check_shs_cell(void)
                 f = (REAL *)malloc(sctr_cell->ncell * sizeof(REAL));
                 if (f == NULL)
                 {
-                    fprintf(stderr, "malloc failure.\n");
+                    fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
                     exit(CHARM_FAILURE);
                 }
 

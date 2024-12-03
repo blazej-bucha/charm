@@ -31,6 +31,17 @@
 #define __CHARM@PC@_GLOB_H__
 
 
+/* Header files required by this module */
+/* ------------------------------------------------------------------------- */
+#include <stdio.h>
+
+
+#if @WITH_MPI@
+#   include <mpi.h>
+#endif
+/* ------------------------------------------------------------------------- */
+
+
 /* ------------------------------------------------------------------------- */
 #ifdef __cplusplus
 extern "C"
@@ -144,6 +155,97 @@ CHARM_EXTERN @RDT@ charm@P@_glob_polar_optimization_a2;
  * @}
  * */
 /* ......................................................................... */
+
+
+#if @WITH_MPI@
+/* ......................................................................... */
+/** @name MPI specific global variables
+ *
+ * @note The variables that follow are available only when CHarm is compiled
+ * with the MPI support (``--enable-mpi``, refer to <a
+ * href="./api-c-mpi.html">charm@P@_mpi</a> for further details).
+ *
+ * @{
+ * */
+
+
+/** @brief Multiplying this variable by the maximum harmonic degree of
+ * spherical harmonic coefficients enlarged by ``1`` specifies the maximum
+ * number of coefficients that can be exchanged between MPI processes during
+ * spherical harmonic synthesis/analysis with distributed ``charm@P@_shc``.
+ *
+ * @details Assume that ``charm@P@_shc.distributed = 1``.  During the spherical
+ * harmonic synthesis/analysis,
+ * ``(charm@P@_shc.nmax + 1) * ::charm@P@_glob_shc_block_nmax_multiplier``
+ * spherical harmonic coefficients \f$\bar{C}_{nm}\f$ and the same amount of
+ * \f$\bar{S}_{nm}\f$ coefficients will be sent between MPI processes at most.
+ * Too small value of ``::charm@P@_glob_shc_block_nmax_multiplier`` will cause
+ * too large overhead due to MPI calls.  On the other hand, too large value
+ * will consume too much RAM on each MPI process.
+ *
+ * Default value is ``1000``.  The value must be larger than zero.  If it is
+ * zero, CHarm will use the value ``1``. */
+CHARM_EXTERN unsigned long charm@P@_glob_shc_block_nmax_multiplier;
+
+
+/** @brief This variable helps to control the number of ``for`` loop iterations
+ * over latitudes in ``charm@P@_sha_point()``.  It has enormous impact on the
+ * performance of ``charm@P@_sha_point()`` when CHarm is compiled with the MPI
+ * support.
+ *
+ * Let ``x`` by the number of latitudes, for which the ``for`` loop over
+ * latitudes in ``charm@P@_sha_point()`` runs.  Usually, this number is about
+ * half of the number of latitudes of quadrature grids due to their equatorial
+ * symmetry.  Furthermore, let ``b`` be the value of
+ * ``::charm@P@_glob_sha_block_lat_multiplier``.  Finally, let ``s`` be the
+ * size of SIMD vectors (can be determined by
+ * ``charm@P@_misc_buildopt_simd_vector_size()``) and ``o`` be the number of
+ * OpenMP processes (if OpenMP parallelization is disabled, then ``o = 1``).
+ * The ``for`` loop in ``charm@P@_sha_point()`` will run roughly
+ * ``ceil(x / (b * s * o))`` times.  Thus, by increasing ``b`` (and optionally
+ * also ``o``), the number of loop runs can be decreased.
+ *
+ * The optimal value depends on your hardware (e.g., the number of
+ * shared-memory computing nodes, the network connection speed between the
+ * nodes, etc.) and also on the number of latitudes.  Both too low and too high
+ * values may *drastically* deteriorate the performance.
+ *
+ * * It the value is too low, the ``for`` loop will run many times.  This is
+ *   a serious problem, because with each loop iteration, *all* spherical
+ *   harmonic coefficients need to be distributed among *all* MPI processes
+ *   within an MPI communicator.  So by increasing
+ *   ``::charm@P@_glob_sha_block_lat_multiplier``, you can reduce the number of
+ *   times the spherical harmonic coefficients will be sent between MPI
+ *   processes which is desired in general.
+ *
+ * * If the value is too high, the CPU caching within a single computing node
+ *   may be significantly deteriorated, thereby decreasing the performance.
+ *
+ * The optimum value should be determined by the trial and error method.
+ *
+ * The parameter affects ``charm@P@_sha_point()`` regardless of whether or not
+ * ``charm@P@_shc`` and ``charm@P@_point`` are distributed.  The value must be
+ * larger than ``0``.  If it is ``0``, CHarm will use the value ``1``.
+ *
+ * Default value is ``4``.
+ *
+ * */
+CHARM_EXTERN size_t charm@P@_glob_sha_block_lat_multiplier;
+
+
+
+/** @brief The same as ``::charm@P@_glob_sha_block_lat_multiplier`` but for
+ * spherical harmonic synthesis in ``charm@P@_shs_point()``.
+ *
+ * Default value is ``8``.
+ *
+ * */
+CHARM_EXTERN size_t charm@P@_glob_shs_block_lat_multiplier;
+/**
+ * @}
+ * */
+/* ......................................................................... */
+#endif
 /* ------------------------------------------------------------------------- */
 
 

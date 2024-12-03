@@ -13,8 +13,11 @@
 
 
 
-void CHARM(shc_dda)(const CHARM(shc) *shcs1, const CHARM(shc) *shcs2,
-                    unsigned long nmax, REAL *dda, CHARM(err) *err)
+void CHARM(shc_dda)(const CHARM(shc) *shcs1,
+                    const CHARM(shc) *shcs2,
+                    unsigned long nmax,
+                    REAL *dda,
+                    CHARM(err) *err)
 {
     CHARM(shc_ddv)(shcs1, shcs2, nmax, dda, err);
     if (!CHARM(err_isempty)(err))

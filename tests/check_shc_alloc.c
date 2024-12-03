@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "../src/prec.h"
 #include "parameters.h"
+#include "shc_touch_array_elements.h"
 #include "check_struct.h"
 #include "check_shc_alloc.h"
 /* ------------------------------------------------------------------------- */
@@ -45,9 +46,10 @@ long int check_shc_alloc(CHARM(shc) *(*shc_alloc)(unsigned long,
 
 
         e += check_struct_ptr(shcs, NULL, EQ, VALID, func_call_str,
-                              "returned a NULL pointer");
+                              "returned NULL pointer");
 
 
+        shc_touch_array_elements(shcs);
         CHARM(shc_free)(shcs);
     }
     /* --------------------------------------------------------------------- */
@@ -65,9 +67,10 @@ long int check_shc_alloc(CHARM(shc) *(*shc_alloc)(unsigned long,
 
 
     e += check_struct_ptr(shcs, NULL, NEQ, INVALID, func_call_str,
-                          "didn't returned a NULL pointer");
+                          "didn't returned NULL pointer");
 
 
+    shc_touch_array_elements(shcs);
     CHARM(shc_free)(shcs);
 
 
@@ -80,12 +83,13 @@ long int check_shc_alloc(CHARM(shc) *(*shc_alloc)(unsigned long,
 
 
     e += check_struct_ptr(shcs, NULL, NEQ, INVALID, func_call_str,
-                          "didn't returned a NULL pointer");
+                          "didn't returned NULL pointer");
 
 
     r = -r;
 
 
+    shc_touch_array_elements(shcs);
     CHARM(shc_free)(shcs);
     /* --------------------------------------------------------------------- */
 
@@ -98,46 +102,51 @@ long int check_shc_alloc(CHARM(shc) *(*shc_alloc)(unsigned long,
 
 
     e += check_struct_ulong(shcs->nmax, nmax, NEQ, VALID, func_call_str,
-                            "returned a wrong value of \"nmax\"");
+                            "returned wrong value of \"nmax\"");
 
 
     e += check_struct_REAL(shcs->mu, mu, NEQ, VALID, func_call_str,
-                           "returned a wrong value of \"mu\"");
+                           "returned wrong value of \"mu\"");
 
 
     e += check_struct_REAL(shcs->r, r, NEQ, VALID, func_call_str,
-                           "returned a wrong value of \"r\"");
+                           "returned wrong value of \"r\"");
 
 
     e += check_struct_ptr(shcs->c, NULL, EQ, VALID, func_call_str,
-                          "returned a NULL pointer for \"c\"");
+                          "returned NULL pointer for \"c\"");
 
 
     e += check_struct_ptr(shcs->c[0], NULL, EQ, VALID, func_call_str,
-                          "returned a NULL pointer for \"c[0]\"");
+                          "returned NULL pointer for \"c[0]\"");
 
 
     size_t ncs = ((nmax + 2) * (nmax + 1)) / 2;
     e += check_struct_size_t(shcs->nc, ncs, NEQ, VALID, func_call_str,
-                             "returned a wrong value of \"nc\"");
+                             "returned wrong value of \"nc\"");
 
 
     e += check_struct_ptr(shcs->s, NULL, EQ, VALID, func_call_str,
-                          "returned a NULL pointer for \"s\"");
+                          "returned NULL pointer for \"s\"");
 
 
     e += check_struct_ptr(shcs->s[0], NULL, EQ, VALID, func_call_str,
-                          "returned a NULL pointer for \"s[0]\"");
+                          "returned NULL pointer for \"s[0]\"");
 
 
     e += check_struct_size_t(shcs->ns, ncs, NEQ, VALID, func_call_str,
-                             "returned a wrong value of \"ns\"");
+                             "returned wrong value of \"ns\"");
 
 
     e += check_struct__Bool(shcs->owner, 1, NEQ, VALID, func_call_str,
-                            "returned a wrong value of \"owner\"");
+                            "returned wrong value of \"owner\"");
 
 
+    e += check_struct__Bool(shcs->distributed, 0, NEQ, VALID, func_call_str,
+                            "returned wrong value of \"distributed\"");
+
+
+    shc_touch_array_elements(shcs);
     CHARM(shc_free)(shcs);
     /* --------------------------------------------------------------------- */
 

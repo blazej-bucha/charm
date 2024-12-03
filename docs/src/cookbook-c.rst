@@ -147,11 +147,35 @@ Fourier coefficients of Legendre functions
 Integrals
 ---------
 
-Finally, let's compute an integral of a product of two spherical harmonics over
+Let's compute an integral of a product of two spherical harmonics over
 a restricted domain on the unit sphere.  Then, we do the same, but with the
 product of Legendre functions only.
 
 .. literalinclude:: ../../cookbook/c/integrals.c
+   :language: c
+
+
+Distributed computing with MPI
+------------------------------
+
+This example shows how to use CHarm with distributed-memory systems using MPI.
+
+Compile the source code with ``mpicc`` or similar, e.g., by:
+
+.. code-block:: shell
+
+    mpicc mpi.c -l:libcharm.a -lfftw3 -lm
+
+Launch the program using three MPI processes (required by the program), e.g.,:
+
+.. code-block:: shell
+
+    mpiexec -n 3 ./a.out 
+
+As a side note, you can run the program using an actual distributed-memory 
+system but also using an ordinary shared-memory system having at least 3 CPUs.
+
+.. literalinclude:: ../../cookbook/c/mpi.c
    :language: c
 
 

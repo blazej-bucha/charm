@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 #include <math.h>
 #include <fftw3.h>
 #include "../prec.h"
@@ -16,6 +17,7 @@
 #include "shs_grd_fft.h"
 #include "shs_lc_struct.h"
 #include "shs_lc_init.h"
+#include "shs_lc_free.h"
 #include "../leg/leg_func_anm_bnm.h"
 #include "../leg/leg_func_dm.h"
 #include "../leg/leg_func_gm_hm.h"
@@ -322,22 +324,27 @@ void CHARM(shs_cell_grd)(const CHARM(cell) *cell, const CHARM(shc) *shcs,
     REAL_SIMD rref = SET1_R(shcs->r);
 
 
-#if CHARM_OPENMP
+    unsigned long lc_err_glob = 0;
+
+
+#if HAVE_OPENMP
 #pragma omp parallel default(none) \
 shared(f, shcs, nmax, cell, cell_nlat, cell_nlon, dm, en, fn, gm, hm, r, ri) \
 shared(nlatdo, lon0, deltalon, even, symm, FAILURE_glob, mur, err, cell_type) \
-shared(pt, nfc, plan, use_fft, rref)
+shared(pt, nfc, plan, use_fft, rref, lc_err_glob)
 #endif
     {
         /* ................................................................. */
         /* An indicator for failed memory initializations on each thread,
          * a private variable. */
         int FAILURE_priv = 0;
+        unsigned long lc_err_priv = 0;
 
 
         size_t nfi = cell_nlon * SIMD_SIZE * SIMD_BLOCK_S;
 
 
+        CHARM(lc) *lc       = NULL;
         INT *ips1           = NULL;
         INT *ips2           = NULL;
         REAL *ps1           = NULL;
@@ -363,6 +370,12 @@ shared(pt, nfc, plan, use_fft, rref)
         REAL *cell_r2v      = NULL;
 
 
+        lc = CHARM(shs_lc_init)();
+        if (lc == NULL)
+        {
+            FAILURE_priv = 1;
+            goto FAILURE_1_parallel;
+        }
         ips1 = (INT *)CHARM(calloc_aligned)(SIMD_MEMALIGN,
                                             nmax * SIMD_SIZE, sizeof(INT));
         if (ips1 == NULL)
@@ -551,7 +564,7 @@ shared(pt, nfc, plan, use_fft, rref)
 
 
 FAILURE_1_parallel:
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp critical
 #endif
         {
@@ -567,7 +580,7 @@ FAILURE_1_parallel:
 
 
         /* Now we have to wait until all the threads get here. */
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp barrier
 #endif
         /* OK, now let's check on each thread whether there is at least one
@@ -576,7 +589,7 @@ FAILURE_1_parallel:
         {
             /* Ooops, there was indeed a memory allocation failure.  So let the
              * master thread write down the error to the "err" variable. */
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp master
 #endif
             if (CHARM(err_isempty)(err))
@@ -605,8 +618,6 @@ FAILURE_1_parallel:
         ratio = ratio2 = ratiom = ratio2m = SET_ZERO_R;
 
 
-        CHARM(lc) lc;
-        CHARM(shs_lc_init)(&lc);
         REAL_SIMD a, b, a2, b2;
         a = b = a2 = b2 = SET_ZERO_R;
         REAL_SIMD imm0, imm1, imm2;
@@ -616,7 +627,7 @@ FAILURE_1_parallel:
 
 
         size_t i;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp for schedule(dynamic) private(i)
 #endif
         for (i = 0; i < SIMD_MULTIPLE(nlatdo, SIMD_SIZE);
@@ -628,8 +639,8 @@ FAILURE_1_parallel:
                  * exploited */
                 /* --------------------------------------------------------- */
                 ipv = i + v;
-                CHARM(crd_grd_check_symm)(ipv, v, cell_type, nlatdo, symm,
-                                          even, symmv, latsinv);
+                CHARM(crd_grd_check_symm)(ipv, v, 0, SIZE_MAX, cell_type,
+                                          nlatdo, symm, even, symmv, latsinv);
 
 
                 if (latsinv[v] == 1)
@@ -762,19 +773,23 @@ FAILURE_1_parallel:
                  * memory jumps are, however, not at all critical, so they can
                  * rely on "CHARM(lc)" without deteriorating the
                  * performance. */
-                lc.a[0]  = a;
-                lc.b[0]  = b;
-                lc.a2[0] = a2;
-                lc.b2[0] = b2;
+                lc->a[0]  = a;
+                lc->b[0]  = b;
+                lc->a2[0] = a2;
+                lc->b2[0] = b2;
 
 
                 if (use_fft)
-                    CHARM(shs_grd_fft_lc)(m, deltalon, 0, &lc,
+                    CHARM(shs_grd_fft_lc)(m, deltalon, 0, lc,
                                           symm, &symm_simd, cell_type,
                                           nfc, fc_simd, fc2_simd);
                 else
                     CHARM(shs_grd_lr)(m, lon0, deltalon, cell_nlon, cell_type,
-                                      0, nfi, &lc, symm, fi, fi2);
+                                      0, nfi, lc, symm, fi, fi2);
+
+
+                if (lc->error)
+                    lc_err_priv += 1;
 
 
 UPDATE_RATIOS:
@@ -801,10 +816,19 @@ UPDATE_RATIOS:
 
 
         } /* End of the loop over latitude parallels */
+
+
+#if HAVE_OPENMP
+#pragma omp critical
+#endif
+        {
+        lc_err_glob += lc_err_priv;
+        }
         /* ----------------------------------------------------------------- */
 
 
 FAILURE_2_parallel:
+        CHARM(shs_lc_free)(lc);
         CHARM(free_aligned)(ips1);     CHARM(free_aligned)(ps1);
         CHARM(free_aligned)(ips2);     CHARM(free_aligned)(ps2);
         CHARM(free_aligned)(t1v);      CHARM(free_aligned)(t2v);
@@ -820,6 +844,11 @@ FAILURE_2_parallel:
 
 
     } /* End of "#pragma omp parallel" */
+
+
+    if (lc_err_glob)
+        CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
+                       CHARM_ERR_MALLOC_FAILURE);
     /* --------------------------------------------------------------------- */
 
 

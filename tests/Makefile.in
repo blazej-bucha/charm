@@ -88,15 +88,17 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-check_PROGRAMS = test_run@P@$(EXEEXT)
+check_PROGRAMS = test_run@P@$(EXEEXT) $(am__EXEEXT_1)
+@MPI_TRUE@am__append_1 = mpi_test_run@P@
 noinst_PROGRAMS = genref_run@P@$(EXEEXT)
-@OPENMP_TRUE@am__append_1 = $(OPENMP_CFLAGS)
+@OPENMP_TRUE@am__append_2 = $(OPENMP_CFLAGS)
 subdir = tests
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_check_compile_flag.m4 \
 	$(top_srcdir)/m4/ax_compiler_vendor.m4 \
 	$(top_srcdir)/m4/ax_gcc_version.m4 \
 	$(top_srcdir)/m4/ax_openmp.m4 \
+	$(top_srcdir)/m4/ax_prog_cc_mpi.m4 \
 	$(top_srcdir)/m4/ax_split_version.m4 \
 	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/ltoptions.m4 \
 	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
@@ -109,14 +111,20 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
+@MPI_TRUE@am__EXEEXT_1 = mpi_test_run@P@$(EXEEXT)
 PROGRAMS = $(noinst_PROGRAMS)
-am__objects_1 = genref_run@P@-main.$(OBJEXT) \
+am__objects_1 = genref_run@P@-test_run.$(OBJEXT) \
+	genref_run@P@-test_suite_start.$(OBJEXT) \
+	genref_run@P@-test_suite_end.$(OBJEXT) \
 	genref_run@P@-cmp_vals.$(OBJEXT) \
 	genref_run@P@-cmp_arrays.$(OBJEXT) \
 	genref_run@P@-write_array.$(OBJEXT) \
 	genref_run@P@-write_val.$(OBJEXT) \
 	genref_run@P@-validate.$(OBJEXT) \
 	genref_run@P@-array2file.$(OBJEXT) \
+	genref_run@P@-point_touch_array_elements.$(OBJEXT) \
+	genref_run@P@-cell_touch_array_elements.$(OBJEXT) \
+	genref_run@P@-shc_touch_array_elements.$(OBJEXT) \
 	genref_run@P@-modify_low_degree_coefficients.$(OBJEXT) \
 	genref_run@P@-generate_point.$(OBJEXT) \
 	genref_run@P@-generate_cell.$(OBJEXT) \
@@ -170,12 +178,61 @@ am__v_lt_1 =
 genref_run@P@_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(genref_run@P@_CFLAGS) \
 	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-am__objects_2 = test_run@P@-main.$(OBJEXT) \
+am__mpi_test_run@P@_SOURCES_DIST = mpi_test_run.c test_suite_start.c \
+	test_suite_end.c check_func.c check_outcome.c \
+	partition_interval.c cmp_arrays.c cmp_vals.c \
+	mpi_shc_distribute.c mpi_crd_point_distribute.c module_mpi.c \
+	check_mpi_shc_alloc.c check_mpi_shc_init.c \
+	check_mpi_shc_local_ncs.c check_mpi_shc.c \
+	check_mpi_crd_point_init.c check_mpi_crd_point_quad.c \
+	check_mpi_crd_point_alloc.c check_mpi_crd_point.c \
+	check_mpi_shs_point.c check_mpi_sha_point.c \
+	point_touch_array_elements.c shc_touch_array_elements.c \
+	generate_point.c check_struct.c
+@MPI_TRUE@am__objects_2 = mpi_test_run@P@-mpi_test_run.$(OBJEXT) \
+@MPI_TRUE@	mpi_test_run@P@-test_suite_start.$(OBJEXT) \
+@MPI_TRUE@	mpi_test_run@P@-test_suite_end.$(OBJEXT) \
+@MPI_TRUE@	mpi_test_run@P@-check_func.$(OBJEXT) \
+@MPI_TRUE@	mpi_test_run@P@-check_outcome.$(OBJEXT) \
+@MPI_TRUE@	mpi_test_run@P@-partition_interval.$(OBJEXT) \
+@MPI_TRUE@	mpi_test_run@P@-cmp_arrays.$(OBJEXT) \
+@MPI_TRUE@	mpi_test_run@P@-cmp_vals.$(OBJEXT) \
+@MPI_TRUE@	mpi_test_run@P@-mpi_shc_distribute.$(OBJEXT) \
+@MPI_TRUE@	mpi_test_run@P@-mpi_crd_point_distribute.$(OBJEXT) \
+@MPI_TRUE@	mpi_test_run@P@-module_mpi.$(OBJEXT) \
+@MPI_TRUE@	mpi_test_run@P@-check_mpi_shc_alloc.$(OBJEXT) \
+@MPI_TRUE@	mpi_test_run@P@-check_mpi_shc_init.$(OBJEXT) \
+@MPI_TRUE@	mpi_test_run@P@-check_mpi_shc_local_ncs.$(OBJEXT) \
+@MPI_TRUE@	mpi_test_run@P@-check_mpi_shc.$(OBJEXT) \
+@MPI_TRUE@	mpi_test_run@P@-check_mpi_crd_point_init.$(OBJEXT) \
+@MPI_TRUE@	mpi_test_run@P@-check_mpi_crd_point_quad.$(OBJEXT) \
+@MPI_TRUE@	mpi_test_run@P@-check_mpi_crd_point_alloc.$(OBJEXT) \
+@MPI_TRUE@	mpi_test_run@P@-check_mpi_crd_point.$(OBJEXT) \
+@MPI_TRUE@	mpi_test_run@P@-check_mpi_shs_point.$(OBJEXT) \
+@MPI_TRUE@	mpi_test_run@P@-check_mpi_sha_point.$(OBJEXT) \
+@MPI_TRUE@	mpi_test_run@P@-point_touch_array_elements.$(OBJEXT) \
+@MPI_TRUE@	mpi_test_run@P@-shc_touch_array_elements.$(OBJEXT) \
+@MPI_TRUE@	mpi_test_run@P@-generate_point.$(OBJEXT) \
+@MPI_TRUE@	mpi_test_run@P@-check_struct.$(OBJEXT)
+@MPI_TRUE@am_mpi_test_run@P@_OBJECTS = $(am__objects_2)
+mpi_test_run@P@_OBJECTS = $(am_mpi_test_run@P@_OBJECTS)
+@MPI_TRUE@mpi_test_run@P@_DEPENDENCIES =  \
+@MPI_TRUE@	$(top_builddir)/libcharm@P@.la
+mpi_test_run@P@_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
+	$(mpi_test_run@P@_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
+	-o $@
+am__objects_3 = test_run@P@-test_run.$(OBJEXT) \
+	test_run@P@-test_suite_start.$(OBJEXT) \
+	test_run@P@-test_suite_end.$(OBJEXT) \
 	test_run@P@-cmp_vals.$(OBJEXT) \
 	test_run@P@-cmp_arrays.$(OBJEXT) \
 	test_run@P@-write_array.$(OBJEXT) \
 	test_run@P@-write_val.$(OBJEXT) test_run@P@-validate.$(OBJEXT) \
 	test_run@P@-array2file.$(OBJEXT) \
+	test_run@P@-point_touch_array_elements.$(OBJEXT) \
+	test_run@P@-cell_touch_array_elements.$(OBJEXT) \
+	test_run@P@-shc_touch_array_elements.$(OBJEXT) \
 	test_run@P@-modify_low_degree_coefficients.$(OBJEXT) \
 	test_run@P@-generate_point.$(OBJEXT) \
 	test_run@P@-generate_cell.$(OBJEXT) \
@@ -218,7 +275,7 @@ am__objects_2 = test_run@P@-main.$(OBJEXT) \
 	test_run@P@-check_simd_sum_r.$(OBJEXT) \
 	test_run@P@-check_simd_masks.$(OBJEXT) \
 	test_run@P@-check_simd_blend_r.$(OBJEXT)
-am_test_run@P@_OBJECTS = $(am__objects_2)
+am_test_run@P@_OBJECTS = $(am__objects_3)
 test_run@P@_OBJECTS = $(am_test_run@P@_OBJECTS)
 test_run@P@_DEPENDENCIES = $(top_builddir)/libcharm@P@.la
 test_run@P@_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
@@ -240,6 +297,7 @@ DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/genref_run@P@-array2file.Po \
+	./$(DEPDIR)/genref_run@P@-cell_touch_array_elements.Po \
 	./$(DEPDIR)/genref_run@P@-check_crd_cell_alloc.Po \
 	./$(DEPDIR)/genref_run@P@-check_crd_cell_init.Po \
 	./$(DEPDIR)/genref_run@P@-check_crd_point_alloc.Po \
@@ -277,7 +335,6 @@ am__depfiles_remade = ./$(DEPDIR)/genref_run@P@-array2file.Po \
 	./$(DEPDIR)/genref_run@P@-cmp_vals.Po \
 	./$(DEPDIR)/genref_run@P@-generate_cell.Po \
 	./$(DEPDIR)/genref_run@P@-generate_point.Po \
-	./$(DEPDIR)/genref_run@P@-main.Po \
 	./$(DEPDIR)/genref_run@P@-misc.Po \
 	./$(DEPDIR)/genref_run@P@-modify_low_degree_coefficients.Po \
 	./$(DEPDIR)/genref_run@P@-module_crd.Po \
@@ -286,10 +343,41 @@ am__depfiles_remade = ./$(DEPDIR)/genref_run@P@-array2file.Po \
 	./$(DEPDIR)/genref_run@P@-module_sha.Po \
 	./$(DEPDIR)/genref_run@P@-module_shc.Po \
 	./$(DEPDIR)/genref_run@P@-module_shs.Po \
+	./$(DEPDIR)/genref_run@P@-point_touch_array_elements.Po \
+	./$(DEPDIR)/genref_run@P@-shc_touch_array_elements.Po \
+	./$(DEPDIR)/genref_run@P@-test_run.Po \
+	./$(DEPDIR)/genref_run@P@-test_suite_end.Po \
+	./$(DEPDIR)/genref_run@P@-test_suite_start.Po \
 	./$(DEPDIR)/genref_run@P@-validate.Po \
 	./$(DEPDIR)/genref_run@P@-write_array.Po \
 	./$(DEPDIR)/genref_run@P@-write_val.Po \
+	./$(DEPDIR)/mpi_test_run@P@-check_func.Po \
+	./$(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point.Po \
+	./$(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_alloc.Po \
+	./$(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_init.Po \
+	./$(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_quad.Po \
+	./$(DEPDIR)/mpi_test_run@P@-check_mpi_sha_point.Po \
+	./$(DEPDIR)/mpi_test_run@P@-check_mpi_shc.Po \
+	./$(DEPDIR)/mpi_test_run@P@-check_mpi_shc_alloc.Po \
+	./$(DEPDIR)/mpi_test_run@P@-check_mpi_shc_init.Po \
+	./$(DEPDIR)/mpi_test_run@P@-check_mpi_shc_local_ncs.Po \
+	./$(DEPDIR)/mpi_test_run@P@-check_mpi_shs_point.Po \
+	./$(DEPDIR)/mpi_test_run@P@-check_outcome.Po \
+	./$(DEPDIR)/mpi_test_run@P@-check_struct.Po \
+	./$(DEPDIR)/mpi_test_run@P@-cmp_arrays.Po \
+	./$(DEPDIR)/mpi_test_run@P@-cmp_vals.Po \
+	./$(DEPDIR)/mpi_test_run@P@-generate_point.Po \
+	./$(DEPDIR)/mpi_test_run@P@-module_mpi.Po \
+	./$(DEPDIR)/mpi_test_run@P@-mpi_crd_point_distribute.Po \
+	./$(DEPDIR)/mpi_test_run@P@-mpi_shc_distribute.Po \
+	./$(DEPDIR)/mpi_test_run@P@-mpi_test_run.Po \
+	./$(DEPDIR)/mpi_test_run@P@-partition_interval.Po \
+	./$(DEPDIR)/mpi_test_run@P@-point_touch_array_elements.Po \
+	./$(DEPDIR)/mpi_test_run@P@-shc_touch_array_elements.Po \
+	./$(DEPDIR)/mpi_test_run@P@-test_suite_end.Po \
+	./$(DEPDIR)/mpi_test_run@P@-test_suite_start.Po \
 	./$(DEPDIR)/test_run@P@-array2file.Po \
+	./$(DEPDIR)/test_run@P@-cell_touch_array_elements.Po \
 	./$(DEPDIR)/test_run@P@-check_crd_cell_alloc.Po \
 	./$(DEPDIR)/test_run@P@-check_crd_cell_init.Po \
 	./$(DEPDIR)/test_run@P@-check_crd_point_alloc.Po \
@@ -327,7 +415,6 @@ am__depfiles_remade = ./$(DEPDIR)/genref_run@P@-array2file.Po \
 	./$(DEPDIR)/test_run@P@-cmp_vals.Po \
 	./$(DEPDIR)/test_run@P@-generate_cell.Po \
 	./$(DEPDIR)/test_run@P@-generate_point.Po \
-	./$(DEPDIR)/test_run@P@-main.Po \
 	./$(DEPDIR)/test_run@P@-misc.Po \
 	./$(DEPDIR)/test_run@P@-modify_low_degree_coefficients.Po \
 	./$(DEPDIR)/test_run@P@-module_crd.Po \
@@ -336,6 +423,11 @@ am__depfiles_remade = ./$(DEPDIR)/genref_run@P@-array2file.Po \
 	./$(DEPDIR)/test_run@P@-module_sha.Po \
 	./$(DEPDIR)/test_run@P@-module_shc.Po \
 	./$(DEPDIR)/test_run@P@-module_shs.Po \
+	./$(DEPDIR)/test_run@P@-point_touch_array_elements.Po \
+	./$(DEPDIR)/test_run@P@-shc_touch_array_elements.Po \
+	./$(DEPDIR)/test_run@P@-test_run.Po \
+	./$(DEPDIR)/test_run@P@-test_suite_end.Po \
+	./$(DEPDIR)/test_run@P@-test_suite_start.Po \
 	./$(DEPDIR)/test_run@P@-validate.Po \
 	./$(DEPDIR)/test_run@P@-write_array.Po \
 	./$(DEPDIR)/test_run@P@-write_val.Po
@@ -358,7 +450,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-DIST_SOURCES = $(genref_run@P@_SOURCES) $(test_run@P@_SOURCES)
+DIST_SOURCES = $(genref_run@P@_SOURCES) \
+	$(am__mpi_test_run@P@_SOURCES_DIST) $(test_run@P@_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -438,6 +531,8 @@ MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
 MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
+MPICC = @MPICC@
+MPIEXEC = @MPIEXEC@
 NM = @NM@
 NMEDIT = @NMEDIT@
 NP_FLOAT = @NP_FLOAT@
@@ -471,6 +566,7 @@ SHARED_EXT = @SHARED_EXT@
 SHELL = @SHELL@
 STRIP = @STRIP@
 VERSION = @VERSION@
+WITH_MPI = @WITH_MPI@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -490,6 +586,7 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 builddir = @builddir@
+check_mpiexec = @check_mpiexec@
 datadir = @datadir@
 datarootdir = @datarootdir@
 docdir = @docdir@
@@ -533,13 +630,18 @@ EXTRA_DIST = *.h \
 
 
 # Source files common to both the test and the genref program
-SOURCES = main.c \
+SOURCES = test_run.c \
+		  test_suite_start.c \
+		  test_suite_end.c \
 		  cmp_vals.c \
 		  cmp_arrays.c \
 		  write_array.c \
 		  write_val.c \
 		  validate.c \
 		  array2file.c \
+		  point_touch_array_elements.c \
+		  cell_touch_array_elements.c \
+		  shc_touch_array_elements.c \
 		  modify_low_degree_coefficients.c \
 		  generate_point.c \
 		  generate_cell.c \
@@ -584,26 +686,57 @@ SOURCES = main.c \
 		  check_simd_masks.c \
 		  check_simd_blend_r.c
 
+@MPI_TRUE@SOURCES_MPI = mpi_test_run.c \
+@MPI_TRUE@			  test_suite_start.c \
+@MPI_TRUE@			  test_suite_end.c \
+@MPI_TRUE@			  check_func.c \
+@MPI_TRUE@			  check_outcome.c \
+@MPI_TRUE@			  partition_interval.c \
+@MPI_TRUE@			  cmp_arrays.c \
+@MPI_TRUE@			  cmp_vals.c \
+@MPI_TRUE@			  mpi_shc_distribute.c \
+@MPI_TRUE@			  mpi_crd_point_distribute.c \
+@MPI_TRUE@			  module_mpi.c \
+@MPI_TRUE@			  check_mpi_shc_alloc.c \
+@MPI_TRUE@			  check_mpi_shc_init.c \
+@MPI_TRUE@			  check_mpi_shc_local_ncs.c \
+@MPI_TRUE@			  check_mpi_shc.c \
+@MPI_TRUE@			  check_mpi_crd_point_init.c \
+@MPI_TRUE@			  check_mpi_crd_point_quad.c \
+@MPI_TRUE@			  check_mpi_crd_point_alloc.c \
+@MPI_TRUE@			  check_mpi_crd_point.c \
+@MPI_TRUE@			  check_mpi_shs_point.c \
+@MPI_TRUE@			  check_mpi_sha_point.c \
+@MPI_TRUE@			  point_touch_array_elements.c \
+@MPI_TRUE@			  shc_touch_array_elements.c \
+@MPI_TRUE@			  generate_point.c \
+@MPI_TRUE@			  check_struct.c
+
 
 # Source code of the test program
 test_run@P@_SOURCES = $(SOURCES)
 genref_run@P@_SOURCES = $(SOURCES)
+@MPI_TRUE@mpi_test_run@P@_SOURCES = $(SOURCES_MPI)
 
 # Path to header files
 test_run@P@_CPPFLAGS = -I$(top_srcdir)/charm
 genref_run@P@_CPPFLAGS = -I$(top_srcdir)/charm
+@MPI_TRUE@mpi_test_run@P@_CPPFLAGS = -I$(top_srcdir)/charm
 
 # CFLAGS
-genref_run@P@_CFLAGS = -DGENREF $(am__append_1)
+genref_run@P@_CFLAGS = -DGENREF $(am__append_2)
 @OPENMP_TRUE@test_run@P@_CFLAGS = $(OPENMP_CFLAGS)
+@MPI_TRUE@@OPENMP_TRUE@mpi_test_run@P@_CFLAGS = $(OPENMP_CFLAGS)
 
 # Link CHarm library
 test_run@P@_LDADD = $(top_builddir)/libcharm@P@.la
 genref_run@P@_LDADD = $(top_builddir)/libcharm@P@.la
+@MPI_TRUE@mpi_test_run@P@_LDADD = $(top_builddir)/libcharm@P@.la
 
-# Get the absolute path to the test program
+# Get the absolute path to the test programs
 test_run@P@dir = $(abs_top_builddir)/tests
 genref_run@P@dir = $(abs_top_builddir)/tests
+@MPI_TRUE@mpi_test_run@P@dir = $(abs_top_builddir)/tests
 all: all-am
 
 .SUFFIXES:
@@ -660,6 +793,10 @@ genref_run@P@$(EXEEXT): $(genref_run@P@_OBJECTS) $(genref_run@P@_DEPENDENCIES) $
 	@rm -f genref_run@P@$(EXEEXT)
 	$(AM_V_CCLD)$(genref_run@P@_LINK) $(genref_run@P@_OBJECTS) $(genref_run@P@_LDADD) $(LIBS)
 
+mpi_test_run@P@$(EXEEXT): $(mpi_test_run@P@_OBJECTS) $(mpi_test_run@P@_DEPENDENCIES) $(EXTRA_mpi_test_run@P@_DEPENDENCIES) 
+	@rm -f mpi_test_run@P@$(EXEEXT)
+	$(AM_V_CCLD)$(mpi_test_run@P@_LINK) $(mpi_test_run@P@_OBJECTS) $(mpi_test_run@P@_LDADD) $(LIBS)
+
 test_run@P@$(EXEEXT): $(test_run@P@_OBJECTS) $(test_run@P@_DEPENDENCIES) $(EXTRA_test_run@P@_DEPENDENCIES) 
 	@rm -f test_run@P@$(EXEEXT)
 	$(AM_V_CCLD)$(test_run@P@_LINK) $(test_run@P@_OBJECTS) $(test_run@P@_LDADD) $(LIBS)
@@ -671,6 +808,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-array2file.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-cell_touch_array_elements.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_crd_cell_alloc.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_crd_cell_init.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_crd_point_alloc.Po@am__quote@ # am--include-marker
@@ -708,7 +846,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-cmp_vals.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-generate_cell.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-generate_point.Po@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-main.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-misc.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-modify_low_degree_coefficients.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-module_crd.Po@am__quote@ # am--include-marker
@@ -717,10 +854,41 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-module_sha.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-module_shc.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-module_shs.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-point_touch_array_elements.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-shc_touch_array_elements.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-test_run.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-test_suite_end.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-test_suite_start.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-validate.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-write_array.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-write_val.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_test_run@P@-check_func.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_alloc.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_init.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_quad.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_test_run@P@-check_mpi_sha_point.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_test_run@P@-check_mpi_shc.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_test_run@P@-check_mpi_shc_alloc.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_test_run@P@-check_mpi_shc_init.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_test_run@P@-check_mpi_shc_local_ncs.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_test_run@P@-check_mpi_shs_point.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_test_run@P@-check_outcome.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_test_run@P@-check_struct.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_test_run@P@-cmp_arrays.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_test_run@P@-cmp_vals.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_test_run@P@-generate_point.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_test_run@P@-module_mpi.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_test_run@P@-mpi_crd_point_distribute.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_test_run@P@-mpi_shc_distribute.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_test_run@P@-mpi_test_run.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_test_run@P@-partition_interval.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_test_run@P@-point_touch_array_elements.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_test_run@P@-shc_touch_array_elements.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_test_run@P@-test_suite_end.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_test_run@P@-test_suite_start.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-array2file.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-cell_touch_array_elements.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_crd_cell_alloc.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_crd_cell_init.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_crd_point_alloc.Po@am__quote@ # am--include-marker
@@ -758,7 +926,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-cmp_vals.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-generate_cell.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-generate_point.Po@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-main.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-misc.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-modify_low_degree_coefficients.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-module_crd.Po@am__quote@ # am--include-marker
@@ -767,6 +934,11 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-module_sha.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-module_shc.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-module_shs.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-point_touch_array_elements.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-shc_touch_array_elements.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-test_run.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-test_suite_end.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-test_suite_start.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-validate.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-write_array.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-write_val.Po@am__quote@ # am--include-marker
@@ -798,19 +970,47 @@ am--depfiles: $(am__depfiles_remade)
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
 
-genref_run@P@-main.o: main.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-main.o -MD -MP -MF $(DEPDIR)/genref_run@P@-main.Tpo -c -o genref_run@P@-main.o `test -f 'main.c' || echo '$(srcdir)/'`main.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-main.Tpo $(DEPDIR)/genref_run@P@-main.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='main.c' object='genref_run@P@-main.o' libtool=no @AMDEPBACKSLASH@
+genref_run@P@-test_run.o: test_run.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-test_run.o -MD -MP -MF $(DEPDIR)/genref_run@P@-test_run.Tpo -c -o genref_run@P@-test_run.o `test -f 'test_run.c' || echo '$(srcdir)/'`test_run.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-test_run.Tpo $(DEPDIR)/genref_run@P@-test_run.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test_run.c' object='genref_run@P@-test_run.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-main.o `test -f 'main.c' || echo '$(srcdir)/'`main.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-test_run.o `test -f 'test_run.c' || echo '$(srcdir)/'`test_run.c
 
-genref_run@P@-main.obj: main.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-main.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-main.Tpo -c -o genref_run@P@-main.obj `if test -f 'main.c'; then $(CYGPATH_W) 'main.c'; else $(CYGPATH_W) '$(srcdir)/main.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-main.Tpo $(DEPDIR)/genref_run@P@-main.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='main.c' object='genref_run@P@-main.obj' libtool=no @AMDEPBACKSLASH@
+genref_run@P@-test_run.obj: test_run.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-test_run.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-test_run.Tpo -c -o genref_run@P@-test_run.obj `if test -f 'test_run.c'; then $(CYGPATH_W) 'test_run.c'; else $(CYGPATH_W) '$(srcdir)/test_run.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-test_run.Tpo $(DEPDIR)/genref_run@P@-test_run.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test_run.c' object='genref_run@P@-test_run.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-main.obj `if test -f 'main.c'; then $(CYGPATH_W) 'main.c'; else $(CYGPATH_W) '$(srcdir)/main.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-test_run.obj `if test -f 'test_run.c'; then $(CYGPATH_W) 'test_run.c'; else $(CYGPATH_W) '$(srcdir)/test_run.c'; fi`
+
+genref_run@P@-test_suite_start.o: test_suite_start.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-test_suite_start.o -MD -MP -MF $(DEPDIR)/genref_run@P@-test_suite_start.Tpo -c -o genref_run@P@-test_suite_start.o `test -f 'test_suite_start.c' || echo '$(srcdir)/'`test_suite_start.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-test_suite_start.Tpo $(DEPDIR)/genref_run@P@-test_suite_start.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test_suite_start.c' object='genref_run@P@-test_suite_start.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-test_suite_start.o `test -f 'test_suite_start.c' || echo '$(srcdir)/'`test_suite_start.c
+
+genref_run@P@-test_suite_start.obj: test_suite_start.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-test_suite_start.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-test_suite_start.Tpo -c -o genref_run@P@-test_suite_start.obj `if test -f 'test_suite_start.c'; then $(CYGPATH_W) 'test_suite_start.c'; else $(CYGPATH_W) '$(srcdir)/test_suite_start.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-test_suite_start.Tpo $(DEPDIR)/genref_run@P@-test_suite_start.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test_suite_start.c' object='genref_run@P@-test_suite_start.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-test_suite_start.obj `if test -f 'test_suite_start.c'; then $(CYGPATH_W) 'test_suite_start.c'; else $(CYGPATH_W) '$(srcdir)/test_suite_start.c'; fi`
+
+genref_run@P@-test_suite_end.o: test_suite_end.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-test_suite_end.o -MD -MP -MF $(DEPDIR)/genref_run@P@-test_suite_end.Tpo -c -o genref_run@P@-test_suite_end.o `test -f 'test_suite_end.c' || echo '$(srcdir)/'`test_suite_end.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-test_suite_end.Tpo $(DEPDIR)/genref_run@P@-test_suite_end.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test_suite_end.c' object='genref_run@P@-test_suite_end.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-test_suite_end.o `test -f 'test_suite_end.c' || echo '$(srcdir)/'`test_suite_end.c
+
+genref_run@P@-test_suite_end.obj: test_suite_end.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-test_suite_end.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-test_suite_end.Tpo -c -o genref_run@P@-test_suite_end.obj `if test -f 'test_suite_end.c'; then $(CYGPATH_W) 'test_suite_end.c'; else $(CYGPATH_W) '$(srcdir)/test_suite_end.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-test_suite_end.Tpo $(DEPDIR)/genref_run@P@-test_suite_end.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test_suite_end.c' object='genref_run@P@-test_suite_end.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-test_suite_end.obj `if test -f 'test_suite_end.c'; then $(CYGPATH_W) 'test_suite_end.c'; else $(CYGPATH_W) '$(srcdir)/test_suite_end.c'; fi`
 
 genref_run@P@-cmp_vals.o: cmp_vals.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-cmp_vals.o -MD -MP -MF $(DEPDIR)/genref_run@P@-cmp_vals.Tpo -c -o genref_run@P@-cmp_vals.o `test -f 'cmp_vals.c' || echo '$(srcdir)/'`cmp_vals.c
@@ -895,6 +1095,48 @@ genref_run@P@-array2file.obj: array2file.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='array2file.c' object='genref_run@P@-array2file.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-array2file.obj `if test -f 'array2file.c'; then $(CYGPATH_W) 'array2file.c'; else $(CYGPATH_W) '$(srcdir)/array2file.c'; fi`
+
+genref_run@P@-point_touch_array_elements.o: point_touch_array_elements.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-point_touch_array_elements.o -MD -MP -MF $(DEPDIR)/genref_run@P@-point_touch_array_elements.Tpo -c -o genref_run@P@-point_touch_array_elements.o `test -f 'point_touch_array_elements.c' || echo '$(srcdir)/'`point_touch_array_elements.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-point_touch_array_elements.Tpo $(DEPDIR)/genref_run@P@-point_touch_array_elements.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='point_touch_array_elements.c' object='genref_run@P@-point_touch_array_elements.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-point_touch_array_elements.o `test -f 'point_touch_array_elements.c' || echo '$(srcdir)/'`point_touch_array_elements.c
+
+genref_run@P@-point_touch_array_elements.obj: point_touch_array_elements.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-point_touch_array_elements.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-point_touch_array_elements.Tpo -c -o genref_run@P@-point_touch_array_elements.obj `if test -f 'point_touch_array_elements.c'; then $(CYGPATH_W) 'point_touch_array_elements.c'; else $(CYGPATH_W) '$(srcdir)/point_touch_array_elements.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-point_touch_array_elements.Tpo $(DEPDIR)/genref_run@P@-point_touch_array_elements.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='point_touch_array_elements.c' object='genref_run@P@-point_touch_array_elements.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-point_touch_array_elements.obj `if test -f 'point_touch_array_elements.c'; then $(CYGPATH_W) 'point_touch_array_elements.c'; else $(CYGPATH_W) '$(srcdir)/point_touch_array_elements.c'; fi`
+
+genref_run@P@-cell_touch_array_elements.o: cell_touch_array_elements.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-cell_touch_array_elements.o -MD -MP -MF $(DEPDIR)/genref_run@P@-cell_touch_array_elements.Tpo -c -o genref_run@P@-cell_touch_array_elements.o `test -f 'cell_touch_array_elements.c' || echo '$(srcdir)/'`cell_touch_array_elements.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-cell_touch_array_elements.Tpo $(DEPDIR)/genref_run@P@-cell_touch_array_elements.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cell_touch_array_elements.c' object='genref_run@P@-cell_touch_array_elements.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-cell_touch_array_elements.o `test -f 'cell_touch_array_elements.c' || echo '$(srcdir)/'`cell_touch_array_elements.c
+
+genref_run@P@-cell_touch_array_elements.obj: cell_touch_array_elements.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-cell_touch_array_elements.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-cell_touch_array_elements.Tpo -c -o genref_run@P@-cell_touch_array_elements.obj `if test -f 'cell_touch_array_elements.c'; then $(CYGPATH_W) 'cell_touch_array_elements.c'; else $(CYGPATH_W) '$(srcdir)/cell_touch_array_elements.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-cell_touch_array_elements.Tpo $(DEPDIR)/genref_run@P@-cell_touch_array_elements.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cell_touch_array_elements.c' object='genref_run@P@-cell_touch_array_elements.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-cell_touch_array_elements.obj `if test -f 'cell_touch_array_elements.c'; then $(CYGPATH_W) 'cell_touch_array_elements.c'; else $(CYGPATH_W) '$(srcdir)/cell_touch_array_elements.c'; fi`
+
+genref_run@P@-shc_touch_array_elements.o: shc_touch_array_elements.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-shc_touch_array_elements.o -MD -MP -MF $(DEPDIR)/genref_run@P@-shc_touch_array_elements.Tpo -c -o genref_run@P@-shc_touch_array_elements.o `test -f 'shc_touch_array_elements.c' || echo '$(srcdir)/'`shc_touch_array_elements.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-shc_touch_array_elements.Tpo $(DEPDIR)/genref_run@P@-shc_touch_array_elements.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='shc_touch_array_elements.c' object='genref_run@P@-shc_touch_array_elements.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-shc_touch_array_elements.o `test -f 'shc_touch_array_elements.c' || echo '$(srcdir)/'`shc_touch_array_elements.c
+
+genref_run@P@-shc_touch_array_elements.obj: shc_touch_array_elements.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-shc_touch_array_elements.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-shc_touch_array_elements.Tpo -c -o genref_run@P@-shc_touch_array_elements.obj `if test -f 'shc_touch_array_elements.c'; then $(CYGPATH_W) 'shc_touch_array_elements.c'; else $(CYGPATH_W) '$(srcdir)/shc_touch_array_elements.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-shc_touch_array_elements.Tpo $(DEPDIR)/genref_run@P@-shc_touch_array_elements.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='shc_touch_array_elements.c' object='genref_run@P@-shc_touch_array_elements.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-shc_touch_array_elements.obj `if test -f 'shc_touch_array_elements.c'; then $(CYGPATH_W) 'shc_touch_array_elements.c'; else $(CYGPATH_W) '$(srcdir)/shc_touch_array_elements.c'; fi`
 
 genref_run@P@-modify_low_degree_coefficients.o: modify_low_degree_coefficients.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-modify_low_degree_coefficients.o -MD -MP -MF $(DEPDIR)/genref_run@P@-modify_low_degree_coefficients.Tpo -c -o genref_run@P@-modify_low_degree_coefficients.o `test -f 'modify_low_degree_coefficients.c' || echo '$(srcdir)/'`modify_low_degree_coefficients.c
@@ -1498,19 +1740,397 @@ genref_run@P@-check_simd_blend_r.obj: check_simd_blend_r.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_simd_blend_r.obj `if test -f 'check_simd_blend_r.c'; then $(CYGPATH_W) 'check_simd_blend_r.c'; else $(CYGPATH_W) '$(srcdir)/check_simd_blend_r.c'; fi`
 
-test_run@P@-main.o: main.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-main.o -MD -MP -MF $(DEPDIR)/test_run@P@-main.Tpo -c -o test_run@P@-main.o `test -f 'main.c' || echo '$(srcdir)/'`main.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-main.Tpo $(DEPDIR)/test_run@P@-main.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='main.c' object='test_run@P@-main.o' libtool=no @AMDEPBACKSLASH@
+mpi_test_run@P@-mpi_test_run.o: mpi_test_run.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-mpi_test_run.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-mpi_test_run.Tpo -c -o mpi_test_run@P@-mpi_test_run.o `test -f 'mpi_test_run.c' || echo '$(srcdir)/'`mpi_test_run.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-mpi_test_run.Tpo $(DEPDIR)/mpi_test_run@P@-mpi_test_run.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpi_test_run.c' object='mpi_test_run@P@-mpi_test_run.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-main.o `test -f 'main.c' || echo '$(srcdir)/'`main.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-mpi_test_run.o `test -f 'mpi_test_run.c' || echo '$(srcdir)/'`mpi_test_run.c
 
-test_run@P@-main.obj: main.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-main.obj -MD -MP -MF $(DEPDIR)/test_run@P@-main.Tpo -c -o test_run@P@-main.obj `if test -f 'main.c'; then $(CYGPATH_W) 'main.c'; else $(CYGPATH_W) '$(srcdir)/main.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-main.Tpo $(DEPDIR)/test_run@P@-main.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='main.c' object='test_run@P@-main.obj' libtool=no @AMDEPBACKSLASH@
+mpi_test_run@P@-mpi_test_run.obj: mpi_test_run.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-mpi_test_run.obj -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-mpi_test_run.Tpo -c -o mpi_test_run@P@-mpi_test_run.obj `if test -f 'mpi_test_run.c'; then $(CYGPATH_W) 'mpi_test_run.c'; else $(CYGPATH_W) '$(srcdir)/mpi_test_run.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-mpi_test_run.Tpo $(DEPDIR)/mpi_test_run@P@-mpi_test_run.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpi_test_run.c' object='mpi_test_run@P@-mpi_test_run.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-main.obj `if test -f 'main.c'; then $(CYGPATH_W) 'main.c'; else $(CYGPATH_W) '$(srcdir)/main.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-mpi_test_run.obj `if test -f 'mpi_test_run.c'; then $(CYGPATH_W) 'mpi_test_run.c'; else $(CYGPATH_W) '$(srcdir)/mpi_test_run.c'; fi`
+
+mpi_test_run@P@-test_suite_start.o: test_suite_start.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-test_suite_start.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-test_suite_start.Tpo -c -o mpi_test_run@P@-test_suite_start.o `test -f 'test_suite_start.c' || echo '$(srcdir)/'`test_suite_start.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-test_suite_start.Tpo $(DEPDIR)/mpi_test_run@P@-test_suite_start.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test_suite_start.c' object='mpi_test_run@P@-test_suite_start.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-test_suite_start.o `test -f 'test_suite_start.c' || echo '$(srcdir)/'`test_suite_start.c
+
+mpi_test_run@P@-test_suite_start.obj: test_suite_start.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-test_suite_start.obj -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-test_suite_start.Tpo -c -o mpi_test_run@P@-test_suite_start.obj `if test -f 'test_suite_start.c'; then $(CYGPATH_W) 'test_suite_start.c'; else $(CYGPATH_W) '$(srcdir)/test_suite_start.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-test_suite_start.Tpo $(DEPDIR)/mpi_test_run@P@-test_suite_start.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test_suite_start.c' object='mpi_test_run@P@-test_suite_start.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-test_suite_start.obj `if test -f 'test_suite_start.c'; then $(CYGPATH_W) 'test_suite_start.c'; else $(CYGPATH_W) '$(srcdir)/test_suite_start.c'; fi`
+
+mpi_test_run@P@-test_suite_end.o: test_suite_end.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-test_suite_end.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-test_suite_end.Tpo -c -o mpi_test_run@P@-test_suite_end.o `test -f 'test_suite_end.c' || echo '$(srcdir)/'`test_suite_end.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-test_suite_end.Tpo $(DEPDIR)/mpi_test_run@P@-test_suite_end.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test_suite_end.c' object='mpi_test_run@P@-test_suite_end.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-test_suite_end.o `test -f 'test_suite_end.c' || echo '$(srcdir)/'`test_suite_end.c
+
+mpi_test_run@P@-test_suite_end.obj: test_suite_end.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-test_suite_end.obj -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-test_suite_end.Tpo -c -o mpi_test_run@P@-test_suite_end.obj `if test -f 'test_suite_end.c'; then $(CYGPATH_W) 'test_suite_end.c'; else $(CYGPATH_W) '$(srcdir)/test_suite_end.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-test_suite_end.Tpo $(DEPDIR)/mpi_test_run@P@-test_suite_end.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test_suite_end.c' object='mpi_test_run@P@-test_suite_end.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-test_suite_end.obj `if test -f 'test_suite_end.c'; then $(CYGPATH_W) 'test_suite_end.c'; else $(CYGPATH_W) '$(srcdir)/test_suite_end.c'; fi`
+
+mpi_test_run@P@-check_func.o: check_func.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_func.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_func.Tpo -c -o mpi_test_run@P@-check_func.o `test -f 'check_func.c' || echo '$(srcdir)/'`check_func.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_func.Tpo $(DEPDIR)/mpi_test_run@P@-check_func.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_func.c' object='mpi_test_run@P@-check_func.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_func.o `test -f 'check_func.c' || echo '$(srcdir)/'`check_func.c
+
+mpi_test_run@P@-check_func.obj: check_func.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_func.obj -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_func.Tpo -c -o mpi_test_run@P@-check_func.obj `if test -f 'check_func.c'; then $(CYGPATH_W) 'check_func.c'; else $(CYGPATH_W) '$(srcdir)/check_func.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_func.Tpo $(DEPDIR)/mpi_test_run@P@-check_func.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_func.c' object='mpi_test_run@P@-check_func.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_func.obj `if test -f 'check_func.c'; then $(CYGPATH_W) 'check_func.c'; else $(CYGPATH_W) '$(srcdir)/check_func.c'; fi`
+
+mpi_test_run@P@-check_outcome.o: check_outcome.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_outcome.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_outcome.Tpo -c -o mpi_test_run@P@-check_outcome.o `test -f 'check_outcome.c' || echo '$(srcdir)/'`check_outcome.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_outcome.Tpo $(DEPDIR)/mpi_test_run@P@-check_outcome.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_outcome.c' object='mpi_test_run@P@-check_outcome.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_outcome.o `test -f 'check_outcome.c' || echo '$(srcdir)/'`check_outcome.c
+
+mpi_test_run@P@-check_outcome.obj: check_outcome.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_outcome.obj -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_outcome.Tpo -c -o mpi_test_run@P@-check_outcome.obj `if test -f 'check_outcome.c'; then $(CYGPATH_W) 'check_outcome.c'; else $(CYGPATH_W) '$(srcdir)/check_outcome.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_outcome.Tpo $(DEPDIR)/mpi_test_run@P@-check_outcome.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_outcome.c' object='mpi_test_run@P@-check_outcome.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_outcome.obj `if test -f 'check_outcome.c'; then $(CYGPATH_W) 'check_outcome.c'; else $(CYGPATH_W) '$(srcdir)/check_outcome.c'; fi`
+
+mpi_test_run@P@-partition_interval.o: partition_interval.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-partition_interval.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-partition_interval.Tpo -c -o mpi_test_run@P@-partition_interval.o `test -f 'partition_interval.c' || echo '$(srcdir)/'`partition_interval.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-partition_interval.Tpo $(DEPDIR)/mpi_test_run@P@-partition_interval.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='partition_interval.c' object='mpi_test_run@P@-partition_interval.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-partition_interval.o `test -f 'partition_interval.c' || echo '$(srcdir)/'`partition_interval.c
+
+mpi_test_run@P@-partition_interval.obj: partition_interval.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-partition_interval.obj -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-partition_interval.Tpo -c -o mpi_test_run@P@-partition_interval.obj `if test -f 'partition_interval.c'; then $(CYGPATH_W) 'partition_interval.c'; else $(CYGPATH_W) '$(srcdir)/partition_interval.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-partition_interval.Tpo $(DEPDIR)/mpi_test_run@P@-partition_interval.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='partition_interval.c' object='mpi_test_run@P@-partition_interval.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-partition_interval.obj `if test -f 'partition_interval.c'; then $(CYGPATH_W) 'partition_interval.c'; else $(CYGPATH_W) '$(srcdir)/partition_interval.c'; fi`
+
+mpi_test_run@P@-cmp_arrays.o: cmp_arrays.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-cmp_arrays.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-cmp_arrays.Tpo -c -o mpi_test_run@P@-cmp_arrays.o `test -f 'cmp_arrays.c' || echo '$(srcdir)/'`cmp_arrays.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-cmp_arrays.Tpo $(DEPDIR)/mpi_test_run@P@-cmp_arrays.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cmp_arrays.c' object='mpi_test_run@P@-cmp_arrays.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-cmp_arrays.o `test -f 'cmp_arrays.c' || echo '$(srcdir)/'`cmp_arrays.c
+
+mpi_test_run@P@-cmp_arrays.obj: cmp_arrays.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-cmp_arrays.obj -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-cmp_arrays.Tpo -c -o mpi_test_run@P@-cmp_arrays.obj `if test -f 'cmp_arrays.c'; then $(CYGPATH_W) 'cmp_arrays.c'; else $(CYGPATH_W) '$(srcdir)/cmp_arrays.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-cmp_arrays.Tpo $(DEPDIR)/mpi_test_run@P@-cmp_arrays.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cmp_arrays.c' object='mpi_test_run@P@-cmp_arrays.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-cmp_arrays.obj `if test -f 'cmp_arrays.c'; then $(CYGPATH_W) 'cmp_arrays.c'; else $(CYGPATH_W) '$(srcdir)/cmp_arrays.c'; fi`
+
+mpi_test_run@P@-cmp_vals.o: cmp_vals.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-cmp_vals.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-cmp_vals.Tpo -c -o mpi_test_run@P@-cmp_vals.o `test -f 'cmp_vals.c' || echo '$(srcdir)/'`cmp_vals.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-cmp_vals.Tpo $(DEPDIR)/mpi_test_run@P@-cmp_vals.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cmp_vals.c' object='mpi_test_run@P@-cmp_vals.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-cmp_vals.o `test -f 'cmp_vals.c' || echo '$(srcdir)/'`cmp_vals.c
+
+mpi_test_run@P@-cmp_vals.obj: cmp_vals.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-cmp_vals.obj -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-cmp_vals.Tpo -c -o mpi_test_run@P@-cmp_vals.obj `if test -f 'cmp_vals.c'; then $(CYGPATH_W) 'cmp_vals.c'; else $(CYGPATH_W) '$(srcdir)/cmp_vals.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-cmp_vals.Tpo $(DEPDIR)/mpi_test_run@P@-cmp_vals.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cmp_vals.c' object='mpi_test_run@P@-cmp_vals.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-cmp_vals.obj `if test -f 'cmp_vals.c'; then $(CYGPATH_W) 'cmp_vals.c'; else $(CYGPATH_W) '$(srcdir)/cmp_vals.c'; fi`
+
+mpi_test_run@P@-mpi_shc_distribute.o: mpi_shc_distribute.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-mpi_shc_distribute.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-mpi_shc_distribute.Tpo -c -o mpi_test_run@P@-mpi_shc_distribute.o `test -f 'mpi_shc_distribute.c' || echo '$(srcdir)/'`mpi_shc_distribute.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-mpi_shc_distribute.Tpo $(DEPDIR)/mpi_test_run@P@-mpi_shc_distribute.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpi_shc_distribute.c' object='mpi_test_run@P@-mpi_shc_distribute.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-mpi_shc_distribute.o `test -f 'mpi_shc_distribute.c' || echo '$(srcdir)/'`mpi_shc_distribute.c
+
+mpi_test_run@P@-mpi_shc_distribute.obj: mpi_shc_distribute.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-mpi_shc_distribute.obj -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-mpi_shc_distribute.Tpo -c -o mpi_test_run@P@-mpi_shc_distribute.obj `if test -f 'mpi_shc_distribute.c'; then $(CYGPATH_W) 'mpi_shc_distribute.c'; else $(CYGPATH_W) '$(srcdir)/mpi_shc_distribute.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-mpi_shc_distribute.Tpo $(DEPDIR)/mpi_test_run@P@-mpi_shc_distribute.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpi_shc_distribute.c' object='mpi_test_run@P@-mpi_shc_distribute.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-mpi_shc_distribute.obj `if test -f 'mpi_shc_distribute.c'; then $(CYGPATH_W) 'mpi_shc_distribute.c'; else $(CYGPATH_W) '$(srcdir)/mpi_shc_distribute.c'; fi`
+
+mpi_test_run@P@-mpi_crd_point_distribute.o: mpi_crd_point_distribute.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-mpi_crd_point_distribute.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-mpi_crd_point_distribute.Tpo -c -o mpi_test_run@P@-mpi_crd_point_distribute.o `test -f 'mpi_crd_point_distribute.c' || echo '$(srcdir)/'`mpi_crd_point_distribute.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-mpi_crd_point_distribute.Tpo $(DEPDIR)/mpi_test_run@P@-mpi_crd_point_distribute.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpi_crd_point_distribute.c' object='mpi_test_run@P@-mpi_crd_point_distribute.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-mpi_crd_point_distribute.o `test -f 'mpi_crd_point_distribute.c' || echo '$(srcdir)/'`mpi_crd_point_distribute.c
+
+mpi_test_run@P@-mpi_crd_point_distribute.obj: mpi_crd_point_distribute.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-mpi_crd_point_distribute.obj -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-mpi_crd_point_distribute.Tpo -c -o mpi_test_run@P@-mpi_crd_point_distribute.obj `if test -f 'mpi_crd_point_distribute.c'; then $(CYGPATH_W) 'mpi_crd_point_distribute.c'; else $(CYGPATH_W) '$(srcdir)/mpi_crd_point_distribute.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-mpi_crd_point_distribute.Tpo $(DEPDIR)/mpi_test_run@P@-mpi_crd_point_distribute.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpi_crd_point_distribute.c' object='mpi_test_run@P@-mpi_crd_point_distribute.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-mpi_crd_point_distribute.obj `if test -f 'mpi_crd_point_distribute.c'; then $(CYGPATH_W) 'mpi_crd_point_distribute.c'; else $(CYGPATH_W) '$(srcdir)/mpi_crd_point_distribute.c'; fi`
+
+mpi_test_run@P@-module_mpi.o: module_mpi.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-module_mpi.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-module_mpi.Tpo -c -o mpi_test_run@P@-module_mpi.o `test -f 'module_mpi.c' || echo '$(srcdir)/'`module_mpi.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-module_mpi.Tpo $(DEPDIR)/mpi_test_run@P@-module_mpi.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='module_mpi.c' object='mpi_test_run@P@-module_mpi.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-module_mpi.o `test -f 'module_mpi.c' || echo '$(srcdir)/'`module_mpi.c
+
+mpi_test_run@P@-module_mpi.obj: module_mpi.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-module_mpi.obj -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-module_mpi.Tpo -c -o mpi_test_run@P@-module_mpi.obj `if test -f 'module_mpi.c'; then $(CYGPATH_W) 'module_mpi.c'; else $(CYGPATH_W) '$(srcdir)/module_mpi.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-module_mpi.Tpo $(DEPDIR)/mpi_test_run@P@-module_mpi.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='module_mpi.c' object='mpi_test_run@P@-module_mpi.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-module_mpi.obj `if test -f 'module_mpi.c'; then $(CYGPATH_W) 'module_mpi.c'; else $(CYGPATH_W) '$(srcdir)/module_mpi.c'; fi`
+
+mpi_test_run@P@-check_mpi_shc_alloc.o: check_mpi_shc_alloc.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_mpi_shc_alloc.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_mpi_shc_alloc.Tpo -c -o mpi_test_run@P@-check_mpi_shc_alloc.o `test -f 'check_mpi_shc_alloc.c' || echo '$(srcdir)/'`check_mpi_shc_alloc.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_mpi_shc_alloc.Tpo $(DEPDIR)/mpi_test_run@P@-check_mpi_shc_alloc.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_mpi_shc_alloc.c' object='mpi_test_run@P@-check_mpi_shc_alloc.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_mpi_shc_alloc.o `test -f 'check_mpi_shc_alloc.c' || echo '$(srcdir)/'`check_mpi_shc_alloc.c
+
+mpi_test_run@P@-check_mpi_shc_alloc.obj: check_mpi_shc_alloc.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_mpi_shc_alloc.obj -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_mpi_shc_alloc.Tpo -c -o mpi_test_run@P@-check_mpi_shc_alloc.obj `if test -f 'check_mpi_shc_alloc.c'; then $(CYGPATH_W) 'check_mpi_shc_alloc.c'; else $(CYGPATH_W) '$(srcdir)/check_mpi_shc_alloc.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_mpi_shc_alloc.Tpo $(DEPDIR)/mpi_test_run@P@-check_mpi_shc_alloc.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_mpi_shc_alloc.c' object='mpi_test_run@P@-check_mpi_shc_alloc.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_mpi_shc_alloc.obj `if test -f 'check_mpi_shc_alloc.c'; then $(CYGPATH_W) 'check_mpi_shc_alloc.c'; else $(CYGPATH_W) '$(srcdir)/check_mpi_shc_alloc.c'; fi`
+
+mpi_test_run@P@-check_mpi_shc_init.o: check_mpi_shc_init.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_mpi_shc_init.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_mpi_shc_init.Tpo -c -o mpi_test_run@P@-check_mpi_shc_init.o `test -f 'check_mpi_shc_init.c' || echo '$(srcdir)/'`check_mpi_shc_init.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_mpi_shc_init.Tpo $(DEPDIR)/mpi_test_run@P@-check_mpi_shc_init.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_mpi_shc_init.c' object='mpi_test_run@P@-check_mpi_shc_init.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_mpi_shc_init.o `test -f 'check_mpi_shc_init.c' || echo '$(srcdir)/'`check_mpi_shc_init.c
+
+mpi_test_run@P@-check_mpi_shc_init.obj: check_mpi_shc_init.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_mpi_shc_init.obj -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_mpi_shc_init.Tpo -c -o mpi_test_run@P@-check_mpi_shc_init.obj `if test -f 'check_mpi_shc_init.c'; then $(CYGPATH_W) 'check_mpi_shc_init.c'; else $(CYGPATH_W) '$(srcdir)/check_mpi_shc_init.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_mpi_shc_init.Tpo $(DEPDIR)/mpi_test_run@P@-check_mpi_shc_init.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_mpi_shc_init.c' object='mpi_test_run@P@-check_mpi_shc_init.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_mpi_shc_init.obj `if test -f 'check_mpi_shc_init.c'; then $(CYGPATH_W) 'check_mpi_shc_init.c'; else $(CYGPATH_W) '$(srcdir)/check_mpi_shc_init.c'; fi`
+
+mpi_test_run@P@-check_mpi_shc_local_ncs.o: check_mpi_shc_local_ncs.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_mpi_shc_local_ncs.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_mpi_shc_local_ncs.Tpo -c -o mpi_test_run@P@-check_mpi_shc_local_ncs.o `test -f 'check_mpi_shc_local_ncs.c' || echo '$(srcdir)/'`check_mpi_shc_local_ncs.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_mpi_shc_local_ncs.Tpo $(DEPDIR)/mpi_test_run@P@-check_mpi_shc_local_ncs.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_mpi_shc_local_ncs.c' object='mpi_test_run@P@-check_mpi_shc_local_ncs.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_mpi_shc_local_ncs.o `test -f 'check_mpi_shc_local_ncs.c' || echo '$(srcdir)/'`check_mpi_shc_local_ncs.c
+
+mpi_test_run@P@-check_mpi_shc_local_ncs.obj: check_mpi_shc_local_ncs.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_mpi_shc_local_ncs.obj -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_mpi_shc_local_ncs.Tpo -c -o mpi_test_run@P@-check_mpi_shc_local_ncs.obj `if test -f 'check_mpi_shc_local_ncs.c'; then $(CYGPATH_W) 'check_mpi_shc_local_ncs.c'; else $(CYGPATH_W) '$(srcdir)/check_mpi_shc_local_ncs.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_mpi_shc_local_ncs.Tpo $(DEPDIR)/mpi_test_run@P@-check_mpi_shc_local_ncs.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_mpi_shc_local_ncs.c' object='mpi_test_run@P@-check_mpi_shc_local_ncs.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_mpi_shc_local_ncs.obj `if test -f 'check_mpi_shc_local_ncs.c'; then $(CYGPATH_W) 'check_mpi_shc_local_ncs.c'; else $(CYGPATH_W) '$(srcdir)/check_mpi_shc_local_ncs.c'; fi`
+
+mpi_test_run@P@-check_mpi_shc.o: check_mpi_shc.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_mpi_shc.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_mpi_shc.Tpo -c -o mpi_test_run@P@-check_mpi_shc.o `test -f 'check_mpi_shc.c' || echo '$(srcdir)/'`check_mpi_shc.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_mpi_shc.Tpo $(DEPDIR)/mpi_test_run@P@-check_mpi_shc.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_mpi_shc.c' object='mpi_test_run@P@-check_mpi_shc.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_mpi_shc.o `test -f 'check_mpi_shc.c' || echo '$(srcdir)/'`check_mpi_shc.c
+
+mpi_test_run@P@-check_mpi_shc.obj: check_mpi_shc.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_mpi_shc.obj -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_mpi_shc.Tpo -c -o mpi_test_run@P@-check_mpi_shc.obj `if test -f 'check_mpi_shc.c'; then $(CYGPATH_W) 'check_mpi_shc.c'; else $(CYGPATH_W) '$(srcdir)/check_mpi_shc.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_mpi_shc.Tpo $(DEPDIR)/mpi_test_run@P@-check_mpi_shc.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_mpi_shc.c' object='mpi_test_run@P@-check_mpi_shc.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_mpi_shc.obj `if test -f 'check_mpi_shc.c'; then $(CYGPATH_W) 'check_mpi_shc.c'; else $(CYGPATH_W) '$(srcdir)/check_mpi_shc.c'; fi`
+
+mpi_test_run@P@-check_mpi_crd_point_init.o: check_mpi_crd_point_init.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_mpi_crd_point_init.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_init.Tpo -c -o mpi_test_run@P@-check_mpi_crd_point_init.o `test -f 'check_mpi_crd_point_init.c' || echo '$(srcdir)/'`check_mpi_crd_point_init.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_init.Tpo $(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_init.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_mpi_crd_point_init.c' object='mpi_test_run@P@-check_mpi_crd_point_init.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_mpi_crd_point_init.o `test -f 'check_mpi_crd_point_init.c' || echo '$(srcdir)/'`check_mpi_crd_point_init.c
+
+mpi_test_run@P@-check_mpi_crd_point_init.obj: check_mpi_crd_point_init.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_mpi_crd_point_init.obj -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_init.Tpo -c -o mpi_test_run@P@-check_mpi_crd_point_init.obj `if test -f 'check_mpi_crd_point_init.c'; then $(CYGPATH_W) 'check_mpi_crd_point_init.c'; else $(CYGPATH_W) '$(srcdir)/check_mpi_crd_point_init.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_init.Tpo $(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_init.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_mpi_crd_point_init.c' object='mpi_test_run@P@-check_mpi_crd_point_init.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_mpi_crd_point_init.obj `if test -f 'check_mpi_crd_point_init.c'; then $(CYGPATH_W) 'check_mpi_crd_point_init.c'; else $(CYGPATH_W) '$(srcdir)/check_mpi_crd_point_init.c'; fi`
+
+mpi_test_run@P@-check_mpi_crd_point_quad.o: check_mpi_crd_point_quad.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_mpi_crd_point_quad.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_quad.Tpo -c -o mpi_test_run@P@-check_mpi_crd_point_quad.o `test -f 'check_mpi_crd_point_quad.c' || echo '$(srcdir)/'`check_mpi_crd_point_quad.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_quad.Tpo $(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_quad.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_mpi_crd_point_quad.c' object='mpi_test_run@P@-check_mpi_crd_point_quad.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_mpi_crd_point_quad.o `test -f 'check_mpi_crd_point_quad.c' || echo '$(srcdir)/'`check_mpi_crd_point_quad.c
+
+mpi_test_run@P@-check_mpi_crd_point_quad.obj: check_mpi_crd_point_quad.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_mpi_crd_point_quad.obj -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_quad.Tpo -c -o mpi_test_run@P@-check_mpi_crd_point_quad.obj `if test -f 'check_mpi_crd_point_quad.c'; then $(CYGPATH_W) 'check_mpi_crd_point_quad.c'; else $(CYGPATH_W) '$(srcdir)/check_mpi_crd_point_quad.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_quad.Tpo $(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_quad.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_mpi_crd_point_quad.c' object='mpi_test_run@P@-check_mpi_crd_point_quad.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_mpi_crd_point_quad.obj `if test -f 'check_mpi_crd_point_quad.c'; then $(CYGPATH_W) 'check_mpi_crd_point_quad.c'; else $(CYGPATH_W) '$(srcdir)/check_mpi_crd_point_quad.c'; fi`
+
+mpi_test_run@P@-check_mpi_crd_point_alloc.o: check_mpi_crd_point_alloc.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_mpi_crd_point_alloc.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_alloc.Tpo -c -o mpi_test_run@P@-check_mpi_crd_point_alloc.o `test -f 'check_mpi_crd_point_alloc.c' || echo '$(srcdir)/'`check_mpi_crd_point_alloc.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_alloc.Tpo $(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_alloc.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_mpi_crd_point_alloc.c' object='mpi_test_run@P@-check_mpi_crd_point_alloc.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_mpi_crd_point_alloc.o `test -f 'check_mpi_crd_point_alloc.c' || echo '$(srcdir)/'`check_mpi_crd_point_alloc.c
+
+mpi_test_run@P@-check_mpi_crd_point_alloc.obj: check_mpi_crd_point_alloc.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_mpi_crd_point_alloc.obj -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_alloc.Tpo -c -o mpi_test_run@P@-check_mpi_crd_point_alloc.obj `if test -f 'check_mpi_crd_point_alloc.c'; then $(CYGPATH_W) 'check_mpi_crd_point_alloc.c'; else $(CYGPATH_W) '$(srcdir)/check_mpi_crd_point_alloc.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_alloc.Tpo $(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_alloc.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_mpi_crd_point_alloc.c' object='mpi_test_run@P@-check_mpi_crd_point_alloc.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_mpi_crd_point_alloc.obj `if test -f 'check_mpi_crd_point_alloc.c'; then $(CYGPATH_W) 'check_mpi_crd_point_alloc.c'; else $(CYGPATH_W) '$(srcdir)/check_mpi_crd_point_alloc.c'; fi`
+
+mpi_test_run@P@-check_mpi_crd_point.o: check_mpi_crd_point.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_mpi_crd_point.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point.Tpo -c -o mpi_test_run@P@-check_mpi_crd_point.o `test -f 'check_mpi_crd_point.c' || echo '$(srcdir)/'`check_mpi_crd_point.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point.Tpo $(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_mpi_crd_point.c' object='mpi_test_run@P@-check_mpi_crd_point.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_mpi_crd_point.o `test -f 'check_mpi_crd_point.c' || echo '$(srcdir)/'`check_mpi_crd_point.c
+
+mpi_test_run@P@-check_mpi_crd_point.obj: check_mpi_crd_point.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_mpi_crd_point.obj -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point.Tpo -c -o mpi_test_run@P@-check_mpi_crd_point.obj `if test -f 'check_mpi_crd_point.c'; then $(CYGPATH_W) 'check_mpi_crd_point.c'; else $(CYGPATH_W) '$(srcdir)/check_mpi_crd_point.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point.Tpo $(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_mpi_crd_point.c' object='mpi_test_run@P@-check_mpi_crd_point.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_mpi_crd_point.obj `if test -f 'check_mpi_crd_point.c'; then $(CYGPATH_W) 'check_mpi_crd_point.c'; else $(CYGPATH_W) '$(srcdir)/check_mpi_crd_point.c'; fi`
+
+mpi_test_run@P@-check_mpi_shs_point.o: check_mpi_shs_point.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_mpi_shs_point.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_mpi_shs_point.Tpo -c -o mpi_test_run@P@-check_mpi_shs_point.o `test -f 'check_mpi_shs_point.c' || echo '$(srcdir)/'`check_mpi_shs_point.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_mpi_shs_point.Tpo $(DEPDIR)/mpi_test_run@P@-check_mpi_shs_point.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_mpi_shs_point.c' object='mpi_test_run@P@-check_mpi_shs_point.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_mpi_shs_point.o `test -f 'check_mpi_shs_point.c' || echo '$(srcdir)/'`check_mpi_shs_point.c
+
+mpi_test_run@P@-check_mpi_shs_point.obj: check_mpi_shs_point.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_mpi_shs_point.obj -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_mpi_shs_point.Tpo -c -o mpi_test_run@P@-check_mpi_shs_point.obj `if test -f 'check_mpi_shs_point.c'; then $(CYGPATH_W) 'check_mpi_shs_point.c'; else $(CYGPATH_W) '$(srcdir)/check_mpi_shs_point.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_mpi_shs_point.Tpo $(DEPDIR)/mpi_test_run@P@-check_mpi_shs_point.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_mpi_shs_point.c' object='mpi_test_run@P@-check_mpi_shs_point.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_mpi_shs_point.obj `if test -f 'check_mpi_shs_point.c'; then $(CYGPATH_W) 'check_mpi_shs_point.c'; else $(CYGPATH_W) '$(srcdir)/check_mpi_shs_point.c'; fi`
+
+mpi_test_run@P@-check_mpi_sha_point.o: check_mpi_sha_point.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_mpi_sha_point.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_mpi_sha_point.Tpo -c -o mpi_test_run@P@-check_mpi_sha_point.o `test -f 'check_mpi_sha_point.c' || echo '$(srcdir)/'`check_mpi_sha_point.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_mpi_sha_point.Tpo $(DEPDIR)/mpi_test_run@P@-check_mpi_sha_point.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_mpi_sha_point.c' object='mpi_test_run@P@-check_mpi_sha_point.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_mpi_sha_point.o `test -f 'check_mpi_sha_point.c' || echo '$(srcdir)/'`check_mpi_sha_point.c
+
+mpi_test_run@P@-check_mpi_sha_point.obj: check_mpi_sha_point.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_mpi_sha_point.obj -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_mpi_sha_point.Tpo -c -o mpi_test_run@P@-check_mpi_sha_point.obj `if test -f 'check_mpi_sha_point.c'; then $(CYGPATH_W) 'check_mpi_sha_point.c'; else $(CYGPATH_W) '$(srcdir)/check_mpi_sha_point.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_mpi_sha_point.Tpo $(DEPDIR)/mpi_test_run@P@-check_mpi_sha_point.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_mpi_sha_point.c' object='mpi_test_run@P@-check_mpi_sha_point.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_mpi_sha_point.obj `if test -f 'check_mpi_sha_point.c'; then $(CYGPATH_W) 'check_mpi_sha_point.c'; else $(CYGPATH_W) '$(srcdir)/check_mpi_sha_point.c'; fi`
+
+mpi_test_run@P@-point_touch_array_elements.o: point_touch_array_elements.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-point_touch_array_elements.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-point_touch_array_elements.Tpo -c -o mpi_test_run@P@-point_touch_array_elements.o `test -f 'point_touch_array_elements.c' || echo '$(srcdir)/'`point_touch_array_elements.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-point_touch_array_elements.Tpo $(DEPDIR)/mpi_test_run@P@-point_touch_array_elements.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='point_touch_array_elements.c' object='mpi_test_run@P@-point_touch_array_elements.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-point_touch_array_elements.o `test -f 'point_touch_array_elements.c' || echo '$(srcdir)/'`point_touch_array_elements.c
+
+mpi_test_run@P@-point_touch_array_elements.obj: point_touch_array_elements.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-point_touch_array_elements.obj -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-point_touch_array_elements.Tpo -c -o mpi_test_run@P@-point_touch_array_elements.obj `if test -f 'point_touch_array_elements.c'; then $(CYGPATH_W) 'point_touch_array_elements.c'; else $(CYGPATH_W) '$(srcdir)/point_touch_array_elements.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-point_touch_array_elements.Tpo $(DEPDIR)/mpi_test_run@P@-point_touch_array_elements.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='point_touch_array_elements.c' object='mpi_test_run@P@-point_touch_array_elements.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-point_touch_array_elements.obj `if test -f 'point_touch_array_elements.c'; then $(CYGPATH_W) 'point_touch_array_elements.c'; else $(CYGPATH_W) '$(srcdir)/point_touch_array_elements.c'; fi`
+
+mpi_test_run@P@-shc_touch_array_elements.o: shc_touch_array_elements.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-shc_touch_array_elements.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-shc_touch_array_elements.Tpo -c -o mpi_test_run@P@-shc_touch_array_elements.o `test -f 'shc_touch_array_elements.c' || echo '$(srcdir)/'`shc_touch_array_elements.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-shc_touch_array_elements.Tpo $(DEPDIR)/mpi_test_run@P@-shc_touch_array_elements.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='shc_touch_array_elements.c' object='mpi_test_run@P@-shc_touch_array_elements.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-shc_touch_array_elements.o `test -f 'shc_touch_array_elements.c' || echo '$(srcdir)/'`shc_touch_array_elements.c
+
+mpi_test_run@P@-shc_touch_array_elements.obj: shc_touch_array_elements.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-shc_touch_array_elements.obj -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-shc_touch_array_elements.Tpo -c -o mpi_test_run@P@-shc_touch_array_elements.obj `if test -f 'shc_touch_array_elements.c'; then $(CYGPATH_W) 'shc_touch_array_elements.c'; else $(CYGPATH_W) '$(srcdir)/shc_touch_array_elements.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-shc_touch_array_elements.Tpo $(DEPDIR)/mpi_test_run@P@-shc_touch_array_elements.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='shc_touch_array_elements.c' object='mpi_test_run@P@-shc_touch_array_elements.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-shc_touch_array_elements.obj `if test -f 'shc_touch_array_elements.c'; then $(CYGPATH_W) 'shc_touch_array_elements.c'; else $(CYGPATH_W) '$(srcdir)/shc_touch_array_elements.c'; fi`
+
+mpi_test_run@P@-generate_point.o: generate_point.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-generate_point.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-generate_point.Tpo -c -o mpi_test_run@P@-generate_point.o `test -f 'generate_point.c' || echo '$(srcdir)/'`generate_point.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-generate_point.Tpo $(DEPDIR)/mpi_test_run@P@-generate_point.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='generate_point.c' object='mpi_test_run@P@-generate_point.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-generate_point.o `test -f 'generate_point.c' || echo '$(srcdir)/'`generate_point.c
+
+mpi_test_run@P@-generate_point.obj: generate_point.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-generate_point.obj -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-generate_point.Tpo -c -o mpi_test_run@P@-generate_point.obj `if test -f 'generate_point.c'; then $(CYGPATH_W) 'generate_point.c'; else $(CYGPATH_W) '$(srcdir)/generate_point.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-generate_point.Tpo $(DEPDIR)/mpi_test_run@P@-generate_point.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='generate_point.c' object='mpi_test_run@P@-generate_point.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-generate_point.obj `if test -f 'generate_point.c'; then $(CYGPATH_W) 'generate_point.c'; else $(CYGPATH_W) '$(srcdir)/generate_point.c'; fi`
+
+mpi_test_run@P@-check_struct.o: check_struct.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_struct.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_struct.Tpo -c -o mpi_test_run@P@-check_struct.o `test -f 'check_struct.c' || echo '$(srcdir)/'`check_struct.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_struct.Tpo $(DEPDIR)/mpi_test_run@P@-check_struct.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_struct.c' object='mpi_test_run@P@-check_struct.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_struct.o `test -f 'check_struct.c' || echo '$(srcdir)/'`check_struct.c
+
+mpi_test_run@P@-check_struct.obj: check_struct.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-check_struct.obj -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-check_struct.Tpo -c -o mpi_test_run@P@-check_struct.obj `if test -f 'check_struct.c'; then $(CYGPATH_W) 'check_struct.c'; else $(CYGPATH_W) '$(srcdir)/check_struct.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/mpi_test_run@P@-check_struct.Tpo $(DEPDIR)/mpi_test_run@P@-check_struct.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_struct.c' object='mpi_test_run@P@-check_struct.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -c -o mpi_test_run@P@-check_struct.obj `if test -f 'check_struct.c'; then $(CYGPATH_W) 'check_struct.c'; else $(CYGPATH_W) '$(srcdir)/check_struct.c'; fi`
+
+test_run@P@-test_run.o: test_run.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-test_run.o -MD -MP -MF $(DEPDIR)/test_run@P@-test_run.Tpo -c -o test_run@P@-test_run.o `test -f 'test_run.c' || echo '$(srcdir)/'`test_run.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-test_run.Tpo $(DEPDIR)/test_run@P@-test_run.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test_run.c' object='test_run@P@-test_run.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-test_run.o `test -f 'test_run.c' || echo '$(srcdir)/'`test_run.c
+
+test_run@P@-test_run.obj: test_run.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-test_run.obj -MD -MP -MF $(DEPDIR)/test_run@P@-test_run.Tpo -c -o test_run@P@-test_run.obj `if test -f 'test_run.c'; then $(CYGPATH_W) 'test_run.c'; else $(CYGPATH_W) '$(srcdir)/test_run.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-test_run.Tpo $(DEPDIR)/test_run@P@-test_run.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test_run.c' object='test_run@P@-test_run.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-test_run.obj `if test -f 'test_run.c'; then $(CYGPATH_W) 'test_run.c'; else $(CYGPATH_W) '$(srcdir)/test_run.c'; fi`
+
+test_run@P@-test_suite_start.o: test_suite_start.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-test_suite_start.o -MD -MP -MF $(DEPDIR)/test_run@P@-test_suite_start.Tpo -c -o test_run@P@-test_suite_start.o `test -f 'test_suite_start.c' || echo '$(srcdir)/'`test_suite_start.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-test_suite_start.Tpo $(DEPDIR)/test_run@P@-test_suite_start.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test_suite_start.c' object='test_run@P@-test_suite_start.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-test_suite_start.o `test -f 'test_suite_start.c' || echo '$(srcdir)/'`test_suite_start.c
+
+test_run@P@-test_suite_start.obj: test_suite_start.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-test_suite_start.obj -MD -MP -MF $(DEPDIR)/test_run@P@-test_suite_start.Tpo -c -o test_run@P@-test_suite_start.obj `if test -f 'test_suite_start.c'; then $(CYGPATH_W) 'test_suite_start.c'; else $(CYGPATH_W) '$(srcdir)/test_suite_start.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-test_suite_start.Tpo $(DEPDIR)/test_run@P@-test_suite_start.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test_suite_start.c' object='test_run@P@-test_suite_start.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-test_suite_start.obj `if test -f 'test_suite_start.c'; then $(CYGPATH_W) 'test_suite_start.c'; else $(CYGPATH_W) '$(srcdir)/test_suite_start.c'; fi`
+
+test_run@P@-test_suite_end.o: test_suite_end.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-test_suite_end.o -MD -MP -MF $(DEPDIR)/test_run@P@-test_suite_end.Tpo -c -o test_run@P@-test_suite_end.o `test -f 'test_suite_end.c' || echo '$(srcdir)/'`test_suite_end.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-test_suite_end.Tpo $(DEPDIR)/test_run@P@-test_suite_end.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test_suite_end.c' object='test_run@P@-test_suite_end.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-test_suite_end.o `test -f 'test_suite_end.c' || echo '$(srcdir)/'`test_suite_end.c
+
+test_run@P@-test_suite_end.obj: test_suite_end.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-test_suite_end.obj -MD -MP -MF $(DEPDIR)/test_run@P@-test_suite_end.Tpo -c -o test_run@P@-test_suite_end.obj `if test -f 'test_suite_end.c'; then $(CYGPATH_W) 'test_suite_end.c'; else $(CYGPATH_W) '$(srcdir)/test_suite_end.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-test_suite_end.Tpo $(DEPDIR)/test_run@P@-test_suite_end.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='test_suite_end.c' object='test_run@P@-test_suite_end.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-test_suite_end.obj `if test -f 'test_suite_end.c'; then $(CYGPATH_W) 'test_suite_end.c'; else $(CYGPATH_W) '$(srcdir)/test_suite_end.c'; fi`
 
 test_run@P@-cmp_vals.o: cmp_vals.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-cmp_vals.o -MD -MP -MF $(DEPDIR)/test_run@P@-cmp_vals.Tpo -c -o test_run@P@-cmp_vals.o `test -f 'cmp_vals.c' || echo '$(srcdir)/'`cmp_vals.c
@@ -1595,6 +2215,48 @@ test_run@P@-array2file.obj: array2file.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='array2file.c' object='test_run@P@-array2file.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-array2file.obj `if test -f 'array2file.c'; then $(CYGPATH_W) 'array2file.c'; else $(CYGPATH_W) '$(srcdir)/array2file.c'; fi`
+
+test_run@P@-point_touch_array_elements.o: point_touch_array_elements.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-point_touch_array_elements.o -MD -MP -MF $(DEPDIR)/test_run@P@-point_touch_array_elements.Tpo -c -o test_run@P@-point_touch_array_elements.o `test -f 'point_touch_array_elements.c' || echo '$(srcdir)/'`point_touch_array_elements.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-point_touch_array_elements.Tpo $(DEPDIR)/test_run@P@-point_touch_array_elements.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='point_touch_array_elements.c' object='test_run@P@-point_touch_array_elements.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-point_touch_array_elements.o `test -f 'point_touch_array_elements.c' || echo '$(srcdir)/'`point_touch_array_elements.c
+
+test_run@P@-point_touch_array_elements.obj: point_touch_array_elements.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-point_touch_array_elements.obj -MD -MP -MF $(DEPDIR)/test_run@P@-point_touch_array_elements.Tpo -c -o test_run@P@-point_touch_array_elements.obj `if test -f 'point_touch_array_elements.c'; then $(CYGPATH_W) 'point_touch_array_elements.c'; else $(CYGPATH_W) '$(srcdir)/point_touch_array_elements.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-point_touch_array_elements.Tpo $(DEPDIR)/test_run@P@-point_touch_array_elements.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='point_touch_array_elements.c' object='test_run@P@-point_touch_array_elements.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-point_touch_array_elements.obj `if test -f 'point_touch_array_elements.c'; then $(CYGPATH_W) 'point_touch_array_elements.c'; else $(CYGPATH_W) '$(srcdir)/point_touch_array_elements.c'; fi`
+
+test_run@P@-cell_touch_array_elements.o: cell_touch_array_elements.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-cell_touch_array_elements.o -MD -MP -MF $(DEPDIR)/test_run@P@-cell_touch_array_elements.Tpo -c -o test_run@P@-cell_touch_array_elements.o `test -f 'cell_touch_array_elements.c' || echo '$(srcdir)/'`cell_touch_array_elements.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-cell_touch_array_elements.Tpo $(DEPDIR)/test_run@P@-cell_touch_array_elements.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cell_touch_array_elements.c' object='test_run@P@-cell_touch_array_elements.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-cell_touch_array_elements.o `test -f 'cell_touch_array_elements.c' || echo '$(srcdir)/'`cell_touch_array_elements.c
+
+test_run@P@-cell_touch_array_elements.obj: cell_touch_array_elements.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-cell_touch_array_elements.obj -MD -MP -MF $(DEPDIR)/test_run@P@-cell_touch_array_elements.Tpo -c -o test_run@P@-cell_touch_array_elements.obj `if test -f 'cell_touch_array_elements.c'; then $(CYGPATH_W) 'cell_touch_array_elements.c'; else $(CYGPATH_W) '$(srcdir)/cell_touch_array_elements.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-cell_touch_array_elements.Tpo $(DEPDIR)/test_run@P@-cell_touch_array_elements.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cell_touch_array_elements.c' object='test_run@P@-cell_touch_array_elements.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-cell_touch_array_elements.obj `if test -f 'cell_touch_array_elements.c'; then $(CYGPATH_W) 'cell_touch_array_elements.c'; else $(CYGPATH_W) '$(srcdir)/cell_touch_array_elements.c'; fi`
+
+test_run@P@-shc_touch_array_elements.o: shc_touch_array_elements.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-shc_touch_array_elements.o -MD -MP -MF $(DEPDIR)/test_run@P@-shc_touch_array_elements.Tpo -c -o test_run@P@-shc_touch_array_elements.o `test -f 'shc_touch_array_elements.c' || echo '$(srcdir)/'`shc_touch_array_elements.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-shc_touch_array_elements.Tpo $(DEPDIR)/test_run@P@-shc_touch_array_elements.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='shc_touch_array_elements.c' object='test_run@P@-shc_touch_array_elements.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-shc_touch_array_elements.o `test -f 'shc_touch_array_elements.c' || echo '$(srcdir)/'`shc_touch_array_elements.c
+
+test_run@P@-shc_touch_array_elements.obj: shc_touch_array_elements.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-shc_touch_array_elements.obj -MD -MP -MF $(DEPDIR)/test_run@P@-shc_touch_array_elements.Tpo -c -o test_run@P@-shc_touch_array_elements.obj `if test -f 'shc_touch_array_elements.c'; then $(CYGPATH_W) 'shc_touch_array_elements.c'; else $(CYGPATH_W) '$(srcdir)/shc_touch_array_elements.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-shc_touch_array_elements.Tpo $(DEPDIR)/test_run@P@-shc_touch_array_elements.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='shc_touch_array_elements.c' object='test_run@P@-shc_touch_array_elements.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-shc_touch_array_elements.obj `if test -f 'shc_touch_array_elements.c'; then $(CYGPATH_W) 'shc_touch_array_elements.c'; else $(CYGPATH_W) '$(srcdir)/shc_touch_array_elements.c'; fi`
 
 test_run@P@-modify_low_degree_coefficients.o: modify_low_degree_coefficients.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-modify_low_degree_coefficients.o -MD -MP -MF $(DEPDIR)/test_run@P@-modify_low_degree_coefficients.Tpo -c -o test_run@P@-modify_low_degree_coefficients.o `test -f 'modify_low_degree_coefficients.c' || echo '$(srcdir)/'`modify_low_degree_coefficients.c
@@ -2331,6 +2993,7 @@ clean-am: clean-checkPROGRAMS clean-generic clean-libtool clean-local \
 
 distclean: distclean-am
 		-rm -f ./$(DEPDIR)/genref_run@P@-array2file.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-cell_touch_array_elements.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_cell_alloc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_cell_init.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_point_alloc.Po
@@ -2368,7 +3031,6 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/genref_run@P@-cmp_vals.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-generate_cell.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-generate_point.Po
-	-rm -f ./$(DEPDIR)/genref_run@P@-main.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-misc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-modify_low_degree_coefficients.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_crd.Po
@@ -2377,10 +3039,41 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_sha.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_shc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_shs.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-point_touch_array_elements.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-shc_touch_array_elements.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-test_run.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-test_suite_end.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-test_suite_start.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-validate.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-write_array.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-write_val.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_func.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_alloc.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_init.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_quad.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_mpi_sha_point.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_mpi_shc.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_mpi_shc_alloc.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_mpi_shc_init.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_mpi_shc_local_ncs.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_mpi_shs_point.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_outcome.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_struct.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-cmp_arrays.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-cmp_vals.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-generate_point.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-module_mpi.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-mpi_crd_point_distribute.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-mpi_shc_distribute.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-mpi_test_run.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-partition_interval.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-point_touch_array_elements.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-shc_touch_array_elements.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-test_suite_end.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-test_suite_start.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-array2file.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-cell_touch_array_elements.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_crd_cell_alloc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_crd_cell_init.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_crd_point_alloc.Po
@@ -2418,7 +3111,6 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test_run@P@-cmp_vals.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-generate_cell.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-generate_point.Po
-	-rm -f ./$(DEPDIR)/test_run@P@-main.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-misc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-modify_low_degree_coefficients.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-module_crd.Po
@@ -2427,6 +3119,11 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test_run@P@-module_sha.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-module_shc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-module_shs.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-point_touch_array_elements.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-shc_touch_array_elements.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-test_run.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-test_suite_end.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-test_suite_start.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-validate.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-write_array.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-write_val.Po
@@ -2476,6 +3173,7 @@ installcheck-am:
 
 maintainer-clean: maintainer-clean-am
 		-rm -f ./$(DEPDIR)/genref_run@P@-array2file.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-cell_touch_array_elements.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_cell_alloc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_cell_init.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_point_alloc.Po
@@ -2513,7 +3211,6 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/genref_run@P@-cmp_vals.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-generate_cell.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-generate_point.Po
-	-rm -f ./$(DEPDIR)/genref_run@P@-main.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-misc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-modify_low_degree_coefficients.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_crd.Po
@@ -2522,10 +3219,41 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_sha.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_shc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_shs.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-point_touch_array_elements.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-shc_touch_array_elements.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-test_run.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-test_suite_end.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-test_suite_start.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-validate.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-write_array.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-write_val.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_func.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_alloc.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_init.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_mpi_crd_point_quad.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_mpi_sha_point.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_mpi_shc.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_mpi_shc_alloc.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_mpi_shc_init.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_mpi_shc_local_ncs.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_mpi_shs_point.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_outcome.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-check_struct.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-cmp_arrays.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-cmp_vals.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-generate_point.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-module_mpi.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-mpi_crd_point_distribute.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-mpi_shc_distribute.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-mpi_test_run.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-partition_interval.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-point_touch_array_elements.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-shc_touch_array_elements.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-test_suite_end.Po
+	-rm -f ./$(DEPDIR)/mpi_test_run@P@-test_suite_start.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-array2file.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-cell_touch_array_elements.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_crd_cell_alloc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_crd_cell_init.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_crd_point_alloc.Po
@@ -2563,7 +3291,6 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test_run@P@-cmp_vals.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-generate_cell.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-generate_point.Po
-	-rm -f ./$(DEPDIR)/test_run@P@-main.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-misc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-modify_low_degree_coefficients.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-module_crd.Po
@@ -2572,6 +3299,11 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test_run@P@-module_sha.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-module_shc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-module_shs.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-point_touch_array_elements.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-shc_touch_array_elements.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-test_run.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-test_suite_end.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-test_suite_start.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-validate.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-write_array.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-write_val.Po
@@ -2615,6 +3347,10 @@ uninstall-am:
 
 check-local: test_run@P@$(EXEEXT)
 	$(test_run@P@dir)/test_run@P@
+@MPI_TRUE@	$(MPIEXEC) -n 1 $(mpi_test_run@P@dir)/mpi_test_run@P@
+@MPI_TRUE@	$(MPIEXEC) -n 2 $(mpi_test_run@P@dir)/mpi_test_run@P@
+@MPI_TRUE@	$(MPIEXEC) -n 3 $(mpi_test_run@P@dir)/mpi_test_run@P@
+@MPI_TRUE@	$(MPIEXEC) -n 4 $(mpi_test_run@P@dir)/mpi_test_run@P@
 
 generate-reference-data-local: genref_run@P@$(EXEEXT)
 	mkdir -p ./genref-output
@@ -2624,7 +3360,7 @@ generate-reference-data-local: genref_run@P@$(EXEEXT)
 	$(genref_run@P@dir)/genref_run@P@
 
 remove-files:
-	rm -rf test_run* genref_run* genref-output
+	rm -rf test_run test_runf test_runq test_run-*o genref_run* genref-output
 
 clean-local: remove-files
 

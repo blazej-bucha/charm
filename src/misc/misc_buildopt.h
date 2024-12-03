@@ -42,6 +42,10 @@ extern "C"
 #define BUILDOPT_PRECISION_QUAD 3
 
 
+#undef BUILDOPT_MPI
+#define BUILDOPT_MPI 1
+
+
 #undef BUILDOPT_SIMD_NONE
 #define BUILDOPT_SIMD_NONE 0
 

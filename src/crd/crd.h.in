@@ -38,7 +38,13 @@
 /* ------------------------------------------------------------------------- */
 #include <stdio.h>
 #include <charm/charm@P@_err.h>
+
+
+#if @WITH_MPI@
+#   include <mpi.h>
+#endif
 /* ------------------------------------------------------------------------- */
+
 
 
 
@@ -102,12 +108,31 @@ enum
 
 
 /* ------------------------------------------------------------------------- */
-/** Structure to store evaluation points. */
+/** Structure to store evaluation points.
+ *
+ * If CHarm is compiled with the MPI support, the data of the structure can be
+ * distributed across MPI processes.  This is useful if your dataset is so
+ * large that it would not fit into the RAM of a single computing node.  The
+ * members of the structure are therefore divided into two groups.
+ *
+ * * Members common to both non-distributed and distributed structures.  These
+ *   are always accessible.
+ *
+ * * Members specific to distributed structures only.  These are accessible
+ *   only when CHarm was compiled with the MPI support.
+ *
+ * */
 typedef struct
 {
-    /** Defines whether the points are organized as a grid or are scattered.
+    /** @name Members common to non-distributed and distributed structures
      *
-     * ``charm@P@_point.type`` takes the following constants: 
+     * @{
+     * */
+
+
+    /** Organization of points in the structure.
+     *
+     * The following options are available:
      *
      * * ``::CHARM_CRD_POINT_SCATTERED`` for user-defined scattered points,
      *
@@ -127,45 +152,71 @@ typedef struct
     int type;
 
 
-    /** Number of array elements associated with the ``charm@P@_point.lat``,
-     * ``charm@P@_point.r`` and ``charm@P@_point.w`` pointers. */
+    /** Total number of points in the latitudinal direction.  If ``0``, no
+     * points are stored in the structure.
+     *
+     * If the structure is distributed, this member represents the sum of
+     * ``charm@P@_point.local_nlat`` across all MPI processes within
+     * ``charm@P@_point.comm``. */
     size_t nlat;
 
 
-    /** Number of array elements associated with the ``charm@P@_point.lon``
-     * pointer. */
+    /** Total number of points in the longitudinal direction.  If ``0``, no
+     * points are stored in the structure.
+     *
+     * If the structure is distributed and
+     * ``charm@P@_point.type == ::CHARM_CRD_POINT_SCATTERED``, then this member
+     * represents the sum of ``charm@P@_point.local_nlon`` across all MPI
+     * processes within ``charm@P@_point.comm``.  This means that each MPI
+     * process may hold different number of longitudes, hence scattered points.
+     *
+     * If the structure is distributed and ``charm@P@_point.type`` is either
+     * ``::CHARM_CRD_POINT_GRID``, ``::CHARM_CRD_POINT_GRID_GL``,
+     * ``::CHARM_CRD_POINT_GRID_DH1`` or ``::CHARM_CRD_POINT_GRID_DH2``, then
+     * this member has always the same value as ``charm@P@_point.local_nlon``.
+     * This means that all point grids must always be distributed across MPI
+     * processes in latitudinal chunks, that is, each sub-grid must consist of
+     * the same number of longitudes, so that ``charm@P@_point.local_nlon`` and
+     * ``charm@P@_point.nlon`` are equal. */
     size_t nlon;
 
 
-    /** Total number of points represented by the structure.
+    /** Total number of points.
      *
-     * Determines the total number of array elements that are necessary to
-     * store a signal sampled at the points of the structure.
+     * * For **scattered** points (
+     * ``charm@P@_point.type == ::CHARM_CRD_POINT_SCATTERED``), equals to
+     * ``charm@P@_point.nlat`` and to ``charm@P@_point.nlon``.
      *
-     * * For **scattered** points (``charm@P@_point.type`` is
-     *   ``::CHARM_CRD_POINT_SCATTERED``), ``charm@P@_point.npoint`` equals to
-     *   ``charm@P@_point.nlat`` and to ``charm@P@_point.nlon``.
+     * * For **grids** (``charm@P@_point.type`` is any of
+     *   ``CHARM_CRD_POINT_GRID*``), equals to
+     *   ``charm@P@_point.nlat * charm@P@_point.nlon``.
      *
-     * * For **grids** (``charm@P@_point.type`` is ``::CHARM_CRD_POINT_GRID``,
-     *   ``::CHARM_CRD_POINT_GRID_GL``, ``::CHARM_CRD_POINT_GRID_DH1`` or
-     *   ``::CHARM_CRD_POINT_GRID_DH2``), ``charm@P@_point.npoint`` is given as
-     *   ``charm@P@_point.nlat * charm@P@_point.nlon``. */
+     * If the structure is distributed, this member represents the sum of
+     * ``charm@P@_point.local_npoint`` across all MPI processes within
+     * ``charm@P@_point.comm``. */
     size_t npoint;
 
 
-    /** Pointer to an array of latitudes in radians.  ``charm@P@_point.nlat``
-     * array elements are associated with ``charm@P@_point.lat``. */
+    /** Pointer to an array of latitudes in radians.
+     *
+     * For non-distributed structures, ``charm@P@_point.nlat`` array elements
+     * are associated with the pointer.  For distributed structures,
+     * ``charm@P@_point.local_nlat`` elements are associated. */
     @RDT@ *lat;
 
 
-    /** Pointer to an array of longitudes in radians.  ``charm@P@_point.nlon``
-     * array elements are associated with ``charm@P@_point.lon``. */
+    /** Pointer to an array of longitudes in radians.
+     *
+     * For non-distributed structures, ``charm@P@_point.nlon`` array elements
+     * are associated with the pointer.  For distributed structures,
+     * ``charm@P@_point.local_nlon`` elements are associated. */
     @RDT@ *lon;
 
 
     /** Pointer to an array of spherical radii in metres.
-     * ``charm@P@_point.nlat`` array elements are associated with
-     * ``charm@P@_point.r``. */
+     *
+     * The same number of array elements is associated with this pointer as in
+     * the case of ``charm@P@_point.lat``. */
     @RDT@ *r;
 
 
@@ -176,23 +227,108 @@ typedef struct
      * ``charm@P@_crd_point_dh1()`` and ``charm@P@_crd_point_dh2()`` functions,
      * that is, if ``charm@P@_point.type`` is ``::CHARM_CRD_POINT_GRID_GL``,
      * ``::CHARM_CRD_POINT_GRID_DH1``, or ``::CHARM_CRD_POINT_GRID_DH2``.
+     * Otherwise, the pointer is ``NULL`` and is never used.
      *
-     * ``charm@P@_point.nlat`` array elements are associated with
-     * ``charm@P@_point.w``.
-     *
-     * For all other values of ``charm@P@_point.type``, ``charm@P@_point.w`` is
-     * ``NULL`` and is never used.  */
+     * The same number of array elements is associated with this pointer as in
+     * the case of ``charm@P@_point.lat``. */
     @RDT@ *w;
 
 
-    /** If ``1``, the memory associated with ``charm@P@_point.lat``,
-     * ``charm@P@_point.lon``, ``charm@P@_point.r`` and ``charm@P@_point.w``
-     * was allocated by CHarm, so ``charm@P@_crd_point_free()`` deallocates it.
-     * If ``charm@P@_point.owner`` is ``0``, the memory associated with these
-     * arrays was allocated outside CHarm, so ``charm@P@_crd_point_free()``
-     * does *not* deallocate it (the user allocated this memory outside CHarm,
-     * so the user should free the memory outside CHarm as well). */
+    /** * If ``1``, the memory associated with ``charm@P@_point.lat``,
+     *    ``charm@P@_point.lon``, ``charm@P@_point.r`` and ``charm@P@_point.w``
+     *    was allocated by CHarm, so ``charm@P@_crd_point_free()`` deallocates
+     *    it.
+     *
+     * * If ``0``, the memory associated with these arrays was allocated
+     *   outside CHarm, so ``charm@P@_crd_point_free()`` does *not* deallocate
+     *   it (the user allocated this memory outside CHarm, so the user should
+     *   free the memory outside CHarm as well). */
     _Bool owner;
+
+
+    /** * If ``0``, the structure is not distributed, meaning that each process
+     *    (be it an OpenMP or MPI process) accesses the same data through
+     *    ``charm@P@_point.lat``, ``charm@P@_point.lon``, ``charm@P@_point.r``
+     *    and ``charm@P@_point.w``.
+     *
+     * * If ``1``, the structure is distributed across MPI processes, that is,
+     *   each MPI process accesses different data through
+     *   ``charm@P@_point.lat``, ``charm@P@_point.lon``, ``charm@P@_point.r``
+     *   and ``charm@P@_point.w``.
+     *
+     * @note  If CHarm was compiled without the MPI support (default),
+     * ``charm@P@_point.distributed`` is always ``0``. */
+    _Bool distributed;
+
+
+    /**
+     * @}
+     * */
+#if @WITH_MPI@
+    /** @name Members available to distributed structures only
+     *
+     * @note The members that follow are available only when CHarm is compiled
+     * with the MPI support (``--enable-mpi``, refer to <a
+     * href="./api-c-mpi.html">charm@P@_mpi</a> for further details).
+     *
+     * @{
+     * */
+
+
+    /** Number of points in the latitudinal direction locally accessible to an
+     * MPI process.  If ``0``, no points are stored locally in the
+     * structure. */
+    size_t local_nlat;
+
+
+    /** Number of points in the longitudinal direction locally accessible to an
+     * MPI process.  If ``0``, no points are stored locally in the
+     * structure. */
+    size_t local_nlon;
+
+
+    /** Total number of points locally accessible to an MPI process.
+     *
+     * It is computed in the same way as ``charm@P@_point.npoint``, but using
+     * ``charm@P@_point.local_nlat`` and ``charm@P@_point.local_nlon`` instead
+     * of ``charm@P@_point.nlat`` and ``charm@P@_point.nlon``. */
+    size_t local_npoint;
+
+
+    /** Index, at which the local portions of ``charm@P@_point.lat``,
+     * ``charm@P@_point.r`` and ``charm@P@_point.w`` start in the
+     * ``charm@P@_point`` structure.  Any value is accepted if
+     * ``charm@P@_point.local_nlat`` is ``0``.
+     *
+     * Assume that ``charm@P@_point *pnt`` with ``pnt->distributed == 0`` holds
+     * all your data points. Now assume that you distribute the same data in
+     * chunks across MPI processes, obtaining some ``charm@P@_point *pnt_dist``
+     * with ``pnt_dist->distributed == 1``. For an MPI process,
+     * ``pnt_dist.local_0_start`` is the index of ``pnt_dist->lat[0]`` in the
+     * ``pnt->lat`` array. This means that
+     * ``pnt->lat[pnt_dist->local_0_start + idx] == pnt_dist->[idx]``, where
+     * ``idx < pnt_dist->local_nlat``.  If the grid is <a
+     * href="./definitions.html#symmetric-grids">symmetric</a> with respect to
+     * the equator, the index in ``pnt_dist.local_0_start`` is always divided
+     * by ``2``.
+     *
+     * @note Sounds complicated?  It isn't!  Have a look at the <a
+     * href="./api-c-mpi.html">charm@P@_mpi</a> module and the <a
+     * href="./cookbook-c.html#distributed-computing-with-mpi">cookbook</a>.
+     *
+     * */
+    size_t local_0_start;
+
+
+    /** MPI communicator defining the group of MPI processes to distribute the
+     * structure across. */
+    MPI_Comm comm;
+
+
+    /**
+     * @}
+     * */
+#endif
 } charm@P@_point;
 
 
@@ -200,13 +336,14 @@ typedef struct
 
 
 
-/** Structure to store evaluation cells. */
+/** Structure to store evaluation cells.
+ *
+ * This structure cannot be distributed across MPI processes. */
 typedef struct
 {
-    /** Defines whether the cells are organized as a regular grid or are
-     * scattered.
+    /** Organization of cells in the structure.
      *
-     * ``charm@P@_cell.type`` takes the following constants:
+     * The following options are available:
      *
      * * ``::CHARM_CRD_CELL_GRID`` for a user-defined grid of cells,
      *
@@ -215,20 +352,15 @@ typedef struct
     int type;
 
 
-    /** Number of array elements associated with the ``charm@P@_cell.latmin``,
-     * ``charm@P@_cell.latmax`` and ``charm@P@_cell.r`` pointers. */
+    /** Total number of cells in the latitudinal direction. */
     size_t nlat;
 
 
-    /** Number of array elements associated with the ``charm@P@_cell.lonmin``
-     * and ``charm@P@_cell.lonmax`` pointers. */
+    /** Total number of cells in the longitudinal direction. */
     size_t nlon;
 
 
-    /** Total number of cells represented by the structure.
-     *
-     * Determines the total number of array elements that are necessary to
-     * store a signal sampled at the cells of the strucutre.
+    /** Total number of cells.
      *
      * * For **scattered** cells (``charm@P@_cell.type`` set to
      *   ``::CHARM_CRD_CELL_SCATTERED``), ``charm@P@_cell.ncell`` equals to
@@ -338,8 +470,8 @@ typedef struct
  *
  * @returns On success, returned is a pointer to the ``charm@P@_point``
  * structure. On error, ``NULL`` is returned. Errors include memory allocation
- * failures and incorrect input arguments (e.g., ``nlat < 1``, ``nlon < 1`` or
- * unsupported value of ``type``).
+ * failures and incorrect input arguments (e.g., unsupported value of
+ * ``type``).
  *
  * */
 CHARM_EXTERN charm@P@_point * CHARM_CDECL
@@ -403,8 +535,8 @@ CHARM_EXTERN charm@P@_point * CHARM_CDECL
  *
  * @returns On success, returned is a pointer to the ``charm@P@_point``
  * structure. On error, ``NULL`` is returned. Errors include memory allocation
- * failures and incorrect input arguments (e.g., ``nlat < 1``, ``nlon < 1`` or
- * unsupported value of ``type``).
+ * failures and incorrect input arguments (e.g., unsupported value of
+ * ``type``).
  *
  * */
 CHARM_EXTERN charm@P@_point * CHARM_CDECL
@@ -488,6 +620,18 @@ CHARM_EXTERN charm@P@_point * CHARM_CDECL
 
 
 
+/** @brief Computes the number of latitudes ``nlat`` and the number of
+ * longitudes ``nlon`` of the Gauss-Legendre grid that corresponds to the
+ * maximum harmonic degree ``nmax``. */
+CHARM_EXTERN void CHARM_CDECL charm@P@_crd_point_gl_shape(unsigned long nmax,
+                                                          size_t *nlat,
+                                                          size_t *nlon);
+
+
+
+
+
+
 /** @brief Computes the non-equiangular Driscoll-Healy grid (as defined by
  * Driscoll and Healy, 1994) associated with the maximum spherical harmonic
  * degree ``nmax`` on the sphere with the radius ``r``. The integration weights
@@ -512,12 +656,36 @@ CHARM_EXTERN charm@P@_point * CHARM_CDECL
 
 
 
+/** @brief Computes the number of latitudes ``nlat`` and the number of
+ * longitudes ``nlon`` of the non-equiangular Driscoll-Healy grid that
+ * corresponds to the maximum harmonic degree ``nmax``. */
+CHARM_EXTERN void CHARM_CDECL charm@P@_crd_point_dh1_shape(unsigned long nmax,
+                                                           size_t *nlat,
+                                                           size_t *nlon);
+
+
+
+
+
+
 /** @brief The same as ``charm@P@_crd_point_dh1()`` but for the equiangular
  * modification of the Driscoll-Healy grid after Wieczorek and Meschede (2018).
  * */
 CHARM_EXTERN charm@P@_point * CHARM_CDECL
                              charm@P@_crd_point_dh2(unsigned long nmax,
                                                     @RDT@ r);
+
+
+
+
+
+
+/** @brief Computes the number of latitudes ``nlat`` and the number of
+ * longitudes ``nlon`` of the equiangular Driscoll-Healy grid that corresponds
+ * to the maximum harmonic degree ``nmax``. */
+CHARM_EXTERN void CHARM_CDECL charm@P@_crd_point_dh2_shape(unsigned long nmax,
+                                                           size_t *nlat,
+                                                           size_t *nlon);
 
 
 /**
@@ -586,8 +754,8 @@ CHARM_EXTERN charm@P@_point * CHARM_CDECL
  *
  * @returns On success, returned is a pointer to the ``charm@P@_cell``
  * structure. On error, ``NULL`` is returned. Errors include memory allocation
- * failures and incorrect input arguments (e.g., ``nlat < 1``, ``nlon < 1`` or
- * unsupported value of ``type``).
+ * failures and incorrect input arguments (e.g., unsupported value of
+ * ``type``).
  *
  * */
 CHARM_EXTERN charm@P@_cell * CHARM_CDECL
@@ -649,8 +817,8 @@ CHARM_EXTERN charm@P@_cell * CHARM_CDECL
  *
  * @returns On success, returned is a pointer to the ``charm@P@_cell``
  * structure. On error, ``NULL`` is returned. Errors include memory allocation
- * failures and incorrect input arguments (e.g., ``nlat < 1``, ``nlon < 1`` or
- * unsupported value of ``type``).
+ * failures and incorrect input arguments (e.g., unsupported value of
+ * ``type``).
  *
  * */
 CHARM_EXTERN charm@P@_cell * CHARM_CDECL

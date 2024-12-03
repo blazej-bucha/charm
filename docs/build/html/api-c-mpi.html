@@ -1,0 +1,1182 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>charm_mpi &#8212; CHarm 0.4.3 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=0f4711b3"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api-c-mpi';</script>
+    <link rel="icon" href="_static/charm-logo.svg"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="charm_glob" href="api-c-glob.html" />
+    <link rel="prev" title="charm_err" href="api-c-err.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.4.3" />
+    <meta name="docbuild:last-update" content="Dec 02, 2024"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/charm-logo.svg" class="logo__image only-light" alt=""/>
+    <img src="_static/charm-logo.svg" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">CHarm v0.4.3</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="install.html">Installing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="install-pyharm-pip.html">Installation of PyHarm with pip</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="build-from-src.html">Building from source</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="build-from-src-unix.html">Unix-based operating systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="build-from-src-non-unix.html">Windows 10 and later</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="cookbook.html">Cookbook</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="cookbook-c.html">CHarm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cookbook-py.html">PyHarm</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="api.html">Interfaces</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="api-c.html">CHarm (C API)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html">charm_shc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-sha.html">charm_sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-leg.html">charm_leg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html">charm_err</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">charm_mpi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-glob.html">charm_glob</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="api-py-shc.html">pyharm.shc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">pyharm.sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-leg.html">pyharm.leg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">pyharm.integ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-glob.html">pyharm.glob</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acknowledgements.html">Acknowledgements</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm/edit/master/docs/src/api-c-mpi.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm/issues/new?title=Issue%20on%20page%20%2Fapi-c-mpi.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/api-c-mpi.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>charm_mpi</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv418charm_mpi_shc_initmddPdPd6size_tPKm8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_shc_init()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv420charm_mpi_shc_mallocmdd6size_tPKm8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_shc_malloc()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv420charm_mpi_shc_callocmdd6size_tPKm8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_shc_calloc()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv423charm_mpi_shc_local_ncsm6size_tPKmP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_shc_local_ncs()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv424charm_mpi_crd_point_initi6size_t6size_t6size_tPdPdPd8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_crd_point_init()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv426charm_mpi_crd_point_malloci6size_t6size_t6size_t8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_crd_point_malloc()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv426charm_mpi_crd_point_calloci6size_t6size_t6size_t8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_crd_point_calloc()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv422charm_mpi_crd_point_glmd6size_t6size_t8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_crd_point_gl()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv423charm_mpi_crd_point_dh1md6size_t6size_t8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_crd_point_dh1()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv423charm_mpi_crd_point_dh2md6size_t6size_t8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_crd_point_dh2()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv418charm_mpi_err_init8MPI_Comm"><code class="docutils literal notranslate"><span class="pre">charm_mpi_err_init()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv421charm_mpi_err_isemptyPK9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_err_isempty()</span></code></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="charm-mpi">
+<span id="id1"></span><h1>charm_mpi<a class="headerlink" href="#charm-mpi" title="Link to this heading">#</a></h1>
+<p>Module to work with CHarm on distributed memory systems.</p>
+<p>The routines are split into three categories. Functions related to:</p>
+<p><ul class="simple">
+<li><p>spherical harmonic coefficients (<code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code>),</p></li>
+<li><p>evaluation points (<code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code>) and</p></li>
+<li><p>error handling (<code class="docutils literal notranslate"><a class="reference internal" href="api-c-err.html#structcharm__err"><span class="std std-ref"><span class="pre">charm_err</span></span></a></code>).</p></li>
+</ul>
+</p>
+<p>Except for routines from this module, structures <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="api-c-err.html#structcharm__err"><span class="std std-ref"><span class="pre">charm_err</span></span></a></code> distributed among MPI processes should only enter the following functions:</p>
+<p><ul class="simple">
+<li><p><code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#charm__shc_8h_1ac787c43697c5383d38c392d427b78669"><span class="std std-ref"><span class="pre">charm_shc_free()</span></span></a></code> (to free <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> returned by functions from this module),</p></li>
+<li><p><code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#charm__crd_8h_1a74d3a0f9144c9db18230507d38cbcbee"><span class="std std-ref"><span class="pre">charm_crd_point_free()</span></span></a></code> (to free <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> returned by functions from this module),</p></li>
+<li><p><code class="docutils literal notranslate"><a class="reference internal" href="api-c-err.html#charm__err_8h_1a1801d7182e14e678190863725663045d"><span class="std std-ref"><span class="pre">charm_err_free()</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="api-c-err.html#charm__err_8h_1a7dc5f3347febf8fd452e9ea9c48adbb8"><span class="std std-ref"><span class="pre">charm_err_reset()</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="api-c-err.html#charm__err_8h_1a3b58f956ffbe19c48b626fd9b584cded"><span class="std std-ref"><span class="pre">charm_err_handler()</span></span></a></code> (to free, reset and handle errors in <code class="docutils literal notranslate"><a class="reference internal" href="api-c-err.html#structcharm__err"><span class="std std-ref"><span class="pre">charm_err</span></span></a></code>),</p></li>
+<li><p><code class="docutils literal notranslate"><a class="reference internal" href="api-c-shs.html#charm__shs_8h_1a47e78422d29ab4668f6140fe8a5b16af"><span class="std std-ref"><span class="pre">charm_shs_point()</span></span></a></code> (to perform distributed spherical harmonic synthesis),</p></li>
+<li><p><code class="docutils literal notranslate"><a class="reference internal" href="api-c-sha.html#charm__sha_8h_1ae98177417defe2a6344b7fb62a1c74a7"><span class="std std-ref"><span class="pre">charm_sha_point()</span></span></a></code> (to perform distributed spherical harmonic analysis).</p></li>
+</ul>
+</p>
+<p>The rest of the CHarm’s routines requires non-distributed structures <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="api-c-err.html#structcharm__err"><span class="std std-ref"><span class="pre">charm_err</span></span></a></code>.</p>
+<p>For each function in this module, an example usage is provided. Note that we often use <code class="docutils literal notranslate"><span class="pre">if</span></code> statements to feed MPI processes by data. While this is perfectly valid, this is not usually done in practice. Still, this approach is hopefully beneficial for learning purposes.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All routines from this module are collective communication functions. They must therefore always be called by all participating MPI processes. Furthermore, using the structures <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="api-c-err.html#structcharm__err"><span class="std std-ref"><span class="pre">charm_err</span></span></a></code> returned by the routines from this module as inputs to functions from other modules (e.g., <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shs.html#charm__shs_8h_1a47e78422d29ab4668f6140fe8a5b16af"><span class="std std-ref"><span class="pre">charm_shs_point()</span></span></a></code>) makes that particular routines collective communication functions.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The performance of <code class="docutils literal notranslate"><a class="reference internal" href="api-c-sha.html#charm__sha_8h_1ae98177417defe2a6344b7fb62a1c74a7"><span class="std std-ref"><span class="pre">charm_sha_point()</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shs.html#charm__shs_8h_1a47e78422d29ab4668f6140fe8a5b16af"><span class="std std-ref"><span class="pre">charm_shs_point()</span></span></a></code> depends enormously on <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1a7da2a9a23fa487751edb6bc92af85c3a"><span class="std std-ref"><span class="pre">charm_glob_shc_block_nmax_multiplier</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1abddf129834cf748518d7c9a6ae15fe23"><span class="std std-ref"><span class="pre">charm_glob_sha_block_lat_multiplier</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1a5cab8fad12033c5fa29c47726665cd40"><span class="std std-ref"><span class="pre">charm_glob_shs_block_lat_multiplier</span></span></a></code>. To properly tune these parameters, see the <a class="reference external" href="./api-c-glob.html">documentation</a> and the <a class="reference external" href="./cookbook-c.html#distributed-computing-with-mpi">cookbook</a>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If CHarm is compiled with the MPI support (<code class="docutils literal notranslate"><span class="pre">--enable-mpi</span></code>), spherical harmonic transforms on shared-memory systems will generally be slightly slower compared to when the MPI support is disabled. This is true if even none of the data are actually distributed. This is the price to be paid for having the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1abddf129834cf748518d7c9a6ae15fe23"><span class="std std-ref"><span class="pre">charm_glob_sha_block_lat_multiplier</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="api-c-glob.html#charm__glob_8h_1a5cab8fad12033c5fa29c47726665cd40"><span class="std std-ref"><span class="pre">charm_glob_shs_block_lat_multiplier</span></span></a></code> variables, which require to dynamically allocate memory in the computationally most expensive parts of CHarm.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>An MPI implementation is required to support the MPI standard version 3.0 (September 2012) or newer.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This documentation is written for double precision version of CHarm. </p>
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-spherical-harmonic-coefficients">Spherical harmonic coefficients</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv418charm_mpi_shc_initmddPdPd6size_tPKm8MPI_CommP9charm_err">
+<span id="_CPPv318charm_mpi_shc_initmddPdPd6size_tPKm8MPI_CommP9charm_err"></span><span id="_CPPv218charm_mpi_shc_initmddPdPd6size_tPKm8MPI_CommP9charm_err"></span><span id="charm_mpi_shc_init__unsigned-l.double.double.doubleP.doubleP.s.unsigned-lCP.MPI_Comm.charm_errP"></span><span class="target" id="charm__mpi_8h_1ade483c15d62f78323d77488f72d00eb7"></span><a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_mpi_shc_init</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">mu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">c</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">s</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">local_nchunk</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">local_order</span></span>, <span class="n"><span class="pre">MPI_Comm</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">comm</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418charm_mpi_shc_initmddPdPd6size_tPKm8MPI_CommP9charm_err" title="Link to this definition">#</a><br /></dt>
+<dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#charm__shc_8h_1a634b6af02cca801de4e51c2248d72b20"><span class="std std-ref"><span class="pre">charm_shc_init()</span></span></a></code> but for <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> distributed among MPI processes in <code class="docutils literal notranslate"><span class="pre">comm</span></code>. </p>
+<p>Function parameters that are new with respect to <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#charm__shc_8h_1a634b6af02cca801de4e51c2248d72b20"><span class="std std-ref"><span class="pre">charm_shc_init()</span></span></a></code> are explained below.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> pointers must have an access to the number of elements returned by <code class="docutils literal notranslate"><a class="reference internal" href="#charm__mpi_8h_1a952e6317796066ccc56bb647c5bb73d0"><span class="std std-ref"><span class="pre">charm_mpi_shc_local_ncs()</span></span></a></code>. The ordering of spherical harmonic coefficients in <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> depends on <code class="docutils literal notranslate"><span class="pre">local_order</span></code> (see <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc_1adf572eb83bceaabf961e8abd47f9422c"><span class="std std-ref"><span class="pre">charm_shc.local_order</span></span></a></code>).</p>
+<p>The example below illustrates how to create a distributed <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure with this function. We assume that <code class="docutils literal notranslate"><span class="pre">rank</span></code> represents the rank of MPI processes and the size of the MPI communicator <code class="docutils literal notranslate"><span class="pre">comm</span></code> is <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// The maximum harmonic degree of spherical harmonic coefficients</span>
+<span class="kt">unsigned</span><span class="w"> </span><span class="n">nmax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+
+
+<span class="c1">// The number of chunks of spherical harmonic coefficients for</span>
+<span class="c1">// individual MPI processes</span>
+<span class="kt">size_t</span><span class="w"> </span><span class="n">local_nchunk</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="w">    </span><span class="n">local_nchunk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="n">local_nchunk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+
+
+<span class="c1">// Now define the chunks of spherical harmonic coefficients by</span>
+<span class="c1">// specifying their first and last spherical harmonic order</span>
+<span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">local_order</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w">  </span><span class="c1">// Process with rank &quot;0&quot;</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// The first chunk will consist of all spherical harmonic</span>
+<span class="w">    </span><span class="c1">// coefficients of order &quot;0&quot;</span>
+<span class="w">    </span><span class="n">local_order</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">local_order</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+
+<span class="w">    </span><span class="c1">// The second chunk will hold all coefficients of orders from</span>
+<span class="w">    </span><span class="c1">// &quot;1&quot; to &quot;2&quot;</span>
+<span class="w">    </span><span class="n">local_order</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">local_order</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w">  </span><span class="c1">// Process with rank &quot;1&quot;</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// The first chunk at another MPI process will consist of all</span>
+<span class="w">    </span><span class="c1">// coefficients of orders from &quot;3&quot; to &quot;5&quot;</span>
+<span class="w">    </span><span class="n">local_order</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">    </span><span class="n">local_order</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+
+
+<span class="w">    </span><span class="c1">// The second chunk consists of all coefficients of order &quot;6&quot;</span>
+<span class="w">    </span><span class="n">local_order</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
+<span class="w">    </span><span class="n">local_order</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w">  </span><span class="c1">// Process with rank &quot;2&quot;</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// This process has one chunk only, starting at order &quot;7&quot; and</span>
+<span class="w">    </span><span class="c1">// ending at &quot;10&quot;</span>
+<span class="w">    </span><span class="n">local_order</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span>
+<span class="w">    </span><span class="n">local_order</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="c1">// Initialize an error structure</span>
+<span class="n">charm_err</span><span class="w"> </span><span class="o">*</span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">charm_mpi_err_init</span><span class="p">();</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">    </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+
+<span class="c1">// &quot;local_ncs&quot; is the total amount of spherical harmonic</span>
+<span class="c1">// coefficients that is stored locally by the individual MPI</span>
+<span class="c1">// processes</span>
+<span class="kt">size_t</span><span class="w"> </span><span class="n">local_ncs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">charm_mpi_shc_local_ncs</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span><span class="w"> </span><span class="n">local_nchunk</span><span class="p">,</span>
+<span class="w">                                           </span><span class="n">local_order</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+
+
+<span class="c1">// Allocate arrays that will store spherical harmonic coefficients</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">local_ncs</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">    </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">local_ncs</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">    </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+
+<span class="c1">// You can now fill &quot;c&quot; and &quot;s&quot; with some reasonable data.</span>
+<span class="c1">// Alternatively, you can do this with &quot;shcs-&gt;c&quot; and &quot;shcs-&gt;s&quot;</span>
+<span class="c1">// after &quot;shcs&quot; is created below.  It doesn&#39;t matter, as &quot;c&quot; points</span>
+<span class="c1">// to the same location in the memory as &quot;shcs-&gt;c&quot;.  The same is</span>
+<span class="c1">// also true for &quot;s&quot; and &quot;shcs-&gt;s&quot;.</span>
+
+
+<span class="c1">// Create a distributed &quot;charm_shc&quot; structure</span>
+<span class="n">charm_shc</span><span class="w"> </span><span class="o">*</span><span class="n">shcs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">charm_mpi_shc_init</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span>
+<span class="w">                                     </span><span class="n">local_nchunk</span><span class="p">,</span><span class="w"> </span><span class="n">local_order</span><span class="p">,</span>
+<span class="w">                                     </span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+
+
+<span class="c1">// Now is the time to do some heavy lifting with &quot;shcs&quot;</span>
+
+
+<span class="c1">// Once you no longer need &quot;shcs&quot;, free it as usually</span>
+<span class="n">charm_shc_free</span><span class="p">(</span><span class="n">shcs</span><span class="p">);</span>
+<span class="n">free</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+<span class="n">free</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<span class="n">charm_err_free</span><span class="p">(</span><span class="n">err</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>local_nchunk</strong> – <strong>[in]</strong> See <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc_1ac39effb39d17225fe9e75e4d25602fd7"><span class="std std-ref"><span class="pre">charm_shc.local_nchunk</span></span></a></code>.</p></li>
+<li><p><strong>local_order</strong> – <strong>[in]</strong> See <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc_1adf572eb83bceaabf961e8abd47f9422c"><span class="std std-ref"><span class="pre">charm_shc.local_order</span></span></a></code>.</p></li>
+<li><p><strong>comm</strong> – <strong>[in]</strong> MPI communicator.</p></li>
+<li><p><strong>err</strong> – <strong>[out]</strong> Error reported by the function (if any).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>If all processes succeeded, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure. If one or more processes failed, all processes return a <code class="docutils literal notranslate"><span class="pre">NULL</span></code> pointer and an error message is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv420charm_mpi_shc_mallocmdd6size_tPKm8MPI_CommP9charm_err">
+<span id="_CPPv320charm_mpi_shc_mallocmdd6size_tPKm8MPI_CommP9charm_err"></span><span id="_CPPv220charm_mpi_shc_mallocmdd6size_tPKm8MPI_CommP9charm_err"></span><span id="charm_mpi_shc_malloc__unsigned-l.double.double.s.unsigned-lCP.MPI_Comm.charm_errP"></span><span class="target" id="charm__mpi_8h_1a186124fd902aa0f0442a370e51c7c995"></span><a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_mpi_shc_malloc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">mu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">local_nchunk</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">local_order</span></span>, <span class="n"><span class="pre">MPI_Comm</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">comm</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv420charm_mpi_shc_mallocmdd6size_tPKm8MPI_CommP9charm_err" title="Link to this definition">#</a><br /></dt>
+<dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#charm__shc_8h_1a4895f2b307f1ce52ed05804ab6db9df8"><span class="std std-ref"><span class="pre">charm_shc_malloc()</span></span></a></code> but for <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> distributed among MPI processes in <code class="docutils literal notranslate"><span class="pre">comm</span></code>. </p>
+<p>For an example usage, see <code class="docutils literal notranslate"><a class="reference internal" href="#charm__mpi_8h_1ade483c15d62f78323d77488f72d00eb7"><span class="std std-ref"><span class="pre">charm_mpi_shc_init()</span></span></a></code>. All you need to change is to replace <code class="docutils literal notranslate"><a class="reference internal" href="#charm__mpi_8h_1ade483c15d62f78323d77488f72d00eb7"><span class="std std-ref"><span class="pre">charm_mpi_shc_init()</span></span></a></code> by <code class="docutils literal notranslate"><a class="reference internal" href="#charm__mpi_8h_1a186124fd902aa0f0442a370e51c7c995"><span class="std std-ref"><span class="pre">charm_mpi_shc_malloc()</span></span></a></code> and not to use <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> as input parameters to <code class="docutils literal notranslate"><a class="reference internal" href="#charm__mpi_8h_1a186124fd902aa0f0442a370e51c7c995"><span class="std std-ref"><span class="pre">charm_mpi_shc_malloc()</span></span></a></code>.</p>
+<p>Function parameters that are new with respect to <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#charm__shc_8h_1a4895f2b307f1ce52ed05804ab6db9df8"><span class="std std-ref"><span class="pre">charm_shc_malloc()</span></span></a></code> are explained below.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>local_nchunk</strong> – <strong>[in]</strong> See <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc_1ac39effb39d17225fe9e75e4d25602fd7"><span class="std std-ref"><span class="pre">charm_shc.local_nchunk</span></span></a></code>.</p></li>
+<li><p><strong>local_order</strong> – <strong>[in]</strong> See <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc_1adf572eb83bceaabf961e8abd47f9422c"><span class="std std-ref"><span class="pre">charm_shc.local_order</span></span></a></code>.</p></li>
+<li><p><strong>comm</strong> – <strong>[in]</strong> MPI communicator.</p></li>
+<li><p><strong>err</strong> – <strong>[out]</strong> Error reported by the function (if any).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>If all processes succeeded, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure. If one or more processes failed, all processes return a <code class="docutils literal notranslate"><span class="pre">NULL</span></code> pointer and an error message is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv420charm_mpi_shc_callocmdd6size_tPKm8MPI_CommP9charm_err">
+<span id="_CPPv320charm_mpi_shc_callocmdd6size_tPKm8MPI_CommP9charm_err"></span><span id="_CPPv220charm_mpi_shc_callocmdd6size_tPKm8MPI_CommP9charm_err"></span><span id="charm_mpi_shc_calloc__unsigned-l.double.double.s.unsigned-lCP.MPI_Comm.charm_errP"></span><span class="target" id="charm__mpi_8h_1aa80fcea0c5638b2372fca12e7e29be40"></span><a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_mpi_shc_calloc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">mu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">local_nchunk</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">local_order</span></span>, <span class="n"><span class="pre">MPI_Comm</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">comm</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv420charm_mpi_shc_callocmdd6size_tPKm8MPI_CommP9charm_err" title="Link to this definition">#</a><br /></dt>
+<dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="#charm__mpi_8h_1a186124fd902aa0f0442a370e51c7c995"><span class="std std-ref"><span class="pre">charm_mpi_shc_malloc()</span></span></a></code> but all spherical harmonic coefficients are initialized to zero. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv423charm_mpi_shc_local_ncsm6size_tPKmP9charm_err">
+<span id="_CPPv323charm_mpi_shc_local_ncsm6size_tPKmP9charm_err"></span><span id="_CPPv223charm_mpi_shc_local_ncsm6size_tPKmP9charm_err"></span><span id="charm_mpi_shc_local_ncs__unsigned-l.s.unsigned-lCP.charm_errP"></span><span class="target" id="charm__mpi_8h_1a952e6317796066ccc56bb647c5bb73d0"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_mpi_shc_local_ncs</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">local_nchunk</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">local_order</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv423charm_mpi_shc_local_ncsm6size_tPKmP9charm_err" title="Link to this definition">#</a><br /></dt>
+<dd><p>Returns the number of <span class="math notranslate nohighlight">\(\bar{C}_{nm}\)</span> coefficients that are stored locally by the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure when its maximum harmonic degree is <code class="docutils literal notranslate"><span class="pre">nmax</span></code> and there are <code class="docutils literal notranslate"><span class="pre">local_nchunk</span></code> local chunks given by harmonic orders <code class="docutils literal notranslate"><span class="pre">local_order</span></code>. The same number of coefficients applies to <span class="math notranslate nohighlight">\(\bar{S}_{nm}\)</span>, too. </p>
+<p><div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>There are two use cases of this routine.</p>
+<ul class="simple">
+<li><p>Use it before calling <code class="docutils literal notranslate"><span class="pre">charm_mpi_shc_init()</span></code> to get the
+number of elements that the <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> input pointers must
+have access to.</p></li>
+<li><p>Use it before calling <code class="docutils literal notranslate"><span class="pre">charm_mpi_shc_malloc()</span></code> or
+<code class="docutils literal notranslate"><span class="pre">charm_mpi_shc_calloc()</span></code> to get the number of elements that
+will be locally allocated to <code class="docutils literal notranslate"><span class="pre">charm_shc.c</span></code> and
+<code class="docutils literal notranslate"><span class="pre">charm_shc.s</span></code>.</p></li>
+</ul>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nmax</strong> – <strong>[in]</strong> Maximum harmonic degree of the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure.</p></li>
+<li><p><strong>local_nchunk</strong> – <strong>[in]</strong> See <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc_1ac39effb39d17225fe9e75e4d25602fd7"><span class="std std-ref"><span class="pre">charm_shc.local_nchunk</span></span></a></code>.</p></li>
+<li><p><strong>local_order</strong> – <strong>[in]</strong> See <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc_1adf572eb83bceaabf961e8abd47f9422c"><span class="std std-ref"><span class="pre">charm_shc.local_order</span></span></a></code>.</p></li>
+<li><p><strong>err</strong> – <strong>[out]</strong> Error reported by the function (if any).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>On success, returned is the total number of <span class="math notranslate nohighlight">\(\bar{C}_{nm}\)</span> and <span class="math notranslate nohighlight">\(\bar{S}_{nm}\)</span> coefficients that CHarm associates with the local portion of <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc_1aec89546b6e791b22c41e47531cae878f"><span class="std std-ref"><span class="pre">charm_shc.c</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc_1a6818b02906586ec66ddf28095c779558"><span class="std std-ref"><span class="pre">charm_shc.s</span></span></a></code> for a given chunk(s). On error, <code class="docutils literal notranslate"><span class="pre">0</span></code> is returned and the error message is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-evaluation-points">Evaluation points</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv424charm_mpi_crd_point_initi6size_t6size_t6size_tPdPdPd8MPI_CommP9charm_err">
+<span id="_CPPv324charm_mpi_crd_point_initi6size_t6size_t6size_tPdPdPd8MPI_CommP9charm_err"></span><span id="_CPPv224charm_mpi_crd_point_initi6size_t6size_t6size_tPdPdPd8MPI_CommP9charm_err"></span><span id="charm_mpi_crd_point_init__i.s.s.s.doubleP.doubleP.doubleP.MPI_Comm.charm_errP"></span><span class="target" id="charm__mpi_8h_1ad494688f5abfccdae4e5c44019fff994"></span><a class="reference internal" href="api-c-crd.html#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_mpi_crd_point_init</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">local_nlat</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">local_nlon</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">local_0_start</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">lat</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">lon</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">r</span></span>, <span class="n"><span class="pre">MPI_Comm</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">comm</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424charm_mpi_crd_point_initi6size_t6size_t6size_tPdPdPd8MPI_CommP9charm_err" title="Link to this definition">#</a><br /></dt>
+<dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#charm__crd_8h_1acb9cd413acb07ef1e3a18f48baa101a2"><span class="std std-ref"><span class="pre">charm_crd_point_init()</span></span></a></code> but for <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> distributed among MPI processes in <code class="docutils literal notranslate"><span class="pre">comm</span></code>. </p>
+<p>Function parameters that are new with respect to <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#charm__crd_8h_1acb9cd413acb07ef1e3a18f48baa101a2"><span class="std std-ref"><span class="pre">charm_crd_point_init()</span></span></a></code> are explained below. The <code class="docutils literal notranslate"><span class="pre">lat</span></code> and <code class="docutils literal notranslate"><span class="pre">r</span></code> pointers must have an access to <code class="docutils literal notranslate"><span class="pre">local_nlat</span></code> elements. The <code class="docutils literal notranslate"><span class="pre">lon</span></code> pointer requires <code class="docutils literal notranslate"><span class="pre">local_nlon</span></code> elements.</p>
+<p><strong>Examples</strong>:</p>
+<p><ul>
+<li><p><em>Scattered points</em>:</p>
+<p>Assume that you have <code class="docutils literal notranslate"><span class="pre">6</span></code> scattered points that you want to distribute among <code class="docutils literal notranslate"><span class="pre">3</span></code> MPI processes. Let the latitudes of the points be <code class="docutils literal notranslate"><span class="pre">lat0</span></code>, <code class="docutils literal notranslate"><span class="pre">lat1</span></code>, <code class="docutils literal notranslate"><span class="pre">...</span></code>, <code class="docutils literal notranslate"><span class="pre">lat5</span></code>. Assume that you want to have, say, the first three latitudes at the MPI process with rank <code class="docutils literal notranslate"><span class="pre">0</span></code>, then two points at rank <code class="docutils literal notranslate"><span class="pre">1</span></code> and the last point at rank <code class="docutils literal notranslate"><span class="pre">2</span></code>. Finally, let’s assume that <code class="docutils literal notranslate"><span class="pre">rank</span></code> denotes the rank of MPI processes and <code class="docutils literal notranslate"><span class="pre">comm</span></code> is the MPI communicator. Then, you could write:</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">size_t</span><span class="w"> </span><span class="n">local_nlat</span><span class="p">,</span><span class="w"> </span><span class="n">local_0_start</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">local_nlat</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">    </span><span class="n">local_0_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">local_nlat</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="n">local_0_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">local_nlat</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">local_0_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">lat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">local_nlat</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">lat</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">    </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="kt">size_t</span><span class="w"> </span><span class="n">local_nlon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">local_nlat</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">lon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">local_nlon</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">lon</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">    </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">local_nlat</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">r</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">    </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+
+<span class="c1">// At the process with &quot;rank == 0&quot;, set &quot;lat[0]&quot;, &quot;lat[1]&quot; and</span>
+<span class="c1">// &quot;lat[2]&quot; to the first three latitudes of your six points, &quot;lat0&quot;,</span>
+<span class="c1">// &quot;lat1&quot;, &quot;lat2&quot;.</span>
+<span class="c1">// At the process with &quot;rank == 1&quot;, set &quot;lat[0]&quot; and &quot;lat[1]&quot; to</span>
+<span class="c1">// the next two latitudes of your six points, &quot;lat3&quot; and &quot;lat4&quot;.</span>
+<span class="c1">// At the process with &quot;rank == 2&quot;, set &quot;lat[0]&quot; to</span>
+<span class="c1">// the last latitude, &quot;lat5&quot;.</span>
+
+
+<span class="c1">// Similarly, set the longitudes and spherical radii.</span>
+
+
+<span class="c1">// Initialize an error structure</span>
+<span class="n">charm_err</span><span class="w"> </span><span class="o">*</span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">charm_mpi_err_init</span><span class="p">();</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">    </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+
+<span class="n">charm_point</span><span class="w"> </span><span class="o">*</span><span class="n">pnt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">charm_mpi_crd_point_init</span><span class="p">(</span><span class="n">CHARM_CRD_POINT_SCATTERED</span><span class="p">,</span>
+<span class="w">                                            </span><span class="n">local_nlat</span><span class="p">,</span><span class="w"> </span><span class="n">local_nlon</span><span class="p">,</span>
+<span class="w">                                            </span><span class="n">local_0_start</span><span class="p">,</span><span class="w"> </span><span class="n">lat</span><span class="p">,</span><span class="w"> </span><span class="n">lon</span><span class="p">,</span>
+<span class="w">                                            </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+
+
+<span class="c1">// Once you no longer need &quot;pnt&quot;, free it as usually</span>
+<span class="n">charm_crd_point_free</span><span class="p">(</span><span class="n">pnt</span><span class="p">);</span>
+<span class="n">charm_err_free</span><span class="p">(</span><span class="n">err</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+</li>
+<li><p><em>Non-symmetric point grids</em>:</p>
+<p>Assume that you have the same six latitudes as in the previous example with scattered points and you also have ten longitudes, so that your grid has <code class="docutils literal notranslate"><span class="pre">6</span></code> times <code class="docutils literal notranslate"><span class="pre">10</span></code> points. Finally, assume that your grid is non-symmetric with respect to the equator (details on symmetric and non-symmetric grids <a class="reference external" href="./definitions.html#symmetric-grids">here</a>).</p>
+<p>You can initialize the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure in the same way as in the example with scatter points with two differences. First, your value of <code class="docutils literal notranslate"><span class="pre">local_nlon</span></code> will now be <code class="docutils literal notranslate"><span class="pre">10</span></code> and you must set of course all the ten elements of <code class="docutils literal notranslate"><span class="pre">lon</span></code> to your longitudes. All ten longitudes must be equal at all MPI processes. Second, you need to set the first input parameter <code class="docutils literal notranslate"><span class="pre">type</span></code> in <code class="docutils literal notranslate"><span class="pre">charm_mpi_crd_point_init</span></code> to <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bae65b0ee9dba031d62ff7758344ace23c"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID</span></span></a></code>.</p>
+</li>
+<li><p><em>Symmetric point grids</em>:</p>
+<p>There is a special way to tell CHarm that your grid is symmetric with respect to the equator. As a general rule, a symmetric grid must be distributed across MPI processes in such a way that local portions of the grid at all processes are symmetric (details on symmetric and non-symmetric grids <a class="reference external" href="./definitions.html#symmetric-grids">here</a>).</p>
+<p>Let’s say that you have three MPI processes in <code class="docutils literal notranslate"><span class="pre">comm</span></code> and with ranks <code class="docutils literal notranslate"><span class="pre">rank</span></code>. You have <code class="docutils literal notranslate"><span class="pre">7</span></code> grid latitudes <code class="docutils literal notranslate"><span class="pre">1.5</span></code>, <code class="docutils literal notranslate"><span class="pre">1.0</span></code>, <code class="docutils literal notranslate"><span class="pre">0.5</span></code>, <code class="docutils literal notranslate"><span class="pre">0.0</span></code>, <code class="docutils literal notranslate"><span class="pre">-0.5</span></code>, <code class="docutils literal notranslate"><span class="pre">-1.0</span></code>, <code class="docutils literal notranslate"><span class="pre">-1.5</span></code>. You also have <code class="docutils literal notranslate"><span class="pre">10</span></code> longitudes and <code class="docutils literal notranslate"><span class="pre">7</span></code> spherical radii (their values are irrelevant here). Then, you can write (observe carefully the variable <code class="docutils literal notranslate"><span class="pre">local_0_start</span></code>):</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">local_nlat</span><span class="p">,</span><span class="w"> </span><span class="n">local_0_start</span><span class="p">;</span>
+<span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="c1">// This process will hold latitudes &quot;1.5&quot; and &quot;-1.5&quot;</span>
+<span class="w">     </span><span class="n">local_nlat</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">     </span><span class="n">local_0_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">  </span><span class="c1">// &quot;1.5&quot; is the first grid latitude</span>
+<span class="w"> </span><span class="p">}</span>
+<span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="c1">// Latitudes &quot;1.0&quot;, &quot;-1.0&quot;</span>
+<span class="w">     </span><span class="n">local_nlat</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">     </span><span class="n">local_0_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="c1">// &quot;1.0&quot; is the second grid latitude</span>
+<span class="w"> </span><span class="p">}</span>
+<span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="c1">// Latitude &quot;0.5&quot;, &quot;0.0&quot;, &quot;-0.5&quot;</span>
+<span class="w">     </span><span class="n">local_nlat</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">     </span><span class="n">local_0_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">  </span><span class="c1">// &quot;0.5&quot; is the third grid latitude</span>
+<span class="w">                         </span><span class="c1">// Should &quot;rank == 1&quot; have, say, four</span>
+<span class="w">                         </span><span class="c1">// latitudes (&quot;1.0&quot;, &quot;0.9&quot;, &quot;-0.9&quot;, &quot;-1.0&quot;),</span>
+<span class="w">                         </span><span class="c1">// then &quot;local_0_start&quot; would be &quot;3&quot; here.</span>
+<span class="w"> </span><span class="p">}</span>
+
+
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">lat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">local_nlat</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">lat</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">    </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">lat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.5</span><span class="p">;</span>
+<span class="w">    </span><span class="n">lat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">-1.5</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">lat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">lat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">-1.0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">lat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="p">;</span>
+<span class="w">    </span><span class="n">lat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">lat</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">-0.5</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="c1">// Note that the latitudes are symmetric with respect to the equator at</span>
+<span class="c1">// *each* MPI process.  This is very important.</span>
+<span class="c1">// Also note that &quot;local_0_start&quot; is approached differently with</span>
+<span class="c1">// symmetric grids.</span>
+
+
+<span class="c1">// Some longitudes</span>
+<span class="kt">size_t</span><span class="w"> </span><span class="n">local_nlon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">lon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">local_nlon</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">lon</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">    </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">local_nlon</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="n">lon</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">i</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">10.0</span><span class="p">;</span>
+
+
+<span class="c1">// Some spherical radii</span>
+<span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">local_nlat</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">r</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">    </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">local_nlat</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
+
+
+<span class="w"> </span><span class="n">charm_point</span><span class="w"> </span><span class="o">*</span><span class="n">pnt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">charm_mpi_crd_point_init</span><span class="p">(</span><span class="n">CHARM_CRD_POINT_GRID</span><span class="p">,</span>
+<span class="w">                                             </span><span class="n">local_nlat</span><span class="p">,</span><span class="w"> </span><span class="n">local_nlon</span><span class="p">,</span>
+<span class="w">                                             </span><span class="n">local_0_start</span><span class="p">,</span><span class="w"> </span><span class="n">lat</span><span class="p">,</span><span class="w"> </span><span class="n">lon</span><span class="p">,</span>
+<span class="w">                                             </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w"> </span><span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+
+
+<span class="w"> </span><span class="n">charm_crd_point_free</span><span class="p">(</span><span class="n">pnt</span><span class="p">);</span>
+<span class="w"> </span><span class="n">charm_err_free</span><span class="p">(</span><span class="n">err</span><span class="p">);</span>
+<span class="w"> </span><span class="n">free</span><span class="p">(</span><span class="n">lat</span><span class="p">);</span>
+<span class="w"> </span><span class="n">free</span><span class="p">(</span><span class="n">lon</span><span class="p">);</span>
+<span class="w"> </span><span class="n">free</span><span class="p">(</span><span class="n">r</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+</li>
+</ul>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>local_nlat</strong> – <strong>[in]</strong> The same as <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point_1a0e1e42423c1f91fc48c64fa78778f161"><span class="std std-ref"><span class="pre">charm_point.nlat</span></span></a></code>, but for the latitudes stored locally.</p></li>
+<li><p><strong>local_0_start</strong> – <strong>[in]</strong> See <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point_1a94120722eb83ff89b340f9060c888c14"><span class="std std-ref"><span class="pre">charm_point.local_0_start</span></span></a></code>.</p></li>
+<li><p><strong>comm</strong> – <strong>[in]</strong> MPI communicator.</p></li>
+<li><p><strong>err</strong> – <strong>[out]</strong> Error reported by the function (if any).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>If all processes succeeded, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure. If one or more processes failed, all processes return a <code class="docutils literal notranslate"><span class="pre">NULL</span></code> pointer and an error message is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv426charm_mpi_crd_point_malloci6size_t6size_t6size_t8MPI_CommP9charm_err">
+<span id="_CPPv326charm_mpi_crd_point_malloci6size_t6size_t6size_t8MPI_CommP9charm_err"></span><span id="_CPPv226charm_mpi_crd_point_malloci6size_t6size_t6size_t8MPI_CommP9charm_err"></span><span id="charm_mpi_crd_point_malloc__i.s.s.s.MPI_Comm.charm_errP"></span><span class="target" id="charm__mpi_8h_1a7f2eff78b9d761ba4af33586d38a6428"></span><a class="reference internal" href="api-c-crd.html#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_mpi_crd_point_malloc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">local_nlat</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">local_nlon</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">local_0_start</span></span>, <span class="n"><span class="pre">MPI_Comm</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">comm</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv426charm_mpi_crd_point_malloci6size_t6size_t6size_t8MPI_CommP9charm_err" title="Link to this definition">#</a><br /></dt>
+<dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#charm__crd_8h_1a506d61d454256ca01b9ae64690fd6c8b"><span class="std std-ref"><span class="pre">charm_crd_point_malloc()</span></span></a></code> but for <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> distributed among MPI processes in <code class="docutils literal notranslate"><span class="pre">comm</span></code>. </p>
+<p>Function parameters that are new with respect to <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#charm__crd_8h_1a506d61d454256ca01b9ae64690fd6c8b"><span class="std std-ref"><span class="pre">charm_crd_point_malloc()</span></span></a></code> are explained below.</p>
+<p>For a use case, see the example with scattered points and non-symmetric point grids in <code class="docutils literal notranslate"><a class="reference internal" href="#charm__mpi_8h_1ad494688f5abfccdae4e5c44019fff994"><span class="std std-ref"><span class="pre">charm_mpi_crd_point_init()</span></span></a></code>. You only have to replace <code class="docutils literal notranslate"><a class="reference internal" href="#charm__mpi_8h_1ad494688f5abfccdae4e5c44019fff994"><span class="std std-ref"><span class="pre">charm_mpi_crd_point_init()</span></span></a></code> by <code class="docutils literal notranslate"><a class="reference internal" href="#charm__mpi_8h_1a7f2eff78b9d761ba4af33586d38a6428"><span class="std std-ref"><span class="pre">charm_mpi_crd_point_malloc()</span></span></a></code> and not to use <code class="docutils literal notranslate"><span class="pre">lat</span></code>, <code class="docutils literal notranslate"><span class="pre">lon</span></code> and <code class="docutils literal notranslate"><span class="pre">r</span></code> as input parameters to <code class="docutils literal notranslate"><a class="reference internal" href="#charm__mpi_8h_1a7f2eff78b9d761ba4af33586d38a6428"><span class="std std-ref"><span class="pre">charm_mpi_crd_point_malloc()</span></span></a></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This routine is capable of returning a non-symmetric point grid only. The input parameter <code class="docutils literal notranslate"><span class="pre">local_0_start</span></code> must therefore be always be approached as shown for non-symmetric point grids in <code class="docutils literal notranslate"><a class="reference internal" href="#charm__mpi_8h_1ad494688f5abfccdae4e5c44019fff994"><span class="std std-ref"><span class="pre">charm_mpi_crd_point_init()</span></span></a></code>. This is because this function does not initialize the memory for <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point_1a1bca253be877755c4cfa49557668a435"><span class="std std-ref"><span class="pre">charm_point.lat</span></span></a></code>, so the latitudes are specified only after this function has been called. There is therefore no way for CHarm to know by which latitudes will the structure be fed in by the user. If you want to be sure that your distributed <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure will be considered as symmetric, use <code class="docutils literal notranslate"><a class="reference internal" href="#charm__mpi_8h_1ad494688f5abfccdae4e5c44019fff994"><span class="std std-ref"><span class="pre">charm_mpi_crd_point_init()</span></span></a></code> instead.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>local_nlat</strong> – <strong>[in]</strong> See <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point_1ad28b3fd6d40207b73712b3244a7c3b56"><span class="std std-ref"><span class="pre">charm_point.local_nlat</span></span></a></code>.</p></li>
+<li><p><strong>local_0_start</strong> – <strong>[in]</strong> See <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point_1a94120722eb83ff89b340f9060c888c14"><span class="std std-ref"><span class="pre">charm_point.local_0_start</span></span></a></code>.</p></li>
+<li><p><strong>comm</strong> – <strong>[in]</strong> MPI communicator.</p></li>
+<li><p><strong>err</strong> – <strong>[out]</strong> Error reported by the function (if any).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>If all processes succeeded, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure. If one or more processes failed, all processes return a <code class="docutils literal notranslate"><span class="pre">NULL</span></code> pointer and an error message is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv426charm_mpi_crd_point_calloci6size_t6size_t6size_t8MPI_CommP9charm_err">
+<span id="_CPPv326charm_mpi_crd_point_calloci6size_t6size_t6size_t8MPI_CommP9charm_err"></span><span id="_CPPv226charm_mpi_crd_point_calloci6size_t6size_t6size_t8MPI_CommP9charm_err"></span><span id="charm_mpi_crd_point_calloc__i.s.s.s.MPI_Comm.charm_errP"></span><span class="target" id="charm__mpi_8h_1a0b14a6ea5c855428e7b12c4b941183de"></span><a class="reference internal" href="api-c-crd.html#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_mpi_crd_point_calloc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">local_nlat</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">local_nlon</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">local_0_start</span></span>, <span class="n"><span class="pre">MPI_Comm</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">comm</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv426charm_mpi_crd_point_calloci6size_t6size_t6size_t8MPI_CommP9charm_err" title="Link to this definition">#</a><br /></dt>
+<dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="#charm__mpi_8h_1a7f2eff78b9d761ba4af33586d38a6428"><span class="std std-ref"><span class="pre">charm_mpi_crd_point_malloc()</span></span></a></code> but all array elements are initialized to zero. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv422charm_mpi_crd_point_glmd6size_t6size_t8MPI_CommP9charm_err">
+<span id="_CPPv322charm_mpi_crd_point_glmd6size_t6size_t8MPI_CommP9charm_err"></span><span id="_CPPv222charm_mpi_crd_point_glmd6size_t6size_t8MPI_CommP9charm_err"></span><span id="charm_mpi_crd_point_gl__unsigned-l.double.s.s.MPI_Comm.charm_errP"></span><span class="target" id="charm__mpi_8h_1ab42a05e299ee1389b9a45be347f0f865"></span><a class="reference internal" href="api-c-crd.html#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_mpi_crd_point_gl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">local_nlat</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">local_0_start</span></span>, <span class="n"><span class="pre">MPI_Comm</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">comm</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv422charm_mpi_crd_point_glmd6size_t6size_t8MPI_CommP9charm_err" title="Link to this definition">#</a><br /></dt>
+<dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#charm__crd_8h_1a43011764a620cbea682983d31a5e202f"><span class="std std-ref"><span class="pre">charm_crd_point_gl()</span></span></a></code> but for <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> distributed among MPI processes in <code class="docutils literal notranslate"><span class="pre">comm</span></code>. </p>
+<p>Function parameters that are new with respect to <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#charm__crd_8h_1a43011764a620cbea682983d31a5e202f"><span class="std std-ref"><span class="pre">charm_crd_point_gl()</span></span></a></code> are explained below.</p>
+<p>Building a distributed <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure for Gauss-Legendre grids depends on the parity of <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.</p>
+<p><ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">nmax</span></code> is even, <code class="docutils literal notranslate"><span class="pre">local_nlat</span></code> must be odd at one process and even at all the remaining processes in <code class="docutils literal notranslate"><span class="pre">comm</span></code>. The process with odd <code class="docutils literal notranslate"><span class="pre">local_nlat</span></code> must include the equator.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">nmax</span></code> is odd, <code class="docutils literal notranslate"><span class="pre">local_nlat</span></code> must be even at all processes within <code class="docutils literal notranslate"><span class="pre">comm</span></code>.</p></li>
+</ul>
+</p>
+<p>The code example below shows how to compute a distributed Gauss-Legendre grid. We assume that <code class="docutils literal notranslate"><span class="pre">rank</span></code> denotes the rank of MPI processes and that there are <code class="docutils literal notranslate"><span class="pre">3</span></code> MPI processes within the communicator <code class="docutils literal notranslate"><span class="pre">comm</span></code>.</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Maximum harmonic degree</span>
+<span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">nmax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+
+
+<span class="c1">// For our &quot;nmax = 10&quot;, &quot;nlat&quot; will be &quot;11&quot; (you can check this</span>
+<span class="c1">// with &quot;charm_crd_point_gl_shape&quot;).  We will thus have the</span>
+<span class="c1">// following latitudes in the Gauss--Legendre grid: &quot;lat0, lat1,</span>
+<span class="c1">// lat2, ..., lat10&quot;.</span>
+
+
+<span class="kt">size_t</span><span class="w"> </span><span class="n">local_nlat</span><span class="p">,</span><span class="w"> </span><span class="n">local_0_start</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// This MPI process will hold 2 latitudes, &quot;lat1&quot; and &quot;lat9&quot;.</span>
+<span class="w">    </span><span class="n">local_nlat</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="n">local_0_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// This process also holds two latitudes, &quot;lat0&quot; and &quot;lat10&quot;.</span>
+<span class="w">    </span><span class="c1">// We intentionally put &quot;lat0&quot; to the process of rank &quot;1&quot; to</span>
+<span class="w">    </span><span class="c1">// demonstrate that CHarm does not care about which chunk is</span>
+<span class="w">    </span><span class="c1">// stored is by which MPI process.</span>
+<span class="w">    </span><span class="n">local_nlat</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="n">local_0_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// &quot;nmax&quot; is even, so the process holding the equator must have</span>
+<span class="w">    </span><span class="c1">// odd value of &quot;local_nlat&quot;.</span>
+<span class="w">    </span><span class="c1">// This process will hold seven latitudes, &quot;lat2, lat3, ...,</span>
+<span class="w">    </span><span class="c1">// lat8&quot;.</span>
+<span class="w">    </span><span class="n">local_nlat</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span>
+<span class="w">    </span><span class="n">local_0_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="c1">// Initialize an error structure</span>
+<span class="n">charm_err</span><span class="w"> </span><span class="o">*</span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">charm_mpi_err_init</span><span class="p">();</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">    </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+
+<span class="c1">// Compute the Gauss--Legendre grid</span>
+<span class="n">charm_point</span><span class="w"> </span><span class="o">*</span><span class="n">glg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">charm_mpi_crd_point_gl</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">                                          </span><span class="n">local_nlat</span><span class="p">,</span>
+<span class="w">                                          </span><span class="n">local_0_start</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">,</span>
+<span class="w">                                          </span><span class="n">err</span><span class="p">);</span>
+<span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+
+
+<span class="c1">// Once you no longer need &quot;glg&quot;, free it as usually</span>
+<span class="n">charm_crd_point_free</span><span class="p">(</span><span class="n">glg</span><span class="p">);</span>
+<span class="n">charm_err_free</span><span class="p">(</span><span class="n">err</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>local_nlat</strong> – <strong>[in]</strong> See <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point_1ad28b3fd6d40207b73712b3244a7c3b56"><span class="std std-ref"><span class="pre">charm_point.local_nlat</span></span></a></code>.</p></li>
+<li><p><strong>local_0_start</strong> – <strong>[in]</strong> See <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point_1a94120722eb83ff89b340f9060c888c14"><span class="std std-ref"><span class="pre">charm_point.local_0_start</span></span></a></code>.</p></li>
+<li><p><strong>comm</strong> – <strong>[in]</strong> MPI communicator.</p></li>
+<li><p><strong>err</strong> – <strong>[out]</strong> Error reported by the function (if any).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>If all processes succeeded, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure. If one or more processes failed, all processes return a <code class="docutils literal notranslate"><span class="pre">NULL</span></code> pointer and an error message is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv423charm_mpi_crd_point_dh1md6size_t6size_t8MPI_CommP9charm_err">
+<span id="_CPPv323charm_mpi_crd_point_dh1md6size_t6size_t8MPI_CommP9charm_err"></span><span id="_CPPv223charm_mpi_crd_point_dh1md6size_t6size_t8MPI_CommP9charm_err"></span><span id="charm_mpi_crd_point_dh1__unsigned-l.double.s.s.MPI_Comm.charm_errP"></span><span class="target" id="charm__mpi_8h_1aec6fea12e013604ece1f1d71337ed578"></span><a class="reference internal" href="api-c-crd.html#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_mpi_crd_point_dh1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">local_nlat</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">local_0_start</span></span>, <span class="n"><span class="pre">MPI_Comm</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">comm</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv423charm_mpi_crd_point_dh1md6size_t6size_t8MPI_CommP9charm_err" title="Link to this definition">#</a><br /></dt>
+<dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#charm__crd_8h_1a74dd8465b52f35d4e7dca5205c5b3eb5"><span class="std std-ref"><span class="pre">charm_crd_point_dh1()</span></span></a></code> but for <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> distributed among MPI processes in <code class="docutils literal notranslate"><span class="pre">comm</span></code>. </p>
+<p>Function parameters that are new with respect to <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#charm__crd_8h_1a74dd8465b52f35d4e7dca5205c5b3eb5"><span class="std std-ref"><span class="pre">charm_crd_point_dh1()</span></span></a></code> are explained below.</p>
+<p>There are some restrictions on <code class="docutils literal notranslate"><span class="pre">local_nlat</span></code> and <code class="docutils literal notranslate"><span class="pre">local_0_start</span></code>.</p>
+<p><ul class="simple">
+<li><p>Two processes must have odd value of <code class="docutils literal notranslate"><span class="pre">local_nlat</span></code> and all the remaining processes must have even <code class="docutils literal notranslate"><span class="pre">local_nlat</span></code>. As an exception, if one process holds all latitudes of the Driscoll-Healy grid, then <code class="docutils literal notranslate"><span class="pre">local_nlat</span></code> is always even.</p></li>
+<li><p>One process with odd <code class="docutils literal notranslate"><span class="pre">local_nlat</span></code> must have <code class="docutils literal notranslate"><span class="pre">local_0_start</span></code> set to <code class="docutils literal notranslate"><span class="pre">0</span></code>. In other words, the process holding the north pole must have odd <code class="docutils literal notranslate"><span class="pre">local_nlat</span></code>.</p></li>
+<li><p>The other process with odd <code class="docutils literal notranslate"><span class="pre">local_nlat</span></code> must contain the equator.</p></li>
+</ul>
+</p>
+<p>The code example below shows how to compute a distributed Driscoll-Healy grid. We assume that <code class="docutils literal notranslate"><span class="pre">rank</span></code> denotes the rank of MPI processes and that there are <code class="docutils literal notranslate"><span class="pre">3</span></code> MPI processes within the communicator <code class="docutils literal notranslate"><span class="pre">comm</span></code>.</p>
+<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Maximum harmonic degree</span>
+<span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">nmax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+
+
+<span class="c1">// For our &quot;nmax = 10&quot;, &quot;nlat&quot; will be &quot;22&quot; (you can check this</span>
+<span class="c1">// with &quot;charm_crd_point_dh1_shape&quot;).  We will thus have the</span>
+<span class="c1">// following latitudes in the Driscoll-Healy grid: &quot;lat0, lat1,</span>
+<span class="c1">// lat2, ..., lat21&quot;.</span>
+
+
+<span class="kt">size_t</span><span class="w"> </span><span class="n">local_nlat</span><span class="p">,</span><span class="w"> </span><span class="n">local_0_start</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// This process holds the north pole, hence odd</span>
+<span class="w">    </span><span class="c1">// &quot;local_nlat_dh&quot;.  The latitudes available to this process</span>
+<span class="w">    </span><span class="c1">// are &quot;lat0&quot;, &quot;lat1&quot;, &quot;lat21&quot;.  Remember that &quot;lat21&quot; is not</span>
+<span class="w">    </span><span class="c1">// the south pole.</span>
+<span class="w">    </span><span class="n">local_nlat</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">    </span><span class="n">local_0_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// This process holds the equator &quot;lat11&quot;, hence odd</span>
+<span class="w">    </span><span class="c1">// &quot;local_nlat_dh&quot;</span>
+<span class="w">    </span><span class="n">local_nlat</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">local_0_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">11</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rank</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// All the remaining latitudes of the Driscoll--Healy grid:</span>
+<span class="w">    </span><span class="c1">// &quot;lat2&quot;, &quot;lat3&quot;, ...,&quot;lat10&quot;, &quot;lat12&quot;, &quot;lat13&quot;, ..., &quot;lat20&quot;.</span>
+<span class="w">    </span><span class="n">local_nlat</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">18</span><span class="p">;</span>
+<span class="w">    </span><span class="n">local_0_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="c1">// Initialize an error structure</span>
+<span class="n">charm_err</span><span class="w"> </span><span class="o">*</span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">charm_mpi_err_init</span><span class="p">();</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">    </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+
+<span class="c1">// Compute the Driscoll--Healy grid</span>
+<span class="n">charm_point</span><span class="w"> </span><span class="o">*</span><span class="n">dh1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">charm_mpi_crd_point_dh1</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">                                           </span><span class="n">local_nlat</span><span class="p">,</span>
+<span class="w">                                           </span><span class="n">local_0_start</span><span class="p">,</span><span class="w"> </span><span class="n">comm</span><span class="p">,</span>
+<span class="w">                                           </span><span class="n">err</span><span class="p">);</span>
+<span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+
+
+<span class="c1">// Once you no longer need &quot;dh1&quot;, free it as usually</span>
+<span class="n">charm_crd_point_free</span><span class="p">(</span><span class="n">dh1</span><span class="p">);</span>
+<span class="n">charm_err_free</span><span class="p">(</span><span class="n">err</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>local_nlat</strong> – <strong>[in]</strong> See <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point_1ad28b3fd6d40207b73712b3244a7c3b56"><span class="std std-ref"><span class="pre">charm_point.local_nlat</span></span></a></code>.</p></li>
+<li><p><strong>local_0_start</strong> – <strong>[in]</strong> See <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point_1a94120722eb83ff89b340f9060c888c14"><span class="std std-ref"><span class="pre">charm_point.local_0_start</span></span></a></code>.</p></li>
+<li><p><strong>comm</strong> – <strong>[in]</strong> MPI communicator.</p></li>
+<li><p><strong>err</strong> – <strong>[out]</strong> Error reported by the function (if any).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>If all processes succeeded, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> structure. If one or more processes failed, all processes return a <code class="docutils literal notranslate"><span class="pre">NULL</span></code> pointer and an error message is written to <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv423charm_mpi_crd_point_dh2md6size_t6size_t8MPI_CommP9charm_err">
+<span id="_CPPv323charm_mpi_crd_point_dh2md6size_t6size_t8MPI_CommP9charm_err"></span><span id="_CPPv223charm_mpi_crd_point_dh2md6size_t6size_t8MPI_CommP9charm_err"></span><span id="charm_mpi_crd_point_dh2__unsigned-l.double.s.s.MPI_Comm.charm_errP"></span><span class="target" id="charm__mpi_8h_1ad6d2ae813a22847e95188aedc85f99f0"></span><a class="reference internal" href="api-c-crd.html#_CPPv411charm_point" title="charm_point"><span class="n"><span class="pre">charm_point</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_mpi_crd_point_dh2</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">r</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">local_nlat</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">local_0_start</span></span>, <span class="n"><span class="pre">MPI_Comm</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">comm</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv423charm_mpi_crd_point_dh2md6size_t6size_t8MPI_CommP9charm_err" title="Link to this definition">#</a><br /></dt>
+<dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="#charm__mpi_8h_1aec6fea12e013604ece1f1d71337ed578"><span class="std std-ref"><span class="pre">charm_mpi_crd_point_dh1()</span></span></a></code> but for the equiangular modification of the Driscoll-Healy grid after Wieczorek and Meschede (2018). </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-error-handling">Error handling</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv418charm_mpi_err_init8MPI_Comm">
+<span id="_CPPv318charm_mpi_err_init8MPI_Comm"></span><span id="_CPPv218charm_mpi_err_init8MPI_Comm"></span><span id="charm_mpi_err_init__MPI_Comm"></span><span class="target" id="charm__mpi_8h_1a47da1e651334e9aed3bb61368c211f82"></span><a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_mpi_err_init</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">MPI_Comm</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418charm_mpi_err_init8MPI_Comm" title="Link to this definition">#</a><br /></dt>
+<dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="api-c-err.html#charm__err_8h_1a59ab2cbc7522349517985b3c2bc4fa67"><span class="std std-ref"><span class="pre">charm_err_init()</span></span></a></code> but for <code class="docutils literal notranslate"><a class="reference internal" href="api-c-err.html#structcharm__err"><span class="std std-ref"><span class="pre">charm_err</span></span></a></code> distributed among processes in the MPI communicator <code class="docutils literal notranslate"><span class="pre">comm</span></code>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>If all processes succeeded, returned is a pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-err.html#structcharm__err"><span class="std std-ref"><span class="pre">charm_err</span></span></a></code> structure. If one or more processes failed, all processes return a <code class="docutils literal notranslate"><span class="pre">NULL</span></code> pointer. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv421charm_mpi_err_isemptyPK9charm_err">
+<span id="_CPPv321charm_mpi_err_isemptyPK9charm_err"></span><span id="_CPPv221charm_mpi_err_isemptyPK9charm_err"></span><span id="charm_mpi_err_isempty__charm_errCP"></span><span class="target" id="charm__mpi_8h_1a00129e001ebbf52c5c4be7a2aaa6f799"></span><span class="n"><span class="pre">_Bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_mpi_err_isempty</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421charm_mpi_err_isemptyPK9charm_err" title="Link to this definition">#</a><br /></dt>
+<dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="api-c-err.html#charm__err_8h_1a88dac602fe7f6d15c35e27533f059535"><span class="std std-ref"><span class="pre">charm_err_isempty()</span></span></a></code> but for both distributed (<code class="docutils literal notranslate"><span class="pre">err-&gt;distributed</span> <span class="pre">==</span> <span class="pre">1</span></code>) and non-distributed (<code class="docutils literal notranslate"><span class="pre">err-&gt;distributed</span> <span class="pre">==</span> <span class="pre">0</span></code>) <code class="docutils literal notranslate"><a class="reference internal" href="api-c-err.html#structcharm__err"><span class="std std-ref"><span class="pre">charm_err</span></span></a></code> structures. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Returns boolean <code class="docutils literal notranslate"><span class="pre">1</span></code> if <code class="docutils literal notranslate"><span class="pre">err</span></code> is empty at all processes in <code class="docutils literal notranslate"><span class="pre">err-&gt;comm</span></code>. If <code class="docutils literal notranslate"><span class="pre">err</span></code> is not empty at one or more processes, <code class="docutils literal notranslate"><span class="pre">0</span></code> is returned. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="api-c-err.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">charm_err</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="api-c-glob.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">charm_glob</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv418charm_mpi_shc_initmddPdPd6size_tPKm8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_shc_init()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv420charm_mpi_shc_mallocmdd6size_tPKm8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_shc_malloc()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv420charm_mpi_shc_callocmdd6size_tPKm8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_shc_calloc()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv423charm_mpi_shc_local_ncsm6size_tPKmP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_shc_local_ncs()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv424charm_mpi_crd_point_initi6size_t6size_t6size_tPdPdPd8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_crd_point_init()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv426charm_mpi_crd_point_malloci6size_t6size_t6size_t8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_crd_point_malloc()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv426charm_mpi_crd_point_calloci6size_t6size_t6size_t8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_crd_point_calloc()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv422charm_mpi_crd_point_glmd6size_t6size_t8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_crd_point_gl()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv423charm_mpi_crd_point_dh1md6size_t6size_t8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_crd_point_dh1()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv423charm_mpi_crd_point_dh2md6size_t6size_t8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_crd_point_dh2()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv418charm_mpi_err_init8MPI_Comm"><code class="docutils literal notranslate"><span class="pre">charm_mpi_err_init()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv421charm_mpi_err_isemptyPK9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_err_isempty()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Blažej Bucha
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, Blažej Bucha.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+  Last updated on Dec 02, 2024.
+  <br/>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

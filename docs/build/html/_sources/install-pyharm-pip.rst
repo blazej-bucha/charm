@@ -16,7 +16,7 @@ CHarm, which is internally called by PyHarm.
 
 The CHarm binaries were compiled using the following settings.
 
-* ``gcc`` compiler on Linux and macOS and ``MSVC`` on Windows.
+* ``gcc`` compiler on Linux, ``clang`` on macOS and ``MSVC`` on Windows.
 * ``--enable-double-precision`` to compile in double precision.
 * ``--enable-openmp`` to enable parallelization among CPU cores.
 * On x86_64 CPUs, ``--enable-avx`` to enable SIMD parallelism using the AVX 

@@ -13,7 +13,9 @@
 
 
 
-void CHARM(shc_da)(const CHARM(shc) *shcs, unsigned long nmax, REAL *da,
+void CHARM(shc_da)(const CHARM(shc) *shcs,
+                   unsigned long nmax,
+                   REAL *da,
                    CHARM(err) *err)
 {
     CHARM(shc_dv)(shcs, nmax, da, err);

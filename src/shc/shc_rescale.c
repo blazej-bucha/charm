@@ -12,13 +12,24 @@
 
 
 
-void CHARM(shc_rescale)(CHARM(shc) *shcs, REAL munew, REAL rnew,
-           CHARM(err) *err)
+/* NOTE: This function accepts and correctly rescales even for distributed
+ * "shcs", so there are no error checks of this kind.  However, users should
+ * not enter distributed structures here, as this is undocumented. */
+
+
+
+
+
+
+void CHARM(shc_rescale)(CHARM(shc) *shcs,
+                        REAL munew,
+                        REAL rnew,
+                        CHARM(err) *err)
 {
     /* Pre-computations */
     /* --------------------------------------------------------------------- */
-    REAL mu_ratio = shcs->mu / munew;
-    REAL r_ratio  = shcs->r  / rnew;
+    const REAL mu_ratio = shcs->mu / munew;
+    const REAL r_ratio  = shcs->r  / rnew;
 
 
     REAL *tmp = (REAL *)malloc((shcs->nmax + 1) * sizeof(REAL));
@@ -40,18 +51,26 @@ void CHARM(shc_rescale)(CHARM(shc) *shcs, REAL munew, REAL rnew,
     /* --------------------------------------------------------------------- */
 
 
-
-
-
-
     /* Rescale the coefficients */
     /* --------------------------------------------------------------------- */
-    for (unsigned long m = 0; m <= shcs->nmax; m++)
+#if HAVE_MPI
+    const size_t nchunk = shcs->local_nchunk;
+    const unsigned long *orders = shcs->local_order;
+#else
+    const size_t nchunk = 1;
+    const unsigned long orders[2] = {0, shcs->nmax};
+#endif
+
+
+    for (size_t k = 0; k < nchunk; k++)
     {
-        for (unsigned long n = m; n <= shcs->nmax; n++)
+        for (unsigned long m = orders[2 * k]; m <= orders[2 * k + 1]; m++)
         {
-            shcs->c[m][n - m] *= tmp[n];
-            shcs->s[m][n - m] *= tmp[n];
+            for (unsigned long n = m; n <= shcs->nmax; n++)
+            {
+                shcs->c[m][n - m] *= tmp[n];
+                shcs->s[m][n - m] *= tmp[n];
+            }
         }
     }
 
@@ -60,19 +79,11 @@ void CHARM(shc_rescale)(CHARM(shc) *shcs, REAL munew, REAL rnew,
     /* --------------------------------------------------------------------- */
 
 
-
-
-
-
     /* Finally, update the "mu" and "r" members of "shcs" to the new values */
     /* --------------------------------------------------------------------- */
     shcs->mu = munew;
     shcs->r  = rnew;
     /* --------------------------------------------------------------------- */
-
-
-
-
 
 
     return;

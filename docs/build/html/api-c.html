@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>CHarm (C API) &#8212; CHarm 0.4.2 documentation</title>
+    <title>CHarm (C API) &#8212; CHarm 0.4.3 documentation</title>
   
   
   
@@ -16,29 +16,32 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-
-  
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
   
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="_static/documentation_options.js?v=b4bb93ae"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/documentation_options.js?v=0f4711b3"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -50,7 +53,8 @@
     <link rel="prev" title="Interfaces" href="api.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Aug 05, 2024"/>
+  <meta name="docsearch:version" content="0.4.3" />
+    <meta name="docbuild:last-update" content="Dec 02, 2024"/>
   </head>
   
   
@@ -66,19 +70,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -86,7 +79,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -94,8 +86,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -111,7 +103,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -126,6 +119,8 @@
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="index.html">
   
@@ -139,23 +134,19 @@
     
     
     <img src="_static/charm-logo.svg" class="logo__image only-light" alt=""/>
-    <script>document.write(`<img src="_static/charm-logo.svg" class="logo__image only-dark" alt=""/>`);</script>
+    <img src="_static/charm-logo.svg" class="logo__image only-dark pst-js-only" alt=""/>
   
   
-    <p class="title logo__title">CHarm v0.4.2</p>
+    <p class="title logo__title">CHarm v0.4.3</p>
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
@@ -185,6 +176,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html">charm_err</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-mpi.html">charm_mpi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-glob.html">charm_glob</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
 </ul>
@@ -206,6 +198,7 @@
 <li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acknowledgements.html">Acknowledgements</a></li>
 </ul>
 
     </div>
@@ -377,24 +370,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 
 </div></div>
       
@@ -467,6 +452,12 @@ omitted.  The list of the differences is given in
 <li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc1cE"><code class="docutils literal notranslate"><span class="pre">charm_shc::c</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc1sE"><code class="docutils literal notranslate"><span class="pre">charm_shc::s</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc5ownerE"><code class="docutils literal notranslate"><span class="pre">charm_shc::owner</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc11distributedE"><code class="docutils literal notranslate"><span class="pre">charm_shc::distributed</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc8local_ncE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_nc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc8local_nsE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_ns</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc12local_nchunkE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_nchunk</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc11local_orderE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_order</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc4commE"><code class="docutils literal notranslate"><span class="pre">charm_shc::comm</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -477,8 +468,11 @@ omitted.  The list of the differences is given in
 <li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv420charm_crd_point_initi6size_t6size_tPdPdPd"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_init()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv420charm_crd_point_freeP11charm_point"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_free()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv418charm_crd_point_glmd"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_gl()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv424charm_crd_point_gl_shapemP6size_tP6size_t"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_gl_shape()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv419charm_crd_point_dh1md"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_dh1()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv425charm_crd_point_dh1_shapemP6size_tP6size_t"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_dh1_shape()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv419charm_crd_point_dh2md"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_dh2()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv425charm_crd_point_dh2_shapemP6size_tP6size_t"><code class="docutils literal notranslate"><span class="pre">charm_crd_point_dh2_shape()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv421charm_crd_cell_malloci6size_t6size_t"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_malloc()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv421charm_crd_cell_calloci6size_t6size_t"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_calloc()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv419charm_crd_cell_initi6size_t6size_tPdPdPdPdPd"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_init()</span></code></a></li>
@@ -503,6 +497,12 @@ omitted.  The list of the differences is given in
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point1rE"><code class="docutils literal notranslate"><span class="pre">charm_point::r</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point1wE"><code class="docutils literal notranslate"><span class="pre">charm_point::w</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point5ownerE"><code class="docutils literal notranslate"><span class="pre">charm_point::owner</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point11distributedE"><code class="docutils literal notranslate"><span class="pre">charm_point::distributed</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point10local_nlatE"><code class="docutils literal notranslate"><span class="pre">charm_point::local_nlat</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point10local_nlonE"><code class="docutils literal notranslate"><span class="pre">charm_point::local_nlon</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point12local_npointE"><code class="docutils literal notranslate"><span class="pre">charm_point::local_npoint</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point13local_0_startE"><code class="docutils literal notranslate"><span class="pre">charm_point::local_0_start</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point4commE"><code class="docutils literal notranslate"><span class="pre">charm_point::comm</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv410charm_cell"><code class="docutils literal notranslate"><span class="pre">charm_cell</span></code></a><ul>
@@ -568,9 +568,11 @@ omitted.  The list of the differences is given in
 <li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv422charm_misc_get_versionv"><code class="docutils literal notranslate"><span class="pre">charm_misc_get_version()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv421charm_misc_print_infov"><code class="docutils literal notranslate"><span class="pre">charm_misc_print_info()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv429charm_misc_buildopt_precisionv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_precision()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv424charm_misc_buildopt_simdv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_simd()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv436charm_misc_buildopt_simd_vector_sizev"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_simd_vector_size()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv429charm_misc_buildopt_omp_charmv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_omp_charm()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv428charm_misc_buildopt_omp_fftwv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_omp_fftw()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv424charm_misc_buildopt_simdv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_simd()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv423charm_misc_buildopt_mpiv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_mpi()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv432charm_misc_buildopt_version_fftwv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_version_fftw()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv428charm_misc_buildopt_isfinitev"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_isfinite()</span></code></a></li>
 </ul>
@@ -583,6 +585,7 @@ omitted.  The list of the differences is given in
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4NUt1_114CHARM_EFUNCARGE"><code class="docutils literal notranslate"><span class="pre">&#64;1::CHARM_EFUNCARG</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4NUt1_113CHARM_EFILEIOE"><code class="docutils literal notranslate"><span class="pre">&#64;1::CHARM_EFILEIO</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4NUt1_115CHARM_EFFTWINITE"><code class="docutils literal notranslate"><span class="pre">&#64;1::CHARM_EFFTWINIT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4NUt1_117CHARM_EMPIPROCESSE"><code class="docutils literal notranslate"><span class="pre">&#64;1::CHARM_EMPIPROCESS</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-err.html#_CPPv414charm_err_initv"><code class="docutils literal notranslate"><span class="pre">charm_err_init()</span></code></a></li>
@@ -597,9 +600,26 @@ omitted.  The list of the differences is given in
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err4funcE"><code class="docutils literal notranslate"><span class="pre">charm_err::func</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err4codeE"><code class="docutils literal notranslate"><span class="pre">charm_err::code</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err3msgE"><code class="docutils literal notranslate"><span class="pre">charm_err::msg</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err11issaturatedE"><code class="docutils literal notranslate"><span class="pre">charm_err::issaturated</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err9saturatedE"><code class="docutils literal notranslate"><span class="pre">charm_err::saturated</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err11distributedE"><code class="docutils literal notranslate"><span class="pre">charm_err::distributed</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err4commE"><code class="docutils literal notranslate"><span class="pre">charm_err::comm</span></code></a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api-c-mpi.html">charm_mpi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api-c-mpi.html#_CPPv418charm_mpi_shc_initmddPdPd6size_tPKm8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_shc_init()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-mpi.html#_CPPv420charm_mpi_shc_mallocmdd6size_tPKm8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_shc_malloc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-mpi.html#_CPPv420charm_mpi_shc_callocmdd6size_tPKm8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_shc_calloc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-mpi.html#_CPPv423charm_mpi_shc_local_ncsm6size_tPKmP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_shc_local_ncs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-mpi.html#_CPPv424charm_mpi_crd_point_initi6size_t6size_t6size_tPdPdPd8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_crd_point_init()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-mpi.html#_CPPv426charm_mpi_crd_point_malloci6size_t6size_t6size_t8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_crd_point_malloc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-mpi.html#_CPPv426charm_mpi_crd_point_calloci6size_t6size_t6size_t8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_crd_point_calloc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-mpi.html#_CPPv422charm_mpi_crd_point_glmd6size_t6size_t8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_crd_point_gl()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-mpi.html#_CPPv423charm_mpi_crd_point_dh1md6size_t6size_t8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_crd_point_dh1()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-mpi.html#_CPPv423charm_mpi_crd_point_dh2md6size_t6size_t8MPI_CommP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_crd_point_dh2()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-mpi.html#_CPPv418charm_mpi_err_init8MPI_Comm"><code class="docutils literal notranslate"><span class="pre">charm_mpi_err_init()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-mpi.html#_CPPv421charm_mpi_err_isemptyPK9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_mpi_err_isempty()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api-c-glob.html">charm_glob</a><ul>
@@ -607,6 +627,9 @@ omitted.  The list of the differences is given in
 <li class="toctree-l2"><a class="reference internal" href="api-c-glob.html#_CPPv421charm_glob_threshold2"><code class="docutils literal notranslate"><span class="pre">charm_glob_threshold2</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-glob.html#_CPPv432charm_glob_polar_optimization_a1"><code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a1</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-glob.html#_CPPv432charm_glob_polar_optimization_a2"><code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a2</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-glob.html#_CPPv436charm_glob_shc_block_nmax_multiplier"><code class="docutils literal notranslate"><span class="pre">charm_glob_shc_block_nmax_multiplier</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-glob.html#_CPPv435charm_glob_sha_block_lat_multiplier"><code class="docutils literal notranslate"><span class="pre">charm_glob_sha_block_lat_multiplier</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-glob.html#_CPPv435charm_glob_shs_block_lat_multiplier"><code class="docutils literal notranslate"><span class="pre">charm_glob_shs_block_lat_multiplier</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api-c-charm.html">charm</a></li>
@@ -678,7 +701,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Aug 05, 2024.
+  Last updated on Dec 02, 2024.
   <br/>
 </p>
   </div>
@@ -696,8 +719,8 @@ By Blažej Bucha
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -16,8 +16,24 @@
  * zero. */
 void CHARM(shc_reset_coeffs)(CHARM(shc) *shcs)
 {
-    memset(shcs->c[0], 0, shcs->nc * sizeof(REAL));
-    memset(shcs->s[0], 0, shcs->ns * sizeof(REAL));
+    size_t idx, nc, ns;
+#if HAVE_MPI
+    if (shcs->local_nchunk == 0)
+        return;
+
+
+    nc  = shcs->local_nc;
+    ns  = shcs->local_ns;
+    idx = shcs->local_order[0];
+#else
+    idx = 0;
+    nc  = shcs->nc;
+    ns  = shcs->ns;
+#endif
+
+
+    memset(shcs->c[idx], 0, nc * sizeof(REAL));
+    memset(shcs->s[idx], 0, ns * sizeof(REAL));
 
 
     return;

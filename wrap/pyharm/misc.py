@@ -61,6 +61,45 @@ def buildopt_precision():
     return func()
 
 
+def buildopt_simd():
+    """
+    Returns:
+
+    * ``0`` if CHarm was compiled with SIMD instructions disabled,
+
+    * ``1`` if CHarm was compiled with AVX instructions enabled
+      (``--enable-avx``),
+
+    * ``2`` if CHarm was compiled with AVX2 instructions enabled
+      (``--enable-avx2``),
+
+    * ``3`` if CHarm was compiled with AVX-512 instructions enabled
+      (``--enable-avx-512``),
+
+    * ``4`` if CHarm was compiled with NEON instructions enabled
+      (``--enable-neon``).
+    """
+
+    func          = _libcharm[_CHARM + 'misc_buildopt_simd']
+    func.argtypes = None
+    func.restype  = _ct_int
+
+    return func()
+
+
+def buildopt_simd_vector_size():
+    """
+    Returns the size of SIMD vectors if CHarm was compiled with SIMD
+    instructions enabled and ``1`` otherwise (SIMD instructions disabled).
+    """
+
+    func          = _libcharm[_CHARM + 'misc_buildopt_simd_vector_size']
+    func.argtypes = None
+    func.restype  = _ct_int
+
+    return func()
+
+
 def buildopt_omp_charm():
     """
     Returns a non-zero value if CHarm was compiled with the OpenMP
@@ -90,26 +129,14 @@ def buildopt_omp_fftw():
     return func()
 
 
-def buildopt_simd():
+def buildopt_mpi():
     """
-    Returns:
-
-    * ``0`` if CHarm was compiled with SIMD instructions disabled,
-
-    * ``1`` if CHarm was compiled with AVX instructions enabled
-      (``--enable-avx``),
-
-    * ``2`` if CHarm was compiled with AVX2 instructions enabled
-      (``--enable-avx2``),
-
-    * ``3`` if CHarm was compiled with AVX-512 instructions enabled
-      (``--enable-avx-512``),
-
-    * ``4`` if CHarm was compiled with NEON instructions enabled
-      (``--enable-neon``).
+    Returns a non-zero value if CHarm was compiled with the MPI
+    parallelization enabled (``--enable-mpi``).  Otherwise, zero is
+    returned.
     """
 
-    func          = _libcharm[_CHARM + 'misc_buildopt_simd']
+    func          = _libcharm[_CHARM + 'misc_buildopt_mpi']
     func.argtypes = None
     func.restype  = _ct_int
 

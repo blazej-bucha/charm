@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>charm_glob &#8212; CHarm 0.4.2 documentation</title>
+    <title>charm_glob &#8212; CHarm 0.4.3 documentation</title>
   
   
   
@@ -16,29 +16,32 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-
-  
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
   
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="_static/documentation_options.js?v=b4bb93ae"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/documentation_options.js?v=0f4711b3"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -47,10 +50,11 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="charm" href="api-c-charm.html" />
-    <link rel="prev" title="charm_err" href="api-c-err.html" />
+    <link rel="prev" title="charm_mpi" href="api-c-mpi.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Aug 05, 2024"/>
+  <meta name="docsearch:version" content="0.4.3" />
+    <meta name="docbuild:last-update" content="Dec 02, 2024"/>
   </head>
   
   
@@ -66,19 +70,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -86,7 +79,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -94,8 +86,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -111,7 +103,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -126,6 +119,8 @@
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="index.html">
   
@@ -139,23 +134,19 @@
     
     
     <img src="_static/charm-logo.svg" class="logo__image only-light" alt=""/>
-    <script>document.write(`<img src="_static/charm-logo.svg" class="logo__image only-dark" alt=""/>`);</script>
+    <img src="_static/charm-logo.svg" class="logo__image only-dark pst-js-only" alt=""/>
   
   
-    <p class="title logo__title">CHarm v0.4.2</p>
+    <p class="title logo__title">CHarm v0.4.3</p>
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
@@ -185,6 +176,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html">charm_err</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-mpi.html">charm_mpi</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">charm_glob</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
 </ul>
@@ -206,6 +198,7 @@
 <li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acknowledgements.html">Acknowledgements</a></li>
 </ul>
 
     </div>
@@ -377,24 +370,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -422,6 +407,9 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv421charm_glob_threshold2"><code class="docutils literal notranslate"><span class="pre">charm_glob_threshold2</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv432charm_glob_polar_optimization_a1"><code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a1</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv432charm_glob_polar_optimization_a2"><code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a2</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv436charm_glob_shc_block_nmax_multiplier"><code class="docutils literal notranslate"><span class="pre">charm_glob_shc_block_nmax_multiplier</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv435charm_glob_sha_block_lat_multiplier"><code class="docutils literal notranslate"><span class="pre">charm_glob_sha_block_lat_multiplier</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv435charm_glob_shs_block_lat_multiplier"><code class="docutils literal notranslate"><span class="pre">charm_glob_shs_block_lat_multiplier</span></code></a></li>
 </ul>
             </nav>
         </div>
@@ -495,6 +483,45 @@ interact with it.</p>
 </dd></dl>
 
 </div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-mpi-specific-global-variables">MPI specific global variables</p>
+<p><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The variables that follow are available only when CHarm is compiled with the MPI support (<code class="docutils literal notranslate"><span class="pre">--enable-mpi</span></code>, refer to <a class="reference external" href="./api-c-mpi.html">charm_mpi</a> for further details). </p>
+</div>
+</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv436charm_glob_shc_block_nmax_multiplier">
+<span id="_CPPv336charm_glob_shc_block_nmax_multiplier"></span><span id="_CPPv236charm_glob_shc_block_nmax_multiplier"></span><span id="charm_glob_shc_block_nmax_multiplier__unsigned-l"></span><span class="target" id="charm__glob_8h_1a7da2a9a23fa487751edb6bc92af85c3a"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_glob_shc_block_nmax_multiplier</span></span></span><a class="headerlink" href="#_CPPv436charm_glob_shc_block_nmax_multiplier" title="Link to this definition">#</a><br /></dt>
+<dd><p>Multiplying this variable by the maximum harmonic degree of spherical harmonic coefficients enlarged by <code class="docutils literal notranslate"><span class="pre">1</span></code> specifies the maximum number of coefficients that can be exchanged between MPI processes during spherical harmonic synthesis/analysis with distributed <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code>. </p>
+<p>Assume that <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc_1a8d7afa2ae075e75529008ec97ee20b1b"><span class="std std-ref"><span class="pre">charm_shc.distributed</span></span></a> <span class="pre">=</span> <span class="pre">1</span></code>. During the spherical harmonic synthesis/analysis, <code class="docutils literal notranslate"><span class="pre">(</span><a class="reference internal" href="api-c-shc.html#structcharm__shc_1a1eb06a3601467c3a4d11d09527ca5c7d"><span class="std std-ref"><span class="pre">charm_shc.nmax</span></span></a> <span class="pre">+</span> <span class="pre">1)</span> <span class="pre">*</span> <a class="reference internal" href="#charm__glob_8h_1a7da2a9a23fa487751edb6bc92af85c3a"><span class="std std-ref"><span class="pre">charm_glob_shc_block_nmax_multiplier</span></span></a></code> spherical harmonic coefficients <span class="math notranslate nohighlight">\(\bar{C}_{nm}\)</span> and the same amount of <span class="math notranslate nohighlight">\(\bar{S}_{nm}\)</span> coefficients will be sent between MPI processes at most. Too small value of <code class="docutils literal notranslate"><a class="reference internal" href="#charm__glob_8h_1a7da2a9a23fa487751edb6bc92af85c3a"><span class="std std-ref"><span class="pre">charm_glob_shc_block_nmax_multiplier</span></span></a></code> will cause too large overhead due to MPI calls. On the other hand, too large value will consume too much RAM on each MPI process.</p>
+<p>Default value is <code class="docutils literal notranslate"><span class="pre">1000</span></code>. The value must be larger than zero. If it is zero, CHarm will use the value <code class="docutils literal notranslate"><span class="pre">1</span></code>. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv435charm_glob_sha_block_lat_multiplier">
+<span id="_CPPv335charm_glob_sha_block_lat_multiplier"></span><span id="_CPPv235charm_glob_sha_block_lat_multiplier"></span><span id="charm_glob_sha_block_lat_multiplier__s"></span><span class="target" id="charm__glob_8h_1abddf129834cf748518d7c9a6ae15fe23"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_glob_sha_block_lat_multiplier</span></span></span><a class="headerlink" href="#_CPPv435charm_glob_sha_block_lat_multiplier" title="Link to this definition">#</a><br /></dt>
+<dd><p>This variable helps to control the number of <code class="docutils literal notranslate"><span class="pre">for</span></code> loop iterations over latitudes in <code class="docutils literal notranslate"><a class="reference internal" href="api-c-sha.html#charm__sha_8h_1ae98177417defe2a6344b7fb62a1c74a7"><span class="std std-ref"><span class="pre">charm_sha_point()</span></span></a></code>. It has enormous impact on the performance of <code class="docutils literal notranslate"><a class="reference internal" href="api-c-sha.html#charm__sha_8h_1ae98177417defe2a6344b7fb62a1c74a7"><span class="std std-ref"><span class="pre">charm_sha_point()</span></span></a></code> when CHarm is compiled with the MPI support. </p>
+<p>Let <code class="docutils literal notranslate"><span class="pre">x</span></code> by the number of latitudes, for which the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop over latitudes in <code class="docutils literal notranslate"><a class="reference internal" href="api-c-sha.html#charm__sha_8h_1ae98177417defe2a6344b7fb62a1c74a7"><span class="std std-ref"><span class="pre">charm_sha_point()</span></span></a></code> runs. Usually, this number is about half of the number of latitudes of quadrature grids due to their equatorial symmetry. Furthermore, let <code class="docutils literal notranslate"><span class="pre">b</span></code> be the value of <code class="docutils literal notranslate"><a class="reference internal" href="#charm__glob_8h_1abddf129834cf748518d7c9a6ae15fe23"><span class="std std-ref"><span class="pre">charm_glob_sha_block_lat_multiplier</span></span></a></code>. Finally, let <code class="docutils literal notranslate"><span class="pre">s</span></code> be the size of SIMD vectors (can be determined by <code class="docutils literal notranslate"><a class="reference internal" href="api-c-misc.html#charm__misc_8h_1ad3ae4644b756ab034a808dd4cc2b6904"><span class="std std-ref"><span class="pre">charm_misc_buildopt_simd_vector_size()</span></span></a></code>) and <code class="docutils literal notranslate"><span class="pre">o</span></code> be the number of OpenMP processes (if OpenMP parallelization is disabled, then <code class="docutils literal notranslate"><span class="pre">o</span> <span class="pre">=</span> <span class="pre">1</span></code>). The <code class="docutils literal notranslate"><span class="pre">for</span></code> loop in <code class="docutils literal notranslate"><a class="reference internal" href="api-c-sha.html#charm__sha_8h_1ae98177417defe2a6344b7fb62a1c74a7"><span class="std std-ref"><span class="pre">charm_sha_point()</span></span></a></code> will run roughly <code class="docutils literal notranslate"><span class="pre">ceil(x</span> <span class="pre">/</span> <span class="pre">(b</span> <span class="pre">*</span> <span class="pre">s</span> <span class="pre">*</span> <span class="pre">o))</span></code> times. Thus, by increasing <code class="docutils literal notranslate"><span class="pre">b</span></code> (and optionally also <code class="docutils literal notranslate"><span class="pre">o</span></code>), the number of loop runs can be decreased.</p>
+<p>The optimal value depends on your hardware (e.g., the number of shared-memory computing nodes, the network connection speed between the nodes, etc.) and also on the number of latitudes. Both too low and too high values may <em>drastically</em> deteriorate the performance.</p>
+<p><ul class="simple">
+<li><p>It the value is too low, the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop will run many times. This is a serious problem, because with each loop iteration, <em>all</em> spherical harmonic coefficients need to be distributed among <em>all</em> MPI processes within an MPI communicator. So by increasing <code class="docutils literal notranslate"><a class="reference internal" href="#charm__glob_8h_1abddf129834cf748518d7c9a6ae15fe23"><span class="std std-ref"><span class="pre">charm_glob_sha_block_lat_multiplier</span></span></a></code>, you can reduce the number of times the spherical harmonic coefficients will be sent between MPI processes which is desired in general.</p></li>
+<li><p>If the value is too high, the CPU caching within a single computing node may be significantly deteriorated, thereby decreasing the performance.</p></li>
+</ul>
+</p>
+<p>The optimum value should be determined by the trial and error method.</p>
+<p>The parameter affects <code class="docutils literal notranslate"><a class="reference internal" href="api-c-sha.html#charm__sha_8h_1ae98177417defe2a6344b7fb62a1c74a7"><span class="std std-ref"><span class="pre">charm_sha_point()</span></span></a></code> regardless of whether or not <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code> are distributed. The value must be larger than <code class="docutils literal notranslate"><span class="pre">0</span></code>. If it is <code class="docutils literal notranslate"><span class="pre">0</span></code>, CHarm will use the value <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
+<p>Default value is <code class="docutils literal notranslate"><span class="pre">4</span></code>. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv435charm_glob_shs_block_lat_multiplier">
+<span id="_CPPv335charm_glob_shs_block_lat_multiplier"></span><span id="_CPPv235charm_glob_shs_block_lat_multiplier"></span><span id="charm_glob_shs_block_lat_multiplier__s"></span><span class="target" id="charm__glob_8h_1a5cab8fad12033c5fa29c47726665cd40"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_glob_shs_block_lat_multiplier</span></span></span><a class="headerlink" href="#_CPPv435charm_glob_shs_block_lat_multiplier" title="Link to this definition">#</a><br /></dt>
+<dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="#charm__glob_8h_1abddf129834cf748518d7c9a6ae15fe23"><span class="std std-ref"><span class="pre">charm_glob_sha_block_lat_multiplier</span></span></a></code> but for spherical harmonic synthesis in <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shs.html#charm__shs_8h_1a47e78422d29ab4668f6140fe8a5b16af"><span class="std std-ref"><span class="pre">charm_shs_point()</span></span></a></code>. </p>
+<p>Default value is <code class="docutils literal notranslate"><span class="pre">8</span></code>. </p>
+</dd></dl>
+
+</div>
 </section>
 
 
@@ -509,12 +536,12 @@ interact with it.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="api-c-err.html"
+       href="api-c-mpi.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">charm_err</p>
+        <p class="prev-next-title">charm_mpi</p>
       </div>
     </a>
     <a class="right-next"
@@ -533,7 +560,8 @@ interact with it.</p>
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -546,6 +574,9 @@ interact with it.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv421charm_glob_threshold2"><code class="docutils literal notranslate"><span class="pre">charm_glob_threshold2</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv432charm_glob_polar_optimization_a1"><code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a1</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv432charm_glob_polar_optimization_a2"><code class="docutils literal notranslate"><span class="pre">charm_glob_polar_optimization_a2</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv436charm_glob_shc_block_nmax_multiplier"><code class="docutils literal notranslate"><span class="pre">charm_glob_shc_block_nmax_multiplier</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv435charm_glob_sha_block_lat_multiplier"><code class="docutils literal notranslate"><span class="pre">charm_glob_sha_block_lat_multiplier</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv435charm_glob_shs_block_lat_multiplier"><code class="docutils literal notranslate"><span class="pre">charm_glob_shs_block_lat_multiplier</span></code></a></li>
 </ul>
   </nav></div>
 
@@ -579,7 +610,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Aug 05, 2024.
+  Last updated on Dec 02, 2024.
   <br/>
 </p>
   </div>
@@ -597,8 +628,8 @@ By Blažej Bucha
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

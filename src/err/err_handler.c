@@ -33,8 +33,8 @@ void CHARM(err_handler)(CHARM(err) *err, _Bool terminate)
                         err->file[e], err->line[e], err->func[e]);
 
 
-    if (err->issaturated)
-        fprintf(stderr, "    Warning: The levels of the error structure are "
+    if (err->saturated)
+        fprintf(stderr, "    Warning: The error structure is "
                         "saturated.  Most recent function calls may therefore "
                         "not be reported.\n\n");
 

@@ -157,21 +157,24 @@ def cell(cell, f, nmax, method, mu=_MU, r=_R):
         msg += f'in \'cell\' ({f.shape[1]} vs. {cell.lonmin.size}).'
         raise ValueError(msg)
 
-    func          = _libcharm[_CHARM + 'sha_cell']
-    func.restype  = None
-    func.argtypes = [_ct.POINTER(_ph_crd._Cell),
-                     _ct.POINTER(_ct_flt),
-                     _ct_ulong,
-                     _ct_int,
-                     _ct.POINTER(_ph_shc._Shc),
-                     _ct.POINTER(_ph_err._Err)]
+    if cell.ncell == 0:
+        shcs = None
+    else:
+        func          = _libcharm[_CHARM + 'sha_cell']
+        func.restype  = None
+        func.argtypes = [_ct.POINTER(_ph_crd._Cell),
+                         _ct.POINTER(_ct_flt),
+                         _ct_ulong,
+                         _ct_int,
+                         _ct.POINTER(_ph_shc._Shc),
+                         _ct.POINTER(_ph_err._Err)]
 
-    shcs = _ph_shc.Shc.from_garbage(nmax, mu, r)
-    err = _ph_err.init()
-    func(cell._Cell, f.ctypes.data_as(_ct.POINTER(_ct_flt)), _ct_ulong(nmax),
-         _ct_int(method), shcs._Shc, err)
-    _ph_err.handler(err, 1)
-    _ph_err.free(err)
+        shcs = _ph_shc.Shc.from_garbage(nmax, mu, r)
+        err = _ph_err.init()
+        func(cell._Cell, f.ctypes.data_as(_ct.POINTER(_ct_flt)), _ct_ulong(nmax),
+             _ct_int(method), shcs._Shc, err)
+        _ph_err.handler(err, 1)
+        _ph_err.free(err)
 
     return shcs
 

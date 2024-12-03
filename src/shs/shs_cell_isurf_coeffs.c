@@ -109,7 +109,7 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
 
     /* "shcs1->r / r" */
     size_t i;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel for default(shared) private(i)
 #endif
     for (i = 0; i < glg->npoint; i++)
@@ -125,7 +125,7 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
                        CHARM_ERR_MALLOC_FAILURE);
         goto FAILURE;
     }
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel for default(shared) private(i)
 #endif
     for (i = 0; i < glg->npoint; i++)
@@ -256,7 +256,7 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
     /* The actual computation of the coefficients */
     /* --------------------------------------------------------------------- */
     unsigned long m1;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel for default(none) \
 shared(shcs1, cnm1pnmj, snm1pnmj, pnmj, nmax1) \
 private(cnm1pnmj_m1, cnm1pnmj_m1_j1, snm1pnmj_m1, snm1pnmj_m1_j1) \
@@ -299,7 +299,7 @@ private(m1, pnmj_m1_j1, max_m1_j1)
          * spherical harmonic coefficients */
         /* ................................................................. */
         size_t i;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel for default(shared) private(i)
 #endif
         for (i = 0; i < glg->npoint; i++)
@@ -318,7 +318,7 @@ private(m1, pnmj_m1_j1, max_m1_j1)
         /* Pre-compute the summation over "n3" */
         /* ................................................................. */
         unsigned long m3;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel for default(none) \
 shared(nmax3, nmax3_2, pnmj, shcs3, cnm3pnmj_sum, snm3pnmj_sum) \
 private(j3pj3, max_m3_j3, idx, pnmj_m3_j3, c_sum1, c_sum2, s_sum1, s_sum2) \
@@ -378,7 +378,7 @@ private(m3, cnm3_m3, snm3_m3)
          * contribution from "n1 - 1" */
         /* ................................................................. */
         unsigned long m1;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel for default(none) \
 shared(n1, n1_2, n1_rem_2, nmax3, nmax3_2, nmax1p1, nmax3p1) \
 shared(cnm1pnmj, snm1pnmj, cnm3pnmj_sum, snm3pnmj_sum) \

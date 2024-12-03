@@ -47,7 +47,7 @@ long int check_leg_pnmj_alloc(CHARM(pnmj) *(*pnmj_alloc)(unsigned long,
 
 
             e += check_struct_ptr(pnmj, NULL, EQ, VALID, func_call_str,
-                                  "returned a NULL pointer");
+                                  "returned NULL pointer");
 
 
             CHARM(leg_pnmj_free)(pnmj);
@@ -58,7 +58,7 @@ long int check_leg_pnmj_alloc(CHARM(pnmj) *(*pnmj_alloc)(unsigned long,
 
 
     /* Check that unsupported values of "ordering" cause the allocation
-     * function to return a NULL pointer */
+     * function to return NULL pointer */
     /* --------------------------------------------------------------------- */
     int ordering = 9999;
     nmax         = SHCS_NMAX_POT;
@@ -69,7 +69,7 @@ long int check_leg_pnmj_alloc(CHARM(pnmj) *(*pnmj_alloc)(unsigned long,
 
 
     e += check_struct_ptr(pnmj, NULL, NEQ, INVALID, func_call_str,
-                          "didn't return a NULL pointer");
+                          "didn't return NULL pointer");
 
 
     CHARM(leg_pnmj_free)(pnmj);
@@ -86,28 +86,28 @@ long int check_leg_pnmj_alloc(CHARM(pnmj) *(*pnmj_alloc)(unsigned long,
 
 
     e += check_struct_ulong(pnmj->nmax, nmax, NEQ, VALID, func_call_str,
-                            "returned a wrong value of \"nmax\"");
+                            "returned wrong value of \"nmax\"");
 
 
     e += check_struct_int(pnmj->ordering, ordering, NEQ, VALID, func_call_str,
-                          "returned a wrong value of \"ordering\"");
+                          "returned wrong value of \"ordering\"");
 
 
     size_t npnmj = CHARM(leg_pnmj_length)(nmax);
     e += check_struct_size_t(pnmj->npnmj, npnmj, NEQ, VALID, func_call_str,
-                             "returned a wrong value of \"npnmj\"");
+                             "returned wrong value of \"npnmj\"");
 
 
     e += check_struct_ptr(pnmj->pnmj, NULL, EQ, VALID, func_call_str,
-                          "returned a NULL pointer for \"pnmj\"");
+                          "returned NULL pointer for \"pnmj\"");
 
 
     e += check_struct_ptr(pnmj->pnmj[0], NULL, EQ, VALID, func_call_str,
-                          "returned a NULL pointer for \"pnmj[0]\"");
+                          "returned NULL pointer for \"pnmj[0]\"");
 
 
     e += check_struct_ptr(pnmj->pnmj[0][0], NULL, EQ, VALID, func_call_str,
-                          "returned a NULL pointer for \"pnmj[0][0]\"");
+                          "returned NULL pointer for \"pnmj[0][0]\"");
 
 
     CHARM(leg_pnmj_free)(pnmj);

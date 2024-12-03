@@ -11,10 +11,12 @@
 #include "shc_reset_coeffs.h"
 #include "shc_read_gfc.h"
 #include "shc_read_nmax_only.h"
+#include "shc_check_distribution.h"
 #include "../misc/misc_str2ul.h"
 #include "../misc/misc_str2real.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
+#include "../err/err_check_distribution.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -434,6 +436,31 @@ unsigned long CHARM(shc_read_gfc)(const char *pathname,
                                   CHARM(shc) *shcs,
                                   CHARM(err) *err)
 {
+    /* --------------------------------------------------------------------- */
+    CHARM(err_check_distribution)(err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return CHARM_SHC_NMAX_ERROR;
+    }
+
+
+    if (!CHARM(shc_read_nmax_only)(nmax, shcs))
+    {
+        CHARM(shc_check_distribution)(shcs, err);
+        if (!CHARM(err_isempty)(err))
+        {
+            CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+            return CHARM_SHC_NMAX_ERROR;
+        }
+    }
+    /* --------------------------------------------------------------------- */
+
+
+
+
+
+
     /* Open "pathname" to read */
     /* --------------------------------------------------------------------- */
     FILE *fptr = fopen(pathname, "r");
@@ -581,7 +608,8 @@ FAILURE_NMAX:
             }
             nmax_found = 1;
         }
-        else if (strcmp(key_str, SHC_READ_GFC_GM) == 0)
+        else if ((strcmp(key_str, SHC_READ_GFC_EARTH_GM) == 0) ||
+                 (strcmp(key_str, SHC_READ_GFC_GM) == 0))
         {
             mu_err   = 0;
             mu_file  = CHARM(misc_str2real)(val_str, "", err);
@@ -691,7 +719,7 @@ FAILURE_FORMAT:
     if (!nmax_found)
         not_found_keyword = SHC_READ_GFC_NMAX;
     else if (!mu_found)
-        not_found_keyword = SHC_READ_GFC_GM;
+        not_found_keyword = SHC_READ_GFC_ALL_GM_KEYWORDS;
     else if (!r_found)
         not_found_keyword = SHC_READ_GFC_R;
     else if (!errors_found)
@@ -727,7 +755,7 @@ FAILURE_FORMAT:
         else if (mu_err)
         {
             strcpy(val_str, mu_err_str);
-            strcpy(key_str, SHC_READ_GFC_GM);
+            strcpy(key_str, SHC_READ_GFC_ALL_GM_KEYWORDS);
             goto FAILURE_MU;
         }
         else if (r_err)

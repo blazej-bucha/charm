@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>charm_sha &#8212; CHarm 0.4.2 documentation</title>
+    <title>charm_sha &#8212; CHarm 0.4.3 documentation</title>
   
   
   
@@ -16,29 +16,32 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-
-  
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
   
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="_static/documentation_options.js?v=b4bb93ae"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/documentation_options.js?v=0f4711b3"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -50,7 +53,8 @@
     <link rel="prev" title="charm_shs" href="api-c-shs.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Aug 05, 2024"/>
+  <meta name="docsearch:version" content="0.4.3" />
+    <meta name="docbuild:last-update" content="Dec 02, 2024"/>
   </head>
   
   
@@ -66,19 +70,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -86,7 +79,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -94,8 +86,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -111,7 +103,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -126,6 +119,8 @@
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="index.html">
   
@@ -139,23 +134,19 @@
     
     
     <img src="_static/charm-logo.svg" class="logo__image only-light" alt=""/>
-    <script>document.write(`<img src="_static/charm-logo.svg" class="logo__image only-dark" alt=""/>`);</script>
+    <img src="_static/charm-logo.svg" class="logo__image only-dark pst-js-only" alt=""/>
   
   
-    <p class="title logo__title">CHarm v0.4.2</p>
+    <p class="title logo__title">CHarm v0.4.3</p>
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
@@ -185,6 +176,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-err.html">charm_err</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-mpi.html">charm_mpi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-glob.html">charm_glob</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
 </ul>
@@ -206,6 +198,7 @@
 <li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acknowledgements.html">Acknowledgements</a></li>
 </ul>
 
     </div>
@@ -377,24 +370,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -466,7 +451,7 @@ CHarm.</p>
 </p>
 <p>The coefficients are automatically normalized to the constants <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(R\)</span>, which are taken from <code class="docutils literal notranslate"><span class="pre">shcs-&gt;mu</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs-&gt;r</span></code>, respectively. If <span class="math notranslate nohighlight">\(r \neq R\)</span> (<code class="docutils literal notranslate"><span class="pre">pnt-&gt;r[i]</span> <span class="pre">!=</span> <span class="pre">shcs-&gt;r</span></code>), the coefficients are also rescaled <strong>from</strong> the data sphere with the radius <span class="math notranslate nohighlight">\(r\)</span> <strong>to</strong> the reference sphere with the radius <span class="math notranslate nohighlight">\(R\)</span> using <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#charm__shc_8h_1a1d014b8a7da1bd76d4ea49df16ec9cb5"><span class="std std-ref"><span class="pre">charm_shc_rescale()</span></span></a></code>. If <span class="math notranslate nohighlight">\(r = R = \mu = 1\)</span> (<code class="docutils literal notranslate"><span class="pre">pnt-&gt;r[i]</span> <span class="pre">==</span> <span class="pre">shcs-&gt;r</span> <span class="pre">==</span> <span class="pre">shcs-&gt;mu</span> <span class="pre">==</span> <span class="pre">1.0</span></code>), one gets the well-known relation for spherical harmonic analysis on the unit sphere (no normalization, no rescaling).</p>
 <p>The integrals are evaluated by exact quadratures, either the Gauss-Legendre or the Driscoll-Healy one. The type of the quadrature to be applied is determined by <code class="docutils literal notranslate"><span class="pre">pnt-&gt;type</span></code>.</p>
-<p>The loop over latitudes is parallelized using OpenMP.</p>
+<p>The function is parallelized using OpenMP.</p>
 <p>The function exploits the symmetry property of Legendre functions with respect to the equator, thereby improving its performance. For further details on the grid requirements, see <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shs.html#charm__shs_8h_1a47e78422d29ab4668f6140fe8a5b16af"><span class="std std-ref"><span class="pre">charm_shs_point()</span></span></a></code>.</p>
 <p><strong>References</strong>:</p>
 <p><ul class="simple">
@@ -486,7 +471,7 @@ CHarm.</p>
 <li><p><strong>pnt</strong> – <strong>[in]</strong> Structure defining grid points and integration weights (see <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#structcharm__point"><span class="std std-ref"><span class="pre">charm_point</span></span></a></code>). The <code class="docutils literal notranslate"><span class="pre">pnt</span></code> structure must be prepared by calling the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#charm__crd_8h_1a43011764a620cbea682983d31a5e202f"><span class="std std-ref"><span class="pre">charm_crd_point_gl()</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#charm__crd_8h_1a74dd8465b52f35d4e7dca5205c5b3eb5"><span class="std std-ref"><span class="pre">charm_crd_point_dh1()</span></span></a></code> or <code class="docutils literal notranslate"><a class="reference internal" href="api-c-crd.html#charm__crd_8h_1a60c2bc69dee5a06f2be9f0a89bf04da3"><span class="std std-ref"><span class="pre">charm_crd_point_dh2()</span></span></a></code> with some <code class="docutils literal notranslate"><span class="pre">nmax_signal</span></code>. Importantly, it is assumed that <strong>no</strong> harmonics (frequencies) are present in the input signal beyond <code class="docutils literal notranslate"><span class="pre">nmax_signal</span></code>. Otherwise, the output spherical harmonic coefficients will suffer from the alliasing effect.</p></li>
 <li><p><strong>f</strong> – <strong>[in]</strong> Input signal with point data given at the nodes of the <code class="docutils literal notranslate"><span class="pre">pnt</span></code> structure and containing harmonics up to degree <code class="docutils literal notranslate"><span class="pre">nmax_signal</span></code> at most. The pointer <code class="docutils literal notranslate"><span class="pre">f</span></code> must have an access to <code class="docutils literal notranslate"><span class="pre">pnt-&gt;nlat</span> <span class="pre">*</span> <span class="pre">pnt-&gt;nlon</span></code> array elements. The value of <code class="docutils literal notranslate"><span class="pre">f</span></code> at <code class="docutils literal notranslate"><span class="pre">pnt-&gt;lat[i]</span></code> and <code class="docutils literal notranslate"><span class="pre">pnt-&gt;lon[j]</span></code> must be stored as <code class="docutils literal notranslate"><span class="pre">f[i</span> <span class="pre">*</span> <span class="pre">pnt-&gt;nlon</span> <span class="pre">+</span> <span class="pre">j]</span></code> with <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">pnt-&gt;nlat</span> <span class="pre">-</span> <span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">pnt-&gt;nlon</span> <span class="pre">-</span> <span class="pre">1</span></code>.</p></li>
 <li><p><strong>nmax</strong> – <strong>[in]</strong> Maximum harmonic degree of the output spherical harmonic coefficients. If <code class="docutils literal notranslate"><span class="pre">f</span></code> is properly given at the nodes of the Gauss-Legendre or the Driscoll-Healy grid for <code class="docutils literal notranslate"><span class="pre">nmax_signal</span></code> and no harmonics are present beyond <code class="docutils literal notranslate"><span class="pre">nmax_signal</span></code> in <code class="docutils literal notranslate"><span class="pre">f</span></code>, than the output coefficients are computed exactly for all <code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">&lt;=</span> <span class="pre">nmax_signal</span></code>.</p></li>
-<li><p><strong>shcs</strong> – <strong>[out]</strong> Output spherical harmonic coefficients (see <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code>).</p></li>
+<li><p><strong>shcs</strong> – <strong>[inout]</strong> Output spherical harmonic coefficients (see <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code>).</p></li>
 <li><p><strong>err</strong> – <strong>[out]</strong> Error reported by the function (if any). </p></li>
 </ul>
 </dd>
@@ -518,7 +503,7 @@ CHarm.</p>
 </p>
 <p>See also the comments from <code class="docutils literal notranslate"><a class="reference internal" href="#charm__sha_8h_1ae98177417defe2a6344b7fb62a1c74a7"><span class="std std-ref"><span class="pre">charm_sha_point()</span></span></a></code> on the normalization and rescaling of the coefficients with <span class="math notranslate nohighlight">\(R\)</span>, <span class="math notranslate nohighlight">\(r\)</span> and <span class="math notranslate nohighlight">\(\mu\)</span>.</p>
 <p>Applied is the approximate numerical quadrature due to Colombo (1981).</p>
-<p>The loop over latitudes is parallelized using OpenMP.</p>
+<p>The function is parallelized using OpenMP.</p>
 <p><strong>A note on grid cells</strong></p>
 <p>Since the quadrature is approximate, the grid restrictions are more relaxed when compared with <code class="docutils literal notranslate"><a class="reference internal" href="#charm__sha_8h_1ae98177417defe2a6344b7fb62a1c74a7"><span class="std std-ref"><span class="pre">charm_sha_point()</span></span></a></code>. Yet, some conditions has to be fulfilled:</p>
 <p><ul class="simple">
@@ -555,7 +540,7 @@ coefficients beyond <code class="docutils literal notranslate"><span class="pre"
 <li><p><strong>f</strong> – <strong>[in]</strong> Input signal with block mean data given at the nodes of the <code class="docutils literal notranslate"><span class="pre">cell</span></code> structure. The pointer <code class="docutils literal notranslate"><span class="pre">f</span></code> must have an access to <code class="docutils literal notranslate"><span class="pre">cell-&gt;nlat</span> <span class="pre">*</span> <span class="pre">cell-&gt;nlon</span></code> array elements. The mean value of the signal at the <code class="docutils literal notranslate"><span class="pre">i</span></code>-th cell in the latitudinal direction and the <code class="docutils literal notranslate"><span class="pre">j</span></code>-th cell in the longitudinal direction must be stored as <code class="docutils literal notranslate"><span class="pre">f[i</span> <span class="pre">*</span> <span class="pre">cell-&gt;nlon</span> <span class="pre">+</span> <span class="pre">j]</span></code> with <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">cell-&gt;nlat</span> <span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">pnt-&gt;nlon</span> <span class="pre">1</span></code>.</p></li>
 <li><p><strong>nmax</strong> – <strong>[in]</strong> Maximum harmonic degree of the output spherical harmonic coefficients.</p></li>
 <li><p><strong>method</strong> – <strong>[in]</strong> Method of spherical harmonic analysis of cell data. The only method currently supported is the approximate quadrature <code class="docutils literal notranslate"><a class="reference internal" href="#charm__sha_8h_1abc6126af1d45847bc59afa0aa3216b04ac5edf8164d412c4f07f63ad008ad12f8"><span class="std std-ref"><span class="pre">CHARM_SHA_CELL_AQ</span></span></a></code>.</p></li>
-<li><p><strong>shcs</strong> – <strong>[out]</strong> Output spherical harmonic coefficients (see <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code>).</p></li>
+<li><p><strong>shcs</strong> – <strong>[inout]</strong> Output spherical harmonic coefficients (see <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code>).</p></li>
 <li><p><strong>err</strong> – <strong>[out]</strong> Error reported by the function (if any). </p></li>
 </ul>
 </dd>
@@ -617,7 +602,8 @@ coefficients beyond <code class="docutils literal notranslate"><span class="pre"
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -665,7 +651,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Aug 05, 2024.
+  Last updated on Dec 02, 2024.
   <br/>
 </p>
   </div>
@@ -683,8 +669,8 @@ By Blažej Bucha
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -26,12 +26,14 @@ libcharm@P@_shs_la_SOURCES = shs_cell.c \
 							 shs_grd_fft.c \
 							 shs_sctr_mulc.c \
 							 shs_lc_init.c \
+							 shs_lc_free.c \
 							 shs_check_symm_simd.c \
 							 shs_r_eq_rref.c \
 							 shs_point_guru.c \
 							 shs_check_single_derivative.c \
 							 shs_check_grads.c \
-							 shs_get_mur_dorder_npar.c
+							 shs_get_mur_dorder_npar.c \
+							 shs_get_imax.c
 
 
 EXTRA_DIST = *.h \

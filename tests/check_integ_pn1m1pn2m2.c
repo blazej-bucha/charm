@@ -5,6 +5,7 @@
 #include "../src/prec.h"
 #include "cmp_vals.h"
 #include "parameters.h"
+#include "error_messages.h"
 #include "check_integ_pn1m1pn2m2.h"
 /* ------------------------------------------------------------------------- */
 
@@ -24,7 +25,7 @@ long int check_integ_pn1m1pn2m2(void)
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        printf("Failed to initialize the \"err\" structure.\n");
+        fprintf(stderr, ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -52,7 +53,7 @@ long int check_integ_pn1m1pn2m2(void)
                                                  CHARM_LEG_PMJN);
         if (pnmj == NULL)
         {
-            fprintf(stderr, "Failed to initialize the \"pnmj\" structure.\n");
+            fprintf(stderr, ERR_MSG_PNMJ);
             exit(CHARM_FAILURE);
         }
 
@@ -89,8 +90,8 @@ long int check_integ_pn1m1pn2m2(void)
                     CHARM(err_handler)(err, 1);
 
 
-                    e += cmp_vals(ip, ip_ref,
-                                  PREC(10.0) * CHARM(glob_threshold));
+                    e += cmp_vals_real(ip, ip_ref,
+                                       PREC(10.0) * CHARM(glob_threshold));
                     /* ..................................................... */
 
 
@@ -109,8 +110,8 @@ long int check_integ_pn1m1pn2m2(void)
                     CHARM(err_handler)(err, 1);
 
 
-                    e += cmp_vals(ip, ip_ref,
-                                  PREC(10.0) * CHARM(glob_threshold));
+                    e += cmp_vals_real(ip, ip_ref,
+                                       PREC(10.0) * CHARM(glob_threshold));
                     /* ..................................................... */
                 }
             }

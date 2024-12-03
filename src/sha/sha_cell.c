@@ -3,11 +3,13 @@
 #include <config.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 #include <math.h>
 #include <fftw3.h>
 #include "../prec.h"
 #include "../shc/shc_reset_coeffs.h"
+#include "../shc/shc_check_distribution.h"
 #include "../shs/shs_cell_check_grd_lons.h"
 #include "../leg/leg_func_anm_bnm.h"
 #include "../leg/leg_func_dm.h"
@@ -21,10 +23,11 @@
 #include "../crd/crd_cell_isGrid.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
+#include "../err/err_check_distribution.h"
 #include "../misc/misc_is_nearly_equal.h"
 #include "../misc/misc_polar_optimization_threshold.h"
 #include "../misc/misc_polar_optimization_apply.h"
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #   include <omp.h>
 #endif
 #include "../simd/simd.h"
@@ -37,12 +40,31 @@
 
 
 
-void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
-                     unsigned long nmax, int method, CHARM(shc) *shcs,
+void CHARM(sha_cell)(const CHARM(cell) *cell,
+                     const REAL *f,
+                     unsigned long nmax,
+                     int method,
+                     CHARM(shc) *shcs,
                      CHARM(err) *err)
 {
     /* Some trivial initial error checks */
     /* --------------------------------------------------------------------- */
+    CHARM(err_check_distribution)(err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
+    CHARM(shc_check_distribution)(shcs, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
     if (method != CHARM_SHA_CELL_AQ)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
@@ -70,6 +92,11 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
                        "coefficients (\"shcs->nmax\").");
         return;
     }
+
+
+    /* Do nothing if there are no cells in "cell" */
+    if (cell->ncell == 0)
+        return;
 
 
     /* Get the radius of the sphere "r0", on which the analysis will be
@@ -411,12 +438,12 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
 
     /* Create a plan for FFT */
     /* --------------------------------------------------------------------- */
-#if CHARM_OPENMP && FFTW3_OMP
+#if HAVE_OPENMP && FFTW3_OMP
     int err_fftw = FFTW(init_threads)();
     if (err_fftw == 0)
     {
         CHARM(err_set)(err, __FILE__, __LINE__,  __func__, CHARM_EFFTWINIT,
-                       "FFTW failed to initialize threads.");
+                       CHARM_ERR_FFTW_INIT_FAILURE);
         return;
     }
 
@@ -519,7 +546,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
         REAL *b       = NULL;
         REAL *a2      = NULL;
         REAL *b2      = NULL;
-#if !(CHARM_OPENMP)
+#if !(HAVE_OPENMP)
         REAL *anm     = NULL;
         REAL *bnm     = NULL;
 #endif
@@ -644,7 +671,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
             FAILURE_glob = 1;
             goto FAILURE_1;
         }
-#if !(CHARM_OPENMP)
+#if !(HAVE_OPENMP)
         anm = (REAL *)calloc(nmax + 1, sizeof(REAL));
         if (anm == NULL)
         {
@@ -692,7 +719,8 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
                  * applied */
                 /* --------------------------------------------------------- */
                 ipv = i + v;
-                CHARM(crd_grd_check_symm)(ipv, v, cell->type, nlatdo, symm,
+                CHARM(crd_grd_check_symm)(ipv, v, 0, SIZE_MAX, cell->type,
+                                          nlatdo, symm,
                                           even, symmv, latsinv);
 
 
@@ -766,9 +794,9 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
 
 
             /* Pre-compute the sectorial "imm" integrals.  This is necessary
-             * for the "defined(CHARM_OPENMP)" parallelization strategy, but
-             * can be used (and in fact it is) also with the other
-             * parallelization strategies. */
+             * for the "defined(HAVE_OPENMP)" parallelization strategy, but can
+             * be used (and in fact it is) also with the other parallelization
+             * strategies. */
             /* ------------------------------------------------------------- */
             for (unsigned long m = 1; m <= nmax; m++)
             {
@@ -839,7 +867,7 @@ void CHARM(sha_cell)(const CHARM(cell) *cell, const REAL *f,
             /* Loop over harmonic orders */
             /* ------------------------------------------------------------- */
             unsigned long m;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 
 
 #   undef SIMD_VARS
@@ -1333,7 +1361,7 @@ FAILURE_1_parallel:
 
 
             } /* End of the loop over harmonic orders */
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 FAILURE_2_parallel:
             free(anm);  free(bnm);
             }
@@ -1358,7 +1386,7 @@ FAILURE_1:
         CHARM(free_aligned)(ips1);    CHARM(free_aligned)(ps1);
         CHARM(free_aligned)(ips2);    CHARM(free_aligned)(ps2);
         CHARM(free_aligned)(latminv); CHARM(free_aligned)(latmaxv);
-#if !(CHARM_OPENMP)
+#if !(HAVE_OPENMP)
         free(anm);  free(bnm);
 #endif
         CHARM(free_aligned)(a);    CHARM(free_aligned)(b);
@@ -1385,7 +1413,7 @@ FAILURE:
     free(r); free(ri); free(dm); free(en); free(fn); free(gm); free(hm);
     FFTW(destroy_plan)(plan);
     FFTW(cleanup)();
-#if CHARM_OPENMP && FFTW3_OMP
+#if HAVE_OPENMP && FFTW3_OMP
     FFTW(cleanup_threads)();
 #else
     FFTW(cleanup)();
@@ -1410,7 +1438,7 @@ FAILURE:
 
 
     unsigned long m;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
     #pragma omp parallel for default(none) shared(shcs, nmax, c2) private(m)
 #endif
     for (m = 0; m <= nmax; m++)

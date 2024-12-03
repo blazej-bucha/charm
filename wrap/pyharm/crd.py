@@ -147,8 +147,8 @@ class _PointBase:
             return
 
         self._check_crd_type(crd_type)
-        self._check_nlat_nlon(nlat, 'nlat')
-        self._check_nlat_nlon(nlon, 'nlon')
+        _check_nlat_nlon(nlat, 'nlat')
+        _check_nlat_nlon(nlon, 'nlon')
 
         f = ''
         if data is None or data == 0:
@@ -297,7 +297,7 @@ class _PointBase:
 
             Returns
             -------
-            out : str
+            ret : str
                 Error message
             """
 
@@ -310,22 +310,16 @@ class _PointBase:
 
             return ret
 
-        if not self._Point.contents.lat:
-            raise ValueError(get_error_msg('lat'))
-        self._lat = _np.ctypeslib.as_array(self._Point.contents.lat,
-                                           shape=(self._nlat,))
-
-        if not self._Point.contents.lon:
-            raise ValueError(get_error_msg('lon'))
-        self._lon = _np.ctypeslib.as_array(self._Point.contents.lon,
-                                           shape=(self._nlon,))
-
-        if not self._Point.contents.r:
-            raise ValueError(get_error_msg('r'))
-        self._r = _np.ctypeslib.as_array(self._Point.contents.r,
-                                         shape=(self._nlat,))
+        self._lat = _buff2arr(self._Point.contents.lat, self._nlat, 'lat')
+        self._lon = _buff2arr(self._Point.contents.lon, self._nlon, 'lon')
+        self._r   = _buff2arr(self._Point.contents.r,   self._nlat, 'r')
 
         if self._Point.contents.type in _CRD_TYPES_QUADS:
+            # Quadrature grids are generated based on "nmax", so they will
+            # always have at least one latitude, one longitude and one
+            # spherical radius.  Zero-length arrays of integration weight are
+            # therefore not possible, so accepted are only valid pointers
+            # contrary to "lat", "lon" and "r" arrays.
             if not self._Point.contents.w:
                 raise ValueError(get_error_msg('w'))
             self._w = _np.ctypeslib.as_array(self._Point.contents.w,
@@ -370,11 +364,10 @@ class _PointBase:
             Spherical radius of the grid points, default is the unit sphere.
         """
 
-        if f != _CHARM + 'crd_point_gl' and f != _CHARM + 'crd_point_dh1' and \
-            f != _CHARM + 'crd_point_dh2':
-            f1 = _CHARM + 'crd_point_gl'
-            f2 = _CHARM + 'crd_point_dh1'
-            f3 = _CHARM + 'crd_point_dh2'
+        f1 = _CHARM + 'crd_point_gl'
+        f2 = _CHARM + 'crd_point_dh1'
+        f3 = _CHARM + 'crd_point_dh2'
+        if f not in [f1, f2, f3]:
             raise ValueError(f'Unknown CHarm function \'{f}\'.  Supported '
                              f'functions are \'{f1}\', \'{f2}\' or \'{f3}\'')
 
@@ -421,26 +414,6 @@ class _PointBase:
 
         _check_deg_ord(nmax, 'degree')
         _check_radius(r)
-
-        return
-
-
-    def _check_nlat_nlon(self, x, nx):
-        """
-        Check whether ``x`` is a positive integer.
-
-        Parameters
-        ----------
-        x : any data type
-            Object to check
-        nx : str
-            Name of the value that ``x`` represents
-        """
-
-        _check_int_scalar(x, nx)
-
-        if x <= 0:
-            raise ValueError(f'\'{nx}\' must be positive.')
 
         return
 
@@ -496,6 +469,44 @@ class _PointBase:
                 raise ValueError(msg)
 
         return
+
+
+    @staticmethod
+    def _shape(f, nmax):
+        """
+        Private function to return the number of latitudes and longitudes for
+        quadrature grids ``f`` and a given ``nmax``.
+
+        Parameters
+        ----------
+        f : string
+            ``crd_point_gl_shape``, ``crd_point_dh1_shape`` or
+            ``crd_point_dh2_shape`` with the prefix _CHARM
+        nmax : integer
+            Maximum harmonic degree
+        """
+
+        _check_deg_ord(nmax, 'degree')
+
+        f1 = _CHARM + 'crd_point_gl_shape'
+        f2 = _CHARM + 'crd_point_dh1_shape'
+        f3 = _CHARM + 'crd_point_dh2_shape'
+        if f not in [f1, f2, f3]:
+            raise ValueError(f'Unknown CHarm function \'{f}\'.  Supported '
+                             f'functions are \'{f1}\', \'{f2}\' or \'{f3}\'')
+
+        func          = _libcharm[f]
+        func.restype  = None
+        func.argtypes = [_ct_ulong,
+                         _ct.POINTER(_ct_size_t),
+                         _ct.POINTER(_ct_size_t)]
+
+        nlat = _ct_size_t(0)
+        nlon = _ct_size_t(0)
+
+        func(_ct_ulong(nmax), _ct.pointer(nlat), _ct.pointer(nlon))
+
+        return int(nlat.value), int(nlon.value)
 
 
 class PointSctr(_PointBase):
@@ -679,8 +690,7 @@ class PointGrid(_PointBase):
             * ``(lat, lon, r)`` to define the object's latitudes, longitudes
               and spherical radii, respectively.  The ``lat``, ``lon``
               and ``r`` variables must be numpy floating point arrays of the
-              dimension ``1``.  The shape of ``lat`` and ``lon`` as
-              well as the shape of ``lat`` and ``r`` must match.
+              dimension ``1``.  The shape of ``lat`` and ``r`` must match.
 
     Note
     ----
@@ -828,6 +838,29 @@ class PointGridGL(_PointBase):
                f'{self.r[0]})'
 
 
+    @staticmethod
+    def shape(nmax):
+        """
+        Returns the number of latitudes ``nlat`` and the number of longitudes
+        ``nlon`` of the Gauss-Legendre grid that corresponds to the maximum
+        harmonic degree ``nmax``.
+
+        Parameters
+        ----------
+        nmax : integer
+            Maximum harmonic degree of the Gauss-Legendre grid
+
+        Returns
+        -------
+        nlat : integer
+            Number of latitudes
+        nlon : integer
+            Number of longitudes
+        """
+
+        return _PointBase._shape(_CHARM + 'crd_point_gl_shape', nmax)
+
+
 class PointGridDH1(_PointBase):
     """
     Class for non-equiangular Driscoll--Healy point grids.
@@ -882,6 +915,29 @@ class PointGridDH1(_PointBase):
 
         return f'{_pyharm}.crd.{self.__class__.__name__}({self.nmax}, ' \
                f'{self.r[0]})'
+
+
+    @staticmethod
+    def shape(nmax):
+        """
+        Returns the number of latitudes ``nlat`` and the number of longitudes
+        ``nlon`` of the non-equiangular Driscoll-Healy grid that corresponds to
+        the maximum harmonic degree ``nmax``.
+
+        Parameters
+        ----------
+        nmax : integer
+            Maximum harmonic degree of the Driscoll-Healy grid
+
+        Returns
+        -------
+        nlat : integer
+            Number of latitudes
+        nlon : integer
+            Number of longitudes
+        """
+
+        return _PointBase._shape(_CHARM + 'crd_point_dh1_shape', nmax)
 
 
 class PointGridDH2(_PointBase):
@@ -940,6 +996,29 @@ class PointGridDH2(_PointBase):
 
         return f'{_pyharm}.crd.{self.__class__.__name__}({self.nmax}, ' \
                f'{self.r[0]})'
+
+
+    @staticmethod
+    def shape(nmax):
+        """
+        Returns the number of latitudes ``nlat`` and the number of longitudes
+        ``nlon`` of the equiangular Driscoll-Healy grid that corresponds to
+        the maximum harmonic degree ``nmax``.
+
+        Parameters
+        ----------
+        nmax : integer
+            Maximum harmonic degree of the Driscoll-Healy grid
+
+        Returns
+        -------
+        nlat : integer
+            Number of latitudes
+        nlon : integer
+            Number of longitudes
+        """
+
+        return _PointBase._shape(_CHARM + 'crd_point_dh2_shape', nmax)
 
 
 class _Cell(_ct.Structure):
@@ -1063,8 +1142,8 @@ class _CellBase:
             return
 
         self._check_crd_type(crd_type)
-        self._check_nlat_nlon(nlat, 'nlat')
-        self._check_nlat_nlon(nlon, 'nlon')
+        _check_nlat_nlon(nlat, 'nlat')
+        _check_nlat_nlon(nlon, 'nlon')
 
         f = ''
         if data is None or data == 0:
@@ -1213,32 +1292,16 @@ class _CellBase:
 
             return ret
 
-        if not self._Cell.contents.latmin:
-            raise ValueError(get_error_msg('latmin'))
-        self._latmin = _np.ctypeslib.as_array(self._Cell.contents.latmin,
-                                              shape=(self._nlat,))
-
-        if not self._Cell.contents.latmax:
-            raise ValueError(get_error_msg('latmax'))
-        self._latmax = _np.ctypeslib.as_array(self._Cell.contents.latmax,
-                                              shape=(self._nlat,))
-
-        if not self._Cell.contents.lonmin:
-            raise ValueError(get_error_msg('lonmin'))
-        self._lonmin = _np.ctypeslib.as_array(self._Cell.contents.lonmin,
-                                              shape=(self._nlon,))
-
-        if not self._Cell.contents.lonmax:
-            raise ValueError(get_error_msg('lonmax'))
-        self._lonmax = _np.ctypeslib.as_array(self._Cell.contents.lonmax,
-                                              shape=(self._nlon,))
-
-        if not self._Cell.contents.r:
-            raise ValueError(get_error_msg('r'))
-        self._r = _np.ctypeslib.as_array(self._Cell.contents.r,
-                                         shape=(self._nlat,))
-
-        self._owner = bool(self._Cell.contents.owner)
+        self._latmin = _buff2arr(self._Cell.contents.latmin, self._nlat,
+                                 'latmin')
+        self._latmax = _buff2arr(self._Cell.contents.latmax, self._nlat,
+                                 'latmax')
+        self._lonmin = _buff2arr(self._Cell.contents.lonmin, self._nlon,
+                                 'lonmin')
+        self._lonmax = _buff2arr(self._Cell.contents.lonmax, self._nlon,
+                                 'lonmax')
+        self._r      = _buff2arr(self._Cell.contents.r, self._nlat, 'r')
+        self._owner  = bool(self._Cell.contents.owner)
 
         return
 
@@ -1253,26 +1316,6 @@ class _CellBase:
             func.restype  = None
             func.argtypes = [_ct.POINTER(_Cell)]
             func(self._Cell)
-
-        return
-
-
-    def _check_nlat_nlon(self, x, nx):
-        """
-        Check whether ``x`` is a positive integer.
-
-        Parameters
-        ----------
-        x : any data type
-            Object to check
-        nx : str
-            Name of the value that ``x`` represents
-        """
-
-        _check_int_scalar(x, nx)
-
-        if x <= 0:
-            raise ValueError(f'\'{nx}\' must be positive.')
 
         return
 
@@ -1632,3 +1675,50 @@ class CellGrid(_CellBase):
         return cls(latmin.shape[0], lonmin.shape[0],
                    (latmin, latmax, lonmin, lonmax, r))
 
+
+def _buff2arr(ptr, length, string):
+    """
+    Private function to transform a buffer to a numpy array.
+
+    Parameters
+    -----------
+    ptr : Pointer
+        Pointer to the buffer of floating point numbers
+    length : integer
+        Number of elements to use from the buffer
+    string : str
+        Name of the processing variable to be printed on error
+
+    Returns
+    -------
+    ret : numpy floating point array
+    """
+
+    if length == 0:
+        ret = _get_empty_array()
+    elif not ptr:
+        raise ValueError(get_error_msg(string))
+    else:
+        ret = _np.ctypeslib.as_array(ptr, shape=(length,))
+
+    return ret
+
+
+def _check_nlat_nlon(x, nx):
+    """
+    Check whether ``x`` is a non-negative integer.
+
+    Parameters
+    ----------
+    x : any data type
+        Object to check
+    nx : str
+        Name of the value that ``x`` represents
+    """
+
+    _check_int_scalar(x, nx)
+
+    if x < 0:
+        raise ValueError(f'\'{nx}\' cannot be negative.')
+
+    return

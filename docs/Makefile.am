@@ -46,24 +46,15 @@ help:
 
 doxygen:
 	cd $(top_srcdir) && ./config.status
-	doxygen Doxyfile
-
-
-$(SPHINXTARGETS) $(SPHINXTARGETS_DEL): doxygen
-	cd $(top_srcdir)/wrap/pyharm@P@ && $(MAKE) pyharm-build-local
-	cd $(top_srcdir) && rm -f ./wrap/pyharm@P@/libcharm@P@*.so
-	cd $(top_srcdir) && \
-		cp ./build/lib*/pyharm/libcharm@P@*.so ./wrap/pyharm@P@
 if DOC
-if DOC_PY
-	rm -rf build/$@
-	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
-else
+if !DOC_PY_MPI
 	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	@echo
-	@echo ERROR: Python interface is required to build the documentation
+	@echo ERROR: Python interface and MPI are required to build the \
+		  documentation
 	@echo
 	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	@exit 1
 endif
 else
 	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -72,7 +63,18 @@ else
 		  double precision
 	@echo
 	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	@exit 1
 endif
+	doxygen Doxyfile
+
+
+$(SPHINXTARGETS) $(SPHINXTARGETS_DEL): doxygen
+	cd $(top_srcdir)/wrap/pyharm@P@ && $(MAKE) pyharm-build-local
+	cd $(top_srcdir) && rm -f ./wrap/pyharm@P@/libcharm@P@*.so
+	cd $(top_srcdir) && \
+		cp ./build/lib*/pyharm/libcharm@P@*.so ./wrap/pyharm@P@
+	rm -rf build/$@
+	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 
 remove-doc-files:

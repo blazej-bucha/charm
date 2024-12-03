@@ -2,9 +2,11 @@
 /* ------------------------------------------------------------------------- */
 #include <config.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "../src/prec.h"
 #include "parameters.h"
 #include "check_struct.h"
+#include "cell_touch_array_elements.h"
 #include "check_crd_cell_init.h"
 /* ------------------------------------------------------------------------- */
 
@@ -28,7 +30,7 @@ long int check_crd_cell_init(void)
     REAL *latmin = (REAL *)malloc(nlat * sizeof(REAL));
     if (latmin == NULL)
     {
-        fprintf(stderr, "malloc failure.\n");
+        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 
@@ -36,7 +38,7 @@ long int check_crd_cell_init(void)
     REAL *latmax = (REAL *)malloc(nlat * sizeof(REAL));
     if (latmax == NULL)
     {
-        fprintf(stderr, "malloc failure.\n");
+        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 
@@ -44,7 +46,7 @@ long int check_crd_cell_init(void)
     REAL *lonmin = (REAL *)malloc(nlon * sizeof(REAL));
     if (lonmin == NULL)
     {
-        fprintf(stderr, "malloc failure.\n");
+        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 
@@ -52,7 +54,7 @@ long int check_crd_cell_init(void)
     REAL *lonmax = (REAL *)malloc(nlon * sizeof(REAL));
     if (lonmax == NULL)
     {
-        fprintf(stderr, "malloc failure.\n");
+        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 
@@ -60,7 +62,7 @@ long int check_crd_cell_init(void)
     REAL *r = (REAL *)malloc(nlat * sizeof(REAL));
     if (r == NULL)
     {
-        fprintf(stderr, "malloc failure.\n");
+        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 
@@ -72,33 +74,34 @@ long int check_crd_cell_init(void)
 
 
     e += check_struct_ptr(cell, NULL, EQ, VALID, func_call_str,
-                          "returned a NULL pointer");
+                          "returned NULL pointer");
 
 
     e += check_struct_ptr(cell->latmin, latmin, NEQ, VALID, func_call_str,
-                          "returned a wrong value of \"latmin\"");
+                          "returned wrong value of \"latmin\"");
 
 
     e += check_struct_ptr(cell->latmax, latmax, NEQ, VALID, func_call_str,
-                          "returned a wrong value of \"latmax\"");
+                          "returned wrong value of \"latmax\"");
 
 
     e += check_struct_ptr(cell->lonmin, lonmin, NEQ, VALID, func_call_str,
-                          "returned a wrong value of \"lonmin\"");
+                          "returned wrong value of \"lonmin\"");
 
 
     e += check_struct_ptr(cell->lonmax, lonmax, NEQ, VALID, func_call_str,
-                          "returned a wrong value of \"lonmax\"");
+                          "returned wrong value of \"lonmax\"");
 
 
     e += check_struct_ptr(cell->r, r, NEQ, VALID, func_call_str,
-                          "returned a wrong value of \"r\"");
+                          "returned wrong value of \"r\"");
 
 
     e += check_struct__Bool(cell->owner, 0, NEQ, VALID, func_call_str,
-                            "returned a wrong value of \"owner\"");
+                            "returned wrong value of \"owner\"");
 
 
+    cell_touch_array_elements(cell);
     CHARM(crd_cell_free)(cell);
     free(latmin);
     free(latmax);

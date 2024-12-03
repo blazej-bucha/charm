@@ -1,6 +1,8 @@
 /* Header files */
 /* ------------------------------------------------------------------------- */
+#include <config.h>
 #include "../prec.h"
+#include "../simd/simd.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -19,4 +21,11 @@ REAL CHARM(glob_threshold2) = PREC(100000.0) * EPS;
  * optimization by default) */
 unsigned long CHARM(glob_polar_optimization_a1) = 100;
 REAL CHARM(glob_polar_optimization_a2)          = PREC(-1.0);
+
+
+#if HAVE_MPI
+unsigned long CHARM(glob_shc_block_nmax_multiplier) = 1000;
+size_t CHARM(glob_sha_block_lat_multiplier) = SIMD_BLOCK_A;
+size_t CHARM(glob_shs_block_lat_multiplier) = SIMD_BLOCK_S;
+#endif
 /* ------------------------------------------------------------------------- */

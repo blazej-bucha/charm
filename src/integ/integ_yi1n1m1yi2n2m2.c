@@ -12,6 +12,7 @@
 #include "../leg/leg_pnmj_check_ordering.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
+#include "../err/err_check_distribution.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -34,6 +35,14 @@ REAL CHARM(integ_yi1n1m1yi2n2m2)(REAL cltmin,
 {
     /* Some simple error checks */
     /* --------------------------------------------------------------------- */
+    CHARM(err_check_distribution)(err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return NAN;
+    }
+
+
     if (cltmin > cltmax)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,

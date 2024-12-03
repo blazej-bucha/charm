@@ -33,6 +33,11 @@
 #include <stdio.h>
 #include <limits.h>
 #include <charm/charm@P@_err.h>
+
+
+#if @WITH_MPI@
+#   include <mpi.h>
+#endif
 /* ------------------------------------------------------------------------- */
 
 
@@ -115,9 +120,28 @@ enum
 /* ------------------------------------------------------------------------- */
 
 /** Structure to store spherical harmonic coefficients and some associated
- * data. */
+ * data.
+ *
+ * If CHarm is compiled with the MPI support, the data of the structure can be
+ * distributed across MPI processes.  This is useful if your dataset is so
+ * large that it would not fit into the RAM of a single computing node.  The
+ * members of the structure are therefore divided into two groups.
+ *
+ * * Members common to both non-distributed and distributed structures.  These
+ *   are always accessible.
+ *
+ * * Members specific to distributed structures only.  These are accessible
+ *   only when CHarm was compiled with the MPI support.
+ *
+ * */
 typedef struct
 {
+    /** @name Members common to non-distributed and distributed structures
+     *
+     * @{
+     * */
+
+
     /**
      * Maximum harmonic degree of the spherical harmonic coefficients.
      * */
@@ -135,17 +159,19 @@ typedef struct
 
     /**
      * Radius of the reference sphere \f$R\f$, to which the spherical harmonic
-     * coefficients refer (are scaled). The value must be greater than zero. To
+     * coefficients refer (are scaled). The value must be larger than zero. To
      * get the unit sphere, as needed, for instance, when working with
      * planetary topographies, set this variable to ``1.0``. */
     @RDT@ r;
 
 
-    /** Total number of spherical harmonic coefficients \f$\bar{C}_{nm}\f$. */
+    /** Total number of spherical harmonic coefficients \f$\bar{C}_{nm}\f$.
+     * The value is always larger than zero. */
     size_t nc;
 
 
-    /** Total number of spherical harmonic coefficients \f$\bar{S}_{nm}\f$. */
+    /** Total number of spherical harmonic coefficients \f$\bar{S}_{nm}\f$.
+     * The value is always larger than zero. */
     size_t ns;
 
 
@@ -217,20 +243,139 @@ typedef struct
     @RDT@ **s;
 
 
-    /** If ``1``, the spherical harmonic coefficients in ``charm@P@_shc.c`` and
-     * ``charm@P@_shc.s`` were allocated by CHarm, so ``charm@P@_shc_free()``
-     * deallocates them. If ``charm@P@_shc.owner`` is ``0``, the coefficients
-     * in ``charm@P@_shc.c`` and ``charm@P@_shc.s`` were allocated outside
-     * CHarm, so ``charm@P@_shc_free()`` does *not* deallocate them (the user
-     * allocated this memory outside CHarm, so the user should free the memory
-     * outside CHarm as well).
+    /** * If ``1``, the spherical harmonic coefficients in ``charm@P@_shc.c``
+     *    and ``charm@P@_shc.s`` were allocated by CHarm, so
+     *    ``charm@P@_shc_free()`` deallocates them. This is the case with
+     *    ``charm@P@_shc`` returned by ``charm@P@_shc_malloc()`` and
+     *    ``charm@P@_shc_calloc()``.
      *
+     * * If ``0``, the coefficients in ``charm@P@_shc.c`` and
+     *   ``charm@P@_shc.s`` were allocated outside CHarm, so
+     *   ``charm@P@_shc_free()`` does *not* deallocate them (the user allocated
+     *   this memory outside CHarm, so the user should free the memory outside
+     *   CHarm as well). This is the case with ``charm@P@_shc`` returned by
+     *   ``charm@P@_shc_init()`` and ``charm@P@_mpi_shc_init()``.
      *
-     * ``charm@P@_shc.owner`` is set to ``1`` for ``charm@P@_shc`` returned by
-     * ``charm@P@_shc_malloc()`` and ``charm@P@_shc_calloc()``.
-     * ``charm@P@_shc_init()`` returns ``charm@P@_shc`` with
-     * ``charm@P@_shc.owner`` set to ``0``.*/
+     * */
     _Bool owner;
+
+
+    /** * If ``0``, the structure is not distributed, meaning that each process
+     *    (be it an OpenMP or MPI process) accesses the same data through
+     *    ``charm@P@_shc.c``, ``charm@P@_shc.s`` and, if compiled with MPI
+     *    support, ``charm@P@_shc.local_order``.
+     *
+     * * If ``1``, the structure is distributed across MPI processes, that is,
+     *   each MPI process accesses different data through ``charm@P@_shc.c``,
+     *   ``charm@P@_shc.s`` and, if compiled with MPI support,
+     *   ``charm@P@_shc.local_order``.
+     *
+     * @note  If CHarm was compiled without the MPI support (default),
+     * ``charm@P@_shc.distributed`` is always ``0``. */
+    _Bool distributed;
+
+
+    /**
+     * @}
+     * */
+#if @WITH_MPI@
+    /** @name Members available to distributed structures only
+     *
+     * @note The members that follow are available only when CHarm is compiled
+     * with the MPI support (``--enable-mpi``, refer to <a
+     * href="./api-c-mpi.html">charm@P@_mpi</a> for further details).
+     *
+     * @{
+     * */
+
+
+    /** Total number of spherical harmonic coefficients \f$\bar{C}_{nm}\f$
+     * locally accessible to an MPI process.  If ``0``, no coefficients are
+     * stored locally. */
+    size_t local_nc;
+
+
+    /** Total number of spherical harmonic coefficients \f$\bar{S}_{nm}\f$
+     * locally accessible to an MPI process.  If ``0``, no coefficients are
+     * stored locally. */
+    size_t local_ns;
+
+
+    /** Total number of chunks of spherical harmonic orders that are stored
+     * locally.  If ``0``, no chunks are stored locally. */
+    size_t local_nchunk;
+
+
+    /** Spherical harmonic orders specifying chunks of spherical harmonic
+     * coefficients that are locally available to an MPI process.  The pointer
+     * is ``NULL`` if ``charm@P@_shc.local_nchunk`` is ``0``.
+     *
+     * Assume there is ``k = charm@P@_shc.local_nchunk`` local chunks.  The
+     * pointer ``charm@P@_shc.local_order`` points to an array of ``2 * k``
+     * elements having the structure:
+     *
+     * \verbatim embed:rst:leading-asterisk
+     *
+     *  .. math::
+     *
+     *      \underbrace{m_0, m_1}_{\textrm{chunk 0}} | \underbrace{m_2,
+     *      m_3}_{\textrm{chunk 1}} | \underbrace{...}_{\textrm{chunks 2 to }k
+     *      - 2} | \underbrace{m_{2k - 2}, m_{2k - 1}}_{\textrm{chunk }k
+     *      - 1}{,}
+     *
+     * \endverbatim
+     *
+     * where \f$m_{2j}\f$ and \f$m_{2j + 1}\f$, \f$j = 0, 1, ..., k - 1\f$,
+     * denote the minimum and the maximum orders of the chunks, respectively.
+     * Spherical harmonic coefficients \f$\bar{C}_{nm}\f$ and
+     * \f$\bar{S}_{nm}\f$ of all degrees \f$n = m, m + 1, ...,
+     * n_{\textrm{max}}\f$ and orders \f$m = m_{2j}, ..., m_{2j + 1}\f$, \f$j
+     * = 0, 1, ..., k - 1\f$, are accessible to an MPI process through
+     * ``charm@P@_shc.c`` and ``charm@P@_shc.s``.  The ordering of the
+     * coefficients in ``charm@P@_shc.c`` is then as follows:
+     *
+     * \verbatim embed:rst:leading-asterisk
+     *
+     *  .. math::
+     *
+     *      \underbrace{\bar{C}_{m_0, m_0}, \bar{C}_{m_0 + 1, m_0}, ...,
+     *      \bar{C}_{\mathrm{nmax}, m_0}, \bar{C}_{m_0 + 1, m_0 + 1},
+     *      ... ,\bar{C}_{\mathrm{nmax}, m_0 + 1}, ..., \bar{C}_{\mathrm{nmax},
+     *      m_1}}_{\textrm{chunk 0}} | \underbrace{\bar{C}_{m_2, m_2}, ...,
+     *      \bar{C}_{\mathrm{nmax}, m_3}}_{\textrm{chunk 1}}
+     *      | \underbrace{...}_{\textrm{chunks 2 to }k - 2}
+     *      | \underbrace{\bar{C}_{m_{2k - 2}, m_{2k - 2}}, ...,
+     *      \bar{C}_{\mathrm{nmax}}, m_{2k - 1}}_{\textrm{chunk }k - 1}{.}
+     *
+     * \endverbatim
+     *
+     * The total number of these coefficients is stored in
+     * ``charm@P@_shc.local_nc``.  It can also be determined a priori by
+     * ``charm@P@_mpi_shc_local_ncs()``.  The same ordering and the number of
+     * coefficients applies to \f$\bar{S}_{nm}\f$ in ``charm@P@_shc.s``.
+     *
+     * @note Whenever creating ``charm@P@_shc`` through the CHarm's API,
+     * ``charm@P@_shc.local_order`` is always a deep copy of the user's
+     * original data ``local_order``.  Users can therefore safely free their
+     * original ``local_order`` array after creating ``charm@P@_shc``.
+     *
+     * @note Sounds complicated?  It isn't!  Have a look at the <a
+     * href="./api-c-mpi.html">charm@P@_mpi</a> module and the <a
+     * href="./cookbook-c.html#distributed-computing-with-mpi">cookbook</a>.
+     *
+     * */
+    unsigned long *local_order;
+
+
+    /** MPI communicator defining the group of MPI processes to distribute the
+     * structure across. */
+    MPI_Comm comm;
+
+
+    /**
+     * @}
+     * */
+#endif
 } charm@P@_shc;
 /* ------------------------------------------------------------------------- */
 
@@ -269,7 +414,7 @@ typedef struct
  * ``charm@P@_shc_free()``. The ``free`` function will *not* deallocate the
  * memory and will lead to memory leaks.
  *
- * @note ``r`` must be greater than zero.
+ * @note ``r`` must be larger than zero.
  *
  * */
 CHARM_EXTERN charm@P@_shc * CHARM_CDECL
@@ -391,7 +536,7 @@ CHARM_EXTERN charm@P@_shc * CHARM_CDECL
  * allocated ``c`` and ``s`` outside the scope of CHarm, so the user decides
  * when to deallocate.
  *
- * @note ``r`` must be greater than zero.
+ * @note ``r`` must be larger than zero.
  *
  * */
 CHARM_EXTERN charm@P@_shc * CHARM_CDECL
@@ -550,7 +695,7 @@ CHARM_EXTERN unsigned long CHARM_CDECL
  * default epoch into ``epoch``. Error reported by the function (if any) is
  * written to ``err``. *gfc* is a format for gravity field models defined by
  * ICGEM at <a
- * href="http://icgem.gfz-potsdam.de/ICGEM-Format-2023.pdf">http://icgem.gfz-potsdam.de/ICGEM-Format-2023.pdf</a>.
+ * href="https://icgem.gfz-potsdam.de/docs/ICGEM-Format-2023.pdf">https://icgem.gfz-potsdam.de/docs/ICGEM-Format-2023.pdf</a>.
  *
  * The date string in ``epoch`` must follow either the pattern ``yyyyMMdd``
  * (e.g., ``"20050217"`` for Feb 17, 2005) or ``yyyyMMdd.hhmm`` (e.g.,

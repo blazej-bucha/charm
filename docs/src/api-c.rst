@@ -27,5 +27,6 @@ omitted.  The list of the differences is given in
    api-c-integ
    api-c-misc
    api-c-err
+   api-c-mpi
    api-c-glob
    api-c-charm

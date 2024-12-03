@@ -3,9 +3,11 @@
 #include <config.h>
 #include <stdio.h>
 #include "../src/prec.h"
+#include "cmp_vals.h"
 #include "validate.h"
 #include "array2file.h"
 #include "parameters.h"
+#include "error_messages.h"
 #include "check_shc_read_gfc.h"
 /* ------------------------------------------------------------------------- */
 
@@ -19,7 +21,7 @@ long int check_shc_read_gfc(void)
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        fprintf(stderr, "Failed to initialize an \"err\" structure.\n");
+        fprintf(stderr, ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -32,7 +34,7 @@ long int check_shc_read_gfc(void)
     CHARM(shc) *shcs = CHARM(shc_calloc)(SHCS_NMAX_POT, PREC(1.0), PREC(1.0));
     if (shcs == NULL)
     {
-        fprintf(stderr, "Failed to initlize a \"shc\" structure");
+        fprintf(stderr, ERR_MSG_SHC);
         exit(CHARM_FAILURE);
     }
 
@@ -73,6 +75,16 @@ long int check_shc_read_gfc(void)
                       PREC(10.0) * CHARM(glob_threshold));
 #endif
     }
+    /* --------------------------------------------------------------------- */
+
+
+    /* Check reading the maximum degree of the file only */
+    /* --------------------------------------------------------------------- */
+    unsigned long nmax_out = CHARM(shc_read_gfc)(SHCS_IN_PATH_POT_GFC,
+                                                 CHARM_SHC_NMAX_MODEL,
+                                                 NULL, NULL, err);
+    CHARM(err_handler)(err, 1);
+    e += cmp_vals_ulong(nmax_out, SHCS_NMAX_POT);
     /* --------------------------------------------------------------------- */
 
 

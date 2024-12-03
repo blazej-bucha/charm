@@ -76,7 +76,7 @@ extern "C"
 
 /* Function prototypes */
 /* ------------------------------------------------------------------------- */
-/** @brief Analytically computes the integral
+/** Analytically computes the integral
  *
  * \verbatim embed:rst:leading-asterisk
  *      .. math::
@@ -134,7 +134,7 @@ CHARM_EXTERN @RDT@ CHARM_CDECL
 
 
 
-/** @brief Analytically computes the integral
+/** Analytically computes the integral
  *
  * \verbatim embed:rst:leading-asterisk
  *      .. math::

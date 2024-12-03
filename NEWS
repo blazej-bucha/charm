@@ -1,3 +1,54 @@
+CHarm 0.4.3:
+
+This release adds support for MPI parallelization on distributed-memory systems 
+and fixes one bug.  Added is support for Python 3.13 and support for Python 3.9 
+and macOS 10.x is dropped.  The API is backward compatible except for one minor 
+change (see below).
+
+* Added support for MPI parallelization.
+
+  Spherical harmonic synthesis/analysis of point data can now also be conducted 
+  on systems with distributed memory.  These could be, for instance, nodes of 
+  high-performance computing clusters or a few ordinary PCs interconnected via 
+  some network protocol (e.g., SSH).  MPI makes it possible to distribute 
+  spherical harmonic coefficients and the signal to be analyzed/synthesized 
+  among a number of independent shared-memory systems that can communicate 
+  together.  As a result, it is now fairly possible to perform spherical 
+  harmonic transforms up to degrees as high as 100,000 and beyond.
+
+  Full documentation and cookbook-style examples are available at 
+  https://www.charmlib.org.
+
+* Added module `mpi`.
+
+* Added routines:
+
+    * `charm_crd_point_gl_shape`,
+    * `charm_crd_point_dh1_shape`,
+    * `charm_crd_point_dh2_shape`,
+    * `charm_misc_buildopt_simd_vector_size`,
+    * `charm_misc_buildopt_mpi`.
+
+* Added members to structures:
+
+    * `charm_shc`,
+    * `charm_point`,
+    * `charm_err`.
+
+* Bug fix in `pyharm.shc.Shc.set_coeffs()` by @avocakerok (#1).
+
+* Added support for Python 3.13, dropped support for Python 3.9 and macOS 10.x.
+
+* Added support for the `gravity_constant` keyword that appears in `gfc` models 
+  of celestial bodies.
+
+* Improved test suite.
+
+* Docs improvements.
+
+* Renamed `charm_err.issaturated` to `charm_err.saturated`.
+
+
 CHarm 0.4.2:
 
 * Added support for NEON SIMD instructions on ARM64 CPUs (v8 or newer).
@@ -6,8 +57,8 @@ CHarm 0.4.2:
   data values (up to ~20 %, depending on the processor).  In spherical harmonic 
   analysis, expensive horizontal sums of SIMD vectors (`SUM_R`) were reduced 
   (~10 % improvement).  In SIMD macros computing Legendre functions, some 
-  unnecessary blends were be removed by suitable initializations (~20 
-  % improments in analysis and synthesis).
+  unnecessary blends were removed by suitable initializations (~20 
+  % improvements in analysis and synthesis).
 
 * The internal parameter `SIMD_BLOCK` was split to `SIMD_BLOCK_A` and 
   `SIMD_BLOCK_S` that are used with spherical harmonic analysis and synthesis, 

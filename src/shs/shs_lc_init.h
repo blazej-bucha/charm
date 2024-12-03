@@ -6,12 +6,21 @@
 
 
 #include "../prec.h"
-#include "../simd/simd.h"
+#include "shs_lc_struct.h"
 
 
-/* This routine *must* be called after the "CHARM(lc)" structure is declared
- * and before it is used for the first time. */
-void CHARM(shs_lc_init)(CHARM(lc) *);
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+
+extern CHARM(lc) *CHARM(shs_lc_init)(void);
+
+
+#ifdef __cplusplus
+}
+#endif
 
 
 #endif

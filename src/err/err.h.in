@@ -25,6 +25,14 @@
 #define __CHARM@PC@_ERR_H__
 
 
+/* Header files required by this module */
+/* ------------------------------------------------------------------------- */
+#if @WITH_MPI@
+#   include <mpi.h>
+#endif
+/* ------------------------------------------------------------------------- */
+
+
 
 
 
@@ -107,7 +115,12 @@ enum
 
     /**
      * Error in threads initialization by FFTW. */
-    CHARM_EFFTWINIT
+    CHARM_EFFTWINIT,
+
+
+    /**
+     * Error reported by some other MPI process within the communicator. */
+    CHARM_EMPIPROCESS
 };
 /* ------------------------------------------------------------------------- */
 
@@ -121,6 +134,11 @@ enum
 /**
  * Message to be printed when ``malloc`` or ``calloc`` fails. */
 #define CHARM_ERR_MALLOC_FAILURE "Memory allocation failure."
+
+
+#undef  CHARM_ERR_FFTW_INIT_FAILURE
+/** Message to be printed when FFTW fails to initialize OpenMP threads. */
+#define CHARM_ERR_FFTW_INIT_FAILURE "FFTW failed to initialize OpenMP threads."
 /* ------------------------------------------------------------------------- */
 
 
@@ -173,11 +191,33 @@ typedef struct
     char *msg;
 
 
-    /** Signalizes whether or not the levels of the error structure are
-     * saturated due to the error propagations.  If true, the structure can no
-     * longer store most recent error propagations.  This should never happen,
-     * though, since ``::CHARM_ERR_MAX_LEVEL`` is chosen large enough. */
-    _Bool issaturated;
+    /** * ``0`` if the error structure can accomocate one or more error
+     *    propagations.
+     *
+     * * ``1`` if the error structure is saturated and can no longer store the
+     *   most recent error propagations (this should never happen, though,
+     *   since ``::CHARM_ERR_MAX_LEVEL`` is large enough). */
+    _Bool saturated;
+
+
+    /** * ``0`` if the error structure was created by ``charm@P@_err_init()``.
+     *
+     * * ``1`` if the error structure was created by
+     *   ``charm@P@_mpi_err_init()``. */
+    _Bool distributed;
+
+
+#if @WITH_MPI@
+    /** MPI communicator defining the group of MPI processes that share the
+     * error structure.
+     *
+     * @note This member is available only when CHarm is compiled with the MPI
+     * support (``--enable-mpi``, refer to <a
+     * href="./api-c-mpi.html">charm@P@_mpi</a> for further details).
+     *
+     * */
+    MPI_Comm comm;
+#endif
 } charm@P@_err;
 /* ------------------------------------------------------------------------- */
 

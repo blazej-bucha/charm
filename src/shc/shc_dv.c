@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include "../prec.h"
 #include "../err/err_set.h"
+#include "../err/err_propagate.h"
+#include "../err/err_check_distribution.h"
+#include "shc_check_distribution.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -12,9 +15,33 @@
 
 
 
-void CHARM(shc_dv)(const CHARM(shc) *shcs, unsigned long nmax, REAL *dv,
+void CHARM(shc_dv)(const CHARM(shc) *shcs,
+                   unsigned long nmax,
+                   REAL *dv,
                    CHARM(err) *err)
 {
+    /* --------------------------------------------------------------------- */
+    CHARM(err_check_distribution)(err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
+    CHARM(shc_check_distribution)(shcs, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+    /* --------------------------------------------------------------------- */
+
+
+
+
+
+
     /* Check the maximum harmonic degree */
     /* --------------------------------------------------------------------- */
     if (nmax > shcs->nmax)

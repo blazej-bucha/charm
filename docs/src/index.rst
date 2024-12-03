@@ -14,3 +14,4 @@ Welcome to CHarm
    platforms
    citing
    license
+   acknowledgements

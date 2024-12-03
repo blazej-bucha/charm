@@ -8,9 +8,11 @@
 #include "shc_reset_coeffs.h"
 #include "shc_read_mtdt.h"
 #include "shc_read_nmax_only.h"
+#include "shc_check_distribution.h"
 #include "../misc/misc_str2real.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
+#include "../err/err_check_distribution.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -34,6 +36,31 @@ unsigned long CHARM(shc_read_mtx)(const char *pathname,
                                   CHARM(shc) *shcs,
                                   CHARM(err) *err)
 {
+    /* ===================================================================== */
+    CHARM(err_check_distribution)(err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return CHARM_SHC_NMAX_ERROR;
+    }
+
+
+    if (!CHARM(shc_read_nmax_only)(nmax, shcs))
+    {
+        CHARM(shc_check_distribution)(shcs, err);
+        if (!CHARM(err_isempty)(err))
+        {
+            CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+            return CHARM_SHC_NMAX_ERROR;
+        }
+    }
+    /* ===================================================================== */
+
+
+
+
+
+
     /* Open "pathname" to read */
     /* ===================================================================== */
     FILE *fptr = fopen(pathname, "r");

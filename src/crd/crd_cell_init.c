@@ -15,9 +15,13 @@
 
 
 
-CHARM(cell) *CHARM(crd_cell_init)(int type, size_t nlat, size_t nlon,
-                                  REAL *latmin, REAL *latmax,
-                                  REAL *lonmin, REAL *lonmax,
+CHARM(cell) *CHARM(crd_cell_init)(int type,
+                                  size_t nlat,
+                                  size_t nlon,
+                                  REAL *latmin,
+                                  REAL *latmax,
+                                  REAL *lonmin,
+                                  REAL *lonmax,
                                   REAL *r)
 {
     /* Check the inputs */
@@ -38,18 +42,29 @@ CHARM(cell) *CHARM(crd_cell_init)(int type, size_t nlat, size_t nlon,
 
     /* Set the array members of "cell" */
     /* --------------------------------------------------------------------- */
-    cell->latmin = latmin;
-    cell->latmax = latmax;
-    cell->lonmin = lonmin;
-    cell->lonmax = lonmax;
-    cell->r      = r;
+    cell->latmin = cell->latmax = cell->lonmin = cell->lonmax = cell->r = NULL;
+
+
+    if (nlat > 0)
+    {
+        cell->latmin = latmin;
+        cell->latmax = latmax;
+        cell->r      = r;
+    }
+
+
+    if (nlon > 0)
+    {
+        cell->lonmin = lonmin;
+        cell->lonmax = lonmax;
+    }
     /* --------------------------------------------------------------------- */
 
 
     /* Set the scalar members of "cell" */
     /* --------------------------------------------------------------------- */
-    cell->nlat  = nlat;
-    cell->nlon  = nlon;
+    cell->nlat = nlat;
+    cell->nlon = nlon;
     if (CHARM(crd_cell_isSctr)(type))
         cell->ncell = nlat;
     else if (CHARM(crd_cell_isGrid)(type))

@@ -106,7 +106,7 @@ enum
  * or the Driscoll-Healy one.  The type of the quadrature to be applied is 
  * determined by ``pnt->type``.
  *
- * The loop over latitudes is parallelized using OpenMP.
+ * The function is parallelized using OpenMP.
  *
  * The function exploits the symmetry property of Legendre functions with 
  * respect to the equator, thereby improving its performance.  For further
@@ -155,8 +155,8 @@ enum
  * beyond ``nmax_signal`` in ``f``, than the output coefficients are computed 
  * exactly for all ``nmax <= nmax_signal``.
  *
- * @param[out] shcs Output spherical harmonic coefficients (see
- * ``charm@P@_shc``).
+ * @param[in,out] shcs Output spherical harmonic coefficients (see
+         *                         ``charm@P@_shc``).
  *
  * @param[out] err Error reported by the function (if any).
  *
@@ -216,7 +216,7 @@ CHARM_EXTERN void CHARM_CDECL
  * @details Applied is the approximate numerical quadrature due to Colombo
  * (1981).
  *
- * The loop over latitudes is parallelized using OpenMP.
+ * The function is parallelized using OpenMP.
  *
  * **A note on grid cells**
  *
@@ -305,7 +305,7 @@ CHARM_EXTERN void CHARM_CDECL
  * only method currently supported is the approximate quadrature
  * ``::CHARM_SHA_CELL_AQ``.
  *
- * @param[out] shcs Output spherical harmonic coefficients (see
+ * @param[in,out] shcs Output spherical harmonic coefficients (see
  * ``charm@P@_shc``).
  *
  * @param[out] err Error reported by the function (if any).

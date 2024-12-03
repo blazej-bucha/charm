@@ -6,9 +6,11 @@
 #include <string.h>
 #include <math.h>
 #include "../src/prec.h"
+#include "../src/simd/simd.h"
 #include "../src/shs/shs_check_single_derivative.h"
 #include "generate_point.h"
 #include "parameters.h"
+#include "error_messages.h"
 #ifdef GENREF
 #   include "array2file.h"
 #else
@@ -80,7 +82,7 @@ static void allocate_signal(REAL **f, size_t npoint)
         f[i] = (REAL *)malloc(npoint * sizeof(REAL));
         if (f[i] == NULL)
         {
-            fprintf(stderr, "malloc failure.\n");
+            fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
             exit(CHARM_FAILURE);
         }
     }
@@ -116,10 +118,12 @@ static void stop_at_j_corresponding_to_dr_dlat_dlon(size_t j,
     /* Let the "GURU_LOOP" run and stop it at that values of "dr", "dlat" and
      * "dlon" that correspond to "j".  The last values of "dlat" and "dlon"
      * then say whether or not the signal should be set to zeros. */
+    {
     GURU_LOOP(
               if (j == gn)
                   goto J_EQ_GN;
              );
+    }
 
 
     /* If we got here, we are in serious troubles, as this implies wrong
@@ -311,7 +315,7 @@ long int check_shs_point_guru(void)
     CHARM(shc) *shcs = CHARM(shc_calloc)(SHCS_NMAX_POT, PREC(1.0), PREC(1.0));
     if (shcs == NULL)
     {
-        fprintf(stderr, "Failed to initialize a \"shc\" structure.\n");
+        fprintf(stderr, ERR_MSG_SHC);
         exit(CHARM_FAILURE);
     }
 
@@ -320,7 +324,7 @@ long int check_shs_point_guru(void)
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        fprintf(stderr, "Failed to initialize a \"err\" structure.\n");
+        fprintf(stderr, ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -339,23 +343,69 @@ long int check_shs_point_guru(void)
 
 
 
+    /* Calling any synthesis routine with zero points in "charm_point" is valid
+     * in CHarm and must not produce any error or fail, so let's check this. */
+    /* --------------------------------------------------------------------- */
+    long int e = 0;
+
+
+    CHARM(point) *sctr_0points = NULL;
+    sctr_0points = CHARM(crd_point_malloc)(CHARM_CRD_POINT_SCATTERED, 0, 0);
+
+
+    REAL **f = (REAL **)malloc(NPAR * sizeof(REAL *));
+    if (f == NULL)
+    {
+        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+        exit(CHARM_FAILURE);
+    }
+    for (size_t i = 0; i < NPAR; i++)
+        f[i] = NULL;
+
+
+#if GRAD_0 == 1
+    CHARM(shs_point)(sctr_0points, shcs, shcs->nmax, f[0], err);
+#elif GRAD_1 == 1
+    CHARM(shs_point_grad1)(sctr_0points, shcs, shcs->nmax, f, err);
+#elif GRAD_2 == 1
+    CHARM(shs_point_grad2)(sctr_0points, shcs, shcs->nmax, f, err);
+#elif GURU == 1
+    unsigned dr, dlat, dlon;
+    {
+    GURU_LOOP(
+              CHARM(shs_point_guru)(sctr_0points, shcs, shcs->nmax,
+                                    dr, dlat, dlon, f[gn], err);
+              goto SHS_0POINTS_ERROR;
+             );
+    }
+SHS_0POINTS_ERROR:
+#endif
+    if (!CHARM(err_isempty)(err))
+    {
+        printf("\n        WARNING: Synthesis with zero points didn't pass!\n");
+        e += 1;
+    }
+
+
+    /* If we get here, this means that "err" was empty after calling each
+     * synthesis routine and none of the call produced, e.g., segfault. */
+    CHARM(err_reset)(err);
+    CHARM(crd_point_free)(sctr_0points);
+    /* --------------------------------------------------------------------- */
+
+
+
+
+
+
     /* GL, DH1 and DH2 point grids */
     /* ..................................................................... */
-    long int e            = 0;
     CHARM(point) *grd_pnt = NULL;
     char file[10][NSTR_LONG];  /* "10", because "CHARM(shs_point_guru)" offers
                                 * "10" combinations of "dr", "dlat" and "dlon".
                                 * */
     char elem[10][NSTR_SHORT];
     char grd_str[NSTR_SHORT];
-
-
-    REAL **f = (REAL **)malloc(NPAR * sizeof(REAL *));
-    if (f == NULL)
-    {
-        fprintf(stderr, "malloc failure.\n");
-        exit(CHARM_FAILURE);
-    }
 
 
 #if GRAD_0 == 1
@@ -372,12 +422,13 @@ long int check_shs_point_guru(void)
     strcpy(elem[4], "_yz");
     strcpy(elem[5], "_zz");
 #elif GURU == 1
-    unsigned dr, dlat, dlon;
     char guru_ijk[9];
+    {
     GURU_LOOP(
               sprintf(guru_ijk, "_guru%u%u%u", dr, dlat, dlon);
               strcpy(elem[gn], guru_ijk);
              );
+    }
 #endif
 
 
@@ -413,8 +464,7 @@ long int check_shs_point_guru(void)
                     grd_pnt = CHARM(crd_point_dh2)(nmax, rref);
                 if (grd_pnt == NULL)
                 {
-                    fprintf(stderr, "Failed to initialize a \"crd\" "
-                            "structure\n");
+                    fprintf(stderr, ERR_MSG_POINT);
                     exit(CHARM_FAILURE);
                 }
 
@@ -523,8 +573,7 @@ long int check_shs_point_guru(void)
                                                           nlat[i], nlon[i]);
                         if (grd_pnt == NULL)
                         {
-                            fprintf(stderr, "Failed to initialize a "
-                                            "\"crd\" structure\n");
+                            fprintf(stderr, ERR_MSG_POINT);
                             exit(CHARM_FAILURE);
                         }
 
@@ -605,8 +654,10 @@ long int check_shs_point_guru(void)
     /* Scattered points */
     /* ..................................................................... */
     {
-    size_t nlat[NSCTR] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-    size_t nlon[NSCTR] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    size_t nlat[NSCTR] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 20, 30, 30 + 1};
+    size_t nlon[NSCTR];
+    for (size_t i = 0; i < NSCTR; i++)
+        nlon[i] = nlat[i];
 
 
     CHARM(point) *sctr_pnt = NULL;
@@ -633,8 +684,7 @@ long int check_shs_point_guru(void)
                                                    nlat[i], nlon[i]);
                 if (sctr_pnt == NULL)
                 {
-                    fprintf(stderr, "Failed to initialize a \"crd\" "
-                            "structure\n");
+                    fprintf(stderr, ERR_MSG_POINT);
                     exit(CHARM_FAILURE);
                 }
 
@@ -722,7 +772,7 @@ long int check_shs_point_guru(void)
         shcs = CHARM(shc_calloc)(nmax, PREC(1.0), PREC(1.0));
         if (shcs == NULL)
         {
-            fprintf(stderr, "Failed to initialize a \"shc\" structure.\n");
+            fprintf(stderr, ERR_MSG_SHC);
             exit(CHARM_FAILURE);
         }
         for (size_t m = 0; m <= nmax; m++)
@@ -763,8 +813,7 @@ long int check_shs_point_guru(void)
                         grd_pnt = CHARM(crd_point_gl)(nmax, r);
                         if (grd_pnt == NULL)
                         {
-                            fprintf(stderr, "Failed to initialize a "
-                                            "\"crd\" structure\n");
+                            fprintf(stderr, ERR_MSG_POINT);
                             exit(CHARM_FAILURE);
                         }
                         /* Given that we are testing features that are related
@@ -774,7 +823,12 @@ long int check_shs_point_guru(void)
                          * first meridian in "grd_pnt".  This makes the tests
                          * faster and avoids having too large reference data
                          * files in "../data/tests". */
+#if HAVE_MPI
                         grd_pnt->nlon = 1;
+                        grd_pnt->local_nlon = 1;
+#else
+                        grd_pnt->nlon = 1;
+#endif
 
 
                         /* To get a non-symmetric grid, we simply add
