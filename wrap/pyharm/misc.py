@@ -77,7 +77,10 @@ def buildopt_simd():
       (``--enable-avx-512``),
 
     * ``4`` if CHarm was compiled with NEON instructions enabled
-      (``--enable-neon``).
+      (``--enable-neon``),
+
+    * ``5`` if CHarm was compiled with SSE4.1 instructions enabled
+      (``--enable-sse4.1``).
     """
 
     func          = _libcharm[_CHARM + 'misc_buildopt_simd']

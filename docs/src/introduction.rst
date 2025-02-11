@@ -38,8 +38,8 @@ Features
 * Computes Fourier coefficients of fully-normalized associated Legendre
   functions of the first kind up to ultra-high harmonic degrees.
 
-* Supports SIMD parallelization on the level of a single CPU core (AVX, AVX2, 
-  AVX-512 and NEON).
+* Supports SIMD parallelization on the level of a single CPU core (SSE4.1, AVX, 
+  AVX2, AVX-512 and NEON).
 
 * Supports `OpenMP <https://www.openmp.org/>`_ parallelization for
   shared-memory architectures.

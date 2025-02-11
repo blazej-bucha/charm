@@ -841,6 +841,7 @@ enable_libtool_lock
 enable_single_precision
 enable_double_precision
 enable_quad_precision
+enable_sse4_1
 enable_avx
 enable_avx2
 enable_avx_512
@@ -1514,6 +1515,8 @@ Optional Features:
                           floating point numbers) [default=yes]
   --enable-quad-precision compile in quadruple precision (__float128 data type
                           for floating point numbers) [default=no]
+  --enable-sse4.1         enable SSE4.1 instructions on x86_64 to improve
+                          performance [default=no]
   --enable-avx            enable AVX instructions on x86_64 to improve
                           performance [default=no]
   --enable-avx2           enable AVX2 instructions on x86_64 to improve
@@ -15831,6 +15834,14 @@ fi
 
 
 
+# Check whether --enable-sse4.1 was given.
+if test ${enable_sse4_1+y}
+then :
+  enableval=$enable_sse4_1; sse41=$enableval
+else $as_nop
+  sse41=no
+fi
+
 # Check whether --enable-avx was given.
 if test ${enable_avx+y}
 then :
@@ -15865,6 +15876,18 @@ fi
 
 
 
+if test "$sse41" = "yes" -a "$avx" = "yes"; then
+    as_fn_error $? "more than one type of SIMD instructions enabled" "$LINENO" 5
+fi
+if test "$sse41" = "yes" -a "$avx2" = "yes"; then
+    as_fn_error $? "more than one type of SIMD instructions enabled" "$LINENO" 5
+fi
+if test "$sse41" = "yes" -a "$avx512" = "yes"; then
+    as_fn_error $? "more than one type of SIMD instructions enabled" "$LINENO" 5
+fi
+if test "$sse41" = "yes" -a "$neon" = "yes"; then
+    as_fn_error $? "more than one type of SIMD instructions enabled" "$LINENO" 5
+fi
 if test "$avx" = "yes" -a "$avx2" = "yes"; then
     as_fn_error $? "more than one type of SIMD instructions enabled" "$LINENO" 5
 fi
@@ -15883,7 +15906,7 @@ fi
 if test "$avx512" = "yes" -a "$neon" = "yes"; then
     as_fn_error $? "more than one type of SIMD instructions enabled" "$LINENO" 5
 fi
-if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes" -o "$neon" = "yes"; then
+if test "$sse41" = "yes" -o "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes" -o "$neon" = "yes"; then
     if test "$qp" = "yes"; then
         as_fn_error $? "SIMD instructions are not supported in quadruple precision" "$LINENO" 5
     fi
@@ -15892,6 +15915,20 @@ fi
 
 simd_flag1="no"
 simd_flag2="no"
+
+
+if test "$sse41" = "yes"; then
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: compiling with SSE4.1 instructions enabled" >&5
+printf "%s\n" "$as_me: compiling with SSE4.1 instructions enabled" >&6;}
+
+printf "%s\n" "#define HAVE_SSE41 1" >>confdefs.h
+
+    if test "$ax_cv_c_compiler_vendor" = "microsoft"; then
+        simd_flag1=
+    else
+        simd_flag1=-msse4.1
+    fi
+fi
 
 
 if test "$avx" = "yes"; then
@@ -15946,7 +15983,7 @@ printf "%s\n" "#define HAVE_NEON 1" >>confdefs.h
             fi
 
 
-if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes" -o "$neon" = "yes"; then
+if test "$sse41" = "yes" -o "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes" -o "$neon" = "yes"; then
 
     if test "$neon" != "yes"; then
         as_CACHEVAR=`printf "%s\n" "ax_cv_check_cflags__$simd_flag1" | $as_tr_sh`
@@ -16106,7 +16143,17 @@ else $as_nop
 fi
 
     else
-        ac_fn_c_check_header_compile "$LINENO" "immintrin.h" "ac_cv_header_immintrin_h" "$ac_includes_default"
+        if test "$sse41" = "yes"; then
+            ac_fn_c_check_header_compile "$LINENO" "nmmintrin.h" "ac_cv_header_nmmintrin_h" "$ac_includes_default"
+if test "x$ac_cv_header_nmmintrin_h" = xyes
+then :
+
+else $as_nop
+  as_fn_error $? "nmmintrin.h not found" "$LINENO" 5
+fi
+
+        else
+            ac_fn_c_check_header_compile "$LINENO" "immintrin.h" "ac_cv_header_immintrin_h" "$ac_includes_default"
 if test "x$ac_cv_header_immintrin_h" = xyes
 then :
 
@@ -16114,6 +16161,7 @@ else $as_nop
   as_fn_error $? "immintrin.h not found" "$LINENO" 5
 fi
 
+        fi
     fi
     if test "$ax_cv_c_compiler_vendor" = "microsoft"; then
         ac_fn_c_check_header_compile "$LINENO" "malloc.h" "ac_cv_header_malloc_h" "$ac_includes_default"
@@ -16214,7 +16262,7 @@ fi
 fi
 
 
-if test "$avx" = "no" -a "$avx2" = "no" -a "$avx512" = "no"; then
+if test "$sse41" = "no" -a "$avx" = "no" -a "$avx2" = "no" -a "$avx512" = "no" -a "$neon" = "no"; then
     { printf "%s\n" "$as_me:${as_lineno-$LINENO}: compiling with SIMD instructions disabled" >&5
 printf "%s\n" "$as_me: compiling with SIMD instructions disabled" >&6;}
 fi
