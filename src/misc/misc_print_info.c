@@ -65,6 +65,8 @@ void CHARM(misc_print_info)(void)
         printf("avx-512");
     else if (ret == BUILDOPT_SIMD_NEON)
         printf("neon");
+    else if (ret == BUILDOPT_SIMD_SSE41)
+        printf("sse4.1");
     else
         printf("unsupported value, recompile CHarm");
     printf(" (vector size %d)", CHARM(misc_buildopt_simd_vector_size)());

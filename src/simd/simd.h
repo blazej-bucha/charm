@@ -25,7 +25,8 @@
 /* At first, let's check if one type of SIMD instruction only is defined in
  * "config.h".  The configure script does not allow this, but if CHarm is
  * compiled without the autotools, this might perhaps happen. */
-#if (HAVE_AVX  && (HAVE_AVX2 || HAVE_AVX512F || HAVE_NEON)) || \
+#if (HAVE_SSE41 && (HAVE_AVX || HAVE_AVX2 || HAVE_AVX512F || HAVE_NEON)) || \
+    (HAVE_AVX  && (HAVE_AVX2 || HAVE_AVX512F || HAVE_NEON)) || \
     (HAVE_AVX2 && (HAVE_AVX512F || HAVE_NEON)) || \
     (HAVE_AVX512F && HAVE_NEON)
 #   error "One type of SIMD instructions only can be defined in config.h."
@@ -103,7 +104,7 @@
 
 
 
-#if HAVE_AVX || HAVE_AVX2 || HAVE_AVX512F || HAVE_NEON
+#if HAVE_SSE41 || HAVE_AVX || HAVE_AVX2 || HAVE_AVX512F || HAVE_NEON
     /* If "SIMD" is defined, CHarm is being compiled with SIMD support. */
 #   define SIMD
 #endif
@@ -125,6 +126,8 @@
     /* --------------------------------------------------------------------- */
 #   if HAVE_AVX || HAVE_AVX2 || HAVE_AVX512F
 #       include <immintrin.h>
+#   elif HAVE_SSE41
+#       include <smmintrin.h>
 #   elif HAVE_NEON
 #       if defined(__GNUC__) || defined(__clang__)
 #           if !defined(__ARM_NEON) && !defined(__ARM_NEON__)
@@ -140,7 +143,41 @@
 
 
 
-#   if HAVE_AVX || HAVE_AVX2
+#   if HAVE_SSE41
+
+#       if CHARM_FLOAT /* Single precision */
+
+#           define SIMD_SIZE     4
+#           define SIMD_TRUE     0xF
+#           define PF(x)         _mm_ ## x ## _ps
+#           define PINT(x)       _mm_ ## x ## _epi32
+#           define PINT2         PINT
+#           define REAL_SIMD     __m128
+
+#       else /* Double precision */
+
+#           define SIMD_SIZE     2
+#           define SIMD_TRUE     0x3
+#           define PF(x)         _mm_ ## x ## _pd
+#           define PINT(x)       _mm_ ## x ## _epi64
+#           define PINT2(x)      _mm_ ## x ## _epi64x
+#           define REAL_SIMD     __m128d
+
+#       endif
+
+
+#       define SIMD_MEMALIGN     16
+#       define P(x)              _mm_ ## x
+#       define INT_SIMD          __m128i
+
+
+#       define RI_SIMD       REAL_SIMD
+
+
+#       define MASK_SIMD         RI_SIMD
+#       define MASK2_SIMD        REAL_SIMD
+
+#   elif HAVE_AVX || HAVE_AVX2
 
 #       if CHARM_FLOAT /* Single precision */
 
@@ -273,7 +310,7 @@
 #   define SUB_R(x, y)         PF(sub)((x), (y))
 
 
-#   if HAVE_AVX || HAVE_AVX2 || HAVE_AVX512F
+#   if HAVE_SSE41 || HAVE_AVX || HAVE_AVX2 || HAVE_AVX512F
 #       define SET1_R(x)           PF(set1)((x))
 #       define LOAD_R(x)           PF(load)((x))
 #       define LOADU_R(x)          PF(loadu)((x))
@@ -288,7 +325,7 @@
 #   endif
 
 
-#   if HAVE_AVX || HAVE_AVX2
+#   if HAVE_SSE41 || HAVE_AVX || HAVE_AVX2
 #       define BLEND_R(x, y, mask)   PF(blendv)((x), (y), (mask))
 #       define MOVEMASK(x)           PF(movemask)((x))
 #   elif HAVE_AVX512F
@@ -299,10 +336,14 @@
 #   endif
 
 
-#   if HAVE_AVX || HAVE_AVX2 || HAVE_AVX512F
+#   if HAVE_SSE41 || HAVE_AVX || HAVE_AVX2 || HAVE_AVX512F
 #       define AND_R(x, y)          PF(and)((x), (y))
 #       define OR_R(x, y)           PF(or)((x), (y))
-#       if HAVE_AVX || HAVE_AVX2
+#       if HAVE_SSE41
+#           define EQ_R(x, y)       PF(cmpeq)((x), (y))
+#           define GE_R(x, y)       PF(cmpge)((x), (y))
+#           define LT_R(x, y)       PF(cmplt)((x), (y))
+#       elif HAVE_AVX || HAVE_AVX2
 #           define EQ_R(x, y)       PF(cmp)((x), (y), _CMP_EQ_OQ)
 #           define GE_R(x, y)       PF(cmp)((x), (y), _CMP_GE_OQ)
 #           define LT_R(x, y)       PF(cmp)((x), (y), _CMP_LT_OQ)
@@ -322,26 +363,43 @@
 #   endif
 
 
-#   if HAVE_AVX
+#   if HAVE_SSE41 || HAVE_AVX
 
 #       define SET1_RI                SET1_R
-#       if CHARM_FLOAT
-#           define LOAD_RI(x)         PF(set)((x)[7], (x)[6], (x)[5], \
-                                              (x)[4], (x)[3], (x)[2], \
-                                              (x)[1], (x)[0])
-#       else
-#           define LOAD_RI(x)         PF(set)((x)[3], (x)[2], \
-                                              (x)[1], (x)[0])
+#       if HAVE_SSE41
+#           if CHARM_FLOAT
+#               define LOAD_RI(x)         PF(set)((x)[3], (x)[2], \
+                                                  (x)[1], (x)[0])
+#           else
+#               define LOAD_RI(x)         PF(set)((x)[1], (x)[0])
+#           endif
+#       elif HAVE_AVX
+#           if CHARM_FLOAT
+#               define LOAD_RI(x)         PF(set)((x)[7], (x)[6], (x)[5], \
+                                                  (x)[4], (x)[3], (x)[2], \
+                                                  (x)[1], (x)[0])
+#           else
+#               define LOAD_RI(x)         PF(set)((x)[3], (x)[2], \
+                                                  (x)[1], (x)[0])
+#           endif
 #       endif
 #       define EQ_RI                  EQ_R
-#       define GT_RI(x, y)            PF(cmp)((x), (y), _CMP_GT_OQ)
+#       if HAVE_SSE41
+#           define GT_RI(x, y)        PF(cmpgt)((x), (y))
+#       elif HAVE_AVX
+#           define GT_RI(x, y)        PF(cmp)((x), (y), _CMP_GT_OQ)
+#       endif
 #       define ADD_RI                 ADD_R
 #       define SUB_RI                 SUB_R
 #       define CAST_RI2R(x)           (x)
 #       define CAST_R2RI(x)           (x)
 #       define OR_MASK                OR_R
 #       define SET_ZERO_R             PF(setzero)()
-#       define SET_ZERO_I             P(setzero_si256)()
+#       if HAVE_SSE41
+#           define SET_ZERO_I         P(setzero_si128)()
+#       elif HAVE_AVX
+#           define SET_ZERO_I         P(setzero_si256)()
+#       endif
 #       define SET_ZERO_RI            SET_ZERO_R
 #       define ANDNOT_MASK(x)         EQ_R((x), SET_ZERO_R)
 #       define BLEND_RI               BLEND_R
@@ -436,7 +494,10 @@
 #   endif
 
 
-#   if HAVE_AVX || HAVE_AVX2
+#   if HAVE_SSE41
+#       define ABS_R(x)     PF(and)(PF(castsi128)(PINT2(set1)(NONSIGNBITS)), \
+                                    (x))
+#   elif HAVE_AVX || HAVE_AVX2
 #       define ABS_R(x)     PF(and)(PF(castsi256)(PINT2(set1)(NONSIGNBITS)), \
                                     (x))
 #   elif HAVE_AVX512F
@@ -458,7 +519,9 @@
 #   endif
 
 
-#   if HAVE_AVX || HAVE_AVX2
+#   if HAVE_SSE41
+#       define NEG_R(x)     PF(xor)((x), PF(castsi128)(PINT2(set1)(SIGNBIT)))
+#   elif HAVE_AVX || HAVE_AVX2
 #       define NEG_R(x)     PF(xor)((x), PF(castsi256)(PINT2(set1)(SIGNBIT)))
 #   elif HAVE_AVX512F
 #       define NEG_R(x)     PF(xor)((x), PF(castsi512)(PINT2(set1)(SIGNBIT)))
@@ -473,7 +536,20 @@
 
     /* Sum all elements of a SIMD vector. */
     /* ..................................................................... */
-#   if HAVE_AVX || HAVE_AVX2
+#   if HAVE_SSE41
+        inline static REAL SUM_R(REAL_SIMD x)
+        {
+#       if CHARM_FLOAT
+            __m128 shuf = PF(movehdup)(x);
+            __m128 sums = PF(add)(x, shuf);
+            return P(cvtss_f32)(P(add_ss)(sums, PF(movehl)(shuf, sums)));
+#       else
+            return P(cvtsd_f64)(_mm_add_sd(x,
+                                PF(castps)(_mm_movehl_ps(_mm_undefined_ps(),
+                                                         _mm_castpd_ps(x)))));
+#       endif
+        }
+#   elif HAVE_AVX || HAVE_AVX2
         inline static REAL SUM_R(REAL_SIMD x)
         {
             x = ADD_R(PF(permute2f128)(x, x, 0x01), x);
@@ -501,7 +577,7 @@
                                        (multiple))
 
 
-#   if HAVE_AVX || HAVE_AVX2 || HAVE_AVX512F
+#   if HAVE_SSE41 || HAVE_AVX || HAVE_AVX2 || HAVE_AVX512F
 
         /* If mask "MASK_SIMD x" was obtained by macros such as "GT_RI", etc.,
          * then it must be casted by "CAST_RI2R" as
