@@ -546,7 +546,7 @@
     ENMS(n);                                                                  \
     NN1S(n);                                                                  \
     cnm  = SET1_R(shcs_block->c[idx]);                                        \
-    snm  = SET1_R(shcs_block->s[idx++]);                                      \
+    snm  = SET1_R(shcs_block->s[idx]);                                        \
     AMPL((n));                                                                \
                                                                               \
                                                                               \
@@ -584,12 +584,14 @@
  * lengthy. */
 #define LOOP_ITER(n, PM1_R, PM2_R)                                            \
     LEG_CS((n))                                                               \
-    LCAB(PM1_R, PM2_R)
+    LCAB(PM1_R, PM2_R)                                                        \
+    idx++;
 
 
 #define LOOP_ITER_R1(n, PM1_R, PM2_R)                                         \
     LEG_CS((n))                                                               \
-    LCAB_R1(PM1_R, PM2_R)
+    LCAB_R1(PM1_R, PM2_R)                                                     \
+    idx++;
 /* ------------------------------------------------------------------------- */
 
 
@@ -1017,7 +1019,8 @@ BARRIER_1:
         /* Zonal harmonics */
         /* ----------------------------------------------------- */
         /* P00 */
-        cnm = SET1_R(shcs_block->c[idx++]);
+        cnm = SET1_R(shcs_block->c[idx]);
+        idx++;
         AMPL(0);
 
 
@@ -1095,7 +1098,8 @@ BARRIER_1:
         /* P10 */
         if (nmax >= 1)
         {
-            cnm = SET1_R(shcs_block->c[idx++]);
+            cnm = SET1_R(shcs_block->c[idx]);
+            idx++;
             AMPL(1);
 
 
@@ -1170,7 +1174,8 @@ BARRIER_1:
 #if DLAT > 1
                 nn1s = SET1_R((REAL)(n * (n + 1)));
 #endif
-                cnm  = SET1_R(shcs_block->c[idx++]);
+                cnm  = SET1_R(shcs_block->c[idx]);
+                idx++;
                 AMPL(n);
 
 
@@ -1256,7 +1261,8 @@ BARRIER_1:
         /* Sectorial harmonics */
         /* ----------------------------------------------------- */
         cnm = SET1_R(shcs_block->c[idx]);
-        snm = SET1_R(shcs_block->s[idx++]);
+        snm = SET1_R(shcs_block->s[idx]);
+        idx++;
 #if DLAT > 0
         enms = SET1_R(enm[m]);
         ns   = SET1_R((REAL)m);
@@ -1376,7 +1382,8 @@ BARRIER_1:
             nn1s = SET1_R((m + 1) * (m + 2));
 #endif
             cnm  = SET1_R(shcs_block->c[idx]);
-            snm  = SET1_R(shcs_block->s[idx++]);
+            snm  = SET1_R(shcs_block->s[idx]);
+            idx++;
             AMPL(m + 1);
 
 
@@ -1481,7 +1488,8 @@ BARRIER_1:
                 nn1s = SET1_R((REAL)(n * (n + 1)));
 #endif
                 cnm  = SET1_R(shcs_block->c[idx]);
-                snm  = SET1_R(shcs_block->s[idx++]);
+                snm  = SET1_R(shcs_block->s[idx]);
+                idx++;
                 AMPL(n);
 
 
