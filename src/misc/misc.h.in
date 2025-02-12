@@ -144,7 +144,10 @@ CHARM_EXTERN int CHARM_CDECL charm@P@_misc_buildopt_precision(void);
  *   (``--enable-avx-512``),
  *
  * * ``4`` if CHarm was compiled with NEON instructions enabled
- *   (``--enable-neon``).
+ *   (``--enable-neon``),
+ *
+ * * ``5`` if CHarm was compiled with SSE4.1 instructions enabled
+ *   (``--enable-sse4.1``).
  *
  * */
 CHARM_EXTERN int CHARM_CDECL charm@P@_misc_buildopt_simd(void);

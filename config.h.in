@@ -90,6 +90,9 @@
 /* Define to 1 if you have the `posix_memalign' function. */
 #undef HAVE_POSIX_MEMALIGN
 
+/* Define to 1 to enable sse4.1 instructions */
+#undef HAVE_SSE41
+
 /* Define to 1 if you have the <stdint.h> header file. */
 #undef HAVE_STDINT_H
 

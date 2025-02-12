@@ -272,12 +272,25 @@ dnl ===========================================================================
 
 dnl SIMD
 dnl ===========================================================================
+AC_ARG_ENABLE([sse4.1], [AS_HELP_STRING([--enable-sse4.1], [enable SSE4.1 instructions on x86_64 to improve performance [default=no]])], sse41=$enableval, sse41=no)
 AC_ARG_ENABLE([avx], [AS_HELP_STRING([--enable-avx], [enable AVX instructions on x86_64 to improve performance [default=no]])], avx=$enableval, avx=no)
 AC_ARG_ENABLE([avx2], [AS_HELP_STRING([--enable-avx2], [enable AVX2 instructions on x86_64 to improve performance [default=no]])], avx2=$enableval, avx2=no)
 AC_ARG_ENABLE([avx-512], [AS_HELP_STRING([--enable-avx-512], [enable AVX-512 on x86_64 instructions to improve performance [default=no]])], avx512=$enableval, avx512=no)
 AC_ARG_ENABLE([neon], [AS_HELP_STRING([--enable-neon], [enable NEON instructions on ARM64 to improve performance [default=no]])], neon=$enableval, neon=no)
 
 
+if test "$sse41" = "yes" -a "$avx" = "yes"; then
+    AC_MSG_ERROR([more than one type of SIMD instructions enabled])
+fi
+if test "$sse41" = "yes" -a "$avx2" = "yes"; then
+    AC_MSG_ERROR([more than one type of SIMD instructions enabled])
+fi
+if test "$sse41" = "yes" -a "$avx512" = "yes"; then
+    AC_MSG_ERROR([more than one type of SIMD instructions enabled])
+fi
+if test "$sse41" = "yes" -a "$neon" = "yes"; then
+    AC_MSG_ERROR([more than one type of SIMD instructions enabled])
+fi
 if test "$avx" = "yes" -a "$avx2" = "yes"; then
     AC_MSG_ERROR([more than one type of SIMD instructions enabled])
 fi
@@ -296,7 +309,7 @@ fi
 if test "$avx512" = "yes" -a "$neon" = "yes"; then
     AC_MSG_ERROR([more than one type of SIMD instructions enabled])
 fi
-if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes" -o "$neon" = "yes"; then
+if test "$sse41" = "yes" -o "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes" -o "$neon" = "yes"; then
     if test "$qp" = "yes"; then
         AC_MSG_ERROR([SIMD instructions are not supported in quadruple precision])
     fi
@@ -306,6 +319,18 @@ fi
 dnl ---------------------------------------------------------------------------
 simd_flag1="no"
 simd_flag2="no"
+
+
+dnl --enable-sse4.1
+if test "$sse41" = "yes"; then
+    AC_MSG_NOTICE([compiling with SSE4.1 instructions enabled])
+    AC_DEFINE([HAVE_SSE41], [1], [Define to 1 to enable sse4.1 instructions])
+    if test "$ax_cv_c_compiler_vendor" = "microsoft"; then
+        simd_flag1=
+    else
+        simd_flag1=-msse4.1
+    fi
+fi
 
 
 dnl --enable-avx
@@ -356,7 +381,7 @@ fi
 dnl ---------------------------------------------------------------------------
 
 
-if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes" -o "$neon" = "yes"; then
+if test "$sse41" = "yes" -o "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes" -o "$neon" = "yes"; then
 
     if test "$neon" != "yes"; then
         AX_CHECK_COMPILE_FLAG([$simd_flag1], [CFLAGS_SIMD="$simd_flag1"], [AC_MSG_ERROR([unrecognized $simd_flag1 compiler flag.  Try using the gcc compiler.])])
@@ -386,7 +411,11 @@ if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes" -o "$neon" = "yes
     if test "$neon" = "yes"; then
         AC_CHECK_HEADER([arm_neon.h], [], [AC_MSG_ERROR([arm_neon.h not found])])
     else
-        AC_CHECK_HEADER([immintrin.h], [], [AC_MSG_ERROR([immintrin.h not found])])
+        if test "$sse41" = "yes"; then
+            AC_CHECK_HEADER([nmmintrin.h], [], [AC_MSG_ERROR([nmmintrin.h not found])])
+        else
+            AC_CHECK_HEADER([immintrin.h], [], [AC_MSG_ERROR([immintrin.h not found])])
+        fi
     fi
     if test "$ax_cv_c_compiler_vendor" = "microsoft"; then
         AC_CHECK_HEADER([malloc.h], [], [AC_MSG_ERROR([malloc.h not found])])
@@ -406,7 +435,7 @@ if test "$avx" = "yes" -o "$avx2" = "yes" -o "$avx512" = "yes" -o "$neon" = "yes
 fi
 
 
-if test "$avx" = "no" -a "$avx2" = "no" -a "$avx512" = "no"; then
+if test "$sse41" = "no" -a "$avx" = "no" -a "$avx2" = "no" -a "$avx512" = "no" -a "$neon" = "no"; then
     AC_MSG_NOTICE([compiling with SIMD instructions disabled])
 fi
 dnl ===========================================================================

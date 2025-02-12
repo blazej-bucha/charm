@@ -1,3 +1,28 @@
+CHarm 0.4.4:
+
+This release adds support for SSE4.1 and fixes likely wrong compilation of 
+CHarm by gcc (12.2.0) on Debian 12 which may occur when `-O3` and `-ffast-math` 
+are enabled and all SIMD instruction sets are disabled.
+
+* Added support for SSE4.1.
+
+* On Debian 12, gcc (12.2.0) seems to incorrectly compile 
+  `src/shs/shs_point_kernel.c` if the `-O3` and `-ffast-math` flags are enabled 
+  and all SIMD instructions are disabled.  Although `-ffast-math` does not 
+  guarantee full IEEE compliance, likely causing slight increase in numerical 
+  errors, this time the code is indeed mostly likely compiled incorrectly as 
+  revealed by `make check`.  The code itself seems to be correct.  This was 
+  confirmed by successfully compiling and testing CHarm with `-O3` and 
+  `-ffast-math` and no SIMD instructions on Manjaro with gcc 14.2.1 and also on 
+  Debian with clang 14.0.6.  This is why one should always run the test suite 
+  by `make check` before installing and using the library.
+
+  The issue was introduced in v0.4.3, which required some modifications to 
+  `shs_point_kernel.c`.  The published PyHarm wheels for v0.4.3 are not 
+  affected by this issue, as they rely on AVX and also `make check` during the 
+  build on GitHub passed all tests.
+
+
 CHarm 0.4.3:
 
 This release adds support for MPI parallelization on distributed-memory systems 

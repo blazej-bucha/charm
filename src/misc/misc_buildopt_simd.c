@@ -21,6 +21,8 @@ int CHARM(misc_buildopt_simd)(void)
     return BUILDOPT_SIMD_AVX512;
 #elif HAVE_NEON
     return BUILDOPT_SIMD_NEON;
+#elif HAVE_SSE41
+    return BUILDOPT_SIMD_SSE41;
 #else
     return BUILDOPT_SIMD_NONE;
 #endif

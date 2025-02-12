@@ -66,6 +66,10 @@ extern "C"
 #define BUILDOPT_SIMD_NEON 4
 
 
+#undef BUILDOPT_SIMD_SSE41
+#define BUILDOPT_SIMD_SSE41 5
+
+
 #undef LIB_NA_STR
 #define LIB_NA_STR "n/a"
 
