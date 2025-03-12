@@ -12,6 +12,7 @@
 #include "../prec.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
+#include "../err/err_check_distribution.h"
 #include "../mpfr/mpfr_check_bits.h"
 #include "../mpfr/mpfr_flush_unreleased_memory.h"
 #include "../misc/misc_idx_4d.h"
@@ -57,17 +58,23 @@ long CHARM(gfm_cap_q_check_prec)(const mpfr_t rref,
 
 
 
-    /* Checks */
     /* --------------------------------------------------------------------- */
-    CHARM(mpfr_check_bits)(NBITS, err);
+    CHARM(err_check_distribution)(err);
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
         goto EXIT;
     }
+    /* --------------------------------------------------------------------- */
 
 
-    CHARM(mpfr_check_bits)(NBITSREF, err);
+
+
+
+
+    /* Checks */
+    /* --------------------------------------------------------------------- */
+    CHARM(mpfr_check_bits)(NBITS, err);
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
@@ -76,11 +83,20 @@ long CHARM(gfm_cap_q_check_prec)(const mpfr_t rref,
     }
 
 
+    CHARM(mpfr_check_bits)(NBITSREF, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        ret = -3;
+        goto EXIT;
+    }
+
+
     if (NBITSREF < NBITS)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"NBITSREF\" cannot be smaller than \"NBITS\".");
-        ret = -3;
+        ret = -4;
         goto EXIT;
     }
 
@@ -89,7 +105,7 @@ long CHARM(gfm_cap_q_check_prec)(const mpfr_t rref,
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
-        ret = -4;
+        ret = -5;
         goto EXIT;
     }
 
@@ -98,7 +114,7 @@ long CHARM(gfm_cap_q_check_prec)(const mpfr_t rref,
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
-        ret = -5;
+        ret = -6;
         goto EXIT;
     }
 
@@ -107,7 +123,7 @@ long CHARM(gfm_cap_q_check_prec)(const mpfr_t rref,
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
-        ret = -6;
+        ret = -7;
         goto EXIT;
     }
 
@@ -116,7 +132,7 @@ long CHARM(gfm_cap_q_check_prec)(const mpfr_t rref,
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
-        ret = -7;
+        ret = -8;
         goto EXIT;
     }
 
@@ -125,7 +141,7 @@ long CHARM(gfm_cap_q_check_prec)(const mpfr_t rref,
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
-        ret = -8;
+        ret = -9;
         goto EXIT;
     }
 
@@ -134,7 +150,7 @@ long CHARM(gfm_cap_q_check_prec)(const mpfr_t rref,
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
-        ret = -9;
+        ret = -10;
         goto EXIT;
     }
     /* --------------------------------------------------------------------- */
@@ -149,7 +165,7 @@ long CHARM(gfm_cap_q_check_prec)(const mpfr_t rref,
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
-        ret = -10;
+        ret = -11;
         goto EXIT;
     }
 
@@ -159,7 +175,7 @@ long CHARM(gfm_cap_q_check_prec)(const mpfr_t rref,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
                        CHARM_ERR_MALLOC_FAILURE);
-        ret = -11;
+        ret = -12;
         goto EXIT;
     }
     for (size_t v = 0; v < size; v++)
@@ -171,7 +187,7 @@ long CHARM(gfm_cap_q_check_prec)(const mpfr_t rref,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
                        CHARM_ERR_MALLOC_FAILURE);
-        ret = -12;
+        ret = -13;
         goto EXIT;
     }
     for (size_t v = 0; v < size; v++)
@@ -183,7 +199,7 @@ long CHARM(gfm_cap_q_check_prec)(const mpfr_t rref,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
                        CHARM_ERR_MALLOC_FAILURE);
-        ret = -13;
+        ret = -14;
         goto EXIT;
     }
     for (size_t v = 0; v < size; v++)
@@ -196,7 +212,7 @@ long CHARM(gfm_cap_q_check_prec)(const mpfr_t rref,
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
-        ret = -14;
+        ret = -15;
         goto EXIT;
     }
     CHARM(gfm_cap_q)(rref, r, psi, nmax, pmax, kmin, kmax, imax, -1, type,
@@ -204,7 +220,7 @@ long CHARM(gfm_cap_q_check_prec)(const mpfr_t rref,
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
-        ret = -15;
+        ret = -16;
         goto EXIT;
     }
 
@@ -215,7 +231,7 @@ long CHARM(gfm_cap_q_check_prec)(const mpfr_t rref,
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
-        ret = -16;
+        ret = -17;
         goto EXIT;
     }
 
@@ -237,7 +253,7 @@ long CHARM(gfm_cap_q_check_prec)(const mpfr_t rref,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
                        CHARM_ERR_MALLOC_FAILURE);
-        ret = -17;
+        ret = -18;
         goto EXIT;
     }
     for (int myid = 0; myid < nthreads; myid++)

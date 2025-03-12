@@ -20,10 +20,12 @@
 #endif
 #include "../prec.h"
 #include "../shc/shc_reset_coeffs.h"
+#include "../shc/shc_check_distribution.h"
 #include "../misc/misc_is_nearly_equal.h"
 #include "../misc/misc_idx_4d.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
+#include "../err/err_check_distribution.h"
 #include "gfm_check_p.h"
 #include "gfm_check_kminkmax.h"
 /* ------------------------------------------------------------------------- */
@@ -349,6 +351,58 @@ CHARM_EXTERN void CHARM_CDECL
 
     /* Check input arguments */
     /* --------------------------------------------------------------------- */
+    CHARM(err_check_distribution)(err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
+    CHARM(shc_check_distribution)(shape_shcs, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
+#if !SGFM_RHO_CONST
+    for (unsigned i = 0; i <= density_order; i++)
+    {
+        CHARM(shc_check_distribution)(density_shcs[i], err);
+        if (!CHARM(err_isempty)(err))
+        {
+            CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+            return;
+        }
+    }
+#endif
+
+
+    if (potential_shcs != NULL)
+    {
+#if SGFM_GLOBAL
+        CHARM(shc_check_distribution)(potential_shcs, err);
+        if (!CHARM(err_isempty)(err))
+        {
+            CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+            return;
+        }
+#else
+        for (unsigned k = kmin; k <= kmax; k++)
+        {
+            CHARM(shc_check_distribution)(potential_shcs[k - kmin], err);
+            if (!CHARM(err_isempty)(err))
+            {
+                CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+                return;
+            }
+        }
+#endif
+    }
+
+
     char err_msg[CHARM_ERR_MAX_MSG];
 
 

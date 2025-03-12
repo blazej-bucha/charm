@@ -5,6 +5,7 @@
 #include <mpfr.h>
 #include "../prec.h"
 #include "../err/err_propagate.h"
+#include "../err/err_check_distribution.h"
 #include "../mpfr/mpfr_flush_unreleased_memory.h"
 #include "gfm_cap_q_check_type.h"
 #include "gfm_cap_qu0.h"
@@ -30,6 +31,14 @@ void CHARM(gfm_cap_q)(const mpfr_t rref,
                       mpfr_t *qkpin,
                       CHARM(err) *err)
 {
+    CHARM(err_check_distribution)(err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
     CHARM(gfm_cap_q_check_type)(type, err);
     if (!CHARM(err_isempty)(err))
     {
