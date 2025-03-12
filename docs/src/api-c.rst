@@ -23,6 +23,7 @@ omitted.  The list of the differences is given in
    api-c-crd
    api-c-shs
    api-c-sha
+   api-c-gfm
    api-c-leg
    api-c-integ
    api-c-misc

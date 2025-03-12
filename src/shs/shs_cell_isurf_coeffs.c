@@ -4,9 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../prec.h"
+#include "../misc/misc_idx_4d.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
-#include "shs_cell_isurf_offset.h"
 #include "shs_cell_isurf_coeffs.h"
 /* ------------------------------------------------------------------------- */
 
@@ -15,12 +15,16 @@
 
 
 
-void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
-                                  const CHARM(shc) *shcs2, unsigned long nmax2,
+void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1,
+                                  unsigned long nmax1,
+                                  const CHARM(shc) *shcs2,
+                                  unsigned long nmax2,
                                   unsigned long nmax3,
                                   unsigned long nmax4,
-                                  REAL *cnm1cnm3, REAL *cnm1snm3,
-                                  REAL *snm1cnm3, REAL *snm1snm3,
+                                  REAL *cnm1cnm3,
+                                  REAL *cnm1snm3,
+                                  REAL *snm1cnm3,
+                                  REAL *snm1snm3,
                                   CHARM(err) *err)
 /*
  * ============================================================================
@@ -46,7 +50,7 @@ void CHARM(shs_cell_isurf_coeffs)(const CHARM(shc) *shcs1, unsigned long nmax1,
  *
  *                        The structure of the array can be easily guessed from
  *                        how the "lc" variable is treated here and combined
- *                        with the "CHARM(shs_cell_isurf_offset)" function.
+ *                        with the "CHARM(misc_idx_4d)" function.
  *
  *          "cnm1snm3", "snm1cnm3", "snm1snm3" -- Same as "cnm1cnm3", but for a
  *                        different combination of "sine" and "cosine" terms.
@@ -415,9 +419,8 @@ private(idx, idxp1, idx0_lc, idx1_lc)
 
 
                         idx     = (m3 * (nmax3_2 + 1) + j3) * 2;
-                        idx0_lc = CHARM(shs_cell_isurf_offset)(m1, m3, k1, k3,
-                                                            nmax3p1, nmax1p1,
-                                                            nmax3p1);
+                        idx0_lc = CHARM(misc_idx_4d)(m1, m3, k1, k3, nmax3p1,
+                                                     nmax1p1, nmax3p1);
 
 
                         cnm1cnm3[idx0_lc] += cnm1pnmj_m1_j1_n1 *
@@ -434,11 +437,9 @@ private(idx, idxp1, idx0_lc, idx1_lc)
                         {
                             idxp1   = idx + 1;
                             k3pm1   = (k3 % 2) ? k3 - 1 : k3 + 1;
-                            idx1_lc = CHARM(shs_cell_isurf_offset)(m1, m3, k1,
-                                                               k3pm1,
-                                                               nmax3p1,
-                                                               nmax1p1,
-                                                               nmax3p1);
+                            idx1_lc = CHARM(misc_idx_4d)(m1, m3, k1, k3pm1,
+                                                         nmax3p1, nmax1p1,
+                                                         nmax3p1);
 
 
                             cnm1cnm3[idx1_lc] += cnm1pnmj_m1_j1_n1 *

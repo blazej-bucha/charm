@@ -94,7 +94,8 @@ long int check_mpi_shc_alloc(CHARM(shc) *(*mpi_shc_alloc)(unsigned long,
         CHARM(err_handler)(err, 0);
 
 
-        sprintf(func_call_str, "%s(%lu, " FORMAT ", " FORMAT ", %zu, {",
+        sprintf(func_call_str, "%s(%lu, " REAL_PRINT_FORMAT ", "
+                               REAL_PRINT_FORMAT ", %zu, {",
                 func, nmax, mu, r, local_nchunk);
         for (size_t j = 0; j < 2 * local_nchunk - 1; j++)
             sprintf(func_call_str + strlen(func_call_str), "%lu, ",
@@ -196,7 +197,8 @@ long int check_mpi_shc_alloc(CHARM(shc) *(*mpi_shc_alloc)(unsigned long,
                              &local_order[i * 2 * NCHUNK_TMP], comm, err);
 
 
-        sprintf(func_call_str, "%s(%lu, " FORMAT ", " FORMAT ", %zu, {",
+        sprintf(func_call_str, "%s(%lu, " REAL_PRINT_FORMAT ", "
+                               REAL_PRINT_FORMAT ", %zu, {",
                 func, NMAX_MPI, mu, r, local_nchunk);
         for (size_t j = 0; j < 2 * local_nchunk - 1; j++)
             sprintf(func_call_str + strlen(func_call_str), "%lu, ",

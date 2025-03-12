@@ -41,7 +41,8 @@ long int check_shc_alloc(CHARM(shc) *(*shc_alloc)(unsigned long,
     for (nmax = 0; nmax <= SHCS_NMAX_POT; nmax++)
     {
         shcs = shc_alloc(nmax, mu, r);
-        sprintf(func_call_str, "%s(%lu, " FORMAT ", " FORMAT ")",
+        sprintf(func_call_str,
+                "%s(%lu, " REAL_PRINT_FORMAT ", " REAL_PRINT_FORMAT ")",
                 func, nmax, mu, r);
 
 
@@ -62,7 +63,8 @@ long int check_shc_alloc(CHARM(shc) *(*shc_alloc)(unsigned long,
 
 
     shcs = shc_alloc(nmax, mu, zero);
-    sprintf(func_call_str, "%s(%lu, " FORMAT ", " FORMAT ")",
+    sprintf(func_call_str,
+            "%s(%lu, " REAL_PRINT_FORMAT ", " REAL_PRINT_FORMAT ")",
             func, nmax, mu, zero);
 
 
@@ -78,7 +80,8 @@ long int check_shc_alloc(CHARM(shc) *(*shc_alloc)(unsigned long,
 
 
     shcs = shc_alloc(nmax, mu, r);
-    sprintf(func_call_str, "%s(%lu, " FORMAT ", " FORMAT ")",
+    sprintf(func_call_str,
+            "%s(%lu, " REAL_PRINT_FORMAT ", " REAL_PRINT_FORMAT ")",
             func, nmax, mu, r);
 
 
@@ -97,7 +100,8 @@ long int check_shc_alloc(CHARM(shc) *(*shc_alloc)(unsigned long,
     /* Check that the members of "shcs" are properly set */
     /* --------------------------------------------------------------------- */
     shcs = shc_alloc(nmax, mu, r);
-    sprintf(func_call_str, "%s(%lu, " FORMAT ", " FORMAT ")",
+    sprintf(func_call_str,
+            "%s(%lu, " REAL_PRINT_FORMAT ", " REAL_PRINT_FORMAT ")",
             func, nmax, mu, r);
 
 

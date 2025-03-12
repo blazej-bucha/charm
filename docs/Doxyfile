@@ -915,6 +915,7 @@ INPUT                  = ../charm/charm.h \
                          ../charm/charm_sha.h \
                          ../charm/charm_shc.h \
                          ../charm/charm_shs.h \
+                         ../charm/charm_gfm.h \
                          ../charm/charm_mpi.h \
                          ../charm/charm_glob.h
 
@@ -987,7 +988,7 @@ EXCLUDE_PATTERNS       =
 # Note that the wildcards are matched against the file with absolute path, so to
 # exclude all test directories use the pattern */test/*
 
-EXCLUDE_SYMBOLS        =
+EXCLUDE_SYMBOLS        = __*__
 
 # The EXAMPLE_PATH tag can be used to specify one or more files or directories
 # that contain example code fragments that are included (see the \include

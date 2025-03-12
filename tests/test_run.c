@@ -10,6 +10,7 @@
 #include "module_shc.h"
 #include "module_crd.h"
 #include "module_sha.h"
+#include "module_gfm.h"
 #include "module_leg.h"
 #include "module_integ.h"
 #include "misc.h"
@@ -44,6 +45,10 @@ int main(void)
 
     TESTING_MSG("sha");
     e += module_sha();
+
+
+    TESTING_MSG("gfm");
+    e += module_gfm();
 
 
     TESTING_MSG("leg");

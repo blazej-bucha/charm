@@ -97,7 +97,42 @@ void CHARM(misc_print_info)(void)
     printf("\n");
 
 
+    printf("MPFR: ");
+    if (CHARM(misc_buildopt_mpfr)())
+        printf("enabled");
+    else
+        printf("disabled");
+    printf("\n");
+
+
     printf("FFTW version: %s\n", CHARM(misc_buildopt_version_fftw)());
+
+
+    int mpfr_major, mpfr_minor, mpfr_patch;
+    const char * const mpfr_lib = CHARM(misc_buildopt_version_mpfr)(
+                                                                  &mpfr_major,
+                                                                  &mpfr_minor,
+                                                                  &mpfr_patch);
+    printf("MPFR version (header): ");
+#if HAVE_MPFR
+    printf("%d.%d.%d\n", mpfr_major, mpfr_minor, mpfr_patch);
+#else
+    printf("%s\n", LIB_NA_STR);
+#endif
+    printf("MPFR version (library): %s\n", mpfr_lib);
+
+
+    int gmp_major, gmp_minor, gmp_patch;
+    const char * const gmp_lib = CHARM(misc_buildopt_version_gmp)(&gmp_major,
+                                                                  &gmp_minor,
+                                                                  &gmp_patch);
+    printf("GMP version (header): ");
+#if HAVE_MPFR
+    printf("%d.%d.%d\n", gmp_major, gmp_minor, gmp_patch);
+#else
+    printf("%s\n", LIB_NA_STR);
+#endif
+    printf("GMP version (library): %s\n", gmp_lib);
 
 
     printf("isfinite macro in math.h: ");

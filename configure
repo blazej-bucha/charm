@@ -665,8 +665,8 @@ LTLIBOBJS
 LIBOBJS
 SINGLE_PY_FALSE
 SINGLE_PY_TRUE
-DOC_PY_MPI_FALSE
-DOC_PY_MPI_TRUE
+DOC_FALSE
+DOC_TRUE
 PY_FALSE
 PY_TRUE
 SHARED_EXT
@@ -692,11 +692,16 @@ OPENMP_FALSE
 OPENMP_TRUE
 CHARM_LIB
 OPENMP_CFLAGS
-DOC_FALSE
-DOC_TRUE
+CHARM_QUAD_FALSE
+CHARM_QUAD_TRUE
+CHARM_FLOAT_FALSE
+CHARM_FLOAT_TRUE
 RDT
 P
 PC
+MPFR_FALSE
+MPFR_TRUE
+WITH_MPFR
 LT_SYS_LIBRARY_PATH
 OTOOL64
 OTOOL
@@ -829,6 +834,7 @@ ac_user_opts='
 enable_option_checking
 enable_silent_rules
 enable_maintainer_mode
+with_build_path
 enable_dependency_tracking
 enable_shared
 enable_static
@@ -838,6 +844,7 @@ with_aix_soname
 with_gnu_ld
 with_sysroot
 enable_libtool_lock
+enable_mpfr
 enable_single_precision
 enable_double_precision
 enable_quad_precision
@@ -1507,6 +1514,8 @@ Optional Features:
   --enable-fast-install[=PKGS]
                           optimize for fast installation [default=yes]
   --disable-libtool-lock  avoid locking (might break parallel builds)
+  --enable-mpfr           compile with the MPFR support to enable cap-modified
+                          spectral gravity forward modelling [default=no]
   --enable-single-precision
                           compile in single precision (float data type for
                           floating point numbers) [default=no]
@@ -1538,6 +1547,7 @@ Optional Features:
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
+  --with-build-path=DIR   build using DIR/include and DIR/lib
   --with-pic[=PKGS]       try to use only PIC/non-PIC objects [default=use
                           both]
   --with-aix-soname=aix|svr4|both
@@ -3543,6 +3553,20 @@ shift; shift
 host_os=$*
 IFS=$ac_save_IFS
 case $host_os in *\ *) host_os=`echo "$host_os" | sed 's/ /-/g'`;; esac
+
+
+
+
+# Check whether --with-build-path was given.
+if test ${with_build_path+y}
+then :
+  withval=$with_build_path;
+        for d in `echo $withval | tr : ' '`; do
+            test -d $d/include && CPPFLAGS="$CPPFLAGS -I$d/include"
+            test -d $d/lib && LDFLAGS="$LDFLAGS -L$d/lib"
+        done
+
+fi
 
 
 
@@ -15049,6 +15073,43 @@ esac
 
 
 
+# Check whether --enable-mpfr was given.
+if test ${enable_mpfr+y}
+then :
+  enableval=$enable_mpfr; mpfr=$enableval
+else $as_nop
+  mpfr=no
+fi
+
+
+
+if test "$mpfr" = "yes"; then
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: compiling with MPFR enabled" >&5
+printf "%s\n" "$as_me: compiling with MPFR enabled" >&6;}
+
+printf "%s\n" "#define HAVE_MPFR 1" >>confdefs.h
+
+    WITH_MPFR=1
+
+else
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: compiling with MPFR disabled" >&5
+printf "%s\n" "$as_me: compiling with MPFR disabled" >&6;}
+    WITH_MPFR=0
+
+fi
+ if test "$mpfr" = "yes"; then
+  MPFR_TRUE=
+  MPFR_FALSE='#'
+else
+  MPFR_TRUE='#'
+  MPFR_FALSE=
+fi
+
+
+
+
+
+
 
 if test "$ax_cv_c_compiler_vendor" != "microsoft"; then
     { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for sin in -lm" >&5
@@ -15209,6 +15270,14 @@ else $as_nop
   as_fn_error $? "string.h not found" "$LINENO" 5
 fi
 
+ac_fn_c_check_header_compile "$LINENO" "stdarg.h" "ac_cv_header_stdarg_h" "$ac_includes_default"
+if test "x$ac_cv_header_stdarg_h" = xyes
+then :
+
+else $as_nop
+  as_fn_error $? "stdarg.h not found" "$LINENO" 5
+fi
+
 ac_fn_c_check_header_compile "$LINENO" "ctype.h" "ac_cv_header_ctype_h" "$ac_includes_default"
 if test "x$ac_cv_header_ctype_h" = xyes
 then :
@@ -15257,6 +15326,24 @@ else $as_nop
   as_fn_error $? "fftw3.h not found" "$LINENO" 5
 fi
 
+if test "$mpfr" = "yes"; then
+    ac_fn_c_check_header_compile "$LINENO" "gmp.h" "ac_cv_header_gmp_h" "$ac_includes_default"
+if test "x$ac_cv_header_gmp_h" = xyes
+then :
+
+else $as_nop
+  as_fn_error $? "gmp.h not found; either disable the MPFR support or install the GMP library" "$LINENO" 5
+fi
+
+    ac_fn_c_check_header_compile "$LINENO" "mpfr.h" "ac_cv_header_mpfr_h" "$ac_includes_default"
+if test "x$ac_cv_header_mpfr_h" = xyes
+then :
+
+else $as_nop
+  as_fn_error $? "mpfr.h not found; either disable the MPFR support or install the MPFR library" "$LINENO" 5
+fi
+
+fi
 
 
 
@@ -15449,6 +15536,14 @@ printf "%s\n" "#define CHARM_FLOAT 1" >>confdefs.h
         as_fn_error $? "couldn't define a signed 32 bits wide integer." "$LINENO" 5
     fi
 fi
+ if test "$sp" = "yes"; then
+  CHARM_FLOAT_TRUE=
+  CHARM_FLOAT_FALSE='#'
+else
+  CHARM_FLOAT_TRUE='#'
+  CHARM_FLOAT_FALSE=
+fi
+
 
 
 if test "$dp" = "yes"; then
@@ -15811,6 +15906,14 @@ fi
     { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $math_isfinite" >&5
 printf "%s\n" "$math_isfinite" >&6; }
 fi
+ if test "$qp" = "yes"; then
+  CHARM_QUAD_TRUE=
+  CHARM_QUAD_FALSE='#'
+else
+  CHARM_QUAD_TRUE='#'
+  CHARM_QUAD_FALSE=
+fi
+
 
 
 if test "$math_isfinite" != "no"; then
@@ -15818,16 +15921,6 @@ if test "$math_isfinite" != "no"; then
 printf "%s\n" "#define HAVE_ISFINITE 1" >>confdefs.h
 
 fi
-
-
- if test "$dp" = "yes"; then
-  DOC_TRUE=
-  DOC_FALSE='#'
-else
-  DOC_TRUE='#'
-  DOC_FALSE=
-fi
-
 
 
 
@@ -16602,6 +16695,178 @@ else
   OPENMP_FALSE=
 fi
 
+
+
+
+
+
+
+if test "$mpfr" = "yes"; then
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for __gmpz_init in -lgmp" >&5
+printf %s "checking for __gmpz_init in -lgmp... " >&6; }
+if test ${ac_cv_lib_gmp___gmpz_init+y}
+then :
+  printf %s "(cached) " >&6
+else $as_nop
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lgmp  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+char __gmpz_init ();
+int
+main (void)
+{
+return __gmpz_init ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"
+then :
+  ac_cv_lib_gmp___gmpz_init=yes
+else $as_nop
+  ac_cv_lib_gmp___gmpz_init=no
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.beam \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_gmp___gmpz_init" >&5
+printf "%s\n" "$ac_cv_lib_gmp___gmpz_init" >&6; }
+if test "x$ac_cv_lib_gmp___gmpz_init" = xyes
+then :
+  printf "%s\n" "#define HAVE_LIBGMP 1" >>confdefs.h
+
+  LIBS="-lgmp $LIBS"
+
+else $as_nop
+  as_fn_error $? "libgmp not found; either disable the MPFR support or install the GMP library" "$LINENO" 5
+fi
+
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for mpfr_init2 in -lmpfr" >&5
+printf %s "checking for mpfr_init2 in -lmpfr... " >&6; }
+if test ${ac_cv_lib_mpfr_mpfr_init2+y}
+then :
+  printf %s "(cached) " >&6
+else $as_nop
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lmpfr  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+char mpfr_init2 ();
+int
+main (void)
+{
+return mpfr_init2 ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"
+then :
+  ac_cv_lib_mpfr_mpfr_init2=yes
+else $as_nop
+  ac_cv_lib_mpfr_mpfr_init2=no
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.beam \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_mpfr_mpfr_init2" >&5
+printf "%s\n" "$ac_cv_lib_mpfr_mpfr_init2" >&6; }
+if test "x$ac_cv_lib_mpfr_mpfr_init2" = xyes
+then :
+  printf "%s\n" "#define HAVE_LIBMPFR 1" >>confdefs.h
+
+  LIBS="-lmpfr $LIBS"
+
+else $as_nop
+  as_fn_error $? "libmpfr not found; either disable the MPFR support or install the MPFR library" "$LINENO" 5
+fi
+
+
+
+    ac_fn_c_check_header_compile "$LINENO" "malloc.h" "ac_cv_header_malloc_h" "$ac_includes_default"
+if test "x$ac_cv_header_malloc_h" = xyes
+then :
+
+printf "%s\n" "#define HAVE_MALLOC_H 1" >>confdefs.h
+
+else $as_nop
+  have_malloc_h=no
+fi
+
+
+  for ac_func in malloc_trim
+do :
+  ac_fn_c_check_func "$LINENO" "malloc_trim" "ac_cv_func_malloc_trim"
+if test "x$ac_cv_func_malloc_trim" = xyes
+then :
+  printf "%s\n" "#define HAVE_MALLOC_TRIM 1" >>confdefs.h
+ have_malloc_trim=yes
+else $as_nop
+  have_malloc_trim=no
+fi
+
+done
+
+
+            if test "$qp" = "yes"; then
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether MPFR was compiled with the --enable-float128 configuration option" >&5
+printf %s "checking whether MPFR was compiled with the --enable-float128 configuration option... " >&6; }
+
+
+        mpfr_buildopt_float128_p=no
+        if test "$cross_compiling" = yes
+then :
+  { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+printf "%s\n" "$as_me: error: in \`$ac_pwd':" >&2;}
+as_fn_error $? "cannot run test program while cross compiling
+See \`config.log' for more details" "$LINENO" 5; }
+else $as_nop
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+        #include <stdlib.h>
+        #include <mpfr.h>
+
+int
+main (void)
+{
+
+        exit(!mpfr_buildopt_float128_p());
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_run "$LINENO"
+then :
+  mpfr_buildopt_float128_p=yes
+fi
+rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext \
+  conftest.$ac_objext conftest.beam conftest.$ac_ext
+fi
+
+
+
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $mpfr_buildopt_float128_p" >&5
+printf "%s\n" "$mpfr_buildopt_float128_p" >&6; }
+
+
+        if test "$mpfr_buildopt_float128_p" = "no" ; then
+            as_fn_error $? "MPFR was compiled without the --enable-float128 configuration option, but this is mandatory to compile CHarm in quadruple precision and --with-mpfr, recompile MPFR with the --enable-float128 flag" "$LINENO" 5
+        fi
+    fi
+fi
 
 
 
@@ -17463,12 +17728,12 @@ fi
 
 
 
- if test "$py" = "yes" -a "$enable_mpi" = "yes"; then
-  DOC_PY_MPI_TRUE=
-  DOC_PY_MPI_FALSE='#'
+ if test "$dp" = "yes" -a "$py" = "yes" -a "$enable_mpi" = "yes" -a "$enable_mpfr" = "yes"; then
+  DOC_TRUE=
+  DOC_FALSE='#'
 else
-  DOC_PY_MPI_TRUE='#'
-  DOC_PY_MPI_FALSE=
+  DOC_TRUE='#'
+  DOC_FALSE=
 fi
 
 
@@ -17531,7 +17796,7 @@ printf "%s\n" "#define _CHARM_LIBS \"$LIBS\"" >>confdefs.h
 
 
 
-ac_config_files="$ac_config_files Makefile charm/charm${P}.h:src/charm.h.in charm/charm${P}_crd.h:src/crd/crd.h.in charm/charm${P}_err.h:src/err/err.h.in charm/charm${P}_integ.h:src/integ/integ.h.in charm/charm${P}_leg.h:src/leg/leg.h.in charm/charm${P}_misc.h:src/misc/misc.h.in charm/charm${P}_sha.h:src/sha/sha.h.in charm/charm${P}_shc.h:src/shc/shc.h.in charm/charm${P}_shs.h:src/shs/shs.h.in charm/charm${P}_mpi.h:src/mpi/mpi.h.in charm/charm${P}_glob.h:src/glob/glob.h.in charm/Makefile src/Makefile src/crd/Makefile src/err/Makefile src/integ/Makefile src/leg/Makefile src/misc/Makefile src/sha/Makefile src/shc/Makefile src/shs/Makefile src/xnum/Makefile src/mpi/Makefile src/glob/Makefile src/simd/Makefile tests/Makefile bench/Makefile docs/Makefile m4/Makefile cookbook/Makefile data/Makefile wrap/pyharm/Makefile charm-tmpl.pc setup.py wrap/pyharm/__init__.py wrap/pyharm/_data_types.py"
+ac_config_files="$ac_config_files Makefile charm/charm${P}.h:src/charm.h.in charm/charm${P}_crd.h:src/crd/crd.h.in charm/charm${P}_err.h:src/err/err.h.in charm/charm${P}_integ.h:src/integ/integ.h.in charm/charm${P}_leg.h:src/leg/leg.h.in charm/charm${P}_misc.h:src/misc/misc.h.in charm/charm${P}_sha.h:src/sha/sha.h.in charm/charm${P}_shc.h:src/shc/shc.h.in charm/charm${P}_shs.h:src/shs/shs.h.in charm/charm${P}_gfm.h:src/gfm/gfm.h.in charm/charm${P}_mpi.h:src/mpi/mpi.h.in charm/charm${P}_glob.h:src/glob/glob.h.in charm/Makefile src/Makefile src/crd/Makefile src/err/Makefile src/integ/Makefile src/leg/Makefile src/misc/Makefile src/sha/Makefile src/shc/Makefile src/shs/Makefile src/xnum/Makefile src/gfm/Makefile src/mpi/Makefile src/glob/Makefile src/simd/Makefile src/mpfr/Makefile tests/Makefile bench/Makefile docs/Makefile m4/Makefile cookbook/Makefile data/Makefile wrap/pyharm/Makefile tests/module_gfm.c tests/check_gfm_sgfm_all.c tests/check_gfm_sgfm_all.h charm-tmpl.pc setup.py wrap/pyharm/__init__.py wrap/pyharm/_data_types.py wrap/pyharm/gfm.py"
 
 
 
@@ -17676,8 +17941,16 @@ if test -z "${am__fastdepCC_TRUE}" && test -z "${am__fastdepCC_FALSE}"; then
   as_fn_error $? "conditional \"am__fastdepCC\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -z "${DOC_TRUE}" && test -z "${DOC_FALSE}"; then
-  as_fn_error $? "conditional \"DOC\" was never defined.
+if test -z "${MPFR_TRUE}" && test -z "${MPFR_FALSE}"; then
+  as_fn_error $? "conditional \"MPFR\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${CHARM_FLOAT_TRUE}" && test -z "${CHARM_FLOAT_FALSE}"; then
+  as_fn_error $? "conditional \"CHARM_FLOAT\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${CHARM_QUAD_TRUE}" && test -z "${CHARM_QUAD_FALSE}"; then
+  as_fn_error $? "conditional \"CHARM_QUAD\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${OPENMP_TRUE}" && test -z "${OPENMP_FALSE}"; then
@@ -17692,8 +17965,8 @@ if test -z "${PY_TRUE}" && test -z "${PY_FALSE}"; then
   as_fn_error $? "conditional \"PY\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -z "${DOC_PY_MPI_TRUE}" && test -z "${DOC_PY_MPI_FALSE}"; then
-  as_fn_error $? "conditional \"DOC_PY_MPI\" was never defined.
+if test -z "${DOC_TRUE}" && test -z "${DOC_FALSE}"; then
+  as_fn_error $? "conditional \"DOC\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${SINGLE_PY_TRUE}" && test -z "${SINGLE_PY_FALSE}"; then
@@ -18589,6 +18862,7 @@ do
     "charm/charm${P}_sha.h") CONFIG_FILES="$CONFIG_FILES charm/charm${P}_sha.h:src/sha/sha.h.in" ;;
     "charm/charm${P}_shc.h") CONFIG_FILES="$CONFIG_FILES charm/charm${P}_shc.h:src/shc/shc.h.in" ;;
     "charm/charm${P}_shs.h") CONFIG_FILES="$CONFIG_FILES charm/charm${P}_shs.h:src/shs/shs.h.in" ;;
+    "charm/charm${P}_gfm.h") CONFIG_FILES="$CONFIG_FILES charm/charm${P}_gfm.h:src/gfm/gfm.h.in" ;;
     "charm/charm${P}_mpi.h") CONFIG_FILES="$CONFIG_FILES charm/charm${P}_mpi.h:src/mpi/mpi.h.in" ;;
     "charm/charm${P}_glob.h") CONFIG_FILES="$CONFIG_FILES charm/charm${P}_glob.h:src/glob/glob.h.in" ;;
     "charm/Makefile") CONFIG_FILES="$CONFIG_FILES charm/Makefile" ;;
@@ -18602,9 +18876,11 @@ do
     "src/shc/Makefile") CONFIG_FILES="$CONFIG_FILES src/shc/Makefile" ;;
     "src/shs/Makefile") CONFIG_FILES="$CONFIG_FILES src/shs/Makefile" ;;
     "src/xnum/Makefile") CONFIG_FILES="$CONFIG_FILES src/xnum/Makefile" ;;
+    "src/gfm/Makefile") CONFIG_FILES="$CONFIG_FILES src/gfm/Makefile" ;;
     "src/mpi/Makefile") CONFIG_FILES="$CONFIG_FILES src/mpi/Makefile" ;;
     "src/glob/Makefile") CONFIG_FILES="$CONFIG_FILES src/glob/Makefile" ;;
     "src/simd/Makefile") CONFIG_FILES="$CONFIG_FILES src/simd/Makefile" ;;
+    "src/mpfr/Makefile") CONFIG_FILES="$CONFIG_FILES src/mpfr/Makefile" ;;
     "tests/Makefile") CONFIG_FILES="$CONFIG_FILES tests/Makefile" ;;
     "bench/Makefile") CONFIG_FILES="$CONFIG_FILES bench/Makefile" ;;
     "docs/Makefile") CONFIG_FILES="$CONFIG_FILES docs/Makefile" ;;
@@ -18612,10 +18888,14 @@ do
     "cookbook/Makefile") CONFIG_FILES="$CONFIG_FILES cookbook/Makefile" ;;
     "data/Makefile") CONFIG_FILES="$CONFIG_FILES data/Makefile" ;;
     "wrap/pyharm/Makefile") CONFIG_FILES="$CONFIG_FILES wrap/pyharm/Makefile" ;;
+    "tests/module_gfm.c") CONFIG_FILES="$CONFIG_FILES tests/module_gfm.c" ;;
+    "tests/check_gfm_sgfm_all.c") CONFIG_FILES="$CONFIG_FILES tests/check_gfm_sgfm_all.c" ;;
+    "tests/check_gfm_sgfm_all.h") CONFIG_FILES="$CONFIG_FILES tests/check_gfm_sgfm_all.h" ;;
     "charm-tmpl.pc") CONFIG_FILES="$CONFIG_FILES charm-tmpl.pc" ;;
     "setup.py") CONFIG_FILES="$CONFIG_FILES setup.py" ;;
     "wrap/pyharm/__init__.py") CONFIG_FILES="$CONFIG_FILES wrap/pyharm/__init__.py" ;;
     "wrap/pyharm/_data_types.py") CONFIG_FILES="$CONFIG_FILES wrap/pyharm/_data_types.py" ;;
+    "wrap/pyharm/gfm.py") CONFIG_FILES="$CONFIG_FILES wrap/pyharm/gfm.py" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac

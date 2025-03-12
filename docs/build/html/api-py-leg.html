@@ -49,11 +49,11 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="pyharm.integ" href="api-py-integ.html" />
-    <link rel="prev" title="pyharm.sha" href="api-py-sha.html" />
+    <link rel="prev" title="pyharm.gfm" href="api-py-gfm.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.4.4-dev" />
-    <meta name="docbuild:last-update" content="Feb 12, 2025"/>
+    <meta name="docbuild:last-update" content="Mar 12, 2025"/>
   </head>
   
   
@@ -171,6 +171,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-sha.html">charm_sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-gfm.html">charm_gfm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-leg.html">charm_leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
@@ -185,6 +186,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">pyharm.sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-gfm.html">pyharm.gfm</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">pyharm.leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">pyharm.integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
@@ -473,7 +475,7 @@ For further details, refer to <a class="reference external" href="./api-c-leg.ht
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pyharm.leg.Pnmj">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyharm.leg.</span></span><span class="sig-name descname"><span class="pre">Pnmj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordering</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coeffs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyharm.leg.</span></span><span class="sig-name descname"><span class="pre">Pnmj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordering</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coeffs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj" title="Link to this definition">#</a></dt>
 <dd><p>Class for Fourier coefficients of fully-normalized associated Legendre
 functions of the first kind.</p>
 <p>To create a <a class="reference internal" href="#pyharm.leg.Pnmj" title="pyharm.leg.Pnmj"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pnmj</span></code></a> class instance, always use one of the following
@@ -516,13 +518,13 @@ writable.</p>
 </div>
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.leg.Pnmj.nmax">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nmax</span></span><a class="headerlink" href="#pyharm.leg.Pnmj.nmax" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nmax</span></span><a class="headerlink" href="#pyharm.leg.Pnmj.nmax" title="Link to this definition">#</a></dt>
 <dd><p>Maximum harmonic degree of the Fourier coefficients.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.leg.Pnmj.ordering">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ordering</span></span><a class="headerlink" href="#pyharm.leg.Pnmj.ordering" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ordering</span></span><a class="headerlink" href="#pyharm.leg.Pnmj.ordering" title="Link to this definition">#</a></dt>
 <dd><p>Ordering scheme of the Fourier coefficients.  Use the
 <a class="reference internal" href="#pyharm.leg.Pnmj.get_ordering_str" title="pyharm.leg.Pnmj.get_ordering_str"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_ordering_str()</span></code></a> method to transform the attribute to a pretty
 string.</p>
@@ -530,13 +532,13 @@ string.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.leg.Pnmj.pnmj">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pnmj</span></span><a class="headerlink" href="#pyharm.leg.Pnmj.pnmj" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pnmj</span></span><a class="headerlink" href="#pyharm.leg.Pnmj.pnmj" title="Link to this definition">#</a></dt>
 <dd><p>Fourier coefficients.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.leg.Pnmj.from_garbage">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_garbage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj.from_garbage" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_garbage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj.from_garbage" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.leg.Pnmj" title="pyharm.leg.Pnmj"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pnmj</span></code></a> class instance with uninitialized Fourier
 coefficients (<code class="docutils literal notranslate"><span class="pre">malloc</span></code> in C).</p>
 <dl class="field-list simple">
@@ -559,7 +561,7 @@ supported ordering schemes.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.leg.Pnmj.from_zeros">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_zeros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj.from_zeros" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_zeros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj.from_zeros" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.leg.Pnmj" title="pyharm.leg.Pnmj"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pnmj</span></code></a> class instance with all Fourier coefficients
 initialized to zero (<code class="docutils literal notranslate"><span class="pre">calloc</span></code> in C).</p>
 <dl class="field-list simple">
@@ -632,7 +634,7 @@ wave-number-related value <code class="docutils literal notranslate"><span class
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.leg.Pnmj.j2k">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">j2k</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj.j2k" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">j2k</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj.j2k" title="Link to this definition">#</a></dt>
 <dd><p>Transforms a wave-number-related variable <code class="docutils literal notranslate"><span class="pre">j</span></code> to the wave-number
 <code class="docutils literal notranslate"><span class="pre">k</span></code> of a Fourier coefficient of fully-normalized associated
 Legendre function of degree <code class="docutils literal notranslate"><span class="pre">n</span></code>.</p>
@@ -655,7 +657,7 @@ Legendre function of degree <code class="docutils literal notranslate"><span cla
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.leg.Pnmj.k2j">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">k2j</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj.k2j" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">k2j</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj.k2j" title="Link to this definition">#</a></dt>
 <dd><p>Transforms a wave-number <code class="docutils literal notranslate"><span class="pre">k</span></code> of a Fourier coefficient of
 fully-normalized associated Legendre functions to the
 wave-number-related variable <code class="docutils literal notranslate"><span class="pre">j</span></code>.</p>
@@ -676,7 +678,7 @@ of a Legendre function</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.leg.Pnmj.get_ordering_types">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_ordering_types</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj.get_ordering_types" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_ordering_types</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.leg.Pnmj.get_ordering_types" title="Link to this definition">#</a></dt>
 <dd><p>Prints all names of symbolic constants that are accepted as the
 <a class="reference internal" href="#pyharm.leg.Pnmj.ordering" title="pyharm.leg.Pnmj.ordering"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ordering</span></code></a> attribute of the <a class="reference internal" href="#pyharm.leg.Pnmj" title="pyharm.leg.Pnmj"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pnmj</span></code></a> class.</p>
 </dd></dl>
@@ -720,12 +722,12 @@ supported ordering schemes.</p></li>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="api-py-sha.html"
+       href="api-py-gfm.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">pyharm.sha</p>
+        <p class="prev-next-title">pyharm.gfm</p>
       </div>
     </a>
     <a class="right-next"
@@ -804,7 +806,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Feb 12, 2025.
+  Last updated on Mar 12, 2025.
   <br/>
 </p>
   </div>

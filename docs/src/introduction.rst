@@ -31,9 +31,12 @@ Features
 
 * Supports the Gauss--Legendre and Driscoll--Healy quadratures.
 
-* Integrates solid spherical harmonic expansions (e.g., of the gravitational
-  potential) on band-limited irregular surfaces (e.g., on the Earth's
-  surface). [#f1]_
+* Implements spectral gravity forward modelling of band-limited topographic 
+  masses with an arbitrary integration radius and 3D density. [#f1]_
+
+* Evaluates integrals of solid spherical harmonic expansions (e.g., of the 
+  gravitational potential) on band-limited irregular surfaces (e.g., on the 
+  Earth's surface). [#f1]_
 
 * Computes Fourier coefficients of fully-normalized associated Legendre
   functions of the first kind up to ultra-high harmonic degrees.
@@ -49,12 +52,40 @@ Features
 
 * Performs discrete FFT by `FFTW <http://www.fftw.org/>`_.
 
+* For spectral gravity forward modelling with spatially limited integration 
+  radius, `MPFR <https://mpfr.org>`_ is used to enable arbitrary precision 
+  arithmetic on floating point numbers.
+
 * Ships with a Python wrapper to enable high-level programming while retaining 
   the efficiency of the C language.  The wrapper, called PyHarm, wraps CHarm 
   using `ctypes <https://docs.python.org/3/library/ctypes.html>`_ and is fully 
   integrated with `numpy <https://numpy.org/>`_.
 
-.. [#f1] This routine is unique to CHarm.
+.. [#f1] Unique to CHarm.
+
+
+Installation
+============
+
+* **PyHarm (Python wrapper)**: On Linux (x86_64), macOS (x86_64, ARM64) and 
+  Windows (x86_64), install PyHarm using ``pip``:
+
+  .. code-block:: bash
+
+     pip install pyharm
+
+  This will install PyHarm together will all the dependencies.  These include 
+  a pre-compiled CHarm library, which is internally called by PyHarm, some 
+  other C libraries (FFTW and OpenMP library) and the Python package NumPy.
+
+* **CHarm (C library)**: If you are interested in the C API, you have to build 
+  CHarm from source.  This step is not required if you plan to use the Python 
+  interface only.
+
+Further installation details at 
+`https://www.charmlib.org/build/html/install.html 
+<https://www.charmlib.org/build/html/install.html>`_.
+
 
 
 Installation

@@ -53,7 +53,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.4.4-dev" />
-    <meta name="docbuild:last-update" content="Feb 12, 2025"/>
+    <meta name="docbuild:last-update" content="Mar 12, 2025"/>
   </head>
   
   
@@ -171,6 +171,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-sha.html">charm_sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-gfm.html">charm_gfm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-leg.html">charm_leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
@@ -185,6 +186,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">pyharm.sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-gfm.html">pyharm.gfm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-leg.html">pyharm.leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">pyharm.integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
@@ -407,6 +409,7 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-spherical-harmonic-coefficients">Working with spherical harmonic coefficients</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spherical-harmonic-synthesis-and-analysis">Spherical harmonic synthesis and analysis</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#first-and-second-order-gradients-gravitational-vector-and-tensor">First- and second-order gradients (gravitational vector and tensor)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gravity-forward-modelling">Gravity forward modelling</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-coefficients-of-legendre-functions">Fourier coefficients of Legendre functions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integrals">Integrals</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distributed-computing-with-mpi">Distributed computing with MPI</a></li>
@@ -1439,6 +1442,489 @@ gravitational tensor in the <a class="reference internal" href="definitions.html
 </pre></div>
 </div>
 </section>
+<section id="gravity-forward-modelling">
+<h3>Gravity forward modelling<a class="headerlink" href="#gravity-forward-modelling" title="Link to this heading">#</a></h3>
+<p>Given spherical harmonic coefficients of the Moon’s topography and of its
+density (constant, lateral and 3D density), this example computes the
+gravitational field implied by the lunar topographic masses.</p>
+<p>The lunar shape is here defined by the <code class="docutils literal notranslate"><span class="pre">MoonTopo2600p.shape</span></code> model due to</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Wieczorek, M. A., Gravity and topography of the terrestrial planets,
+Treatise on Geophysics, 10, 153-193, doi:10.1016/B978-0-444-53802-4.00169-X,
+2015.</p></li>
+</ul>
+</div></blockquote>
+<p>The density model is due to</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Goossens, S., Sabaka, T.J., Wieczorek, M.A., Neumann, G.A., Mazarico, E.,
+Lemoine, F., Nicholas, J.B., Smith, D.E., Zuber,
+M.T. (2020). High-resolution gravity field models from GRAIL data and
+implications for models of the density structure of the Moon’s crust,
+Journal of Geophysical Research: Planets, 125, e2019JE006086,
+doi:10.1029/2019JE006086.</p></li>
+</ul>
+</div></blockquote>
+<p>The density model of Goossens et al. (2020) was transformed into the form
+required by our forward modelling method.  While the transformed models that we
+use in this example are realistic, it is not recommended to use them in any
+real task.  They were create for learning purposes only.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* IMPORTANT: To compile this code, CHarm must be compiled with the MPFR</span>
+<span class="cm"> * support, that is, using the &quot;--with-mpfr&quot; installation flag.  If this is</span>
+<span class="cm"> * your case, manually delete (or comment out) all lines between the following</span>
+<span class="cm"> * marks:</span>
+<span class="cm"> *</span>
+<span class="cm"> * @@@</span>
+<span class="cm"> *</span>
+<span class="cm"> * lines to be deleted or commented out</span>
+<span class="cm"> *</span>
+<span class="cm"> * !!!</span>
+<span class="cm"> *</span>
+<span class="cm"> * */</span>
+
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
+<span class="cm">/* @@@ */</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;mpfr.h&gt;</span>
+<span class="cm">/* !!! */</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;charm/charm.h&gt;</span>
+
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="cm">/* INPUTS */</span>
+<span class="w">    </span><span class="cm">/* ===================================================================== */</span>
+<span class="w">    </span><span class="cm">/* Shape of the gravitating body */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+<span class="w">    </span><span class="cm">/* Upper integration limit in spherical radius (topography) */</span>
+<span class="w">    </span><span class="cm">/* ..................................................................... */</span>
+<span class="w">    </span><span class="cm">/* Path to spherical harmonic coefficients defining the shape of the Moon</span>
+<span class="cm">     * */</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">path_shcs_shape</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;../../data/input/MoonTopo2600p_to10-tbl.txt&quot;</span><span class="p">;</span>
+
+
+<span class="w">    </span><span class="cm">/* Maximum harmonic degree of the lunar topography defined by coefficients</span>
+<span class="cm">     * in &quot;path_shcs_shape&quot; */</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">shape_nmax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">    </span><span class="cm">/* ..................................................................... */</span>
+
+
+<span class="w">    </span><span class="cm">/* Lower integration limit in spherical radius (sphere) */</span>
+<span class="w">    </span><span class="cm">/* ..................................................................... */</span>
+<span class="w">    </span><span class="cm">/* Radius of the reference sphere */</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">rref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1728000.0</span><span class="p">;</span>
+<span class="w">    </span><span class="cm">/* ..................................................................... */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+<span class="w">    </span><span class="cm">/* Density of the gravitating body */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+<span class="w">    </span><span class="cm">/* Path to spherical harmonic coefficients defining the zero- and</span>
+<span class="cm">     * first-order polynomial density coefficients */</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">path_shcs_density0</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;../../data/input/moon-rho0_to10.tbl&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">path_shcs_density1</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;../../data/input/moon-rho1_to10.tbl&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">path_shcs_density</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<span class="w">    </span><span class="n">path_shcs_density</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">path_shcs_density0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">path_shcs_density</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">path_shcs_density1</span><span class="p">;</span>
+
+
+<span class="w">    </span><span class="cm">/* Maximum harmonic degrees of the polynomial density coefficients in</span>
+<span class="cm">     * &quot;path_shcs_density&quot;. */</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">density_nmax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">};</span>
+
+
+<span class="w">    </span><span class="cm">/* Order of the density polynomial */</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">density_order</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+<span class="w">    </span><span class="cm">/* Other inputs */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+<span class="w">    </span><span class="cm">/* Newton&#39;s gravitational constant (&quot;kg^-1 * m^3 * s^-2&quot;) */</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">gc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">6.67430e-11</span><span class="p">;</span>
+
+
+<span class="w">    </span><span class="cm">/* Mass of the Moon (&quot;kg&quot;) */</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">mass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">7.346e22</span><span class="p">;</span>
+
+
+<span class="w">    </span><span class="cm">/* Minimum and maximum topography powers.  In theory, &quot;pmax&quot; should be</span>
+<span class="cm">     * infinitely large, so higher &quot;pmax&quot; means more complete forward modelling</span>
+<span class="cm">     * (but also longer computation times). */</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">pmin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">pmax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+
+
+<span class="w">    </span><span class="cm">/* Maximum harmonic degree of the output gravitational potential.  Due to</span>
+<span class="cm">     * the non-linear relation between topography and its implied gravitational</span>
+<span class="cm">     * field, the potential series is spectrally unlimited even if &quot;shape_nmax&quot;</span>
+<span class="cm">     * is finite (the only exception is &quot;shape_nmax = 0&quot;).  Therefore, this</span>
+<span class="cm">     * value should be as high as reasonably possible in order to mitigate</span>
+<span class="cm">     * forward modelling errors. */</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">nmax_potential</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+<span class="w">    </span><span class="cm">/* ===================================================================== */</span>
+
+
+
+
+
+
+<span class="w">    </span><span class="cm">/* ===================================================================== */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+<span class="w">    </span><span class="cm">/* Create CHarm&#39;s error structure */</span>
+<span class="w">    </span><span class="n">charm_err</span><span class="w"> </span><span class="o">*</span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">charm_err_init</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to initialize </span><span class="se">\&quot;</span><span class="s">err</span><span class="se">\&quot;</span><span class="s">.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+
+<span class="w">    </span><span class="cm">/* Allocate memory for spherical harmonic coefficients that will hold the</span>
+<span class="cm">     * shape coefficients */</span>
+<span class="w">    </span><span class="n">charm_shc</span><span class="w"> </span><span class="o">*</span><span class="n">shape_shcs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">charm_shc_malloc</span><span class="p">(</span><span class="n">shape_nmax</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">shape_shcs</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to initialize </span><span class="se">\&quot;</span><span class="s">shape_shcs</span><span class="se">\&quot;</span><span class="s">.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+
+<span class="w">    </span><span class="cm">/* Read the shape coefficients */</span>
+<span class="w">    </span><span class="n">charm_shc_read_tbl</span><span class="p">(</span><span class="n">path_shcs_shape</span><span class="p">,</span><span class="w"> </span><span class="n">shape_nmax</span><span class="p">,</span><span class="w"> </span><span class="n">shape_shcs</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">    </span><span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+
+
+<span class="w">    </span><span class="cm">/* Allocate memory for spherical harmonic coefficients that will hold the</span>
+<span class="cm">     * polynomial density coefficients and read the coefficients from input</span>
+<span class="cm">     * files */</span>
+<span class="w">    </span><span class="n">charm_shc</span><span class="w"> </span><span class="o">*</span><span class="n">density_shcs</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">density_order</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">density_shcs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">charm_shc_malloc</span><span class="p">(</span><span class="n">density_nmax</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">density_shcs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to initialize </span><span class="se">\&quot;</span><span class="s">density_shcs[i]</span><span class="se">\&quot;</span><span class="s">.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+
+
+<span class="w">        </span><span class="n">charm_shc_read_tbl</span><span class="p">(</span><span class="n">path_shcs_density</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">density_nmax</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+<span class="w">                           </span><span class="n">density_shcs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">        </span><span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+
+<span class="w">    </span><span class="cm">/* Allocate coefficients for the output gravitational potential */</span>
+<span class="w">    </span><span class="n">charm_shc</span><span class="w"> </span><span class="o">*</span><span class="n">potential_global_shcs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">charm_shc_malloc</span><span class="p">(</span><span class="n">nmax_potential</span><span class="p">,</span>
+<span class="w">                                                        </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">potential_global_shcs</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to initialize </span><span class="se">\&quot;</span><span class="s">potential_global_shcs</span><span class="se">\&quot;</span><span class="s">.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+<span class="w">    </span><span class="cm">/* Global gravity forward modelling using 3D density */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+<span class="w">    </span><span class="n">charm_gfm_global_density_3d</span><span class="p">(</span><span class="n">shape_shcs</span><span class="p">,</span><span class="w"> </span><span class="n">shape_nmax</span><span class="p">,</span><span class="w"> </span><span class="n">rref</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">density_shcs</span><span class="p">,</span><span class="w"> </span><span class="n">density_nmax</span><span class="p">,</span><span class="w"> </span><span class="n">density_order</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">gc</span><span class="p">,</span><span class="w"> </span><span class="n">mass</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">pmin</span><span class="p">,</span><span class="w"> </span><span class="n">pmax</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">nmax_potential</span><span class="p">,</span>
+<span class="w">                                </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">potential_global_shcs</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">err</span><span class="p">);</span>
+<span class="w">    </span><span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+
+
+<span class="w">    </span><span class="cm">/* Now we can compute, say, the gravitational potential using</span>
+<span class="cm">     * &quot;potential_global_shcs&quot;.  Let&#39;s do this in the Gauss--Legendre grid that</span>
+<span class="cm">     * passes above all lunar masses. */</span>
+<span class="w">    </span><span class="cm">/* ..................................................................... */</span>
+<span class="w">    </span><span class="cm">/* Create the Gauss--Legendre grid */</span>
+<span class="w">    </span><span class="n">charm_point</span><span class="w"> </span><span class="o">*</span><span class="n">grd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">charm_crd_point_gl</span><span class="p">(</span><span class="n">potential_global_shcs</span><span class="o">-&gt;</span><span class="n">nmax</span><span class="p">,</span>
+<span class="w">                                          </span><span class="n">potential_global_shcs</span><span class="o">-&gt;</span><span class="n">r</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">25000.0</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">grd</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to compute the Gauss--Legendre grid &quot;</span>
+<span class="w">                        </span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">grd</span><span class="se">\&quot;</span><span class="s">.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+
+<span class="w">    </span><span class="cm">/* Allocate memory for the gravitational potential to be synthesized */</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">vgfm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">grd</span><span class="o">-&gt;</span><span class="n">npoint</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">));</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">vgfm</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to allocate memory for the gravitational &quot;</span>
+<span class="w">                        </span><span class="s">&quot;potential </span><span class="se">\&quot;</span><span class="s">vgfm</span><span class="se">\&quot;</span><span class="s">.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+
+<span class="w">    </span><span class="cm">/* Do the synthesis of the gravitational potential */</span>
+<span class="w">    </span><span class="n">charm_shs_point</span><span class="p">(</span><span class="n">grd</span><span class="p">,</span><span class="w"> </span><span class="n">potential_global_shcs</span><span class="p">,</span><span class="w"> </span><span class="n">potential_global_shcs</span><span class="o">-&gt;</span><span class="n">nmax</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">vgfm</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">    </span><span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="cm">/* ..................................................................... */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+<span class="w">    </span><span class="cm">/* In CHarm, gravity forward modelling using lateral density is fairly</span>
+<span class="cm">     * similar to using 3D density, so we skip it. */</span>
+
+
+<span class="w">    </span><span class="cm">/* Global gravity forward modelling using constant density */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+<span class="w">    </span><span class="cm">/* Constant density of the lunar crust */</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">density_const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2550.0</span><span class="p">;</span>
+
+
+<span class="w">    </span><span class="n">charm_gfm_global_density_const</span><span class="p">(</span><span class="n">shape_shcs</span><span class="p">,</span><span class="w"> </span><span class="n">shape_nmax</span><span class="p">,</span><span class="w"> </span><span class="n">rref</span><span class="p">,</span>
+<span class="w">                                   </span><span class="n">density_const</span><span class="p">,</span>
+<span class="w">                                   </span><span class="n">gc</span><span class="p">,</span><span class="w"> </span><span class="n">mass</span><span class="p">,</span>
+<span class="w">                                   </span><span class="n">pmin</span><span class="p">,</span><span class="w"> </span><span class="n">pmax</span><span class="p">,</span>
+<span class="w">                                   </span><span class="n">nmax_potential</span><span class="p">,</span>
+<span class="w">                                   </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span>
+<span class="w">                                   </span><span class="n">potential_global_shcs</span><span class="p">,</span>
+<span class="w">                                   </span><span class="n">err</span><span class="p">);</span>
+<span class="w">    </span><span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+
+
+<span class="w">    </span><span class="cm">/* You could now similarly synthesize the gravitational potential, this</span>
+<span class="cm">     * time being implied by the constant density model. */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+<span class="w">    </span><span class="cm">/* @@@ */</span>
+<span class="w">    </span><span class="cm">/* Spatially restricted gravity forward modelling of near-zone masses using</span>
+<span class="cm">     * 3D density */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+<span class="w">    </span><span class="cm">/* Minimum and maximum order of the radial derivatives of the output</span>
+<span class="cm">     * quantity */</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">kmin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">kmax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+
+
+<span class="w">    </span><span class="cm">/* Radius of the sphere, on which evaluation points reside */</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rref</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">25000.0</span><span class="p">;</span>
+
+
+<span class="w">    </span><span class="cm">/* Integration radius in radians */</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">psi0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
+
+
+<span class="w">    </span><span class="cm">/* Order of the potential derivative (&quot;0&quot; for potential, &quot;1&quot; for quantities</span>
+<span class="cm">     * related to gravitational vector elements, and &quot;2&quot; for quantities related</span>
+<span class="cm">     * to gravitational tensor elements) */</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+
+<span class="w">    </span><span class="cm">/* Order of the potential derivative with respect to the spherical distance</span>
+<span class="cm">     * */</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+
+<span class="w">    </span><span class="cm">/* We want to integrate all masses up to distance &quot;psi0&quot; from evalution</span>
+<span class="cm">     * points.  To integrate masses beyond &quot;psi0&quot;, set &quot;zone&quot; to</span>
+<span class="cm">     * &quot;CHARM_GFM_FAR_ZONE&quot;. */</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">zone</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CHARM_GFM_NEAR_ZONE</span><span class="p">;</span>
+
+
+<span class="w">    </span><span class="cm">/* Number of bits to represent significands of floating points numbers used</span>
+<span class="cm">     * to evaluate truncation coefficients */</span>
+<span class="w">    </span><span class="n">mpfr_prec_t</span><span class="w"> </span><span class="n">nbits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">512</span><span class="p">;</span>
+
+
+<span class="w">    </span><span class="n">charm_shc</span><span class="w"> </span><span class="o">**</span><span class="n">potential_cap_shcs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">malloc</span><span class="p">((</span><span class="n">kmax</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">kmin</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span>
+<span class="w">                                            </span><span class="k">sizeof</span><span class="p">(</span><span class="n">charm_shc</span><span class="w"> </span><span class="o">*</span><span class="p">));</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">potential_cap_shcs</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to initialize </span><span class="se">\&quot;</span><span class="s">potential_cap_shcs</span><span class="se">\&quot;</span><span class="s">.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kmin</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">kmax</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="o">++</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">potential_cap_shcs</span><span class="p">[</span><span class="n">k</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">kmin</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">charm_shc_malloc</span><span class="p">(</span><span class="n">nmax_potential</span><span class="p">,</span>
+<span class="w">                                                        </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">potential_cap_shcs</span><span class="p">[</span><span class="n">k</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">kmin</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to initialize &quot;</span>
+<span class="w">                            </span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">potential_cap_shcs[k - kmin]</span><span class="se">\&quot;</span><span class="s">.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+
+<span class="w">    </span><span class="n">charm_gfm_cap_density_3d</span><span class="p">(</span><span class="n">shape_shcs</span><span class="p">,</span><span class="w"> </span><span class="n">shape_nmax</span><span class="p">,</span><span class="w"> </span><span class="n">rref</span><span class="p">,</span>
+<span class="w">                             </span><span class="n">density_shcs</span><span class="p">,</span><span class="w"> </span><span class="n">density_nmax</span><span class="p">,</span><span class="w"> </span><span class="n">density_order</span><span class="p">,</span>
+<span class="w">                             </span><span class="n">gc</span><span class="p">,</span><span class="w"> </span><span class="n">mass</span><span class="p">,</span>
+<span class="w">                             </span><span class="n">pmin</span><span class="p">,</span><span class="w"> </span><span class="n">pmax</span><span class="p">,</span>
+<span class="w">                             </span><span class="n">kmin</span><span class="p">,</span><span class="w"> </span><span class="n">kmax</span><span class="p">,</span>
+<span class="w">                             </span><span class="n">r</span><span class="p">,</span>
+<span class="w">                             </span><span class="n">psi0</span><span class="p">,</span>
+<span class="w">                             </span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">,</span>
+<span class="w">                             </span><span class="n">zone</span><span class="p">,</span>
+<span class="w">                             </span><span class="n">nbits</span><span class="p">,</span>
+<span class="w">                             </span><span class="n">nmax_potential</span><span class="p">,</span>
+<span class="w">                             </span><span class="nb">NULL</span><span class="p">,</span>
+<span class="w">                             </span><span class="nb">NULL</span><span class="p">,</span>
+<span class="w">                             </span><span class="nb">NULL</span><span class="p">,</span>
+<span class="w">                             </span><span class="n">potential_cap_shcs</span><span class="p">,</span>
+<span class="w">                             </span><span class="n">err</span><span class="p">);</span>
+<span class="w">    </span><span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+<span class="w">    </span><span class="cm">/* Spatially restricted gravity forward modelling of near-zone masses using</span>
+<span class="cm">     * constant density */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+<span class="w">    </span><span class="n">charm_gfm_cap_density_const</span><span class="p">(</span><span class="n">shape_shcs</span><span class="p">,</span><span class="w"> </span><span class="n">shape_nmax</span><span class="p">,</span><span class="w"> </span><span class="n">rref</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">density_const</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">gc</span><span class="p">,</span><span class="w"> </span><span class="n">mass</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">pmin</span><span class="p">,</span><span class="w"> </span><span class="n">pmax</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">kmin</span><span class="p">,</span><span class="w"> </span><span class="n">kmax</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">r</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">psi0</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">zone</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">nbits</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">nmax_potential</span><span class="p">,</span>
+<span class="w">                                </span><span class="nb">NULL</span><span class="p">,</span>
+<span class="w">                                </span><span class="nb">NULL</span><span class="p">,</span>
+<span class="w">                                </span><span class="nb">NULL</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">potential_cap_shcs</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">err</span><span class="p">);</span>
+<span class="w">    </span><span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+<span class="w">    </span><span class="cm">/* Let&#39;s compute some Molodensky&#39;s truncation coefficients, which are used</span>
+<span class="cm">     * internally whenever calling the &quot;charm_gfm_cap_density_*&quot; routines. */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+<span class="w">    </span><span class="cm">/* Allocate memory for trunction coefficients */</span>
+<span class="w">    </span><span class="cm">/* ..................................................................... */</span>
+<span class="w">    </span><span class="cm">/* Get the number of trunction coefficients */</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">q_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">charm_gfm_cap_nq</span><span class="p">(</span><span class="n">nmax_potential</span><span class="p">,</span><span class="w"> </span><span class="n">pmax</span><span class="p">,</span><span class="w"> </span><span class="n">kmin</span><span class="p">,</span><span class="w"> </span><span class="n">kmax</span><span class="p">,</span>
+<span class="w">                                     </span><span class="n">density_order</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">    </span><span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+
+
+<span class="w">    </span><span class="n">mpfr_t</span><span class="w"> </span><span class="o">*</span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">mpfr_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">q_size</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">mpfr_t</span><span class="p">));</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">q</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="n">CHARM_ERR_MALLOC_FAILURE</span><span class="p">);</span>
+<span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="n">CHARM_FAILURE</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">q_size</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+<span class="w">        </span><span class="n">mpfr_init2</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">j</span><span class="p">],</span><span class="w"> </span><span class="n">nbits</span><span class="p">);</span>
+<span class="w">    </span><span class="cm">/* ..................................................................... */</span>
+
+
+<span class="w">    </span><span class="cm">/* To compute the truncation coefficients, CHarm requires some floating</span>
+<span class="cm">     * point numbers to be provided as the &quot;mpfr_t&quot; data type, so let&#39;s do the</span>
+<span class="cm">     * conversion.  We chose &quot;rref&quot;, &quot;r&quot; and &quot;psi0&quot; such that they can be</span>
+<span class="cm">     * represented as &quot;double&quot;s exactly, so using &quot;mpfr_set_d&quot; should be safe.</span>
+<span class="cm">     * Otherwise, say, if &quot;psi0 = 0.1234567&quot;, use &quot;mpfr_set_str&quot; instead. */</span>
+<span class="w">    </span><span class="cm">/* ..................................................................... */</span>
+<span class="w">    </span><span class="n">mpfr_t</span><span class="w"> </span><span class="n">mpfr_rref</span><span class="p">,</span><span class="w"> </span><span class="n">mpfr_r</span><span class="p">,</span><span class="w"> </span><span class="n">mpfr_psi0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">mpfr_inits2</span><span class="p">(</span><span class="n">nbits</span><span class="p">,</span><span class="w"> </span><span class="n">mpfr_rref</span><span class="p">,</span><span class="w"> </span><span class="n">mpfr_r</span><span class="p">,</span><span class="w"> </span><span class="n">mpfr_psi0</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">mpfr_ptr</span><span class="p">)</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="w">    </span><span class="n">mpfr_set_d</span><span class="p">(</span><span class="n">mpfr_rref</span><span class="p">,</span><span class="w"> </span><span class="n">rref</span><span class="p">,</span><span class="w"> </span><span class="n">MPFR_RNDN</span><span class="p">);</span>
+<span class="w">    </span><span class="n">mpfr_set_d</span><span class="p">(</span><span class="n">mpfr_r</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">MPFR_RNDN</span><span class="p">);</span>
+<span class="w">    </span><span class="n">mpfr_set_d</span><span class="p">(</span><span class="n">mpfr_psi0</span><span class="p">,</span><span class="w"> </span><span class="n">psi0</span><span class="p">,</span><span class="w"> </span><span class="n">MPFR_RNDN</span><span class="p">);</span>
+<span class="w">    </span><span class="cm">/* ..................................................................... */</span>
+
+
+<span class="w">    </span><span class="cm">/* Compute the trucation coefficients */</span>
+<span class="w">    </span><span class="cm">/* ..................................................................... */</span>
+<span class="w">    </span><span class="n">charm_gfm_cap_q</span><span class="p">(</span><span class="n">mpfr_rref</span><span class="p">,</span><span class="w"> </span><span class="n">mpfr_r</span><span class="p">,</span><span class="w"> </span><span class="n">mpfr_psi0</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">nmax_potential</span><span class="p">,</span><span class="w"> </span><span class="n">pmax</span><span class="p">,</span><span class="w"> </span><span class="n">kmin</span><span class="p">,</span><span class="w"> </span><span class="n">kmax</span><span class="p">,</span><span class="w"> </span><span class="n">density_order</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">CHARM_GFM_NEAR_ZONE</span><span class="p">,</span><span class="w"> </span><span class="n">CHARM_GFM_Q00</span><span class="p">,</span><span class="w"> </span><span class="n">nbits</span><span class="p">,</span><span class="w"> </span><span class="n">q</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">    </span><span class="n">charm_err_handler</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="cm">/* ..................................................................... */</span>
+
+
+<span class="w">    </span><span class="cm">/* Free the memory associated with the trunction coefficients */</span>
+<span class="w">    </span><span class="cm">/* ..................................................................... */</span>
+<span class="w">    </span><span class="n">mpfr_clears</span><span class="p">(</span><span class="n">mpfr_rref</span><span class="p">,</span><span class="w"> </span><span class="n">mpfr_r</span><span class="p">,</span><span class="w"> </span><span class="n">mpfr_psi0</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">mpfr_ptr</span><span class="p">)</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">q_size</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+<span class="w">        </span><span class="n">mpfr_clear</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+<span class="w">    </span><span class="n">free</span><span class="p">(</span><span class="n">q</span><span class="p">);</span>
+
+
+<span class="w">    </span><span class="cm">/* NOTE: At this point, the memory associated with &quot;q&quot; should be released.</span>
+<span class="cm">     * If you are linking against &quot;glibc&quot; (which is the case on most Linux</span>
+<span class="cm">     * distributions), the memory may not, however, be released completely.</span>
+<span class="cm">     * This is not because of some bug in MPFR or CHarm, but instead it seems</span>
+<span class="cm">     * to be the default behaviour of the GNU&#39;s &quot;glibc&quot; library.  It seems that</span>
+<span class="cm">     * if you allocate a large amount of small memory chunks using malloc, as</span>
+<span class="cm">     * it happens in our code with</span>
+<span class="cm">     *</span>
+<span class="cm">     *      for (size_t j = 0; j &lt; q_size; j++)</span>
+<span class="cm">     *          mpfr_init2(q[j], nbits);</span>
+<span class="cm">     *</span>
+<span class="cm">     * then &quot;glibc&quot; may not release the memory completely when we called</span>
+<span class="cm">     *</span>
+<span class="cm">     *      for (size_t j = 0; j &lt; q_size; j++)</span>
+<span class="cm">     *          mpfr_clear(q[j]);</span>
+<span class="cm">     *</span>
+<span class="cm">     * In our example, &quot;q_size&quot; is fairly low though, so this should now be</span>
+<span class="cm">     * a problem in this case.</span>
+<span class="cm">     *</span>
+<span class="cm">     * If you are linking against &quot;glibc&quot;, your &quot;q_size&quot; is large and you want</span>
+<span class="cm">     * to release all the memory, call now</span>
+<span class="cm">     *</span>
+<span class="cm">     *      malloc_trim(0);</span>
+<span class="cm">     *</span>
+<span class="cm">     * Importantly, &quot;malloc_trim&quot; is a GNU extension, so you can call it only</span>
+<span class="cm">     * if you are linking agains &quot;glibc&quot;.  If you are using, say, &quot;musl&quot;, you</span>
+<span class="cm">     * must not call &quot;malloc_trim&quot;.</span>
+<span class="cm">     *</span>
+<span class="cm">     * Luckily, CHarm detects on compilation whether we are linking against</span>
+<span class="cm">     * &quot;glibc&quot;.  If so, &quot;malloc_trim&quot; is called before returning from functions</span>
+<span class="cm">     * dealing internally with truncation coefficients.  Therefore, you do not</span>
+<span class="cm">     * have to worry that CHarm will leave some unreleased memory.  But if you</span>
+<span class="cm">     * allocate memory for truncation coefficients outside CHarm, as we did in</span>
+<span class="cm">     * this example, it is your own responsibility to release or to not release</span>
+<span class="cm">     * the memory you allocated.</span>
+<span class="cm">     *</span>
+<span class="cm">     * For more details, look inside &quot;src/mpfr/mpfr_flush_unreleased_memory.h&quot;.</span>
+<span class="cm">     *</span>
+<span class="cm">     * */</span>
+<span class="w">    </span><span class="cm">/* ..................................................................... */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+<span class="w">    </span><span class="cm">/* !!! */</span>
+
+
+<span class="w">    </span><span class="cm">/* Free the heap memory */</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+<span class="w">    </span><span class="n">charm_err_free</span><span class="p">(</span><span class="n">err</span><span class="p">);</span>
+<span class="w">    </span><span class="n">charm_shc_free</span><span class="p">(</span><span class="n">shape_shcs</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">density_order</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">        </span><span class="n">charm_shc_free</span><span class="p">(</span><span class="n">density_shcs</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="n">charm_shc_free</span><span class="p">(</span><span class="n">potential_global_shcs</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kmin</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">kmax</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="o">++</span><span class="p">)</span>
+<span class="w">        </span><span class="n">charm_shc_free</span><span class="p">(</span><span class="n">potential_cap_shcs</span><span class="p">[</span><span class="n">k</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">kmin</span><span class="p">]);</span>
+<span class="w">    </span><span class="n">free</span><span class="p">(</span><span class="n">potential_cap_shcs</span><span class="p">);</span>
+<span class="w">    </span><span class="n">charm_crd_point_free</span><span class="p">(</span><span class="n">grd</span><span class="p">);</span>
+<span class="w">    </span><span class="n">free</span><span class="p">(</span><span class="n">vgfm</span><span class="p">);</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+
+
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">Great, all done!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">exit</span><span class="p">(</span><span class="n">CHARM_SUCCESS</span><span class="p">);</span>
+<span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
+<span class="w">    </span><span class="cm">/* ===================================================================== */</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
 <section id="fourier-coefficients-of-legendre-functions">
 <h3>Fourier coefficients of Legendre functions<a class="headerlink" href="#fourier-coefficients-of-legendre-functions" title="Link to this heading">#</a></h3>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
@@ -2142,6 +2628,7 @@ with the static library might look like this:</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-spherical-harmonic-coefficients">Working with spherical harmonic coefficients</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spherical-harmonic-synthesis-and-analysis">Spherical harmonic synthesis and analysis</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#first-and-second-order-gradients-gravitational-vector-and-tensor">First- and second-order gradients (gravitational vector and tensor)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gravity-forward-modelling">Gravity forward modelling</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-coefficients-of-legendre-functions">Fourier coefficients of Legendre functions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integrals">Integrals</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distributed-computing-with-mpi">Distributed computing with MPI</a></li>
@@ -2185,7 +2672,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Feb 12, 2025.
+  Last updated on Mar 12, 2025.
   <br/>
 </p>
   </div>

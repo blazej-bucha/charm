@@ -1,0 +1,940 @@
+/** \file charm@P@_gfm.h
+ *
+ * Module for spectral gravity forward modelling.  Offers:
+ *
+ * * global and spatially limited spectral gravity forward modelling of
+ *   band-limited topographic masses having constant, lateral and 3D varying
+ *   mass density.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *      .. note::
+ *
+ *          This documentation is written for double precision version of 
+ *          CHarm.
+ *
+ * \endverbatim
+ *
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *
+ *  .. note::
+ *
+ *          Spatially limited integration radius is available only if
+ *          ``--enable-mpfr`` is specified when calling ``./configure`` during
+ *          the installation.  See :ref:`Installing <installing>` for further
+ *          details.
+ *
+ * \endverbatim
+ * */
+
+
+
+
+
+
+#ifndef __CHARM@PC@_GFM_H__
+#define __CHARM@PC@_GFM_H__
+
+
+/* Header files required by this module */
+/* ------------------------------------------------------------------------- */
+#include <charm/charm@P@_shc.h>
+#include <charm/charm@P@_err.h>
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* Function prototypes */
+/* ------------------------------------------------------------------------- */
+/* ......................................................................... */
+/** @name Global spectral gravity forward modelling
+ *
+ * These functions perform spectral gravity forward modelling using full
+ * integration radius, that is, masses all around the body are forward
+ * modelled.  The density may be constant, laterally variable or 3D variable.
+ *
+ * @{
+ * */
+
+
+/** @brief Performs global spectral gravity forward modelling of 3D mass
+ * densities.
+ *
+ * @details Assume a body having a star-shaped surface expandable into surface
+ * spherical harmonics.  Let the body's density vary in spherical coordinates
+ * \f$r', \varphi', \lambda'\f$ as a finite-degree polynomial in the radial
+ * direction as
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *  .. math::
+ *
+ *      \rho(r', \varphi', \lambda') = \sum_{i = 0}^I \rho_i(\varphi',
+ *      \lambda') \, \left( r' \right)^i{,}
+ *
+ * \endverbatim
+ *
+ * where \f$\rho_i(\varphi', \lambda')\f$ are laterally varying polynomial
+ * coefficients of the density that are expandable into surface spherical
+ * harmonics.  From now on, we assume only those masses that are found between
+ * some internal sphere and the surface of the body.  This function computes
+ * spherical harmonic coefficients of the gravitational potential implied by
+ * such mass distributions.
+ *
+ * The routine has several input parameters, so it is useful to group them into
+ * a few categories:
+ *
+ * * parameters defining the *shape* of the gravitating body (``shape_shcs``,
+ *   ``shape_nmax``, ``shape_radius_ref``),
+ *
+ * * parameters defining the *density* of the gravitating body
+ *   (``density_shcs``, ``density_nmax``, ``density_order``),
+ *
+ * * parameters related to *outputs* (``shape_density_shcs_path``,
+ *   ``potential_shcs_path``, ``shcs_file_format``, ``potential_shcs``,
+ *   ``err``),
+ *
+ * * parameters related to the *method* (``shape_power_min``,
+ *   ``shape_power_max``, ``grav_const``, ``mass``, ``potential_shcs_nmax``).
+ *
+ * Each parameter is described in detail below.
+ *
+ * **References**:
+ *
+ * * Bucha B (2025) Spectral gravity forward modelling of 3D variable densities
+ *   using an arbitrary integration radius with application to lunar
+ *   topographic masses.  Accepted for publication in Journal of Geodesy.
+ *
+ * @param[in] shape_shcs Spherical harmonic coefficients defining the shape of
+ * the gravitating body (e.g., planetary topography), that is, the upper
+ * integration limit in the radial direction.  It must hold that (i) surface
+ * spherical harmonic synthesis of coefficients from ``shape_shcs`` gives the
+ * *full* spherical radius of surface points in metres,
+ * (ii) ``shape_shcs->mu == 1.0`` and (iii)``shape_shcs->r == 1.0``.
+ *
+ * @param[in] shape_nmax Maximum harmonic degree to take when defining the
+ * shape of the gravitating body by the spherical harmonic coefficients in
+ * ``shape_shcs``.  The value cannot be larger than ``shape_shcs->nmax``.
+ *
+ * @param[in] shape_radius_ref Radius in metres defining the lower integration
+ * limit in the radial direction.  Forward modelled will be the masses between
+ * the sphere of radius ``shape_radius_ref`` and the body's surface defined by
+ * ``shape_shcs``.  The value must be positive.
+ *
+ * @param[in] density_shcs Pointer to an array of pointers to ``charm_shc``
+ * structures defining spherical harmonic coefficients of the polynomial
+ * density coefficients.  For instance, ``density_shcs[0]`` is a pointer to
+ * ``charm_shc`` structure defining the spherical harmonic coefficients of the
+ * zero-order laterally varying polynomial density coefficients
+ * \f$\rho_0(\varphi', \lambda')\f$; ``density_shcs[1]`` is a pointer to
+ * ``charm_shc`` structure holding the spherical harmonic coefficients of the
+ * first-order laterally varying polynomial density
+ * coefficients \f$\rho_1(\varphi', \lambda')\f$; etc.
+ *
+ * @param[in] density_nmax Pointer to an array of unsigned long integers
+ * defining the maximum harmonic degrees to be used with the respective
+ * ``charm_shc`` structures in ``density_shcs`` when defining the polynomial
+ * density coefficients.  More specifically, ``density_nmax[i]`` is the maximum
+ * harmonic degree that will be used when defining the polynomial density
+ * coefficients of order \f$i\f$ by ``density_shcs[i]``; it must hold that
+ * ``density_nmax[i] <= density_shcs[i]->nmax``.
+ *
+ * @param[in] density_order Maximum order of the density polynomial.  Both
+ * ``density_shcs`` and ``density_nmax`` must have an access to at least
+ * ``density_order + 1`` array elements.
+ *
+ * @param[in] grav_const Newton's gravitational constant.
+ *
+ * @param[in] mass Mass of the body.  The value affects the output potential
+ * coefficients ``potential_shcs`` (see below) but do *not* affect the
+ * gravitational effects synthesized from the coefficients.  This is because
+ * the value is also used to compute ``potential_shcs->mu``, so it cancels out
+ * during the synthesis.  Only non-zero values are accepted.
+ *
+ * @param[in] shape_power_min Minimum topography power.  Usually, the
+ * value is ``1``.  Values higher than ``1`` do not produce a complete gravity
+ * field model, but are useful in specific situations.  At any rate, the value
+ * must be positive.
+ *
+ * @param[in] shape_power_max Maximum topography power.  The value cannot be
+ * smaller than ``shape_power_min``.  The larger is the value, the more
+ * complete is the spectral gravity forward modelling.
+ *
+ * @param[in] potential_shcs_nmax Maximum harmonic degree of the output
+ * spherical harmonic coefficients of the implied gravitational potential in
+ * ``potential_shcs`` (see below).  The value cannot be larger than
+ * ``potential_shcs->nmax``.
+ *
+ * @param[in] shape_density_shcs_path Path and prefix of output files
+ * containing spherical harmonic coefficients of shape-density
+ * functions.  For instance, the ``"/tmp/shape-density"`` string will cause
+ * that several files (depending on ``shape_power_max`` and ``density_order``)
+ * having the prefix ``shape-density`` will be created in the ``/tmp``
+ * folder.  If ``NULL``, coefficients of shape-density functions are
+ * not exported.  The topographic-density function is defined as (see Bucha
+ * 2025) \f$\left( \frac{r_{\mathrm{S}}(\varphi', \lambda')
+ * - R}{R} \right)^p \, \rho_i(\varphi', \lambda') \, R^i\f$, where
+ * \f$r_{\mathrm{S}}\f$ is the radius of a surface point synthesized from
+ * ``shape_shcs`` up to degree ``shape_nmax``, \f$R\f$ is
+ * ``shape_radius_ref`` and \f$\rho_i(\varphi', \lambda')\f$ are the
+ * polynomial density coefficients of the \f$i\f$-th order synthesized from
+ * ``density_shcs[i]`` up to degree ``density_nmax[i]``.
+ *
+ * @param[in] potential_shcs_path Path and prefix of output files
+ * containing spherical harmonic coefficients of gravitational
+ * potential contributions due to the shape-density functions.  If
+ * ``NULL``, the coefficients are not exported.
+ *
+ * @param[in] shcs_file_format String defining the format of output files that
+ * are specified by ``shape_density_shcs_path`` and/or ``potential_shcs_path``.
+ * Accepted strings are ``"tbl"``, ``"mtx"``, ``"dov"``, ``"bin"``.  If both
+ * ``shape_density_shcs_path`` and ``potential_shcs_path`` are ``NULL``,
+     * ``shcs_file_format`` can be ``NULL``, too.
+ *
+ * @param[out] potential_shcs Spherical harmonic coefficients of the output
+ * gravitational potential.  In a special case, when ``potential_shcs`` is
+ * ``NULL``, computed and exported are only partial contributions due to
+ * the individual shape and density powers to the potential coefficients, that
+ * is, they are not summed to yield potential coefficients.  The partial
+ * outputs are exported through ``shape_density_shcs_path`` and
+ * ``potential_shcs_path``.  The output potential coefficients can be
+ * reproduced by summing all output files with the prefix
+ * ``potential_shcs_path``.  This option is useful if you need to save some
+ * memory.
+ *
+ * @param[out] err Error reported by the function (if any).
+ *
+ * */
+CHARM_EXTERN void CHARM_CDECL charm@P@_gfm_global_density_3d(
+                                           const charm@P@_shc *shape_shcs,
+                                           unsigned long shape_nmax,
+                                           @RDT@ shape_radius_ref,
+                                           charm@P@_shc **density_shcs,
+                                           unsigned long *density_nmax,
+                                           unsigned density_order,
+                                           @RDT@ grav_const,
+                                           @RDT@ mass,
+                                           unsigned shape_power_min,
+                                           unsigned shape_power_max,
+                                           unsigned long potential_shcs_nmax,
+                                           const char *shape_density_shcs_path,
+                                           const char *potential_shcs_path,
+                                           const char *shcs_file_format,
+                                           charm@P@_shc *potential_shcs,
+                                           charm@P@_err *err);
+
+
+/** @brief Performs global spectral gravity forward modelling with laterally
+ * varying mass density.
+ *
+ * @details The function input parameters are the same as in
+ * ``charm@P@_gfm_global_density_3d()`` with two exceptions:
+ *
+ * * ``density_shcs`` is now a pointer to a ``charm@P@_shc`` structure that
+ *   holds spherical harmonic coefficients of the laterally varying mass
+ *   density function,
+ *
+ * * ``density_nmax`` is an ``unsigned long`` integer indicating the maximum
+ *   harmonic degree, up to which the coefficients from ``density_shcs`` are
+ *   used in forward modelling. */
+CHARM_EXTERN void CHARM_CDECL charm@P@_gfm_global_density_lateral(
+                                           const charm@P@_shc *shape_shcs,
+                                           unsigned long shape_nmax,
+                                           @RDT@ shape_radius_ref,
+                                           charm@P@_shc *density_shcs,
+                                           unsigned long density_nmax,
+                                           @RDT@ grav_const,
+                                           @RDT@ mass,
+                                           unsigned shape_power_min,
+                                           unsigned shape_power_max,
+                                           unsigned long potential_shcs_nmax,
+                                           const char *shape_density_shcs_path,
+                                           const char *potential_shcs_path,
+                                           const char *shcs_file_format,
+                                           charm@P@_shc *potential_shcs,
+                                           charm@P@_err *err);
+
+
+/** @brief Performs global spectral gravity forward modelling with a constant
+ * mass density after <a
+ * href="https://agupubs.onlinelibrary.wiley.com/doi/10.1002/2013JB010900">Hirt
+ * and Kuhn (2014)</a>.
+ *
+ * @details The function input parameters are the same as in
+ * ``charm@P@_gfm_global_density_3d()`` with two exceptions.
+ *
+ * * A single constant mass ``density`` replaced the ``density_shcs`` and
+ *   ``density_nmax`` parameters.
+ *
+ * * The ``shape_shcs_path`` variable replaced ``shape_density_shcs_path`` and
+ *   is used to export spherical harmonic coefficients of the powers of the
+ *   topographic height function \f$\left( \frac{r_{\mathrm{S}}(\varphi',
+ *   \lambda') - R}{R} \right)^p\f$, where \f$r_{\mathrm{S}}\f$ is defined by
+ *   ``shape_shcs`` and ``shape_nmax``
+ *   and \f$R\f$ is ``shape_radius_ref``.  This time, the coefficients of the
+ *   exported powers of the topographic height function are therefore **not**
+ *   multiplied by the constant density, hence the new variable name.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *
+ *  .. note::
+ *
+ *      The function is optimized in terms of memory usage.  It therefore
+ *      requires smaller amount of working RAM than
+ *      ``charm@P@_gfm_global_density_3d()`` and
+ *      ``charm@P@_gfm_global_density_lateral()`` would require if
+ *      used with a constant mass density as their special case.
+ *
+ * \endverbatim
+ * */
+CHARM_EXTERN void CHARM_CDECL charm@P@_gfm_global_density_const(
+                                             const charm@P@_shc *shape_shcs,
+                                             unsigned long shape_nmax,
+                                             @RDT@ shape_radius_ref,
+                                             @RDT@ density,
+                                             @RDT@ grav_const,
+                                             @RDT@ mass,
+                                             unsigned shape_power_min,
+                                             unsigned shape_power_max,
+                                             unsigned long potential_shcs_nmax,
+                                             const char *shape_shcs_path,
+                                             const char *potential_shcs_path,
+                                             const char *shcs_file_format,
+                                             charm@P@_shc *potential_shcs,
+                                             charm@P@_err *err);
+
+
+/**
+ * @}
+ * */
+/* ......................................................................... */
+
+
+#if @WITH_MPFR@
+
+
+#include <mpfr.h>
+
+
+/* ......................................................................... */
+/** @name Symbolic constants representing types of truncation coefficients
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *
+ *  .. note::
+ *
+ *          The symbolic constants that follow are available only if
+ *          ``--enable-mpfr`` is specified when calling ``./configure`` during
+ *          the installation.  See :ref:`Installing <installing>` for further
+ *          details.
+ *
+ * \endverbatim
+ *
+ * */
+/**@{*/
+/** Truncation coefficients \f$Q^{0,0,j}_{npi}(r, \psi_0, R)\f$ defined by
+ * Eq. (88) of Bucha (2025). */
+#define CHARM_GFM_Q00 0U
+
+
+/** Truncation coefficients \f$Q^{1, 0, j}_{npi}(r, \psi_0, R)\f$ defined by
+ * Eq. (88) of Bucha (2025). */
+#define CHARM_GFM_Q10 10U
+
+
+/** Truncation coefficients \f$Q^{1, 1, j}_{npi}(r, \psi_0, R)\f$ defined by
+ * Eq. (88) of Bucha (2025). */
+#define CHARM_GFM_Q11 11U
+
+
+/** Truncation coefficients \f$Q^{2, 0, j}_{npi}(r, \psi_0, R)\f$ defined by
+ * Eq. (88) of Bucha (2025). */
+#define CHARM_GFM_Q20 20U
+
+
+/** Truncation coefficients \f$Q^{2, 1, j}_{npi}(r, \psi_0, R)\f$ defined by
+ * Eq. (88) of Bucha (2025). */
+#define CHARM_GFM_Q21 21U
+
+
+/** Truncation coefficients \f$Q^{2, 2, j}_{npi}(r, \psi_0, R)\f$ defined by
+ *  Eq. (88) of Bucha (2025). */
+#define CHARM_GFM_Q22 22U
+
+
+/** Symbolic constant that can be used to forward model near-zone masses in the
+ * ``charm_gfm_cap_density_*`` functions.  Near-zone masses are defined as
+ * masses up to some spherical distance \f$\psi_0\f$ from evaluation points. */
+#define CHARM_GFM_NEAR_ZONE 1
+
+
+/** Symbolic constant that can be used to forward model far-zone masses in the
+ * ``charm_gfm_cap_density_*`` functions.  Far-zone masses are defined as
+ * masses beyond some spherical distance \f$\psi_0\f$ from evaluation points.*/
+#define CHARM_GFM_FAR_ZONE (-1)
+
+
+
+/* **References**:
+ *
+ * * Bucha B (2025) Spectral gravity forward modelling of 3D variable densities
+ *   using an arbitrary integration radius with application to lunar
+ *   topographic masses.  Accepted for publication in Journal of Geodesy. */
+/**@}*/
+/* ------------------------------------------------------------------------- */
+
+
+/* ......................................................................... */
+/** @name Cap-modified spectral gravity forward modelling
+ *
+ * These functions perform spectral gravity forward modelling using spatially
+ * restricted integration radius.  They can be used to compute the
+ * gravitational contribution of masses up to (near-zone) or beyond (far-zone) 
+ * some distance from evaluation points as opposed to the global integration
+ * from the previous routines.  The density may be constant, laterally variable
+ * or 3D variable.
+ *
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *
+ *  .. note::
+ *
+ *          These functions are compiled only if ``--enable-mpfr`` is specified
+ *          when calling ``./configure`` during the installation.  See
+ *          :ref:`Installing <installing>` for further details.
+ *
+ * \endverbatim
+ *
+ * @{
+ * */
+
+
+
+/** @brief Performs cap-modified spectral gravity forward modelling of 3D mass
+ * densities.
+ *
+ * @details Similarly as ``charm@P@_gfm_global_density_3d()``, this function forward
+ * models 3D mass distributions.  The difference is that it
+ * considers only those topographic masses that are located inside or outside
+ * a spherical cap centred at evaluation points.  The output spherical
+ * harmonic coefficients can thus be used to compute near-zone or far-zone
+ * effects on some gravitational field quantity.
+ *
+ * Many of the function parameters have exactly the same meaning as in
+ * ``charm@P@_gfm_global_density_3d()``, so explained will be the new ones
+ * only.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *
+ *  .. tip::
+ *
+ *      Use ``charm@P@_gfm_cap_q_check_prec()`` to determine the
+ *      appropriate value of the input parameter ``nbits``.
+ *
+ * \endverbatim
+ *
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *
+ *  .. note::
+ *
+ *          This function is compiled only if ``--enable-mpfr`` is specified
+ *          when calling ``./configure`` during the installation.  See
+ *          :ref:`Installing <installing>` for further details.
+ *
+ * \endverbatim
+ *
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *
+ *  .. warning::
+ *
+ *          The function parameters ``u`` and ``v`` specify the output
+ *          quantity, of which spherical harmonic coefficients
+ *          ``potential_shcs`` are computed.  However, the output
+ *          quantity is not necessarily some derivative of the gravitational
+ *          potential in the local north-oriented reference frame (LNOF).  Yet,
+ *          you *can* get the directional potential derivatives in LNOF if you
+ *          do some rather simple manipulations on your own (see Bucha, 2025).
+ *          The exception is the case ``u = 0`` and ``v = 0``, which leads
+ *          directly to the spherical harmonic coefficients of the
+ *          gravitational potential.
+ *
+ * \endverbatim
+ *
+ * **References**:
+ *
+ * * Bucha B (2025) Spectral gravity forward modelling of 3D variable densities
+ *   using an arbitrary integration radius with application to lunar
+ *   topographic masses.  Accepted for publication in Journal of Geodesy.
+ *
+ * @param[in] radial_derivative_min Minimum radial derivative of the quantity
+ * specified by ``u`` and ``v`` (see below).  Use ``0`` for no radial
+ * derivative.
+ *
+ * @param[in] radial_derivative_max The same as ``radial_derivative_min`` but
+ * for the maximum radial derivative.
+ *
+ * @param[in] evaluation_spherical_radius Spherical radius in metres of
+ * evaluation points.  The output coefficients ``potential_shcs`` refer to this
+ * sphere.  If your goal is to compute your ``u,v``-quantity on an irregular
+ * surface (e.g., on the Earth's surface), use analytical continuation through
+ * radial derivatives.  These can be specified by ``radial_derivative_min`` and
+ * ``radial_derivative_max``.
+ *
+ * @param[in] integration_radius Cap radius in radians defining the masses to
+ * be integrated.  Masses within the cap are here called near-zone masses
+ * and masses beyond the cap are here called far-zone masses.
+ *
+ * @param[in] u Order of the potential derivative, of which spherical harmonic
+ * coefficients ``potential_shcs`` are computed.  Use ``0`` to get the
+ * gravitational potential, use ``1`` to get quantities related to the
+ * first-order potential derivatives or use ``2`` for quantities related to the
+ * second-order potential derivatives.  Values larger than ``2`` are not
+ * allowed.
+ *
+ * @param[in] v Order of the potential derivative with respect to the spherical
+ * distance.  Valid values are ``0``, ``...``, ``u``.
+ *
+ * @param[in] zone Non-negative integer to integrate near-zone masses (e.g.,
+ * ``::CHARM_GFM_NEAR_ZONE``) or negative integer to integrate far-zone
+ * masses (e.g., ``::CHARM_GFM_FAR_ZONE``).
+ *
+ * @param[in] nbits Number of bits to represent the significand of all floating
+ * point numbers used to compute the truncation coefficients.
+ *
+ * @param[out] potential_shcs Double pointer to the ``charm@P@_shc`` structure.
+ * ``potential_shcs`` must have access to
+ * ``radial_derivative_max - radial_derivative_min + 1`` ``charm@P@_shc``
+ * structures, each of which must have allocated memory for coefficients at
+ * least up to degree ``potential_shcs_nmax``.  In a special case, when
+ * ``potential_shcs`` is ``NULL``, computed and exported are only partial
+ * contributions of individual shape and density powers to the potential
+ * coefficients, that is, they are not summed.  The partial
+ * outputs are exported through ``shape_density_shcs_path`` and
+ * ``potential_shcs_path``.  The output potential coefficients can be
+ * reproduced using the output files with the prefix ``potential_shcs_path``.
+ * This option is useful if you need to save some memory.
+ *
+ * */
+CHARM_EXTERN void CHARM_CDECL charm@P@_gfm_cap_density_3d(
+                                    const charm@P@_shc *shape_shcs,
+                                    unsigned long shape_nmax,
+                                    @RDT@ shape_radius_ref,
+                                    charm@P@_shc **density_shcs,
+                                    unsigned long *density_nmax,
+                                    unsigned density_order,
+                                    @RDT@ grav_const,
+                                    @RDT@ mass,
+                                    unsigned shape_power_min,
+                                    unsigned shape_power_max,
+                                    unsigned radial_derivative_min,
+                                    unsigned radial_derivative_max,
+                                    @RDT@ evaluation_spherical_radius,
+                                    @RDT@ integration_radius,
+                                    unsigned u,
+                                    unsigned v,
+                                    int zone,
+                                    mpfr_prec_t nbits,
+                                    unsigned long potential_shcs_nmax,
+                                    const char *shape_density_shcs_path,
+                                    const char *potential_shcs_path,
+                                    const char *shcs_file_format,
+                                    charm@P@_shc **potential_shcs,
+                                    charm@P@_err *err);
+
+
+
+
+
+
+/** @brief Performs cap-modified spectral gravity forward modelling with
+ * laterally varying mass density.
+ *
+ * @details The function input parameters are the same as in
+ * ``charm@P@_gfm_cap_density_3d()`` with two exceptions:
+ *
+ * * ``density_shcs`` is now a pointer to a ``charm@P@_shc`` structure that
+ *   holds spherical harmonic coefficients of the laterally varying mass
+ *   density function,
+ *
+ * * ``density_nmax`` is an ``unsigned long`` integer indicating the maximum
+ *   harmonic degree, up to which the coefficients from ``density_shcs`` are
+ *   used in forward modelling. */
+CHARM_EXTERN void CHARM_CDECL charm@P@_gfm_cap_density_lateral(
+                                    const charm@P@_shc *shape_shcs,
+                                    unsigned long shape_nmax,
+                                    @RDT@ shape_radius_ref,
+                                    charm@P@_shc *density_shcs,
+                                    unsigned long density_nmax,
+                                    @RDT@ grav_const,
+                                    @RDT@ mass,
+                                    unsigned shape_power_min,
+                                    unsigned shape_power_max,
+                                    unsigned radial_derivative_min,
+                                    unsigned radial_derivative_max,
+                                    @RDT@ evaluation_spherical_radius,
+                                    @RDT@ integration_radius,
+                                    unsigned u,
+                                    unsigned v,
+                                    int zone,
+                                    mpfr_prec_t nbits,
+                                    unsigned long potential_shcs_nmax,
+                                    const char *shape_density_shcs_path,
+                                    const char *potential_shcs_path,
+                                    const char *shcs_file_format,
+                                    charm@P@_shc **potential_shcs,
+                                    charm@P@_err *err);
+
+
+
+
+
+
+/** @brief Performs cap-modified spectral gravity forward modelling with
+ * a constant mass density after <a
+ * href="https://doi.org/10.1007/s00190-018-1139-x">Bucha et al (2019)</a>.
+ *
+ * @details The function input parameters are the same as in
+ * ``charm@P@_gfm_cap_density_3d()`` with two exceptions.
+ *
+ * * A single constant mass ``density`` replaced the ``density_shcs`` and
+ *   ``density_nmax`` parameters.
+ *
+ * * The ``shape_shcs_path`` variable replaced ``shape_density_shcs_path`` and
+ *   is used to export spherical harmonic coefficients of the powers of the
+ *   topographic height function \f$\left( \frac{r_{\mathrm{S}}(\varphi',
+ *   \lambda') - R}{R} \right)^p\f$, where \f$r_{\mathrm{S}}\f$ is defined by
+ *   ``shape_shcs`` and ``shape_nmax``
+ *   and \f$R\f$ is ``shape_radius_ref``.  This time, the coefficients of the
+ *   exported powers of the topographic height function are therefore **not**
+ *   multiplied by the constant density, hence the new variable name.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *
+ *  .. note::
+ *
+ *      The function is optimized in terms of memory usage.  It therefore
+ *      requires smaller amount of working RAM than
+ *      ``charm@P@_gfm_cap_density_3d()`` and
+ *      ``charm@P@_gfm_cap_density_lateral()`` would require if
+ *      used with a constant mass density as their special case.
+ *
+ * \endverbatim
+ * */
+CHARM_EXTERN void CHARM_CDECL charm@P@_gfm_cap_density_const(
+                                    const charm@P@_shc *shape_shcs,
+                                    unsigned long shape_nmax,
+                                    @RDT@ shape_radius_ref,
+                                    @RDT@ density,
+                                    @RDT@ grav_const,
+                                    @RDT@ mass,
+                                    unsigned shape_power_min,
+                                    unsigned shape_power_max,
+                                    unsigned radial_derivative_min,
+                                    unsigned radial_derivative_max,
+                                    @RDT@ evaluation_spherical_radius,
+                                    @RDT@ integration_radius,
+                                    unsigned u,
+                                    unsigned v,
+                                    int zone,
+                                    mpfr_prec_t nbits,
+                                    unsigned long potential_shcs_nmax,
+                                    const char *shape_shcs_path,
+                                    const char *potential_shcs_path,
+                                    const char *shcs_file_format,
+                                    charm@P@_shc **potential_shcs,
+                                    charm@P@_err *err);
+
+
+
+
+
+
+/** @brief Computes trunction coefficients ``::CHARM_GFM_Q00``,
+ *  ``::CHARM_GFM_Q10``, ``::CHARM_GFM_Q11``, ``::CHARM_GFM_Q20``,
+ *  ``::CHARM_GFM_Q21``, ``::CHARM_GFM_Q22`` that are used in spectral gravity
+ *  forward modelling with spatially limited integration radius.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *
+ *  .. tip::
+ *
+ *      Use ``charm@P@_gfm_cap_q_check_prec()`` to determine the
+ *      appropriate value of the input parameter ``nbits``.
+ *
+ * \endverbatim
+ *
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *
+ *  .. note::
+ *
+ *          This function is compiled only if ``--enable-mpfr`` is specified
+ *          when calling ``./configure`` during the installation.  See
+ *          :ref:`Installing <installing>` for further details.
+ *
+ * \endverbatim
+ *
+ * @param[in] shape_radius_ref Radius of the reference sphere in metres.
+ *
+ * @param[in] evaluation_spherical_radius Spherical radius of evaluation
+ * points in metres.
+ *
+ * @param[in] integration_radius Integration radius in radians.
+ *
+ * @param[in] potential_shcs_nmax Maximum spherical harmonic degree of the
+ * truncation coefficients.
+ *
+ * @param[in] shape_power_max Maximum topography power of the truncation
+ * coefficients (must be larger than zero).
+ *
+ * @param[in] radial_derivative_min Minimum radial derivative of the truncation
+ * coefficients.
+ *
+ * @param[in] radial_derivative_max Maximum radial derivative of the truncation
+ * coefficients.
+*
+ * @param[in] density_order Maximum order of the polynomial density
+ * coefficients.
+ *
+ * @param[in] zone Non-negative integer for near-zone truncation coefficients
+ * (e.g., ``::CHARM_GFM_NEAR_ZONE``) or negative integer for far-zone
+ * truncation coefficients (e.g., ``::CHARM_GFM_FAR_ZONE``).
+ *
+ * @param[in] type Type of the truncation coefficients (symbolic constant
+ * ``::CHARM_GFM_Q00``, ``::CHARM_GFM_Q10``, ``::CHARM_GFM_Q11``,
+ * ``::CHARM_GFM_Q20``, ``::CHARM_GFM_Q21`` or ``::CHARM_GFM_Q22``).
+ *
+ * @param[in] nbits Number of bits to represent the significand of all floating
+ * point numbers used to compute the truncation coefficients.
+ *
+ * @param[out] qkpin Pointer to an array of ``nq`` elements of the ``mpfr_t``
+ * data type.  ``nq`` can be obtained by ``charm@P@_gfm_cap_nq()`` or it can be
+ * computed as follows.  Let ``nmax = potential_shcs_nmax``, ``pmax
+ * = shape_power_max``, ``kmin = radial_derivative_min``, ``kmax
+ * = radial_derivative_max``, ``imax = density_order``.  The total number of
+ * elements is then
+ * ``nq = (kmax - kmin + 1) * pmax * (nmax + 1) * (imax + 1)``.  The value of
+ * \f$\partial^k Q^{uvj}_{npi}(r, \psi_0, R) / \partial r^k\f$ can be accessed
+ * as
+ * ``qkpin[(((k - kmin) * pmax + (p - 1)) * (imax + 1) + i) * (nmax + 1) + n]``.
+ * ``qkpin`` can thus be considered as a 4D-array, in which harmonic degree
+ * ``n`` varies fastest and the order of the radial derivative varies slowest,
+ * or, more precisely, the order is ``n``, ``i``, ``p``, and ``k``.
+ *
+ * @param[out] err Error reported by the function (if any).
+ *
+ * */
+CHARM_EXTERN void CHARM_CDECL charm@P@_gfm_cap_q(
+                               const mpfr_t shape_radius_ref,
+                               const mpfr_t evaluation_spherical_radius,
+                               const mpfr_t integration_radius,
+                               unsigned long potential_shcs_nmax,
+                               unsigned shape_power_max,
+                               unsigned radial_derivative_min,
+                               unsigned radial_derivative_max,
+                               unsigned density_order,
+                               int zone,
+                               unsigned type,
+                               mpfr_prec_t nbits,
+                               mpfr_t *qkpin,
+                               charm@P@_err *err);
+
+
+
+
+
+
+/** @brief Returns the number of truncation coefficients ``qkpin`` computed by
+ * ``charm@P@_gfm_cap_q()``.
+ *
+ * @param[in] potential_shcs_nmax Maximum spherical harmonic degree of the
+ * truncation coefficients.
+ *
+ * @param[in] shape_power_max Maximum topography power of the truncation
+ * coefficients (must be larger than zero).
+ *
+ * @param[in] radial_derivative_min Minimum radial derivative of the truncation
+ * coefficients.
+ *
+ * @param[in] radial_derivative_max Maximum radial derivative of the truncation
+ * coefficients.
+*
+ * @param[in] density_order Maximum order of the polynomial density
+ * coefficients.
+ *
+ * @param[out] err Error reported by the function (if any).
+ *
+ * @returns On success, returned is the number of truncation coefficients.  On
+ * error, ``0`` is returned in addition to the error reporting through ``err``.
+ *
+ * */
+CHARM_EXTERN size_t CHARM_CDECL charm@P@_gfm_cap_nq(
+                                             unsigned long potential_shcs_nmax,
+                                             unsigned shape_power_max,
+                                             unsigned radial_derivative_min,
+                                             unsigned radial_derivative_max,
+                                             unsigned density_order,
+                                             charm@P@_err *err);
+
+
+
+
+
+
+/** @brief Estimates the lowest number of correct digits of the sum of near-
+ * and far-zone truncation coefficients obtained by ``charm@P@_gfm_cap_q()``
+ * when using the same input parameters.  The uncertainty of the estimate is
+ * 1 digit.  In case of an error, returned is a negative integer.
+ *
+ * @details First, near- and far-zone truncation coefficients are computed and
+ * summed using the ``nbits`` precision.  Then, reference coefficients from
+ * global spectral gravity forward modelling are evaluated using the
+ * ``nbits_ref`` precision.  Finally, the sums are compared with respect to the
+ * reference values.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *
+ *  .. tip::
+ *
+ *          Use this function before calling ``charm@P@_gfm_cap_density_*()``
+ *          to check whether ``nbits`` that you enter to
+ *          ``charm@P@_gfm_cap_density_*()`` is large enough to ensure accurate
+ *          computation of truncation coefficients.  The number returned by
+ *          this function should be at least ``7``, ``16`` or ``34`` for
+ *          gravity forward modelling in single, double or quadruple precision,
+ *          respectively.  Otherwise, increase ``nbits`` and ``nbits_ref``
+ *          until the desired accuracy is met.  Once the value returned by this
+ *          function is large enough, that particular (or higher) ``nbits`` can
+ *          safely enter ``charm@P@_gfm_cap_density_*()``.
+ *
+ * \endverbatim
+ *
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *
+ *  .. note::
+ *
+ *          If all sums of truncation coefficients are computed accurately to
+ *          the last bit, returned is a large integer (``LONG_MAX`` from
+ *          ``limits.h``).  This may happen, for instance, if ``nmax`` is so
+ *          small that all truncation coefficients of a given ``type`` are zero
+ *          (e.g., ``nmax = 0`` for ``type = CHARM_GFM_Q20``).
+ *
+ * \endverbatim
+ *
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *
+ *  .. note::
+ *
+ *          The number returned is related to the *sum* of near- and far-zone
+ *          truncation coefficients.  Usually, all near- and far-zone
+ *          coefficients are more accurate than indicated by the returned
+ *          value.  Therefore, even a smaller value of ``nbits`` may suffice to
+ *          get accurate outputs from ``charm@P@_gfm_cap_density_*()``.
+ *
+ * \endverbatim
+ *
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *
+ *  .. note::
+ *
+ *          This function is compiled only if ``--enable-mpfr`` is specified
+ *          when calling ``./configure`` during the installation.  See
+ *          :ref:`Installing <installing>` for further details.
+ *
+ * \endverbatim
+ *
+ *
+ * @param[in] shape_radius_ref Radius of the reference sphere in metres.
+ *
+ * @param[in] evaluation_spherical_radius Spherical radius of the evaluation
+ * point in metres.
+ *
+ * @param[in] integration_radius Integration radius in radians.
+ *
+ * @param[in] potential_shcs_nmax Maximum spherical harmonic degree of the
+ * truncation coefficients.
+ *
+ * @param[in] shape_power_max Maximum topography power of the truncation
+ * coefficients (must be larger than zero).
+ *
+ * @param[in] radial_derivative_min Minimum radial derivative of the truncation
+ * coefficients.
+ *
+ * @param[in] radial_derivative_max Maximum radial derivative of the truncation
+ * coefficients.
+*
+ * @param[in] density_order Maximum order of the density polynomial.
+ *
+ * @param[in] type Type of the truncation coefficients (symbolic constant
+ * ``::CHARM_GFM_Q00``, ``::CHARM_GFM_Q10``, ``::CHARM_GFM_Q11``,
+ * ``::CHARM_GFM_Q20``, ``::CHARM_GFM_Q21`` or ``::CHARM_GFM_Q22``).
+ *
+ * @param[in] nbits Number of bits to represent the significand of all floating
+ * point numbers used to compute the truncation coefficients.
+ *
+ * @param[in] nbits_ref Number of bits to represent the significand of all
+ * floating point numbers used to compute the reference values (cannot be
+ * smaller than``nbits``).
+ *
+ * @param[out] err Error reported by the function (if any).
+ *
+ * @returns An estimate of the lowest number of correct digits across all
+ * harmonic degrees up to ``potential_shcs_nmax``, all topography powers up to
+ * ``shape_power_max`` and radial derivatives from
+ * ``radial_derivative_min`` to ``radial_derivative_max``, respectively. */
+CHARM_EXTERN long CHARM_CDECL charm@P@_gfm_cap_q_check_prec(
+                                      const mpfr_t shape_radius_ref,
+                                      const mpfr_t evaluation_spherical_radius,
+                                      const mpfr_t integration_radius,
+                                      unsigned long potential_shcs_nmax,
+                                      unsigned shape_power_max,
+                                      unsigned radial_derivative_min,
+                                      unsigned radial_derivative_max,
+                                      unsigned density_order,
+                                      unsigned type,
+                                      mpfr_prec_t nbits,
+                                      mpfr_prec_t nbits_ref,
+                                      charm@P@_err *err);
+
+
+/**
+ * @}
+ * */
+/* ......................................................................... */
+
+
+#endif
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+#ifdef __cplusplus
+}
+#endif
+/* ------------------------------------------------------------------------- */
+
+
+#endif

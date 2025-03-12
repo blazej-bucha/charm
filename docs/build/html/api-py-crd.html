@@ -53,7 +53,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.4.4-dev" />
-    <meta name="docbuild:last-update" content="Feb 12, 2025"/>
+    <meta name="docbuild:last-update" content="Mar 12, 2025"/>
   </head>
   
   
@@ -171,6 +171,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-sha.html">charm_sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-gfm.html">charm_gfm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-leg.html">charm_leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
@@ -185,6 +186,7 @@
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">pyharm.crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">pyharm.sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-gfm.html">pyharm.gfm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-leg.html">pyharm.leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">pyharm.integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
@@ -512,7 +514,7 @@
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyharm.crd.PointSctr">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyharm.crd.</span></span><span class="sig-name descname"><span class="pre">PointSctr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointSctr" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyharm.crd.</span></span><span class="sig-name descname"><span class="pre">PointSctr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointSctr" title="Link to this definition">#</a></dt>
 <dd><p>Class for scattered points.</p>
 <p>For details, refer to <a class="reference external" href="./api-c-crd.html">charm_crd</a>.</p>
 <p>To create a <a class="reference internal" href="#pyharm.crd.PointSctr" title="pyharm.crd.PointSctr"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointSctr</span></code></a> class instance, always use one of the
@@ -572,7 +574,7 @@ not writeable, but all array elements are writeable.</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.crd.PointSctr.from_garbage">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_garbage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npoint</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointSctr.from_garbage" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_garbage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npoint</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointSctr.from_garbage" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.crd.PointSctr" title="pyharm.crd.PointSctr"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointSctr</span></code></a> class instance with uninitialized array
 elements (<code class="docutils literal notranslate"><span class="pre">malloc</span></code> in C).</p>
 <dl class="field-list simple">
@@ -590,7 +592,7 @@ elements (<code class="docutils literal notranslate"><span class="pre">malloc</s
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.crd.PointSctr.from_zeros">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_zeros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npoint</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointSctr.from_zeros" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_zeros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">npoint</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointSctr.from_zeros" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.crd.PointSctr" title="pyharm.crd.PointSctr"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointSctr</span></code></a> class instance with all array elements
 initialized to zero (<code class="docutils literal notranslate"><span class="pre">calloc</span></code> in C).</p>
 <dl class="field-list simple">
@@ -608,7 +610,7 @@ initialized to zero (<code class="docutils literal notranslate"><span class="pre
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.crd.PointSctr.from_arrays">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointSctr.from_arrays" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointSctr.from_arrays" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.crd.PointSctr" title="pyharm.crd.PointSctr"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointSctr</span></code></a> class instance with spherical latitudes,
 longitudes and spherical radii taken from <code class="docutils literal notranslate"><span class="pre">lat</span></code>, <code class="docutils literal notranslate"><span class="pre">lon</span></code> and
 <code class="docutils literal notranslate"><span class="pre">r</span></code>, respectively.</p>
@@ -631,31 +633,31 @@ longitudes and spherical radii taken from <code class="docutils literal notransl
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointSctr.lat">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lat</span></span><a class="headerlink" href="#pyharm.crd.PointSctr.lat" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lat</span></span><a class="headerlink" href="#pyharm.crd.PointSctr.lat" title="Link to this definition">#</a></dt>
 <dd><p>Spherical latitudes.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointSctr.lon">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lon</span></span><a class="headerlink" href="#pyharm.crd.PointSctr.lon" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lon</span></span><a class="headerlink" href="#pyharm.crd.PointSctr.lon" title="Link to this definition">#</a></dt>
 <dd><p>Spherical longitudes.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointSctr.npoint">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">npoint</span></span><a class="headerlink" href="#pyharm.crd.PointSctr.npoint" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">npoint</span></span><a class="headerlink" href="#pyharm.crd.PointSctr.npoint" title="Link to this definition">#</a></dt>
 <dd><p>Total number of points.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointSctr.owner">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">owner</span></span><a class="headerlink" href="#pyharm.crd.PointSctr.owner" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">owner</span></span><a class="headerlink" href="#pyharm.crd.PointSctr.owner" title="Link to this definition">#</a></dt>
 <dd><p>Refer to <a class="reference internal" href="api-py-shc.html#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyharm.shc.Shc</span></code></a> for documentation.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointSctr.r">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">r</span></span><a class="headerlink" href="#pyharm.crd.PointSctr.r" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">r</span></span><a class="headerlink" href="#pyharm.crd.PointSctr.r" title="Link to this definition">#</a></dt>
 <dd><p>Spherical radii.</p>
 </dd></dl>
 
@@ -663,7 +665,7 @@ longitudes and spherical radii taken from <code class="docutils literal notransl
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pyharm.crd.PointGrid">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyharm.crd.</span></span><span class="sig-name descname"><span class="pre">PointGrid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nlon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGrid" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyharm.crd.</span></span><span class="sig-name descname"><span class="pre">PointGrid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nlon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGrid" title="Link to this definition">#</a></dt>
 <dd><p>Class for custom point grids.</p>
 <p>For details, refer to <a class="reference external" href="./api-c-crd.html">charm_crd</a>.</p>
 <p>To create a <a class="reference internal" href="#pyharm.crd.PointGrid" title="pyharm.crd.PointGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointGrid</span></code></a> class instance, always use one of the
@@ -723,7 +725,7 @@ not writeable, but all array elements are writeable.</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.crd.PointGrid.from_garbage">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_garbage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nlon</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGrid.from_garbage" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_garbage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nlon</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGrid.from_garbage" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.crd.PointGrid" title="pyharm.crd.PointGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointGrid</span></code></a> class instance with uninitialized array
 elements (<code class="docutils literal notranslate"><span class="pre">malloc</span></code> in C).</p>
 <dl class="field-list simple">
@@ -744,7 +746,7 @@ elements (<code class="docutils literal notranslate"><span class="pre">malloc</s
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.crd.PointGrid.from_zeros">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_zeros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nlon</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGrid.from_zeros" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_zeros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nlon</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGrid.from_zeros" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.crd.PointGrid" title="pyharm.crd.PointGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointGrid</span></code></a> class instance with all array
 elements initialized to zero (<code class="docutils literal notranslate"><span class="pre">calloc</span></code> in C).</p>
 <dl class="field-list simple">
@@ -765,7 +767,7 @@ elements initialized to zero (<code class="docutils literal notranslate"><span c
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.crd.PointGrid.from_arrays">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGrid.from_arrays" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGrid.from_arrays" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.crd.PointGrid" title="pyharm.crd.PointGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointGrid</span></code></a> class instance with spherical latitudes,
 longitudes and spherical radii taken from <code class="docutils literal notranslate"><span class="pre">lat</span></code>, <code class="docutils literal notranslate"><span class="pre">lon</span></code> and
 <code class="docutils literal notranslate"><span class="pre">r</span></code>, respectively.</p>
@@ -788,31 +790,31 @@ longitudes and spherical radii taken from <code class="docutils literal notransl
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGrid.lat">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lat</span></span><a class="headerlink" href="#pyharm.crd.PointGrid.lat" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lat</span></span><a class="headerlink" href="#pyharm.crd.PointGrid.lat" title="Link to this definition">#</a></dt>
 <dd><p>Spherical latitudes.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGrid.lon">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lon</span></span><a class="headerlink" href="#pyharm.crd.PointGrid.lon" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lon</span></span><a class="headerlink" href="#pyharm.crd.PointGrid.lon" title="Link to this definition">#</a></dt>
 <dd><p>Spherical longitudes.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGrid.npoint">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">npoint</span></span><a class="headerlink" href="#pyharm.crd.PointGrid.npoint" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">npoint</span></span><a class="headerlink" href="#pyharm.crd.PointGrid.npoint" title="Link to this definition">#</a></dt>
 <dd><p>Total number of points.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGrid.owner">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">owner</span></span><a class="headerlink" href="#pyharm.crd.PointGrid.owner" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">owner</span></span><a class="headerlink" href="#pyharm.crd.PointGrid.owner" title="Link to this definition">#</a></dt>
 <dd><p>Refer to <a class="reference internal" href="api-py-shc.html#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyharm.shc.Shc</span></code></a> for documentation.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGrid.r">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">r</span></span><a class="headerlink" href="#pyharm.crd.PointGrid.r" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">r</span></span><a class="headerlink" href="#pyharm.crd.PointGrid.r" title="Link to this definition">#</a></dt>
 <dd><p>Spherical radii.</p>
 </dd></dl>
 
@@ -820,7 +822,7 @@ longitudes and spherical radii taken from <code class="docutils literal notransl
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridGL">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyharm.crd.</span></span><span class="sig-name descname"><span class="pre">PointGridGL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGridGL" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyharm.crd.</span></span><span class="sig-name descname"><span class="pre">PointGridGL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGridGL" title="Link to this definition">#</a></dt>
 <dd><p>Class for Gauss–Legendre point grids.</p>
 <p>For details, refer to <a class="reference external" href="./api-c-crd.html">charm_crd</a>.</p>
 <p>Create a <a class="reference internal" href="#pyharm.crd.PointGridGL" title="pyharm.crd.PointGridGL"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointGridGL</span></code></a> class instance like this:</p>
@@ -844,19 +846,19 @@ attributes nor its array elements are writeable.</p>
 </div>
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridGL.w">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">w</span></span><a class="headerlink" href="#pyharm.crd.PointGridGL.w" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">w</span></span><a class="headerlink" href="#pyharm.crd.PointGridGL.w" title="Link to this definition">#</a></dt>
 <dd><p>Integration weights on the unit sphere.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridGL.nmax">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nmax</span></span><a class="headerlink" href="#pyharm.crd.PointGridGL.nmax" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nmax</span></span><a class="headerlink" href="#pyharm.crd.PointGridGL.nmax" title="Link to this definition">#</a></dt>
 <dd><p>Maximum harmonic degree associated with the quadrature grid points.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridGL.shape">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGridGL.shape" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGridGL.shape" title="Link to this definition">#</a></dt>
 <dd><p>Returns the number of latitudes <code class="docutils literal notranslate"><span class="pre">nlat</span></code> and the number of longitudes
 <code class="docutils literal notranslate"><span class="pre">nlon</span></code> of the Gauss-Legendre grid that corresponds to the maximum
 harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.</p>
@@ -876,31 +878,31 @@ harmonic degree <code class="docutils literal notranslate"><span class="pre">nma
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridGL.lat">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lat</span></span><a class="headerlink" href="#pyharm.crd.PointGridGL.lat" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lat</span></span><a class="headerlink" href="#pyharm.crd.PointGridGL.lat" title="Link to this definition">#</a></dt>
 <dd><p>Spherical latitudes.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridGL.lon">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lon</span></span><a class="headerlink" href="#pyharm.crd.PointGridGL.lon" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lon</span></span><a class="headerlink" href="#pyharm.crd.PointGridGL.lon" title="Link to this definition">#</a></dt>
 <dd><p>Spherical longitudes.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridGL.npoint">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">npoint</span></span><a class="headerlink" href="#pyharm.crd.PointGridGL.npoint" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">npoint</span></span><a class="headerlink" href="#pyharm.crd.PointGridGL.npoint" title="Link to this definition">#</a></dt>
 <dd><p>Total number of points.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridGL.owner">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">owner</span></span><a class="headerlink" href="#pyharm.crd.PointGridGL.owner" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">owner</span></span><a class="headerlink" href="#pyharm.crd.PointGridGL.owner" title="Link to this definition">#</a></dt>
 <dd><p>Refer to <a class="reference internal" href="api-py-shc.html#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyharm.shc.Shc</span></code></a> for documentation.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridGL.r">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">r</span></span><a class="headerlink" href="#pyharm.crd.PointGridGL.r" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">r</span></span><a class="headerlink" href="#pyharm.crd.PointGridGL.r" title="Link to this definition">#</a></dt>
 <dd><p>Spherical radii.</p>
 </dd></dl>
 
@@ -908,7 +910,7 @@ harmonic degree <code class="docutils literal notranslate"><span class="pre">nma
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridDH1">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyharm.crd.</span></span><span class="sig-name descname"><span class="pre">PointGridDH1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGridDH1" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyharm.crd.</span></span><span class="sig-name descname"><span class="pre">PointGridDH1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGridDH1" title="Link to this definition">#</a></dt>
 <dd><p>Class for non-equiangular Driscoll–Healy point grids.</p>
 <p>For details, refer to <a class="reference external" href="./api-c-crd.html">charm_crd</a>.</p>
 <p>Create a <a class="reference internal" href="#pyharm.crd.PointGridDH1" title="pyharm.crd.PointGridDH1"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointGridDH1</span></code></a> class instance like this:</p>
@@ -932,19 +934,19 @@ attributes nor its array elements are writeable.</p>
 </div>
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridDH1.w">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">w</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH1.w" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">w</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH1.w" title="Link to this definition">#</a></dt>
 <dd><p>Integration weights on the unit sphere.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridDH1.nmax">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nmax</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH1.nmax" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nmax</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH1.nmax" title="Link to this definition">#</a></dt>
 <dd><p>Maximum harmonic degree associated with the quadrature grid points.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridDH1.shape">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGridDH1.shape" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGridDH1.shape" title="Link to this definition">#</a></dt>
 <dd><p>Returns the number of latitudes <code class="docutils literal notranslate"><span class="pre">nlat</span></code> and the number of longitudes
 <code class="docutils literal notranslate"><span class="pre">nlon</span></code> of the non-equiangular Driscoll-Healy grid that corresponds to
 the maximum harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.</p>
@@ -964,31 +966,31 @@ the maximum harmonic degree <code class="docutils literal notranslate"><span cla
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridDH1.lat">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lat</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH1.lat" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lat</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH1.lat" title="Link to this definition">#</a></dt>
 <dd><p>Spherical latitudes.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridDH1.lon">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lon</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH1.lon" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lon</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH1.lon" title="Link to this definition">#</a></dt>
 <dd><p>Spherical longitudes.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridDH1.npoint">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">npoint</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH1.npoint" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">npoint</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH1.npoint" title="Link to this definition">#</a></dt>
 <dd><p>Total number of points.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridDH1.owner">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">owner</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH1.owner" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">owner</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH1.owner" title="Link to this definition">#</a></dt>
 <dd><p>Refer to <a class="reference internal" href="api-py-shc.html#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyharm.shc.Shc</span></code></a> for documentation.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridDH1.r">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">r</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH1.r" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">r</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH1.r" title="Link to this definition">#</a></dt>
 <dd><p>Spherical radii.</p>
 </dd></dl>
 
@@ -996,7 +998,7 @@ the maximum harmonic degree <code class="docutils literal notranslate"><span cla
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridDH2">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyharm.crd.</span></span><span class="sig-name descname"><span class="pre">PointGridDH2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGridDH2" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyharm.crd.</span></span><span class="sig-name descname"><span class="pre">PointGridDH2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.float64(1.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGridDH2" title="Link to this definition">#</a></dt>
 <dd><p>Class for equiangular Driscoll–Healy point grids.</p>
 <p>For details, refer to <a class="reference external" href="./api-c-crd.html">charm_crd</a>.</p>
 <p>Create a <a class="reference internal" href="#pyharm.crd.PointGridDH2" title="pyharm.crd.PointGridDH2"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointGridDH2</span></code></a> class instance like this:</p>
@@ -1020,19 +1022,19 @@ attributes nor its array elements are writeable.</p>
 </div>
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridDH2.w">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">w</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH2.w" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">w</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH2.w" title="Link to this definition">#</a></dt>
 <dd><p>Integration weights on the unit sphere.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridDH2.nmax">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nmax</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH2.nmax" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nmax</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH2.nmax" title="Link to this definition">#</a></dt>
 <dd><p>Maximum harmonic degree associated with the quadrature grid points.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridDH2.shape">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGridDH2.shape" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.PointGridDH2.shape" title="Link to this definition">#</a></dt>
 <dd><p>Returns the number of latitudes <code class="docutils literal notranslate"><span class="pre">nlat</span></code> and the number of longitudes
 <code class="docutils literal notranslate"><span class="pre">nlon</span></code> of the equiangular Driscoll-Healy grid that corresponds to
 the maximum harmonic degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.</p>
@@ -1052,31 +1054,31 @@ the maximum harmonic degree <code class="docutils literal notranslate"><span cla
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridDH2.lat">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lat</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH2.lat" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lat</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH2.lat" title="Link to this definition">#</a></dt>
 <dd><p>Spherical latitudes.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridDH2.lon">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lon</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH2.lon" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lon</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH2.lon" title="Link to this definition">#</a></dt>
 <dd><p>Spherical longitudes.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridDH2.npoint">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">npoint</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH2.npoint" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">npoint</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH2.npoint" title="Link to this definition">#</a></dt>
 <dd><p>Total number of points.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridDH2.owner">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">owner</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH2.owner" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">owner</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH2.owner" title="Link to this definition">#</a></dt>
 <dd><p>Refer to <a class="reference internal" href="api-py-shc.html#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyharm.shc.Shc</span></code></a> for documentation.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.PointGridDH2.r">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">r</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH2.r" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">r</span></span><a class="headerlink" href="#pyharm.crd.PointGridDH2.r" title="Link to this definition">#</a></dt>
 <dd><p>Spherical radii.</p>
 </dd></dl>
 
@@ -1084,7 +1086,7 @@ the maximum harmonic degree <code class="docutils literal notranslate"><span cla
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pyharm.crd.CellSctr">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyharm.crd.</span></span><span class="sig-name descname"><span class="pre">CellSctr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ncell</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.CellSctr" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyharm.crd.</span></span><span class="sig-name descname"><span class="pre">CellSctr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ncell</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.CellSctr" title="Link to this definition">#</a></dt>
 <dd><p>Class for scattered cells.</p>
 <p>For details, refer to <a class="reference external" href="./api-c-crd.html">charm_crd</a>.</p>
 <p>To create a <a class="reference internal" href="#pyharm.crd.CellSctr" title="pyharm.crd.CellSctr"><code class="xref py py-class docutils literal notranslate"><span class="pre">CellSctr</span></code></a> class instance, always use one of the
@@ -1149,7 +1151,7 @@ writeable, but all array elements are writeable.</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.crd.CellSctr.from_garbage">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_garbage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ncell</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.CellSctr.from_garbage" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_garbage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ncell</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.CellSctr.from_garbage" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.crd.CellSctr" title="pyharm.crd.CellSctr"><code class="xref py py-class docutils literal notranslate"><span class="pre">CellSctr</span></code></a> class instance with uninitialized array
 elements (<code class="docutils literal notranslate"><span class="pre">malloc</span></code> in C).</p>
 <dl class="field-list simple">
@@ -1167,7 +1169,7 @@ elements (<code class="docutils literal notranslate"><span class="pre">malloc</s
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.crd.CellSctr.from_zeros">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_zeros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ncell</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.CellSctr.from_zeros" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_zeros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ncell</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.CellSctr.from_zeros" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.crd.CellSctr" title="pyharm.crd.CellSctr"><code class="xref py py-class docutils literal notranslate"><span class="pre">CellSctr</span></code></a> class instance with all array elements
 initialized to zero (<code class="docutils literal notranslate"><span class="pre">calloc</span></code> in C).</p>
 <dl class="field-list simple">
@@ -1185,7 +1187,7 @@ initialized to zero (<code class="docutils literal notranslate"><span class="pre
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.crd.CellSctr.from_arrays">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lonmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lonmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.CellSctr.from_arrays" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lonmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lonmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.CellSctr.from_arrays" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.crd.CellSctr" title="pyharm.crd.CellSctr"><code class="xref py py-class docutils literal notranslate"><span class="pre">CellSctr</span></code></a> class instance with minimum and maximum
 spherical cell latitudes, minimum and maximum cell longitudes and
 spherical radii taken from <code class="docutils literal notranslate"><span class="pre">latmin</span></code>, <code class="docutils literal notranslate"><span class="pre">latmax</span></code>, <code class="docutils literal notranslate"><span class="pre">lonmin</span></code>,
@@ -1211,43 +1213,43 @@ spherical radii taken from <code class="docutils literal notranslate"><span clas
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.CellSctr.latmax">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">latmax</span></span><a class="headerlink" href="#pyharm.crd.CellSctr.latmax" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">latmax</span></span><a class="headerlink" href="#pyharm.crd.CellSctr.latmax" title="Link to this definition">#</a></dt>
 <dd><p>Maximum spherical cell latitudes.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.CellSctr.latmin">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">latmin</span></span><a class="headerlink" href="#pyharm.crd.CellSctr.latmin" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">latmin</span></span><a class="headerlink" href="#pyharm.crd.CellSctr.latmin" title="Link to this definition">#</a></dt>
 <dd><p>Minimum spherical cell latitudes.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.CellSctr.lonmax">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lonmax</span></span><a class="headerlink" href="#pyharm.crd.CellSctr.lonmax" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lonmax</span></span><a class="headerlink" href="#pyharm.crd.CellSctr.lonmax" title="Link to this definition">#</a></dt>
 <dd><p>Maximum spherical cell longitudes.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.CellSctr.lonmin">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lonmin</span></span><a class="headerlink" href="#pyharm.crd.CellSctr.lonmin" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lonmin</span></span><a class="headerlink" href="#pyharm.crd.CellSctr.lonmin" title="Link to this definition">#</a></dt>
 <dd><p>Minimum spherical cell longitudes.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.CellSctr.ncell">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ncell</span></span><a class="headerlink" href="#pyharm.crd.CellSctr.ncell" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ncell</span></span><a class="headerlink" href="#pyharm.crd.CellSctr.ncell" title="Link to this definition">#</a></dt>
 <dd><p>Total number of cells.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.CellSctr.owner">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">owner</span></span><a class="headerlink" href="#pyharm.crd.CellSctr.owner" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">owner</span></span><a class="headerlink" href="#pyharm.crd.CellSctr.owner" title="Link to this definition">#</a></dt>
 <dd><p>Refer to <a class="reference internal" href="api-py-shc.html#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyharm.shc.Shc</span></code></a> for documentation.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.CellSctr.r">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">r</span></span><a class="headerlink" href="#pyharm.crd.CellSctr.r" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">r</span></span><a class="headerlink" href="#pyharm.crd.CellSctr.r" title="Link to this definition">#</a></dt>
 <dd><p>Spherical radii (constant over each cell).</p>
 </dd></dl>
 
@@ -1255,7 +1257,7 @@ spherical radii taken from <code class="docutils literal notranslate"><span clas
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pyharm.crd.CellGrid">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyharm.crd.</span></span><span class="sig-name descname"><span class="pre">CellGrid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nlon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.CellGrid" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyharm.crd.</span></span><span class="sig-name descname"><span class="pre">CellGrid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nlon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.CellGrid" title="Link to this definition">#</a></dt>
 <dd><p>Class for custom cell grids.</p>
 <p>For details, refer to <a class="reference external" href="./api-c-crd.html">charm_crd</a>.</p>
 <p>To create a <a class="reference internal" href="#pyharm.crd.CellGrid" title="pyharm.crd.CellGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">CellGrid</span></code></a> class instance, always use one of the
@@ -1322,49 +1324,49 @@ writeable, but all array elements are writeable.</p>
 </div>
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.CellGrid.latmax">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">latmax</span></span><a class="headerlink" href="#pyharm.crd.CellGrid.latmax" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">latmax</span></span><a class="headerlink" href="#pyharm.crd.CellGrid.latmax" title="Link to this definition">#</a></dt>
 <dd><p>Maximum spherical cell latitudes.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.CellGrid.latmin">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">latmin</span></span><a class="headerlink" href="#pyharm.crd.CellGrid.latmin" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">latmin</span></span><a class="headerlink" href="#pyharm.crd.CellGrid.latmin" title="Link to this definition">#</a></dt>
 <dd><p>Minimum spherical cell latitudes.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.CellGrid.lonmax">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lonmax</span></span><a class="headerlink" href="#pyharm.crd.CellGrid.lonmax" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lonmax</span></span><a class="headerlink" href="#pyharm.crd.CellGrid.lonmax" title="Link to this definition">#</a></dt>
 <dd><p>Maximum spherical cell longitudes.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.CellGrid.lonmin">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lonmin</span></span><a class="headerlink" href="#pyharm.crd.CellGrid.lonmin" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lonmin</span></span><a class="headerlink" href="#pyharm.crd.CellGrid.lonmin" title="Link to this definition">#</a></dt>
 <dd><p>Minimum spherical cell longitudes.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.CellGrid.ncell">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ncell</span></span><a class="headerlink" href="#pyharm.crd.CellGrid.ncell" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ncell</span></span><a class="headerlink" href="#pyharm.crd.CellGrid.ncell" title="Link to this definition">#</a></dt>
 <dd><p>Total number of cells.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.CellGrid.owner">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">owner</span></span><a class="headerlink" href="#pyharm.crd.CellGrid.owner" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">owner</span></span><a class="headerlink" href="#pyharm.crd.CellGrid.owner" title="Link to this definition">#</a></dt>
 <dd><p>Refer to <a class="reference internal" href="api-py-shc.html#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyharm.shc.Shc</span></code></a> for documentation.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyharm.crd.CellGrid.r">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">r</span></span><a class="headerlink" href="#pyharm.crd.CellGrid.r" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">r</span></span><a class="headerlink" href="#pyharm.crd.CellGrid.r" title="Link to this definition">#</a></dt>
 <dd><p>Spherical radii (constant over each cell).</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.crd.CellGrid.from_garbage">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_garbage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nlon</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.CellGrid.from_garbage" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_garbage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nlon</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.CellGrid.from_garbage" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.crd.CellGrid" title="pyharm.crd.CellGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">CellGrid</span></code></a> class instance with uninitialized array
 elements (<code class="docutils literal notranslate"><span class="pre">malloc</span></code> in C).</p>
 <dl class="field-list simple">
@@ -1385,7 +1387,7 @@ elements (<code class="docutils literal notranslate"><span class="pre">malloc</s
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.crd.CellGrid.from_zeros">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_zeros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nlon</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.CellGrid.from_zeros" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_zeros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nlat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nlon</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.CellGrid.from_zeros" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.crd.CellGrid" title="pyharm.crd.CellGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">CellGrid</span></code></a> class instance with all array elements
 initialized to zero (<code class="docutils literal notranslate"><span class="pre">calloc</span></code> in C).</p>
 <dl class="field-list simple">
@@ -1406,7 +1408,7 @@ initialized to zero (<code class="docutils literal notranslate"><span class="pre
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyharm.crd.CellGrid.from_arrays">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lonmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lonmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.CellGrid.from_arrays" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lonmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lonmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.crd.CellGrid.from_arrays" title="Link to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pyharm.crd.CellGrid" title="pyharm.crd.CellGrid"><code class="xref py py-class docutils literal notranslate"><span class="pre">CellGrid</span></code></a> class instance with minimum and maximum
 spherical cell latitudes, minimum and maximum cell longitudes and
 spherical radii taken from <code class="docutils literal notranslate"><span class="pre">latmin</span></code>, <code class="docutils literal notranslate"><span class="pre">latmax</span></code>, <code class="docutils literal notranslate"><span class="pre">lonmin</span></code>,
@@ -1594,7 +1596,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Feb 12, 2025.
+  Last updated on Mar 12, 2025.
   <br/>
 </p>
   </div>

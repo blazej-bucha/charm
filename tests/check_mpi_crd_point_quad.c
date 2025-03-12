@@ -127,9 +127,9 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
         CHARM(err_handler)(err, 0);
 
 
-        sprintf(func_call_str, "%s(%lu, " FORMAT ", %zu, %zu, MPI_COMM_WORLD, "
-                               "err)", func, nmax, r, local_nlat,
-                               local_0_start);
+        sprintf(func_call_str, "%s(%lu, " REAL_PRINT_FORMAT
+                               ", %zu, %zu, MPI_COMM_WORLD, err)",
+                               func, nmax, r, local_nlat, local_0_start);
 
 
         e += check_struct_ptr(grd_d1, NULL, EQ, VALID, func_call_str,
@@ -301,9 +301,9 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
     grd_d1 = mpi_quad(NMAX_MPI, r, local_nlat, local_0_start, comm, err);
 
 
-    sprintf(func_call_str, "%s(%lu, " FORMAT ", %zu, %zu, MPI_COMM_WORLD, "
-                           "err)", func, NMAX_MPI, r, local_nlat,
-                           local_0_start);
+    sprintf(func_call_str, "%s(%lu, " REAL_PRINT_FORMAT
+                           ", %zu, %zu, MPI_COMM_WORLD, err)",
+                           func, NMAX_MPI, r, local_nlat, local_0_start);
 
 
     e += check_struct_ptr(grd_d1, NULL, NEQ, INVALID, func_call_str,
@@ -350,9 +350,9 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
         grd_d1 = mpi_quad(NMAX_MPI, r, local_nlat, local_0_start, comm, err);
 
 
-        sprintf(func_call_str, "%s(%lu, " FORMAT ", %zu, %zu, MPI_COMM_WORLD, "
-                               "err)", func, NMAX_MPI, r, local_nlat,
-                               local_0_start);
+        sprintf(func_call_str, "%s(%lu, " REAL_PRINT_FORMAT
+                               ", %zu, %zu, MPI_COMM_WORLD, err)",
+                               func, NMAX_MPI, r, local_nlat, local_0_start);
 
 
         e += check_struct_ptr(grd_d1, NULL, NEQ, INVALID, func_call_str,

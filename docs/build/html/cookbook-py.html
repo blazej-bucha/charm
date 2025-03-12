@@ -53,7 +53,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.4.4-dev" />
-    <meta name="docbuild:last-update" content="Feb 12, 2025"/>
+    <meta name="docbuild:last-update" content="Mar 12, 2025"/>
   </head>
   
   
@@ -171,6 +171,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-sha.html">charm_sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-gfm.html">charm_gfm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-leg.html">charm_leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
@@ -185,6 +186,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">pyharm.sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-gfm.html">pyharm.gfm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-leg.html">pyharm.leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">pyharm.integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
@@ -407,6 +409,7 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-spherical-harmonic-coefficients">Working with spherical harmonic coefficients</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spherical-harmonic-synthesis-and-analysis">Spherical harmonic synthesis and analysis</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#first-and-second-order-gradients-gravitational-vector-and-tensor">First- and second-order gradients (gravitational vector and tensor)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gravity-forward-modelling">Gravity forward modelling</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-coefficients-of-legendre-functions">Fourier coefficients of Legendre functions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integrals">Integrals</a></li>
 </ul>
@@ -941,6 +944,256 @@ gravitational tensor in the <a class="reference internal" href="definitions.html
 </pre></div>
 </div>
 </section>
+<section id="gravity-forward-modelling">
+<h3>Gravity forward modelling<a class="headerlink" href="#gravity-forward-modelling" title="Link to this heading">#</a></h3>
+<p>Given spherical harmonic coefficients of the Moon’s topography and of its
+density (constant, lateral and 3D density), this example computes the
+gravitational field implied by the lunar topographic masses.</p>
+<p>The lunar shape is here defined by the <code class="docutils literal notranslate"><span class="pre">MoonTopo2600p.shape</span></code> model due to</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Wieczorek, M. A., Gravity and topography of the terrestrial planets,
+Treatise on Geophysics, 10, 153-193, doi:10.1016/B978-0-444-53802-4.00169-X,
+2015.</p></li>
+</ul>
+</div></blockquote>
+<p>The density model is due to</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Goossens, S., Sabaka, T.J., Wieczorek, M.A., Neumann, G.A., Mazarico, E.,
+Lemoine, F., Nicholas, J.B., Smith, D.E., Zuber,
+M.T. (2020). High-resolution gravity field models from GRAIL data and
+implications for models of the density structure of the Moon’s crust,
+Journal of Geophysical Research: Planets, 125, e2019JE006086,
+doi:10.1029/2019JE006086.</p></li>
+</ul>
+</div></blockquote>
+<p>The density model of Goossens et al. (2020) was transformed into the form
+required by our forward modelling method.  While the transformed models that we
+use in this example are realistic, it is not recommended to use them in any
+real task.  They were create for learning purposes only.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># IMPORTANT: To run this program, CHarm must be compiled with the MPFR</span>
+<span class="c1"># support, that is, using the &quot;--with-mpfr&quot; installation flag.  If this is your</span>
+<span class="c1"># case, manually delete (or comment out) all lines between the following</span>
+<span class="c1"># marks:</span>
+<span class="c1">#</span>
+<span class="c1"># @@@</span>
+<span class="c1">#</span>
+<span class="c1"># lines to be deleted or commented out</span>
+<span class="c1">#</span>
+<span class="c1"># !!!</span>
+
+
+<span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
+
+
+<span class="c1"># INPUTS</span>
+<span class="c1"># =============================================================================</span>
+<span class="c1"># Shape of the gravitating body</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># Upper integration limit in spherical radius (topography)</span>
+<span class="c1"># .............................................................................</span>
+<span class="c1"># Path to spherical harmonic coefficients defining the shape of the Moon</span>
+<span class="n">path_shcs_shape</span> <span class="o">=</span> <span class="s1">&#39;../../data/input/MoonTopo2600p_to10-tbl.txt&#39;</span>
+
+
+<span class="c1"># Maximum harmonic degree of the lunar topography defined by coefficients in</span>
+<span class="c1"># &quot;path_shcs_shape&quot;</span>
+<span class="n">shape_nmax</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="c1"># .............................................................................</span>
+
+
+<span class="c1"># Lower integration limit in spherical radius (sphere)</span>
+<span class="c1"># .............................................................................</span>
+<span class="c1"># Radius of the reference sphere</span>
+<span class="n">rref</span> <span class="o">=</span> <span class="mf">1728000.0</span>
+<span class="c1"># .............................................................................</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+
+<span class="c1"># Density of the gravitating body</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># Path to spherical harmonic coefficients defining the zero- and first-order</span>
+<span class="c1"># polynomial density coefficients */</span>
+<span class="n">path_shcs_density</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;../../data/input/moon-rho0_to10.tbl&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;../../data/input/moon-rho1_to10.tbl&#39;</span><span class="p">]</span>
+
+
+<span class="c1"># Maximum harmonic degrees of the polynomial density coefficients in</span>
+<span class="c1"># &quot;path_shcs_density&quot;.</span>
+<span class="n">density_nmax</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+
+
+<span class="c1"># Order of the density polynomial</span>
+<span class="n">density_order</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">path_shcs_density</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+
+<span class="c1"># Other inputs</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># Newton&#39;s gravitational constant (&quot;kg**-1 * m**3 * s**-2&quot;)</span>
+<span class="n">gc</span> <span class="o">=</span> <span class="mf">6.67430e-11</span>
+
+
+<span class="c1"># Mass of the Moon (&quot;kg&quot;)</span>
+<span class="n">mass</span> <span class="o">=</span> <span class="mf">7.346e22</span>
+
+
+<span class="c1"># Minimum and maximum topography powers.  In theory, &quot;pmax&quot; should be</span>
+<span class="c1"># infinitely large, so higher &quot;pmax&quot; means more complete forward modelling (but</span>
+<span class="c1"># also longer computation times).</span>
+<span class="n">pmin</span><span class="p">,</span> <span class="n">pmax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span>
+
+
+<span class="c1"># Maximum harmonic degree of the output gravitational potential.  Due to the</span>
+<span class="c1"># non-linear relation between topography and its implied gravitational field,</span>
+<span class="c1"># the potential series is spectrally unlimited even if &quot;shape_nmax&quot; is finite</span>
+<span class="c1"># (the only exception is &quot;shape_nmax = 0&quot;).  Therefore, this value should be as</span>
+<span class="c1"># high as reasonably possible in order to mitigate forward modelling errors.</span>
+<span class="n">nmax_potential</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># =============================================================================</span>
+
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># Read the shape coefficients</span>
+<span class="n">shape_shcs</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="s1">&#39;tbl&#39;</span><span class="p">,</span> <span class="n">path_shcs_shape</span><span class="p">,</span> <span class="n">shape_nmax</span><span class="p">)</span>
+
+
+<span class="c1"># Read the density coefficients</span>
+<span class="n">density_shcs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">density_order</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">density_order</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">density_shcs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="s1">&#39;tbl&#39;</span><span class="p">,</span> <span class="n">path_shcs_density</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                                           <span class="n">density_nmax</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+
+<span class="c1"># Global gravity forward modelling using 3D density</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="n">potential_global_shcs</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">gfm</span><span class="o">.</span><span class="n">global_density_3d</span><span class="p">(</span><span class="n">shape_shcs</span><span class="p">,</span> <span class="n">shape_nmax</span><span class="p">,</span> <span class="n">rref</span><span class="p">,</span>
+                                                 <span class="n">density_shcs</span><span class="p">,</span> <span class="n">density_nmax</span><span class="p">,</span>
+                                                 <span class="n">density_order</span><span class="p">,</span>
+                                                 <span class="n">gc</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span>
+                                                 <span class="n">pmin</span><span class="p">,</span> <span class="n">pmax</span><span class="p">,</span>
+                                                 <span class="n">nmax_potential</span><span class="p">,</span>
+                                                 <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+
+<span class="c1"># Now we can compute, say, the gravitational potential using</span>
+<span class="c1"># &quot;potential_global_shcs&quot;.  Let&#39;s do this in the Gauss--Legendre grid that</span>
+<span class="c1"># passes above all lunar masses.</span>
+<span class="n">grd</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">crd</span><span class="o">.</span><span class="n">PointGridGL</span><span class="p">(</span><span class="n">potential_global_shcs</span><span class="o">.</span><span class="n">nmax</span><span class="p">,</span>
+                         <span class="n">potential_global_shcs</span><span class="o">.</span><span class="n">r</span> <span class="o">+</span> <span class="mf">25000.0</span><span class="p">)</span>
+<span class="n">vgfm</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shs</span><span class="o">.</span><span class="n">point</span><span class="p">(</span><span class="n">grd</span><span class="p">,</span> <span class="n">potential_global_shcs</span><span class="p">,</span> <span class="n">potential_global_shcs</span><span class="o">.</span><span class="n">nmax</span><span class="p">)</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+
+<span class="c1"># In CHarm, gravity forward modelling using lateral density is fairly similar</span>
+<span class="c1"># to using 3D density, so we skip it. */</span>
+
+
+<span class="c1"># Global gravity forward modelling using constant density</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># Constant density of the lunar crust</span>
+<span class="n">density_const</span> <span class="o">=</span> <span class="mf">2550.0</span>
+
+
+<span class="n">potential_global_shcs</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">gfm</span><span class="o">.</span><span class="n">global_density_const</span><span class="p">(</span><span class="n">shape_shcs</span><span class="p">,</span> <span class="n">shape_nmax</span><span class="p">,</span>
+                                                    <span class="n">rref</span><span class="p">,</span>
+                                                    <span class="n">density_const</span><span class="p">,</span>
+                                                    <span class="n">gc</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span>
+                                                    <span class="n">pmin</span><span class="p">,</span> <span class="n">pmax</span><span class="p">,</span>
+                                                    <span class="n">nmax_potential</span><span class="p">)</span>
+
+
+<span class="c1"># You could now similarly synthesize the gravitational potential, this time</span>
+<span class="c1"># being implied by the constant density model</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+
+<span class="c1"># @@@</span>
+<span class="c1"># Spatially restricted gravity forward modelling of near-zone masses using 3D</span>
+<span class="c1"># density</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># Minimum and maximum order of the radial derivatives of the output quantity</span>
+<span class="n">kmin</span><span class="p">,</span> <span class="n">kmax</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span>
+
+
+<span class="c1"># Radius of the sphere, on which evaluation points reside</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">rref</span> <span class="o">+</span> <span class="mf">25000.0</span>
+
+
+<span class="c1"># Integration radius in radians</span>
+<span class="n">psi0</span> <span class="o">=</span> <span class="mf">0.2</span>
+
+
+<span class="c1"># Order of the potential derivative (&quot;0&quot; for potential, &quot;1&quot; for quantities</span>
+<span class="c1"># related to gravitational vector elements, and &quot;2&quot; for quantities related</span>
+<span class="c1"># to gravitational tensor elements)</span>
+<span class="n">u</span> <span class="o">=</span> <span class="mi">0</span>
+
+
+<span class="c1"># Order of the potential derivative with respect to the spherical distance</span>
+<span class="n">v</span> <span class="o">=</span> <span class="mi">0</span>
+
+
+<span class="c1"># We want to integrate all masses up to distance &quot;psi0&quot; from evalution</span>
+<span class="c1"># points.  To integrate masses beyond &quot;psi0&quot;, set &quot;zone&quot; to</span>
+<span class="c1"># &quot;ph.gfm.FAR_ZOZE&quot;. */</span>
+<span class="n">zone</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">gfm</span><span class="o">.</span><span class="n">NEAR_ZONE</span>
+
+
+<span class="c1"># Number of bits to represent significands of floating points numbers used to</span>
+<span class="c1"># evaluate</span>
+<span class="c1"># truncation coefficients</span>
+<span class="n">nbits</span> <span class="o">=</span> <span class="mi">512</span>
+
+
+<span class="n">potential_cap_shcs</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">gfm</span><span class="o">.</span><span class="n">cap_density_3d</span><span class="p">(</span><span class="n">shape_shcs</span><span class="p">,</span> <span class="n">shape_nmax</span><span class="p">,</span> <span class="n">rref</span><span class="p">,</span>
+                                           <span class="n">density_shcs</span><span class="p">,</span> <span class="n">density_nmax</span><span class="p">,</span>
+                                           <span class="n">density_order</span><span class="p">,</span>
+                                           <span class="n">gc</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span>
+                                           <span class="n">pmin</span><span class="p">,</span> <span class="n">pmax</span><span class="p">,</span>
+                                           <span class="n">kmin</span><span class="p">,</span> <span class="n">kmax</span><span class="p">,</span>
+                                           <span class="n">r</span><span class="p">,</span>
+                                           <span class="n">psi0</span><span class="p">,</span>
+                                           <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span>
+                                           <span class="n">zone</span><span class="p">,</span>
+                                           <span class="n">nbits</span><span class="p">,</span>
+                                           <span class="n">nmax_potential</span><span class="p">)</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+
+<span class="c1"># Spatially restricted gravity forward modelling of near-zone masses using</span>
+<span class="c1"># constant density</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="n">potential_cap_shcs</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">gfm</span><span class="o">.</span><span class="n">cap_density_const</span><span class="p">(</span><span class="n">shape_shcs</span><span class="p">,</span> <span class="n">shape_nmax</span><span class="p">,</span> <span class="n">rref</span><span class="p">,</span>
+                                              <span class="n">density_const</span><span class="p">,</span>
+                                              <span class="n">gc</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span>
+                                              <span class="n">pmin</span><span class="p">,</span> <span class="n">pmax</span><span class="p">,</span>
+                                              <span class="n">kmin</span><span class="p">,</span> <span class="n">kmax</span><span class="p">,</span>
+                                              <span class="n">r</span><span class="p">,</span>
+                                              <span class="n">psi0</span><span class="p">,</span>
+                                              <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span>
+                                              <span class="n">zone</span><span class="p">,</span>
+                                              <span class="n">nbits</span><span class="p">,</span>
+                                              <span class="n">nmax_potential</span><span class="p">)</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+
+
+<span class="c1"># Let&#39;s compute some Molodensky&#39;s truncation coefficients, which are used</span>
+<span class="c1"># internally whenever calling the &quot;charm_gfm_cap_density_*&quot; routines.</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">gfm</span><span class="o">.</span><span class="n">cap_q</span><span class="p">(</span><span class="n">rref</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">psi0</span><span class="p">,</span> <span class="n">nmax_potential</span><span class="p">,</span> <span class="n">pmax</span><span class="p">,</span> <span class="n">kmin</span><span class="p">,</span> <span class="n">kmax</span><span class="p">,</span>
+                 <span class="n">density_order</span><span class="p">,</span> <span class="n">ph</span><span class="o">.</span><span class="n">gfm</span><span class="o">.</span><span class="n">NEAR_ZONE</span><span class="p">,</span> <span class="n">ph</span><span class="o">.</span><span class="n">gfm</span><span class="o">.</span><span class="n">Q00</span><span class="p">,</span> <span class="n">nbits</span><span class="p">)</span>
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># !!!</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Great, all done!&#39;</span><span class="p">)</span>
+<span class="c1"># =============================================================================</span>
+</pre></div>
+</div>
+</section>
 <section id="fourier-coefficients-of-legendre-functions">
 <h3>Fourier coefficients of Legendre functions<a class="headerlink" href="#fourier-coefficients-of-legendre-functions" title="Link to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
@@ -1135,6 +1388,7 @@ So when creating a numpy array to be passed to PyHarm, you must set the
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-spherical-harmonic-coefficients">Working with spherical harmonic coefficients</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spherical-harmonic-synthesis-and-analysis">Spherical harmonic synthesis and analysis</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#first-and-second-order-gradients-gravitational-vector-and-tensor">First- and second-order gradients (gravitational vector and tensor)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gravity-forward-modelling">Gravity forward modelling</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-coefficients-of-legendre-functions">Fourier coefficients of Legendre functions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integrals">Integrals</a></li>
 </ul>
@@ -1173,7 +1427,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Feb 12, 2025.
+  Last updated on Mar 12, 2025.
   <br/>
 </p>
   </div>

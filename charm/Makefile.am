@@ -7,7 +7,8 @@ pkginclude_HEADERS = charm@P@.h \
 					 charm@P@_sha.h \
 					 charm@P@_shc.h \
 					 charm@P@_shs.h \
-					 charm@P@_glob.h
+					 charm@P@_glob.h \
+					 charm@P@_gfm.h
 if MPI
 pkginclude_HEADERS += charm@P@_mpi.h
 endif

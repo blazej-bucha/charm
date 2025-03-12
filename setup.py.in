@@ -46,17 +46,11 @@ else:
     runtime_library_dirs = library_dirs
 
 
-src_files = glob.glob('src/crd/*.c') + \
-            glob.glob('src/err/*c') + \
-            glob.glob('src/glob/*c') + \
-            glob.glob('src/integ/*.c') + \
-            glob.glob('src/leg/*.c') + \
-            glob.glob('src/misc/*c') + \
-            glob.glob('src/sha/*c') + \
-            glob.glob('src/shc/*c') + \
-            glob.glob('src/shs/*c') + \
-            glob.glob('src/simd/*c') + \
-            glob.glob('src/xnum/*c')
+ldir = os.listdir('src')
+src_files = []
+for i in ldir:
+    if os.path.isdir(os.path.join('src', i)) and i != 'mpi':
+        src_files += glob.glob(f'src/{i}/*.c')
 if @WITH_MPI@:
     src_files += glob.glob('src/mpi/*c')
 

@@ -10,6 +10,7 @@ All functions that deal with numerics are written in double precision.
 from . import _libcharm, _CHARM
 from ._data_types import _ct_int
 import ctypes as _ct
+from .gfm import _WITH_MPFR
 
 
 def get_version():
@@ -146,6 +147,19 @@ def buildopt_mpi():
     return func()
 
 
+def buildopt_mpfr():
+    """
+    Returns a non-zero value if CHarm was compiled with the MPFR enabled
+    (``--enable-mpfr``).  Otherwise, zero is returned.
+    """
+
+    func          = _libcharm[_CHARM + 'misc_buildopt_mpfr']
+    func.argtypes = None
+    func.restype  = _ct_int
+
+    return func()
+
+
 def buildopt_version_fftw():
     """
     Returns a string specifying the FFTW version used to compile CHarm.
@@ -156,6 +170,40 @@ def buildopt_version_fftw():
     func.argtypes = None
 
     return func().decode()
+
+
+if _WITH_MPFR:
+
+    def buildopt_version_mpfr():
+        """
+        Returns a string specifying the MPFR version used to compile CHarm.
+        """
+
+        func          = _libcharm[_CHARM + 'misc_buildopt_version_mpfr']
+        func.restype  = _ct.c_char_p
+        func.argtypes = [_ct.POINTER(_ct_int),
+                         _ct.POINTER(_ct_int),
+                         _ct.POINTER(_ct_int)]
+
+        major, minor, patch = 0, 0, 0
+        return func(_ct_int(major), _ct_int(minor), _ct_int(patch)).decode()
+
+
+    def buildopt_version_gmp():
+        """
+        Returns a string specifying the GMP version number used to compile
+        CHarm.
+        """
+
+        func          = _libcharm[_CHARM + 'misc_buildopt_version_gmp']
+        func.restype  = _ct.c_char_p
+        func.argtypes = [_ct.POINTER(_ct_int),
+                         _ct.POINTER(_ct_int),
+                         _ct.POINTER(_ct_int)]
+
+        major, minor, patch = 0, 0, 0
+        return func(_ct_int(major), _ct_int(minor), _ct_int(patch)).decode()
+
 
 
 def buildopt_isfinite():

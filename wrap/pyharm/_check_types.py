@@ -31,6 +31,25 @@ def _check_int_scalar(x, s):
         raise ValueError(f'{s} must be a scalar.')
 
 
+def _check_nonneg_int_scalar(x, s):
+    """
+    The same as `_check_int_scalar` but additionally checks whether `x` is 
+    non-negative.
+
+    Parameters
+    ----------
+    x : any data type
+        Data to check
+    s : str
+        String with the name of the data that is being checked with the first
+        letter being uppercase (e.g. 'The \'crd_type\' variable').
+    """
+
+    _check_int_scalar(x, s)
+    if x < 0:
+        raise ValueError(f'{s} must not be negative.')
+
+
 def _check_flt_scalar(x, s):
     """
     Checks whether `x` is an instance of one of the classes in

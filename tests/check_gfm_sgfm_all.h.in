@@ -1,0 +1,32 @@
+/* This header file is not a part of API. */
+
+
+#ifndef __CHECK_GFM_SGFM_ALL_H__
+#define __CHECK_GFM_SGFM_ALL_H__
+
+
+#include <config.h>
+
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+
+extern long int check_gfm_global_density_3d(void);
+extern long int check_gfm_global_density_lateral(void);
+extern long int check_gfm_global_density_const(void);
+#if @WITH_MPFR@
+    extern long int check_gfm_cap_density_3d(void);
+    extern long int check_gfm_cap_density_lateral(void);
+    extern long int check_gfm_cap_density_const(void);
+#endif
+
+
+#ifdef __cplusplus
+}
+#endif
+
+
+#endif

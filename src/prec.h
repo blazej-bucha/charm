@@ -59,6 +59,7 @@
 
 
 #undef STR2REAL
+#undef REAL_PRINT_FORMAT
 
 
 /* At first, let's check if one precision only is defined in "config.h".  The
@@ -155,6 +156,7 @@
 
 
 #   define STR2REAL strtof
+#   define REAL_PRINT_FORMAT "%0.11e"
 
 
 /* ------------------------------------------------------------------------- */
@@ -237,6 +239,7 @@
 
 
 #   define STR2REAL strtoflt128
+#   define REAL_PRINT_FORMAT "%0.38Qe"
 
 
 /* ------------------------------------------------------------------------- */
@@ -319,6 +322,7 @@
 
 
 #   define STR2REAL strtod
+#   define REAL_PRINT_FORMAT "%0.20e"
 
 
 #endif

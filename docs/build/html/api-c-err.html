@@ -53,7 +53,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.4.4-dev" />
-    <meta name="docbuild:last-update" content="Feb 12, 2025"/>
+    <meta name="docbuild:last-update" content="Mar 12, 2025"/>
   </head>
   
   
@@ -171,6 +171,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-sha.html">charm_sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-gfm.html">charm_gfm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-leg.html">charm_leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
@@ -185,6 +186,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">pyharm.sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-gfm.html">pyharm.gfm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-leg.html">pyharm.leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">pyharm.integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
@@ -402,14 +404,20 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_ERR_MAX_FILE"><code class="docutils literal notranslate"><span class="pre">CHARM_ERR_MAX_FILE</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_ERR_MAX_FUNC"><code class="docutils literal notranslate"><span class="pre">CHARM_ERR_MAX_FUNC</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_ERR_MAX_MSG"><code class="docutils literal notranslate"><span class="pre">CHARM_ERR_MAX_MSG</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_ERR_MAX_LEVEL"><code class="docutils literal notranslate"><span class="pre">CHARM_ERR_MAX_LEVEL</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_ERR_MALLOC_FAILURE"><code class="docutils literal notranslate"><span class="pre">CHARM_ERR_MALLOC_FAILURE</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_ERR_FFTW_INIT_FAILURE"><code class="docutils literal notranslate"><span class="pre">CHARM_ERR_FFTW_INIT_FAILURE</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4Ut1_1"><code class="docutils literal notranslate"><span class="pre">@1</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_FAILUREE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_FAILURE</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_SUCCESSE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_SUCCESS</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_110CHARM_EMEME"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EMEM</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_114CHARM_EFUNCARGE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EFUNCARG</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_EFILEIOE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EFILEIO</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_115CHARM_EFFTWINITE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EFFTWINIT</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_117CHARM_EMPIPROCESSE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EMPIPROCESS</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_FAILUREE"><code class="docutils literal notranslate"><span class="pre">CHARM_FAILURE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_SUCCESSE"><code class="docutils literal notranslate"><span class="pre">CHARM_SUCCESS</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_110CHARM_EMEME"><code class="docutils literal notranslate"><span class="pre">CHARM_EMEM</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_114CHARM_EFUNCARGE"><code class="docutils literal notranslate"><span class="pre">CHARM_EFUNCARG</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_EFILEIOE"><code class="docutils literal notranslate"><span class="pre">CHARM_EFILEIO</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_115CHARM_EFFTWINITE"><code class="docutils literal notranslate"><span class="pre">CHARM_EFFTWINIT</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_117CHARM_EMPIPROCESSE"><code class="docutils literal notranslate"><span class="pre">CHARM_EMPIPROCESS</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv414charm_err_initv"><code class="docutils literal notranslate"><span class="pre">charm_err_init()</span></code></a></li>
@@ -418,15 +426,15 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv417charm_err_handlerP9charm_err5_Bool"><code class="docutils literal notranslate"><span class="pre">charm_err_handler()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv417charm_err_isemptyPK9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_err_isempty()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv49charm_err"><code class="docutils literal notranslate"><span class="pre">charm_err</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err5levelE"><code class="docutils literal notranslate"><span class="pre">charm_err::level</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4fileE"><code class="docutils literal notranslate"><span class="pre">charm_err::file</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4lineE"><code class="docutils literal notranslate"><span class="pre">charm_err::line</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4funcE"><code class="docutils literal notranslate"><span class="pre">charm_err::func</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4codeE"><code class="docutils literal notranslate"><span class="pre">charm_err::code</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err3msgE"><code class="docutils literal notranslate"><span class="pre">charm_err::msg</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err9saturatedE"><code class="docutils literal notranslate"><span class="pre">charm_err::saturated</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err11distributedE"><code class="docutils literal notranslate"><span class="pre">charm_err::distributed</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4commE"><code class="docutils literal notranslate"><span class="pre">charm_err::comm</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err5levelE"><code class="docutils literal notranslate"><span class="pre">level</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4fileE"><code class="docutils literal notranslate"><span class="pre">file</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4lineE"><code class="docutils literal notranslate"><span class="pre">line</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4funcE"><code class="docutils literal notranslate"><span class="pre">func</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4codeE"><code class="docutils literal notranslate"><span class="pre">code</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err3msgE"><code class="docutils literal notranslate"><span class="pre">msg</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err9saturatedE"><code class="docutils literal notranslate"><span class="pre">saturated</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err11distributedE"><code class="docutils literal notranslate"><span class="pre">distributed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4commE"><code class="docutils literal notranslate"><span class="pre">comm</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -716,14 +724,20 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_ERR_MAX_FILE"><code class="docutils literal notranslate"><span class="pre">CHARM_ERR_MAX_FILE</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_ERR_MAX_FUNC"><code class="docutils literal notranslate"><span class="pre">CHARM_ERR_MAX_FUNC</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_ERR_MAX_MSG"><code class="docutils literal notranslate"><span class="pre">CHARM_ERR_MAX_MSG</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_ERR_MAX_LEVEL"><code class="docutils literal notranslate"><span class="pre">CHARM_ERR_MAX_LEVEL</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_ERR_MALLOC_FAILURE"><code class="docutils literal notranslate"><span class="pre">CHARM_ERR_MALLOC_FAILURE</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_ERR_FFTW_INIT_FAILURE"><code class="docutils literal notranslate"><span class="pre">CHARM_ERR_FFTW_INIT_FAILURE</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4Ut1_1"><code class="docutils literal notranslate"><span class="pre">@1</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_FAILUREE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_FAILURE</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_SUCCESSE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_SUCCESS</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_110CHARM_EMEME"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EMEM</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_114CHARM_EFUNCARGE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EFUNCARG</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_EFILEIOE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EFILEIO</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_115CHARM_EFFTWINITE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EFFTWINIT</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_117CHARM_EMPIPROCESSE"><code class="docutils literal notranslate"><span class="pre">@1::CHARM_EMPIPROCESS</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_FAILUREE"><code class="docutils literal notranslate"><span class="pre">CHARM_FAILURE</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_SUCCESSE"><code class="docutils literal notranslate"><span class="pre">CHARM_SUCCESS</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_110CHARM_EMEME"><code class="docutils literal notranslate"><span class="pre">CHARM_EMEM</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_114CHARM_EFUNCARGE"><code class="docutils literal notranslate"><span class="pre">CHARM_EFUNCARG</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_EFILEIOE"><code class="docutils literal notranslate"><span class="pre">CHARM_EFILEIO</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_115CHARM_EFFTWINITE"><code class="docutils literal notranslate"><span class="pre">CHARM_EFFTWINIT</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_117CHARM_EMPIPROCESSE"><code class="docutils literal notranslate"><span class="pre">CHARM_EMPIPROCESS</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv414charm_err_initv"><code class="docutils literal notranslate"><span class="pre">charm_err_init()</span></code></a></li>
@@ -732,15 +746,15 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv417charm_err_handlerP9charm_err5_Bool"><code class="docutils literal notranslate"><span class="pre">charm_err_handler()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv417charm_err_isemptyPK9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_err_isempty()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv49charm_err"><code class="docutils literal notranslate"><span class="pre">charm_err</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err5levelE"><code class="docutils literal notranslate"><span class="pre">charm_err::level</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4fileE"><code class="docutils literal notranslate"><span class="pre">charm_err::file</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4lineE"><code class="docutils literal notranslate"><span class="pre">charm_err::line</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4funcE"><code class="docutils literal notranslate"><span class="pre">charm_err::func</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4codeE"><code class="docutils literal notranslate"><span class="pre">charm_err::code</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err3msgE"><code class="docutils literal notranslate"><span class="pre">charm_err::msg</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err9saturatedE"><code class="docutils literal notranslate"><span class="pre">charm_err::saturated</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err11distributedE"><code class="docutils literal notranslate"><span class="pre">charm_err::distributed</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4commE"><code class="docutils literal notranslate"><span class="pre">charm_err::comm</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err5levelE"><code class="docutils literal notranslate"><span class="pre">level</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4fileE"><code class="docutils literal notranslate"><span class="pre">file</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4lineE"><code class="docutils literal notranslate"><span class="pre">line</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4funcE"><code class="docutils literal notranslate"><span class="pre">func</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4codeE"><code class="docutils literal notranslate"><span class="pre">code</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err3msgE"><code class="docutils literal notranslate"><span class="pre">msg</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err9saturatedE"><code class="docutils literal notranslate"><span class="pre">saturated</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err11distributedE"><code class="docutils literal notranslate"><span class="pre">distributed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_err4commE"><code class="docutils literal notranslate"><span class="pre">comm</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -776,7 +790,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Feb 12, 2025.
+  Last updated on Mar 12, 2025.
   <br/>
 </p>
   </div>

@@ -57,14 +57,29 @@
 /* Define to 1 if you have the `fftw3_omp' library (-lfftw3_omp). */
 #undef HAVE_LIBFFTW3_OMP
 
+/* Define to 1 if you have the `gmp' library (-lgmp). */
+#undef HAVE_LIBGMP
+
 /* Define to 1 if you have the `m' library (-lm). */
 #undef HAVE_LIBM
+
+/* Define to 1 if you have the `mpfr' library (-lmpfr). */
+#undef HAVE_LIBMPFR
 
 /* Define to 1 if you have the `quadmath' library (-lquadmath). */
 #undef HAVE_LIBQUADMATH
 
+/* Define to 1 if you have the <malloc.h> header file. */
+#undef HAVE_MALLOC_H
+
+/* Define to 1 if you have the `malloc_trim' function. */
+#undef HAVE_MALLOC_TRIM
+
 /* Define to 1 if you have the <mm_malloc.h> header file. */
 #undef HAVE_MM_MALLOC_H
+
+/* Define to 1 to enable mpfr */
+#undef HAVE_MPFR
 
 /* Define if you have the MPI library. */
 #undef HAVE_MPI

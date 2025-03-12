@@ -66,22 +66,22 @@ long int check_shc_write_type(int shc_write_type)
         CHARM(shc_write_bin)(shcs_ref, SHCS_NMAX_POT, SHCS_OUT_PATH_POT_BIN,
                              err);
     else if (shc_write_type == 1)
-        CHARM(shc_write_mtx)(shcs_ref, SHCS_NMAX_POT, FORMAT,
+        CHARM(shc_write_mtx)(shcs_ref, SHCS_NMAX_POT, REAL_PRINT_FORMAT,
                              SHCS_OUT_PATH_POT_MTX, err);
     else if (shc_write_type == 2)
-        CHARM(shc_write_tbl)(shcs_ref, SHCS_NMAX_POT, FORMAT,
+        CHARM(shc_write_tbl)(shcs_ref, SHCS_NMAX_POT, REAL_PRINT_FORMAT,
                              CHARM_SHC_WRITE_N, SHCS_OUT_PATH_POT_TBL_N,
                              err);
     else if (shc_write_type == 3)
-        CHARM(shc_write_tbl)(shcs_ref, SHCS_NMAX_POT, FORMAT,
+        CHARM(shc_write_tbl)(shcs_ref, SHCS_NMAX_POT, REAL_PRINT_FORMAT,
                              CHARM_SHC_WRITE_M, SHCS_OUT_PATH_POT_TBL_M,
                              err);
     else if (shc_write_type == 4)
-        CHARM(shc_write_dov)(shcs_ref, SHCS_NMAX_POT, FORMAT,
+        CHARM(shc_write_dov)(shcs_ref, SHCS_NMAX_POT, REAL_PRINT_FORMAT,
                              CHARM_SHC_WRITE_N, SHCS_OUT_PATH_POT_DOV_N,
                              err);
     else if (shc_write_type == 5)
-        CHARM(shc_write_dov)(shcs_ref, SHCS_NMAX_POT, FORMAT,
+        CHARM(shc_write_dov)(shcs_ref, SHCS_NMAX_POT, REAL_PRINT_FORMAT,
                              CHARM_SHC_WRITE_M, SHCS_OUT_PATH_POT_DOV_M,
                              err);
     CHARM(err_handler)(err, 1);

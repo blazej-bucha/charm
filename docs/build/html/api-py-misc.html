@@ -53,7 +53,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.4.4-dev" />
-    <meta name="docbuild:last-update" content="Feb 12, 2025"/>
+    <meta name="docbuild:last-update" content="Mar 12, 2025"/>
   </head>
   
   
@@ -171,6 +171,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-sha.html">charm_sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-gfm.html">charm_gfm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-leg.html">charm_leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
@@ -185,6 +186,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">pyharm.sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-gfm.html">pyharm.gfm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-leg.html">pyharm.leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">pyharm.integ</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">pyharm.misc</a></li>
@@ -410,7 +412,10 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_omp_charm"><code class="docutils literal notranslate"><span class="pre">buildopt_omp_charm()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_omp_fftw"><code class="docutils literal notranslate"><span class="pre">buildopt_omp_fftw()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_mpi"><code class="docutils literal notranslate"><span class="pre">buildopt_mpi()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_mpfr"><code class="docutils literal notranslate"><span class="pre">buildopt_mpfr()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_version_fftw"><code class="docutils literal notranslate"><span class="pre">buildopt_version_fftw()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_version_mpfr"><code class="docutils literal notranslate"><span class="pre">buildopt_version_mpfr()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_version_gmp"><code class="docutils literal notranslate"><span class="pre">buildopt_version_gmp()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_isfinite"><code class="docutils literal notranslate"><span class="pre">buildopt_isfinite()</span></code></a></li>
 </ul>
             </nav>
@@ -509,9 +514,29 @@ returned.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="pyharm.misc.buildopt_mpfr">
+<span class="sig-prename descclassname"><span class="pre">pyharm.misc.</span></span><span class="sig-name descname"><span class="pre">buildopt_mpfr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.misc.buildopt_mpfr" title="Link to this definition">#</a></dt>
+<dd><p>Returns a non-zero value if CHarm was compiled with the MPFR enabled
+(<code class="docutils literal notranslate"><span class="pre">--enable-mpfr</span></code>).  Otherwise, zero is returned.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="pyharm.misc.buildopt_version_fftw">
 <span class="sig-prename descclassname"><span class="pre">pyharm.misc.</span></span><span class="sig-name descname"><span class="pre">buildopt_version_fftw</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.misc.buildopt_version_fftw" title="Link to this definition">#</a></dt>
 <dd><p>Returns a string specifying the FFTW version used to compile CHarm.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyharm.misc.buildopt_version_mpfr">
+<span class="sig-prename descclassname"><span class="pre">pyharm.misc.</span></span><span class="sig-name descname"><span class="pre">buildopt_version_mpfr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.misc.buildopt_version_mpfr" title="Link to this definition">#</a></dt>
+<dd><p>Returns a string specifying the MPFR version used to compile CHarm.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyharm.misc.buildopt_version_gmp">
+<span class="sig-prename descclassname"><span class="pre">pyharm.misc.</span></span><span class="sig-name descname"><span class="pre">buildopt_version_gmp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.misc.buildopt_version_gmp" title="Link to this definition">#</a></dt>
+<dd><p>Returns a string specifying the GMP version number used to compile
+CHarm.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -583,7 +608,10 @@ returned.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_omp_charm"><code class="docutils literal notranslate"><span class="pre">buildopt_omp_charm()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_omp_fftw"><code class="docutils literal notranslate"><span class="pre">buildopt_omp_fftw()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_mpi"><code class="docutils literal notranslate"><span class="pre">buildopt_mpi()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_mpfr"><code class="docutils literal notranslate"><span class="pre">buildopt_mpfr()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_version_fftw"><code class="docutils literal notranslate"><span class="pre">buildopt_version_fftw()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_version_mpfr"><code class="docutils literal notranslate"><span class="pre">buildopt_version_mpfr()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_version_gmp"><code class="docutils literal notranslate"><span class="pre">buildopt_version_gmp()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_isfinite"><code class="docutils literal notranslate"><span class="pre">buildopt_isfinite()</span></code></a></li>
 </ul>
   </nav></div>
@@ -618,7 +646,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Feb 12, 2025.
+  Last updated on Mar 12, 2025.
   <br/>
 </p>
   </div>

@@ -17,7 +17,7 @@
 /* ------------------------------------------------------------------------- */
 long int array2file(char *file, REAL *f, size_t n)
 {
-    /* Read the reference data from "file" */
+    /* Open "file" */
     /* --------------------------------------------------------------------- */
     FILE *fptr = fopen(file, "w");
     if (fptr == NULL)
@@ -28,15 +28,9 @@ long int array2file(char *file, REAL *f, size_t n)
     /* --------------------------------------------------------------------- */
 
 
-
-
-
-
     /* Write "f" to "fptr" */
     /* --------------------------------------------------------------------- */
     long int e = write_array(f, n, fptr);
-
-
     if (e)
     {
         fprintf(stderr, "Failed to write %lu reference values.\n", e);
@@ -46,10 +40,6 @@ long int array2file(char *file, REAL *f, size_t n)
 
     fclose(fptr);
     /* --------------------------------------------------------------------- */
-
-
-
-
 
 
     return e;

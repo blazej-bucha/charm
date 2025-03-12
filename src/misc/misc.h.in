@@ -196,8 +196,53 @@ CHARM_EXTERN int CHARM_CDECL charm@P@_misc_buildopt_mpi(void);
 
 
 
+/** @brief Returns a non-zero value if CHarm was compiled with the MPFR enabled
+ * (``--enable-mpfr``).  Otherwise, zero is returned. */
+CHARM_EXTERN int CHARM_CDECL charm@P@_misc_buildopt_mpfr(void);
+
+
+
+
+
+
 /** @brief Returns a string specifying the FFTW library version. */
 CHARM_EXTERN const char *CHARM_CDECL charm@P@_misc_buildopt_version_fftw(void);
+
+
+
+
+
+
+/** @brief If CHarm was compiled with the MPFR support (``--enable-mpfr``),
+ * returns a string specifying the MPFR library version (from the compiled MPFR
+ * binary) and sets ``major``, ``minor`` and ``patch`` to the symbolic
+ * constants ``MPFR_VERSION_MAJOR``, ``MPFR_VERSION_MINOR`` and
+ * ``MPFR_VERSION_PATCHLEVEL`` (from the MPFR's header file).  Should any of
+ * the symbolic constants not be defined, the corresponding input parameter is
+ * set to ``-1``.
+ *
+ * If CHarm was compiled without the MPFR support (the default or
+ * ``--without-mpfr``), returns the ``n/a`` string and sets ``major``,
+ * ``minor`` and ``patch`` to ``-1``.
+ *
+ * */
+CHARM_EXTERN const char *CHARM_CDECL charm@P@_misc_buildopt_version_mpfr(
+                                                       int *major,
+                                                       int *minor,
+                                                       int *patch);
+
+
+
+
+
+
+/** @brief The same as ``charm@P@_misc_buildopt_version_mpfr()`` but for the
+ * GMP library (note that ``--with-gmp`` is not a valid installation flag,
+ * though). */
+CHARM_EXTERN const char *CHARM_CDECL charm@P@_misc_buildopt_version_gmp(
+                                                      int *major,
+                                                      int *minor,
+                                                      int *patch);
 
 
 

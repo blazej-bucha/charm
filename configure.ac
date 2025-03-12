@@ -12,6 +12,7 @@ dnl flags
 AM_INIT_AUTOMAKE([1.16.5 foreign])
 AM_MAINTAINER_MODE
 AC_CANONICAL_HOST
+AX_WITH_BUILD_PATH
 
 
 dnl Get the current version number of CHarm
@@ -85,6 +86,26 @@ dnl ===========================================================================
 
 
 
+dnl With MPFR or without MPFR, that is the question
+dnl ===========================================================================
+AC_ARG_ENABLE([mpfr], [AS_HELP_STRING([--enable-mpfr], [compile with the MPFR support to enable cap-modified spectral gravity forward modelling [default=no]])], mpfr=$enableval, mpfr=no)
+
+
+if test "$mpfr" = "yes"; then
+    AC_MSG_NOTICE([compiling with MPFR enabled])
+    AC_DEFINE([HAVE_MPFR], [1], [Define to 1 to enable mpfr])
+    AC_SUBST([WITH_MPFR], [1])
+else
+    AC_MSG_NOTICE([compiling with MPFR disabled])
+    AC_SUBST([WITH_MPFR], [0])
+fi
+AM_CONDITIONAL(MPFR, test "$mpfr" = "yes")
+dnl ===========================================================================
+
+
+
+
+
 
 dnl Checks for libraries
 dnl ===========================================================================
@@ -111,12 +132,17 @@ AC_CHECK_HEADER([stdio.h], [], [AC_MSG_ERROR([stdio.h not found])])
 AC_CHECK_HEADER([stdint.h], [], [AC_MSG_ERROR([stdint.h not found])])
 AC_CHECK_HEADER([stdlib.h], [], [AC_MSG_ERROR([stdlib.h not found])])
 AC_CHECK_HEADER([string.h], [], [AC_MSG_ERROR([string.h not found])])
+AC_CHECK_HEADER([stdarg.h], [], [AC_MSG_ERROR([stdarg.h not found])])
 AC_CHECK_HEADER([ctype.h], [], [AC_MSG_ERROR([ctype.h not found])])
 AC_CHECK_HEADER([time.h], [], [AC_MSG_ERROR([time.h not found])])
 AC_CHECK_HEADER([errno.h], [], [AC_MSG_ERROR([errno.h not found])])
 AC_CHECK_HEADER([float.h], [], [AC_MSG_ERROR([float.h not found])])
 AC_CHECK_HEADER([limits.h], [], [AC_MSG_ERROR([limits.h not found])])
 AC_CHECK_HEADER([fftw3.h], [], [AC_MSG_ERROR([fftw3.h not found])])
+if test "$mpfr" = "yes"; then
+    AC_CHECK_HEADER([gmp.h], [], [AC_MSG_ERROR([gmp.h not found; either disable the MPFR support or install the GMP library])])
+    AC_CHECK_HEADER([mpfr.h], [], [AC_MSG_ERROR([mpfr.h not found; either disable the MPFR support or install the MPFR library])])
+fi
 dnl ===========================================================================
 
 
@@ -177,6 +203,7 @@ if test "$sp" = "yes"; then
         AC_MSG_ERROR([couldn't define a signed 32 bits wide integer.])
     fi
 fi
+AM_CONDITIONAL(CHARM_FLOAT, test "$sp" = "yes")
 
 
 dnl Double precision
@@ -254,15 +281,12 @@ if test "$qp" = "yes"; then
     fi
     AC_MSG_RESULT([$math_isfinite])
 fi
+AM_CONDITIONAL(CHARM_QUAD, test "$qp" = "yes")
 
 
 if test "$math_isfinite" != "no"; then
    AC_DEFINE(HAVE_ISFINITE, [1], [Define to 1 if you have the isfinite macro defined in the <math.h> header file.])
 fi
-
-
-dnl Documentation can only be built if compiling CHarm in double precision
-AM_CONDITIONAL(DOC, test "$dp" = "yes")
 dnl ===========================================================================
 
 
@@ -493,6 +517,48 @@ dnl ===========================================================================
 
 
 
+dnl Additional check if compiling with the MPFR support
+dnl ===========================================================================
+if test "$mpfr" = "yes"; then
+    dnl Check for "libgmp" should proceed the check for "mpfr"
+    AC_CHECK_LIB([gmp], [__gmpz_init], [], [AC_MSG_ERROR([libgmp not found; either disable the MPFR support or install the GMP library])])
+    AC_CHECK_LIB([mpfr], [mpfr_init2], [], [AC_MSG_ERROR([libmpfr not found; either disable the MPFR support or install the MPFR library])])
+
+
+    AC_CHECK_HEADER([malloc.h], [AC_DEFINE([HAVE_MALLOC_H], [1], [Define to 1 if you have the <malloc.h> header file.])], [have_malloc_h=no])
+    AC_CHECK_FUNCS([malloc_trim], [have_malloc_trim=yes], [have_malloc_trim=no])
+
+
+    dnl To compile in quad precision, the host MPFR library must be compiled
+    dnl with the --enable-float128 configuration option
+    if test "$qp" = "yes"; then
+        AC_MSG_CHECKING([whether MPFR was compiled with the --enable-float128 configuration option])
+
+
+        mpfr_buildopt_float128_p=no
+        AC_RUN_IFELSE([AC_LANG_PROGRAM([
+        #include <stdlib.h>
+        #include <mpfr.h>
+        ], [
+        exit(!mpfr_buildopt_float128_p());
+        ])], [mpfr_buildopt_float128_p=yes])
+
+
+        AC_MSG_RESULT([$mpfr_buildopt_float128_p])
+
+
+        if test "$mpfr_buildopt_float128_p" = "no" ; then
+            AC_MSG_ERROR([MPFR was compiled without the --enable-float128 configuration option, but this is mandatory to compile CHarm in quadruple precision and --with-mpfr, recompile MPFR with the --enable-float128 flag])
+        fi
+    fi
+fi
+dnl ===========================================================================
+
+
+
+
+
+
 dnl MPI
 dnl ===========================================================================
 AC_ARG_ENABLE([mpi], [AS_HELP_STRING([--enable-mpi], [enable MPI parallelization [default=no]])])
@@ -610,8 +676,9 @@ fi
 AM_CONDITIONAL(PY, test "$py" = "yes")
 
 
-dnl Python interface and MPI must be enabled to build the documentation
-AM_CONDITIONAL(DOC_PY_MPI, test "$py" = "yes" -a "$enable_mpi" = "yes")
+dnl To build the documentation, double precision, python interface, MPI and
+dnl MPFR are required
+AM_CONDITIONAL(DOC, test "$dp" = "yes" -a "$py" = "yes" -a "$enable_mpi" = "yes" -a "$enable_mpfr" = "yes")
 
 
 dnl For single precision version of PyHarm, a symlink "wrap/pyharmf" is create
@@ -670,6 +737,7 @@ AC_CONFIG_FILES([Makefile \
                  charm/charm${P}_sha.h:src/sha/sha.h.in \
                  charm/charm${P}_shc.h:src/shc/shc.h.in \
                  charm/charm${P}_shs.h:src/shs/shs.h.in \
+                 charm/charm${P}_gfm.h:src/gfm/gfm.h.in \
                  charm/charm${P}_mpi.h:src/mpi/mpi.h.in \
                  charm/charm${P}_glob.h:src/glob/glob.h.in \
                  charm/Makefile \
@@ -683,9 +751,11 @@ AC_CONFIG_FILES([Makefile \
                  src/shc/Makefile \
                  src/shs/Makefile \
                  src/xnum/Makefile \
+                 src/gfm/Makefile \
                  src/mpi/Makefile \
                  src/glob/Makefile \
                  src/simd/Makefile \
+                 src/mpfr/Makefile \
                  tests/Makefile \
                  bench/Makefile \
                  docs/Makefile \
@@ -693,10 +763,14 @@ AC_CONFIG_FILES([Makefile \
                  cookbook/Makefile \
                  data/Makefile \
                  wrap/pyharm/Makefile \
+                 tests/module_gfm.c \
+                 tests/check_gfm_sgfm_all.c \
+                 tests/check_gfm_sgfm_all.h \
                  charm-tmpl.pc \
                  setup.py \
                  wrap/pyharm/__init__.py \
-                 wrap/pyharm/_data_types.py], [], [P=${P}])
+                 wrap/pyharm/_data_types.py \
+                 wrap/pyharm/gfm.py], [], [P=${P}])
 
 
 AC_OUTPUT

@@ -27,8 +27,12 @@ libcharm@P@_misc_la_SOURCES = misc_arr_chck_lin_incr.c \
 							  misc_buildopt_simd.c \
 							  misc_buildopt_simd_vector_size.c \
 							  misc_buildopt_mpi.c \
+							  misc_buildopt_mpfr.c \
 							  misc_buildopt_isfinite.c \
+							  misc_idx_4d.c \
 							  misc_buildopt_version_fftw.c \
+							  misc_buildopt_version_gmp.c \
+							  misc_buildopt_version_mpfr.c
 							  pyinit_libcharm.c
 
 

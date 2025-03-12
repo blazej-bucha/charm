@@ -794,8 +794,8 @@ void CHARM(sha_cell)(const CHARM(cell) *cell,
 
 
             /* Pre-compute the sectorial "imm" integrals.  This is necessary
-             * for the "defined(HAVE_OPENMP)" parallelization strategy, but can
-             * be used (and in fact it is) also with the other parallelization
+             * for the "HAVE_OPENMP" parallelization strategy, but can be used
+             * (and in fact it is) also with the other parallelization
              * strategies. */
             /* ------------------------------------------------------------- */
             for (unsigned long m = 1; m <= nmax; m++)

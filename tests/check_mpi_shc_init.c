@@ -92,7 +92,8 @@ long int check_mpi_shc_init(void)
     CHARM(err_handler)(err, 0);
 
 
-    sprintf(func_call_str, "%s(%lu, " FORMAT ", " FORMAT ", c, s, %zu, {",
+    sprintf(func_call_str, "%s(%lu, " REAL_PRINT_FORMAT ", " REAL_PRINT_FORMAT
+                           ", c, s, %zu, {",
             "charm" CHARM_SUFFIX "_mpi_shc_init", NMAX_MPI, mu, r, local_nchunk);
     for (size_t j = 0; j < 2 * local_nchunk - 1; j++)
         sprintf(func_call_str + strlen(func_call_str), "%lu, ",

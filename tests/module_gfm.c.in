@@ -1,0 +1,77 @@
+/* Header files */
+/* ------------------------------------------------------------------------- */
+#include <config.h>
+#include <stdio.h>
+#include "check_func.h"
+#include "check_outcome.h"
+#include "check_gfm_sgfm_all.h"
+#include "check_gfm_cap_q.h"
+#include "check_gfm_cap_q_check_prec.h"
+#include "module_gfm.h"
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* Tests the "sha" module */
+long int module_gfm(void)
+{
+    long int e    = 0;
+    long int esum = 0;
+
+
+    check_func("gfm_global_density_3d");
+    e = check_gfm_global_density_3d();
+    check_outcome(e);
+    esum += e;
+
+
+    check_func("gfm_global_density_lateral");
+    e = check_gfm_global_density_lateral();
+    check_outcome(e);
+    esum += e;
+
+
+    check_func("gfm_global_density_const");
+    e = check_gfm_global_density_const();
+    check_outcome(e);
+    esum += e;
+
+
+#if @WITH_MPFR@
+    check_func("gfm_cap_q");
+    e = check_gfm_cap_q();
+    check_outcome(e);
+    esum += e;
+
+
+    check_func("gfm_cap_q_check_prec");
+    e = check_gfm_cap_q_check_prec();
+    check_outcome(e);
+    esum += e;
+
+
+    check_func("gfm_cap_density_3d");
+    e = check_gfm_cap_density_3d();
+    check_outcome(e);
+    esum += e;
+
+
+    check_func("gfm_cap_density_lateral");
+    e = check_gfm_cap_density_lateral();
+    check_outcome(e);
+    esum += e;
+
+
+    check_func("gfm_cap_density_const");
+    e = check_gfm_cap_density_const();
+    check_outcome(e);
+    esum += e;
+#endif
+
+
+    return esum;
+}
+

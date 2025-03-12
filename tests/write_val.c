@@ -17,15 +17,7 @@
 /* ------------------------------------------------------------------------- */
 int write_val(REAL val, FILE *fptr)
 {
-    char *format =
-#if defined(CHARM_FLOAT)
-                         "%0.9e";
-#elif defined(CHARM_QUAD)
-                         "%0.36Qe";
-#else
-                         "%0.18e";
-#endif
-    long int ret = CHARM(misc_fprintf_real)(fptr, format, val);
+    long int ret = CHARM(misc_fprintf_real)(fptr, REAL_PRINT_FORMAT, val);
     fprintf(fptr, "\n");
 
 

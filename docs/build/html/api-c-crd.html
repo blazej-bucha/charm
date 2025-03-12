@@ -53,7 +53,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.4.4-dev" />
-    <meta name="docbuild:last-update" content="Feb 12, 2025"/>
+    <meta name="docbuild:last-update" content="Mar 12, 2025"/>
   </head>
   
   
@@ -171,6 +171,7 @@
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">charm_crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-sha.html">charm_sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-gfm.html">charm_gfm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-leg.html">charm_leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
@@ -185,6 +186,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">pyharm.sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-gfm.html">pyharm.gfm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-leg.html">pyharm.leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">pyharm.integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
@@ -417,44 +419,44 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv419charm_crd_cell_initi6size_t6size_tPdPdPdPdPd"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_init()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv419charm_crd_cell_freeP10charm_cell"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_free()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4Ut1_0"><code class="docutils literal notranslate"><span class="pre">@0</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_019CHARM_CRD_CELL_GRIDE"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_CELL_GRID</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_024CHARM_CRD_CELL_SCATTEREDE"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_CELL_SCATTERED</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_025CHARM_CRD_POINT_SCATTEREDE"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_POINT_SCATTERED</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_020CHARM_CRD_POINT_GRIDE"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_POINT_GRID</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_023CHARM_CRD_POINT_GRID_GLE"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_POINT_GRID_GL</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH1E"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_POINT_GRID_DH1</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH2E"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_POINT_GRID_DH2</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_019CHARM_CRD_CELL_GRIDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_GRID</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_024CHARM_CRD_CELL_SCATTEREDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_025CHARM_CRD_POINT_SCATTEREDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_SCATTERED</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_020CHARM_CRD_POINT_GRIDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_023CHARM_CRD_POINT_GRID_GLE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH1E"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH2E"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv411charm_point"><code class="docutils literal notranslate"><span class="pre">charm_point</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4typeE"><code class="docutils literal notranslate"><span class="pre">charm_point::type</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4nlatE"><code class="docutils literal notranslate"><span class="pre">charm_point::nlat</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4nlonE"><code class="docutils literal notranslate"><span class="pre">charm_point::nlon</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point6npointE"><code class="docutils literal notranslate"><span class="pre">charm_point::npoint</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point3latE"><code class="docutils literal notranslate"><span class="pre">charm_point::lat</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point3lonE"><code class="docutils literal notranslate"><span class="pre">charm_point::lon</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point1rE"><code class="docutils literal notranslate"><span class="pre">charm_point::r</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point1wE"><code class="docutils literal notranslate"><span class="pre">charm_point::w</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point5ownerE"><code class="docutils literal notranslate"><span class="pre">charm_point::owner</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point11distributedE"><code class="docutils literal notranslate"><span class="pre">charm_point::distributed</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point10local_nlatE"><code class="docutils literal notranslate"><span class="pre">charm_point::local_nlat</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point10local_nlonE"><code class="docutils literal notranslate"><span class="pre">charm_point::local_nlon</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point12local_npointE"><code class="docutils literal notranslate"><span class="pre">charm_point::local_npoint</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point13local_0_startE"><code class="docutils literal notranslate"><span class="pre">charm_point::local_0_start</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4commE"><code class="docutils literal notranslate"><span class="pre">charm_point::comm</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4typeE"><code class="docutils literal notranslate"><span class="pre">type</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4nlatE"><code class="docutils literal notranslate"><span class="pre">nlat</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4nlonE"><code class="docutils literal notranslate"><span class="pre">nlon</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point6npointE"><code class="docutils literal notranslate"><span class="pre">npoint</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point3latE"><code class="docutils literal notranslate"><span class="pre">lat</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point3lonE"><code class="docutils literal notranslate"><span class="pre">lon</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point1rE"><code class="docutils literal notranslate"><span class="pre">r</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point1wE"><code class="docutils literal notranslate"><span class="pre">w</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point5ownerE"><code class="docutils literal notranslate"><span class="pre">owner</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point11distributedE"><code class="docutils literal notranslate"><span class="pre">distributed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point10local_nlatE"><code class="docutils literal notranslate"><span class="pre">local_nlat</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point10local_nlonE"><code class="docutils literal notranslate"><span class="pre">local_nlon</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point12local_npointE"><code class="docutils literal notranslate"><span class="pre">local_npoint</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point13local_0_startE"><code class="docutils literal notranslate"><span class="pre">local_0_start</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4commE"><code class="docutils literal notranslate"><span class="pre">comm</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv410charm_cell"><code class="docutils literal notranslate"><span class="pre">charm_cell</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell4typeE"><code class="docutils literal notranslate"><span class="pre">charm_cell::type</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell4nlatE"><code class="docutils literal notranslate"><span class="pre">charm_cell::nlat</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell4nlonE"><code class="docutils literal notranslate"><span class="pre">charm_cell::nlon</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell5ncellE"><code class="docutils literal notranslate"><span class="pre">charm_cell::ncell</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell6latminE"><code class="docutils literal notranslate"><span class="pre">charm_cell::latmin</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell6latmaxE"><code class="docutils literal notranslate"><span class="pre">charm_cell::latmax</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell6lonminE"><code class="docutils literal notranslate"><span class="pre">charm_cell::lonmin</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell6lonmaxE"><code class="docutils literal notranslate"><span class="pre">charm_cell::lonmax</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell1rE"><code class="docutils literal notranslate"><span class="pre">charm_cell::r</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell5ownerE"><code class="docutils literal notranslate"><span class="pre">charm_cell::owner</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell4typeE"><code class="docutils literal notranslate"><span class="pre">type</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell4nlatE"><code class="docutils literal notranslate"><span class="pre">nlat</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell4nlonE"><code class="docutils literal notranslate"><span class="pre">nlon</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell5ncellE"><code class="docutils literal notranslate"><span class="pre">ncell</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell6latminE"><code class="docutils literal notranslate"><span class="pre">latmin</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell6latmaxE"><code class="docutils literal notranslate"><span class="pre">latmax</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell6lonminE"><code class="docutils literal notranslate"><span class="pre">lonmin</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell6lonmaxE"><code class="docutils literal notranslate"><span class="pre">lonmax</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell1rE"><code class="docutils literal notranslate"><span class="pre">r</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell5ownerE"><code class="docutils literal notranslate"><span class="pre">owner</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1086,44 +1088,44 @@ longitudinal step is constant.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv419charm_crd_cell_initi6size_t6size_tPdPdPdPdPd"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_init()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv419charm_crd_cell_freeP10charm_cell"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_free()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4Ut1_0"><code class="docutils literal notranslate"><span class="pre">@0</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_019CHARM_CRD_CELL_GRIDE"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_CELL_GRID</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_024CHARM_CRD_CELL_SCATTEREDE"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_CELL_SCATTERED</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_025CHARM_CRD_POINT_SCATTEREDE"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_POINT_SCATTERED</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_020CHARM_CRD_POINT_GRIDE"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_POINT_GRID</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_023CHARM_CRD_POINT_GRID_GLE"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_POINT_GRID_GL</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH1E"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_POINT_GRID_DH1</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH2E"><code class="docutils literal notranslate"><span class="pre">@0::CHARM_CRD_POINT_GRID_DH2</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_019CHARM_CRD_CELL_GRIDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_GRID</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_024CHARM_CRD_CELL_SCATTEREDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_025CHARM_CRD_POINT_SCATTEREDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_SCATTERED</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_020CHARM_CRD_POINT_GRIDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_023CHARM_CRD_POINT_GRID_GLE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH1E"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH2E"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv411charm_point"><code class="docutils literal notranslate"><span class="pre">charm_point</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4typeE"><code class="docutils literal notranslate"><span class="pre">charm_point::type</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4nlatE"><code class="docutils literal notranslate"><span class="pre">charm_point::nlat</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4nlonE"><code class="docutils literal notranslate"><span class="pre">charm_point::nlon</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point6npointE"><code class="docutils literal notranslate"><span class="pre">charm_point::npoint</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point3latE"><code class="docutils literal notranslate"><span class="pre">charm_point::lat</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point3lonE"><code class="docutils literal notranslate"><span class="pre">charm_point::lon</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point1rE"><code class="docutils literal notranslate"><span class="pre">charm_point::r</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point1wE"><code class="docutils literal notranslate"><span class="pre">charm_point::w</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point5ownerE"><code class="docutils literal notranslate"><span class="pre">charm_point::owner</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point11distributedE"><code class="docutils literal notranslate"><span class="pre">charm_point::distributed</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point10local_nlatE"><code class="docutils literal notranslate"><span class="pre">charm_point::local_nlat</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point10local_nlonE"><code class="docutils literal notranslate"><span class="pre">charm_point::local_nlon</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point12local_npointE"><code class="docutils literal notranslate"><span class="pre">charm_point::local_npoint</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point13local_0_startE"><code class="docutils literal notranslate"><span class="pre">charm_point::local_0_start</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4commE"><code class="docutils literal notranslate"><span class="pre">charm_point::comm</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4typeE"><code class="docutils literal notranslate"><span class="pre">type</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4nlatE"><code class="docutils literal notranslate"><span class="pre">nlat</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4nlonE"><code class="docutils literal notranslate"><span class="pre">nlon</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point6npointE"><code class="docutils literal notranslate"><span class="pre">npoint</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point3latE"><code class="docutils literal notranslate"><span class="pre">lat</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point3lonE"><code class="docutils literal notranslate"><span class="pre">lon</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point1rE"><code class="docutils literal notranslate"><span class="pre">r</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point1wE"><code class="docutils literal notranslate"><span class="pre">w</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point5ownerE"><code class="docutils literal notranslate"><span class="pre">owner</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point11distributedE"><code class="docutils literal notranslate"><span class="pre">distributed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point10local_nlatE"><code class="docutils literal notranslate"><span class="pre">local_nlat</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point10local_nlonE"><code class="docutils literal notranslate"><span class="pre">local_nlon</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point12local_npointE"><code class="docutils literal notranslate"><span class="pre">local_npoint</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point13local_0_startE"><code class="docutils literal notranslate"><span class="pre">local_0_start</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4commE"><code class="docutils literal notranslate"><span class="pre">comm</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv410charm_cell"><code class="docutils literal notranslate"><span class="pre">charm_cell</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell4typeE"><code class="docutils literal notranslate"><span class="pre">charm_cell::type</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell4nlatE"><code class="docutils literal notranslate"><span class="pre">charm_cell::nlat</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell4nlonE"><code class="docutils literal notranslate"><span class="pre">charm_cell::nlon</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell5ncellE"><code class="docutils literal notranslate"><span class="pre">charm_cell::ncell</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell6latminE"><code class="docutils literal notranslate"><span class="pre">charm_cell::latmin</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell6latmaxE"><code class="docutils literal notranslate"><span class="pre">charm_cell::latmax</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell6lonminE"><code class="docutils literal notranslate"><span class="pre">charm_cell::lonmin</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell6lonmaxE"><code class="docutils literal notranslate"><span class="pre">charm_cell::lonmax</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell1rE"><code class="docutils literal notranslate"><span class="pre">charm_cell::r</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell5ownerE"><code class="docutils literal notranslate"><span class="pre">charm_cell::owner</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell4typeE"><code class="docutils literal notranslate"><span class="pre">type</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell4nlatE"><code class="docutils literal notranslate"><span class="pre">nlat</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell4nlonE"><code class="docutils literal notranslate"><span class="pre">nlon</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell5ncellE"><code class="docutils literal notranslate"><span class="pre">ncell</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell6latminE"><code class="docutils literal notranslate"><span class="pre">latmin</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell6latmaxE"><code class="docutils literal notranslate"><span class="pre">latmax</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell6lonminE"><code class="docutils literal notranslate"><span class="pre">lonmin</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell6lonmaxE"><code class="docutils literal notranslate"><span class="pre">lonmax</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell1rE"><code class="docutils literal notranslate"><span class="pre">r</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N10charm_cell5ownerE"><code class="docutils literal notranslate"><span class="pre">owner</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1159,7 +1161,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Feb 12, 2025.
+  Last updated on Mar 12, 2025.
   <br/>
 </p>
   </div>

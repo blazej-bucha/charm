@@ -46,21 +46,11 @@ help:
 
 doxygen:
 	cd $(top_srcdir) && ./config.status
-if DOC
-if !DOC_PY_MPI
+if !DOC
 	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	@echo
-	@echo ERROR: Python interface and MPI are required to build the \
-		  documentation
-	@echo
-	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	@exit 1
-endif
-else
-	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	@echo
-	@echo ERROR: Documentation can only be built if CHarm is compiled in \
-		  double precision
+	@echo ERROR: Double precision, Python interface, MPI and MPFR are \
+		  required to build the documentation
 	@echo
 	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	@exit 1

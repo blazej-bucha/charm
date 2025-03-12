@@ -1,3 +1,15 @@
+Upcoming release:
+
+* Added `gfm` module for spectral gravity forward modelling using global and 
+  spatially restricted integration.
+
+  In addition to the functions from the new `gfm` module, the following 
+  routines were added to the `misc` module:
+
+    * `charm_misc_buildopt_mpfr`,
+    * `charm_misc_buildopt_version_mpfr`,
+    * `charm_misc_buildopt_version_gmp`.
+
 CHarm 0.4.4:
 
 This release adds support for SSE4.1 and fixes likely wrong compilation of 

@@ -46,6 +46,10 @@ extern "C"
 #define BUILDOPT_MPI 1
 
 
+#undef BUILDOPT_MPFR
+#define BUILDOPT_MPFR 1
+
+
 #undef BUILDOPT_SIMD_NONE
 #define BUILDOPT_SIMD_NONE 0
 

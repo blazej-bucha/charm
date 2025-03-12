@@ -16,7 +16,8 @@ import ctypes as _ct
 import numpy as _np
 from . import _libcharm, _libcharmname, _CHARM, _pyharm
 from ._get_module_constants import _get_module_constants
-from ._check_types import _check_deg_ord, _check_int_scalar, _check_pointer
+from ._check_types import _check_deg_ord, _check_int_scalar, \
+                          _check_nonneg_int_scalar, _check_pointer
 from ._get_empty_array import _get_empty_array
 from ._constants import _globals
 from ._data_types import _ct_ulong, _ct_int, _ct_size_t, _ct_flt, _pyharm_flt
@@ -385,9 +386,7 @@ class Pnmj:
             of a Legendre function
         """
 
-        _check_int_scalar(k, 'k')
-        if k < 0:
-            raise ValueError('The wave-number \'k\' cannot be negative.')
+        _check_nonneg_int_scalar(k, 'The wave-number \'k\'')
 
         func          = _libcharm[_CHARM + 'leg_pnmj_k2j']
         func.restype  = _ct_ulong
@@ -475,10 +474,7 @@ class Pnmj:
             Anything
         """
 
-        _check_int_scalar(j, 'j')
-        if j < 0:
-            raise ValueError('The wave-number-related variable \'j\' must '
-                             'not be negative.')
+        _check_nonneg_int_scalar(j, 'The wave-number-related variable \'j\'')
 
 
 def fourier_coeffs(nmax, ordering=PMNJ):

@@ -50,7 +50,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.4.4-dev" />
-    <meta name="docbuild:last-update" content="Feb 12, 2025"/>
+    <meta name="docbuild:last-update" content="Mar 12, 2025"/>
   </head>
   
   
@@ -170,6 +170,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-sha.html">charm_sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-gfm.html">charm_gfm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-leg.html">charm_leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
@@ -184,6 +185,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">pyharm.sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-gfm.html">pyharm.gfm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-leg.html">pyharm.leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">pyharm.integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
@@ -355,6 +357,7 @@
  | <a href="#N"><strong>N</strong></a>
  | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
+ | <a href="#Q"><strong>Q</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
@@ -415,6 +418,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-py-misc.html#pyharm.misc.buildopt_isfinite">buildopt_isfinite() (in module pyharm.misc)</a>
 </li>
+      <li><a href="api-py-misc.html#pyharm.misc.buildopt_mpfr">buildopt_mpfr() (in module pyharm.misc)</a>
+</li>
       <li><a href="api-py-misc.html#pyharm.misc.buildopt_mpi">buildopt_mpi() (in module pyharm.misc)</a>
 </li>
       <li><a href="api-py-misc.html#pyharm.misc.buildopt_omp_charm">buildopt_omp_charm() (in module pyharm.misc)</a>
@@ -431,6 +436,10 @@
 </li>
       <li><a href="api-py-misc.html#pyharm.misc.buildopt_version_fftw">buildopt_version_fftw() (in module pyharm.misc)</a>
 </li>
+      <li><a href="api-py-misc.html#pyharm.misc.buildopt_version_gmp">buildopt_version_gmp() (in module pyharm.misc)</a>
+</li>
+      <li><a href="api-py-misc.html#pyharm.misc.buildopt_version_mpfr">buildopt_version_mpfr() (in module pyharm.misc)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -438,6 +447,18 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-py-shc.html#pyharm.shc.Shc.c">c (pyharm.shc.Shc property)</a>
+</li>
+      <li><a href="api-py-gfm.html#pyharm.gfm.cap_density_3d">cap_density_3d() (in module pyharm.gfm)</a>
+</li>
+      <li><a href="api-py-gfm.html#pyharm.gfm.cap_density_const">cap_density_const() (in module pyharm.gfm)</a>
+</li>
+      <li><a href="api-py-gfm.html#pyharm.gfm.cap_density_lateral">cap_density_lateral() (in module pyharm.gfm)</a>
+</li>
+      <li><a href="api-py-gfm.html#pyharm.gfm.cap_nq">cap_nq() (in module pyharm.gfm)</a>
+</li>
+      <li><a href="api-py-gfm.html#pyharm.gfm.cap_q">cap_q() (in module pyharm.gfm)</a>
+</li>
+      <li><a href="api-py-gfm.html#pyharm.gfm.cap_q_check_prec">cap_q_check_prec() (in module pyharm.gfm)</a>
 </li>
       <li><a href="api-py-sha.html#pyharm.sha.cell">cell() (in module pyharm.sha)</a>
 
@@ -545,6 +566,40 @@
 </li>
       <li><a href="api-c-err.html#_CPPv415charm_err_resetP9charm_err">charm_err_reset (C++ function)</a>
 </li>
+      <li><a href="api-c-gfm.html#_CPPv424charm_gfm_cap_density_3dPK9charm_shcmdPP9charm_shcPmjddjjjjddjji11mpfr_prec_tmPKcPKcPKcPP9charm_shcP9charm_err">charm_gfm_cap_density_3d (C++ function)</a>
+</li>
+      <li><a href="api-c-gfm.html#_CPPv427charm_gfm_cap_density_constPK9charm_shcmddddjjjjddjji11mpfr_prec_tmPKcPKcPKcPP9charm_shcP9charm_err">charm_gfm_cap_density_const (C++ function)</a>
+</li>
+      <li><a href="api-c-gfm.html#_CPPv429charm_gfm_cap_density_lateralPK9charm_shcmdP9charm_shcmddjjjjddjji11mpfr_prec_tmPKcPKcPKcPP9charm_shcP9charm_err">charm_gfm_cap_density_lateral (C++ function)</a>
+</li>
+      <li><a href="api-c-gfm.html#_CPPv416charm_gfm_cap_nqmjjjjP9charm_err">charm_gfm_cap_nq (C++ function)</a>
+</li>
+      <li><a href="api-c-gfm.html#_CPPv415charm_gfm_cap_qK6mpfr_tK6mpfr_tK6mpfr_tmjjjjij11mpfr_prec_tP6mpfr_tP9charm_err">charm_gfm_cap_q (C++ function)</a>
+</li>
+      <li><a href="api-c-gfm.html#_CPPv426charm_gfm_cap_q_check_precK6mpfr_tK6mpfr_tK6mpfr_tmjjjjj11mpfr_prec_t11mpfr_prec_tP9charm_err">charm_gfm_cap_q_check_prec (C++ function)</a>
+</li>
+      <li><a href="api-c-gfm.html#c.CHARM_GFM_FAR_ZONE">CHARM_GFM_FAR_ZONE (C macro)</a>
+</li>
+      <li><a href="api-c-gfm.html#_CPPv427charm_gfm_global_density_3dPK9charm_shcmdPP9charm_shcPmjddjjmPKcPKcPKcP9charm_shcP9charm_err">charm_gfm_global_density_3d (C++ function)</a>
+</li>
+      <li><a href="api-c-gfm.html#_CPPv430charm_gfm_global_density_constPK9charm_shcmddddjjmPKcPKcPKcP9charm_shcP9charm_err">charm_gfm_global_density_const (C++ function)</a>
+</li>
+      <li><a href="api-c-gfm.html#_CPPv432charm_gfm_global_density_lateralPK9charm_shcmdP9charm_shcmddjjmPKcPKcPKcP9charm_shcP9charm_err">charm_gfm_global_density_lateral (C++ function)</a>
+</li>
+      <li><a href="api-c-gfm.html#c.CHARM_GFM_NEAR_ZONE">CHARM_GFM_NEAR_ZONE (C macro)</a>
+</li>
+      <li><a href="api-c-gfm.html#c.CHARM_GFM_Q00">CHARM_GFM_Q00 (C macro)</a>
+</li>
+      <li><a href="api-c-gfm.html#c.CHARM_GFM_Q10">CHARM_GFM_Q10 (C macro)</a>
+</li>
+      <li><a href="api-c-gfm.html#c.CHARM_GFM_Q11">CHARM_GFM_Q11 (C macro)</a>
+</li>
+      <li><a href="api-c-gfm.html#c.CHARM_GFM_Q20">CHARM_GFM_Q20 (C macro)</a>
+</li>
+      <li><a href="api-c-gfm.html#c.CHARM_GFM_Q21">CHARM_GFM_Q21 (C macro)</a>
+</li>
+      <li><a href="api-c-gfm.html#c.CHARM_GFM_Q22">CHARM_GFM_Q22 (C macro)</a>
+</li>
       <li><a href="api-c-glob.html#_CPPv432charm_glob_polar_optimization_a1">charm_glob_polar_optimization_a1 (C++ member)</a>
 </li>
       <li><a href="api-c-glob.html#_CPPv432charm_glob_polar_optimization_a2">charm_glob_polar_optimization_a2 (C++ member)</a>
@@ -581,6 +636,10 @@
 </li>
       <li><a href="api-c-misc.html#_CPPv428charm_misc_buildopt_isfinitev">charm_misc_buildopt_isfinite (C++ function)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-c-misc.html#_CPPv424charm_misc_buildopt_mpfrv">charm_misc_buildopt_mpfr (C++ function)</a>
+</li>
       <li><a href="api-c-misc.html#_CPPv423charm_misc_buildopt_mpiv">charm_misc_buildopt_mpi (C++ function)</a>
 </li>
       <li><a href="api-c-misc.html#_CPPv429charm_misc_buildopt_omp_charmv">charm_misc_buildopt_omp_charm (C++ function)</a>
@@ -595,14 +654,16 @@
 </li>
       <li><a href="api-c-misc.html#_CPPv432charm_misc_buildopt_version_fftwv">charm_misc_buildopt_version_fftw (C++ function)</a>
 </li>
+      <li><a href="api-c-misc.html#_CPPv431charm_misc_buildopt_version_gmpPiPiPi">charm_misc_buildopt_version_gmp (C++ function)</a>
+</li>
+      <li><a href="api-c-misc.html#_CPPv432charm_misc_buildopt_version_mpfrPiPiPi">charm_misc_buildopt_version_mpfr (C++ function)</a>
+</li>
       <li><a href="api-c-misc.html#_CPPv422charm_misc_get_versionv">charm_misc_get_version (C++ function)</a>
 </li>
       <li><a href="api-c-misc.html#_CPPv421charm_misc_print_infov">charm_misc_print_info (C++ function)</a>
 </li>
       <li><a href="api-c-mpi.html#_CPPv426charm_mpi_crd_point_calloci6size_t6size_t6size_t8MPI_CommP9charm_err">charm_mpi_crd_point_calloc (C++ function)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-c-mpi.html#_CPPv423charm_mpi_crd_point_dh1md6size_t6size_t8MPI_CommP9charm_err">charm_mpi_crd_point_dh1 (C++ function)</a>
 </li>
       <li><a href="api-c-mpi.html#_CPPv423charm_mpi_crd_point_dh2md6size_t6size_t8MPI_CommP9charm_err">charm_mpi_crd_point_dh2 (C++ function)</a>
@@ -845,15 +906,21 @@
 </li>
       <li><a href="api-py-shc.html#pyharm.shc.Shc.get_degrees_orders">get_degrees_orders() (pyharm.shc.Shc method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-py-shc.html#pyharm.shc.Shc.get_file_types">get_file_types() (pyharm.shc.Shc static method)</a>
 </li>
       <li><a href="api-py-leg.html#pyharm.leg.Pnmj.get_ordering_str">get_ordering_str() (pyharm.leg.Pnmj method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-py-leg.html#pyharm.leg.Pnmj.get_ordering_types">get_ordering_types() (pyharm.leg.Pnmj static method)</a>
 </li>
       <li><a href="api-py-misc.html#pyharm.misc.get_version">get_version() (in module pyharm.misc)</a>
+</li>
+      <li><a href="api-py-gfm.html#pyharm.gfm.global_density_3d">global_density_3d() (in module pyharm.gfm)</a>
+</li>
+      <li><a href="api-py-gfm.html#pyharm.gfm.global_density_const">global_density_const() (in module pyharm.gfm)</a>
+</li>
+      <li><a href="api-py-gfm.html#pyharm.gfm.global_density_lateral">global_density_lateral() (in module pyharm.gfm)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -938,6 +1005,8 @@
 
       <ul>
         <li><a href="api-py-crd.html#module-pyharm.crd">pyharm.crd</a>
+</li>
+        <li><a href="api-py-gfm.html#module-pyharm.gfm">pyharm.gfm</a>
 </li>
         <li><a href="api-py-glob.html#module-pyharm.glob">pyharm.glob</a>
 </li>
@@ -1066,15 +1135,22 @@
 </li>
       <li><a href="api-py-glob.html#pyharm.glob.Constants.polar_optimization_a2">polar_optimization_a2 (pyharm.glob.Constants property)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-py-misc.html#pyharm.misc.print_info">print_info() (in module pyharm.misc)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     pyharm.crd
 
       <ul>
         <li><a href="api-py-crd.html#module-pyharm.crd">module</a>
+</li>
+      </ul></li>
+      <li>
+    pyharm.gfm
+
+      <ul>
+        <li><a href="api-py-gfm.html#module-pyharm.gfm">module</a>
 </li>
       </ul></li>
       <li>
@@ -1126,6 +1202,26 @@
         <li><a href="api-py-shs.html#module-pyharm.shs">module</a>
 </li>
       </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="Q">Q</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-py-gfm.html#pyharm.gfm.Q00">Q00 (in module pyharm.gfm)</a>
+</li>
+      <li><a href="api-py-gfm.html#pyharm.gfm.Q10">Q10 (in module pyharm.gfm)</a>
+</li>
+      <li><a href="api-py-gfm.html#pyharm.gfm.Q11">Q11 (in module pyharm.gfm)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-py-gfm.html#pyharm.gfm.Q20">Q20 (in module pyharm.gfm)</a>
+</li>
+      <li><a href="api-py-gfm.html#pyharm.gfm.Q21">Q21 (in module pyharm.gfm)</a>
+</li>
+      <li><a href="api-py-gfm.html#pyharm.gfm.Q22">Q22 (in module pyharm.gfm)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -1268,7 +1364,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Feb 12, 2025.
+  Last updated on Mar 12, 2025.
   <br/>
 </p>
   </div>

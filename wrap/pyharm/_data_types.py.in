@@ -35,6 +35,9 @@ _ct_uint = _ct.c_uint
 # C's "size_t" entering CHarm
 _ct_size_t = _ct.c_size_t
 
+# C's "long int" entering CHarm
+_ct_long = _ct.c_long
+
 # C's "unsigned long int" entering CHarm
 _ct_ulong = _ct.c_ulong
 

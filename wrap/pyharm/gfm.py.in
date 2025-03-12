@@ -1,0 +1,1411 @@
+"""
+Module for spectral gravity forward modelling.  Offers:
+
+* global and spatially limited spectral gravity forward modelling of band-limited topographic
+  masses having constant, lateral and 3D varying mass density.
+
+.. note:: This documentation is written for double precision version of PyHarm.
+
+.. note:: Spatially limited integration radius is available only if
+          ``--enable-mpfr`` is specified when calling ``./configure`` during
+          the installation.  See :ref:`Installing <installing>` for further
+          details.
+"""
+
+import ctypes as _ct
+import numpy as _np
+from warnings import warn
+from . import _libcharm, _CHARM
+from . import shc as _ph_shc
+from . import _err as _ph_err
+from ._get_module_constants import _get_module_constants
+from ._data_types import _ct_ulong, _ct_flt, _ct_uint, _ct_long, _ct_int, \
+                         _ct_size_t
+from ._check_types import _check_nonneg_int_scalar, _check_flt_scalar, \
+                          _check_radius, _check_deg_ord, _check_int_scalar, \
+                          _pyharm_flt
+
+
+# Get the module constants from "_constants.py" and add them to the module's
+# namespace
+_get_module_constants('CHARM_GFM_')
+
+
+def global_density_3d(shape_shcs,
+                      shape_nmax,
+                      shape_radius_ref,
+                      density_shcs,
+                      density_nmax,
+                      density_order,
+                      grav_const,
+                      mass,
+                      shape_power_min,
+                      shape_power_max,
+                      potential_shcs_nmax,
+                      shape_density_shcs_path=None,
+                      potential_shcs_path=None,
+                      shcs_file_format='tbl',
+                      return_output=True):
+    """
+    Performs global spectral gravity forward modelling of an arbitrary 3D
+    polynomial mass density.  For more details, refer to `charm_gfm
+    <./api-c-gfm.html>`_.
+
+    Parameters
+    ----------
+    shape_shcs : Shc
+        Spherical harmonic coefficients defining the shape of the body (the
+        upper integration limit in the radial direction)
+    shape_nmax : integer
+        Maximum harmonic degree to take when defining the shape of the
+        gravitating body by the spherical harmonic coefficients in
+        ``shape_shcs``.
+    shape_radius_ref : floating point
+        Radius defining the lower integration limit in the radial
+        direction.  Forward modelled will be the masses between the sphere of
+        radius ``shape_radius_ref`` and the body’s surface defined by
+        ``shape_shcs``.
+    density_shcs : list
+        List of :class:`pyharm.shc.Shc` class instances defining the spherical
+        harmonic coefficients of the density polynomial coefficients.  For
+        instance, ``density_shcs[0]`` is a :class:`pyharm.shc.Shc` class
+        instance defining the spherical harmonic coefficients of the zero-order
+        laterally varying polynomial density coefficients;
+        ``density_shcs[1]`` is a :class:`pyharm.shc.Shc` class instance
+        holding the spherical harmonic coefficients of the first-order
+        laterally varying polynomial density coefficients; etc.
+    density_nmax : list
+        List of maximum harmonic degrees to be used with the respective
+        :class:`pyharm.shc.Shc` instances in ``density_shcs`` when defining
+        the polynomial density coefficients.  More specifically,
+        ``density_nmax[i]`` is the maximum harmonic degree that will be used
+        when defining the polynomial density coefficients of order :math:`i` by
+        ``density_shcs[i]``.
+    density_order : integer
+        Maximum order of the density polynomial.
+    grav_const : floating point
+        Newton's gravitational constant.
+    mass : floating point
+        Mass of the body.  The value affects the output potential coefficients
+        ``potential_shcs`` (see below) but do *not* affect the gravitational
+        effects synthesized from the coefficients.
+    shape_power_min : integer
+        Minimum topography power.  In most cases, the value is ``1``.
+        Values higher than ``1`` do not produce a complete gravity field
+        model, but are useful in specific situations.
+    shape_power_max : integer
+        Maximum topography power.  The value cannot be smaller than
+        ``shape_power_min``.  The larger is the value, the more complete is
+        the spectral gravity forward modelling.
+    potential_shcs_nmax : integer
+        Maximum harmonic degree of the output spherical harmonic coefficients
+        of the implied gravitational potential in ``potential_shcs`` (see
+        below).
+    shape_density_shcs_path : str, None
+        Path and prefix of the output files containing the spherical harmonic
+        coefficients of the shape-density functions.  Optional, default value
+        is ``None``.  Refer to `charm_gfm <./api-c-gfm.html>`_ for further
+        details.
+    potential_shcs_path : str, None
+        Path and prefix of the output files containing the spherical harmonic
+        coefficients of the gravitational potential implied by the
+        shape-density functions.  Optional, default value is ``None``.
+        Refer to `charm_gfm <./api-c-gfm.html>`_ for further details.
+    shcs_file_format : str, None
+        String defining the format of the output files specified by
+        ``shape_density_shcs_path`` and/or
+        ``potential_shcs_path``.  Accepted strings are ``tbl``,
+        ``mtx``, ``dov``, ``bin``.  Optional, default value is
+        ``tbl``.
+    return_output : bool
+        If ``True`` (default), returns an output variable (see ``out``
+        below).  If ``False``, ``None`` is returned.  Refer to `charm_gfm
+        <./api-c-gfm.html>`_ for the rational behind this variable.
+
+    Returns
+    -------
+    out : Shc, None
+        If ``return_output`` is ``True``, returned is
+        a :class:`pyharm.shc.Shc` class instance with the spherical harmonic
+        coefficients of the implied gravitational potential.  If
+        ``return_output`` is ``False``, returned is ``None``.
+    """
+
+    _check_gfm1(shape_shcs,
+                shape_nmax,
+                shape_radius_ref,
+                shape_power_min,
+                shape_power_max,
+                grav_const,
+                mass,
+                potential_shcs_nmax,
+                shape_density_shcs_path,
+                potential_shcs_path,
+                shcs_file_format)
+    _check_gfm2(density_nmax,
+                density_shcs,
+                density_order)
+
+    func          = _libcharm[_CHARM + 'gfm_global_density_3d']
+    func.restype  = None
+    func.argtypes = [_ct.POINTER(_ph_shc._Shc),
+                     _ct_ulong,
+                     _ct_flt,
+                     _ct.POINTER(_ct.POINTER(_ph_shc._Shc) * \
+                                 (density_order + 1)),
+                     (_ct.c_ulong * (density_order + 1)),
+                     _ct_uint,
+                     _ct_flt,
+                     _ct_flt,
+                     _ct_uint,
+                     _ct_uint,
+                     _ct_ulong,
+                     _ct.c_char_p,
+                     _ct.c_char_p,
+                     _ct.c_char_p,
+                     _ct.POINTER(_ph_shc._Shc),
+                     _ct.POINTER(_ph_err._Err)]
+
+    if return_output:
+        shcs     = _ph_shc.Shc.from_garbage(potential_shcs_nmax)
+        shcs_Shc = shcs._Shc
+    else:
+        shcs     = None
+        shcs_Shc = None
+
+    density_shcs_Shc = (_ct.POINTER(_ph_shc._Shc) * (density_order + 1))(None)
+    for i in range(density_order + 1):
+        density_shcs_Shc[i] = density_shcs[i]._Shc
+
+    err = _ph_err.init()
+    func(shape_shcs._Shc,
+         _ct_ulong(shape_nmax),
+         _ct_flt(shape_radius_ref),
+         _ct.pointer(density_shcs_Shc),
+         (_ct.c_ulong * (density_order  + 1))(*density_nmax[:(density_order + \
+                                                              1)]),
+         _ct_uint(density_order),
+         _ct_flt(grav_const),
+         _ct_flt(mass),
+         _ct_uint(shape_power_min),
+         _ct_uint(shape_power_max),
+         _ct_ulong(potential_shcs_nmax),
+         _str_ptr(shape_density_shcs_path),
+         _str_ptr(potential_shcs_path),
+         _str_ptr(shcs_file_format),
+         shcs_Shc,
+         err)
+    _ph_err.handler(err, 1)
+    _ph_err.free(err)
+
+    if return_output:
+        shcs._Shc2Shc()
+
+    return shcs
+
+
+def global_density_lateral(shape_shcs,
+                           shape_nmax,
+                           shape_radius_ref,
+                           density_shcs,
+                           density_nmax,
+                           grav_const,
+                           mass,
+                           shape_power_min,
+                           shape_power_max,
+                           potential_shcs_nmax,
+                           shape_density_shcs_path=None,
+                           potential_shcs_path=None,
+                           shcs_file_format='tbl',
+                           return_output=True):
+    """
+    Performs global spectral gravity forward modelling with laterally varying
+    mass density.  For more details, refer to `charm_gfm <./api-c-gfm.html>`_.
+
+    The function input parameters are the same as in
+    :meth:`global_density_3d` with two exceptions.
+
+    Parameters
+    ----------
+    density_shcs : Shc
+        Spherical harmonic coefficients of the laterally varying mass density
+        function.
+
+    density_nmax : integer
+        Maximum harmonic degree, up to which the coefficients from
+        ``density_shcs`` are used in forward modelling.
+    """
+
+    _check_gfm1(shape_shcs,
+                shape_nmax,
+                shape_radius_ref,
+                shape_power_min,
+                shape_power_max,
+                grav_const,
+                mass,
+                potential_shcs_nmax,
+                shape_density_shcs_path,
+                potential_shcs_path,
+                shcs_file_format)
+
+    _check_deg_ord(density_nmax, 'degree')
+
+    if not isinstance(density_shcs, _ph_shc.Shc):
+        msg  = f'\'density_shcs\' must be an instance of the following class: '
+        msg += f'{_ph_shc.Shc}.'
+        raise TypeError(msg)
+
+    func          = _libcharm[_CHARM + 'gfm_global_density_lateral']
+    func.restype  = None
+    func.argtypes = [_ct.POINTER(_ph_shc._Shc),
+                     _ct_ulong,
+                     _ct_flt,
+                     _ct.POINTER(_ph_shc._Shc),
+                     _ct.c_ulong,
+                     _ct_flt,
+                     _ct_flt,
+                     _ct_uint,
+                     _ct_uint,
+                     _ct_ulong,
+                     _ct.c_char_p,
+                     _ct.c_char_p,
+                     _ct.c_char_p,
+                     _ct.POINTER(_ph_shc._Shc),
+                     _ct.POINTER(_ph_err._Err)]
+
+    if return_output:
+        shcs     = _ph_shc.Shc.from_garbage(potential_shcs_nmax)
+        shcs_Shc = shcs._Shc
+    else:
+        shcs     = None
+        shcs_Shc = None
+
+    err = _ph_err.init()
+    func(shape_shcs._Shc,
+         _ct_ulong(shape_nmax),
+         _ct_flt(shape_radius_ref),
+         density_shcs._Shc,
+         _ct.c_ulong(density_nmax),
+         _ct_flt(grav_const),
+         _ct_flt(mass),
+         _ct_uint(shape_power_min),
+         _ct_uint(shape_power_max),
+         _ct_ulong(potential_shcs_nmax),
+         _str_ptr(shape_density_shcs_path),
+         _str_ptr(potential_shcs_path),
+         _str_ptr(shcs_file_format),
+         shcs_Shc,
+         err)
+    _ph_err.handler(err, 1)
+    _ph_err.free(err)
+
+    if return_output:
+        shcs._Shc2Shc()
+
+    return shcs
+
+
+def global_density_const(shape_shcs,
+                         shape_nmax,
+                         shape_radius_ref,
+                         density,
+                         grav_const,
+                         mass,
+                         shape_power_min,
+                         shape_power_max,
+                         potential_shcs_nmax,
+                         shape_shcs_powers_path=None,
+                         potential_shcs_path=None,
+                         shcs_file_format='tbl',
+                         return_output=True):
+    """
+    Performs global spectral gravity forward modelling with a constant mass
+    density after `Hirt and Kuhn (2014)
+    <https://doi.org/10.1002/2013JB010900>`_.  For more details, refer to
+    `charm_gfm <./api-c-gfm.html>`_.
+
+    The function input parameters are the same as in :meth:`global_density_3d`
+    with two exceptions.
+
+    Parameters
+    ----------
+    density : floating point
+        Constant mass density.
+
+    shape_shcs_powers_path : str
+        Path to export spherical harmonic coefficients of the powers of the
+        topographic height function.  For more details, refer to `charm_gfm
+        <./api-c-gfm.html>`_.
+    """
+
+    _check_gfm1(shape_shcs,
+                shape_nmax,
+                shape_radius_ref,
+                shape_power_min,
+                shape_power_max,
+                grav_const,
+                mass,
+                potential_shcs_nmax,
+                shape_shcs_powers_path,
+                potential_shcs_path,
+                shcs_file_format)
+
+    _check_flt_scalar(density, 'The \'density\' variable')
+
+
+    func          = _libcharm[_CHARM + 'gfm_global_density_const']
+    func.restype  = None
+    func.argtypes = [_ct.POINTER(_ph_shc._Shc),
+                     _ct_ulong,
+                     _ct_flt,
+                     _ct_flt,
+                     _ct_flt,
+                     _ct_flt,
+                     _ct_uint,
+                     _ct_uint,
+                     _ct_ulong,
+                     _ct.c_char_p,
+                     _ct.c_char_p,
+                     _ct.c_char_p,
+                     _ct.POINTER(_ph_shc._Shc),
+                     _ct.POINTER(_ph_err._Err)]
+
+    if return_output:
+        shcs     = _ph_shc.Shc.from_garbage(potential_shcs_nmax)
+        shcs_Shc = shcs._Shc
+    else:
+        shcs     = None
+        shcs_Shc = None
+
+    err = _ph_err.init()
+    func(shape_shcs._Shc,
+         _ct_ulong(shape_nmax),
+         _ct_flt(shape_radius_ref),
+         _ct_flt(density),
+         _ct_flt(grav_const),
+         _ct_flt(mass),
+         _ct_uint(shape_power_min),
+         _ct_uint(shape_power_max),
+         _ct_ulong(potential_shcs_nmax),
+         _str_ptr(shape_shcs_powers_path),
+         _str_ptr(potential_shcs_path),
+         _str_ptr(shcs_file_format),
+         shcs_Shc,
+         err)
+    _ph_err.handler(err, 1)
+    _ph_err.free(err)
+
+    if return_output:
+        shcs._Shc2Shc()
+
+    return shcs
+
+
+def _check_kmin_le_kmax(radial_derivative_min,
+                        radial_derivative_max):
+
+    if radial_derivative_min > radial_derivative_max:
+        raise ValueError('\'radial_derivative_min\' cannot be larger than '
+                         '\'radial_derivative_max\'.')
+
+    return
+
+
+def _check_gfm1(shape_shcs,
+                shape_nmax,
+                shape_radius_ref,
+                shape_power_min,
+                shape_power_max,
+                grav_const,
+                mass,
+                potential_shcs_nmax,
+                shape_density_shcs_path,
+                potential_shcs_path,
+                shcs_file_format):
+
+    if not isinstance(shape_shcs, _ph_shc.Shc):
+        msg  = f'\'shape_shcs\' must be an instance of the following class: '
+        msg += f'{_ph_shc.Shc}.'
+        raise TypeError(msg)
+
+    _check_deg_ord(shape_nmax, 'degree')
+    _check_radius(shape_radius_ref)
+    _check_nonneg_int_scalar(shape_power_min,
+                             'The minimum shape power \'shape_power_min\'')
+    _check_nonneg_int_scalar(shape_power_max,
+                             'The maximum shape power \'shape_power_max\'')
+    _check_flt_scalar(grav_const, 'The gravitational constant \'grav_const\'')
+    _check_flt_scalar(mass, 'The mass value \'mass\'')
+    _check_deg_ord(potential_shcs_nmax, 'degree')
+
+    if shape_density_shcs_path is not None and \
+        not isinstance(shape_density_shcs_path, str):
+        raise TypeError('\'shape_density_shcs_path\' must be a string '
+                        'or \'None\'.')
+
+    if potential_shcs_path is not None and \
+        not isinstance(potential_shcs_path, str):
+        raise TypeError('\'shape_density_shcs_path\' must be a string '
+                        'or \'None\'.')
+
+    if shcs_file_format is not None and \
+        not isinstance(shcs_file_format, str):
+        raise TypeError('\'shcs_file_format\' must be a string of \'None\'.')
+
+    return
+
+
+def _check_gfm2(density_nmax, density_shcs, density_order):
+
+    if not isinstance(density_nmax, list):
+        raise TypeError('\'density_nmax\' must be a list of maximum '
+                        'containing the maximum harmonic degrees to '
+                        'synthesize the density gradients.')
+
+    if len(density_nmax) < 1:
+        raise ValueError('The length of the \'density_nmax\' list must be '
+                         'at least \'1\'.')
+
+    for nmax_tmp in density_nmax:
+        _check_deg_ord(nmax_tmp, 'degree')
+
+    if not isinstance(density_shcs, list):
+        raise TypeError('\'density_shcs\' must be a list.')
+
+    _check_int_scalar(density_order, '\'density_order\'')
+
+    if density_order < 0:
+        raise ValueError('The value of \'density_order\' must be '
+                         'non-negative.')
+
+    for shcs_tmp in density_shcs:
+        if not isinstance(shcs_tmp, _ph_shc.Shc):
+            raise TypeError(f'All elements of the \'density_shcs\' list must '
+                            f'be instances of the class {_ph_shc.Shc}.')
+
+    if len(density_nmax) < density_order + 1:
+        raise ValueError('The length of \'density_nmax\' cannot be '
+                         'smaller than \'density_order\'.')
+
+    if len(density_shcs) < density_order + 1:
+        raise ValueError('The length of \'density_shcs\' cannot be '
+                         'smaller than \'density_order\'.')
+
+    return
+
+
+def _check_gfm3(radial_derivative_min,
+                radial_derivative_max,
+                evaluation_spherical_radius,
+                integration_radius,
+                u,
+                v,
+                zone,
+                nbits):
+
+    _check_nonneg_int_scalar(radial_derivative_min,
+                             '\'radial_derivative_min\'')
+    _check_nonneg_int_scalar(radial_derivative_max,
+                             '\'radial_derivative_max\'')
+    _check_kmin_le_kmax(radial_derivative_min, radial_derivative_max)
+    _check_radius(evaluation_spherical_radius)
+    _check_flt_scalar(integration_radius, '\'integration_radius\'')
+    _check_int_scalar(u, '\'u\'')
+    _check_int_scalar(v, '\'v\'')
+    _check_int_scalar(zone, '\'zone\'')
+    _check_int_scalar(nbits, '\'nbits\'')
+
+    return
+
+
+def _str_ptr(string):
+    """
+    Private function to return a pointer to a `string` or `None` if `string` is
+    `None`.  Can be used only after it has been checked that `string` is
+    `None` or a string.
+    """
+
+    if string is None:
+        return None
+    else:
+        return _ct.create_string_buffer(string.encode())
+
+
+_WITH_MPFR = @WITH_MPFR@
+if _WITH_MPFR:
+
+    #: int: Truncation coefficients :math:`Q_{npi}^{0,0,j}(r, \psi_0, R)`.
+    #: The ``--enable-mpfr`` flag must be attached during the installation
+    #: for this variable to be available.  See :ref:`Installing <installing>`.
+    Q00: int
+
+
+    #: int: Truncation coefficients :math:`Q_{npi}^{1,0,j}(r, \psi_0, R)`.
+    #: The ``--enable-mpfr`` flag must be attached during the installation
+    #: for this variable to be available.  See :ref:`Installing <installing>`.
+    Q10: int
+
+
+    #: int: Truncation coefficients :math:`Q_{npi}^{1,1,j}(r, \psi_0, R)`.
+    #: The ``--enable-mpfr`` flag must be attached during the installation
+    #: for this variable to be available.  See :ref:`Installing <installing>`.
+    Q11: int
+
+
+    #: int: Truncation coefficients :math:`Q_{npi}^{2,0,j}(r, \psi_0, R)`.
+    #: The ``--enable-mpfr`` flag must be attached during the installation
+    #: for this variable to be available.  See :ref:`Installing <installing>`.
+    Q20: int
+
+
+    #: int: Truncation coefficients :math:`Q_{npi}^{2,1,j}(r, \psi_0, R)`.
+    #: The ``--enable-mpfr`` flag must be attached during the installation
+    #: for this variable to be available.  See :ref:`Installing <installing>`.
+    Q21: int
+
+
+    #: int: Truncation coefficients :math:`Q_{npi}^{2,2,j}(r, \psi_0, R)`.
+    #: The ``--enable-mpfr`` flag must be attached during the installation
+    #: for this variable to be available.  See :ref:`Installing <installing>`.
+    Q22: int
+
+
+    def cap_density_3d(shape_shcs,
+                       shape_nmax,
+                       shape_radius_ref,
+                       density_shcs,
+                       density_nmax,
+                       density_order,
+                       grav_const,
+                       mass,
+                       shape_power_min,
+                       shape_power_max,
+                       radial_derivative_min,
+                       radial_derivative_max,
+                       evaluation_spherical_radius,
+                       integration_radius,
+                       u,
+                       v,
+                       zone,
+                       nbits,
+                       potential_shcs_nmax,
+                       shape_density_shcs_path=None,
+                       potential_shcs_path=None,
+                       shcs_file_format='tbl',
+                       return_output=True):
+        """
+        Performs cap-modified spectral gravity forward modelling of an
+        arbitrary 3D polynomial mass density.  For more details, refer to
+        `charm_gfm <./api-c-gfm.html>`_.
+
+        Many of the function parameters have exactly the same meaning as in
+        :meth:`global_density_3d`, so explained will be the new
+        ones only.
+
+        .. note:: This function is available only if the ``--enable-mpfr``
+            flag is specified  during the installation. See :ref:`Installing
+            <installing>`.
+
+        Parameters
+        ----------
+        radial_derivative_min : integer
+            Minimum radial derivative of the quantity specified by ``u`` and
+            ``v`` (see below). Use ``0`` for no radial derivative.
+        radial_derivative_max : integer
+            The same as ``radial_derivative_min`` but for the maximum radial
+            derivative.
+        evaluation_spherical_radius : floating point
+            Spherical radius in metres of the evaluation points. The output
+            coefficients ``potential_shcs`` refer to this sphere. If your
+            goal is to compute your ``u,v``-quantity on an irregular surface
+            (e.g., on the Earth’s surface), use analytical continuation through
+            radial derivatives. These can be specified by
+            ``radial_derivative_min`` and ``radial_derivative_max``.
+        integration_radius : floating point
+            Cap radius in radians defining the masses to be integrated. Masses
+            within the cap are here called near-zone masses and masses beyond
+            the cap are here called far-zone masses.
+        u : integer
+            Order of the potential derivative, of which spherical harmonic
+            coefficients ``potential_shcs`` are computed. Use ``0`` to
+            get the gravitational potential, use ``1`` to get quantities
+            related to the first-order potential derivatives or use ``2``
+            for quantities related to the second-order potential
+            derivatives. Values larger than ``2`` are not allowed.
+        v : integer
+            Order of the potential derivative with respect to the spherical
+            distance. Valid values are ``0``, ..., ``u``.
+        zone : integer
+            Non-negative integer for near-zone truncation coefficients or
+            negative integer for far-zone truncation coefficients.
+        nbits : integer
+            Number of bits to represent the significand of all floating point
+            numbers used to compute the truncation coefficients.
+
+        Returns
+        -------
+        out : list, None
+            If ``return_output`` is ``True``, returned is a list of
+            :class:`pyharm.shc.Shc` class instances with the spherical harmonic
+            coefficients of the implied gravitational potential for
+            ``radial_derivative_min`` (``out[0]``), ...,
+            ``radial_derivative_max`` (``out[radial_derivative_max
+            - radial_derivative_min]``).  If ``return_output`` is
+            ``False``, returned is ``None``.
+        """
+
+        _check_gfm1(shape_shcs,
+                    shape_nmax,
+                    shape_radius_ref,
+                    shape_power_min,
+                    shape_power_max,
+                    grav_const,
+                    mass,
+                    potential_shcs_nmax,
+                    shape_density_shcs_path,
+                    potential_shcs_path,
+                    shcs_file_format)
+        _check_gfm2(density_nmax,
+                    density_shcs,
+                    density_order)
+        _check_gfm3(radial_derivative_min,
+                    radial_derivative_max,
+                    evaluation_spherical_radius,
+                    integration_radius,
+                    u,
+                    v,
+                    zone,
+                    nbits)
+
+        # Total number of radial derivatives
+        nk = radial_derivative_max - radial_derivative_min + 1
+
+        func          = _libcharm[_CHARM + 'gfm_cap_density_3d_pywrap']
+        func.restype  = None
+        func.argtypes = [_ct.POINTER(_ph_shc._Shc),
+                         _ct_ulong,
+                         _ct_flt,
+                         _ct.POINTER(_ct.POINTER(_ph_shc._Shc) * \
+                                     (density_order + 1)),
+                         (_ct.c_ulong * (density_order + 1)),
+                         _ct_uint,
+                         _ct_flt,
+                         _ct_flt,
+                         _ct_uint,
+                         _ct_uint,
+                         _ct_uint,
+                         _ct_uint,
+                         _ct_flt,
+                         _ct_flt,
+                         _ct_uint,
+                         _ct_uint,
+                         _ct_int,
+                         _ct_int,
+                         _ct_ulong,
+                         _ct.c_char_p,
+                         _ct.c_char_p,
+                         _ct.c_char_p,
+                         _ct.POINTER(_ct.POINTER(_ph_shc._Shc) * nk),
+                         _ct.POINTER(_ph_err._Err)]
+
+        if return_output:
+            shcs_ptr = (_ct.POINTER(_ph_shc._Shc) * nk)(None)
+            shcs     = nk * ['']
+            for k in range(nk):
+                shcs[k]     = _ph_shc.Shc.from_garbage(potential_shcs_nmax)
+                shcs_ptr[k] = shcs[k]._Shc
+            shcs_pptr = _ct.pointer(shcs_ptr)
+        else:
+            shcs      = None
+            shcs_pptr = None
+
+        density_shcs_Shc = (_ct.POINTER(_ph_shc._Shc) * (density_order +
+                                                         1))(None)
+        for i in range(density_order + 1):
+            density_shcs_Shc[i] = density_shcs[i]._Shc
+
+        err = _ph_err.init()
+        func(shape_shcs._Shc,
+             _ct_ulong(shape_nmax),
+             _ct_flt(shape_radius_ref),
+             _ct.pointer(density_shcs_Shc),
+             (_ct.c_ulong * (density_order  + \
+                             1))(*density_nmax[:(density_order + 1)]),
+             _ct_uint(density_order),
+             _ct_flt(grav_const),
+             _ct_flt(mass),
+             _ct_uint(shape_power_min),
+             _ct_uint(shape_power_max),
+             _ct_uint(radial_derivative_min),
+             _ct_uint(radial_derivative_max),
+             _ct_flt(evaluation_spherical_radius),
+             _ct_flt(integration_radius),
+             _ct_uint(u),
+             _ct_uint(v),
+             _ct_int(zone),
+             _ct_int(nbits),
+             _ct_ulong(potential_shcs_nmax),
+             _str_ptr(shape_density_shcs_path),
+             _str_ptr(potential_shcs_path),
+             _str_ptr(shcs_file_format),
+             shcs_pptr,
+             err)
+        _ph_err.handler(err, 1)
+        _ph_err.free(err)
+
+        if return_output:
+            for k in range(nk):
+                shcs[k]._Shc2Shc()
+
+        return shcs
+
+
+    def cap_density_lateral(shape_shcs,
+                            shape_nmax,
+                            shape_radius_ref,
+                            density_shcs,
+                            density_nmax,
+                            grav_const,
+                            mass,
+                            shape_power_min,
+                            shape_power_max,
+                            radial_derivative_min,
+                            radial_derivative_max,
+                            evaluation_spherical_radius,
+                            integration_radius,
+                            u,
+                            v,
+                            zone,
+                            nbits,
+                            potential_shcs_nmax,
+                            shape_density_shcs_path=None,
+                            potential_shcs_path=None,
+                            shcs_file_format='tbl',
+                            return_output=True):
+        """
+        Performs cap-modified spectral gravity forward modelling of a laterally
+        varying density.  For more details, refer to `charm_gfm
+        <./api-c-gfm.html>`_.
+
+        The function input parameters are the same as in
+        :meth:`cap_density_3d`, with two exceptions.
+
+        .. note:: This function is available only if the ``--enable-mpfr``
+            flag is specified  during the installation. See :ref:`Installing
+            <installing>`.
+
+        Parameters
+        ----------
+
+        density_shcs : Shc
+            Spherical harmonic coefficients of the laterally varying mass
+            density function.
+
+        density_nmax : integer
+          Maximum harmonic degree, up to which the coefficients from
+          ``density_shcs`` are used in forward modelling.
+
+        Returns
+        -------
+        out : list
+            List of :class:`pyharm.shc.Shc` class instances with the spherical
+            harmonic coefficients of the implied gravitational potential for
+            ``radial_derivative_min`` (``out[0]``), ...,
+            ``radial_derivative_max``
+            (``out[radial_derivative_max - radial_derivative_min]``).
+        """
+
+        _check_gfm1(shape_shcs,
+                    shape_nmax,
+                    shape_radius_ref,
+                    shape_power_min,
+                    shape_power_max,
+                    grav_const,
+                    mass,
+                    potential_shcs_nmax,
+                    shape_density_shcs_path,
+                    potential_shcs_path,
+                    shcs_file_format)
+
+        _check_deg_ord(density_nmax, 'degree')
+
+        if not isinstance(density_shcs, _ph_shc.Shc):
+            msg  = f'\'density_shcs\' must be an instance of the following '
+            msg += f'class: {_ph_shc.Shc}.'
+            raise TypeError(msg)
+
+        _check_gfm3(radial_derivative_min,
+                    radial_derivative_max,
+                    evaluation_spherical_radius,
+                    integration_radius,
+                    u,
+                    v,
+                    zone,
+                    nbits)
+
+        # Total number of radial derivatives
+        nk = radial_derivative_max - radial_derivative_min + 1
+
+        func          = _libcharm[_CHARM + 'gfm_cap_density_lateral_pywrap']
+        func.restype  = None
+        func.argtypes = [_ct.POINTER(_ph_shc._Shc),
+                         _ct_ulong,
+                         _ct_flt,
+                         _ct.POINTER(_ph_shc._Shc),
+                         _ct_ulong,
+                         _ct_flt,
+                         _ct_flt,
+                         _ct_uint,
+                         _ct_uint,
+                         _ct_uint,
+                         _ct_uint,
+                         _ct_flt,
+                         _ct_flt,
+                         _ct_uint,
+                         _ct_uint,
+                         _ct_int,
+                         _ct_int,
+                         _ct_ulong,
+                         _ct.c_char_p,
+                         _ct.c_char_p,
+                         _ct.c_char_p,
+                     _ct.POINTER(_ct.POINTER(_ph_shc._Shc) * nk),
+                         _ct.POINTER(_ph_err._Err)]
+
+        if return_output:
+            shcs_ptr = (_ct.POINTER(_ph_shc._Shc) * nk)(None)
+            shcs     = nk * ['']
+            for k in range(nk):
+                shcs[k] = _ph_shc.Shc.from_garbage(potential_shcs_nmax)
+                shcs_ptr[k] = shcs[k]._Shc
+            shcs_pptr = _ct.pointer(shcs_ptr)
+        else:
+            shcs      = None
+            shcs_pptr = None
+
+        if not isinstance(density_shcs, _ph_shc.Shc):
+            msg  = f'\'density_shcs\' must be an instance of the following '
+            msg += f'class: {_ph_shc.Shc}.'
+            raise TypeError(msg)
+
+        err = _ph_err.init()
+        func(shape_shcs._Shc,
+             _ct_ulong(shape_nmax),
+             _ct_flt(shape_radius_ref),
+             density_shcs._Shc,
+             _ct.c_ulong(density_nmax),
+             _ct_flt(grav_const),
+             _ct_flt(mass),
+             _ct_uint(shape_power_min),
+             _ct_uint(shape_power_max),
+             _ct_uint(radial_derivative_min),
+             _ct_uint(radial_derivative_max),
+             _ct_flt(evaluation_spherical_radius),
+             _ct_flt(integration_radius),
+             _ct_uint(u),
+             _ct_uint(v),
+             _ct_int(zone),
+             _ct_int(nbits),
+             _ct_ulong(potential_shcs_nmax),
+             _str_ptr(shape_density_shcs_path),
+             _str_ptr(potential_shcs_path),
+             _str_ptr(shcs_file_format),
+             shcs_pptr,
+             err)
+        _ph_err.handler(err, 1)
+        _ph_err.free(err)
+
+        if return_output:
+            for k in range(nk):
+                shcs[k]._Shc2Shc()
+
+        return shcs
+
+
+    def cap_density_const(shape_shcs,
+                          shape_nmax,
+                          shape_radius_ref,
+                          density,
+                          grav_const,
+                          mass,
+                          shape_power_min,
+                          shape_power_max,
+                          radial_derivative_min,
+                          radial_derivative_max,
+                          evaluation_spherical_radius,
+                          integration_radius,
+                          u,
+                          v,
+                          zone,
+                          nbits,
+                          potential_shcs_nmax,
+                          shape_shcs_powers_path=None,
+                          potential_shcs_path=None,
+                          shcs_file_format='tbl',
+                          return_output=True):
+        """
+        Performs cap-modified spectral gravity forward modelling of a constant
+        mass density.  For more details, refer to `charm_gfm
+        <./api-c-gfm.html>`_.
+
+        The function input parameters are the same as in
+        :meth:`cap_density_3d`, with two exceptions.
+
+        .. note:: This function is available only if the ``--enable-mpfr``
+            flag is specified  during the installation. See :ref:`Installing
+            <installing>`.
+
+        Parameters
+        ----------
+        density : floating point
+            Constant mass density.
+        shape_shcs_powers_path : str
+            Path to export spherical harmonic coefficients of the powers of the
+            topographic height function.  For more details, refer to `charm_gfm
+            <./api-c-gfm.html>`_.
+
+        Returns
+        -------
+        out : list
+            List of :class:`pyharm.shc.Shc` class instances with the spherical
+            harmonic coefficients of the implied gravitational potential for
+            ``radial_derivative_min`` (``out[0]``), ...,
+            ``radial_derivative_max``
+            (``out[radial_derivative_max - radial_derivative_min]``).
+        """
+
+        _check_gfm1(shape_shcs,
+                    shape_nmax,
+                    shape_radius_ref,
+                    shape_power_min,
+                    shape_power_max,
+                    grav_const,
+                    mass,
+                    potential_shcs_nmax,
+                    shape_shcs_powers_path,
+                    potential_shcs_path,
+                    shcs_file_format)
+
+        _check_flt_scalar(density, 'The \'density\' variable')
+
+        # Total number of radial derivatives
+        _check_kmin_le_kmax(radial_derivative_min, radial_derivative_max)
+        nk = radial_derivative_max - radial_derivative_min + 1
+
+        func          = _libcharm[_CHARM + 'gfm_cap_density_const_pywrap']
+        func.restype  = None
+        func.argtypes = [_ct.POINTER(_ph_shc._Shc),
+                         _ct_ulong,
+                         _ct_flt,
+                         _ct_flt,
+                         _ct_flt,
+                         _ct_flt,
+                         _ct_uint,
+                         _ct_uint,
+                         _ct_uint,
+                         _ct_uint,
+                         _ct_flt,
+                         _ct_flt,
+                         _ct_uint,
+                         _ct_uint,
+                         _ct_int,
+                         _ct_int,
+                         _ct_ulong,
+                         _ct.c_char_p,
+                         _ct.c_char_p,
+                         _ct.c_char_p,
+                         _ct.POINTER(_ct.POINTER(_ph_shc._Shc) * nk),
+                         _ct.POINTER(_ph_err._Err)]
+
+        if return_output:
+            shcs_ptr = (_ct.POINTER(_ph_shc._Shc) * nk)(None)
+            shcs     = nk * ['']
+            for k in range(nk):
+                shcs[k] = _ph_shc.Shc.from_garbage(potential_shcs_nmax)
+                shcs_ptr[k] = shcs[k]._Shc
+            shcs_pptr = _ct.pointer(shcs_ptr)
+        else:
+            shcs      = None
+            shcs_pptr = None
+
+        err = _ph_err.init()
+        func(shape_shcs._Shc,
+             _ct_ulong(shape_nmax),
+             _ct_flt(shape_radius_ref),
+             _ct_flt(density),
+             _ct_flt(grav_const),
+             _ct_flt(mass),
+             _ct_uint(shape_power_min),
+             _ct_uint(shape_power_max),
+             _ct_uint(radial_derivative_min),
+             _ct_uint(radial_derivative_max),
+             _ct_flt(evaluation_spherical_radius),
+             _ct_flt(integration_radius),
+             _ct_uint(u),
+             _ct_uint(v),
+             _ct_int(zone),
+             _ct_int(nbits),
+             _ct_ulong(potential_shcs_nmax),
+             _str_ptr(shape_shcs_powers_path),
+             _str_ptr(potential_shcs_path),
+             _str_ptr(shcs_file_format),
+             shcs_pptr,
+             err)
+        _ph_err.handler(err, 1)
+        _ph_err.free(err)
+
+        if return_output:
+            for k in range(nk):
+                shcs[k]._Shc2Shc()
+
+        return shcs
+
+
+    def cap_q(shape_radius_ref,
+              evaluation_spherical_radius,
+              integration_radius,
+              potential_shcs_nmax,
+              shape_power_max,
+              radial_derivative_min,
+              radial_derivative_max,
+              density_order,
+              zone,
+              q_type,
+              nbits):
+        """
+        Computes trunction coefficients :obj:`pyharm.gfm.Q00`,
+        :obj:`pyharm.gfm.Q10`, :obj:`pyharm.gfm.Q11`, :obj:`pyharm.gfm.Q20`,
+        :obj:`pyharm.gfm.Q21`, :obj:`pyharm.gfm.Q22` that are used in spectral
+        gravity forward modelling with spatially limited integration radius.
+
+        .. tip:: Use :meth:`cap_q_check_prec` to determine the appropriate
+            value of the input parameter ``nbits``.
+
+        .. note:: This function is available only if the ``--enable-mpfr`` flag
+            is specified during the installation. See
+            :ref:`Installing <installing>`.
+
+        Parameters
+        ----------
+
+        shape_radius_ref : floating point
+            Radius of the reference sphere.
+        evaluation_spherical_radius : floating point
+            Spherical radius of the evaluation point.
+        integration_radius : floating point
+            Integration radius in radians.
+        potential_shcs_nmax : integer
+            Maximum spherical harmonic degree of the truncation coefficients.
+        shape_power_max : integer
+            Maximum topography power of the truncation coefficients (must be
+            larger than zero).
+        radial_derivative_min : integer
+            Minimum radial derivative of the truncation coefficients.
+        radial_derivative_max : integer
+            Maximum radial derivative of the truncation coefficients.
+        density_order : integer
+            Maximum order of the polynomial density function.
+        zone : integer
+            Non-negative integer for near-zone truncation coefficients or
+            negative integer for far-zone truncation coefficients.
+        q_type : integer
+            Type of the truncation coefficients (one of :obj:`pyharm.gfm.Q00`,
+            :obj:`pyharm.gfm.Q10`, :obj:`pyharm.gfm.Q11`,
+            :obj:`pyharm.gfm.Q20`, :obj:`pyharm.gfm.Q21`,
+            :obj:`pyharm.gfm.Q22`).
+        nbits : integer
+            Number of bits to represent the significand of all floating point
+            numbers used to compute the truncation coefficients.
+
+        Returns
+        -------
+        out : numpy array of floating points
+            The shape of the array is ``(radial_derivative_max
+            - radial_derivative_min + 1, shape_power_max, density_order + 1,
+            potential_shcs_nmax + 1)``.  The coefficient for the ``k`` th
+            radial derivative, ``p`` th topography power, ``i`` th
+            density order and ``n`` th harmonic degree can be accessed as
+            ``out[k - radial_derivative_min, p - 1, i, n]``.
+        """
+
+        _check_radius(shape_radius_ref)
+        _check_radius(evaluation_spherical_radius)
+        # For "psi", we check the data type only by PyHarm.  If the data type
+        # is valid, the value of "psi" will be checked by CHarm.
+        _check_flt_scalar(integration_radius, '\'integration_radius\'')
+        _check_deg_ord(potential_shcs_nmax, 'degree')
+        _check_nonneg_int_scalar(shape_power_max, '\'shape_power_max\'')
+        _check_nonneg_int_scalar(radial_derivative_min,
+                                 '\'radial_derivative_min\'')
+        _check_nonneg_int_scalar(radial_derivative_max,
+                                 '\'radial_derivative_max\'')
+        _check_kmin_le_kmax(radial_derivative_min, radial_derivative_max)
+        _check_nonneg_int_scalar(density_order,
+                                 '\'density_order\'')
+        _check_int_scalar(zone, '\'zone\'')
+        # For "q_type", we again check only the data type, leaving the check of
+        # the value to CHarm
+        _check_int_scalar(q_type, 'The type of truncation coefficients '
+                                  '\'q_type\'')
+        _check_int_scalar(nbits, 'The \'nbits\' value')
+
+        func          = _libcharm[_CHARM + 'gfm_cap_q_pywrap']
+        func.restype  = None
+        func.argtypes = [_ct_flt,
+                         _ct_flt,
+                         _ct_flt,
+                         _ct_ulong,
+                         _ct_uint,
+                         _ct_uint,
+                         _ct_uint,
+                         _ct_uint,
+                         _ct_int,
+                         _ct_uint,
+                         _ct_int,
+                         _ct.POINTER(_ct_flt),
+                         _ct.POINTER(_ph_err._Err)]
+
+        qkpin = _np.zeros((radial_derivative_max - radial_derivative_min + 1,
+                           shape_power_max,
+                           density_order + 1,
+                           potential_shcs_nmax + 1),
+                          dtype=_pyharm_flt, order='C')
+
+        err = _ph_err.init()
+        func(_ct_flt(shape_radius_ref),
+             _ct_flt(evaluation_spherical_radius),
+             _ct_flt(integration_radius),
+             _ct_ulong(potential_shcs_nmax),
+             _ct_uint(shape_power_max),
+             _ct_uint(radial_derivative_min),
+             _ct_uint(radial_derivative_max),
+             _ct_uint(density_order),
+             _ct_int(zone),
+             _ct_uint(q_type),
+             _ct_int(nbits),
+             qkpin.ctypes.data_as(_ct.POINTER(_ct_flt)),
+             err)
+        _ph_err.handler(err, 1)
+        _ph_err.free(err)
+
+        return qkpin
+
+
+    def cap_nq(potential_shcs_nmax,
+               shape_power_max,
+               radial_derivative_min,
+               radial_derivative_max,
+               density_order):
+        """
+        Returns the number of truncation coefficients ``qkpin`` computed by
+        :meth:`cap_q`.
+
+        .. note:: This function is available only if the ``--enable-mpfr`` flag
+            is specified during the installation. See
+            :ref:`Installing <installing>`.
+
+        Parameters
+        ----------
+
+        potential_shcs_nmax : integer
+            Maximum spherical harmonic degree of the truncation coefficients.
+        shape_power_max : integer
+            Maximum topography power of the truncation coefficients (must be
+            larger than zero).
+        radial_derivative_min : integer
+            Minimum radial derivative of the truncation coefficients.
+        radial_derivative_max : integer
+            Maximum radial derivative of the truncation coefficients.
+        density_order : integer
+            Maximum order of the polynomial density function.
+
+        Returns
+        -------
+        out : integer
+            The number of truncation coefficients.
+        """
+
+        _check_deg_ord(potential_shcs_nmax, 'degree')
+        _check_nonneg_int_scalar(shape_power_max, '\'shape_power_max\'')
+        _check_nonneg_int_scalar(radial_derivative_min,
+                                 '\'radial_derivative_min\'')
+        _check_nonneg_int_scalar(radial_derivative_max,
+                                 '\'radial_derivative_max\'')
+        _check_kmin_le_kmax(radial_derivative_min, radial_derivative_max)
+        _check_nonneg_int_scalar(density_order,
+                                 '\'density_order\'')
+
+        func          = _libcharm[_CHARM + 'gfm_cap_nq']
+        func.restype  = _ct_size_t
+        func.argtypes = [_ct_ulong,
+                         _ct_uint,
+                         _ct_uint,
+                         _ct_uint,
+                         _ct_uint,
+                         _ct.POINTER(_ph_err._Err)]
+
+        err = _ph_err.init()
+        nq = func(_ct_ulong(potential_shcs_nmax),
+                  _ct_uint(shape_power_max),
+                  _ct_uint(radial_derivative_min),
+                  _ct_uint(radial_derivative_max),
+                  _ct_uint(density_order),
+                  err)
+        _ph_err.handler(err, 1)
+        _ph_err.free(err)
+
+        return nq
+
+
+    def cap_q_check_prec(shape_radius_ref,
+                         evaluation_spherical_radius,
+                         integration_radius,
+                         potential_shcs_nmax,
+                         shape_power_max,
+                         radial_derivative_min,
+                         radial_derivative_max,
+                         density_order,
+                         q_type,
+                         nbits,
+                         nbits_ref):
+        """
+        Estimates the lowest number of correct digits of the sum of near- and
+        far-zone truncation coefficients obtained by :meth:`cap_q()`
+        when using the same input parameters.  The uncertainty of the estimate
+        is 1 digit.  In case of an error, returned is a negative integer.  For
+        more details, refer to  `charm_gfm <./api-c-gfm.html>`_.
+
+        First, near- and far-zone truncation coefficients are computed and
+        summed using the ``nbits`` precision.  Then, reference coefficients
+        from global spectral gravity forward modelling are evaluated using the
+        ``nbits_ref`` precision.  Finally, the sums are compared with respect
+        to the reference values.
+
+        .. tip:: Use this function before calling ``cap_density_*()`` to check
+            whether ``nbits`` that you enter to ``cap_density_*()`` is large
+            enough to ensure accurate computation of truncation coefficients.
+            The number returned by this function should be at least ``7`` or
+            ``16`` for gravity forward modelling in single or double precision,
+            respectively.  Otherwise, increase ``nbits`` and ``nbits_ref``
+            until the desired accuracy is met.  Once the value returned by this
+            function is large enough, that particular (or higher) ``nbits`` can
+            safely enter ``cap_density_*()``.
+
+        .. note:: If all sums of truncation coefficients are computed
+            accurately to the last bit, returned is a large integer
+            (``LONG_MAX`` from ``limits.h``).  This may happen, for instance,
+            if ``nmax`` is so small that all truncation coefficients of a given
+            ``type`` are zero (e.g., ``nmax = 0`` for ``type
+            = CHARM_GFM_Q20``).
+
+        .. note:: The number returned is related to the *sum* of near- and
+            far-zone truncation coefficients.  Usually, all near- and far-zone
+            coefficients are more accurate than indicated by the returned
+            value.  Therefore, even a smaller value of ``nbits`` may suffice to
+            get accurate outputs from ``charm@P@_gfm_cap_density_*()``.
+
+        .. note:: This function is available only if the ``--enable-mpfr``
+            flag is specified  during the installation. See :ref:`Installing
+            <installing>`.
+
+        Parameters
+        ----------
+
+        shape_radius_ref : floating point
+            Radius of the reference sphere.
+        evaluation_spherical_radius : floating point
+            Spherical radius of the evaluation point.
+        integration_radius : floating point
+            Integration radius in radians.
+        potential_shcs_nmax : integer
+            Maximum spherical harmonic degree of the truncation coefficients.
+        shape_power_max : integer
+            Maximum topography power of the truncation coefficients (must be
+            larger than zero).
+        radial_derivative_min : integer
+            Minimum radial derivative of the truncation coefficients.
+        radial_derivative_max : integer
+            Maximum radial derivative of the truncation coefficients.
+        density_order : integer
+            Maximum order of the polynomial density function.
+        q_type : integer
+            Type of the truncation coefficients (one of :obj:`pyharm.gfm.Q00`,
+            :obj:`pyharm.gfm.Q10`, :obj:`pyharm.gfm.Q11`,
+            :obj:`pyharm.gfm.Q20`, :obj:`pyharm.gfm.Q21`,
+            :obj:`pyharm.gfm.Q22`).
+        nbits : integer
+            Number of bits to represent the significand of all floating point
+            numbers used to compute the truncation coefficients.
+        nbits_ref : integer
+            Number of bits to represent the significand of all floating point
+            numbers used to compute the reference values (cannot be smaller
+            than ``nbits``).
+
+        Returns
+        -------
+        out : integer
+            The number of correct digits of the truncation coefficients when
+            computed using the input parameters entered to this method.  If the
+            value returned is huge, more specifically, if the value is:
+
+                >>> import ctypes
+                >>> huge_val = ctypes.c_ulong(-1).value
+                >>> print(huge_val)
+
+            then the truncation coefficients are computed accurately to the
+            last bit.
+        """
+
+        _check_radius(shape_radius_ref)
+        _check_radius(evaluation_spherical_radius)
+        # For "psi", we check the data type only by PyHarm.  If the data type
+        # is valid, the value of "psi" will be checked by CHarm.
+        _check_flt_scalar(integration_radius, '\'integration_radius\'')
+        _check_deg_ord(potential_shcs_nmax, 'degree')
+        _check_nonneg_int_scalar(shape_power_max, '\'shape_power_max\'')
+        _check_nonneg_int_scalar(radial_derivative_min,
+                                 '\'radial_derivative_min\'')
+        _check_nonneg_int_scalar(radial_derivative_max,
+                                 '\'radial_derivative_max\'')
+        _check_kmin_le_kmax(radial_derivative_min, radial_derivative_max)
+        _check_nonneg_int_scalar(density_order,
+                                 '\'density_order\'')
+        # For "q_type", we again check only the data type, leaving the check of
+        # the value to CHarm
+        _check_int_scalar(q_type, 'The type of truncation coefficients '
+                                  '\'q_type\'')
+        _check_int_scalar(nbits, 'The \'nbits\' value')
+        _check_int_scalar(nbits_ref, 'The \'nbits_ref\' value')
+
+        func          = _libcharm[_CHARM + 'gfm_cap_q_check_prec_pywrap']
+        func.restype  = _ct_long
+        func.argtypes = [_ct_flt,
+                         _ct_flt,
+                         _ct_flt,
+                         _ct_ulong,
+                         _ct_uint,
+                         _ct_uint,
+                         _ct_uint,
+                         _ct_uint,
+                         _ct_uint,
+                         _ct_int,
+                         _ct_int,
+                         _ct.POINTER(_ph_err._Err)]
+
+        err = _ph_err.init()
+        ret = func(_ct_flt(shape_radius_ref),
+                   _ct_flt(evaluation_spherical_radius),
+                   _ct_flt(integration_radius),
+                   _ct_ulong(potential_shcs_nmax),
+                   _ct_uint(shape_power_max),
+                   _ct_uint(radial_derivative_min),
+                   _ct_uint(radial_derivative_max),
+                   _ct_uint(density_order),
+                   _ct_uint(q_type),
+                   _ct_int(nbits),
+                   _ct_int(nbits_ref),
+                   err)
+        _ph_err.handler(err, 1)
+        _ph_err.free(err)
+
+        return ret

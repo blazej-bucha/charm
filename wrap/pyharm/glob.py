@@ -1,6 +1,12 @@
 """
 Module defining the :class:`pyharm.glob.Constants` class for global CHarm
 variables.
+
+Warning
+-------
+
+    This module is for experienced users only. Most users should not
+    interact with it.
 """
 
 
@@ -12,13 +18,8 @@ from ._data_types import _charm_flt, _pyharm_flt, _ct_int
 
 
 class Constants:
-    """ Class for global CHarm variables.
-
-    Warning
-    -------
-
-        This module is for experienced users only. Most users should not
-        interact with it.
+    """
+    Class for global CHarm variables.
     """
 
     def __init__(self):
