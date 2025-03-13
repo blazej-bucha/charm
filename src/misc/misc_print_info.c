@@ -140,10 +140,9 @@ void CHARM(misc_print_info)(void)
 
 
     int mpfr_major, mpfr_minor, mpfr_patch;
-    const char * const mpfr_lib = CHARM(misc_buildopt_version_mpfr)(
-                                                                  &mpfr_major,
-                                                                  &mpfr_minor,
-                                                                  &mpfr_patch);
+    const char *mpfr_lib = CHARM(misc_buildopt_version_mpfr)(&mpfr_major,
+                                                             &mpfr_minor,
+                                                             &mpfr_patch);
     printf("MPFR version (header): ");
 #if HAVE_MPFR
     printf("%d.%d.%d\n", mpfr_major, mpfr_minor, mpfr_patch);
@@ -154,9 +153,9 @@ void CHARM(misc_print_info)(void)
 
 
     int gmp_major, gmp_minor, gmp_patch;
-    const char * const gmp_lib = CHARM(misc_buildopt_version_gmp)(&gmp_major,
-                                                                  &gmp_minor,
-                                                                  &gmp_patch);
+    const char *gmp_lib = CHARM(misc_buildopt_version_gmp)(&gmp_major,
+                                                           &gmp_minor,
+                                                           &gmp_patch);
     printf("GMP version (header): ");
 #if HAVE_MPFR
     printf("%d.%d.%d\n", gmp_major, gmp_minor, gmp_patch);
