@@ -27,6 +27,7 @@
 
 /* Header files required by this module */
 /* ------------------------------------------------------------------------- */
+#include <stdio.h>
 #if @WITH_MPI@
 #   include <mpi.h>
 #endif
@@ -160,7 +161,7 @@ typedef struct
     /**
      * Total number of error propagations from the function in which the error 
      * was encountered back to the caller. */
-    unsigned int level;
+    size_t level;
 
 
     /** ``charm@P@_err.file[0]`` is a pointer to a string with the name of the
@@ -173,7 +174,7 @@ typedef struct
     /** Pointer to an array with line numbers of ``charm@P@_err.file[i]``,
      * ``i = 0, 1, ..., ::CHARM_ERR_MAX_LEVEL - 1``, at which the
      * ``charm@P@_err`` structure was modified.  */
-    unsigned int *line;
+    size_t *line;
 
 
     /** Same as ``charm@P@_err.file``, but with function names.  */

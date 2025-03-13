@@ -19,7 +19,7 @@ extern "C"
  * ``msg``, respectively.  ``err->level`` is updated automatically.  */
 extern void CHARM(err_set)(CHARM(err) *err,
                            const char *file,
-                           unsigned int line,
+                           size_t line,
                            const char *func,
                            int code,
                            const char *msg);

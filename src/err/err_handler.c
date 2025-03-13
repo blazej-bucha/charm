@@ -28,8 +28,8 @@ void CHARM(err_handler)(CHARM(err) *err, _Bool terminate)
                     "recent call last)\n\n", err->code);
 
 
-    for (size_t e = (size_t)err->level - 1; e != (size_t)-1; e--)
-        fprintf(stderr, "    File \"%s\", line: %u, function: \"%s\"\n\n",
+    for (size_t e = err->level - 1; e != (size_t)(-1); e--)
+        fprintf(stderr, "    File \"%s\", line: %zu, function: \"%s\"\n\n",
                         err->file[e], err->line[e], err->func[e]);
 
 

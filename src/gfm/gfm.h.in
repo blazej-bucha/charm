@@ -38,6 +38,7 @@
 
 /* Header files required by this module */
 /* ------------------------------------------------------------------------- */
+#include <stdio.h>
 #include <charm/charm@P@_shc.h>
 #include <charm/charm@P@_err.h>
 /* ------------------------------------------------------------------------- */

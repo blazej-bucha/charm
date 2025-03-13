@@ -24,7 +24,7 @@ void CHARM(err_reset)(CHARM(err) *err)
         memset(err->file[e], '\0', CHARM_ERR_MAX_FILE * sizeof(char));
 
 
-    memset(err->line, 0, CHARM_ERR_MAX_LEVEL * sizeof(unsigned int));
+    memset(err->line, 0, CHARM_ERR_MAX_LEVEL * sizeof(size_t));
 
 
     for (size_t e = 0; e < CHARM_ERR_MAX_LEVEL; e++)

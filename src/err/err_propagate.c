@@ -16,7 +16,7 @@
 
 void CHARM(err_propagate)(CHARM(err) *err,
                           const char *file,
-                          unsigned int line,
+                          size_t line,
                           const char *func)
 {
     if ((err == NULL) || err->saturated)
@@ -24,7 +24,7 @@ void CHARM(err_propagate)(CHARM(err) *err,
 
 
     /* Get the error level to which we will write the data. */
-    unsigned int curr_level = err->level;
+    size_t curr_level = err->level;
 
 
     /* Write the file name.  If the length of the string in "file" is longer

@@ -15,7 +15,7 @@
 
 void CHARM(err_set)(CHARM(err) *err,
                     const char *file,
-                    unsigned int line,
+                    size_t line,
                     const char *func,
                     int code,
                     const char *msg)
@@ -25,7 +25,7 @@ void CHARM(err_set)(CHARM(err) *err,
 
 
     /* Get the error level to which we will write the data. */
-    unsigned int curr_level = err->level;
+    size_t curr_level = err->level;
 
 
     /* Write the file name.  If the length of the string in "file" is longer
