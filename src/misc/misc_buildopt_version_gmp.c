@@ -20,29 +20,13 @@ const char *CHARM(misc_buildopt_version_gmp)(int *major,
 {
 #if HAVE_MPFR && defined(__GNU_MP_VERSION)
     *major = __GNU_MP_VERSION;
+    *minor = __GNU_MP_VERSION_MINOR;
+    *patch = __GNU_MP_VERSION_PATCHLEVEL;
+    return gmp_version;
 #else
     *major = LIB_NA_VAL;
-#endif
-
-
-#if HAVE_MPFR && defined(__GNU_MP_VERSION_MINOR)
-    *minor = __GNU_MP_VERSION_MINOR;
-#else
     *minor = LIB_NA_VAL;
-#endif
-
-
-#if HAVE_MPFR && defined(__GNU_MP_VERSION_PATCHLEVEL)
-    *patch = __GNU_MP_VERSION_PATCHLEVEL;
-#else
     *patch = LIB_NA_VAL;
-#endif
-
-
-    return
-#if HAVE_MPFR
-    gmp_version;
-#else
-    LIB_NA_STR;
+    return LIB_NA_STR;
 #endif
 }
