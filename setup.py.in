@@ -46,13 +46,28 @@ else:
     runtime_library_dirs = library_dirs
 
 
+# Get list of files to be compiled.  It'd be great if there is some simple and
+# *robust* solution of getting the list of files to be compiled from the
+# autotools instead of this coding, because now we have to specify on two
+# places the files that need to be compiled, separately for CHarm with
+# autotools and separately for PyHarm with this "setup.py.in".
+dirs_black_list = ['mpi', 'mpfr', 'gfm']  # These need a special care
 ldir = os.listdir('src')
 src_files = []
 for i in ldir:
-    if os.path.isdir(os.path.join('src', i)) and i != 'mpi':
+    if os.path.isdir(os.path.join('src', i)) and i not in dirs_black_list:
         src_files += glob.glob(f'src/{i}/*.c')
 if @WITH_MPI@:
     src_files += glob.glob('src/mpi/*c')
+gfm_files = glob.glob('src/gfm/*c')
+if not @WITH_MPFR@:
+    gfm_cap_files = glob.glob('src/gfm/gfm*_cap_*.c')
+    # If compiling without the MPFR support, remove all "src/gfm/gfm*_cap_*.c"
+    # files from "gfm_files"
+    gfm_files = list(set(gfm_files) - set(gfm_cap_files))
+else:
+    gfm_files = glob.glob('src/mpfr/*c')
+src_files += gfm_files
 
 
 setup(name='pyharm@P@',
