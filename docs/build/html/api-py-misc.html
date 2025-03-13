@@ -555,14 +555,28 @@ the version of the linked MPI implementation, call <a class="reference internal"
 <dl class="py function">
 <dt class="sig sig-object py" id="pyharm.misc.buildopt_version_mpfr">
 <span class="sig-prename descclassname"><span class="pre">pyharm.misc.</span></span><span class="sig-name descname"><span class="pre">buildopt_version_mpfr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.misc.buildopt_version_mpfr" title="Link to this definition">#</a></dt>
-<dd><p>Returns a string specifying the MPFR version used to compile CHarm.</p>
+<dd><p>If CHarm was compiled with MPFR enabled (<code class="docutils literal notranslate"><span class="pre">--enable-mpfr</span></code>), returns the
+version of the MPFR library.  If CHarm was compiled with MPFR disabled,
+returns <code class="docutils literal notranslate"><span class="pre">n/a</span></code>, <code class="docutils literal notranslate"><span class="pre">-1</span></code>, <code class="docutils literal notranslate"><span class="pre">-1</span></code>, <code class="docutils literal notranslate"><span class="pre">-1</span></code>, respectively.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><strong>ver_str</strong> (<em>str</em>) – Version of the MPFR library determined on runtime</p></li>
+<li><p><strong>ver_major</strong> (<em>integer</em>) – Symbolic constant <code class="docutils literal notranslate"><span class="pre">MPFR_VERSION_MAJOR</span></code> determined on compile time</p></li>
+<li><p><strong>ver_minor</strong> (<em>integer</em>) – Symbolic constant <code class="docutils literal notranslate"><span class="pre">MPFR_VERSION_MINOR</span></code> determined on compile time</p></li>
+<li><p><strong>ver_patch</strong> (<em>integer</em>) – Symbolic constant <code class="docutils literal notranslate"><span class="pre">MPFR_VERSION_PATCHLEVEL</span></code> determined on compile
+time</p></li>
+</ul>
+</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyharm.misc.buildopt_version_gmp">
 <span class="sig-prename descclassname"><span class="pre">pyharm.misc.</span></span><span class="sig-name descname"><span class="pre">buildopt_version_gmp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.misc.buildopt_version_gmp" title="Link to this definition">#</a></dt>
-<dd><p>Returns a string specifying the GMP version number used to compile
-CHarm.</p>
+<dd><p>The same as <a class="reference internal" href="#pyharm.misc.buildopt_version_mpfr" title="pyharm.misc.buildopt_version_mpfr"><code class="xref py py-meth docutils literal notranslate"><span class="pre">buildopt_version_mpfr()</span></code></a> but for the GMP library
+(note that <code class="docutils literal notranslate"><span class="pre">--enable-gmp</span></code> is not a valid installation flag, though).</p>
 </dd></dl>
 
 <dl class="py function">

@@ -206,43 +206,56 @@ def buildopt_version_mpi():
 
     major_h, minor_h = _ct_int(0), _ct_int(0)
     major_l, minor_l = _ct_int(0), _ct_int(0)
-    func(_ct.pointer((major_h)), _ct.pointer((minor_h)),
-         _ct.pointer((major_l)), _ct.pointer((minor_l)))
+    func(_ct.pointer(major_h), _ct.pointer(minor_h),
+         _ct.pointer(major_l), _ct.pointer(minor_l))
     return major_h.value, minor_h.value, major_l.value, minor_l.value
 
 
-if _WITH_MPFR:
+def buildopt_version_mpfr():
+    """
+    If CHarm was compiled with MPFR enabled (``--enable-mpfr``), returns the
+    version of the MPFR library.  If CHarm was compiled with MPFR disabled,
+    returns ``n/a``, ``-1``, ``-1``, ``-1``, respectively.
 
-    def buildopt_version_mpfr():
-        """
-        Returns a string specifying the MPFR version used to compile CHarm.
-        """
+    Returns
+    -------
+    ver_str : str
+        Version of the MPFR library determined on runtime
+    ver_major : integer
+        Symbolic constant ``MPFR_VERSION_MAJOR`` determined on compile time
+    ver_minor : integer
+        Symbolic constant ``MPFR_VERSION_MINOR`` determined on compile time
+    ver_patch : integer
+        Symbolic constant ``MPFR_VERSION_PATCHLEVEL`` determined on compile
+        time
+    """
 
-        func          = _libcharm[_CHARM + 'misc_buildopt_version_mpfr']
-        func.restype  = _ct.c_char_p
-        func.argtypes = [_ct.POINTER(_ct_int),
-                         _ct.POINTER(_ct_int),
-                         _ct.POINTER(_ct_int)]
+    func          = _libcharm[_CHARM + 'misc_buildopt_version_mpfr']
+    func.restype  = _ct.c_char_p
+    func.argtypes = [_ct.POINTER(_ct_int),
+                     _ct.POINTER(_ct_int),
+                     _ct.POINTER(_ct_int)]
 
-        major, minor, patch = 0, 0, 0
-        return func(_ct_int(major), _ct_int(minor), _ct_int(patch)).decode()
+    major, minor, patch = _ct_int(0), _ct_int(0), _ct_int(0)
+    ret = func(_ct.pointer(major), _ct.pointer(minor), _ct.pointer(patch))
+    return ret.decode(), major.value, minor.value, patch.value
 
 
-    def buildopt_version_gmp():
-        """
-        Returns a string specifying the GMP version number used to compile
-        CHarm.
-        """
+def buildopt_version_gmp():
+    """
+    The same as :meth:`buildopt_version_mpfr()` but for the GMP library
+    (note that ``--enable-gmp`` is not a valid installation flag, though).
+    """
 
-        func          = _libcharm[_CHARM + 'misc_buildopt_version_gmp']
-        func.restype  = _ct.c_char_p
-        func.argtypes = [_ct.POINTER(_ct_int),
-                         _ct.POINTER(_ct_int),
-                         _ct.POINTER(_ct_int)]
+    func          = _libcharm[_CHARM + 'misc_buildopt_version_gmp']
+    func.restype  = _ct.c_char_p
+    func.argtypes = [_ct.POINTER(_ct_int),
+                     _ct.POINTER(_ct_int),
+                     _ct.POINTER(_ct_int)]
 
-        major, minor, patch = 0, 0, 0
-        return func(_ct_int(major), _ct_int(minor), _ct_int(patch)).decode()
-
+    major, minor, patch = _ct_int(0), _ct_int(0), _ct_int(0)
+    ret = func(_ct.pointer(major), _ct.pointer(minor), _ct.pointer(patch))
+    return ret.decode(), major.value, minor.value, patch.value
 
 
 def buildopt_isfinite():
