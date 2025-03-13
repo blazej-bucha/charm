@@ -98,7 +98,7 @@ enum
  * found inside the file and do not read the rest of the file (see the
  * documentation to ``charm@P@_shc_read_*`` functions). The value is
  * platform-dependent. */
-#define CHARM_SHC_NMAX_MODEL (ULONG_MAX - 1)
+#define CHARM_SHC_NMAX_MODEL (ULONG_MAX - 1UL)
 
 
 /** Special value signalizing that a function to read spherical harmonic

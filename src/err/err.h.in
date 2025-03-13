@@ -55,26 +55,26 @@ extern "C"
 /** Maximum number of characters that can be stored in
  * ``charm@P@_err.file[i]``, ``i = 0, 1, ..., ::CHARM_ERR_MAX_LEVEL - 1``,
  * including the terminating null character.  */
-#define CHARM_ERR_MAX_FILE 4096
+#define CHARM_ERR_MAX_FILE 4096U
 
 
 #undef CHARM_ERR_MAX_FUNC
 /** Maximum number of characters that can be stored in
  * ``charm@P@_err.func[i]``, ``i = 0, 1, ..., ::CHARM_ERR_MAX_LEVEL - 1``,
  * including the terminating null character.  */
-#define CHARM_ERR_MAX_FUNC 256
+#define CHARM_ERR_MAX_FUNC 256U
 
 
 #undef CHARM_ERR_MAX_MSG
 /** Maximum number of characters in ``charm@P@_err.msg``, including the
  * terminating null character.  */
-#define CHARM_ERR_MAX_MSG 4096
+#define CHARM_ERR_MAX_MSG 4096U
 
 
 #undef CHARM_ERR_MAX_LEVEL
 /** Maximum number of error propagations from the function, in which the error
  * occurred to the caller.  */
-#define CHARM_ERR_MAX_LEVEL 10
+#define CHARM_ERR_MAX_LEVEL 10U
 /* ------------------------------------------------------------------------- */
 
 
