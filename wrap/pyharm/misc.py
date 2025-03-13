@@ -172,6 +172,45 @@ def buildopt_version_fftw():
     return func().decode()
 
 
+def buildopt_version_mpi():
+    """
+    If CHarm was compiled with the MPI parallelization enabled
+    (``--enable-mpi``), returns the version and subversion numbers of the MPI
+    standard that is being supported by the linked MPI implementation.  If MPI
+    parallelization is disabled, all four values are set to ``-1``.
+
+    Note
+    ----
+
+    All four version numbers returned are related to the MPI standard.  To see
+    the version of the linked MPI implementation, call :meth:`print_info()`.
+
+    Returns
+    -------
+    major_header : integer
+        Version of the MPI standard determined on compile time
+    minor_header : integer
+        Subversion of the MPI standard determined on compile time
+    major_lib : integer
+        Version of the MPI standard determined on runtime
+    minor_lib : integer
+        Subversion of the MPI standard determined on runtine
+    """
+
+    func          = _libcharm[_CHARM + 'misc_buildopt_version_mpi']
+    func.restype  = None
+    func.argtypes = [_ct.POINTER(_ct_int),
+                     _ct.POINTER(_ct_int),
+                     _ct.POINTER(_ct_int),
+                     _ct.POINTER(_ct_int)]
+
+    major_h, minor_h = _ct_int(0), _ct_int(0)
+    major_l, minor_l = _ct_int(0), _ct_int(0)
+    func(_ct.pointer((major_h)), _ct.pointer((minor_h)),
+         _ct.pointer((major_l)), _ct.pointer((minor_l)))
+    return major_h.value, minor_h.value, major_l.value, minor_l.value
+
+
 if _WITH_MPFR:
 
     def buildopt_version_mpfr():

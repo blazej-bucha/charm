@@ -32,7 +32,8 @@ libcharm@P@_misc_la_SOURCES = misc_arr_chck_lin_incr.c \
 							  misc_idx_4d.c \
 							  misc_buildopt_version_fftw.c \
 							  misc_buildopt_version_gmp.c \
-							  misc_buildopt_version_mpfr.c
+							  misc_buildopt_version_mpfr.c \
+							  misc_buildopt_version_mpi.c \
 							  pyinit_libcharm.c
 
 

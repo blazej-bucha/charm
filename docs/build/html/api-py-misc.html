@@ -414,6 +414,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_mpi"><code class="docutils literal notranslate"><span class="pre">buildopt_mpi()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_mpfr"><code class="docutils literal notranslate"><span class="pre">buildopt_mpfr()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_version_fftw"><code class="docutils literal notranslate"><span class="pre">buildopt_version_fftw()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_version_mpi"><code class="docutils literal notranslate"><span class="pre">buildopt_version_mpi()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_version_mpfr"><code class="docutils literal notranslate"><span class="pre">buildopt_version_mpfr()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_version_gmp"><code class="docutils literal notranslate"><span class="pre">buildopt_version_gmp()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_isfinite"><code class="docutils literal notranslate"><span class="pre">buildopt_isfinite()</span></code></a></li>
@@ -527,6 +528,31 @@ returned.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="pyharm.misc.buildopt_version_mpi">
+<span class="sig-prename descclassname"><span class="pre">pyharm.misc.</span></span><span class="sig-name descname"><span class="pre">buildopt_version_mpi</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.misc.buildopt_version_mpi" title="Link to this definition">#</a></dt>
+<dd><p>If CHarm was compiled with the MPI parallelization enabled
+(<code class="docutils literal notranslate"><span class="pre">--enable-mpi</span></code>), returns the version and subversion numbers of the MPI
+standard that is being supported by the linked MPI implementation.  If MPI
+parallelization is disabled, all four values are set to <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All four version numbers returned are related to the MPI standard.  To see
+the version of the linked MPI implementation, call <a class="reference internal" href="#pyharm.misc.print_info" title="pyharm.misc.print_info"><code class="xref py py-meth docutils literal notranslate"><span class="pre">print_info()</span></code></a>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><strong>major_header</strong> (<em>integer</em>) – Version of the MPI standard determined on compile time</p></li>
+<li><p><strong>minor_header</strong> (<em>integer</em>) – Subversion of the MPI standard determined on compile time</p></li>
+<li><p><strong>major_lib</strong> (<em>integer</em>) – Version of the MPI standard determined on runtime</p></li>
+<li><p><strong>minor_lib</strong> (<em>integer</em>) – Subversion of the MPI standard determined on runtine</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="pyharm.misc.buildopt_version_mpfr">
 <span class="sig-prename descclassname"><span class="pre">pyharm.misc.</span></span><span class="sig-name descname"><span class="pre">buildopt_version_mpfr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.misc.buildopt_version_mpfr" title="Link to this definition">#</a></dt>
 <dd><p>Returns a string specifying the MPFR version used to compile CHarm.</p>
@@ -610,6 +636,7 @@ returned.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_mpi"><code class="docutils literal notranslate"><span class="pre">buildopt_mpi()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_mpfr"><code class="docutils literal notranslate"><span class="pre">buildopt_mpfr()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_version_fftw"><code class="docutils literal notranslate"><span class="pre">buildopt_version_fftw()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_version_mpi"><code class="docutils literal notranslate"><span class="pre">buildopt_version_mpi()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_version_mpfr"><code class="docutils literal notranslate"><span class="pre">buildopt_version_mpfr()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_version_gmp"><code class="docutils literal notranslate"><span class="pre">buildopt_version_gmp()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.misc.buildopt_isfinite"><code class="docutils literal notranslate"><span class="pre">buildopt_isfinite()</span></code></a></li>

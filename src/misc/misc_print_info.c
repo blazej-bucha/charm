@@ -2,6 +2,9 @@
 /* ------------------------------------------------------------------------- */
 #include <config.h>
 #include <stdio.h>
+#if HAVE_MPI
+#   include <mpi.h>
+#endif
 #include "../prec.h"
 #include "misc_buildopt.h"
 /* ------------------------------------------------------------------------- */
@@ -106,6 +109,34 @@ void CHARM(misc_print_info)(void)
 
 
     printf("FFTW version: %s\n", CHARM(misc_buildopt_version_fftw)());
+
+
+    int mpi_major_h, mpi_minor_h, mpi_major_l, mpi_minor_l;
+    CHARM(misc_buildopt_version_mpi)(&mpi_major_h, &mpi_minor_h,
+                                     &mpi_major_l, &mpi_minor_l);
+    printf("MPI standard version (header): ");
+#if HAVE_MPI
+    printf("%d.%d\n", mpi_major_h, mpi_minor_h);
+#else
+    printf("%s\n", LIB_NA_STR);
+#endif
+    printf("MPI standard version (library): ");
+#if HAVE_MPI
+    printf("%d.%d\n", mpi_major_l, mpi_minor_l);
+#else
+    printf("%s\n", LIB_NA_STR);
+#endif
+
+
+    printf("MPI implementation version (library): ");
+#if HAVE_MPI
+    char mpi_lib_version[MPI_MAX_LIBRARY_VERSION_STRING];
+    int len;
+    MPI_Get_library_version(mpi_lib_version, &len);
+    printf("%s\n", mpi_lib_version);
+#else
+    printf("%s\n", LIB_NA_STR);
+#endif
 
 
     int mpfr_major, mpfr_minor, mpfr_patch;
