@@ -96,10 +96,10 @@ jobs:
 
 
           CIBW_ENVIRONMENT_LINUX: CC='gcc' CFLAGS='-O3 -ffast-math -Wpedantic -Wall' LIBS='-lgomp'
-          CIBW_BEFORE_ALL_LINUX: "yum install -y fftw-devel ||
-                                  apk add --upgrade fftw-dev ||
-                                  apt-get install -y libfftw3-dev &&
-                                  ./configure --enable-openmp --enable-avx --enable-python --with-gnu-ld &&
+          CIBW_BEFORE_ALL_LINUX: "yum install -y fftw-devel mpfr-devel ||
+                                  apk add --upgrade fftw-dev gmp-dev mpfr-dev ||
+                                  apt-get install -y libfftw3-dev mpfr-dev &&
+                                  ./configure --enable-openmp --enable-avx --enable-mpfr --enable-python --with-gnu-ld &&
                                   make -j &&
                                   make check"
           CIBW_MANYLINUX_X86_64_IMAGE: "manylinux_2_28"
