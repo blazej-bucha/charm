@@ -66,7 +66,7 @@ if not @WITH_MPFR@:
     # files from "gfm_files"
     gfm_files = list(set(gfm_files) - set(gfm_cap_files))
 else:
-    gfm_files = glob.glob('src/mpfr/*c')
+    gfm_files += glob.glob('src/mpfr/*c')
 src_files += gfm_files
 
 
