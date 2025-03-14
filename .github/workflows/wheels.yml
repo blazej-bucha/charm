@@ -68,6 +68,14 @@ jobs:
           elif [ "$RUNNER_OS" == "Windows" ]; then
                vcpkg install fftw3:x64-windows
           fi
+ 
+      - name: Install MPFR on Windows and macOS
+        run: |
+          if [ "$RUNNER_OS" == "macOS" ]; then
+            # TODO
+          elif [ "$RUNNER_OS" == "Windows" ]; then
+               vcpkg install mpfr:x64-windows
+          fi
 
       - name: Prepare configure/setup.py
         run: |
@@ -83,7 +91,7 @@ jobs:
             export CPPFLAGS="-IC:\vcpkg\installed\x64-windows\include"
             export LDFLAGS="-LC:\vcpkg\installed\x64-windows\lib"
 
-           ./configure --enable-openmp --enable-avx --enable-python --enable-msvc-underscore-patch
+           ./configure --enable-openmp --enable-avx --enable-mpfr --enable-python --enable-msvc-underscore-patch
           fi
 
       - name: Build wheels
