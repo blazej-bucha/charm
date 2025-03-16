@@ -31,6 +31,8 @@ jobs:
           fi
           echo "X_LLVM_TARGZ=openmp-14.0.6-darwin20-Release.tar.gz" >> $GITHUB_ENV
           echo "X_FFTW=fftw-3.3.10" >> $GITHUB_ENV
+          echo "X_MPFR=mpfr-4.2.1" >> $GITHUB_ENV
+          echo "X_GMP=gmp-6.3.0" >> $GITHUB_ENV
 
       - name: Setup MSVC on Windows
         if: startsWith(matrix.os, 'windows')
@@ -72,7 +74,14 @@ jobs:
       - name: Install MPFR on Windows and macOS
         run: |
           if [ "$RUNNER_OS" == "macOS" ]; then
-            # TODO
+               # Instead of installing MPFR and GMP using homebrew, we need to 
+               # build it from source (see above)
+               wget http://www.mpfr.org/mpfr-current/$X_MPFR.tar.gz
+               tar xzf $X_MPFR.tar.gz
+               # It seems that GMP blocks GitHub servers, so we have to use 
+               # some other server
+               wget http://ftp.gnu.org/gnu/gmp/$X_GMP.tar.xz
+               tar xJf $X_GMP.tar.xz
           elif [ "$RUNNER_OS" == "Windows" ]; then
                vcpkg install mpfr:x64-windows
           fi
@@ -120,8 +129,16 @@ jobs:
                                   ./configure CPPFLAGS=\"-Xpreprocessor -fopenmp\" --enable-openmp --enable-shared --prefix=$(pwd) $X_SIMD_FFTW --with-gnu-ld &&
                                   make -j &&
                                   make install &&
+                                  cd ../$X_GMP &&
+                                  ./configure --enable-shared --prefix=$(pwd) --with-gnu-ld &&
+                                  make -j &&
+                                  make install &&
+                                  cd ../$X_MPFR &&
+                                  ./configure --enable-shared --prefix=$(pwd) --with-gnu-ld LDFLAGS=\"-L$(pwd)/../$X_GMP/lib\" CPPFLAGS=\"-I$(pwd)/../$X_GMP/include\" &&
+                                  make -j &&
+                                  make install &&
                                   cd .. &&
-                                  ./configure CFLAGS=\"-O3 -ffast-math -Wpedantic -Wall\" CPPFLAGS=\"-Xpreprocessor -fopenmp -I$(pwd)/$X_FFTW/include\" LDFLAGS=\"-L$(pwd)/$X_FFTW/lib\" --enable-openmp $X_SIMD_CHARM --enable-python --with-gnu-ld &&
+                                  ./configure CFLAGS=\"-O3 -ffast-math -Wpedantic -Wall\" CPPFLAGS=\"-Xpreprocessor -fopenmp -I$(pwd)/$X_FFTW/include -I$(pwd)/$X_GMP/include -I$(pwd)/$X_MPFR/include\" LDFLAGS=\"-L$(pwd)/$X_FFTW/lib -L$(pwd)/$X_GMP/lib -L$(pwd)/$X_MPFR/lib\" --enable-openmp $X_SIMD_CHARM --enable-mpfr --enable-python --with-gnu-ld &&
                                   make -j &&
                                   make check"
 
