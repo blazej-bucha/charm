@@ -22,7 +22,7 @@
 static int read_cnmsnm(FILE *,
                        unsigned long,
                        unsigned long,
-                       int,
+                       _Bool,
                        CHARM(shc) *);
 /* ------------------------------------------------------------------------- */
 
@@ -82,13 +82,8 @@ unsigned long CHARM(shc_read_bin)(const char *pathname,
     /* Read the maximum harmonic degree, the scaling parameter and the radius
      * of the reference sphere */
     /* ===================================================================== */
-    /* Variable to check whether "fread" was successful */
-    int err_tmp;
-
-
     unsigned long nmax_file = CHARM_SHC_NMAX_ERROR;
-    err_tmp = fread(&nmax_file, sizeof(unsigned long), 1, fptr);
-    if (err_tmp < 1)
+    if (fread(&nmax_file, sizeof(unsigned long), 1, fptr) < 1)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFILEIO,
                        "Failed to read the maximum harmonic degree.");
@@ -101,8 +96,7 @@ unsigned long CHARM(shc_read_bin)(const char *pathname,
 
 
     REAL mu;
-    err_tmp = fread(&mu, sizeof(REAL), 1, fptr);
-    if (err_tmp < 1)
+    if (fread(&mu, sizeof(REAL), 1, fptr) < 1)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFILEIO,
                        "Failed to read the scaling parameter.");
@@ -111,8 +105,7 @@ unsigned long CHARM(shc_read_bin)(const char *pathname,
 
 
     REAL r;
-    err_tmp = fread(&r, sizeof(REAL), 1, fptr);
-    if (err_tmp < 1)
+    if (fread(&r, sizeof(REAL), 1, fptr) < 1)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFILEIO,
                        "Failed to read the radius of the reference sphere.");
@@ -171,8 +164,7 @@ unsigned long CHARM(shc_read_bin)(const char *pathname,
 
     /* Read the "shcs->c" coefficients */
     /* ===================================================================== */
-    err_tmp = read_cnmsnm(fptr, nmax, nmax_file, 0, shcs);
-    if (err_tmp != 0)
+    if (read_cnmsnm(fptr, nmax, nmax_file, 0, shcs) != 0)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFILEIO,
                        "Failed to read the \"C\" coefficients.");
@@ -187,8 +179,7 @@ unsigned long CHARM(shc_read_bin)(const char *pathname,
 
     /* Read the "shcs->s" coefficients */
     /* ===================================================================== */
-    err_tmp = read_cnmsnm(fptr, nmax, nmax_file, 1, shcs);
-    if (err_tmp != 0)
+    if (read_cnmsnm(fptr, nmax, nmax_file, 1, shcs) != 0)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFILEIO,
                        "Failed to read the \"S\" coefficients.");
@@ -213,12 +204,12 @@ EXIT:
 
 /* Just a small function to read "Cnm" and "Snm" coefficients from the binary
  * file.  Hopefully, no detailed documentation is needed. */
-static int read_cnmsnm(FILE *fptr, unsigned long nmax, unsigned long nmax_file,
-                       int cnmsnm, CHARM(shc) *shcs)
+static int read_cnmsnm(FILE *fptr,
+                       unsigned long nmax,
+                       unsigned long nmax_file,
+                       _Bool cnmsnm,
+                       CHARM(shc) *shcs)
 {
-    int err = 0;
-
-
     /* "fseek" needs "move_ptr" to be of "long" data type, so we do the
      * conversion here explicitly, rather than implicitly when calling
      * "fseek". */
@@ -233,18 +224,9 @@ static int read_cnmsnm(FILE *fptr, unsigned long nmax, unsigned long nmax_file,
     {
         if (m <= nmax)
         {
-            if (cnmsnm == 0)
-                /* We are reading the "C" coefficients */
-                err = fread(shcs->c[m], sizeof(REAL), nmax + 1 - m, fptr);
-            else if (cnmsnm == 1)
-                /* We are reading the "S" coefficients */
-                err = fread(shcs->s[m], sizeof(REAL), nmax + 1 - m, fptr);
-            else
+            REAL *cs = (cnmsnm) ? shcs->s[m] : shcs->c[m];
+            if (fread(cs, sizeof(REAL), nmax + 1 - m, fptr) < 1)
                 return 1;
-
-
-            if (err < 1)
-                return 2;
 
 
             if (move_ptr_bool)
@@ -254,18 +236,16 @@ static int read_cnmsnm(FILE *fptr, unsigned long nmax, unsigned long nmax_file,
                  * are reading only up to degree "nmax".  Therefore, we have to
                  * move the "fptr" pointer properly, so that we can read the
                  * correct data in the next iteration. */
-                err = fseek(fptr, move_ptr, SEEK_CUR);
-                if (err != 0)
-                    return 3;
+                if (fseek(fptr, move_ptr, SEEK_CUR) != 0)
+                    return 2;
             }
         }
         else
         {
             /* We are not interested in coefficients beyond degree "nmax", so
              * let's skip them. */
-            err = fseek(fptr, (long)((nmax_file + 1 - m) * sizeof(REAL)),
-                        SEEK_CUR);
-            if (err != 0)
+            if (fseek(fptr, (long)((nmax_file + 1 - m) * sizeof(REAL)),
+                      SEEK_CUR) != 0)
                 return 3;
         }
     }
