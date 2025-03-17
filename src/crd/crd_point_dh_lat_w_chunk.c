@@ -27,8 +27,8 @@ void CHARM(crd_point_dh_lat_w_chunk)(CHARM(point) *dh,
     REAL c             = PREC(2.0) / L_fp;
     REAL M_PI_2L       = PI / (PREC(2.0) * L_fp);
     REAL thold         = CHARM(glob_threshold);
-    unsigned long imin = local_0_start;
-    unsigned long imax = local_0_start + local_nlat_north;
+    size_t imin = local_0_start;
+    size_t imax = local_0_start + local_nlat_north;
 
 
 #if HAVE_OPENMP
@@ -37,10 +37,9 @@ shared(imin, imax, local_nlat, local_0_start, thold)
 #endif
     {
     REAL sclti, sclti0, sclti1, cclti2, sclti2, w_tmp, clti;
-    unsigned long north, south;
+    size_t i, north, south;
 
 
-    unsigned long i;
 #if HAVE_OPENMP
 #pragma omp for
 #endif
