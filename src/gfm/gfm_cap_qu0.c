@@ -328,7 +328,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
 
     /* Compute binomial coefficients */
     /* --------------------------------------------------------------------- */
-    size_t nbinomial = CHARM_MAX(dmax + 1, imax + 1);
+    unsigned nbinomial = CHARM_MAX(dmax + 1, imax + 1);
     binomial = CHARM(mpfr_ndarray_malloc)(NBITS, 2, nbinomial + 1,
                                           nbinomial + 1);
     if (binomial == NULL)
@@ -439,7 +439,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
     }
 
 
-    unsigned long idx;
+    size_t idx;
     for (unsigned h = 0; h <= dmax; h++)
     {
         idx = h * bin->shape[1];
