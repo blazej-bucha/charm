@@ -53,7 +53,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.4.4-dev" />
-    <meta name="docbuild:last-update" content="Mar 13, 2025"/>
+    <meta name="docbuild:last-update" content="Mar 17, 2025"/>
   </head>
   
   
@@ -503,7 +503,8 @@ Windows (x86_64), install PyHarm using <code class="docutils literal notranslate
 </div>
 <p>This will install PyHarm together will all the dependencies.  These include
 a pre-compiled CHarm library, which is internally called by PyHarm, some
-other C libraries (FFTW and OpenMP library) and the Python package NumPy.</p>
+other C libraries (FFTW, MPFR, GMP and OpenMP libraries) and the Python
+package NumPy.</p>
 </li>
 <li><p><strong>CHarm (C library)</strong>: If you are interested in the C API, you have to build
 CHarm from source.  This step is not required if you plan to use the Python
@@ -528,11 +529,11 @@ interface only.</p></li>
 at <a class="reference external" href="https://www.charmlib.org">https://www.charmlib.org</a>.</p>
 <p>A pre-compiled HTML documentation is also available in <code class="docutils literal notranslate"><span class="pre">docs/build/html</span></code>.
 Alternatively, it can be built by executing <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code> after the
-<code class="docutils literal notranslate"><span class="pre">configure</span></code> call (requires <code class="docutils literal notranslate"><span class="pre">--enable-python</span></code>, <code class="docutils literal notranslate"><span class="pre">--enable-mpi</span></code>, <code class="docutils literal notranslate"><span class="pre">doxygen</span></code>
-and Python modules <code class="docutils literal notranslate"><span class="pre">sphinx</span></code>, <code class="docutils literal notranslate"><span class="pre">sphinx_book_theme</span></code> and <code class="docutils literal notranslate"><span class="pre">breathe</span></code>).  Other
-formats of the documentation, for instance, a PDF file, can be built with <code class="docutils literal notranslate"><span class="pre">cd</span>
-<span class="pre">docs</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span> <span class="pre">latexpdf</span></code>, etc.  To list all available formats, execute <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">docs</span>
-<span class="pre">&amp;&amp;</span> <span class="pre">make</span> <span class="pre">help</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">configure</span></code> call (requires <code class="docutils literal notranslate"><span class="pre">--enable-python</span></code>, <code class="docutils literal notranslate"><span class="pre">--enable-mpi</span></code>,
+<code class="docutils literal notranslate"><span class="pre">--enable-mpfr</span></code>, <code class="docutils literal notranslate"><span class="pre">doxygen</span></code> and Python modules <code class="docutils literal notranslate"><span class="pre">sphinx</span></code>,
+<code class="docutils literal notranslate"><span class="pre">sphinx_book_theme</span></code> and <code class="docutils literal notranslate"><span class="pre">breathe</span></code>).  Other formats of the documentation,
+for instance, a PDF file, can be built with <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">docs</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span> <span class="pre">latexpdf</span></code>, etc.
+To list all available formats, execute <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">docs</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span> <span class="pre">help</span></code>.</p>
 </section>
 <section id="contact">
 <span id="id5"></span><h2>Contact<a class="headerlink" href="#contact" title="Link to this heading">#</a></h2>
@@ -671,7 +672,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Mar 13, 2025.
+  Last updated on Mar 17, 2025.
   <br/>
 </p>
   </div>

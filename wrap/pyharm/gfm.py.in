@@ -1081,6 +1081,15 @@ if _WITH_MPFR:
         .. tip:: Use :meth:`cap_q_check_prec` to determine the appropriate
             value of the input parameter ``nbits``.
 
+        .. note:: The array returned is of the ``numpy.float64`` data type (or
+            ``numpy.float32`` if compiled in single precision).  Too
+            challenging input parameters may lead to truncation coefficients
+            that exceed the range of double (or single) precision.  Some array
+            elements may subsequently have the ``inf`` or ``-inf`` values.  To
+            avoid this, you can use the C API, which returns truncation
+            coefficients as the ``mpfr_t`` data type, thereby eliminating the
+            underflow and overflow issues.
+
         .. note:: This function is available only if the ``--enable-mpfr`` flag
             is specified during the installation. See
             :ref:`Installing <installing>`.

@@ -54,7 +54,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.4.4-dev" />
-    <meta name="docbuild:last-update" content="Mar 13, 2025"/>
+    <meta name="docbuild:last-update" content="Mar 17, 2025"/>
   </head>
   
   
@@ -784,6 +784,17 @@ value of the input parameter <code class="docutils literal notranslate"><span cl
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
+<p>The array returned is of the <code class="docutils literal notranslate"><span class="pre">numpy.float64</span></code> data type (or
+<code class="docutils literal notranslate"><span class="pre">numpy.float32</span></code> if compiled in single precision).  Too
+challenging input parameters may lead to truncation coefficients
+that exceed the range of double (or single) precision.  Some array
+elements may subsequently have the <code class="docutils literal notranslate"><span class="pre">inf</span></code> or <code class="docutils literal notranslate"><span class="pre">-inf</span></code> values.  To
+avoid this, you can use the C API, which returns truncation
+coefficients as the <code class="docutils literal notranslate"><span class="pre">mpfr_t</span></code> data type, thereby eliminating the
+underflow and overflow issues.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>This function is available only if the <code class="docutils literal notranslate"><span class="pre">--enable-mpfr</span></code> flag
 is specified during the installation. See
 <a class="reference internal" href="install.html#installing"><span class="std std-ref">Installing</span></a>.</p>
@@ -1040,7 +1051,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Mar 13, 2025.
+  Last updated on Mar 17, 2025.
   <br/>
 </p>
   </div>
