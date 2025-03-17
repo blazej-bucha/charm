@@ -52,7 +52,7 @@
 
 #if SGFM_COMPILE
 
-#define GET_NUMBER_OF_DIGITS(x) ((x) > 0) ? ceil(log10((double)((x)))) : 1
+#define GET_NUMBER_OF_DIGITS(x) ((x) > 0) ? (int)ceil(log10((double)((x)))) : 1
 
 
 /* If "SGFM_RHO_CONST" is "1", a constant mass density is assumed.  Otherwise,
