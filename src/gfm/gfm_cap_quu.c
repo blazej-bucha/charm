@@ -7,6 +7,7 @@
 #include "../prec.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
+#include "../mpfr/mpfr_check_bits.h"
 #include "../mpfr/mpfr_ndarray.h"
 #include "../mpfr/mpfr_ndarray_malloc.h"
 #include "../mpfr/mpfr_flush_unreleased_memory.h"
@@ -19,9 +20,11 @@
 #include "gfm_cap_q_rpows.h"
 #include "gfm_cap_q_dr.h"
 #include "gfm_cap_q_dkernel.h"
-#include "gfm_cap_quu.h"
+#include "gfm_cap_q_check_radius.h"
+#include "gfm_cap_q_check_psi.h"
 #include "gfm_check_p.h"
 #include "gfm_check_kminkmax.h"
+#include "gfm_cap_quu.h"
 /* ------------------------------------------------------------------------- */
 
 
@@ -50,6 +53,38 @@ void CHARM(gfm_cap_quu)(const mpfr_t rref,
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "The input parameter \"u\" must either be \"1\" or "
                        "\"2\".");
+        return;
+    }
+
+
+    CHARM(mpfr_check_bits)(NBITS, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
+    CHARM(gfm_cap_q_check_radius)(rref, NBITS, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
+    CHARM(gfm_cap_q_check_radius)(r, NBITS, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        return;
+    }
+
+
+    CHARM(gfm_cap_q_check_psi)(psi, NBITS, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
         return;
     }
 

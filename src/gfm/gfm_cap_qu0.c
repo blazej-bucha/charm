@@ -92,14 +92,6 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
         return;
     }
-
-
-    if (kmin > kmax)
-    {
-        CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
-                       "\"kmin\" cannot be larger than \"kmax\".");
-        return;
-    }
     /* --------------------------------------------------------------------- */
 
 
