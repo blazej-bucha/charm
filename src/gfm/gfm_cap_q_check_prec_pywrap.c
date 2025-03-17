@@ -10,6 +10,7 @@
 #include "../prec.h"
 #include "../err/err_propagate.h"
 #include "../mpfr/mpfr_check_bits.h"
+#include "../mpfr/mpfr_set_real.h"
 #include "../mpfr/mpfr_flush_unreleased_memory.h"
 /* ------------------------------------------------------------------------- */
 
@@ -86,19 +87,9 @@ CHARM_EXTERN long CHARM_CDECL CHARM(gfm_cap_q_check_prec_pywrap)(
     mpfr_inits2(NBITS_mpfr, rref_mpfr, r_mpfr, psi_mpfr, (mpfr_ptr)NULL);
 
 
-#if CHARM_FLOAT
-    mpfr_set_flt(rref_mpfr, rref, MPFR_RNDN);
-    mpfr_set_flt(r_mpfr, r, MPFR_RNDN);
-    mpfr_set_flt(psi_mpfr, psi, MPFR_RNDN);
-#elif CHARM_QUAD
-    mpfr_set_float128(rref_mpfr, rref, MPFR_RNDN);
-    mpfr_set_float128(r_mpfr, r, MPFR_RNDN);
-    mpfr_set_float128(psi_mpfr, psi, MPFR_RNDN);
-#else
-    mpfr_set_d(rref_mpfr, rref, MPFR_RNDN);
-    mpfr_set_d(r_mpfr, r, MPFR_RNDN);
-    mpfr_set_d(psi_mpfr, psi, MPFR_RNDN);
-#endif
+    mpfr_set_REAL(rref_mpfr, rref, MPFR_RNDN);
+    mpfr_set_REAL(r_mpfr, r, MPFR_RNDN);
+    mpfr_set_REAL(psi_mpfr, psi, MPFR_RNDN);
 
 
     long ret = -3;
