@@ -200,7 +200,7 @@ void CHARM(gfm_cap_quu)(const mpfr_t rref,
 
     /* Binomial coefficients */
     /* --------------------------------------------------------------------- */
-    size_t nbin = CHARM_MAX(kmax + 1, imax + 1);
+    unsigned nbin = CHARM_MAX(kmax + 1, imax + 1);
     binomial = CHARM(mpfr_ndarray_malloc)(NBITS, 2, nbin + 1, nbin + 1);
     if (binomial == NULL)
     {
