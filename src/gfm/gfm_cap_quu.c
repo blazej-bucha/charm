@@ -340,7 +340,14 @@ void CHARM(gfm_cap_quu)(const mpfr_t rref,
      * will be obtained */
     /* ..................................................................... */
     /* "Q00" */
-    size_t qkpin00_size = (kmax + 1) * pmax * (imax + 1) * (nmax + 1);
+    size_t qkpin00_size = CHARM(gfm_cap_nq)(nmax, pmax, 0, kmax, imax, err);
+    if (!CHARM(err_isempty)(err))
+    {
+        CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
+        goto EXIT;
+    }
+
+
     qkpin00 = (mpfr_t *)malloc(qkpin00_size * sizeof(mpfr_t));
     if (qkpin00 == NULL)
     {
