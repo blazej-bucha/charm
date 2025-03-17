@@ -62,7 +62,8 @@ CHARM_EXTERN long CHARM_CDECL CHARM(gfm_cap_q_check_prec_pywrap)(
 {
     /* Checks */
     /* --------------------------------------------------------------------- */
-    CHARM(mpfr_check_bits)(NBITS, err);
+    mpfr_prec_t NBITS_mpfr = NBITS;
+    CHARM(mpfr_check_bits)(NBITS_mpfr, err);
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
@@ -70,7 +71,8 @@ CHARM_EXTERN long CHARM_CDECL CHARM(gfm_cap_q_check_prec_pywrap)(
     }
 
 
-    CHARM(mpfr_check_bits)(NBITSREF, err);
+    mpfr_prec_t NBITSREF_mpfr = NBITSREF;
+    CHARM(mpfr_check_bits)(NBITSREF_mpfr, err);
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
@@ -80,10 +82,6 @@ CHARM_EXTERN long CHARM_CDECL CHARM(gfm_cap_q_check_prec_pywrap)(
 
 
     /* --------------------------------------------------------------------- */
-    mpfr_prec_t NBITS_mpfr    = NBITS;
-    mpfr_prec_t NBITSREF_mpfr = NBITSREF;
-
-
     mpfr_t rref_mpfr, r_mpfr, psi_mpfr;
     mpfr_inits2(NBITS_mpfr, rref_mpfr, r_mpfr, psi_mpfr, (mpfr_ptr)NULL);
 

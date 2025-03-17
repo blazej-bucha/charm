@@ -40,7 +40,8 @@ CHARM_EXTERN void CHARM_CDECL CHARM(gfm_cap_q_pywrap)(REAL rref,
 {
     /* Checks */
     /* --------------------------------------------------------------------- */
-    CHARM(mpfr_check_bits)(NBITS, err);
+    mpfr_prec_t NBITS_mpfr = NBITS;
+    CHARM(mpfr_check_bits)(NBITS_mpfr, err);
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
@@ -51,9 +52,6 @@ CHARM_EXTERN void CHARM_CDECL CHARM(gfm_cap_q_pywrap)(REAL rref,
 
     /* Compute the truncation coefficients */
     /* --------------------------------------------------------------------- */
-    mpfr_prec_t NBITS_mpfr = NBITS;
-
-
     mpfr_t rref_mpfr, r_mpfr, psi_mpfr;
     mpfr_inits2(NBITS_mpfr, rref_mpfr, r_mpfr, psi_mpfr, (mpfr_ptr)NULL);
 
