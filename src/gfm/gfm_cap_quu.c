@@ -395,7 +395,7 @@ void CHARM(gfm_cap_quu)(const mpfr_t rref,
      * The loop over "n" runs from "1" to avoid division by zero. */
     {
     unsigned long n;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #   pragma omp parallel for default(shared) private(n)
 #endif
     for (n = 1; n <= nmax; n++)
@@ -413,7 +413,7 @@ void CHARM(gfm_cap_quu)(const mpfr_t rref,
     {
         {
         unsigned long n;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #   pragma omp parallel for default(shared) private(n)
 #endif
         for (n = 2; n <= nmax; n++)
@@ -460,7 +460,7 @@ void CHARM(gfm_cap_quu)(const mpfr_t rref,
                                                      imax + 1, kmax + 1);
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #   pragma omp parallel default(shared)
 #endif
                     {
@@ -474,7 +474,7 @@ void CHARM(gfm_cap_quu)(const mpfr_t rref,
                         {
                             {
                             unsigned long n;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #   pragma omp for
 #endif
                             for (n = 0; n <= nmax; n++)
@@ -496,7 +496,7 @@ void CHARM(gfm_cap_quu)(const mpfr_t rref,
                         {
                             {
                             unsigned long n;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #   pragma omp for
 #endif
                             for (n = 0; n <= nmax; n++)

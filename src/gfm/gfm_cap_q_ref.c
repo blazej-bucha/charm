@@ -157,7 +157,7 @@ void CHARM(gfm_cap_q_ref)(const mpfr_t rref,
                                          nmax + 1);
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel default(shared)
 #endif
                 {
@@ -168,7 +168,7 @@ void CHARM(gfm_cap_q_ref)(const mpfr_t rref,
 
                     {
                     unsigned long n;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp for
 #endif
                     for (n = v; n <= nmax; n++)

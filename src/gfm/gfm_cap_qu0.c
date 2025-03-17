@@ -156,7 +156,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
     }
     {
     unsigned h;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel for default(shared) private(h)
 #endif
     for (h = 0; h < fact->size; h++)
@@ -173,7 +173,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
     }
     {
     unsigned h;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel for default(shared) private(h)
 #endif
     for (h = 0; h < double_fact->size; h++)
@@ -759,7 +759,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
         }
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel default(shared)
 #endif
         {
@@ -769,7 +769,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
 
             {
             unsigned long n;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp for
 #endif
             for (n = 2; n <= nmax; n++)
@@ -837,7 +837,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
     /* h == 0 */
     {
     unsigned long n;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel for default(shared) private(n)
 #endif
     for (n = 0; n <= nmax; n++)
@@ -851,7 +851,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
         idx = h * (nmax + 1);
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel default(shared)
 #endif
         {
@@ -861,7 +861,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
 
             {
             unsigned long n;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp for
 #endif
             for (n = 0; n <= nmax; n++)
@@ -974,7 +974,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
     /* h == 0 */
     {
     unsigned long n;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel for default(shared) private(n)
 #endif
     for (n = 0; n <= nmax; n++)
@@ -990,7 +990,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
             idx = j * (nmax + 1);
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel default(shared)
 #endif
             {
@@ -1000,7 +1000,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
 
                 {
                 unsigned long n;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp for
 #endif
                 for (n = 0; n <= nmax; n++)
@@ -1094,13 +1094,13 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
 
             if (p == 1)
             {
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel default(shared)
 #endif
                 {
                     {
                     unsigned long n;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp for
 #endif
                     for (n = 0; n <= nmax; n++)
@@ -1114,7 +1114,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
             }
             else if (p == 2)
             {
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel default(shared)
 #endif
                 {
@@ -1124,7 +1124,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
 
                     {
                     unsigned long n;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp for
 #endif
                     for (n = 0; n <= nmax; n++)
@@ -1176,7 +1176,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
                                  MPFR_RNDN);
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel default(shared)
 #endif
                         {
@@ -1186,7 +1186,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
 
                             {
                             unsigned long n;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp for
 #endif
                             for (n = 0; n <= nmax; n++)
@@ -1245,7 +1245,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
 
                     idx_qks00 = CHARM(misc_idx_4d)(k - kmin, s - 1, 0, 0, pmax,
                                                    imax + 1, nmax + 1);
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel default(shared)
 #endif
                     {
@@ -1253,7 +1253,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
                         mpfr_init2(tmp4, NBITS);
                         {
                         unsigned long n;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp for
 #endif
                         for (n = 0; n <= nmax; n++)

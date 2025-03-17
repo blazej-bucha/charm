@@ -6,7 +6,7 @@
 #include <limits.h>
 #include <math.h>
 #include <mpfr.h>
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #   include <omp.h>
 #endif
 #include "../prec.h"
@@ -243,7 +243,7 @@ long CHARM(gfm_cap_q_check_prec)(const mpfr_t rref,
 
     /* Initialize "ret" but for all threads in an OpenMP team, "ret_team" */
     int nthreads;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
     nthreads = omp_get_max_threads();
 #else
     nthreads = 1;
@@ -271,12 +271,12 @@ long CHARM(gfm_cap_q_check_prec)(const mpfr_t rref,
                                          nmax + 1);
 
 
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel default(shared)
 #endif
                 {
                     int myid;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
                     myid = omp_get_thread_num();
 #else
                     myid = 0;
@@ -288,7 +288,7 @@ long CHARM(gfm_cap_q_check_prec)(const mpfr_t rref,
 
                     {
                     unsigned long n;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp for
 #endif
                     for (n = 0; n <= nmax; n++)

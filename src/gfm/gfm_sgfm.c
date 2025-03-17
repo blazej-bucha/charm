@@ -227,7 +227,7 @@ static void global_vnmc(unsigned long nmax,
 
     {
     unsigned long n;
-#ifdef CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel for default(none) shared(nmax, p, i, c, vnmc, p_real) \
     shared(ip3) private(n, snpi, npip3_real, ptmp_real)
 #endif
@@ -820,7 +820,7 @@ CHARM_EXTERN void CHARM_CDECL
          * masses defined by "shape_shcs" that are above this sphere. */
         {
         size_t i;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel for default(shared) private(i)
 #endif
         for (i = 0; i < grd->npoint; i++)
@@ -886,7 +886,7 @@ CHARM_EXTERN void CHARM_CDECL
             size_t idx;
             {
             size_t vi;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #if SGFM_RHO_CONST
 #pragma omp parallel for default(none) \
     shared(shape, rho, grd, shape_ref_radius, p) \
@@ -1001,7 +1001,7 @@ CHARM_EXTERN void CHARM_CDECL
                  * "p"th shape power and "i"th polynomial density order */
                 {
                 unsigned long m;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel for default(shared) private(m)
 #endif
                 for (m = 0; m <= shcs->nmax; m++)
@@ -1040,7 +1040,7 @@ CHARM_EXTERN void CHARM_CDECL
                 {
                     {
                     unsigned long m;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel for default(shared) private(m)
 #endif
                     for (m = 0; m <= shcs->nmax; m++)
@@ -1082,7 +1082,7 @@ CHARM_EXTERN void CHARM_CDECL
                 {
                     {
                     unsigned long m;
-#if CHARM_OPENMP
+#if HAVE_OPENMP
 #pragma omp parallel for default(shared) private(m)
 #endif
                     for (m = 0; m <= shcs->nmax; m++)
