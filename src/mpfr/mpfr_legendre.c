@@ -83,7 +83,7 @@ void CHARM(mpfr_legendre)(mpfr_ndarray *pnm,
         goto EXIT;
 
 
-    unsigned long idx;
+    size_t idx;
     size_t offset = pnm->shape[1];
 
 
