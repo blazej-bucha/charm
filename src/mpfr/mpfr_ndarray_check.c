@@ -15,7 +15,10 @@
 
 /* Internal function to check whether an "mpfr_ndarray" "x" is of at least
  * "ndim" dimensions and whether the number of elements stored in these
- * dimensions is sufficiently large. */
+ * dimensions is sufficiently large.
+ *
+ * IMPORTANT NOTE: See "mpfr_ndarray_malloc" on explicit casting of the
+ * variadic input parameters. */
 int CHARM(mpfr_ndarray_check)(const mpfr_ndarray *x,
                               size_t ndim,
                               ...)

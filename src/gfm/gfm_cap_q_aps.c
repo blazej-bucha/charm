@@ -30,7 +30,7 @@ void CHARM(gfm_cap_q_aps)(unsigned p,
     }
 
 
-    if (CHARM(mpfr_ndarray_check)(fact, 1, p))
+    if (CHARM(mpfr_ndarray_check)(fact, 1, (size_t)p))
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Wrong shape of the input \"fact\" mpfr_ndarray.");

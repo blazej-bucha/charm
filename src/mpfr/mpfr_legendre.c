@@ -30,7 +30,8 @@ void CHARM(mpfr_legendre)(mpfr_ndarray *pnm,
                           mpfr_prec_t NBITS,
                           CHARM(err) *err)
 {
-    if (CHARM(mpfr_ndarray_check)(pnm, 2, mmax + 1, nmax + 1))
+    if (CHARM(mpfr_ndarray_check)(pnm, 2, (size_t)(mmax + 1),
+                                  (size_t)(nmax + 1)))
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Wrong shape of the input \"pnm\" mpfr_ndarray.");

@@ -22,9 +22,11 @@
  * stored in each dimension.  For instance, to allocate an array of two
  * dimensions with "5" and "6" elements, use
  *
- *      CHARM(mpfr_ndarray_malloc)(NBITS, 2, 5, 6);
+ *      CHARM(mpfr_ndarray_malloc)(NBITS, 2, (size_t)5, (size_t)6);
  *
- * */
+ * IMPORTANT NOTE: When calling the function, always implicitly cast to
+ * "size_t" all dimensions (the variadic parameters).  Otherwise, the behaviour
+ * is undefined. */
 mpfr_ndarray *CHARM(mpfr_ndarray_malloc)(mpfr_prec_t NBITS,
                                          size_t ndim,
                                          ...)

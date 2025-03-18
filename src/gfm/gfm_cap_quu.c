@@ -132,7 +132,8 @@ void CHARM(gfm_cap_quu)(const mpfr_t rref,
     /* --------------------------------------------------------------------- */
     /* "u" represents the maximum order of the derivative of the trunction
      * coefficients with respect to "psi" */
-    pnm = CHARM(mpfr_ndarray_malloc)(NBITS, 2, u + 1, nmax + 1);
+    pnm = CHARM(mpfr_ndarray_malloc)(NBITS, 2, (size_t)(u + 1),
+                                     (size_t)(nmax + 1));
     if (pnm == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -159,7 +160,7 @@ void CHARM(gfm_cap_quu)(const mpfr_t rref,
     unsigned dmax = pmax + kmax + u + 1;
 
 
-    fact = CHARM(mpfr_ndarray_malloc)(NBITS, 1, dmax + 2);
+    fact = CHARM(mpfr_ndarray_malloc)(NBITS, 1, (size_t)(dmax + 2));
     if (fact == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -170,7 +171,7 @@ void CHARM(gfm_cap_quu)(const mpfr_t rref,
         CHARM(mpfr_fact)(i, fact->data[i]);
 
 
-    double_fact = CHARM(mpfr_ndarray_malloc)(NBITS, 1, 2 * dmax + 1);
+    double_fact = CHARM(mpfr_ndarray_malloc)(NBITS, 1, (size_t)(2 * dmax + 1));
     if (double_fact == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -189,7 +190,7 @@ void CHARM(gfm_cap_quu)(const mpfr_t rref,
     /* Powers of "r" */
     /* --------------------------------------------------------------------- */
     unsigned rpows_max = CHARM_MAX(pmax, kmax + u);
-    rpows = CHARM(mpfr_ndarray_malloc)(NBITS, 1, rpows_max + 1);
+    rpows = CHARM(mpfr_ndarray_malloc)(NBITS, 1, (size_t)(rpows_max + 1));
     if (rpows == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -213,7 +214,8 @@ void CHARM(gfm_cap_quu)(const mpfr_t rref,
 
     /* The "R"-terms (Eq. 69 of Bucha et al., 2019b) */
     /* --------------------------------------------------------------------- */
-    rwq = CHARM(mpfr_ndarray_malloc)(NBITS, 2, kmax + u + 1, pmax);
+    rwq = CHARM(mpfr_ndarray_malloc)(NBITS, 2, (size_t)(kmax + u + 1),
+                                     (size_t)pmax);
     if (rwq == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -236,7 +238,8 @@ void CHARM(gfm_cap_quu)(const mpfr_t rref,
     /* Binomial coefficients */
     /* --------------------------------------------------------------------- */
     unsigned nbin = CHARM_MAX(kmax + 1, imax + 1);
-    binomial = CHARM(mpfr_ndarray_malloc)(NBITS, 2, nbin + 1, nbin + 1);
+    binomial = CHARM(mpfr_ndarray_malloc)(NBITS, 2, (size_t)(nbin + 1),
+                                          (size_t)(nbin + 1));
     if (binomial == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -261,7 +264,8 @@ void CHARM(gfm_cap_quu)(const mpfr_t rref,
     /* Derivatives of the integral kernels "K" with respect to "r" (Eq. 67 of
      * Bucha et al., 2019b) */
     /* --------------------------------------------------------------------- */
-    dkdr = CHARM(mpfr_ndarray_malloc)(NBITS, 3, pmax, imax + 1, kmax + 1);
+    dkdr = CHARM(mpfr_ndarray_malloc)(NBITS, 3, (size_t)pmax,
+                                      (size_t)(imax + 1), (size_t)(kmax + 1));
     if (dkdr == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -290,8 +294,9 @@ void CHARM(gfm_cap_quu)(const mpfr_t rref,
     /* --------------------------------------------------------------------- */
     if (u == 2)
     {
-        dkdrdp = CHARM(mpfr_ndarray_malloc)(NBITS, 3, pmax, imax + 1,
-                                            kmax + 1);
+        dkdrdp = CHARM(mpfr_ndarray_malloc)(NBITS, 3, (size_t)pmax,
+                                            (size_t)(imax + 1),
+                                            (size_t)(kmax + 1));
         if (dkdrdp == NULL)
         {
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,

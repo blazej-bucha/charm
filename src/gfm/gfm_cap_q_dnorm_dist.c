@@ -30,7 +30,7 @@ void CHARM(gfm_cap_q_dnorm_dist)(mpfr_ndarray *dg,
 {
     /* Check inputs */
     /* --------------------------------------------------------------------- */
-    if (CHARM(mpfr_ndarray_check)(dg, 1, dmax + 1))
+    if (CHARM(mpfr_ndarray_check)(dg, 1, (size_t)(dmax + 1)))
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Wrong shape of the input \"dg\" mpfr_ndarray.");
@@ -43,7 +43,7 @@ void CHARM(gfm_cap_q_dnorm_dist)(mpfr_ndarray *dg,
         return;
 
 
-    if (CHARM(mpfr_ndarray_check)(fact, 1, dmax + 1))
+    if (CHARM(mpfr_ndarray_check)(fact, 1, (size_t)(dmax + 1)))
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Wrong shape of the input \"fact\" mpfr_ndarray.");
@@ -51,7 +51,7 @@ void CHARM(gfm_cap_q_dnorm_dist)(mpfr_ndarray *dg,
     }
 
 
-    if (CHARM(mpfr_ndarray_check)(double_fact, 1, 2 * dmax + 1))
+    if (CHARM(mpfr_ndarray_check)(double_fact, 1, (size_t)(2 * dmax + 1)))
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Wrong shape of the input \"double_fact\" "

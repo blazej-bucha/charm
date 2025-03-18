@@ -6,7 +6,6 @@
 #include "../prec.h"
 #include "../err/err_set.h"
 #include "../mpfr/mpfr_ndarray.h"
-#include "../mpfr/mpfr_ndarray_check.h"
 #include "gfm_cap_q_rpows.h"
 /* ------------------------------------------------------------------------- */
 

@@ -26,7 +26,7 @@ void CHARM(gfm_cap_q_dr)(mpfr_ndarray *rps,
 {
     /* Check inputs */
     /* --------------------------------------------------------------------- */
-    if (CHARM(mpfr_ndarray_check)(rps, 2, kmax + 1, pmax))
+    if (CHARM(mpfr_ndarray_check)(rps, 2, (size_t)(kmax + 1), (size_t)pmax))
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Wrong shape of the input \"rps\" mpfr_ndarray.");
@@ -34,7 +34,7 @@ void CHARM(gfm_cap_q_dr)(mpfr_ndarray *rps,
     }
 
 
-    if (CHARM(mpfr_ndarray_check)(rpows, 1, pmax + 1))
+    if (CHARM(mpfr_ndarray_check)(rpows, 1, (size_t)(pmax + 1)))
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Wrong shape of the input \"rpows\" mpfr_ndarray.");

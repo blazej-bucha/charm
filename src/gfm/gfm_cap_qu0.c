@@ -147,7 +147,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
     unsigned dmax = pmax + kmax + 1;
 
 
-    fact = CHARM(mpfr_ndarray_malloc)(NBITS, 1, dmax + 2);
+    fact = CHARM(mpfr_ndarray_malloc)(NBITS, 1, (size_t)(dmax + 2));
     if (fact == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -164,7 +164,8 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
     }
 
 
-    double_fact = CHARM(mpfr_ndarray_malloc)(NBITS, 1, 2 * dmax + 1);
+    double_fact = CHARM(mpfr_ndarray_malloc)(NBITS, 1,
+                                             (size_t)(2 * dmax + 1));
     if (double_fact == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -206,7 +207,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
 
 
     /* "1 / g(t, uu)" */
-    gammau = CHARM(mpfr_ndarray_malloc)(NBITS, 1, dmax + 1);
+    gammau = CHARM(mpfr_ndarray_malloc)(NBITS, 1, (size_t)(dmax + 1));
     if (gammau == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -216,7 +217,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
 
 
     /* "1 / g(t, ul)" */
-    gammal = CHARM(mpfr_ndarray_malloc)(NBITS, 1, dmax + 1);
+    gammal = CHARM(mpfr_ndarray_malloc)(NBITS, 1, (size_t)(dmax + 1));
     if (gammal == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -267,7 +268,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
     }
 
 
-    m = CHARM(mpfr_ndarray_malloc)(NBITS, 1, nmax + 1);
+    m = CHARM(mpfr_ndarray_malloc)(NBITS, 1, (size_t)(nmax + 1));
     if (m == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -321,8 +322,8 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
     /* Compute binomial coefficients */
     /* --------------------------------------------------------------------- */
     unsigned nbinomial = CHARM_MAX(dmax + 1, imax + 1);
-    binomial = CHARM(mpfr_ndarray_malloc)(NBITS, 2, nbinomial + 1,
-                                          nbinomial + 1);
+    binomial = CHARM(mpfr_ndarray_malloc)(NBITS, 2, (size_t)(nbinomial + 1),
+                                          (size_t)(nbinomial + 1));
     if (binomial == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -344,7 +345,8 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
 
     /* Compute the B-terms (Eqs. 64 -- 66 of Bucha et al., 2019) */
     /* --------------------------------------------------------------------- */
-    bin = CHARM(mpfr_ndarray_malloc)(NBITS, 2, dmax + 1, nmax + 1);
+    bin = CHARM(mpfr_ndarray_malloc)(NBITS, 2, (size_t)(dmax + 1),
+                                     (size_t)(nmax + 1));
     if (bin == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -355,7 +357,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
         mpfr_set_ui(bin->data[h], 0, MPFR_RNDN);
 
 
-    beta0 = CHARM(mpfr_ndarray_malloc)(NBITS, 1, dmax + 1);
+    beta0 = CHARM(mpfr_ndarray_malloc)(NBITS, 1, (size_t)(dmax + 1));
     if (beta0 == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -364,7 +366,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
     }
 
 
-    beta1uu = CHARM(mpfr_ndarray_malloc)(NBITS, 1, dmax + 1);
+    beta1uu = CHARM(mpfr_ndarray_malloc)(NBITS, 1, (size_t)(dmax + 1));
     if (beta1uu == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -373,7 +375,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
     }
 
 
-    beta1ul = CHARM(mpfr_ndarray_malloc)(NBITS, 1, dmax + 1);
+    beta1ul = CHARM(mpfr_ndarray_malloc)(NBITS, 1, (size_t)(dmax + 1));
     if (beta1ul == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -546,7 +548,8 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
 
     /* Compute the A-terms (Eqs. 56 -- 58 of Bucha et al., 2019) */
     /* --------------------------------------------------------------------- */
-    ain = CHARM(mpfr_ndarray_malloc)(NBITS, 2, dmax + 1, nmax + 1);
+    ain = CHARM(mpfr_ndarray_malloc)(NBITS, 2, (size_t)(dmax + 1),
+                                     (size_t)(nmax + 1));
     if (ain == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -557,7 +560,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
         mpfr_set_ui(ain->data[h], 0, MPFR_RNDN);
 
 
-    alpha0uu = CHARM(mpfr_ndarray_malloc)(NBITS, 1, dmax + 1);
+    alpha0uu = CHARM(mpfr_ndarray_malloc)(NBITS, 1, (size_t)(dmax + 1));
     if (alpha0uu == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -566,7 +569,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
     }
 
 
-    alpha0ul = CHARM(mpfr_ndarray_malloc)(NBITS, 1, dmax + 1);
+    alpha0ul = CHARM(mpfr_ndarray_malloc)(NBITS, 1, (size_t)(dmax + 1));
     if (alpha0ul == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -575,7 +578,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
     }
 
 
-    alpha1uu = CHARM(mpfr_ndarray_malloc)(NBITS, 1, dmax + 1);
+    alpha1uu = CHARM(mpfr_ndarray_malloc)(NBITS, 1, (size_t)(dmax + 1));
     if (alpha1uu == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -584,7 +587,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
     }
 
 
-    alpha1ul = CHARM(mpfr_ndarray_malloc)(NBITS, 1, dmax + 1);
+    alpha1ul = CHARM(mpfr_ndarray_malloc)(NBITS, 1, (size_t)(dmax + 1));
     if (alpha1ul == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -825,7 +828,8 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
 
     /* Compute the J-terms (Eq. 54 of Bucha et al., 2019) */
     /* --------------------------------------------------------------------- */
-    jin = CHARM(mpfr_ndarray_malloc)(NBITS, 2, dmax + 1, nmax + 1);
+    jin = CHARM(mpfr_ndarray_malloc)(NBITS, 2, (size_t)(dmax + 1),
+                                     (size_t)(nmax + 1));
     if (jin == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -888,7 +892,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
 
     /* Compute the T-terms (Eq. 50 of Bucha et al., 2019) */
     /* --------------------------------------------------------------------- */
-    ti = CHARM(mpfr_ndarray_malloc)(NBITS, 1, dmax + 1);
+    ti = CHARM(mpfr_ndarray_malloc)(NBITS, 1, (size_t)(dmax + 1));
     if (ti == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -919,7 +923,8 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
 
     /* Compute partial Bell Polynomials (Eq. 51 of Bucha et al., 2019) */
     /* --------------------------------------------------------------------- */
-    bell = CHARM(mpfr_ndarray_malloc)(NBITS, 2, dmax + 1, dmax + 1);
+    bell = CHARM(mpfr_ndarray_malloc)(NBITS, 2, (size_t)(dmax + 1),
+                                      (size_t)(dmax + 1));
     if (bell == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -960,7 +965,8 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
 
     /* Compute the G-terms (Eq. 48 of Bucha et al, 2019) */
     /* --------------------------------------------------------------------- */
-    gin = CHARM(mpfr_ndarray_malloc)(NBITS, 2, dmax + 1, nmax + 1);
+    gin = CHARM(mpfr_ndarray_malloc)(NBITS, 2, (size_t)(dmax + 1),
+                                     (size_t)(nmax + 1));
     if (gin == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -1041,7 +1047,7 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
         mpfr_set_ui(qkpin[v], 0, MPFR_RNDN);
 
 
-    rpows = CHARM(mpfr_ndarray_malloc)(NBITS, 1, pmax + 1);
+    rpows = CHARM(mpfr_ndarray_malloc)(NBITS, 1, (size_t)(pmax + 1));
     if (rpows == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -1058,7 +1064,8 @@ void CHARM(gfm_cap_qu0)(const mpfr_t rref,
 
     /* Compute the R-terms (Eq. 75 of Bucha et al., 2019) */
     /* ..................................................................... */
-    rps = CHARM(mpfr_ndarray_malloc)(NBITS, 2, kmax + 1, pmax);
+    rps = CHARM(mpfr_ndarray_malloc)(NBITS, 2, (size_t)(kmax + 1),
+                                     (size_t)pmax);
     if (rps == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,

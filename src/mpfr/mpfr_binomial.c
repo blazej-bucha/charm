@@ -24,7 +24,7 @@ void CHARM(mpfr_binomial)(mpfr_ndarray *binom,
                           mpfr_prec_t NBITS,
                           CHARM(err) *err)
 {
-    if (CHARM(mpfr_ndarray_check)(binom, 2, n + 1, n + 1))
+    if (CHARM(mpfr_ndarray_check)(binom, 2, (size_t)(n + 1), (size_t)(n + 1)))
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Wrong shape of the input \"binom\" mpfr_ndarray.");

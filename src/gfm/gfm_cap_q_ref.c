@@ -92,7 +92,8 @@ void CHARM(gfm_cap_q_ref)(const mpfr_t rref,
 
 
     /* --------------------------------------------------------------------- */
-    mpfr_ndarray *fact = CHARM(mpfr_ndarray_malloc)(NBITS, 1, pmax + 1);
+    mpfr_ndarray *fact = CHARM(mpfr_ndarray_malloc)(NBITS, 1,
+                                                    (size_t)(pmax + 1));
     if (fact == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,

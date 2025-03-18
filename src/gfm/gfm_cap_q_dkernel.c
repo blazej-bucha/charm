@@ -39,7 +39,8 @@ void CHARM(gfm_cap_q_dkernel)(mpfr_ndarray *dk,
 {
     /* Check inputs */
     /* --------------------------------------------------------------------- */
-    if (CHARM(mpfr_ndarray_check)(dk, 3, pmax, imax + 1, kmax + 1))
+    if (CHARM(mpfr_ndarray_check)(dk, 3, (size_t)pmax, (size_t)(imax + 1),
+                                  (size_t)(kmax + 1)))
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Wrong shape of the input \"dk\" mpfr_ndarray.");
@@ -48,7 +49,7 @@ void CHARM(gfm_cap_q_dkernel)(mpfr_ndarray *dk,
 
 
     size_t nbin = CHARM_MAX(kmax + 1, imax + 1);
-    if (CHARM(mpfr_ndarray_check)(binomial, 2, nbin, nbin))
+    if (CHARM(mpfr_ndarray_check)(binomial, 2, (size_t)nbin, (size_t)nbin))
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Wrong shape of the input \"binomial\" mpfr_ndarray.");
@@ -56,7 +57,7 @@ void CHARM(gfm_cap_q_dkernel)(mpfr_ndarray *dk,
     }
 
 
-    if (CHARM(mpfr_ndarray_check)(fact, 1, pmax + 1))
+    if (CHARM(mpfr_ndarray_check)(fact, 1, (size_t)(pmax + 1)))
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Wrong shape of the input \"fact\" mpfr_ndarray.");
@@ -65,7 +66,7 @@ void CHARM(gfm_cap_q_dkernel)(mpfr_ndarray *dk,
 
 
     unsigned dmax = pmax + kmax + 1;
-    if (CHARM(mpfr_ndarray_check)(double_fact, 1, 2 * dmax))
+    if (CHARM(mpfr_ndarray_check)(double_fact, 1, (size_t)(2 * dmax)))
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Wrong shape of the input \"double_fact\" "
@@ -74,7 +75,7 @@ void CHARM(gfm_cap_q_dkernel)(mpfr_ndarray *dk,
     }
 
 
-    if (CHARM(mpfr_ndarray_check)(rwq, 2, kmax + 1, pmax))
+    if (CHARM(mpfr_ndarray_check)(rwq, 2, (size_t)(kmax + 1), (size_t)pmax))
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Wrong shape of the input \"rwq\" mpfr_ndarray.");
@@ -95,7 +96,7 @@ void CHARM(gfm_cap_q_dkernel)(mpfr_ndarray *dk,
     /* Distance "l" and its derivatives "dl" (Eq. 68 of Bucha et al., 2019b) */
     /* --------------------------------------------------------------------- */
     /* Derivatives of "1 / l(r, psi)" with respect to "r" */
-    dl = CHARM(mpfr_ndarray_malloc)(NBITS, 1, dmax + 1);
+    dl = CHARM(mpfr_ndarray_malloc)(NBITS, 1, (size_t)(dmax + 1));
     if (dl == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
@@ -113,7 +114,7 @@ void CHARM(gfm_cap_q_dkernel)(mpfr_ndarray *dk,
     /* ===================================================================== */
     /* K1 */
     /* --------------------------------------------------------------------- */
-    dk1 = CHARM(mpfr_ndarray_malloc)(NBITS, 1, dmax + 1);
+    dk1 = CHARM(mpfr_ndarray_malloc)(NBITS, 1, (size_t)(dmax + 1));
     if (dk1 == NULL)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
