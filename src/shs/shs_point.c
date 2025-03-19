@@ -36,7 +36,8 @@ void CHARM(shs_point)(const CHARM(point) *pnt,
     /* --------------------------------------------------------------------- */
     if (nmax > shcs->nmax)
     {
-        sprintf(err_msg, "Maximum harmonic degree of the synthesis "
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "Maximum harmonic degree of the synthesis "
                          "\"nmax = %lu\" cannot be larger than maximum "
                          "harmonic degree of spherical harmonic "
                          "coefficients \"shcs->nmax = %lu\".",

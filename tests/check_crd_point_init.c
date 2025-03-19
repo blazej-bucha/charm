@@ -53,7 +53,7 @@ long int check_crd_point_init(void)
 
     CHARM(point) *pnt = CHARM(crd_point_init)(CHARM_CRD_POINT_GRID, nlat, nlon,
                                               lat, lon, r);
-    sprintf(func_call_str, "of %s", func);
+    snprintf(func_call_str, NSTR_LONG, "of %s", func);
 
 
     e += check_struct_ptr(pnt, NULL, EQ, VALID, func_call_str,

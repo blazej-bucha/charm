@@ -125,7 +125,7 @@ long int check_shs_cell_isurf(void)
 
 
                 /* Generate output file name */
-                sprintf(file, "%s/shs_c_is_nxp%lu_nxt%lu_n%zu%s",
+                snprintf(file, NSTR_LONG, "%s/shs_c_is_nxp%lu_nxt%lu_n%zu%s",
                               FOLDER, nmax_p, nmax_t, i, FTYPE);
 
 

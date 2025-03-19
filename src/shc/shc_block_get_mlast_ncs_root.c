@@ -38,7 +38,8 @@ void CHARM(shc_block_get_mlast_ncs_root)(const CHARM(shc) *shcs,
 
     if (m_get > shcs->nmax)
     {
-        sprintf(err_msg, "\"m_get = %lu\" cannot be larger than "
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "\"m_get = %lu\" cannot be larger than "
                          "\"shcs->nmax = %lu\".", m_get, shcs->nmax);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        err_msg);
@@ -89,7 +90,8 @@ void CHARM(shc_block_get_mlast_ncs_root)(const CHARM(shc) *shcs,
             sum += (int)shcs_block->have_m_all[i];
         if (sum != 1)
         {
-            sprintf(err_msg, "\"%d\" processes hold spherical harmonic "
+            snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                             "\"%d\" processes hold spherical harmonic "
                              "coefficients of order \"%lu\", but this is "
                              "allowed for one process only.", sum, m_get);
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
@@ -124,7 +126,8 @@ void CHARM(shc_block_get_mlast_ncs_root)(const CHARM(shc) *shcs,
         /* Sanity check */
         if (m_get > (size_t)int_max)
         {
-            sprintf(err_msg, "\"m_get = %lu\" cannot be larger than "
+            snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                             "\"m_get = %lu\" cannot be larger than "
                              "\"INT_MAX = %d\".", m_get, int_max);
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                            err_msg);

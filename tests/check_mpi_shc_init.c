@@ -92,14 +92,17 @@ long int check_mpi_shc_init(void)
     CHARM(err_handler)(err, 0);
 
 
-    sprintf(func_call_str, "%s(%lu, " REAL_PRINT_FORMAT ", " REAL_PRINT_FORMAT
-                           ", c, s, %zu, {",
+    snprintf(func_call_str, NSTR_LONG,
+                            "%s(%lu, " REAL_PRINT_FORMAT ", " REAL_PRINT_FORMAT
+                            ", c, s, %zu, {",
             "charm" CHARM_SUFFIX "_mpi_shc_init", NMAX_MPI, mu, r, local_nchunk);
     for (size_t j = 0; j < 2 * local_nchunk - 1; j++)
-        sprintf(func_call_str + strlen(func_call_str), "%lu, ",
-                local_order[j]);
-    sprintf(func_call_str + strlen(func_call_str), "%lu}, "
-            "MPI_COMM_WORLD, err)", local_order[2 * local_nchunk - 1]);
+        snprintf(func_call_str + strlen(func_call_str),
+                 NSTR_LONG - strlen(func_call_str), "%lu, ",
+                 local_order[j]);
+    snprintf(func_call_str + strlen(func_call_str),
+             NSTR_LONG - strlen(func_call_str), "%lu}, "
+             "MPI_COMM_WORLD, err)", local_order[2 * local_nchunk - 1]);
 
 
     e += check_mpi_shc(shcs, func_call_str, err);

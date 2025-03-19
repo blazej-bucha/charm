@@ -108,7 +108,8 @@ long int check_gfm_cap_q(void)
 
 
         char file[NSTR_LONG];
-        sprintf(file, "%s/gfm_q_t%u_z%d%s", FOLDER, q_type[t], zone[z], FTYPE);
+        snprintf(file, NSTR_LONG, "%s/gfm_q_t%u_z%d%s", FOLDER, q_type[t],
+                 zone[z], FTYPE);
 #if GENREF
         e += mpfr_array2file(file, q, q_size);
 #else

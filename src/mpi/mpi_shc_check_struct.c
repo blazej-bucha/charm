@@ -88,7 +88,8 @@ void CHARM(mpi_shc_check_struct)(const CHARM(shc) *shcs,
 
     if (local_nc != shcs->nc)
     {
-        sprintf(err_msg, "The sum of \"shcs->local_nc\" across MPI "
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "The sum of \"shcs->local_nc\" across MPI "
                          "processes in \"shcs->comm\" is \"%zu\" which "
                          "does not match the total number in "
                          "\"shcs->nc = %zu\".",
@@ -101,7 +102,8 @@ void CHARM(mpi_shc_check_struct)(const CHARM(shc) *shcs,
 
     if (local_ns != shcs->ns)
     {
-        sprintf(err_msg, "The sum of \"shcs->local_ns\" across MPI "
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "The sum of \"shcs->local_ns\" across MPI "
                          "processes in \"shcs->comm\" is \"%zu\" which "
                          "does not match the total number in "
                          "\"shcs->ns = %zu\".",

@@ -65,21 +65,21 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
         grd_type = CHARM_CRD_POINT_GRID_GL;
         quad  = CHARM(crd_point_gl);
         shape = CHARM(crd_point_gl_shape);
-        sprintf(func, "mpi_crd_point_gl");
+        snprintf(func, NSTR_SHORT, "mpi_crd_point_gl");
     }
     else if (mpi_quad == CHARM(mpi_crd_point_dh1))
     {
         grd_type = CHARM_CRD_POINT_GRID_DH1;
         quad  = CHARM(crd_point_dh1);
         shape = CHARM(crd_point_dh1_shape);
-        sprintf(func, "mpi_crd_point_dh1");
+        snprintf(func, NSTR_SHORT, "mpi_crd_point_dh1");
     }
     else if (mpi_quad == CHARM(mpi_crd_point_dh2))
     {
         grd_type = CHARM_CRD_POINT_GRID_DH2;
         quad  = CHARM(crd_point_dh2);
         shape = CHARM(crd_point_dh2_shape);
-        sprintf(func, "mpi_crd_point_dh2");
+        snprintf(func, NSTR_SHORT, "mpi_crd_point_dh2");
     }
 
 
@@ -127,9 +127,10 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
         CHARM(err_handler)(err, 0);
 
 
-        sprintf(func_call_str, "%s(%lu, " REAL_PRINT_FORMAT
-                               ", %zu, %zu, MPI_COMM_WORLD, err)",
-                               func, nmax, r, local_nlat, local_0_start);
+        snprintf(func_call_str, NSTR_LONG,
+                                "%s(%lu, " REAL_PRINT_FORMAT
+                                ", %zu, %zu, MPI_COMM_WORLD, err)",
+                                func, nmax, r, local_nlat, local_0_start);
 
 
         e += check_struct_ptr(grd_d1, NULL, EQ, VALID, func_call_str,
@@ -301,9 +302,10 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
     grd_d1 = mpi_quad(NMAX_MPI, r, local_nlat, local_0_start, comm, err);
 
 
-    sprintf(func_call_str, "%s(%lu, " REAL_PRINT_FORMAT
-                           ", %zu, %zu, MPI_COMM_WORLD, err)",
-                           func, NMAX_MPI, r, local_nlat, local_0_start);
+    snprintf(func_call_str, NSTR_LONG,
+                            "%s(%lu, " REAL_PRINT_FORMAT
+                            ", %zu, %zu, MPI_COMM_WORLD, err)",
+                            func, NMAX_MPI, r, local_nlat, local_0_start);
 
 
     e += check_struct_ptr(grd_d1, NULL, NEQ, INVALID, func_call_str,
@@ -350,9 +352,10 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
         grd_d1 = mpi_quad(NMAX_MPI, r, local_nlat, local_0_start, comm, err);
 
 
-        sprintf(func_call_str, "%s(%lu, " REAL_PRINT_FORMAT
-                               ", %zu, %zu, MPI_COMM_WORLD, err)",
-                               func, NMAX_MPI, r, local_nlat, local_0_start);
+        snprintf(func_call_str, NSTR_LONG,
+                                "%s(%lu, " REAL_PRINT_FORMAT
+                                ", %zu, %zu, MPI_COMM_WORLD, err)",
+                                func, NMAX_MPI, r, local_nlat, local_0_start);
 
 
         e += check_struct_ptr(grd_d1, NULL, NEQ, INVALID, func_call_str,
@@ -391,8 +394,9 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
     if (err_d0->code == CHARM_SUCCESS)
     {
         char err_msg[NSTR_LONG];
-        sprintf(err_msg, "\"%s\" incorrectly accepted non-distributed "
-                         "\"charm" CHARM_SUFFIX "_err\" structure", func);
+        snprintf(err_msg, NSTR_LONG,
+                          "\"%s\" incorrectly accepted non-distributed "
+                          "\"charm" CHARM_SUFFIX "_err\" structure", func);
         fprintf(stderr, err_msg);
         e += 1;
 

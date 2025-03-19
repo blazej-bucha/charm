@@ -408,7 +408,8 @@ CHARM_EXTERN void CHARM_CDECL
 
     if (shape_nmax > shape_shcs->nmax)
     {
-        sprintf(err_msg, "\"shape_nmax\" is \"%lu\", but it cannot be larger "
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "\"shape_nmax\" is \"%lu\", but it cannot be larger "
                          "than \"shape_shcs->nmax = %lu\".",
                 shape_nmax, shape_shcs->nmax);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
@@ -420,7 +421,8 @@ CHARM_EXTERN void CHARM_CDECL
     if (!CHARM(misc_is_nearly_equal)(shape_shcs->mu, PREC(1.0),
                                      CHARM(glob_threshold)))
     {
-        sprintf(err_msg, "\"shape_shcs->mu\" is \"" REAL_PRINT_FORMAT
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "\"shape_shcs->mu\" is \"" REAL_PRINT_FORMAT
                          "\", but it has to be \"1.0\".", shape_shcs->mu);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        err_msg);
@@ -431,7 +433,8 @@ CHARM_EXTERN void CHARM_CDECL
     if (!CHARM(misc_is_nearly_equal)(shape_shcs->r, PREC(1.0),
                                      CHARM(glob_threshold)))
     {
-        sprintf(err_msg, "\"shape_shcs->r\" is \"" REAL_PRINT_FORMAT
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "\"shape_shcs->r\" is \"" REAL_PRINT_FORMAT
                          "\", but it has to be \"1.0\".", shape_shcs->r);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        err_msg);
@@ -441,7 +444,8 @@ CHARM_EXTERN void CHARM_CDECL
 
     if (shape_ref_radius <= PREC(0.0))
     {
-        sprintf(err_msg, "\"shape_ref_radius\" is \"" REAL_PRINT_FORMAT
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "\"shape_ref_radius\" is \"" REAL_PRINT_FORMAT
                          "\", but it has to be positive.", shape_ref_radius);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        err_msg);
@@ -475,7 +479,8 @@ CHARM_EXTERN void CHARM_CDECL
 
     if (pmin > pmax)
     {
-        sprintf(err_msg, "\"shape_power_min\" is \"%u\", but it cannot be "
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "\"shape_power_min\" is \"%u\", but it cannot be "
                          "larger than \"shape_power_max = %u\".",
                 shape_power_min, shape_power_max);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
@@ -495,7 +500,8 @@ CHARM_EXTERN void CHARM_CDECL
 
     if (evaluation_spherical_radius <= PREC(0.0))
     {
-        sprintf(err_msg, "\"evaluation_spherical_radius\" is \""
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "\"evaluation_spherical_radius\" is \""
                          REAL_PRINT_FORMAT "\", but it has to be positive.",
                 evaluation_spherical_radius);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
@@ -506,7 +512,8 @@ CHARM_EXTERN void CHARM_CDECL
 
     if ((integration_radius < PREC(0.0)) || (integration_radius > PI))
     {
-        sprintf(err_msg, "\"integration_radius\" is \""
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "\"integration_radius\" is \""
                          REAL_PRINT_FORMAT "\", but it must be from the "
                          "interval \"[0.0, pi]\".", integration_radius);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
@@ -517,7 +524,8 @@ CHARM_EXTERN void CHARM_CDECL
 
     if (u > 2)
     {
-        sprintf(err_msg, "\"u\" is \"%u\", but it cannot be larger than "
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "\"u\" is \"%u\", but it cannot be larger than "
                          "\"2\".", u);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        err_msg);
@@ -527,7 +535,8 @@ CHARM_EXTERN void CHARM_CDECL
 
     if (v > u)
     {
-        sprintf(err_msg, "\"v\" is \"%u\", but it cannot be larger than "
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "\"v\" is \"%u\", but it cannot be larger than "
                          "\"u = %u\".", v, u);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        err_msg);
@@ -562,7 +571,8 @@ CHARM_EXTERN void CHARM_CDECL
     {
         if (density_nmax[i] > density_shcs[i]->nmax)
         {
-            sprintf(err_msg, "\"density_nmax[%u]\" is \"%lu\", but it cannot "
+            snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                             "\"density_nmax[%u]\" is \"%lu\", but it cannot "
                              "be larger than \"density_shcs[%u]->nmax = "
                              "%lu\".",
                     i, density_nmax[i], i, density_shcs[i]->nmax);
@@ -575,7 +585,8 @@ CHARM_EXTERN void CHARM_CDECL
         if (!CHARM(misc_is_nearly_equal)(density_shcs[i]->mu, PREC(1.0),
                                          CHARM(glob_threshold)))
         {
-            sprintf(err_msg, "\"density_shcs[%u]->mu\" is \"" REAL_PRINT_FORMAT
+            snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                             "\"density_shcs[%u]->mu\" is \"" REAL_PRINT_FORMAT
                              "\", but it has to be \"1.0\".",
                     i, density_shcs[i]->mu);
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
@@ -587,7 +598,8 @@ CHARM_EXTERN void CHARM_CDECL
         if (!CHARM(misc_is_nearly_equal)(density_shcs[i]->r, PREC(1.0),
                                          CHARM(glob_threshold)))
         {
-            sprintf(err_msg, "\"density_shcs[%u]->r\" is \"" REAL_PRINT_FORMAT
+            snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                             "\"density_shcs[%u]->r\" is \"" REAL_PRINT_FORMAT
                              "\", but it has to be \"1.0\".",
                     i, density_shcs[i]->r);
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
@@ -603,7 +615,8 @@ CHARM_EXTERN void CHARM_CDECL
 #if SGFM_GLOBAL
         if (potential_shcs_nmax > potential_shcs->nmax)
         {
-            sprintf(err_msg, "\"potential_shcs_nmax\" is \"%lu\", but it "
+            snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                             "\"potential_shcs_nmax\" is \"%lu\", but it "
                              "cannot be larger than "
                              "\"potential_shcs->nmax = %lu\".",
                     potential_shcs_nmax, potential_shcs->nmax);
@@ -616,7 +629,8 @@ CHARM_EXTERN void CHARM_CDECL
         {
             if (potential_shcs_nmax > potential_shcs[k - kmin]->nmax)
             {
-                sprintf(err_msg, "\"potential_shcs_nmax\" is \"%lu\", but it "
+                snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                                 "\"potential_shcs_nmax\" is \"%lu\", but it "
                                  "cannot be larger than "
                                  "\"potential_shcs[%u]->nmax = %lu\".",
                         potential_shcs_nmax, k - kmin,

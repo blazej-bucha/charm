@@ -155,14 +155,14 @@ long int check_sha_cell(void)
 
 
                         /* Generate output file names */
-                        sprintf(file_c,
-                                "%s/sha_c_nx%lu_n%zu_dr%d_s%d_c%s",
-                                FOLDER, nmax, i, dr,
-                                (s == 0) ? 0 : 1, FTYPE);
-                        sprintf(file_s,
-                                "%s/sha_c_nx%lu_n%zu_dr%d_s%d_s%s",
-                                FOLDER, nmax, i, dr,
-                                (s == 0) ? 0 : 1, FTYPE);
+                        snprintf(file_c, NSTR_LONG,
+                                 "%s/sha_c_nx%lu_n%zu_dr%d_s%d_c%s",
+                                 FOLDER, nmax, i, dr,
+                                 (s == 0) ? 0 : 1, FTYPE);
+                        snprintf(file_s, NSTR_LONG,
+                                 "%s/sha_c_nx%lu_n%zu_dr%d_s%d_s%s",
+                                 FOLDER, nmax, i, dr,
+                                 (s == 0) ? 0 : 1, FTYPE);
 
 
 #ifdef GENREF

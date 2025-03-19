@@ -34,9 +34,9 @@ long int check_crd_cell_alloc(CHARM(cell) *(*crd_cell_alloc)(int,
 
     char func[NSTR_SHORT];
     if (crd_cell_alloc == CHARM(crd_cell_malloc))
-        sprintf(func, "crd_cell_malloc");
+        snprintf(func, NSTR_SHORT, "crd_cell_malloc");
     else if (crd_cell_alloc == CHARM(crd_cell_calloc))
-        sprintf(func, "crd_cell_calloc");
+        snprintf(func, NSTR_SHORT, "crd_cell_calloc");
 
 
     int type;
@@ -59,7 +59,8 @@ long int check_crd_cell_alloc(CHARM(cell) *(*crd_cell_alloc)(int,
             for (size_t j = 0; j < nlon; j++)
             {
                 cell = crd_cell_alloc(type, i, j);
-                sprintf(func_call_str, "%s(%d, %zu, %zu)", func, type, i, j);
+                snprintf(func_call_str, NSTR_LONG, "%s(%d, %zu, %zu)",
+                         func, type, i, j);
 
 
                 /* For scattered points, "nlat" must be equal to "nlon" */
@@ -93,7 +94,8 @@ long int check_crd_cell_alloc(CHARM(cell) *(*crd_cell_alloc)(int,
     /* --------------------------------------------------------------------- */
     type = 9999;
     cell = crd_cell_alloc(type, nlat, nlon);
-    sprintf(func_call_str, "%s(%d, %zu, %zu)", func, type, nlat, nlon);
+    snprintf(func_call_str, NSTR_LONG, "%s(%d, %zu, %zu)", func, type, nlat,
+             nlon);
 
 
     e += check_struct_ptr(cell, NULL, NEQ, INVALID, func_call_str,
@@ -108,7 +110,8 @@ long int check_crd_cell_alloc(CHARM(cell) *(*crd_cell_alloc)(int,
     /* --------------------------------------------------------------------- */
     type = CHARM_CRD_CELL_GRID;
     cell = crd_cell_alloc(type, nlat, nlon);
-    sprintf(func_call_str, "%s(%d, %zu, %zu)", func, type, nlat, nlon);
+    snprintf(func_call_str, NSTR_LONG, "%s(%d, %zu, %zu)", func, type, nlat,
+             nlon);
 
 
     e += check_struct_int(cell->type, CHARM_CRD_CELL_GRID, NEQ, VALID,

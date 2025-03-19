@@ -69,7 +69,8 @@
         if (!CHARM(err_isempty)(err))                                         \
         {                                                                     \
             CHARM(err_reset)(err);                                            \
-            sprintf(err_msg, "Failed to convert harmonic %s \"%s\" in \"%s\" "\
+            snprintf(err_msg, CHARM_ERR_MAX_MSG,                              \
+                             "Failed to convert harmonic %s \"%s\" in \"%s\" "\
                              "to the \"unsigned long int\" data format.",     \
                     degord, str, pathname);                                   \
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFILEIO,  \
@@ -84,7 +85,8 @@
         if (!CHARM(err_isempty)(err))                                         \
         {                                                                     \
             CHARM(err_reset)(err);                                            \
-            sprintf(err_msg, "Failed to convert the \"%s\" coefficient "      \
+            snprintf(err_msg, CHARM_ERR_MAX_MSG,                              \
+                             "Failed to convert the \"%s\" coefficient "      \
                              "\"%s\" of degree \"%lu\" and order \"%lu\" in " \
                              "\"%s\" to the \"REAL\" data format.",           \
                     type, str, n, m, pathname);                               \
@@ -97,7 +99,8 @@
 /* Check the number of entries in a line */
 #define WRONG_NUMBER_OF_ENTRIES                                               \
         remove_new_line_char(line);                                           \
-        sprintf(err_msg, "The following line of \"%s\" has an "               \
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,                                  \
+                         "The following line of \"%s\" has an "               \
                          "incorrect number of entries: \"%s\".",              \
                 pathname, line);                                              \
         CHARM(err_set)(err, __FILE__, __LINE__, __func__,                     \
@@ -111,7 +114,8 @@
 #define EXPECTED_DEGREE_ORDER(type, n, m, pathname, n_tmp, m_tmp, cnm, snm)   \
         if ((n_tmp != n) || (m_tmp != m))                                     \
         {                                                                     \
-            sprintf(err_msg, "Expected in file \"%s\" coefficients \"%s\" of "\
+            snprintf(err_msg, CHARM_ERR_MAX_MSG,                              \
+                             "Expected in file \"%s\" coefficients \"%s\" of "\
                              "degree \"%lu\" and order \"%lu\", but "         \
                              "found instead coefficients \"%s\" and \"%s\" "  \
                              "of degree \"%lu\" and order \"%lu\".",          \
@@ -168,7 +172,7 @@ static REAL_EPOCH epoch_fraction(const char *date,
     /* BC dates are not allowed */
     if (date[0] == '-')
     {
-        sprintf(err_msg, "Negative epoch \"%s\".", date);
+        snprintf(err_msg, CHARM_ERR_MAX_MSG, "Negative epoch \"%s\".", date);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        err_msg);
         goto FAILURE;
@@ -178,7 +182,8 @@ static REAL_EPOCH epoch_fraction(const char *date,
     size_t ndate = strlen(date);
     if (ndate < 8)
     {
-        sprintf(err_msg, "Wrong format of the epoch string \"%s\".  "
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "Wrong format of the epoch string \"%s\".  "
                          "Supported formats are \"yyyyMMdd\" and "
                          "\"yyyyMMdd.hhmm\".", date);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
@@ -229,7 +234,8 @@ static REAL_EPOCH epoch_fraction(const char *date,
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_reset)(err);
-        sprintf(err_msg, "Failed to convert the year value \"yyyy = %s\" of "
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "Failed to convert the year value \"yyyy = %s\" of "
                          "the epoch string \"%s\" to a floating point.", yyyy,
                          date);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
@@ -247,7 +253,8 @@ static REAL_EPOCH epoch_fraction(const char *date,
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_reset)(err);
-        sprintf(err_msg, "Failed to convert the month value \"MM = %s\" of "
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "Failed to convert the month value \"MM = %s\" of "
                          "the epoch string \"%s\" to a floating point.", MM,
                          date);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
@@ -256,7 +263,8 @@ static REAL_EPOCH epoch_fraction(const char *date,
     }
     if ((month < 1) || (month > 12))
     {
-        sprintf(err_msg, "Invalid value of month \"MM = %02lu\" in the "
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "Invalid value of month \"MM = %02lu\" in the "
                          "epoch string \"%s\".", month, date);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        err_msg);
@@ -268,7 +276,8 @@ static REAL_EPOCH epoch_fraction(const char *date,
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_reset)(err);
-        sprintf(err_msg, "Failed to convert the day value \"dd = %s\" in the "
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "Failed to convert the day value \"dd = %s\" in the "
                          "epoch string \"%s\" to a floating point.", dd, date);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        err_msg);
@@ -277,7 +286,8 @@ static REAL_EPOCH epoch_fraction(const char *date,
     if ((day < 1) ||
         (day > (monthdays[month] + isleapyear * leapdays[month])))
     {
-        sprintf(err_msg, "Invalid value of day \"day = %02lu\" in the "
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "Invalid value of day \"day = %02lu\" in the "
                          "epoch string \"%s\".", day, date);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        err_msg);
@@ -294,7 +304,8 @@ static REAL_EPOCH epoch_fraction(const char *date,
     {
         if ((ndate != 13) || (date[8] != '.'))
         {
-            sprintf(err_msg, "Wrong format of the epoch string \"%s\".  "
+            snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                             "Wrong format of the epoch string \"%s\".  "
                              "Supported formats are \"yyyyMMdd\" and "
                              "\"yyyyMMdd.hhmm\".", date);
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
@@ -308,7 +319,8 @@ static REAL_EPOCH epoch_fraction(const char *date,
         if (!CHARM(err_isempty)(err))
         {
             CHARM(err_reset)(err);
-            sprintf(err_msg, "Failed to convert the value of hours "
+            snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                             "Failed to convert the value of hours "
                              "\"hh = %s\" in the epoch string string \"%s\" "
                              "to a floating point.", hh, date);
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
@@ -317,7 +329,8 @@ static REAL_EPOCH epoch_fraction(const char *date,
         }
         if (hour > HOUR_MAX)
         {
-            sprintf(err_msg, "Invalid value of hour \"hh = %02lu\" in the "
+            snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                             "Invalid value of hour \"hh = %02lu\" in the "
                              "epoch string \"%s\".", hour, date);
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                            err_msg);
@@ -330,7 +343,8 @@ static REAL_EPOCH epoch_fraction(const char *date,
         if (!CHARM(err_isempty)(err))
         {
             CHARM(err_reset)(err);
-            sprintf(err_msg, "Failed to convert the value of minutes "
+            snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                             "Failed to convert the value of minutes "
                              "\"mm = %s\" in the epoch string string \"%s\" "
                              "to a floating point.", mm, date);
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
@@ -339,7 +353,8 @@ static REAL_EPOCH epoch_fraction(const char *date,
         }
         if (min > MINUTE_MAX)
         {
-            sprintf(err_msg, "Invalid value of minutes \"mm = %02lu\" in the "
+            snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                             "Invalid value of minutes \"mm = %02lu\" in the "
                              "epoch string \"%s\".", min, date);
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                            err_msg);
@@ -350,7 +365,8 @@ static REAL_EPOCH epoch_fraction(const char *date,
 
     if ((hour == 24) && (min == 60))
     {
-        sprintf(err_msg, "Invalid combination of hours and minutes "
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "Invalid combination of hours and minutes "
                          "in the epoch string \"%s\".  If by \"hh = %02lu\" "
                          "and \"mm = %02lu\" you mean the beginning of the "
                          "next day, use either \"%04lu%02lu%02lu.0000\" or "
@@ -467,7 +483,8 @@ unsigned long CHARM(shc_read_gfc)(const char *pathname,
     char err_msg[CHARM_ERR_MAX_MSG];
     if (fptr == NULL)
     {
-        sprintf(err_msg, "Couldn't open \"%s\".", pathname);
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                          "Couldn't open \"%s\".", pathname);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFILEIO,
                        err_msg);
         return CHARM_SHC_NMAX_ERROR;
@@ -543,7 +560,8 @@ unsigned long CHARM(shc_read_gfc)(const char *pathname,
         /* Read a line of the file */
         if (fgets(line, SHC_READ_GFC_NLINE, fptr) == NULL)
         {
-            sprintf(err_msg, "Couldn't find the \"end_of_head\" keyword in "
+            snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                             "Couldn't find the \"end_of_head\" keyword in "
                              "\"%s\" or couldn't read the file.", pathname);
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFILEIO,
                            err_msg);
@@ -557,7 +575,8 @@ unsigned long CHARM(shc_read_gfc)(const char *pathname,
         ret = sscanf(line, "%s %s", key_str, val_str);
         if (errno)
         {
-            sprintf(err_msg, "Couldn't read \"%s\" with \"sscanf\".", pathname);
+            snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                     "Couldn't read \"%s\" with \"sscanf\".", pathname);
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFILEIO,
                            err_msg);
             goto EXIT;
@@ -726,7 +745,8 @@ FAILURE_FORMAT:
         not_found_keyword = SHC_READ_GFC_ERRORS;
     if (not_found_keyword != NULL)
     {
-        sprintf(err_msg, "Couldn't find the \"%s\" keyword before reaching "
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "Couldn't find the \"%s\" keyword before reaching "
                          "the \"%s\" keyword in \"%s\".",
                 not_found_keyword, SHC_READ_GFC_EOH, pathname);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__,
@@ -826,7 +846,8 @@ FAILURE_FORMAT:
     /* --------------------------------------------------------------------- */
     if (shcs->nmax < nmax)
     {
-        sprintf(err_msg, "\"shcs->nmax = %lu\" cannot be smaller than the "
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "\"shcs->nmax = %lu\" cannot be smaller than the "
                          "input parameter \"nmax = %lu\".", shcs->nmax, nmax);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        err_msg);
@@ -836,7 +857,8 @@ FAILURE_FORMAT:
 
     if (nmax_file < nmax)
     {
-        sprintf(err_msg, "Couldn't read coefficients up to degree "
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "Couldn't read coefficients up to degree "
                          "\"nmax = %lu\", because the maximum degree in "
                          "\"%s\" is \"%lu\" only.", nmax, pathname, nmax_file);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
@@ -929,8 +951,8 @@ FAILURE_FORMAT:
                     s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11);
         if (errno)
         {
-            sprintf(err_msg, "Couldn't read with \"sscanf\" from \"%s\".",
-                    pathname);
+            snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                     "Couldn't read with \"sscanf\" from \"%s\".", pathname);
             CHARM(err_set)(err, __FILE__, __LINE__, __func__,
                            CHARM_EFILEIO, err_msg);
             goto EXIT;
@@ -1069,7 +1091,8 @@ FAILURE_FORMAT:
             else if (trnd_found || dot_found || asin_found || acos_found)
             {
                 remove_new_line_char(line);
-                sprintf(err_msg, "Wrong format of \"%s\".  At least one of "
+                snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                        "Wrong format of \"%s\".  At least one of "
                         "the following keywords was found before reaching the "
                         "\"%s\" keyword or is missing: \"%s\", \"%s\", "
                         "\"%s\", \"%s\".  Stopped reading at line: \"%s\".",
@@ -1301,7 +1324,8 @@ FAILURE_FORMAT:
             p = CHARM(misc_str2real)(p_str, "", err);
             if (!CHARM(err_isempty)(err))
             {
-                sprintf(err_msg, "Failed to convert the phase factor \"%s\" "
+                snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                                 "Failed to convert the phase factor \"%s\" "
                                  "of time variable coefficients of degree "
                                  "\"%lu\" and order \"%lu\" from \"%s\" "
                                  "to a \"REAL\" data format.", p_str, n, m,
@@ -1348,7 +1372,8 @@ EXIT:
 
 FAILURE_STR2NUM:
     CHARM(err_reset)(err);
-    sprintf(err_msg, "Failed to convert the \"%s\" value of the \"%s\" "
+    snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                     "Failed to convert the \"%s\" value of the \"%s\" "
                      "keyword from \"%s\" to the \"%s\" "
                      "data format.", val_str, key_str, pathname,
                      wrong_value_required_type);
@@ -1357,7 +1382,8 @@ FAILURE_STR2NUM:
 
 
 FAILURE_UNSUPPORTED_KEYWORD:
-    sprintf(err_msg, "\"%s\" is not a supported value of the \"%s\" keyword "
+    snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                     "\"%s\" is not a supported value of the \"%s\" keyword "
                      "in \"%s\".", val_str, wrong_value_of_keyword, pathname);
     CHARM(err_set)(err, __FILE__, __LINE__, __func__,
                    CHARM_EFILEIO, err_msg);

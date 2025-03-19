@@ -25,7 +25,8 @@ void CHARM(shs_check_single_derivative)(int dr,
 
     if (dr < 0)
     {
-        sprintf(err_msg, "\"dr\" is \"%d\", but it must be non-negative.", dr);
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                 "\"dr\" is \"%d\", but it must be non-negative.", dr);
         CHARM(err_set)(err, __FILE__, __LINE__,  __func__, CHARM_EFUNCARG,
                        err_msg);
         goto EXIT;
@@ -34,8 +35,8 @@ void CHARM(shs_check_single_derivative)(int dr,
 
     if (dlat < 0)
     {
-        sprintf(err_msg, "\"dlat\" is \"%d\", but it must be non-negative.",
-                dlat);
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                 "\"dlat\" is \"%d\", but it must be non-negative.", dlat);
         CHARM(err_set)(err, __FILE__, __LINE__,  __func__, CHARM_EFUNCARG,
                        err_msg);
         goto EXIT;
@@ -44,8 +45,8 @@ void CHARM(shs_check_single_derivative)(int dr,
 
     if (dlon < 0)
     {
-        sprintf(err_msg, "\"dlon\" is \"%d\", but it must be non-negative.",
-                dlon);
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                 "\"dlon\" is \"%d\", but it must be non-negative.", dlon);
         CHARM(err_set)(err, __FILE__, __LINE__,  __func__, CHARM_EFUNCARG,
                        err_msg);
         goto EXIT;
@@ -54,7 +55,8 @@ void CHARM(shs_check_single_derivative)(int dr,
 
     if ((dr + dlat + dlon) > SHS_MAX_DERIVATIVE)
     {
-        sprintf(err_msg, "The sum \"dr + dlat + dlon\" is \"%d\", "
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "The sum \"dr + dlat + dlon\" is \"%d\", "
                          "but it cannot be larger than \"%d\".",
                          dr + dlat + dlon, SHS_MAX_DERIVATIVE);
         CHARM(err_set)(err, __FILE__, __LINE__,  __func__, CHARM_EFUNCARG,

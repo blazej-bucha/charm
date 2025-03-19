@@ -92,9 +92,10 @@ long int check_mpi_crd_point_init(void)
     CHARM(err_handler)(err, 0);
 
 
-    sprintf(func_call_str, "%s(%d, %zu, %zu, %zu, MPI_COMM_WORLD, "
-                           "err)", func, type, local_nlat, nlon,
-                           local_0_start);
+    snprintf(func_call_str, NSTR_LONG,
+                            "%s(%d, %zu, %zu, %zu, MPI_COMM_WORLD, "
+                            "err)", func, type, local_nlat, nlon,
+                            local_0_start);
 
 
     e += check_mpi_crd_point(pnt, func_call_str, err);
@@ -138,8 +139,9 @@ long int check_mpi_crd_point_init(void)
     if (err_d0->code == CHARM_SUCCESS)
     {
         char err_msg[NSTR_LONG];
-        sprintf(err_msg, "\"%s\" incorrectly accepted non-distributed "
-                         "\"charm" CHARM_SUFFIX "_err\" structure", func);
+        snprintf(err_msg, NSTR_LONG,
+                          "\"%s\" incorrectly accepted non-distributed "
+                          "\"charm" CHARM_SUFFIX "_err\" structure", func);
         fprintf(stderr, err_msg);
         e += 1;
 

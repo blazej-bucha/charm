@@ -37,7 +37,8 @@ int CHARM(shc_check_chunk_orders)(unsigned long nmax,
     {
         if (order[j] > nmax)
         {
-            sprintf(err_msg, "Chunk order \"%lu\" is larger than "
+            snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                             "Chunk order \"%lu\" is larger than "
                              "\"nmax = %lu\".", order[j], nmax);
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                            err_msg);
@@ -56,7 +57,8 @@ int CHARM(shc_check_chunk_orders)(unsigned long nmax,
 
         if (min > max)
         {
-            sprintf(err_msg, "The minimum chunk order \"%lu\" is larger "
+            snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                             "The minimum chunk order \"%lu\" is larger "
                              "than its corresponding maximum chunk order "
                              "\"%lu\".", min, max);
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
@@ -80,7 +82,8 @@ int CHARM(shc_check_chunk_orders)(unsigned long nmax,
             max_tmp = order[2 * jj + 1];
             if ((min == min_tmp) || (max == max_tmp))
             {
-                sprintf(err_msg, "Chunks \"%lu, %lu\" and \"%lu, %lu\" share "
+                snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                                 "Chunks \"%lu, %lu\" and \"%lu, %lu\" share "
                                  "the same value of the minimum or maximum "
                                  "order.", min, max, min_tmp, max_tmp);
                 CHARM(err_set)(err, __FILE__, __LINE__, __func__,
@@ -107,7 +110,8 @@ int CHARM(shc_check_chunk_orders)(unsigned long nmax,
             if (((min >= min_tmp ) && (min <= max_tmp)) ||
                 ((max >= min_tmp ) && (max <= max_tmp)))
             {
-                sprintf(err_msg, "Chunks \"%lu, %lu\" and \"%lu, %lu\" "
+                snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                                 "Chunks \"%lu, %lu\" and \"%lu, %lu\" "
                                  "overlap.", min, max, min_tmp, max_tmp);
                 CHARM(err_set)(err, __FILE__, __LINE__, __func__,
                                CHARM_EFUNCARG, err_msg);
@@ -140,7 +144,8 @@ int CHARM(shc_check_chunk_orders)(unsigned long nmax,
 
             if (!match)
             {
-                sprintf(err_msg, "Couldn't find spherical harmonic order "
+                snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                                 "Couldn't find spherical harmonic order "
                                  "\"%lu\" in any chunk.", m);
                 CHARM(err_set)(err, __FILE__, __LINE__, __func__,
                                CHARM_EFUNCARG, err_msg);
@@ -152,7 +157,8 @@ int CHARM(shc_check_chunk_orders)(unsigned long nmax,
         /* The value of "m" must now be "nmax + 1" */
         if (m != (nmax + 1))
         {
-            sprintf(err_msg, "Couldn't find spherical harmonic order "
+            snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                             "Couldn't find spherical harmonic order "
                              "\"nmax = %lu\" in any chunk.", nmax);
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                            err_msg);

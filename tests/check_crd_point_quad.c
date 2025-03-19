@@ -53,14 +53,14 @@ long int check_crd_point_quad(CHARM(point) *(*quad)(unsigned long, REAL))
                 strcpy(grd_type, "dh1");
             else if (quad == CHARM(crd_point_dh2))
                 strcpy(grd_type, "dh2");
-            sprintf(file_lat, "%s/crd_nx%lu_dr%d_%s_lat%s",
-                    FOLDER, nmax, deltar, grd_type, FTYPE);
-            sprintf(file_lon, "%s/crd_nx%lu_dr%d_%s_lon%s",
-                    FOLDER, nmax, deltar, grd_type, FTYPE);
-            sprintf(file_r, "%s/crd_nx%lu_dr%d_%s_r%s",
-                    FOLDER, nmax, deltar, grd_type, FTYPE);
-            sprintf(file_w, "%s/crd_nx%lu_dr%d_%s_w%s",
-                    FOLDER, nmax, deltar, grd_type, FTYPE);
+            snprintf(file_lat, NSTR_LONG, "%s/crd_nx%lu_dr%d_%s_lat%s",
+                     FOLDER, nmax, deltar, grd_type, FTYPE);
+            snprintf(file_lon, NSTR_LONG, "%s/crd_nx%lu_dr%d_%s_lon%s",
+                     FOLDER, nmax, deltar, grd_type, FTYPE);
+            snprintf(file_r, NSTR_LONG, "%s/crd_nx%lu_dr%d_%s_r%s",
+                     FOLDER, nmax, deltar, grd_type, FTYPE);
+            snprintf(file_w, NSTR_LONG, "%s/crd_nx%lu_dr%d_%s_w%s",
+                     FOLDER, nmax, deltar, grd_type, FTYPE);
 
 
 #ifdef GENREF

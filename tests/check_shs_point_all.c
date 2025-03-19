@@ -425,7 +425,7 @@ SHS_0POINTS_ERROR:
     char guru_ijk[9];
     {
     GURU_LOOP(
-              sprintf(guru_ijk, "_guru%u%u%u", dr, dlat, dlon);
+              snprintf(guru_ijk, 9, "_guru%u%u%u", dr, dlat, dlon);
               strcpy(elem[gn], guru_ijk);
              );
     }
@@ -477,8 +477,9 @@ SHS_0POINTS_ERROR:
                 else if (g == 2)
                     strcpy(grd_str, "dh2");
                 for (size_t j = 0; j < NPAR; j++)
-                    sprintf(file[j], "%s/shs_p_nx%lu_dr%d_fft1_%s%s%s",
-                            FOLDER, nmax, deltar, grd_str, elem[j], FTYPE);
+                    snprintf(file[j], NSTR_LONG,
+                             "%s/shs_p_nx%lu_dr%d_fft1_%s%s%s",
+                             FOLDER, nmax, deltar, grd_str, elem[j], FTYPE);
 
 
                 allocate_signal(f, grd_pnt->npoint);
@@ -596,10 +597,11 @@ SHS_0POINTS_ERROR:
 
                         /* Generate output file name */
                         for (size_t j = 0; j < NPAR; j++)
-                            sprintf(file[j], "%s/shs_%s_nx%lu_n%zu_dr%d_fft%d"
-                                             "_s%d%s%s",
-                                    FOLDER, "p", nmax, i, deltar, fft,
-                                    (s == 0) ? 0 : 1, elem[j], FTYPE);
+                            snprintf(file[j], NSTR_LONG,
+                                              "%s/shs_%s_nx%lu_n%zu_dr%d_fft%d"
+                                              "_s%d%s%s",
+                                     FOLDER, "p", nmax, i, deltar, fft,
+                                     (s == 0) ? 0 : 1, elem[j], FTYPE);
 
 
                         allocate_signal(f, grd_pnt->npoint);
@@ -694,8 +696,9 @@ SHS_0POINTS_ERROR:
 
                 /* Generate output file name */
                 for (size_t j = 0; j < NPAR; j++)
-                    sprintf(file[j], "%s/shs_%s_nx%lu_n%zu_dr%d_sctr%s%s",
-                            FOLDER, "p", nmax, i, deltar, elem[j], FTYPE);
+                    snprintf(file[j], NSTR_LONG,
+                             "%s/shs_%s_nx%lu_n%zu_dr%d_sctr%s%s",
+                             FOLDER, "p", nmax, i, deltar, elem[j], FTYPE);
 
 
                 allocate_signal(f, sctr_pnt->npoint);
@@ -842,10 +845,11 @@ SHS_0POINTS_ERROR:
 
                         /* Generate output file name */
                         for (size_t j = 0; j < NPAR; j++)
-                            sprintf(file[j], "%s/shs_%s_nx%lu_n%zu_dr%d_fft%d"
-                                             "_s%d_dsun%s%s",
-                                    FOLDER, "p", nmax, i, deltar, fft,
-                                    (s == 0) ? 0 : 1, elem[j], FTYPE);
+                            snprintf(file[j], NSTR_LONG,
+                                              "%s/shs_%s_nx%lu_n%zu_dr%d_fft%d"
+                                              "_s%d_dsun%s%s",
+                                     FOLDER, "p", nmax, i, deltar, fft,
+                                     (s == 0) ? 0 : 1, elem[j], FTYPE);
 
 
                         allocate_signal(f, grd_pnt->npoint);

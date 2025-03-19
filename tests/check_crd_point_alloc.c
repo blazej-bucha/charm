@@ -36,9 +36,9 @@ long int check_crd_point_alloc(CHARM(point) *(*crd_point_alloc)(int,
 
     char func[NSTR_SHORT];
     if (crd_point_alloc == CHARM(crd_point_malloc))
-        sprintf(func, "crd_point_malloc");
+        snprintf(func, NSTR_SHORT, "crd_point_malloc");
     else if (crd_point_alloc == CHARM(crd_point_calloc))
-        sprintf(func, "crd_point_calloc");
+        snprintf(func, NSTR_SHORT, "crd_point_calloc");
 
 
     int type;
@@ -64,7 +64,8 @@ long int check_crd_point_alloc(CHARM(point) *(*crd_point_alloc)(int,
             for (size_t j = 0; j < nlon; j++)
             {
                 pnt = crd_point_alloc(type, i, j);
-                sprintf(func_call_str, "%s(%d, %zu, %zu)", func, type, i, j);
+                snprintf(func_call_str, NSTR_LONG, "%s(%d, %zu, %zu)", func,
+                         type, i, j);
 
 
                 if ((type == CHARM_CRD_POINT_SCATTERED) && (i != j))
@@ -91,7 +92,8 @@ long int check_crd_point_alloc(CHARM(point) *(*crd_point_alloc)(int,
     /* --------------------------------------------------------------------- */
     type = 9999;
     pnt  = crd_point_alloc(type, nlat, nlon);
-    sprintf(func_call_str, "%s(%d, %zu, %zu)", func, type, nlat, nlon);
+    snprintf(func_call_str, NSTR_LONG, "%s(%d, %zu, %zu)", func, type, nlat,
+             nlon);
 
 
     e += check_struct_ptr(pnt, NULL, NEQ, INVALID, func_call_str,
@@ -107,7 +109,8 @@ long int check_crd_point_alloc(CHARM(point) *(*crd_point_alloc)(int,
     /* --------------------------------------------------------------------- */
     type = CHARM_CRD_POINT_GRID;
     pnt = crd_point_alloc(type, nlat, nlon);
-    sprintf(func_call_str, "%s(%d, %zu, %zu)", func, type, nlat, nlon);
+    snprintf(func_call_str, NSTR_LONG, "%s(%d, %zu, %zu)", func, type, nlat,
+             nlon);
 
 
     e += check_struct_int(pnt->type, CHARM_CRD_POINT_GRID, NEQ, VALID,
@@ -159,7 +162,8 @@ long int check_crd_point_alloc(CHARM(point) *(*crd_point_alloc)(int,
 
 
         pnt = crd_point_alloc(type, nlat, nlat);
-        sprintf(func_call_str, "%s(%d, %zu, %zu)", func, type, nlat, nlat);
+        snprintf(func_call_str, NSTR_LONG, "%s(%d, %zu, %zu)", func, type,
+                 nlat, nlat);
 
 
         if ((type == CHARM_CRD_POINT_SCATTERED) ||

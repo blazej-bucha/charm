@@ -139,7 +139,8 @@ BARRIER:
                   comm);
     if (local_nlat_sum != nlat)
     {
-        sprintf(err_msg, "The sum of \"local_nlat\" is \"%zu\" which does not "
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "The sum of \"local_nlat\" is \"%zu\" which does not "
                          "match the number of latitudes \"%zu\" of this "
                          "grid for \"nmax = %lu\".",
                          local_nlat_sum, nlat, nmax);
@@ -167,7 +168,8 @@ BARRIER:
 
             if (!even)
             {
-                sprintf(err_msg, "For Gauss--Legendre grids and odd "
+                snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                                 "For Gauss--Legendre grids and odd "
                                  "\"nmax = %lu\", all processes in \"comm\" "
                                  "must have even \"local_nlat\".", nmax);
                 CHARM(err_set)(err, __FILE__, __LINE__, __func__,
@@ -188,7 +190,8 @@ BARRIER:
 
             if (odd != 1)
             {
-                sprintf(err_msg, "For Gauss--Legendre grids and even "
+                snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                                 "For Gauss--Legendre grids and even "
                                  "\"nmax = %lu\", all but one process in "
                                  "\"comm\" must have even \"local_nlat\".",
                                  nmax);
@@ -223,7 +226,8 @@ BARRIER:
             {
                 if (local_0_start != 0)
                 {
-                    sprintf(err_msg, "It seems that one MPI process is asked "
+                    snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                                     "It seems that one MPI process is asked "
                                      "to hold the entire Driscoll--Healy "
                                      "grid.  On one process, "
                                      "it must then hold \"local_0_start = 0\" "
@@ -248,7 +252,8 @@ BARRIER:
                           MPI_INT, MPI_SUM, comm);
             if (local_nlat_odd_sum != 2)
             {
-                sprintf(err_msg, "For Driscoll--Healy grids distributed "
+                snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                                 "For Driscoll--Healy grids distributed "
                                  "across more than one MPI process, "
                                  "\"local_nlat\" must be odd on \"2\" "
                                  "processes and not on \"%d\" "
@@ -278,7 +283,8 @@ BARRIER:
 
     if ((local_nlat > 0) && (local_0_start > last_nonneg_lat))
     {
-        sprintf(err_msg, "For quadrature grids, \"local_0_start\" "
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "For quadrature grids, \"local_0_start\" "
                          "cannot point to a negative latitude.  "
                          "In this case, \"local_0_start\" is \"%zu\" but must "
                          "not exceed \"%zu\", which is the index of "
@@ -332,7 +338,8 @@ BARRIER:
         if (CHARM(crd_point_isGLGrid)(pnt->type))
         {
             /* "pnt" must be symmetric if there is more than one latitude. */
-            sprintf(err_msg, "The chunk with \"local_0_start = %zu\" and "
+            snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                             "The chunk with \"local_0_start = %zu\" and "
                              "\"local_nlat = %zu\" lacks equatorial symmetry.",
                              local_0_start, local_nlat);
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
@@ -345,7 +352,8 @@ BARRIER:
                 /* All latitudinal chunks except the first one with
                  * "pnt->local_0_start" and "pnt->local_nlat > 1" must be
                  * symmetric. */
-                sprintf(err_msg, "The chunk with \"local_0_start = %zu\" and "
+                snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                                 "The chunk with \"local_0_start = %zu\" and "
                                  "\"local_nlat = %zu\" lacks equatorial "
                                  "symmetry.",
                                  local_0_start, local_nlat);

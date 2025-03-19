@@ -70,7 +70,7 @@ long int check_crd_cell_init(void)
     CHARM(cell) *cell = CHARM(crd_cell_init)(CHARM_CRD_CELL_GRID, nlat, nlon,
                                              latmin, latmax, lonmin, lonmax,
                                              r);
-    sprintf(func_call_str, "of %s", func);
+    snprintf(func_call_str, NSTR_LONG, "of %s", func);
 
 
     e += check_struct_ptr(cell, NULL, EQ, VALID, func_call_str,

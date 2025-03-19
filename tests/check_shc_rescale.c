@@ -60,8 +60,8 @@ long int check_shc_rescale(void)
     long int e = 0;
     char filec[NSTR_LONG];
     char files[NSTR_LONG];
-    sprintf(filec, "%s/shc_rescale_c%s", FOLDER, FTYPE);
-    sprintf(files, "%s/shc_rescale_s%s", FOLDER, FTYPE);
+    snprintf(filec, NSTR_LONG, "%s/shc_rescale_c%s", FOLDER, FTYPE);
+    snprintf(files, NSTR_LONG, "%s/shc_rescale_s%s", FOLDER, FTYPE);
 #ifdef GENREF
     e += array2file(filec, shcs->c[0], shcs->nc);
     e += array2file(files, shcs->s[0], shcs->ns);

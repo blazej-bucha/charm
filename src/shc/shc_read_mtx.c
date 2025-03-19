@@ -67,7 +67,7 @@ unsigned long CHARM(shc_read_mtx)(const char *pathname,
     if (fptr == NULL)
     {
         char msg[CHARM_ERR_MAX_MSG];
-        sprintf(msg, "Couldn't open \"%s\".", pathname);
+        snprintf(msg, CHARM_ERR_MAX_MSG, "Couldn't open \"%s\".", pathname);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__,
                        CHARM_EFILEIO, msg);
         return CHARM_SHC_NMAX_ERROR;

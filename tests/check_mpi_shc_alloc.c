@@ -52,9 +52,9 @@ long int check_mpi_shc_alloc(CHARM(shc) *(*mpi_shc_alloc)(unsigned long,
 
     char func[NSTR_SHORT];
     if (mpi_shc_alloc == CHARM(mpi_shc_malloc))
-        sprintf(func, "mpi_shc_malloc");
+        snprintf(func, NSTR_SHORT, "mpi_shc_malloc");
     else if (mpi_shc_alloc == CHARM(mpi_shc_calloc))
-        sprintf(func, "mpi_shc_calloc");
+        snprintf(func, NSTR_SHORT, "mpi_shc_calloc");
 
 
     char func_call_str[NSTR_LONG];
@@ -94,14 +94,17 @@ long int check_mpi_shc_alloc(CHARM(shc) *(*mpi_shc_alloc)(unsigned long,
         CHARM(err_handler)(err, 0);
 
 
-        sprintf(func_call_str, "%s(%lu, " REAL_PRINT_FORMAT ", "
-                               REAL_PRINT_FORMAT ", %zu, {",
+        snprintf(func_call_str, NSTR_LONG,
+                                "%s(%lu, " REAL_PRINT_FORMAT ", "
+                                REAL_PRINT_FORMAT ", %zu, {",
                 func, nmax, mu, r, local_nchunk);
         for (size_t j = 0; j < 2 * local_nchunk - 1; j++)
-            sprintf(func_call_str + strlen(func_call_str), "%lu, ",
-                    local_order[j]);
-        sprintf(func_call_str + strlen(func_call_str), "%lu}, "
-                "MPI_COMM_WORLD, err)", local_order[2 * local_nchunk - 1]);
+            snprintf(func_call_str + strlen(func_call_str),
+                     NSTR_LONG - strlen(func_call_str),
+                     "%lu, ", local_order[j]);
+        snprintf(func_call_str + strlen(func_call_str),
+                 NSTR_LONG - strlen(func_call_str), "%lu}, "
+                 "MPI_COMM_WORLD, err)", local_order[2 * local_nchunk - 1]);
 
 
         e += check_mpi_shc(shcs, func_call_str, err);
@@ -160,8 +163,9 @@ long int check_mpi_shc_alloc(CHARM(shc) *(*mpi_shc_alloc)(unsigned long,
     if (err_d0->code == CHARM_SUCCESS)
     {
         char err_msg[NSTR_LONG];
-        sprintf(err_msg, "\"%s\" incorrectly accepted non-distributed "
-                         "\"charm" CHARM_SUFFIX "_err\" structure", func);
+        snprintf(err_msg, NSTR_LONG,
+                          "\"%s\" incorrectly accepted non-distributed "
+                          "\"charm" CHARM_SUFFIX "_err\" structure", func);
         fprintf(stderr, err_msg);
         e += 1;
     }
@@ -197,14 +201,16 @@ long int check_mpi_shc_alloc(CHARM(shc) *(*mpi_shc_alloc)(unsigned long,
                              &local_order[i * 2 * NCHUNK_TMP], comm, err);
 
 
-        sprintf(func_call_str, "%s(%lu, " REAL_PRINT_FORMAT ", "
-                               REAL_PRINT_FORMAT ", %zu, {",
+        snprintf(func_call_str, NSTR_LONG, "%s(%lu, " REAL_PRINT_FORMAT ", "
+                                REAL_PRINT_FORMAT ", %zu, {",
                 func, NMAX_MPI, mu, r, local_nchunk);
         for (size_t j = 0; j < 2 * local_nchunk - 1; j++)
-            sprintf(func_call_str + strlen(func_call_str), "%lu, ",
-                    local_order[j]);
-        sprintf(func_call_str + strlen(func_call_str), "%lu}",
-                local_order[2 * local_nchunk - 1]);
+            snprintf(func_call_str + strlen(func_call_str),
+                     NSTR_LONG - strlen(func_call_str), "%lu, ",
+                     local_order[j]);
+        snprintf(func_call_str + strlen(func_call_str),
+                 NSTR_LONG - strlen(func_call_str), "%lu}",
+                 local_order[2 * local_nchunk - 1]);
 
 
         /* Call error handler only if "mpi_shc_alloc" wrongly did not report
@@ -212,7 +218,8 @@ long int check_mpi_shc_alloc(CHARM(shc) *(*mpi_shc_alloc)(unsigned long,
         if (err->code == CHARM_SUCCESS)
         {
             char err_msg[2 * NSTR_LONG];
-            sprintf(err_msg, "\"%s\" incorrectly accepted the following "
+            snprintf(err_msg, 2 * NSTR_LONG,
+                             "\"%s\" incorrectly accepted the following "
                              "function call \"%s\".", func, func_call_str);
             fprintf(stderr, err_msg);
             e += 1;

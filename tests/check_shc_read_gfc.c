@@ -59,10 +59,10 @@ long int check_shc_read_gfc(void)
             stat_tvg = tvg;
 
 
-        sprintf(file_c, "%s/shc_nx%lu_c_gfc_%s%s",
-                FOLDER, shcs->nmax, stat_tvg, FTYPE);
-        sprintf(file_s, "%s/shc_nx%lu_s_gfc_%s%s",
-                FOLDER, shcs->nmax, stat_tvg, FTYPE);
+        snprintf(file_c, NSTR_LONG, "%s/shc_nx%lu_c_gfc_%s%s",
+                 FOLDER, shcs->nmax, stat_tvg, FTYPE);
+        snprintf(file_s, NSTR_LONG, "%s/shc_nx%lu_s_gfc_%s%s",
+                 FOLDER, shcs->nmax, stat_tvg, FTYPE);
 
 
 #ifdef GENREF

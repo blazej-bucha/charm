@@ -151,10 +151,11 @@ long int check_shs_cell(void)
 
 
                         /* Generate output file name */
-                        sprintf(file, "%s/shs_%s_nx%lu_n%zu_dr%d_fft%d"
-                                      "_s%d%s",
-                                FOLDER, "c", nmax, i, deltar, fft,
-                                (s == 0) ? 0 : 1, FTYPE);
+                        snprintf(file, NSTR_LONG,
+                                       "%s/shs_%s_nx%lu_n%zu_dr%d_fft%d"
+                                       "_s%d%s",
+                                 FOLDER, "c", nmax, i, deltar, fft,
+                                 (s == 0) ? 0 : 1, FTYPE);
 
 
                         f = (REAL *)malloc(grd_cell->ncell * sizeof(REAL));
@@ -224,8 +225,8 @@ long int check_shs_cell(void)
 
 
                 /* Generate output file name */
-                sprintf(file, "%s/shs_%s_nx%lu_n%zu_dr%d_sctr%s",
-                        FOLDER, "c", nmax, i, deltar, FTYPE);
+                snprintf(file, NSTR_LONG, "%s/shs_%s_nx%lu_n%zu_dr%d_sctr%s",
+                         FOLDER, "c", nmax, i, deltar, FTYPE);
 
 
                 f = (REAL *)malloc(sctr_cell->ncell * sizeof(REAL));

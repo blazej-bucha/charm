@@ -70,9 +70,10 @@ long int check_leg_pnmj_coeffs(void)
                 for (unsigned long m = 0; m <= nmax2; m++)
                     for (unsigned long n = m; n <= nmax2; n++)
                     {
-                        sprintf(file, "%s/leg_pnmj_nx%lu_mnj_m%lu_n%lu%s",
-                                FOLDER, (unsigned long)SHCS_NMAX_POT, m, n,
-                                FTYPE);
+                        snprintf(file, NSTR_LONG,
+                                 "%s/leg_pnmj_nx%lu_mnj_m%lu_n%lu%s",
+                                 FOLDER, (unsigned long)SHCS_NMAX_POT, m, n,
+                                 FTYPE);
 
 
 #ifdef GENREF
@@ -89,9 +90,10 @@ long int check_leg_pnmj_coeffs(void)
                 for (unsigned long m = 0; m <= nmax2; m++)
                     for (unsigned long j = 0; j <= (nmax2 / 2); j++)
                     {
-                        sprintf(file, "%s/leg_pnmj_nx%lu_mjn_m%lu_j%lu%s",
-                                FOLDER, (unsigned long)SHCS_NMAX_POT, m, j,
-                                FTYPE);
+                        snprintf(file, NSTR_LONG,
+                                 "%s/leg_pnmj_nx%lu_mjn_m%lu_j%lu%s",
+                                 FOLDER, (unsigned long)SHCS_NMAX_POT, m, j,
+                                 FTYPE);
 
 
 #ifdef GENREF
