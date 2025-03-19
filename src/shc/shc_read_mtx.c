@@ -9,6 +9,7 @@
 #include "shc_read_mtdt.h"
 #include "shc_read_nmax_only.h"
 #include "shc_check_distribution.h"
+#include "../misc/misc_scanf.h"
 #include "../misc/misc_str2real.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
@@ -82,7 +83,7 @@ unsigned long CHARM(shc_read_mtx)(const char *pathname,
     /* Read file */
     /* ===================================================================== */
     /* A string to be loaded from the input file */
-    char str[NCHARS];
+    char str[SCANF_BUFFER];
 
 
     /* String to store the new line character */
@@ -169,7 +170,7 @@ unsigned long CHARM(shc_read_mtx)(const char *pathname,
             /* Read an entry from the text file and store it as a string */
             /* ------------------------------------------------------------- */
             errno = 0;
-            num_entries = fscanf(fptr, "%s", str);
+            num_entries = fscanf(fptr, SCANF_SFS(SCANF_WIDTH), str);
             if (errno)
             {
                 CHARM(err_set)(err, __FILE__, __LINE__, __func__,

@@ -14,6 +14,7 @@
 #include "shc_check_distribution.h"
 #include "../misc/misc_str2ul.h"
 #include "../misc/misc_str2real.h"
+#include "../misc/misc_scanf.h"
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
 #include "../err/err_check_distribution.h"
@@ -26,6 +27,11 @@
 
 /* Symbolic constants */
 /* ------------------------------------------------------------------------- */
+/* Suze of the char array to store a single line of the "gfc" file */
+#undef NLINE
+#define NLINE (12 * SCANF_BUFFER + 11)
+
+
 #undef DAYS_PER_NONLEAP_YEAR
 #define DAYS_PER_NONLEAP_YEAR (PREC(365.0))
 
@@ -497,9 +503,9 @@ unsigned long CHARM(shc_read_gfc)(const char *pathname,
 
 
     /* --------------------------------------------------------------------- */
-    char line[SHC_READ_GFC_NLINE];
-    char key_str[SHC_READ_GFC_NSTR];
-    char val_str[SHC_READ_GFC_NSTR];
+    char line[NLINE];
+    char key_str[SCANF_BUFFER];
+    char val_str[SCANF_BUFFER];
     REAL mu_file = PREC(0.0);
     REAL r_file  = PREC(0.0);
     unsigned long nmax_file = CHARM_SHC_NMAX_ERROR;
@@ -531,12 +537,12 @@ unsigned long CHARM(shc_read_gfc)(const char *pathname,
 
     /* These variables are used to store the value of the keyword that couldn't
      * be processed if "nmax_err", "mu_err", ... are true */
-    char nmax_err_str[SHC_READ_GFC_NSTR];
-    char mu_err_str[SHC_READ_GFC_NSTR];
-    char r_err_str[SHC_READ_GFC_NSTR];
-    char errors_err_str[SHC_READ_GFC_NSTR];
-    char norm_err_str[SHC_READ_GFC_NSTR];
-    char format_err_str[SHC_READ_GFC_NSTR];
+    char nmax_err_str[SCANF_BUFFER];
+    char mu_err_str[SCANF_BUFFER];
+    char r_err_str[SCANF_BUFFER];
+    char errors_err_str[SCANF_BUFFER];
+    char norm_err_str[SCANF_BUFFER];
+    char format_err_str[SCANF_BUFFER];
 
 
     int ret;
@@ -558,7 +564,7 @@ unsigned long CHARM(shc_read_gfc)(const char *pathname,
     do
     {
         /* Read a line of the file */
-        if (fgets(line, SHC_READ_GFC_NLINE, fptr) == NULL)
+        if (fgets(line, NLINE, fptr) == NULL)
         {
             snprintf(err_msg, CHARM_ERR_MAX_MSG,
                              "Couldn't find the \"end_of_head\" keyword in "
@@ -572,7 +578,8 @@ unsigned long CHARM(shc_read_gfc)(const char *pathname,
         /* Get the first two entries of "line" to test for the keywords of
          * "gfc" files */
         errno = 0;
-        ret = sscanf(line, "%s %s", key_str, val_str);
+        ret = sscanf(line, SCANF_SFS(SCANF_WIDTH) " " SCANF_SFS(SCANF_WIDTH),
+                     key_str, val_str);
         if (errno)
         {
             snprintf(err_msg, CHARM_ERR_MAX_MSG,
@@ -884,18 +891,18 @@ FAILURE_FORMAT:
     /* Read the table of spherical harmonic coefficients */
     /* --------------------------------------------------------------------- */
     int ns;
-    char s0[SHC_READ_GFC_NSTR];
-    char s1[SHC_READ_GFC_NSTR];
-    char s2[SHC_READ_GFC_NSTR];
-    char s3[SHC_READ_GFC_NSTR];
-    char s4[SHC_READ_GFC_NSTR];
-    char s5[SHC_READ_GFC_NSTR];
-    char s6[SHC_READ_GFC_NSTR];
-    char s7[SHC_READ_GFC_NSTR];
-    char s8[SHC_READ_GFC_NSTR];
-    char s9[SHC_READ_GFC_NSTR];
-    char s10[SHC_READ_GFC_NSTR];
-    char s11[SHC_READ_GFC_NSTR];
+    char s0[SCANF_BUFFER];
+    char s1[SCANF_BUFFER];
+    char s2[SCANF_BUFFER];
+    char s3[SCANF_BUFFER];
+    char s4[SCANF_BUFFER];
+    char s5[SCANF_BUFFER];
+    char s6[SCANF_BUFFER];
+    char s7[SCANF_BUFFER];
+    char s8[SCANF_BUFFER];
+    char s9[SCANF_BUFFER];
+    char s10[SCANF_BUFFER];
+    char s11[SCANF_BUFFER];
 
 
     /* The "t0" and "t1" epochs loaded from the file as strings */
@@ -943,11 +950,22 @@ FAILURE_FORMAT:
     n = m = n_tmp = m_tmp = 0;
     REAL cnm, snm;
     cnm = snm = PREC(0.0);
-    while (fgets(line, SHC_READ_GFC_NLINE, fptr) != NULL)
+    while (fgets(line, NLINE, fptr) != NULL)
     {
         /* Read line from the data section */
         errno = 0;
-        ns = sscanf(line, "%s %s %s %s %s %s %s %s %s %s %s %s",
+        ns = sscanf(line, SCANF_SFS(SCANF_WIDTH) " "
+                          SCANF_SFS(SCANF_WIDTH) " "
+                          SCANF_SFS(SCANF_WIDTH) " "
+                          SCANF_SFS(SCANF_WIDTH) " "
+                          SCANF_SFS(SCANF_WIDTH) " "
+                          SCANF_SFS(SCANF_WIDTH) " "
+                          SCANF_SFS(SCANF_WIDTH) " "
+                          SCANF_SFS(SCANF_WIDTH) " "
+                          SCANF_SFS(SCANF_WIDTH) " "
+                          SCANF_SFS(SCANF_WIDTH) " "
+                          SCANF_SFS(SCANF_WIDTH) " "
+                          SCANF_SFS(SCANF_WIDTH),
                     s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11);
         if (errno)
         {

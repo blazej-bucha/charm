@@ -7,23 +7,13 @@
 
 #include <config.h>
 #include "../prec.h"
+#include "../misc/misc_scanf.h"
 
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
-
-
-/* Size of char arrays to store value of parameters loaded from the "gfc" file
- * */
-#undef SHC_READ_GFC_NSTR
-#define SHC_READ_GFC_NSTR (128)
-
-
-/* Size of the char array to store a single line of the "gfc" file */
-#undef SHC_READ_GFC_NLINE
-#define SHC_READ_GFC_NLINE (2048)
 
 
 /* Mandatory keywords of "gfc" files */

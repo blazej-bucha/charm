@@ -12,6 +12,7 @@
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
 #include "../err/err_check_distribution.h"
+#include "../misc/misc_scanf.h"
 #include "../misc/misc_str2ul.h"
 #include "../misc/misc_str2real.h"
 /* ------------------------------------------------------------------------- */
@@ -23,14 +24,9 @@
 
 /* Symbolic constants */
 /* ------------------------------------------------------------------------- */
-/* Size of char arrays to store values of values loaded from the "tbl" file */
-#undef SHC_READ_TBL_NSTR
-#define SHC_READ_TBL_NSTR (128)
-
-
 /* Size of the char array to store a single line of the "tbl" file */
-#undef SHC_READ_TBL_NLINE
-#define SHC_READ_TBL_NLINE (2048)
+#undef NLINE
+#define NLINE (4 * SCANF_BUFFER + 3)
 /* ------------------------------------------------------------------------- */
 
 
@@ -140,11 +136,11 @@ unsigned long CHARM(shc_read_tbl)(const char *pathname,
 
     /* Read the table of spherical harmonic coefficients */
     /* --------------------------------------------------------------------- */
-    char line[SHC_READ_TBL_NLINE];
-    char n_str[SHC_READ_TBL_NSTR];
-    char m_str[SHC_READ_TBL_NSTR];
-    char cnm_str[SHC_READ_TBL_NSTR];
-    char snm_str[SHC_READ_TBL_NSTR];
+    char line[NLINE];
+    char n_str[SCANF_BUFFER];
+    char m_str[SCANF_BUFFER];
+    char cnm_str[SCANF_BUFFER];
+    char snm_str[SCANF_BUFFER];
 
 
     /* At first, reset all coefficients in "shcs" to zero. */
@@ -154,10 +150,13 @@ unsigned long CHARM(shc_read_tbl)(const char *pathname,
     unsigned long n, m;
     int num_entries;
     REAL cnm, snm;
-    while (fgets(line, SHC_READ_TBL_NLINE, fptr) != NULL)
+    while (fgets(line, NLINE, fptr) != NULL)
     {
         errno = 0;
-        num_entries = sscanf(line, "%s %s %s %s",
+        num_entries = sscanf(line, SCANF_SFS(SCANF_WIDTH) " "
+                                   SCANF_SFS(SCANF_WIDTH) " "
+                                   SCANF_SFS(SCANF_WIDTH) " "
+                                   SCANF_SFS(SCANF_WIDTH),
                              n_str, m_str, cnm_str, snm_str);
         if (errno)
         {

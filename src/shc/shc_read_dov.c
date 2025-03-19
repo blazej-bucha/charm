@@ -13,6 +13,7 @@
 #include "../err/err_set.h"
 #include "../err/err_propagate.h"
 #include "../err/err_check_distribution.h"
+#include "../misc/misc_scanf.h"
 #include "../misc/misc_str2ul.h"
 #include "../misc/misc_str2real.h"
 /* ------------------------------------------------------------------------- */
@@ -24,14 +25,9 @@
 
 /* Symbolic constants */
 /* ------------------------------------------------------------------------- */
-/* Size of char arrays to store values of values loaded from the "dov" file */
-#undef SHC_READ_DOV_NSTR
-#define SHC_READ_DOV_NSTR (128)
-
-
 /* Size of the char array to store a single line of the "dov" file */
-#undef SHC_READ_DOV_NLINE
-#define SHC_READ_DOV_NLINE (2048)
+#undef NLINE
+#define NLINE (3 * SCANF_BUFFER + 2)
 /* ------------------------------------------------------------------------- */
 
 
@@ -141,10 +137,10 @@ unsigned long CHARM(shc_read_dov)(const char *pathname,
 
     /* Read the table of spherical harmonic coefficients */
     /* --------------------------------------------------------------------- */
-    char line[SHC_READ_DOV_NLINE];
-    char n_str[SHC_READ_DOV_NSTR];
-    char m_str[SHC_READ_DOV_NSTR];
-    char coeff_str[SHC_READ_DOV_NSTR];
+    char line[NLINE];
+    char n_str[SCANF_BUFFER];
+    char m_str[SCANF_BUFFER];
+    char coeff_str[SCANF_BUFFER];
 
 
     /* At first, reset all coefficients in "shcs" to zero. */
@@ -157,10 +153,12 @@ unsigned long CHARM(shc_read_dov)(const char *pathname,
     char *m_sign;
     int num_entries;
     REAL coeff;
-    while (fgets(line, SHC_READ_DOV_NLINE, fptr) != NULL)
+    while (fgets(line, NLINE, fptr) != NULL)
     {
         errno = 0;
-        num_entries = sscanf(line, "%s %s %s",
+        num_entries = sscanf(line, SCANF_SFS(SCANF_WIDTH) " "
+                                   SCANF_SFS(SCANF_WIDTH) " "
+                                   SCANF_SFS(SCANF_WIDTH),
                              n_str, m_str, coeff_str);
         if (errno)
         {
