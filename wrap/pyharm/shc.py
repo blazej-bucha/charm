@@ -1118,16 +1118,7 @@ class Shc:
         if epoch is not None and not isinstance(epoch, str):
             raise TypeError('\'epoch\' must be a string or \'None\'.')
 
-        if file_type == 'gfc':
-            func_name = _CHARM + 'shc_read_gfc'
-        elif file_type == 'tbl':
-            func_name = _CHARM + 'shc_read_tbl'
-        elif file_type == 'mtx':
-            func_name = _CHARM + 'shc_read_mtx'
-        elif file_type == 'bin':
-            func_name = _CHARM + 'shc_read_bin'
-        elif file_type == 'dov':
-            func_name = _CHARM + 'shc_read_dov'
+        func_name = _CHARM + 'shc_read_' + file_type
 
         if file_type == 'gfc':
             func_gfc          = _libcharm[func_name]
@@ -1232,18 +1223,9 @@ class Shc:
         elif file_type == 'tbl' and ordering not in [WRITE_N, WRITE_M]:
             raise ValueError('Unsupported value of \'ordering\'.')
 
-        if file_type == 'tbl':
-            func_name = _CHARM + 'shc_write_tbl'
-        elif file_type == 'mtx':
-            func_name = _CHARM + 'shc_write_mtx'
-        elif file_type == 'bin':
-            func_name = _CHARM + 'shc_write_bin'
-        elif file_type == 'dov':
-            func_name = _CHARM + 'shc_write_dov'
-
         self._create_path(pathname)
 
-        func         = _libcharm[func_name]
+        func         = _libcharm[_CHARM + 'shc_write_' + file_type]
         func.restype = None
         if file_type == 'tbl' or file_type == 'dov':
             func.argtypes = [_ct.POINTER(_Shc),
