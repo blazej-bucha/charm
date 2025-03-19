@@ -28,10 +28,6 @@ extern "C"
 
 /* Mandatory keywords of "gfc" files */
 /* ------------------------------------------------------------------------- */
-#undef SHC_READ_GFC_BOH
-#define SHC_READ_GFC_BOH "begin_of_head"
-
-
 #undef SHC_READ_GFC_EOH
 #define SHC_READ_GFC_EOH "end_of_head"
 
@@ -57,18 +53,13 @@ extern "C"
 #define SHC_READ_GFC_R "radius"
 
 
-/* Optional keyword of "gfc" files */
-#undef SHC_READ_GFC_NORM
-#define SHC_READ_GFC_NORM "norm"
-
-
 /* Mandatory keyword of "gfc" files */
 #undef SHC_READ_GFC_ERRORS
 #define SHC_READ_GFC_ERRORS "errors"
 /* ------------------------------------------------------------------------- */
 
 
-/* Optional keywords of "gfc" files */
+/* Case dependent keywords */
 /* ------------------------------------------------------------------------- */
 #undef SHC_READ_GFC_FORMAT
 #define SHC_READ_GFC_FORMAT "format"
@@ -80,6 +71,18 @@ extern "C"
 
 #undef SHC_READ_GFC_FORMAT2d0
 #define SHC_READ_GFC_FORMAT2d0 "icgem2.0"
+/* ------------------------------------------------------------------------- */
+
+
+/* Optional keywords of "gfc" files */
+/* ------------------------------------------------------------------------- */
+#undef SHC_READ_GFC_BOH
+#define SHC_READ_GFC_BOH "begin_of_head"
+
+
+/* Optional keyword of "gfc" files */
+#undef SHC_READ_GFC_NORM
+#define SHC_READ_GFC_NORM "norm"
 /* ------------------------------------------------------------------------- */
 
 
@@ -99,7 +102,7 @@ extern "C"
 #define SHC_READ_GFC_NORM_FULL "fully_normalized"
 
 
-/* Keyword from the data section of "gfc" files */
+/* Keywords from the data section of "gfc" files */
 #undef SHC_READ_GFC_GFC
 #define SHC_READ_GFC_GFC "gfc"
 #undef SHC_READ_GFC_GFCT
