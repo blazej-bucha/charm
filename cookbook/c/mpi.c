@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 
     /* Note that the previous "MPI_Init" call does not allow to combined MPI
      * and OpenMP parallelization techniques.  For best performance, however,
-     * it is strongly advised to combine indeed MPI and OpenMP.
+     * it is strongly advised to indeed combine MPI and OpenMP.
      *
      * Briefly, the recommended strategy is to use one MPI process per
      * shared-memory system.  This will minimize the data transfer between the
@@ -228,7 +228,7 @@ int main(int argc, char *argv[])
 
     /* Similarly as we specified chunks of spherical harmonic coefficients, now
      * we have to split the Gauss--Legendre grid into latitudinal chunks.
-     * Naturally, the sum of "local_nlat" across all processes much match
+     * Naturally, the sum of "local_nlat" across all processes must match
      * "nlat".  This is automatically checked when calling
      * "charm_mpi_crd_point_gl" below.
      *
@@ -261,7 +261,7 @@ int main(int argc, char *argv[])
     /* Note that "lat0 = -lat10", "lat1 = -lat9", ..., that is Gauss--Legendre
      * grids are symmetric with respect to the equator.  In case of symmetric
      * grids in general, each process must hold the latitudes at both
-     * hemisphere.  The only exception is that MPI process, which holds the
+     * hemispheres.  The only exception is that MPI process, which holds the
      * equator (if there is any).  In that case, "local_nlat" must be odd.
      * This happens with Gauss--Legendre grids and even "nmax".  See the
      * documentation to "charm_mpi_crd_point_gl". */
