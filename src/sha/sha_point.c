@@ -225,7 +225,7 @@ void CHARM(sha_point)(const CHARM(point) *pnt,
     REAL_SIMD pt = CHARM(misc_polar_optimization_threshold)(nmax);
     REAL c = PREC(0.0);
 #if HAVE_MPI
-    const size_t BLOCK_A = CHARM(glob_get_sha_block_lat_multiplier)();
+    size_t BLOCK_A = CHARM(glob_get_sha_block_lat_multiplier)();
 #else
 #   define BLOCK_A SIMD_BLOCK_A
 #endif
@@ -386,16 +386,16 @@ BARRIER_FFTW:
     MISC_SD_CALLOC_REAL_SIMD_ERR(symm, BLOCK_A, SIMD_BLOCK_A, err, BARRIER_1);
     MISC_SD_CALLOC_REAL_SIMD_ERR(latsin, BLOCK_A, SIMD_BLOCK_A, err,
                                  BARRIER_1);
-    const REAL_SIMD ROOT3_r = SET1_R(ROOT3);
+    REAL_SIMD ROOT3_r = SET1_R(ROOT3);
 #ifdef SIMD
-    const RI_SIMD    zero_ri = SET_ZERO_RI;
-    const RI_SIMD    one_ri  = SET1_RI(1);
-    const RI_SIMD    mone_ri = SET1_RI(-1);
-    const REAL_SIMD  zero_r  = SET_ZERO_R;
-    const REAL_SIMD  BIG_r   = SET1_R(BIG);
-    const REAL_SIMD  BIGI_r  = SET1_R(BIGI);
-    const REAL_SIMD  BIGS_r  = SET1_R(BIGS);
-    const REAL_SIMD  BIGSI_r = SET1_R(BIGSI);
+    RI_SIMD    zero_ri = SET_ZERO_RI;
+    RI_SIMD    one_ri  = SET1_RI(1);
+    RI_SIMD    mone_ri = SET1_RI(-1);
+    REAL_SIMD  zero_r  = SET_ZERO_R;
+    REAL_SIMD  BIG_r   = SET1_R(BIG);
+    REAL_SIMD  BIGI_r  = SET1_R(BIGI);
+    REAL_SIMD  BIGS_r  = SET1_R(BIGS);
+    REAL_SIMD  BIGSI_r = SET1_R(BIGSI);
     REAL_SIMD  tmp1_r,  tmp2_r;
     MASK_SIMD  mask1, mask2;
     MASK2_SIMD mask3;

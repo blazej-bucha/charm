@@ -128,7 +128,7 @@ void CHARM(shs_point_sctr)(const CHARM(point) *pnt,
 
 
 #if HAVE_MPI
-    const size_t BLOCK_S = CHARM(glob_get_shs_block_lat_multiplier)();
+    size_t BLOCK_S = CHARM(glob_get_shs_block_lat_multiplier)();
 #else
 #   define BLOCK_S SIMD_BLOCK_S
 #endif

@@ -88,9 +88,9 @@ CHARM(point) *CHARM(crd_point_gl_chunk)(unsigned long nmax,
 
     /* Some pre-computations */
     /* --------------------------------------------------------------------- */
-    const unsigned long L = CHARM(crd_point_quad_l)(nmax);
-    const REAL L_fp = (REAL)L;
-    const REAL c1 = L_fp + PREC(0.5);
+    unsigned long L = CHARM(crd_point_quad_l)(nmax);
+    REAL L_fp = (REAL)L;
+    REAL c1 = L_fp + PREC(0.5);
     /* --------------------------------------------------------------------- */
 
 
