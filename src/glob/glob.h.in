@@ -208,7 +208,7 @@ CHARM_EXTERN unsigned long charm@P@_glob_shc_block_nmax_multiplier;
  * nodes, etc.) and also on the number of latitudes.  Both too low and too high
  * values may *drastically* deteriorate the performance.
  *
- * * It the value is too low, the ``for`` loop will run many times.  This is
+ * * If the value is too low, the ``for`` loop will run many times.  This is
  *   a serious problem, because with each loop iteration, *all* spherical
  *   harmonic coefficients need to be distributed among *all* MPI processes
  *   within an MPI communicator.  So by increasing
