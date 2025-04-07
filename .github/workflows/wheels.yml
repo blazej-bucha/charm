@@ -31,7 +31,7 @@ jobs:
           fi
           echo "X_LLVM_TARGZ=openmp-14.0.6-darwin20-Release.tar.gz" >> $GITHUB_ENV
           echo "X_FFTW=fftw-3.3.10" >> $GITHUB_ENV
-          echo "X_MPFR=mpfr-4.2.1" >> $GITHUB_ENV
+          echo "X_MPFR=mpfr-4.2.2" >> $GITHUB_ENV
           echo "X_GMP=gmp-6.3.0" >> $GITHUB_ENV
 
       - name: Setup MSVC on Windows

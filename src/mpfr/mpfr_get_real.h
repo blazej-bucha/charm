@@ -8,6 +8,7 @@
 #include <config.h>
 #if CHARM_QUAD
 #   define MPFR_WANT_FLOAT128
+#   define mpfr_float128 __float128
 #endif
 #include <mpfr.h>
 
@@ -17,7 +18,6 @@
 #if CHARM_FLOAT
 #   define mpfr_get_REAL mpfr_get_flt
 #elif CHARM_QUAD
-#   define _Float128 __float128
 #   define mpfr_get_REAL mpfr_get_float128
 #else
 #   define mpfr_get_REAL mpfr_get_d

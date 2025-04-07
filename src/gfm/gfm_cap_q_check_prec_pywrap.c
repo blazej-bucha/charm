@@ -4,7 +4,7 @@
 #include <stdio.h>
 #if CHARM_QUAD
 #   define MPFR_WANT_FLOAT128
-#   define _Float128 __float128
+#   define mpfr_float128 __float128
 #endif
 #include <mpfr.h>
 #include "../prec.h"
