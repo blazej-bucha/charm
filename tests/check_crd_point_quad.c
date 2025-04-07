@@ -42,7 +42,7 @@ long int check_crd_point_quad(CHARM(point) *(*quad)(unsigned long, REAL))
             grd = quad(nmax, r);
             if (grd == NULL)
             {
-                fprintf(stderr, ERR_MSG_POINT);
+                fprintf(stderr, "%s", ERR_MSG_POINT);
                 exit(CHARM_FAILURE);
             }
 

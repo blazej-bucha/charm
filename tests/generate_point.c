@@ -47,7 +47,7 @@ void CHARM(generate_point)(CHARM(point) *pnt,
     }
     else
     {
-        fprintf(stderr, "Wrong point type.\n");
+        fprintf(stderr, "%s", "Wrong point type.\n");
         exit(CHARM_FAILURE);
     }
 

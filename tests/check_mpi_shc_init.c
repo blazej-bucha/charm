@@ -61,7 +61,7 @@ long int check_mpi_shc_init(void)
     CHARM(err) *err = CHARM(mpi_err_init)(comm);
     if (CHARM(err_is_null_ptr)(err, 1, comm))
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -74,7 +74,7 @@ long int check_mpi_shc_init(void)
     REAL *c = (REAL *)malloc(local_ncs * sizeof(REAL));
     if (c == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 
@@ -82,7 +82,7 @@ long int check_mpi_shc_init(void)
     REAL *s = (REAL *)malloc(local_ncs * sizeof(REAL));
     if (s == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 

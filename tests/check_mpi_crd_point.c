@@ -42,21 +42,24 @@ long int check_mpi_crd_point(CHARM(point) *pnt,
     etmp = !CHARM(mpi_allequal_int)(pnt->type, pnt->comm, err);
     CHARM(err_handler)(err, 1);
     if (etmp)
-        fprintf(stderr, "\"pnt->type\" does not match across MPI processes\n");
+        fprintf(stderr, "%s",
+                "\"pnt->type\" does not match across MPI processes\n");
     e += etmp;
 
 
     etmp = !CHARM(mpi_allequal_size_t)(pnt->nlat, pnt->comm, err);
     CHARM(err_handler)(err, 1);
     if (etmp)
-        fprintf(stderr, "\"pnt->nlat\" does not match across MPI processes\n");
+        fprintf(stderr, "%s",
+                "\"pnt->nlat\" does not match across MPI processes\n");
     e += etmp;
 
 
     etmp = !CHARM(mpi_allequal_size_t)(pnt->nlon, pnt->comm, err);
     CHARM(err_handler)(err, 1);
     if (etmp)
-        fprintf(stderr, "\"pnt->nlon\" does not match across MPI processes\n");
+        fprintf(stderr, "%s",
+                "\"pnt->nlon\" does not match across MPI processes\n");
     e += etmp;
 
 
@@ -64,7 +67,7 @@ long int check_mpi_crd_point(CHARM(point) *pnt,
                                        err);
     CHARM(err_handler)(err, 1);
     if (etmp)
-        fprintf(stderr,
+        fprintf(stderr, "%s",
                 "\"pnt->npoint\" does not match across MPI processes\n");
     e += etmp;
 

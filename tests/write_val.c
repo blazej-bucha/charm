@@ -18,7 +18,7 @@
 int write_val(REAL val, FILE *fptr)
 {
     long int ret = CHARM(misc_fprintf_real)(fptr, REAL_PRINT_FORMAT, val);
-    fprintf(fptr, "\n");
+    fprintf(fptr, "%s", "\n");
 
 
     return (ret > 0) ? 0 : 1;

@@ -34,7 +34,7 @@ long int validate(char *file, REAL *f, size_t n, REAL eps)
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -48,7 +48,7 @@ long int validate(char *file, REAL *f, size_t n, REAL eps)
     REAL *fref = (REAL *)malloc(n * sizeof(REAL));
     if (fref == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 

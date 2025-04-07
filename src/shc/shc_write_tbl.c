@@ -95,10 +95,10 @@ void CHARM(shc_write_tbl)(const CHARM(shc) *shcs,
                     (fprintf(fptr, "%lu ", m) < 1) ||
                     (CHARM(misc_fprintf_real)(fptr, format,
                                               shcs->c[m][n - m]) < 1) ||
-                    (fprintf(fptr, " ") < 1) ||
+                    (fprintf(fptr, "%s", " ") < 1) ||
                     (CHARM(misc_fprintf_real)(fptr, format,
                                               shcs->s[m][n - m]) < 1) ||
-                    (fprintf(fptr, "\n") < 1))
+                    (fprintf(fptr, "%s", "\n") < 1))
                 {
                     CHARM(err_set)(err, __FILE__, __LINE__, __func__,
                                    CHARM_EFILEIO,
@@ -118,10 +118,10 @@ void CHARM(shc_write_tbl)(const CHARM(shc) *shcs,
                     (fprintf(fptr, "%lu ", m) < 1) ||
                     (CHARM(misc_fprintf_real)(fptr, format,
                                               shcs->c[m][n - m]) < 1) ||
-                    (fprintf(fptr, " ") < 1) ||
+                    (fprintf(fptr, "%s", " ") < 1) ||
                     (CHARM(misc_fprintf_real)(fptr, format,
                                               shcs->s[m][n - m]) < 1) ||
-                    (fprintf(fptr, "\n") < 1))
+                    (fprintf(fptr, "%s", "\n") < 1))
                 {
                     CHARM(err_set)(err, __FILE__, __LINE__, __func__,
                                    CHARM_EFILEIO,

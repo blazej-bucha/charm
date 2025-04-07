@@ -57,7 +57,7 @@ long int check_gfm_cap_density_const(void)
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
     /* --------------------------------------------------------------------- */
@@ -68,7 +68,7 @@ long int check_gfm_cap_density_const(void)
     CHARM(shc) *shape_shcs = CHARM(shc_malloc)(SHCS_NMAX_MOON_SHAPE, 1.0, 1.0);
     if (shape_shcs == NULL)
     {
-        fprintf(stderr, ERR_MSG_SHC);
+        fprintf(stderr, "%s", ERR_MSG_SHC);
         exit(CHARM_FAILURE);
     }
 
@@ -103,7 +103,7 @@ long int check_gfm_cap_density_const(void)
         density_shcs[i] = CHARM(shc_malloc)(density_nmax[i], 1.0, 1.0);
         if (density_shcs[i] == NULL)
         {
-            fprintf(stderr, ERR_MSG_SHC);
+            fprintf(stderr, "%s", ERR_MSG_SHC);
             exit(CHARM_FAILURE);
         }
 
@@ -144,7 +144,7 @@ long int check_gfm_cap_density_const(void)
                                         sizeof(CHARM(shc) *));
     if (potential_shcs == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE);
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE);
         exit(CHARM_FAILURE);
     }
     for (unsigned k = kmin; k <= kmax; k++)
@@ -153,7 +153,7 @@ long int check_gfm_cap_density_const(void)
                                                      1.0);
         if (potential_shcs[k - kmin] == NULL)
         {
-            fprintf(stderr, ERR_MSG_SHC);
+            fprintf(stderr, "%s", ERR_MSG_SHC);
             exit(CHARM_FAILURE);
         }
     }
@@ -201,7 +201,7 @@ long int check_gfm_cap_density_const(void)
     REAL *da = (REAL *)malloc((potential_shcs[0]->nmax + 1) * sizeof(REAL));
     if (da == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
     CHARM(shc_da)(potential_shcs[0], potential_shcs[0]->nmax, da, err);
@@ -295,7 +295,7 @@ long int check_gfm_cap_density_const(void)
                             sizeof(REAL));
         if (da == NULL)
         {
-            fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+            fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
             exit(CHARM_FAILURE);
         }
         CHARM(shc_da)(potential_shcs[k - kmin], potential_shcs[k - kmin]->nmax,

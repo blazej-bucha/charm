@@ -24,7 +24,7 @@ long int check_leg_pnmj_coeffs(void)
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -55,7 +55,7 @@ long int check_leg_pnmj_coeffs(void)
                                                      CHARM_LEG_PMJN);
             if (pnmj == NULL)
             {
-                fprintf(stderr, ERR_MSG_PNMJ);
+                fprintf(stderr, "%s", ERR_MSG_PNMJ);
                 exit(CHARM_FAILURE);
             }
 

@@ -66,7 +66,7 @@ long int check_mpi_shc_alloc(CHARM(shc) *(*mpi_shc_alloc)(unsigned long,
     CHARM(err) *err = CHARM(mpi_err_init)(comm);
     if (CHARM(err_is_null_ptr)(err, 1, comm))
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -151,7 +151,7 @@ long int check_mpi_shc_alloc(CHARM(shc) *(*mpi_shc_alloc)(unsigned long,
     CHARM(err) *err_d0 = CHARM(err_init)();
     if (err_d0 == NULL)
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -166,7 +166,7 @@ long int check_mpi_shc_alloc(CHARM(shc) *(*mpi_shc_alloc)(unsigned long,
         snprintf(err_msg, NSTR_LONG,
                           "\"%s\" incorrectly accepted non-distributed "
                           "\"charm" CHARM_SUFFIX "_err\" structure", func);
-        fprintf(stderr, err_msg);
+        fprintf(stderr, "%s", err_msg);
         e += 1;
     }
     /* Call error handler only if "mpi_shc_alloc" wrongly did not report any
@@ -221,7 +221,7 @@ long int check_mpi_shc_alloc(CHARM(shc) *(*mpi_shc_alloc)(unsigned long,
             snprintf(err_msg, 2 * NSTR_LONG,
                              "\"%s\" incorrectly accepted the following "
                              "function call \"%s\".", func, func_call_str);
-            fprintf(stderr, err_msg);
+            fprintf(stderr, "%s", err_msg);
             e += 1;
 
 

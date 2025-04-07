@@ -24,7 +24,7 @@ long int check_gfm_cap_q_check_prec(void)
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
     /* --------------------------------------------------------------------- */

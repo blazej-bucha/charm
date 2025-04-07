@@ -32,7 +32,7 @@ long int check_shc_init(void)
     REAL *c = (REAL *)malloc(ncs * sizeof(REAL));
     if (c == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 
@@ -40,7 +40,7 @@ long int check_shc_init(void)
     REAL *s = (REAL *)malloc(ncs * sizeof(REAL));
     if (s == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 

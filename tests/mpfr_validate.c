@@ -36,7 +36,7 @@ long int mpfr_validate(char *file,
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -49,7 +49,7 @@ long int mpfr_validate(char *file,
     mpfr_t *fref = (mpfr_t *)malloc(n * sizeof(mpfr_t));
     if (fref == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
     for (size_t i = 0; i < n; i++)

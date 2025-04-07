@@ -30,7 +30,7 @@ long int check_crd_cell_init(void)
     REAL *latmin = (REAL *)malloc(nlat * sizeof(REAL));
     if (latmin == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 
@@ -38,7 +38,7 @@ long int check_crd_cell_init(void)
     REAL *latmax = (REAL *)malloc(nlat * sizeof(REAL));
     if (latmax == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 
@@ -46,7 +46,7 @@ long int check_crd_cell_init(void)
     REAL *lonmin = (REAL *)malloc(nlon * sizeof(REAL));
     if (lonmin == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 
@@ -54,7 +54,7 @@ long int check_crd_cell_init(void)
     REAL *lonmax = (REAL *)malloc(nlon * sizeof(REAL));
     if (lonmax == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 
@@ -62,7 +62,7 @@ long int check_crd_cell_init(void)
     REAL *r = (REAL *)malloc(nlat * sizeof(REAL));
     if (r == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 

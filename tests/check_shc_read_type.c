@@ -31,7 +31,7 @@ long int check_shc_read_type(unsigned long (*shc_read_type)(const char *,
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -44,7 +44,7 @@ long int check_shc_read_type(unsigned long (*shc_read_type)(const char *,
                                              PREC(1.0));
     if (shcs_ref == NULL)
     {
-        fprintf(stderr, ERR_MSG_SHC);
+        fprintf(stderr, "%s", ERR_MSG_SHC);
         exit(CHARM_FAILURE);
     }
     CHARM(shc_read_gfc)(SHCS_IN_PATH_POT_GFC, SHCS_NMAX_POT, NULL, shcs_ref,
@@ -57,7 +57,7 @@ long int check_shc_read_type(unsigned long (*shc_read_type)(const char *,
                                               PREC(1.0));
     if (shcs_type == NULL)
     {
-        fprintf(stderr, ERR_MSG_SHC);
+        fprintf(stderr, "%s", ERR_MSG_SHC);
         exit(CHARM_FAILURE);
     }
     if (shc_read_type == CHARM(shc_read_tbl))

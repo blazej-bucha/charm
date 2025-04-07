@@ -18,7 +18,7 @@ int mpfr_write_val(mpfr_t val,
                    FILE *fptr)
 {
     size_t ret = mpfr_out_str(fptr, 10, 0, val, MPFR_RNDN);
-    fprintf(fptr, "\n");
+    fprintf(fptr, "%s", "\n");
 
 
     return (ret > 0) ? 0 : 1;

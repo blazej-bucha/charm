@@ -91,7 +91,7 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
     CHARM(err) *err = CHARM(mpi_err_init)(comm);
     if (CHARM(err_is_null_ptr)(err, 1, comm))
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
     /* --------------------------------------------------------------------- */
@@ -108,7 +108,7 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
         grd_d0 = quad(nmax, r);
         if (grd_d0 == NULL)
         {
-            fprintf(stderr, ERR_MSG_POINT);
+            fprintf(stderr, "%s", ERR_MSG_POINT);
             exit(CHARM_FAILURE);
         }
 
@@ -143,7 +143,7 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
         REAL *lat = (REAL *)malloc(grd_d0->nlat * sizeof(REAL));
         if (lat == NULL)
         {
-            fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+            fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
             exit(CHARM_FAILURE);
         }
 
@@ -151,7 +151,7 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
         REAL *lon = (REAL *)malloc(grd_d0->nlon * sizeof(REAL));
         if (lon == NULL)
         {
-            fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+            fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
             exit(CHARM_FAILURE);
         }
 
@@ -159,7 +159,7 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
         REAL *r = (REAL *)malloc(grd_d0->nlat * sizeof(REAL));
         if (r == NULL)
         {
-            fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+            fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
             exit(CHARM_FAILURE);
         }
 
@@ -167,7 +167,7 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
         REAL *w = (REAL *)malloc(grd_d0->nlat * sizeof(REAL));
         if (w == NULL)
         {
-            fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+            fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
             exit(CHARM_FAILURE);
         }
 
@@ -176,7 +176,7 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
                      (CHARM_MPI_COUNT *)malloc(size * sizeof(CHARM_MPI_COUNT));
         if (recvcounts == NULL)
         {
-            fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+            fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
             exit(CHARM_FAILURE);
         }
         CHARM_MPI_COUNT local_nlat_c =
@@ -193,7 +193,7 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
                        (CHARM_MPI_AINT *)malloc(size * sizeof(CHARM_MPI_AINT));
         if (displs == NULL)
         {
-            fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+            fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
             exit(CHARM_FAILURE);
         }
         displs[0] = 0;
@@ -375,7 +375,7 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
     CHARM(err) *err_d0 = CHARM(err_init)();
     if (err_d0 == NULL)
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -397,7 +397,7 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
         snprintf(err_msg, NSTR_LONG,
                           "\"%s\" incorrectly accepted non-distributed "
                           "\"charm" CHARM_SUFFIX "_err\" structure", func);
-        fprintf(stderr, err_msg);
+        fprintf(stderr, "%s", err_msg);
         e += 1;
 
 

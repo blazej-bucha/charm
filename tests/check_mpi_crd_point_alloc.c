@@ -79,7 +79,7 @@ long int check_mpi_crd_point_alloc(CHARM(point) *(*mpi_alloc)(int,
     CHARM(err) *err = CHARM(mpi_err_init)(comm);
     if (CHARM(err_is_null_ptr)(err, 1, comm))
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
     /* --------------------------------------------------------------------- */
@@ -145,7 +145,7 @@ long int check_mpi_crd_point_alloc(CHARM(point) *(*mpi_alloc)(int,
     CHARM(err) *err_d0 = CHARM(err_init)();
     if (err_d0 == NULL)
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -159,7 +159,7 @@ long int check_mpi_crd_point_alloc(CHARM(point) *(*mpi_alloc)(int,
         snprintf(err_msg, NSTR_LONG,
                           "\"%s\" incorrectly accepted non-distributed "
                           "\"charm" CHARM_SUFFIX "_err\" structure", func);
-        fprintf(stderr, err_msg);
+        fprintf(stderr, "%s", err_msg);
         e += 1;
 
 

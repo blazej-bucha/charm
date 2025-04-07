@@ -40,7 +40,7 @@ void CHARM(generate_cell)(CHARM(cell) *grd,
     }
     else
     {
-        fprintf(stderr, "Wrong cell type.\n");
+        fprintf(stderr, "%s", "Wrong cell type.\n");
         exit(CHARM_FAILURE);
     }
 

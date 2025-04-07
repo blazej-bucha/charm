@@ -29,7 +29,7 @@ long int check_gfm_cap_q(void)
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
     /* --------------------------------------------------------------------- */
@@ -50,7 +50,7 @@ long int check_gfm_cap_q(void)
     mpfr_t *q = (mpfr_t *)malloc(q_size * sizeof(mpfr_t));
     if (q == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE);
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE);
         exit(CHARM_FAILURE);
     }
     for (size_t j = 0; j < q_size; j++)

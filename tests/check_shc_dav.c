@@ -27,7 +27,7 @@ long int check_shc_dav(void (*shc_dav)(const CHARM(shc) *,
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -35,7 +35,7 @@ long int check_shc_dav(void (*shc_dav)(const CHARM(shc) *,
     CHARM(shc) *shcs = CHARM(shc_calloc)(SHCS_NMAX_TOPO, PREC(1.0), PREC(1.0));
     if (shcs == NULL)
     {
-        fprintf(stderr, ERR_MSG_SHC);
+        fprintf(stderr, "%s", ERR_MSG_SHC);
         exit(CHARM_FAILURE);
     }
 
@@ -63,7 +63,7 @@ long int check_shc_dav(void (*shc_dav)(const CHARM(shc) *,
         f = (REAL *)malloc((nmax + 1) * sizeof(REAL));
         if (f == NULL)
         {
-            fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+            fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
             exit(CHARM_FAILURE);
         }
         shc_dav(shcs, nmax, f, err);

@@ -28,7 +28,7 @@ long int check_sha_cell(void)
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
     /* --------------------------------------------------------------------- */
@@ -44,7 +44,7 @@ long int check_sha_cell(void)
                                              PREC(1.0));
     if (shcs_ref == NULL)
     {
-        fprintf(stderr, ERR_MSG_SHC);
+        fprintf(stderr, "%s", ERR_MSG_SHC);
         exit(CHARM_FAILURE);
     }
 
@@ -106,7 +106,7 @@ long int check_sha_cell(void)
                                                           nlat[i], nlon[i]);
                         if (grd_cell == NULL)
                         {
-                            fprintf(stderr, ERR_MSG_CELL);
+                            fprintf(stderr, "%s", ERR_MSG_CELL);
                             exit(CHARM_FAILURE);
                         }
 
@@ -124,7 +124,8 @@ long int check_sha_cell(void)
                         f = (REAL *)malloc(grd_cell->ncell * sizeof(REAL));
                         if (f == NULL)
                         {
-                            fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+                            fprintf(stderr, "%s",
+                                    CHARM_ERR_MALLOC_FAILURE"\n");
                             exit(CHARM_FAILURE);
                         }
 
@@ -133,7 +134,7 @@ long int check_sha_cell(void)
                                                      shcs_ref->r);
                         if (shcs_out == NULL)
                         {
-                            fprintf(stderr, ERR_MSG_SHC);
+                            fprintf(stderr, "%s", ERR_MSG_SHC);
                             exit(CHARM_FAILURE);
                         }
 
