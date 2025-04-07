@@ -1,4 +1,4 @@
-Upcoming release:
+CHarm 0.4.5:
 
 * Added `gfm` module for spectral gravity forward modelling using global and 
   spatially restricted integration.
