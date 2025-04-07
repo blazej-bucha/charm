@@ -28,7 +28,7 @@ void CHARM(err_propagate)(CHARM(err) *err,
 
 
     /* Write the file name. */
-    snprintf(err->file[curr_level], CHARM_ERR_MAX_FILE, file);
+    snprintf(err->file[curr_level], CHARM_ERR_MAX_FILE, "%s", file);
 
 
     /* Write the line number */
@@ -36,7 +36,7 @@ void CHARM(err_propagate)(CHARM(err) *err,
 
 
     /* Write the function name */
-    snprintf(err->func[curr_level], CHARM_ERR_MAX_FUNC, func);
+    snprintf(err->func[curr_level], CHARM_ERR_MAX_FUNC, "%s", func);
 
 
     /* Finally, increase "err->level" by "1", since we have just written some
