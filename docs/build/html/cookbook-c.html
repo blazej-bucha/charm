@@ -53,7 +53,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.4.4-dev" />
-    <meta name="docbuild:last-update" content="Mar 18, 2025"/>
+    <meta name="docbuild:last-update" content="Apr 07, 2025"/>
   </head>
   
   
@@ -2120,7 +2120,7 @@ system but also using an ordinary shared-memory system having at least 3 CPUs.</
 
 <span class="w">    </span><span class="cm">/* Note that the previous &quot;MPI_Init&quot; call does not allow to combined MPI</span>
 <span class="cm">     * and OpenMP parallelization techniques.  For best performance, however,</span>
-<span class="cm">     * it is strongly advised to combine indeed MPI and OpenMP.</span>
+<span class="cm">     * it is strongly advised to indeed combine MPI and OpenMP.</span>
 <span class="cm">     *</span>
 <span class="cm">     * Briefly, the recommended strategy is to use one MPI process per</span>
 <span class="cm">     * shared-memory system.  This will minimize the data transfer between the</span>
@@ -2335,7 +2335,7 @@ system but also using an ordinary shared-memory system having at least 3 CPUs.</
 
 <span class="w">    </span><span class="cm">/* Similarly as we specified chunks of spherical harmonic coefficients, now</span>
 <span class="cm">     * we have to split the Gauss--Legendre grid into latitudinal chunks.</span>
-<span class="cm">     * Naturally, the sum of &quot;local_nlat&quot; across all processes much match</span>
+<span class="cm">     * Naturally, the sum of &quot;local_nlat&quot; across all processes must match</span>
 <span class="cm">     * &quot;nlat&quot;.  This is automatically checked when calling</span>
 <span class="cm">     * &quot;charm_mpi_crd_point_gl&quot; below.</span>
 <span class="cm">     *</span>
@@ -2368,7 +2368,7 @@ system but also using an ordinary shared-memory system having at least 3 CPUs.</
 <span class="w">    </span><span class="cm">/* Note that &quot;lat0 = -lat10&quot;, &quot;lat1 = -lat9&quot;, ..., that is Gauss--Legendre</span>
 <span class="cm">     * grids are symmetric with respect to the equator.  In case of symmetric</span>
 <span class="cm">     * grids in general, each process must hold the latitudes at both</span>
-<span class="cm">     * hemisphere.  The only exception is that MPI process, which holds the</span>
+<span class="cm">     * hemispheres.  The only exception is that MPI process, which holds the</span>
 <span class="cm">     * equator (if there is any).  In that case, &quot;local_nlat&quot; must be odd.</span>
 <span class="cm">     * This happens with Gauss--Legendre grids and even &quot;nmax&quot;.  See the</span>
 <span class="cm">     * documentation to &quot;charm_mpi_crd_point_gl&quot;. */</span>
@@ -2672,7 +2672,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Mar 18, 2025.
+  Last updated on Apr 07, 2025.
   <br/>
 </p>
   </div>

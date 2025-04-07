@@ -118,7 +118,7 @@ extern "C"
  *
  * * Bucha B (2025) Spectral gravity forward modelling of 3D variable densities
  *   using an arbitrary integration radius with application to lunar
- *   topographic masses.  Accepted for publication in Journal of Geodesy.
+ *   topographic masses.  Journal of Geodesy, doi: 10.1007/s00190-025-01951-9.
  *
  * @param[in] shape_shcs Spherical harmonic coefficients defining the shape of
  * the gravitating body (e.g., planetary topography), that is, the upper
@@ -394,7 +394,8 @@ CHARM_EXTERN void CHARM_CDECL charm@P@_gfm_global_density_const(
  *
  * * Bucha B (2025) Spectral gravity forward modelling of 3D variable densities
  *   using an arbitrary integration radius with application to lunar
- *   topographic masses.  Accepted for publication in Journal of Geodesy. */
+ *   topographic masses.  Journal of Geodesy, doi:
+ *   10.1007/s00190-025-01951-9. */
 /**@}*/
 /* ------------------------------------------------------------------------- */
 
@@ -481,7 +482,7 @@ CHARM_EXTERN void CHARM_CDECL charm@P@_gfm_global_density_const(
  *
  * * Bucha B (2025) Spectral gravity forward modelling of 3D variable densities
  *   using an arbitrary integration radius with application to lunar
- *   topographic masses.  Accepted for publication in Journal of Geodesy.
+ *   topographic masses.  Journal of Geodesy, doi: 10.1007/s00190-025-01951-9.
  *
  * @param[in] radial_derivative_min Minimum radial derivative of the quantity
  * specified by ``u`` and ``v`` (see below).  Use ``0`` for no radial
