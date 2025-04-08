@@ -1,0 +1,346 @@
+/* Header files */
+/* ------------------------------------------------------------------------- */
+#include <config.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "../src/prec.h"
+#include "parameters.h"
+#include "error_messages.h"
+#ifdef GENREF
+#   include "array2file.h"
+#else
+#   include "validate.h"
+#endif
+#include "check_gfm_sgfm_all.h"
+/* ------------------------------------------------------------------------- */
+
+
+
+
+
+#if COMPILE_GFM == 1
+
+
+#if (GFM_GLOBAL != 0) && (GFM_GLOBAL != 1)
+#   error "Wrong value of GFM_GLOBAL."
+#endif
+
+
+#if (GFM_DENSITY != 0) && (GFM_DENSITY != 1) && (GFM_DENSITY != 2)
+#   error "Wrong value of GFM_DENSITY."
+#endif
+
+
+#if GFM_GLOBAL == 1
+#   if GFM_DENSITY == 0
+long int check_gfm_global_density_3d(void)
+#   elif GFM_DENSITY == 1
+long int check_gfm_global_density_lateral(void)
+#   elif GFM_DENSITY == 2
+long int check_gfm_global_density_const(void)
+#   endif
+#elif @WITH_MPFR@ && GFM_GLOBAL == 0
+#   if GFM_DENSITY == 0
+long int check_gfm_cap_density_3d(void)
+#   elif GFM_DENSITY == 1
+long int check_gfm_cap_density_lateral(void)
+#   elif GFM_DENSITY == 2
+long int check_gfm_cap_density_const(void)
+#   endif
+#endif
+{
+    long int e = 0;
+
+
+    /* --------------------------------------------------------------------- */
+    /* Create CHarm's error structure */
+    CHARM(err) *err = CHARM(err_init)();
+    if (err == NULL)
+    {
+        fprintf(stderr, "%s", ERR_MSG_ERR);
+        exit(CHARM_FAILURE);
+    }
+    /* --------------------------------------------------------------------- */
+
+
+    /* Prepare shape coefficients */
+    /* --------------------------------------------------------------------- */
+    CHARM(shc) *shape_shcs = CHARM(shc_malloc)(SHCS_NMAX_MOON_SHAPE, 1.0, 1.0);
+    if (shape_shcs == NULL)
+    {
+        fprintf(stderr, "%s", ERR_MSG_SHC);
+        exit(CHARM_FAILURE);
+    }
+
+
+    /* Read the shape coefficients */
+    CHARM(shc_read_tbl)(SHCS_IN_PATH_MOON_SHAPE, SHCS_NMAX_MOON_SHAPE,
+                        shape_shcs, err);
+    CHARM(err_handler)(err, 1);
+    /* --------------------------------------------------------------------- */
+
+
+    /* Prepare density coefficients */
+    /* --------------------------------------------------------------------- */
+    /* Path to spherical harmonic coefficients defining the zero- and
+     * first-order polynomial density coefficients */
+    char path_shcs_density0[] = SHCS_IN_PATH_MOON_DENSITY0;
+    char path_shcs_density1[] = SHCS_IN_PATH_MOON_DENSITY1;
+    char *path_shcs_density[2];
+    path_shcs_density[0] = path_shcs_density0;
+    path_shcs_density[1] = path_shcs_density1;
+
+
+    /* Maximum harmonic degrees of the polynomial density coefficients in
+     * "path_shcs_density". */
+    unsigned long density_nmax[2] = {SHCS_NMAX_MOON_DENSITY0,
+                                     SHCS_NMAX_MOON_DENSITY1};
+
+
+    CHARM(shc) *density_shcs[2];
+    for (unsigned i = 0; i <= GFM_MOON_IMAX; i++)
+    {
+        density_shcs[i] = CHARM(shc_malloc)(density_nmax[i], 1.0, 1.0);
+        if (density_shcs[i] == NULL)
+        {
+            fprintf(stderr, "%s", ERR_MSG_SHC);
+            exit(CHARM_FAILURE);
+        }
+
+
+        CHARM(shc_read_tbl)(path_shcs_density[i], density_nmax[i],
+                            density_shcs[i], err);
+        CHARM(err_handler)(err, 1);
+    }
+    /* --------------------------------------------------------------------- */
+
+
+#if @WITH_MPFR@ && (GFM_GLOBAL == 0)
+    /* Cap-modified GFM */
+    /* --------------------------------------------------------------------- */
+    /* Minimum and maximum order of the radial derivatives of the output
+     * quantity */
+    unsigned kmin = GFM_CAP_KMIN;
+    unsigned kmax = GFM_CAP_KMAX;
+
+
+    /* Radius of the sphere, on which evaluation points reside */
+    REAL r = MOON_RREF + GFM_CAP_HEIGHT;
+
+
+    /* Number of bits to represent floating points numbers used to evaluate
+     * truncation coefficients */
+    mpfr_prec_t nbits = GFM_CAP_NBITS;
+    /* --------------------------------------------------------------------- */
+#else
+    unsigned kmin = 0;
+    unsigned kmax = 0;
+#endif
+
+
+    /* Coefficients of the output gravitational potential */
+    /* --------------------------------------------------------------------- */
+    CHARM(shc) **potential_shcs = malloc((kmax - kmin + 1) *
+                                        sizeof(CHARM(shc) *));
+    if (potential_shcs == NULL)
+    {
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE);
+        exit(CHARM_FAILURE);
+    }
+    for (unsigned k = kmin; k <= kmax; k++)
+    {
+        potential_shcs[k - kmin] = CHARM(shc_malloc)(GFM_NMAX_POTENTIAL, 1.0,
+                                                     1.0);
+        if (potential_shcs[k - kmin] == NULL)
+        {
+            fprintf(stderr, "%s", ERR_MSG_SHC);
+            exit(CHARM_FAILURE);
+        }
+    }
+    /* --------------------------------------------------------------------- */
+
+
+    /* Gravity forward modelling */
+    /* --------------------------------------------------------------------- */
+#if GFM_GLOBAL == 1
+#   if GFM_DENSITY == 0
+        CHARM(gfm_global_density_3d)(shape_shcs, SHCS_NMAX_MOON_SHAPE,
+                                     MOON_RREF,
+                                     density_shcs, density_nmax,
+                                     GFM_MOON_IMAX,
+                                     GRAV_CONST, MOON_MASS,
+                                     GFM_MOON_PMIN, GFM_MOON_PMAX,
+                                     GFM_NMAX_POTENTIAL,
+                                     NULL, NULL, NULL,
+                                     potential_shcs[0],
+                                     err);
+#   elif GFM_DENSITY == 1
+        CHARM(gfm_global_density_lateral)(shape_shcs, SHCS_NMAX_MOON_SHAPE,
+                                          MOON_RREF,
+                                          density_shcs[0], density_nmax[0],
+                                          GRAV_CONST, MOON_MASS,
+                                          GFM_MOON_PMIN, GFM_MOON_PMAX,
+                                          GFM_NMAX_POTENTIAL,
+                                          NULL, NULL, NULL,
+                                          potential_shcs[0],
+                                          err);
+#   elif GFM_DENSITY == 2
+        CHARM(gfm_global_density_const)(shape_shcs, SHCS_NMAX_MOON_SHAPE,
+                                        MOON_RREF,
+                                        GFM_MOON_DENSITY_CONST,
+                                        GRAV_CONST, MOON_MASS,
+                                        GFM_MOON_PMIN, GFM_MOON_PMAX,
+                                        GFM_NMAX_POTENTIAL,
+                                        NULL, NULL, NULL,
+                                        potential_shcs[0],
+                                        err);
+#   endif
+
+
+    /* --------------------------------------------------------------------- */
+    REAL *da = (REAL *)malloc((potential_shcs[0]->nmax + 1) * sizeof(REAL));
+    if (da == NULL)
+    {
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
+        exit(CHARM_FAILURE);
+    }
+    CHARM(shc_da)(potential_shcs[0], potential_shcs[0]->nmax, da, err);
+    CHARM(err_handler)(err, 1);
+
+
+    char file[NSTR_LONG];
+    sprintf(file, "%s/gfm_sgfm_g_d%d_nx%lu%s", FOLDER, GFM_DENSITY,
+            potential_shcs[0]->nmax, FTYPE);
+#ifdef GENREF
+    e += array2file(file, da, potential_shcs[0]->nmax + 1);
+#else
+    e += validate(file, da, potential_shcs[0]->nmax + 1,
+                  CHARM(glob_threshold2));
+#endif
+
+
+    free(da);
+    /* --------------------------------------------------------------------- */
+
+
+#elif @WITH_MPFR@ && (GFM_GLOBAL == 0)
+    int zone[2] = {CHARM_GFM_NEAR_ZONE, CHARM_GFM_FAR_ZONE};
+    for (unsigned z = 0; z <= 1; z++)
+    {
+    for (unsigned u = 0; u <= GFM_CAP_UMAX; u++)
+    {
+    for (unsigned v = 0; v <= u; v++)
+    {
+#   if GFM_DENSITY == 0
+        CHARM(gfm_cap_density_3d)(shape_shcs, SHCS_NMAX_MOON_SHAPE, MOON_RREF,
+                                  density_shcs, density_nmax,
+                                  GFM_MOON_IMAX,
+                                  GRAV_CONST, MOON_MASS,
+                                  GFM_MOON_PMIN, GFM_MOON_PMAX,
+                                  GFM_CAP_KMIN, GFM_CAP_KMAX,
+                                  r,
+                                  GFM_CAP_PSI0,
+                                  u, v,
+                                  zone[z],
+                                  nbits,
+                                  GFM_NMAX_POTENTIAL,
+                                  NULL,
+                                  NULL,
+                                  NULL,
+                                  potential_shcs,
+                                  err);
+#   elif GFM_DENSITY == 1
+        CHARM(gfm_cap_density_lateral)(shape_shcs, SHCS_NMAX_MOON_SHAPE,
+                                       MOON_RREF,
+                                       density_shcs[0], density_nmax[0],
+                                       GRAV_CONST, MOON_MASS,
+                                       GFM_MOON_PMIN, GFM_MOON_PMAX,
+                                       GFM_CAP_KMIN, GFM_CAP_KMAX,
+                                       r,
+                                       GFM_CAP_PSI0,
+                                       u, v,
+                                       zone[z],
+                                       nbits,
+                                       GFM_NMAX_POTENTIAL,
+                                       NULL,
+                                       NULL,
+                                       NULL,
+                                       potential_shcs,
+                                       err);
+#   elif GFM_DENSITY == 2
+        CHARM(gfm_cap_density_const)(shape_shcs, SHCS_NMAX_MOON_SHAPE,
+                                     MOON_RREF,
+                                     GFM_MOON_DENSITY_CONST,
+                                     GRAV_CONST, MOON_MASS,
+                                     GFM_MOON_PMIN, GFM_MOON_PMAX,
+                                     GFM_CAP_KMIN, GFM_CAP_KMAX,
+                                     r,
+                                     GFM_CAP_PSI0,
+                                     u, v,
+                                     zone[z],
+                                     nbits,
+                                     GFM_NMAX_POTENTIAL,
+                                     NULL,
+                                     NULL,
+                                     NULL,
+                                     potential_shcs,
+                                     err);
+#   endif
+
+
+    /* --------------------------------------------------------------------- */
+    for (unsigned k = kmin; k <= kmax; k++)
+    {
+        REAL *da = (REAL *)malloc((potential_shcs[k - kmin]->nmax + 1) *
+                            sizeof(REAL));
+        if (da == NULL)
+        {
+            fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
+            exit(CHARM_FAILURE);
+        }
+        CHARM(shc_da)(potential_shcs[k - kmin], potential_shcs[k - kmin]->nmax,
+                      da, err);
+        CHARM(err_handler)(err, 1);
+
+
+        char file[NSTR_LONG];
+        sprintf(file, "%s/gfm_sgfm_c_d%d_nx%lu_z%d_u%u_v%u_k%u%s",
+                FOLDER, GFM_DENSITY, potential_shcs[k - kmin]->nmax,
+                zone[z], u, v, k, FTYPE);
+#ifdef GENREF
+        e += array2file(file, da, potential_shcs[k - kmin]->nmax + 1);
+#else
+        e += validate(file, da, potential_shcs[k - kmin]->nmax + 1,
+                      CHARM(glob_threshold2));
+#endif
+
+
+        free(da);
+    }
+    /* --------------------------------------------------------------------- */
+
+
+    }
+    }
+    }
+#endif
+    CHARM(err_handler)(err, 1);
+    /* --------------------------------------------------------------------- */
+
+
+    /* --------------------------------------------------------------------- */
+    CHARM(shc_free)(shape_shcs);
+    for (unsigned i = 0; i <= GFM_MOON_IMAX; i++)
+        CHARM(shc_free)(density_shcs[i]);
+    for (unsigned k = kmin; k <= kmax; k++)
+        CHARM(shc_free)(potential_shcs[k - kmin]);
+    free(potential_shcs);
+    CHARM(err_free)(err);
+    /* --------------------------------------------------------------------- */
+
+
+    return e;
+}
+
+
+#endif

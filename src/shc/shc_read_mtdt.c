@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../prec.h"
+#include "../misc/misc_scanf.h"
 #include "../misc/misc_str2ul.h"
 #include "../misc/misc_str2real.h"
 #include "../misc/misc_check_radius.h"
@@ -19,12 +20,8 @@
 
 /* Symbolic constants */
 /* ------------------------------------------------------------------------- */
-#undef NSTR
-#define NSTR (128)
-
-
 #undef NLINE
-#define NLINE (2048)
+#define NLINE (3 * SCANF_BUFFER + 2)
 /* ------------------------------------------------------------------------- */
 
 
@@ -44,9 +41,9 @@ void CHARM(shc_read_mtdt)(FILE *stream,
     /* Char arrays to store the strings to be loaded from the input file */
     /* --------------------------------------------------------------------- */
     char line[NLINE];
-    char nmax_str[NSTR];
-    char mu_str[NSTR];
-    char r_str[NSTR];
+    char nmax_str[SCANF_BUFFER];
+    char mu_str[SCANF_BUFFER];
+    char r_str[SCANF_BUFFER];
     /* --------------------------------------------------------------------- */
 
 
@@ -77,7 +74,9 @@ void CHARM(shc_read_mtdt)(FILE *stream,
     /* Get the maximum harmonic degree, the scaling constant and the radius of
      * the reference sphere as a string */
     /* ..................................................................... */
-    if (sscanf(line, "%s %s %s", nmax_str, mu_str, r_str) != 3)
+    if (sscanf(line, SCANF_SFS(SCANF_WIDTH) " "
+                     SCANF_SFS(SCANF_WIDTH) " "
+                     SCANF_SFS(SCANF_WIDTH), nmax_str, mu_str, r_str) != 3)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFILEIO,
                        "Failed to read the metadata from the input file "

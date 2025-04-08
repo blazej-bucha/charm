@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>charm_glob &#8212; CHarm 0.4.4 documentation</title>
+    <title>charm_glob &#8212; CHarm 0.4.5 documentation</title>
   
   
   
@@ -40,7 +40,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="_static/documentation_options.js?v=9a529362"></script>
+    <script src="_static/documentation_options.js?v=21ae117f"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -53,8 +53,8 @@
     <link rel="prev" title="charm_mpi" href="api-c-mpi.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.4.4" />
-    <meta name="docbuild:last-update" content="Feb 12, 2025"/>
+  <meta name="docsearch:version" content="0.4.5" />
+    <meta name="docbuild:last-update" content="Apr 07, 2025"/>
   </head>
   
   
@@ -137,7 +137,7 @@
     <img src="_static/charm-logo.svg" class="logo__image only-dark pst-js-only" alt=""/>
   
   
-    <p class="title logo__title">CHarm v0.4.4</p>
+    <p class="title logo__title">CHarm v0.4.5</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -172,6 +172,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-sha.html">charm_sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-gfm.html">charm_gfm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-leg.html">charm_leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
@@ -186,6 +187,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">pyharm.sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-gfm.html">pyharm.gfm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-leg.html">pyharm.leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">pyharm.integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
@@ -505,7 +507,7 @@ interact with it.</p>
 <p>Let <code class="docutils literal notranslate"><span class="pre">x</span></code> by the number of latitudes, for which the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop over latitudes in <code class="docutils literal notranslate"><a class="reference internal" href="api-c-sha.html#charm__sha_8h_1ae98177417defe2a6344b7fb62a1c74a7"><span class="std std-ref"><span class="pre">charm_sha_point()</span></span></a></code> runs. Usually, this number is about half of the number of latitudes of quadrature grids due to their equatorial symmetry. Furthermore, let <code class="docutils literal notranslate"><span class="pre">b</span></code> be the value of <code class="docutils literal notranslate"><a class="reference internal" href="#charm__glob_8h_1abddf129834cf748518d7c9a6ae15fe23"><span class="std std-ref"><span class="pre">charm_glob_sha_block_lat_multiplier</span></span></a></code>. Finally, let <code class="docutils literal notranslate"><span class="pre">s</span></code> be the size of SIMD vectors (can be determined by <code class="docutils literal notranslate"><a class="reference internal" href="api-c-misc.html#charm__misc_8h_1ad3ae4644b756ab034a808dd4cc2b6904"><span class="std std-ref"><span class="pre">charm_misc_buildopt_simd_vector_size()</span></span></a></code>) and <code class="docutils literal notranslate"><span class="pre">o</span></code> be the number of OpenMP processes (if OpenMP parallelization is disabled, then <code class="docutils literal notranslate"><span class="pre">o</span> <span class="pre">=</span> <span class="pre">1</span></code>). The <code class="docutils literal notranslate"><span class="pre">for</span></code> loop in <code class="docutils literal notranslate"><a class="reference internal" href="api-c-sha.html#charm__sha_8h_1ae98177417defe2a6344b7fb62a1c74a7"><span class="std std-ref"><span class="pre">charm_sha_point()</span></span></a></code> will run roughly <code class="docutils literal notranslate"><span class="pre">ceil(x</span> <span class="pre">/</span> <span class="pre">(b</span> <span class="pre">*</span> <span class="pre">s</span> <span class="pre">*</span> <span class="pre">o))</span></code> times. Thus, by increasing <code class="docutils literal notranslate"><span class="pre">b</span></code> (and optionally also <code class="docutils literal notranslate"><span class="pre">o</span></code>), the number of loop runs can be decreased.</p>
 <p>The optimal value depends on your hardware (e.g., the number of shared-memory computing nodes, the network connection speed between the nodes, etc.) and also on the number of latitudes. Both too low and too high values may <em>drastically</em> deteriorate the performance.</p>
 <p><ul class="simple">
-<li><p>It the value is too low, the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop will run many times. This is a serious problem, because with each loop iteration, <em>all</em> spherical harmonic coefficients need to be distributed among <em>all</em> MPI processes within an MPI communicator. So by increasing <code class="docutils literal notranslate"><a class="reference internal" href="#charm__glob_8h_1abddf129834cf748518d7c9a6ae15fe23"><span class="std std-ref"><span class="pre">charm_glob_sha_block_lat_multiplier</span></span></a></code>, you can reduce the number of times the spherical harmonic coefficients will be sent between MPI processes which is desired in general.</p></li>
+<li><p>If the value is too low, the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop will run many times. This is a serious problem, because with each loop iteration, <em>all</em> spherical harmonic coefficients need to be distributed among <em>all</em> MPI processes within an MPI communicator. So by increasing <code class="docutils literal notranslate"><a class="reference internal" href="#charm__glob_8h_1abddf129834cf748518d7c9a6ae15fe23"><span class="std std-ref"><span class="pre">charm_glob_sha_block_lat_multiplier</span></span></a></code>, you can reduce the number of times the spherical harmonic coefficients will be sent between MPI processes which is desired in general.</p></li>
 <li><p>If the value is too high, the CPU caching within a single computing node may be significantly deteriorated, thereby decreasing the performance.</p></li>
 </ul>
 </p>
@@ -610,7 +612,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Feb 12, 2025.
+  Last updated on Apr 07, 2025.
   <br/>
 </p>
   </div>

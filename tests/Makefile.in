@@ -91,7 +91,19 @@ host_triplet = @host@
 check_PROGRAMS = test_run@P@$(EXEEXT) $(am__EXEEXT_1)
 @MPI_TRUE@am__append_1 = mpi_test_run@P@
 noinst_PROGRAMS = genref_run@P@$(EXEEXT)
-@OPENMP_TRUE@am__append_2 = $(OPENMP_CFLAGS)
+@MPFR_TRUE@am__append_2 = check_gfm_cap_density_3d.c \
+@MPFR_TRUE@           check_gfm_cap_density_lateral.c \
+@MPFR_TRUE@           check_gfm_cap_density_const.c \
+@MPFR_TRUE@		   check_gfm_cap_q.c \
+@MPFR_TRUE@		   check_gfm_cap_q_check_prec.c \
+@MPFR_TRUE@		   mpfr_write_val.c \
+@MPFR_TRUE@		   mpfr_write_array.c \
+@MPFR_TRUE@		   mpfr_array2file.c \
+@MPFR_TRUE@		   mpfr_cmp_vals.c \
+@MPFR_TRUE@		   mpfr_cmp_arrays.c \
+@MPFR_TRUE@		   mpfr_validate.c
+
+@OPENMP_TRUE@am__append_3 = $(OPENMP_CFLAGS)
 subdir = tests
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_check_compile_flag.m4 \
@@ -100,6 +112,7 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/ax_check_compile_flag.m4 \
 	$(top_srcdir)/m4/ax_openmp.m4 \
 	$(top_srcdir)/m4/ax_prog_cc_mpi.m4 \
 	$(top_srcdir)/m4/ax_split_version.m4 \
+	$(top_srcdir)/m4/ax_with_build_path.m4 \
 	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/ltoptions.m4 \
 	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
 	$(top_srcdir)/m4/lt~obsolete.m4 $(top_srcdir)/VERSION \
@@ -109,11 +122,52 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 DIST_COMMON = $(srcdir)/Makefile.am $(am__DIST_COMMON)
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
-CONFIG_CLEAN_FILES =
+CONFIG_CLEAN_FILES = module_gfm.c check_gfm_sgfm_all.c \
+	check_gfm_sgfm_all.h
 CONFIG_CLEAN_VPATH_FILES =
 @MPI_TRUE@am__EXEEXT_1 = mpi_test_run@P@$(EXEEXT)
 PROGRAMS = $(noinst_PROGRAMS)
-am__objects_1 = genref_run@P@-test_run.$(OBJEXT) \
+am__genref_run@P@_SOURCES_DIST = test_run.c test_suite_start.c \
+	test_suite_end.c cmp_vals.c cmp_arrays.c write_array.c \
+	write_val.c validate.c array2file.c \
+	point_touch_array_elements.c cell_touch_array_elements.c \
+	shc_touch_array_elements.c modify_low_degree_coefficients.c \
+	generate_point.c generate_cell.c module_crd.c module_shc.c \
+	module_shs.c module_sha.c module_gfm.c module_leg.c \
+	module_integ.c misc.c check_struct.c check_func.c \
+	check_outcome.c check_integ_pn1m1pn2m2.c \
+	check_integ_yi1n1m1yi2n2m2.c check_leg_pnmj_coeffs.c \
+	check_leg_pnmj_alloc.c check_crd_point_alloc.c \
+	check_crd_point_init.c check_crd_point_quad.c \
+	check_crd_cell_alloc.c check_crd_cell_init.c check_shs_point.c \
+	check_shs_point_grad1.c check_shs_point_grad2.c \
+	check_shs_point_guru.c check_shs_cell.c check_shs_cell_isurf.c \
+	check_sha_point.c check_sha_cell.c \
+	check_gfm_global_density_3d.c \
+	check_gfm_global_density_lateral.c \
+	check_gfm_global_density_const.c check_shc_read_type.c \
+	check_shc_read_gfc.c check_shc_write_type.c check_shc_dav.c \
+	check_shc_ddav.c check_shc_rescale.c check_shc_alloc.c \
+	check_shc_init.c check_simd_abs_r.c check_simd_neg_r.c \
+	check_simd_sum_r.c check_simd_masks.c check_simd_blend_r.c \
+	check_gfm_cap_density_3d.c check_gfm_cap_density_lateral.c \
+	check_gfm_cap_density_const.c check_gfm_cap_q.c \
+	check_gfm_cap_q_check_prec.c mpfr_write_val.c \
+	mpfr_write_array.c mpfr_array2file.c mpfr_cmp_vals.c \
+	mpfr_cmp_arrays.c mpfr_validate.c
+@MPFR_TRUE@am__objects_1 =  \
+@MPFR_TRUE@	genref_run@P@-check_gfm_cap_density_3d.$(OBJEXT) \
+@MPFR_TRUE@	genref_run@P@-check_gfm_cap_density_lateral.$(OBJEXT) \
+@MPFR_TRUE@	genref_run@P@-check_gfm_cap_density_const.$(OBJEXT) \
+@MPFR_TRUE@	genref_run@P@-check_gfm_cap_q.$(OBJEXT) \
+@MPFR_TRUE@	genref_run@P@-check_gfm_cap_q_check_prec.$(OBJEXT) \
+@MPFR_TRUE@	genref_run@P@-mpfr_write_val.$(OBJEXT) \
+@MPFR_TRUE@	genref_run@P@-mpfr_write_array.$(OBJEXT) \
+@MPFR_TRUE@	genref_run@P@-mpfr_array2file.$(OBJEXT) \
+@MPFR_TRUE@	genref_run@P@-mpfr_cmp_vals.$(OBJEXT) \
+@MPFR_TRUE@	genref_run@P@-mpfr_cmp_arrays.$(OBJEXT) \
+@MPFR_TRUE@	genref_run@P@-mpfr_validate.$(OBJEXT)
+am__objects_2 = genref_run@P@-test_run.$(OBJEXT) \
 	genref_run@P@-test_suite_start.$(OBJEXT) \
 	genref_run@P@-test_suite_end.$(OBJEXT) \
 	genref_run@P@-cmp_vals.$(OBJEXT) \
@@ -132,6 +186,7 @@ am__objects_1 = genref_run@P@-test_run.$(OBJEXT) \
 	genref_run@P@-module_shc.$(OBJEXT) \
 	genref_run@P@-module_shs.$(OBJEXT) \
 	genref_run@P@-module_sha.$(OBJEXT) \
+	genref_run@P@-module_gfm.$(OBJEXT) \
 	genref_run@P@-module_leg.$(OBJEXT) \
 	genref_run@P@-module_integ.$(OBJEXT) \
 	genref_run@P@-misc.$(OBJEXT) \
@@ -155,6 +210,9 @@ am__objects_1 = genref_run@P@-test_run.$(OBJEXT) \
 	genref_run@P@-check_shs_cell_isurf.$(OBJEXT) \
 	genref_run@P@-check_sha_point.$(OBJEXT) \
 	genref_run@P@-check_sha_cell.$(OBJEXT) \
+	genref_run@P@-check_gfm_global_density_3d.$(OBJEXT) \
+	genref_run@P@-check_gfm_global_density_lateral.$(OBJEXT) \
+	genref_run@P@-check_gfm_global_density_const.$(OBJEXT) \
 	genref_run@P@-check_shc_read_type.$(OBJEXT) \
 	genref_run@P@-check_shc_read_gfc.$(OBJEXT) \
 	genref_run@P@-check_shc_write_type.$(OBJEXT) \
@@ -167,8 +225,8 @@ am__objects_1 = genref_run@P@-test_run.$(OBJEXT) \
 	genref_run@P@-check_simd_neg_r.$(OBJEXT) \
 	genref_run@P@-check_simd_sum_r.$(OBJEXT) \
 	genref_run@P@-check_simd_masks.$(OBJEXT) \
-	genref_run@P@-check_simd_blend_r.$(OBJEXT)
-am_genref_run@P@_OBJECTS = $(am__objects_1)
+	genref_run@P@-check_simd_blend_r.$(OBJEXT) $(am__objects_1)
+am_genref_run@P@_OBJECTS = $(am__objects_2)
 genref_run@P@_OBJECTS = $(am_genref_run@P@_OBJECTS)
 genref_run@P@_DEPENDENCIES = $(top_builddir)/libcharm@P@.la
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -189,7 +247,7 @@ am__mpi_test_run@P@_SOURCES_DIST = mpi_test_run.c test_suite_start.c \
 	check_mpi_shs_point.c check_mpi_sha_point.c \
 	point_touch_array_elements.c shc_touch_array_elements.c \
 	generate_point.c check_struct.c
-@MPI_TRUE@am__objects_2 = mpi_test_run@P@-mpi_test_run.$(OBJEXT) \
+@MPI_TRUE@am__objects_3 = mpi_test_run@P@-mpi_test_run.$(OBJEXT) \
 @MPI_TRUE@	mpi_test_run@P@-test_suite_start.$(OBJEXT) \
 @MPI_TRUE@	mpi_test_run@P@-test_suite_end.$(OBJEXT) \
 @MPI_TRUE@	mpi_test_run@P@-check_func.$(OBJEXT) \
@@ -214,7 +272,7 @@ am__mpi_test_run@P@_SOURCES_DIST = mpi_test_run.c test_suite_start.c \
 @MPI_TRUE@	mpi_test_run@P@-shc_touch_array_elements.$(OBJEXT) \
 @MPI_TRUE@	mpi_test_run@P@-generate_point.$(OBJEXT) \
 @MPI_TRUE@	mpi_test_run@P@-check_struct.$(OBJEXT)
-@MPI_TRUE@am_mpi_test_run@P@_OBJECTS = $(am__objects_2)
+@MPI_TRUE@am_mpi_test_run@P@_OBJECTS = $(am__objects_3)
 mpi_test_run@P@_OBJECTS = $(am_mpi_test_run@P@_OBJECTS)
 @MPI_TRUE@mpi_test_run@P@_DEPENDENCIES =  \
 @MPI_TRUE@	$(top_builddir)/libcharm@P@.la
@@ -222,7 +280,47 @@ mpi_test_run@P@_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
 	$(mpi_test_run@P@_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
-am__objects_3 = test_run@P@-test_run.$(OBJEXT) \
+am__test_run@P@_SOURCES_DIST = test_run.c test_suite_start.c \
+	test_suite_end.c cmp_vals.c cmp_arrays.c write_array.c \
+	write_val.c validate.c array2file.c \
+	point_touch_array_elements.c cell_touch_array_elements.c \
+	shc_touch_array_elements.c modify_low_degree_coefficients.c \
+	generate_point.c generate_cell.c module_crd.c module_shc.c \
+	module_shs.c module_sha.c module_gfm.c module_leg.c \
+	module_integ.c misc.c check_struct.c check_func.c \
+	check_outcome.c check_integ_pn1m1pn2m2.c \
+	check_integ_yi1n1m1yi2n2m2.c check_leg_pnmj_coeffs.c \
+	check_leg_pnmj_alloc.c check_crd_point_alloc.c \
+	check_crd_point_init.c check_crd_point_quad.c \
+	check_crd_cell_alloc.c check_crd_cell_init.c check_shs_point.c \
+	check_shs_point_grad1.c check_shs_point_grad2.c \
+	check_shs_point_guru.c check_shs_cell.c check_shs_cell_isurf.c \
+	check_sha_point.c check_sha_cell.c \
+	check_gfm_global_density_3d.c \
+	check_gfm_global_density_lateral.c \
+	check_gfm_global_density_const.c check_shc_read_type.c \
+	check_shc_read_gfc.c check_shc_write_type.c check_shc_dav.c \
+	check_shc_ddav.c check_shc_rescale.c check_shc_alloc.c \
+	check_shc_init.c check_simd_abs_r.c check_simd_neg_r.c \
+	check_simd_sum_r.c check_simd_masks.c check_simd_blend_r.c \
+	check_gfm_cap_density_3d.c check_gfm_cap_density_lateral.c \
+	check_gfm_cap_density_const.c check_gfm_cap_q.c \
+	check_gfm_cap_q_check_prec.c mpfr_write_val.c \
+	mpfr_write_array.c mpfr_array2file.c mpfr_cmp_vals.c \
+	mpfr_cmp_arrays.c mpfr_validate.c
+@MPFR_TRUE@am__objects_4 =  \
+@MPFR_TRUE@	test_run@P@-check_gfm_cap_density_3d.$(OBJEXT) \
+@MPFR_TRUE@	test_run@P@-check_gfm_cap_density_lateral.$(OBJEXT) \
+@MPFR_TRUE@	test_run@P@-check_gfm_cap_density_const.$(OBJEXT) \
+@MPFR_TRUE@	test_run@P@-check_gfm_cap_q.$(OBJEXT) \
+@MPFR_TRUE@	test_run@P@-check_gfm_cap_q_check_prec.$(OBJEXT) \
+@MPFR_TRUE@	test_run@P@-mpfr_write_val.$(OBJEXT) \
+@MPFR_TRUE@	test_run@P@-mpfr_write_array.$(OBJEXT) \
+@MPFR_TRUE@	test_run@P@-mpfr_array2file.$(OBJEXT) \
+@MPFR_TRUE@	test_run@P@-mpfr_cmp_vals.$(OBJEXT) \
+@MPFR_TRUE@	test_run@P@-mpfr_cmp_arrays.$(OBJEXT) \
+@MPFR_TRUE@	test_run@P@-mpfr_validate.$(OBJEXT)
+am__objects_5 = test_run@P@-test_run.$(OBJEXT) \
 	test_run@P@-test_suite_start.$(OBJEXT) \
 	test_run@P@-test_suite_end.$(OBJEXT) \
 	test_run@P@-cmp_vals.$(OBJEXT) \
@@ -240,6 +338,7 @@ am__objects_3 = test_run@P@-test_run.$(OBJEXT) \
 	test_run@P@-module_shc.$(OBJEXT) \
 	test_run@P@-module_shs.$(OBJEXT) \
 	test_run@P@-module_sha.$(OBJEXT) \
+	test_run@P@-module_gfm.$(OBJEXT) \
 	test_run@P@-module_leg.$(OBJEXT) \
 	test_run@P@-module_integ.$(OBJEXT) test_run@P@-misc.$(OBJEXT) \
 	test_run@P@-check_struct.$(OBJEXT) \
@@ -262,6 +361,9 @@ am__objects_3 = test_run@P@-test_run.$(OBJEXT) \
 	test_run@P@-check_shs_cell_isurf.$(OBJEXT) \
 	test_run@P@-check_sha_point.$(OBJEXT) \
 	test_run@P@-check_sha_cell.$(OBJEXT) \
+	test_run@P@-check_gfm_global_density_3d.$(OBJEXT) \
+	test_run@P@-check_gfm_global_density_lateral.$(OBJEXT) \
+	test_run@P@-check_gfm_global_density_const.$(OBJEXT) \
 	test_run@P@-check_shc_read_type.$(OBJEXT) \
 	test_run@P@-check_shc_read_gfc.$(OBJEXT) \
 	test_run@P@-check_shc_write_type.$(OBJEXT) \
@@ -274,8 +376,8 @@ am__objects_3 = test_run@P@-test_run.$(OBJEXT) \
 	test_run@P@-check_simd_neg_r.$(OBJEXT) \
 	test_run@P@-check_simd_sum_r.$(OBJEXT) \
 	test_run@P@-check_simd_masks.$(OBJEXT) \
-	test_run@P@-check_simd_blend_r.$(OBJEXT)
-am_test_run@P@_OBJECTS = $(am__objects_3)
+	test_run@P@-check_simd_blend_r.$(OBJEXT) $(am__objects_4)
+am_test_run@P@_OBJECTS = $(am__objects_5)
 test_run@P@_OBJECTS = $(am_test_run@P@_OBJECTS)
 test_run@P@_DEPENDENCIES = $(top_builddir)/libcharm@P@.la
 test_run@P@_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
@@ -304,6 +406,14 @@ am__depfiles_remade = ./$(DEPDIR)/genref_run@P@-array2file.Po \
 	./$(DEPDIR)/genref_run@P@-check_crd_point_init.Po \
 	./$(DEPDIR)/genref_run@P@-check_crd_point_quad.Po \
 	./$(DEPDIR)/genref_run@P@-check_func.Po \
+	./$(DEPDIR)/genref_run@P@-check_gfm_cap_density_3d.Po \
+	./$(DEPDIR)/genref_run@P@-check_gfm_cap_density_const.Po \
+	./$(DEPDIR)/genref_run@P@-check_gfm_cap_density_lateral.Po \
+	./$(DEPDIR)/genref_run@P@-check_gfm_cap_q.Po \
+	./$(DEPDIR)/genref_run@P@-check_gfm_cap_q_check_prec.Po \
+	./$(DEPDIR)/genref_run@P@-check_gfm_global_density_3d.Po \
+	./$(DEPDIR)/genref_run@P@-check_gfm_global_density_const.Po \
+	./$(DEPDIR)/genref_run@P@-check_gfm_global_density_lateral.Po \
 	./$(DEPDIR)/genref_run@P@-check_integ_pn1m1pn2m2.Po \
 	./$(DEPDIR)/genref_run@P@-check_integ_yi1n1m1yi2n2m2.Po \
 	./$(DEPDIR)/genref_run@P@-check_leg_pnmj_alloc.Po \
@@ -338,11 +448,18 @@ am__depfiles_remade = ./$(DEPDIR)/genref_run@P@-array2file.Po \
 	./$(DEPDIR)/genref_run@P@-misc.Po \
 	./$(DEPDIR)/genref_run@P@-modify_low_degree_coefficients.Po \
 	./$(DEPDIR)/genref_run@P@-module_crd.Po \
+	./$(DEPDIR)/genref_run@P@-module_gfm.Po \
 	./$(DEPDIR)/genref_run@P@-module_integ.Po \
 	./$(DEPDIR)/genref_run@P@-module_leg.Po \
 	./$(DEPDIR)/genref_run@P@-module_sha.Po \
 	./$(DEPDIR)/genref_run@P@-module_shc.Po \
 	./$(DEPDIR)/genref_run@P@-module_shs.Po \
+	./$(DEPDIR)/genref_run@P@-mpfr_array2file.Po \
+	./$(DEPDIR)/genref_run@P@-mpfr_cmp_arrays.Po \
+	./$(DEPDIR)/genref_run@P@-mpfr_cmp_vals.Po \
+	./$(DEPDIR)/genref_run@P@-mpfr_validate.Po \
+	./$(DEPDIR)/genref_run@P@-mpfr_write_array.Po \
+	./$(DEPDIR)/genref_run@P@-mpfr_write_val.Po \
 	./$(DEPDIR)/genref_run@P@-point_touch_array_elements.Po \
 	./$(DEPDIR)/genref_run@P@-shc_touch_array_elements.Po \
 	./$(DEPDIR)/genref_run@P@-test_run.Po \
@@ -384,6 +501,14 @@ am__depfiles_remade = ./$(DEPDIR)/genref_run@P@-array2file.Po \
 	./$(DEPDIR)/test_run@P@-check_crd_point_init.Po \
 	./$(DEPDIR)/test_run@P@-check_crd_point_quad.Po \
 	./$(DEPDIR)/test_run@P@-check_func.Po \
+	./$(DEPDIR)/test_run@P@-check_gfm_cap_density_3d.Po \
+	./$(DEPDIR)/test_run@P@-check_gfm_cap_density_const.Po \
+	./$(DEPDIR)/test_run@P@-check_gfm_cap_density_lateral.Po \
+	./$(DEPDIR)/test_run@P@-check_gfm_cap_q.Po \
+	./$(DEPDIR)/test_run@P@-check_gfm_cap_q_check_prec.Po \
+	./$(DEPDIR)/test_run@P@-check_gfm_global_density_3d.Po \
+	./$(DEPDIR)/test_run@P@-check_gfm_global_density_const.Po \
+	./$(DEPDIR)/test_run@P@-check_gfm_global_density_lateral.Po \
 	./$(DEPDIR)/test_run@P@-check_integ_pn1m1pn2m2.Po \
 	./$(DEPDIR)/test_run@P@-check_integ_yi1n1m1yi2n2m2.Po \
 	./$(DEPDIR)/test_run@P@-check_leg_pnmj_alloc.Po \
@@ -418,11 +543,18 @@ am__depfiles_remade = ./$(DEPDIR)/genref_run@P@-array2file.Po \
 	./$(DEPDIR)/test_run@P@-misc.Po \
 	./$(DEPDIR)/test_run@P@-modify_low_degree_coefficients.Po \
 	./$(DEPDIR)/test_run@P@-module_crd.Po \
+	./$(DEPDIR)/test_run@P@-module_gfm.Po \
 	./$(DEPDIR)/test_run@P@-module_integ.Po \
 	./$(DEPDIR)/test_run@P@-module_leg.Po \
 	./$(DEPDIR)/test_run@P@-module_sha.Po \
 	./$(DEPDIR)/test_run@P@-module_shc.Po \
 	./$(DEPDIR)/test_run@P@-module_shs.Po \
+	./$(DEPDIR)/test_run@P@-mpfr_array2file.Po \
+	./$(DEPDIR)/test_run@P@-mpfr_cmp_arrays.Po \
+	./$(DEPDIR)/test_run@P@-mpfr_cmp_vals.Po \
+	./$(DEPDIR)/test_run@P@-mpfr_validate.Po \
+	./$(DEPDIR)/test_run@P@-mpfr_write_array.Po \
+	./$(DEPDIR)/test_run@P@-mpfr_write_val.Po \
 	./$(DEPDIR)/test_run@P@-point_touch_array_elements.Po \
 	./$(DEPDIR)/test_run@P@-shc_touch_array_elements.Po \
 	./$(DEPDIR)/test_run@P@-test_run.Po \
@@ -450,8 +582,9 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-DIST_SOURCES = $(genref_run@P@_SOURCES) \
-	$(am__mpi_test_run@P@_SOURCES_DIST) $(test_run@P@_SOURCES)
+DIST_SOURCES = $(am__genref_run@P@_SOURCES_DIST) \
+	$(am__mpi_test_run@P@_SOURCES_DIST) \
+	$(am__test_run@P@_SOURCES_DIST)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -474,7 +607,10 @@ am__define_uniq_tagged_files = \
   unique=`for i in $$list; do \
     if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
   done | $(am__uniquify_input)`
-am__DIST_COMMON = $(srcdir)/Makefile.in $(top_srcdir)/depcomp
+am__DIST_COMMON = $(srcdir)/Makefile.in \
+	$(srcdir)/check_gfm_sgfm_all.c.in \
+	$(srcdir)/check_gfm_sgfm_all.h.in $(srcdir)/module_gfm.c.in \
+	$(top_srcdir)/depcomp
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
@@ -566,6 +702,7 @@ SHARED_EXT = @SHARED_EXT@
 SHELL = @SHELL@
 STRIP = @STRIP@
 VERSION = @VERSION@
+WITH_MPFR = @WITH_MPFR@
 WITH_MPI = @WITH_MPI@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
@@ -630,62 +767,29 @@ EXTRA_DIST = *.h \
 
 
 # Source files common to both the test and the genref program
-SOURCES = test_run.c \
-		  test_suite_start.c \
-		  test_suite_end.c \
-		  cmp_vals.c \
-		  cmp_arrays.c \
-		  write_array.c \
-		  write_val.c \
-		  validate.c \
-		  array2file.c \
-		  point_touch_array_elements.c \
-		  cell_touch_array_elements.c \
-		  shc_touch_array_elements.c \
-		  modify_low_degree_coefficients.c \
-		  generate_point.c \
-		  generate_cell.c \
-		  module_crd.c \
-		  module_shc.c \
-		  module_shs.c \
-		  module_sha.c \
-		  module_leg.c \
-		  module_integ.c \
-		  misc.c \
-		  check_struct.c \
-		  check_func.c \
-		  check_outcome.c \
-		  check_integ_pn1m1pn2m2.c \
-		  check_integ_yi1n1m1yi2n2m2.c \
-		  check_leg_pnmj_coeffs.c \
-		  check_leg_pnmj_alloc.c \
-		  check_crd_point_alloc.c \
-		  check_crd_point_init.c \
-		  check_crd_point_quad.c \
-		  check_crd_cell_alloc.c \
-		  check_crd_cell_init.c \
-		  check_shs_point.c \
-		  check_shs_point_grad1.c \
-		  check_shs_point_grad2.c \
-		  check_shs_point_guru.c \
-		  check_shs_cell.c \
-		  check_shs_cell_isurf.c \
-		  check_sha_point.c \
-		  check_sha_cell.c \
-		  check_shc_read_type.c \
-		  check_shc_read_gfc.c \
-		  check_shc_write_type.c \
-		  check_shc_dav.c \
-		  check_shc_ddav.c \
-		  check_shc_rescale.c \
-		  check_shc_alloc.c \
-		  check_shc_init.c \
-		  check_simd_abs_r.c \
-		  check_simd_neg_r.c \
-		  check_simd_sum_r.c \
-		  check_simd_masks.c \
-		  check_simd_blend_r.c
-
+SOURCES = test_run.c test_suite_start.c test_suite_end.c cmp_vals.c \
+	cmp_arrays.c write_array.c write_val.c validate.c array2file.c \
+	point_touch_array_elements.c cell_touch_array_elements.c \
+	shc_touch_array_elements.c modify_low_degree_coefficients.c \
+	generate_point.c generate_cell.c module_crd.c module_shc.c \
+	module_shs.c module_sha.c module_gfm.c module_leg.c \
+	module_integ.c misc.c check_struct.c check_func.c \
+	check_outcome.c check_integ_pn1m1pn2m2.c \
+	check_integ_yi1n1m1yi2n2m2.c check_leg_pnmj_coeffs.c \
+	check_leg_pnmj_alloc.c check_crd_point_alloc.c \
+	check_crd_point_init.c check_crd_point_quad.c \
+	check_crd_cell_alloc.c check_crd_cell_init.c check_shs_point.c \
+	check_shs_point_grad1.c check_shs_point_grad2.c \
+	check_shs_point_guru.c check_shs_cell.c check_shs_cell_isurf.c \
+	check_sha_point.c check_sha_cell.c \
+	check_gfm_global_density_3d.c \
+	check_gfm_global_density_lateral.c \
+	check_gfm_global_density_const.c check_shc_read_type.c \
+	check_shc_read_gfc.c check_shc_write_type.c check_shc_dav.c \
+	check_shc_ddav.c check_shc_rescale.c check_shc_alloc.c \
+	check_shc_init.c check_simd_abs_r.c check_simd_neg_r.c \
+	check_simd_sum_r.c check_simd_masks.c check_simd_blend_r.c \
+	$(am__append_2)
 @MPI_TRUE@SOURCES_MPI = mpi_test_run.c \
 @MPI_TRUE@			  test_suite_start.c \
 @MPI_TRUE@			  test_suite_end.c \
@@ -724,7 +828,7 @@ genref_run@P@_CPPFLAGS = -I$(top_srcdir)/charm
 @MPI_TRUE@mpi_test_run@P@_CPPFLAGS = -I$(top_srcdir)/charm
 
 # CFLAGS
-genref_run@P@_CFLAGS = -DGENREF $(am__append_2)
+genref_run@P@_CFLAGS = -DGENREF $(am__append_3)
 @OPENMP_TRUE@test_run@P@_CFLAGS = $(OPENMP_CFLAGS)
 @MPI_TRUE@@OPENMP_TRUE@mpi_test_run@P@_CFLAGS = $(OPENMP_CFLAGS)
 
@@ -770,6 +874,12 @@ $(top_srcdir)/configure: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
 $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
+module_gfm.c: $(top_builddir)/config.status $(srcdir)/module_gfm.c.in
+	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
+check_gfm_sgfm_all.c: $(top_builddir)/config.status $(srcdir)/check_gfm_sgfm_all.c.in
+	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
+check_gfm_sgfm_all.h: $(top_builddir)/config.status $(srcdir)/check_gfm_sgfm_all.h.in
+	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
 
 clean-checkPROGRAMS:
 	@list='$(check_PROGRAMS)'; test -n "$$list" || exit 0; \
@@ -815,6 +925,14 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_crd_point_init.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_crd_point_quad.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_func.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_gfm_cap_density_3d.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_gfm_cap_density_const.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_gfm_cap_density_lateral.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_gfm_cap_q.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_gfm_cap_q_check_prec.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_gfm_global_density_3d.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_gfm_global_density_const.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_gfm_global_density_lateral.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_integ_pn1m1pn2m2.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_integ_yi1n1m1yi2n2m2.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_leg_pnmj_alloc.Po@am__quote@ # am--include-marker
@@ -849,11 +967,18 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-misc.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-modify_low_degree_coefficients.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-module_crd.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-module_gfm.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-module_integ.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-module_leg.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-module_sha.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-module_shc.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-module_shs.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-mpfr_array2file.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-mpfr_cmp_arrays.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-mpfr_cmp_vals.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-mpfr_validate.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-mpfr_write_array.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-mpfr_write_val.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-point_touch_array_elements.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-shc_touch_array_elements.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-test_run.Po@am__quote@ # am--include-marker
@@ -895,6 +1020,14 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_crd_point_init.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_crd_point_quad.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_func.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_gfm_cap_density_3d.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_gfm_cap_density_const.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_gfm_cap_density_lateral.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_gfm_cap_q.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_gfm_cap_q_check_prec.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_gfm_global_density_3d.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_gfm_global_density_const.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_gfm_global_density_lateral.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_integ_pn1m1pn2m2.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_integ_yi1n1m1yi2n2m2.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_leg_pnmj_alloc.Po@am__quote@ # am--include-marker
@@ -929,11 +1062,18 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-misc.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-modify_low_degree_coefficients.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-module_crd.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-module_gfm.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-module_integ.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-module_leg.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-module_sha.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-module_shc.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-module_shs.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-mpfr_array2file.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-mpfr_cmp_arrays.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-mpfr_cmp_vals.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-mpfr_validate.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-mpfr_write_array.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-mpfr_write_val.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-point_touch_array_elements.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-shc_touch_array_elements.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-test_run.Po@am__quote@ # am--include-marker
@@ -1235,6 +1375,20 @@ genref_run@P@-module_sha.obj: module_sha.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='module_sha.c' object='genref_run@P@-module_sha.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-module_sha.obj `if test -f 'module_sha.c'; then $(CYGPATH_W) 'module_sha.c'; else $(CYGPATH_W) '$(srcdir)/module_sha.c'; fi`
+
+genref_run@P@-module_gfm.o: module_gfm.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-module_gfm.o -MD -MP -MF $(DEPDIR)/genref_run@P@-module_gfm.Tpo -c -o genref_run@P@-module_gfm.o `test -f 'module_gfm.c' || echo '$(srcdir)/'`module_gfm.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-module_gfm.Tpo $(DEPDIR)/genref_run@P@-module_gfm.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='module_gfm.c' object='genref_run@P@-module_gfm.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-module_gfm.o `test -f 'module_gfm.c' || echo '$(srcdir)/'`module_gfm.c
+
+genref_run@P@-module_gfm.obj: module_gfm.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-module_gfm.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-module_gfm.Tpo -c -o genref_run@P@-module_gfm.obj `if test -f 'module_gfm.c'; then $(CYGPATH_W) 'module_gfm.c'; else $(CYGPATH_W) '$(srcdir)/module_gfm.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-module_gfm.Tpo $(DEPDIR)/genref_run@P@-module_gfm.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='module_gfm.c' object='genref_run@P@-module_gfm.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-module_gfm.obj `if test -f 'module_gfm.c'; then $(CYGPATH_W) 'module_gfm.c'; else $(CYGPATH_W) '$(srcdir)/module_gfm.c'; fi`
 
 genref_run@P@-module_leg.o: module_leg.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-module_leg.o -MD -MP -MF $(DEPDIR)/genref_run@P@-module_leg.Tpo -c -o genref_run@P@-module_leg.o `test -f 'module_leg.c' || echo '$(srcdir)/'`module_leg.c
@@ -1558,6 +1712,48 @@ genref_run@P@-check_sha_cell.obj: check_sha_cell.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_sha_cell.obj `if test -f 'check_sha_cell.c'; then $(CYGPATH_W) 'check_sha_cell.c'; else $(CYGPATH_W) '$(srcdir)/check_sha_cell.c'; fi`
 
+genref_run@P@-check_gfm_global_density_3d.o: check_gfm_global_density_3d.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_gfm_global_density_3d.o -MD -MP -MF $(DEPDIR)/genref_run@P@-check_gfm_global_density_3d.Tpo -c -o genref_run@P@-check_gfm_global_density_3d.o `test -f 'check_gfm_global_density_3d.c' || echo '$(srcdir)/'`check_gfm_global_density_3d.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_gfm_global_density_3d.Tpo $(DEPDIR)/genref_run@P@-check_gfm_global_density_3d.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_global_density_3d.c' object='genref_run@P@-check_gfm_global_density_3d.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_gfm_global_density_3d.o `test -f 'check_gfm_global_density_3d.c' || echo '$(srcdir)/'`check_gfm_global_density_3d.c
+
+genref_run@P@-check_gfm_global_density_3d.obj: check_gfm_global_density_3d.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_gfm_global_density_3d.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-check_gfm_global_density_3d.Tpo -c -o genref_run@P@-check_gfm_global_density_3d.obj `if test -f 'check_gfm_global_density_3d.c'; then $(CYGPATH_W) 'check_gfm_global_density_3d.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_global_density_3d.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_gfm_global_density_3d.Tpo $(DEPDIR)/genref_run@P@-check_gfm_global_density_3d.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_global_density_3d.c' object='genref_run@P@-check_gfm_global_density_3d.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_gfm_global_density_3d.obj `if test -f 'check_gfm_global_density_3d.c'; then $(CYGPATH_W) 'check_gfm_global_density_3d.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_global_density_3d.c'; fi`
+
+genref_run@P@-check_gfm_global_density_lateral.o: check_gfm_global_density_lateral.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_gfm_global_density_lateral.o -MD -MP -MF $(DEPDIR)/genref_run@P@-check_gfm_global_density_lateral.Tpo -c -o genref_run@P@-check_gfm_global_density_lateral.o `test -f 'check_gfm_global_density_lateral.c' || echo '$(srcdir)/'`check_gfm_global_density_lateral.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_gfm_global_density_lateral.Tpo $(DEPDIR)/genref_run@P@-check_gfm_global_density_lateral.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_global_density_lateral.c' object='genref_run@P@-check_gfm_global_density_lateral.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_gfm_global_density_lateral.o `test -f 'check_gfm_global_density_lateral.c' || echo '$(srcdir)/'`check_gfm_global_density_lateral.c
+
+genref_run@P@-check_gfm_global_density_lateral.obj: check_gfm_global_density_lateral.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_gfm_global_density_lateral.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-check_gfm_global_density_lateral.Tpo -c -o genref_run@P@-check_gfm_global_density_lateral.obj `if test -f 'check_gfm_global_density_lateral.c'; then $(CYGPATH_W) 'check_gfm_global_density_lateral.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_global_density_lateral.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_gfm_global_density_lateral.Tpo $(DEPDIR)/genref_run@P@-check_gfm_global_density_lateral.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_global_density_lateral.c' object='genref_run@P@-check_gfm_global_density_lateral.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_gfm_global_density_lateral.obj `if test -f 'check_gfm_global_density_lateral.c'; then $(CYGPATH_W) 'check_gfm_global_density_lateral.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_global_density_lateral.c'; fi`
+
+genref_run@P@-check_gfm_global_density_const.o: check_gfm_global_density_const.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_gfm_global_density_const.o -MD -MP -MF $(DEPDIR)/genref_run@P@-check_gfm_global_density_const.Tpo -c -o genref_run@P@-check_gfm_global_density_const.o `test -f 'check_gfm_global_density_const.c' || echo '$(srcdir)/'`check_gfm_global_density_const.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_gfm_global_density_const.Tpo $(DEPDIR)/genref_run@P@-check_gfm_global_density_const.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_global_density_const.c' object='genref_run@P@-check_gfm_global_density_const.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_gfm_global_density_const.o `test -f 'check_gfm_global_density_const.c' || echo '$(srcdir)/'`check_gfm_global_density_const.c
+
+genref_run@P@-check_gfm_global_density_const.obj: check_gfm_global_density_const.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_gfm_global_density_const.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-check_gfm_global_density_const.Tpo -c -o genref_run@P@-check_gfm_global_density_const.obj `if test -f 'check_gfm_global_density_const.c'; then $(CYGPATH_W) 'check_gfm_global_density_const.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_global_density_const.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_gfm_global_density_const.Tpo $(DEPDIR)/genref_run@P@-check_gfm_global_density_const.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_global_density_const.c' object='genref_run@P@-check_gfm_global_density_const.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_gfm_global_density_const.obj `if test -f 'check_gfm_global_density_const.c'; then $(CYGPATH_W) 'check_gfm_global_density_const.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_global_density_const.c'; fi`
+
 genref_run@P@-check_shc_read_type.o: check_shc_read_type.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_shc_read_type.o -MD -MP -MF $(DEPDIR)/genref_run@P@-check_shc_read_type.Tpo -c -o genref_run@P@-check_shc_read_type.o `test -f 'check_shc_read_type.c' || echo '$(srcdir)/'`check_shc_read_type.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_shc_read_type.Tpo $(DEPDIR)/genref_run@P@-check_shc_read_type.Po
@@ -1739,6 +1935,160 @@ genref_run@P@-check_simd_blend_r.obj: check_simd_blend_r.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_simd_blend_r.c' object='genref_run@P@-check_simd_blend_r.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_simd_blend_r.obj `if test -f 'check_simd_blend_r.c'; then $(CYGPATH_W) 'check_simd_blend_r.c'; else $(CYGPATH_W) '$(srcdir)/check_simd_blend_r.c'; fi`
+
+genref_run@P@-check_gfm_cap_density_3d.o: check_gfm_cap_density_3d.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_gfm_cap_density_3d.o -MD -MP -MF $(DEPDIR)/genref_run@P@-check_gfm_cap_density_3d.Tpo -c -o genref_run@P@-check_gfm_cap_density_3d.o `test -f 'check_gfm_cap_density_3d.c' || echo '$(srcdir)/'`check_gfm_cap_density_3d.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_gfm_cap_density_3d.Tpo $(DEPDIR)/genref_run@P@-check_gfm_cap_density_3d.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_cap_density_3d.c' object='genref_run@P@-check_gfm_cap_density_3d.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_gfm_cap_density_3d.o `test -f 'check_gfm_cap_density_3d.c' || echo '$(srcdir)/'`check_gfm_cap_density_3d.c
+
+genref_run@P@-check_gfm_cap_density_3d.obj: check_gfm_cap_density_3d.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_gfm_cap_density_3d.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-check_gfm_cap_density_3d.Tpo -c -o genref_run@P@-check_gfm_cap_density_3d.obj `if test -f 'check_gfm_cap_density_3d.c'; then $(CYGPATH_W) 'check_gfm_cap_density_3d.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_cap_density_3d.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_gfm_cap_density_3d.Tpo $(DEPDIR)/genref_run@P@-check_gfm_cap_density_3d.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_cap_density_3d.c' object='genref_run@P@-check_gfm_cap_density_3d.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_gfm_cap_density_3d.obj `if test -f 'check_gfm_cap_density_3d.c'; then $(CYGPATH_W) 'check_gfm_cap_density_3d.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_cap_density_3d.c'; fi`
+
+genref_run@P@-check_gfm_cap_density_lateral.o: check_gfm_cap_density_lateral.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_gfm_cap_density_lateral.o -MD -MP -MF $(DEPDIR)/genref_run@P@-check_gfm_cap_density_lateral.Tpo -c -o genref_run@P@-check_gfm_cap_density_lateral.o `test -f 'check_gfm_cap_density_lateral.c' || echo '$(srcdir)/'`check_gfm_cap_density_lateral.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_gfm_cap_density_lateral.Tpo $(DEPDIR)/genref_run@P@-check_gfm_cap_density_lateral.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_cap_density_lateral.c' object='genref_run@P@-check_gfm_cap_density_lateral.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_gfm_cap_density_lateral.o `test -f 'check_gfm_cap_density_lateral.c' || echo '$(srcdir)/'`check_gfm_cap_density_lateral.c
+
+genref_run@P@-check_gfm_cap_density_lateral.obj: check_gfm_cap_density_lateral.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_gfm_cap_density_lateral.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-check_gfm_cap_density_lateral.Tpo -c -o genref_run@P@-check_gfm_cap_density_lateral.obj `if test -f 'check_gfm_cap_density_lateral.c'; then $(CYGPATH_W) 'check_gfm_cap_density_lateral.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_cap_density_lateral.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_gfm_cap_density_lateral.Tpo $(DEPDIR)/genref_run@P@-check_gfm_cap_density_lateral.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_cap_density_lateral.c' object='genref_run@P@-check_gfm_cap_density_lateral.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_gfm_cap_density_lateral.obj `if test -f 'check_gfm_cap_density_lateral.c'; then $(CYGPATH_W) 'check_gfm_cap_density_lateral.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_cap_density_lateral.c'; fi`
+
+genref_run@P@-check_gfm_cap_density_const.o: check_gfm_cap_density_const.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_gfm_cap_density_const.o -MD -MP -MF $(DEPDIR)/genref_run@P@-check_gfm_cap_density_const.Tpo -c -o genref_run@P@-check_gfm_cap_density_const.o `test -f 'check_gfm_cap_density_const.c' || echo '$(srcdir)/'`check_gfm_cap_density_const.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_gfm_cap_density_const.Tpo $(DEPDIR)/genref_run@P@-check_gfm_cap_density_const.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_cap_density_const.c' object='genref_run@P@-check_gfm_cap_density_const.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_gfm_cap_density_const.o `test -f 'check_gfm_cap_density_const.c' || echo '$(srcdir)/'`check_gfm_cap_density_const.c
+
+genref_run@P@-check_gfm_cap_density_const.obj: check_gfm_cap_density_const.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_gfm_cap_density_const.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-check_gfm_cap_density_const.Tpo -c -o genref_run@P@-check_gfm_cap_density_const.obj `if test -f 'check_gfm_cap_density_const.c'; then $(CYGPATH_W) 'check_gfm_cap_density_const.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_cap_density_const.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_gfm_cap_density_const.Tpo $(DEPDIR)/genref_run@P@-check_gfm_cap_density_const.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_cap_density_const.c' object='genref_run@P@-check_gfm_cap_density_const.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_gfm_cap_density_const.obj `if test -f 'check_gfm_cap_density_const.c'; then $(CYGPATH_W) 'check_gfm_cap_density_const.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_cap_density_const.c'; fi`
+
+genref_run@P@-check_gfm_cap_q.o: check_gfm_cap_q.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_gfm_cap_q.o -MD -MP -MF $(DEPDIR)/genref_run@P@-check_gfm_cap_q.Tpo -c -o genref_run@P@-check_gfm_cap_q.o `test -f 'check_gfm_cap_q.c' || echo '$(srcdir)/'`check_gfm_cap_q.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_gfm_cap_q.Tpo $(DEPDIR)/genref_run@P@-check_gfm_cap_q.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_cap_q.c' object='genref_run@P@-check_gfm_cap_q.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_gfm_cap_q.o `test -f 'check_gfm_cap_q.c' || echo '$(srcdir)/'`check_gfm_cap_q.c
+
+genref_run@P@-check_gfm_cap_q.obj: check_gfm_cap_q.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_gfm_cap_q.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-check_gfm_cap_q.Tpo -c -o genref_run@P@-check_gfm_cap_q.obj `if test -f 'check_gfm_cap_q.c'; then $(CYGPATH_W) 'check_gfm_cap_q.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_cap_q.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_gfm_cap_q.Tpo $(DEPDIR)/genref_run@P@-check_gfm_cap_q.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_cap_q.c' object='genref_run@P@-check_gfm_cap_q.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_gfm_cap_q.obj `if test -f 'check_gfm_cap_q.c'; then $(CYGPATH_W) 'check_gfm_cap_q.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_cap_q.c'; fi`
+
+genref_run@P@-check_gfm_cap_q_check_prec.o: check_gfm_cap_q_check_prec.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_gfm_cap_q_check_prec.o -MD -MP -MF $(DEPDIR)/genref_run@P@-check_gfm_cap_q_check_prec.Tpo -c -o genref_run@P@-check_gfm_cap_q_check_prec.o `test -f 'check_gfm_cap_q_check_prec.c' || echo '$(srcdir)/'`check_gfm_cap_q_check_prec.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_gfm_cap_q_check_prec.Tpo $(DEPDIR)/genref_run@P@-check_gfm_cap_q_check_prec.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_cap_q_check_prec.c' object='genref_run@P@-check_gfm_cap_q_check_prec.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_gfm_cap_q_check_prec.o `test -f 'check_gfm_cap_q_check_prec.c' || echo '$(srcdir)/'`check_gfm_cap_q_check_prec.c
+
+genref_run@P@-check_gfm_cap_q_check_prec.obj: check_gfm_cap_q_check_prec.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_gfm_cap_q_check_prec.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-check_gfm_cap_q_check_prec.Tpo -c -o genref_run@P@-check_gfm_cap_q_check_prec.obj `if test -f 'check_gfm_cap_q_check_prec.c'; then $(CYGPATH_W) 'check_gfm_cap_q_check_prec.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_cap_q_check_prec.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_gfm_cap_q_check_prec.Tpo $(DEPDIR)/genref_run@P@-check_gfm_cap_q_check_prec.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_cap_q_check_prec.c' object='genref_run@P@-check_gfm_cap_q_check_prec.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_gfm_cap_q_check_prec.obj `if test -f 'check_gfm_cap_q_check_prec.c'; then $(CYGPATH_W) 'check_gfm_cap_q_check_prec.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_cap_q_check_prec.c'; fi`
+
+genref_run@P@-mpfr_write_val.o: mpfr_write_val.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-mpfr_write_val.o -MD -MP -MF $(DEPDIR)/genref_run@P@-mpfr_write_val.Tpo -c -o genref_run@P@-mpfr_write_val.o `test -f 'mpfr_write_val.c' || echo '$(srcdir)/'`mpfr_write_val.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-mpfr_write_val.Tpo $(DEPDIR)/genref_run@P@-mpfr_write_val.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpfr_write_val.c' object='genref_run@P@-mpfr_write_val.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-mpfr_write_val.o `test -f 'mpfr_write_val.c' || echo '$(srcdir)/'`mpfr_write_val.c
+
+genref_run@P@-mpfr_write_val.obj: mpfr_write_val.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-mpfr_write_val.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-mpfr_write_val.Tpo -c -o genref_run@P@-mpfr_write_val.obj `if test -f 'mpfr_write_val.c'; then $(CYGPATH_W) 'mpfr_write_val.c'; else $(CYGPATH_W) '$(srcdir)/mpfr_write_val.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-mpfr_write_val.Tpo $(DEPDIR)/genref_run@P@-mpfr_write_val.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpfr_write_val.c' object='genref_run@P@-mpfr_write_val.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-mpfr_write_val.obj `if test -f 'mpfr_write_val.c'; then $(CYGPATH_W) 'mpfr_write_val.c'; else $(CYGPATH_W) '$(srcdir)/mpfr_write_val.c'; fi`
+
+genref_run@P@-mpfr_write_array.o: mpfr_write_array.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-mpfr_write_array.o -MD -MP -MF $(DEPDIR)/genref_run@P@-mpfr_write_array.Tpo -c -o genref_run@P@-mpfr_write_array.o `test -f 'mpfr_write_array.c' || echo '$(srcdir)/'`mpfr_write_array.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-mpfr_write_array.Tpo $(DEPDIR)/genref_run@P@-mpfr_write_array.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpfr_write_array.c' object='genref_run@P@-mpfr_write_array.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-mpfr_write_array.o `test -f 'mpfr_write_array.c' || echo '$(srcdir)/'`mpfr_write_array.c
+
+genref_run@P@-mpfr_write_array.obj: mpfr_write_array.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-mpfr_write_array.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-mpfr_write_array.Tpo -c -o genref_run@P@-mpfr_write_array.obj `if test -f 'mpfr_write_array.c'; then $(CYGPATH_W) 'mpfr_write_array.c'; else $(CYGPATH_W) '$(srcdir)/mpfr_write_array.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-mpfr_write_array.Tpo $(DEPDIR)/genref_run@P@-mpfr_write_array.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpfr_write_array.c' object='genref_run@P@-mpfr_write_array.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-mpfr_write_array.obj `if test -f 'mpfr_write_array.c'; then $(CYGPATH_W) 'mpfr_write_array.c'; else $(CYGPATH_W) '$(srcdir)/mpfr_write_array.c'; fi`
+
+genref_run@P@-mpfr_array2file.o: mpfr_array2file.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-mpfr_array2file.o -MD -MP -MF $(DEPDIR)/genref_run@P@-mpfr_array2file.Tpo -c -o genref_run@P@-mpfr_array2file.o `test -f 'mpfr_array2file.c' || echo '$(srcdir)/'`mpfr_array2file.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-mpfr_array2file.Tpo $(DEPDIR)/genref_run@P@-mpfr_array2file.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpfr_array2file.c' object='genref_run@P@-mpfr_array2file.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-mpfr_array2file.o `test -f 'mpfr_array2file.c' || echo '$(srcdir)/'`mpfr_array2file.c
+
+genref_run@P@-mpfr_array2file.obj: mpfr_array2file.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-mpfr_array2file.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-mpfr_array2file.Tpo -c -o genref_run@P@-mpfr_array2file.obj `if test -f 'mpfr_array2file.c'; then $(CYGPATH_W) 'mpfr_array2file.c'; else $(CYGPATH_W) '$(srcdir)/mpfr_array2file.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-mpfr_array2file.Tpo $(DEPDIR)/genref_run@P@-mpfr_array2file.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpfr_array2file.c' object='genref_run@P@-mpfr_array2file.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-mpfr_array2file.obj `if test -f 'mpfr_array2file.c'; then $(CYGPATH_W) 'mpfr_array2file.c'; else $(CYGPATH_W) '$(srcdir)/mpfr_array2file.c'; fi`
+
+genref_run@P@-mpfr_cmp_vals.o: mpfr_cmp_vals.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-mpfr_cmp_vals.o -MD -MP -MF $(DEPDIR)/genref_run@P@-mpfr_cmp_vals.Tpo -c -o genref_run@P@-mpfr_cmp_vals.o `test -f 'mpfr_cmp_vals.c' || echo '$(srcdir)/'`mpfr_cmp_vals.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-mpfr_cmp_vals.Tpo $(DEPDIR)/genref_run@P@-mpfr_cmp_vals.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpfr_cmp_vals.c' object='genref_run@P@-mpfr_cmp_vals.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-mpfr_cmp_vals.o `test -f 'mpfr_cmp_vals.c' || echo '$(srcdir)/'`mpfr_cmp_vals.c
+
+genref_run@P@-mpfr_cmp_vals.obj: mpfr_cmp_vals.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-mpfr_cmp_vals.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-mpfr_cmp_vals.Tpo -c -o genref_run@P@-mpfr_cmp_vals.obj `if test -f 'mpfr_cmp_vals.c'; then $(CYGPATH_W) 'mpfr_cmp_vals.c'; else $(CYGPATH_W) '$(srcdir)/mpfr_cmp_vals.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-mpfr_cmp_vals.Tpo $(DEPDIR)/genref_run@P@-mpfr_cmp_vals.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpfr_cmp_vals.c' object='genref_run@P@-mpfr_cmp_vals.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-mpfr_cmp_vals.obj `if test -f 'mpfr_cmp_vals.c'; then $(CYGPATH_W) 'mpfr_cmp_vals.c'; else $(CYGPATH_W) '$(srcdir)/mpfr_cmp_vals.c'; fi`
+
+genref_run@P@-mpfr_cmp_arrays.o: mpfr_cmp_arrays.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-mpfr_cmp_arrays.o -MD -MP -MF $(DEPDIR)/genref_run@P@-mpfr_cmp_arrays.Tpo -c -o genref_run@P@-mpfr_cmp_arrays.o `test -f 'mpfr_cmp_arrays.c' || echo '$(srcdir)/'`mpfr_cmp_arrays.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-mpfr_cmp_arrays.Tpo $(DEPDIR)/genref_run@P@-mpfr_cmp_arrays.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpfr_cmp_arrays.c' object='genref_run@P@-mpfr_cmp_arrays.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-mpfr_cmp_arrays.o `test -f 'mpfr_cmp_arrays.c' || echo '$(srcdir)/'`mpfr_cmp_arrays.c
+
+genref_run@P@-mpfr_cmp_arrays.obj: mpfr_cmp_arrays.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-mpfr_cmp_arrays.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-mpfr_cmp_arrays.Tpo -c -o genref_run@P@-mpfr_cmp_arrays.obj `if test -f 'mpfr_cmp_arrays.c'; then $(CYGPATH_W) 'mpfr_cmp_arrays.c'; else $(CYGPATH_W) '$(srcdir)/mpfr_cmp_arrays.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-mpfr_cmp_arrays.Tpo $(DEPDIR)/genref_run@P@-mpfr_cmp_arrays.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpfr_cmp_arrays.c' object='genref_run@P@-mpfr_cmp_arrays.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-mpfr_cmp_arrays.obj `if test -f 'mpfr_cmp_arrays.c'; then $(CYGPATH_W) 'mpfr_cmp_arrays.c'; else $(CYGPATH_W) '$(srcdir)/mpfr_cmp_arrays.c'; fi`
+
+genref_run@P@-mpfr_validate.o: mpfr_validate.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-mpfr_validate.o -MD -MP -MF $(DEPDIR)/genref_run@P@-mpfr_validate.Tpo -c -o genref_run@P@-mpfr_validate.o `test -f 'mpfr_validate.c' || echo '$(srcdir)/'`mpfr_validate.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-mpfr_validate.Tpo $(DEPDIR)/genref_run@P@-mpfr_validate.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpfr_validate.c' object='genref_run@P@-mpfr_validate.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-mpfr_validate.o `test -f 'mpfr_validate.c' || echo '$(srcdir)/'`mpfr_validate.c
+
+genref_run@P@-mpfr_validate.obj: mpfr_validate.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-mpfr_validate.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-mpfr_validate.Tpo -c -o genref_run@P@-mpfr_validate.obj `if test -f 'mpfr_validate.c'; then $(CYGPATH_W) 'mpfr_validate.c'; else $(CYGPATH_W) '$(srcdir)/mpfr_validate.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-mpfr_validate.Tpo $(DEPDIR)/genref_run@P@-mpfr_validate.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpfr_validate.c' object='genref_run@P@-mpfr_validate.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-mpfr_validate.obj `if test -f 'mpfr_validate.c'; then $(CYGPATH_W) 'mpfr_validate.c'; else $(CYGPATH_W) '$(srcdir)/mpfr_validate.c'; fi`
 
 mpi_test_run@P@-mpi_test_run.o: mpi_test_run.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(mpi_test_run@P@_CPPFLAGS) $(CPPFLAGS) $(mpi_test_run@P@_CFLAGS) $(CFLAGS) -MT mpi_test_run@P@-mpi_test_run.o -MD -MP -MF $(DEPDIR)/mpi_test_run@P@-mpi_test_run.Tpo -c -o mpi_test_run@P@-mpi_test_run.o `test -f 'mpi_test_run.c' || echo '$(srcdir)/'`mpi_test_run.c
@@ -2356,6 +2706,20 @@ test_run@P@-module_sha.obj: module_sha.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-module_sha.obj `if test -f 'module_sha.c'; then $(CYGPATH_W) 'module_sha.c'; else $(CYGPATH_W) '$(srcdir)/module_sha.c'; fi`
 
+test_run@P@-module_gfm.o: module_gfm.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-module_gfm.o -MD -MP -MF $(DEPDIR)/test_run@P@-module_gfm.Tpo -c -o test_run@P@-module_gfm.o `test -f 'module_gfm.c' || echo '$(srcdir)/'`module_gfm.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-module_gfm.Tpo $(DEPDIR)/test_run@P@-module_gfm.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='module_gfm.c' object='test_run@P@-module_gfm.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-module_gfm.o `test -f 'module_gfm.c' || echo '$(srcdir)/'`module_gfm.c
+
+test_run@P@-module_gfm.obj: module_gfm.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-module_gfm.obj -MD -MP -MF $(DEPDIR)/test_run@P@-module_gfm.Tpo -c -o test_run@P@-module_gfm.obj `if test -f 'module_gfm.c'; then $(CYGPATH_W) 'module_gfm.c'; else $(CYGPATH_W) '$(srcdir)/module_gfm.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-module_gfm.Tpo $(DEPDIR)/test_run@P@-module_gfm.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='module_gfm.c' object='test_run@P@-module_gfm.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-module_gfm.obj `if test -f 'module_gfm.c'; then $(CYGPATH_W) 'module_gfm.c'; else $(CYGPATH_W) '$(srcdir)/module_gfm.c'; fi`
+
 test_run@P@-module_leg.o: module_leg.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-module_leg.o -MD -MP -MF $(DEPDIR)/test_run@P@-module_leg.Tpo -c -o test_run@P@-module_leg.o `test -f 'module_leg.c' || echo '$(srcdir)/'`module_leg.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-module_leg.Tpo $(DEPDIR)/test_run@P@-module_leg.Po
@@ -2678,6 +3042,48 @@ test_run@P@-check_sha_cell.obj: check_sha_cell.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_sha_cell.obj `if test -f 'check_sha_cell.c'; then $(CYGPATH_W) 'check_sha_cell.c'; else $(CYGPATH_W) '$(srcdir)/check_sha_cell.c'; fi`
 
+test_run@P@-check_gfm_global_density_3d.o: check_gfm_global_density_3d.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_gfm_global_density_3d.o -MD -MP -MF $(DEPDIR)/test_run@P@-check_gfm_global_density_3d.Tpo -c -o test_run@P@-check_gfm_global_density_3d.o `test -f 'check_gfm_global_density_3d.c' || echo '$(srcdir)/'`check_gfm_global_density_3d.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_gfm_global_density_3d.Tpo $(DEPDIR)/test_run@P@-check_gfm_global_density_3d.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_global_density_3d.c' object='test_run@P@-check_gfm_global_density_3d.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_gfm_global_density_3d.o `test -f 'check_gfm_global_density_3d.c' || echo '$(srcdir)/'`check_gfm_global_density_3d.c
+
+test_run@P@-check_gfm_global_density_3d.obj: check_gfm_global_density_3d.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_gfm_global_density_3d.obj -MD -MP -MF $(DEPDIR)/test_run@P@-check_gfm_global_density_3d.Tpo -c -o test_run@P@-check_gfm_global_density_3d.obj `if test -f 'check_gfm_global_density_3d.c'; then $(CYGPATH_W) 'check_gfm_global_density_3d.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_global_density_3d.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_gfm_global_density_3d.Tpo $(DEPDIR)/test_run@P@-check_gfm_global_density_3d.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_global_density_3d.c' object='test_run@P@-check_gfm_global_density_3d.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_gfm_global_density_3d.obj `if test -f 'check_gfm_global_density_3d.c'; then $(CYGPATH_W) 'check_gfm_global_density_3d.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_global_density_3d.c'; fi`
+
+test_run@P@-check_gfm_global_density_lateral.o: check_gfm_global_density_lateral.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_gfm_global_density_lateral.o -MD -MP -MF $(DEPDIR)/test_run@P@-check_gfm_global_density_lateral.Tpo -c -o test_run@P@-check_gfm_global_density_lateral.o `test -f 'check_gfm_global_density_lateral.c' || echo '$(srcdir)/'`check_gfm_global_density_lateral.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_gfm_global_density_lateral.Tpo $(DEPDIR)/test_run@P@-check_gfm_global_density_lateral.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_global_density_lateral.c' object='test_run@P@-check_gfm_global_density_lateral.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_gfm_global_density_lateral.o `test -f 'check_gfm_global_density_lateral.c' || echo '$(srcdir)/'`check_gfm_global_density_lateral.c
+
+test_run@P@-check_gfm_global_density_lateral.obj: check_gfm_global_density_lateral.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_gfm_global_density_lateral.obj -MD -MP -MF $(DEPDIR)/test_run@P@-check_gfm_global_density_lateral.Tpo -c -o test_run@P@-check_gfm_global_density_lateral.obj `if test -f 'check_gfm_global_density_lateral.c'; then $(CYGPATH_W) 'check_gfm_global_density_lateral.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_global_density_lateral.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_gfm_global_density_lateral.Tpo $(DEPDIR)/test_run@P@-check_gfm_global_density_lateral.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_global_density_lateral.c' object='test_run@P@-check_gfm_global_density_lateral.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_gfm_global_density_lateral.obj `if test -f 'check_gfm_global_density_lateral.c'; then $(CYGPATH_W) 'check_gfm_global_density_lateral.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_global_density_lateral.c'; fi`
+
+test_run@P@-check_gfm_global_density_const.o: check_gfm_global_density_const.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_gfm_global_density_const.o -MD -MP -MF $(DEPDIR)/test_run@P@-check_gfm_global_density_const.Tpo -c -o test_run@P@-check_gfm_global_density_const.o `test -f 'check_gfm_global_density_const.c' || echo '$(srcdir)/'`check_gfm_global_density_const.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_gfm_global_density_const.Tpo $(DEPDIR)/test_run@P@-check_gfm_global_density_const.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_global_density_const.c' object='test_run@P@-check_gfm_global_density_const.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_gfm_global_density_const.o `test -f 'check_gfm_global_density_const.c' || echo '$(srcdir)/'`check_gfm_global_density_const.c
+
+test_run@P@-check_gfm_global_density_const.obj: check_gfm_global_density_const.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_gfm_global_density_const.obj -MD -MP -MF $(DEPDIR)/test_run@P@-check_gfm_global_density_const.Tpo -c -o test_run@P@-check_gfm_global_density_const.obj `if test -f 'check_gfm_global_density_const.c'; then $(CYGPATH_W) 'check_gfm_global_density_const.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_global_density_const.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_gfm_global_density_const.Tpo $(DEPDIR)/test_run@P@-check_gfm_global_density_const.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_global_density_const.c' object='test_run@P@-check_gfm_global_density_const.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_gfm_global_density_const.obj `if test -f 'check_gfm_global_density_const.c'; then $(CYGPATH_W) 'check_gfm_global_density_const.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_global_density_const.c'; fi`
+
 test_run@P@-check_shc_read_type.o: check_shc_read_type.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_shc_read_type.o -MD -MP -MF $(DEPDIR)/test_run@P@-check_shc_read_type.Tpo -c -o test_run@P@-check_shc_read_type.o `test -f 'check_shc_read_type.c' || echo '$(srcdir)/'`check_shc_read_type.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_shc_read_type.Tpo $(DEPDIR)/test_run@P@-check_shc_read_type.Po
@@ -2860,6 +3266,160 @@ test_run@P@-check_simd_blend_r.obj: check_simd_blend_r.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_simd_blend_r.obj `if test -f 'check_simd_blend_r.c'; then $(CYGPATH_W) 'check_simd_blend_r.c'; else $(CYGPATH_W) '$(srcdir)/check_simd_blend_r.c'; fi`
 
+test_run@P@-check_gfm_cap_density_3d.o: check_gfm_cap_density_3d.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_gfm_cap_density_3d.o -MD -MP -MF $(DEPDIR)/test_run@P@-check_gfm_cap_density_3d.Tpo -c -o test_run@P@-check_gfm_cap_density_3d.o `test -f 'check_gfm_cap_density_3d.c' || echo '$(srcdir)/'`check_gfm_cap_density_3d.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_gfm_cap_density_3d.Tpo $(DEPDIR)/test_run@P@-check_gfm_cap_density_3d.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_cap_density_3d.c' object='test_run@P@-check_gfm_cap_density_3d.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_gfm_cap_density_3d.o `test -f 'check_gfm_cap_density_3d.c' || echo '$(srcdir)/'`check_gfm_cap_density_3d.c
+
+test_run@P@-check_gfm_cap_density_3d.obj: check_gfm_cap_density_3d.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_gfm_cap_density_3d.obj -MD -MP -MF $(DEPDIR)/test_run@P@-check_gfm_cap_density_3d.Tpo -c -o test_run@P@-check_gfm_cap_density_3d.obj `if test -f 'check_gfm_cap_density_3d.c'; then $(CYGPATH_W) 'check_gfm_cap_density_3d.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_cap_density_3d.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_gfm_cap_density_3d.Tpo $(DEPDIR)/test_run@P@-check_gfm_cap_density_3d.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_cap_density_3d.c' object='test_run@P@-check_gfm_cap_density_3d.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_gfm_cap_density_3d.obj `if test -f 'check_gfm_cap_density_3d.c'; then $(CYGPATH_W) 'check_gfm_cap_density_3d.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_cap_density_3d.c'; fi`
+
+test_run@P@-check_gfm_cap_density_lateral.o: check_gfm_cap_density_lateral.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_gfm_cap_density_lateral.o -MD -MP -MF $(DEPDIR)/test_run@P@-check_gfm_cap_density_lateral.Tpo -c -o test_run@P@-check_gfm_cap_density_lateral.o `test -f 'check_gfm_cap_density_lateral.c' || echo '$(srcdir)/'`check_gfm_cap_density_lateral.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_gfm_cap_density_lateral.Tpo $(DEPDIR)/test_run@P@-check_gfm_cap_density_lateral.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_cap_density_lateral.c' object='test_run@P@-check_gfm_cap_density_lateral.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_gfm_cap_density_lateral.o `test -f 'check_gfm_cap_density_lateral.c' || echo '$(srcdir)/'`check_gfm_cap_density_lateral.c
+
+test_run@P@-check_gfm_cap_density_lateral.obj: check_gfm_cap_density_lateral.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_gfm_cap_density_lateral.obj -MD -MP -MF $(DEPDIR)/test_run@P@-check_gfm_cap_density_lateral.Tpo -c -o test_run@P@-check_gfm_cap_density_lateral.obj `if test -f 'check_gfm_cap_density_lateral.c'; then $(CYGPATH_W) 'check_gfm_cap_density_lateral.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_cap_density_lateral.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_gfm_cap_density_lateral.Tpo $(DEPDIR)/test_run@P@-check_gfm_cap_density_lateral.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_cap_density_lateral.c' object='test_run@P@-check_gfm_cap_density_lateral.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_gfm_cap_density_lateral.obj `if test -f 'check_gfm_cap_density_lateral.c'; then $(CYGPATH_W) 'check_gfm_cap_density_lateral.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_cap_density_lateral.c'; fi`
+
+test_run@P@-check_gfm_cap_density_const.o: check_gfm_cap_density_const.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_gfm_cap_density_const.o -MD -MP -MF $(DEPDIR)/test_run@P@-check_gfm_cap_density_const.Tpo -c -o test_run@P@-check_gfm_cap_density_const.o `test -f 'check_gfm_cap_density_const.c' || echo '$(srcdir)/'`check_gfm_cap_density_const.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_gfm_cap_density_const.Tpo $(DEPDIR)/test_run@P@-check_gfm_cap_density_const.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_cap_density_const.c' object='test_run@P@-check_gfm_cap_density_const.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_gfm_cap_density_const.o `test -f 'check_gfm_cap_density_const.c' || echo '$(srcdir)/'`check_gfm_cap_density_const.c
+
+test_run@P@-check_gfm_cap_density_const.obj: check_gfm_cap_density_const.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_gfm_cap_density_const.obj -MD -MP -MF $(DEPDIR)/test_run@P@-check_gfm_cap_density_const.Tpo -c -o test_run@P@-check_gfm_cap_density_const.obj `if test -f 'check_gfm_cap_density_const.c'; then $(CYGPATH_W) 'check_gfm_cap_density_const.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_cap_density_const.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_gfm_cap_density_const.Tpo $(DEPDIR)/test_run@P@-check_gfm_cap_density_const.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_cap_density_const.c' object='test_run@P@-check_gfm_cap_density_const.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_gfm_cap_density_const.obj `if test -f 'check_gfm_cap_density_const.c'; then $(CYGPATH_W) 'check_gfm_cap_density_const.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_cap_density_const.c'; fi`
+
+test_run@P@-check_gfm_cap_q.o: check_gfm_cap_q.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_gfm_cap_q.o -MD -MP -MF $(DEPDIR)/test_run@P@-check_gfm_cap_q.Tpo -c -o test_run@P@-check_gfm_cap_q.o `test -f 'check_gfm_cap_q.c' || echo '$(srcdir)/'`check_gfm_cap_q.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_gfm_cap_q.Tpo $(DEPDIR)/test_run@P@-check_gfm_cap_q.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_cap_q.c' object='test_run@P@-check_gfm_cap_q.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_gfm_cap_q.o `test -f 'check_gfm_cap_q.c' || echo '$(srcdir)/'`check_gfm_cap_q.c
+
+test_run@P@-check_gfm_cap_q.obj: check_gfm_cap_q.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_gfm_cap_q.obj -MD -MP -MF $(DEPDIR)/test_run@P@-check_gfm_cap_q.Tpo -c -o test_run@P@-check_gfm_cap_q.obj `if test -f 'check_gfm_cap_q.c'; then $(CYGPATH_W) 'check_gfm_cap_q.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_cap_q.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_gfm_cap_q.Tpo $(DEPDIR)/test_run@P@-check_gfm_cap_q.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_cap_q.c' object='test_run@P@-check_gfm_cap_q.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_gfm_cap_q.obj `if test -f 'check_gfm_cap_q.c'; then $(CYGPATH_W) 'check_gfm_cap_q.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_cap_q.c'; fi`
+
+test_run@P@-check_gfm_cap_q_check_prec.o: check_gfm_cap_q_check_prec.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_gfm_cap_q_check_prec.o -MD -MP -MF $(DEPDIR)/test_run@P@-check_gfm_cap_q_check_prec.Tpo -c -o test_run@P@-check_gfm_cap_q_check_prec.o `test -f 'check_gfm_cap_q_check_prec.c' || echo '$(srcdir)/'`check_gfm_cap_q_check_prec.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_gfm_cap_q_check_prec.Tpo $(DEPDIR)/test_run@P@-check_gfm_cap_q_check_prec.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_cap_q_check_prec.c' object='test_run@P@-check_gfm_cap_q_check_prec.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_gfm_cap_q_check_prec.o `test -f 'check_gfm_cap_q_check_prec.c' || echo '$(srcdir)/'`check_gfm_cap_q_check_prec.c
+
+test_run@P@-check_gfm_cap_q_check_prec.obj: check_gfm_cap_q_check_prec.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_gfm_cap_q_check_prec.obj -MD -MP -MF $(DEPDIR)/test_run@P@-check_gfm_cap_q_check_prec.Tpo -c -o test_run@P@-check_gfm_cap_q_check_prec.obj `if test -f 'check_gfm_cap_q_check_prec.c'; then $(CYGPATH_W) 'check_gfm_cap_q_check_prec.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_cap_q_check_prec.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_gfm_cap_q_check_prec.Tpo $(DEPDIR)/test_run@P@-check_gfm_cap_q_check_prec.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_cap_q_check_prec.c' object='test_run@P@-check_gfm_cap_q_check_prec.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_gfm_cap_q_check_prec.obj `if test -f 'check_gfm_cap_q_check_prec.c'; then $(CYGPATH_W) 'check_gfm_cap_q_check_prec.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_cap_q_check_prec.c'; fi`
+
+test_run@P@-mpfr_write_val.o: mpfr_write_val.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-mpfr_write_val.o -MD -MP -MF $(DEPDIR)/test_run@P@-mpfr_write_val.Tpo -c -o test_run@P@-mpfr_write_val.o `test -f 'mpfr_write_val.c' || echo '$(srcdir)/'`mpfr_write_val.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-mpfr_write_val.Tpo $(DEPDIR)/test_run@P@-mpfr_write_val.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpfr_write_val.c' object='test_run@P@-mpfr_write_val.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-mpfr_write_val.o `test -f 'mpfr_write_val.c' || echo '$(srcdir)/'`mpfr_write_val.c
+
+test_run@P@-mpfr_write_val.obj: mpfr_write_val.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-mpfr_write_val.obj -MD -MP -MF $(DEPDIR)/test_run@P@-mpfr_write_val.Tpo -c -o test_run@P@-mpfr_write_val.obj `if test -f 'mpfr_write_val.c'; then $(CYGPATH_W) 'mpfr_write_val.c'; else $(CYGPATH_W) '$(srcdir)/mpfr_write_val.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-mpfr_write_val.Tpo $(DEPDIR)/test_run@P@-mpfr_write_val.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpfr_write_val.c' object='test_run@P@-mpfr_write_val.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-mpfr_write_val.obj `if test -f 'mpfr_write_val.c'; then $(CYGPATH_W) 'mpfr_write_val.c'; else $(CYGPATH_W) '$(srcdir)/mpfr_write_val.c'; fi`
+
+test_run@P@-mpfr_write_array.o: mpfr_write_array.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-mpfr_write_array.o -MD -MP -MF $(DEPDIR)/test_run@P@-mpfr_write_array.Tpo -c -o test_run@P@-mpfr_write_array.o `test -f 'mpfr_write_array.c' || echo '$(srcdir)/'`mpfr_write_array.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-mpfr_write_array.Tpo $(DEPDIR)/test_run@P@-mpfr_write_array.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpfr_write_array.c' object='test_run@P@-mpfr_write_array.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-mpfr_write_array.o `test -f 'mpfr_write_array.c' || echo '$(srcdir)/'`mpfr_write_array.c
+
+test_run@P@-mpfr_write_array.obj: mpfr_write_array.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-mpfr_write_array.obj -MD -MP -MF $(DEPDIR)/test_run@P@-mpfr_write_array.Tpo -c -o test_run@P@-mpfr_write_array.obj `if test -f 'mpfr_write_array.c'; then $(CYGPATH_W) 'mpfr_write_array.c'; else $(CYGPATH_W) '$(srcdir)/mpfr_write_array.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-mpfr_write_array.Tpo $(DEPDIR)/test_run@P@-mpfr_write_array.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpfr_write_array.c' object='test_run@P@-mpfr_write_array.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-mpfr_write_array.obj `if test -f 'mpfr_write_array.c'; then $(CYGPATH_W) 'mpfr_write_array.c'; else $(CYGPATH_W) '$(srcdir)/mpfr_write_array.c'; fi`
+
+test_run@P@-mpfr_array2file.o: mpfr_array2file.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-mpfr_array2file.o -MD -MP -MF $(DEPDIR)/test_run@P@-mpfr_array2file.Tpo -c -o test_run@P@-mpfr_array2file.o `test -f 'mpfr_array2file.c' || echo '$(srcdir)/'`mpfr_array2file.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-mpfr_array2file.Tpo $(DEPDIR)/test_run@P@-mpfr_array2file.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpfr_array2file.c' object='test_run@P@-mpfr_array2file.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-mpfr_array2file.o `test -f 'mpfr_array2file.c' || echo '$(srcdir)/'`mpfr_array2file.c
+
+test_run@P@-mpfr_array2file.obj: mpfr_array2file.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-mpfr_array2file.obj -MD -MP -MF $(DEPDIR)/test_run@P@-mpfr_array2file.Tpo -c -o test_run@P@-mpfr_array2file.obj `if test -f 'mpfr_array2file.c'; then $(CYGPATH_W) 'mpfr_array2file.c'; else $(CYGPATH_W) '$(srcdir)/mpfr_array2file.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-mpfr_array2file.Tpo $(DEPDIR)/test_run@P@-mpfr_array2file.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpfr_array2file.c' object='test_run@P@-mpfr_array2file.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-mpfr_array2file.obj `if test -f 'mpfr_array2file.c'; then $(CYGPATH_W) 'mpfr_array2file.c'; else $(CYGPATH_W) '$(srcdir)/mpfr_array2file.c'; fi`
+
+test_run@P@-mpfr_cmp_vals.o: mpfr_cmp_vals.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-mpfr_cmp_vals.o -MD -MP -MF $(DEPDIR)/test_run@P@-mpfr_cmp_vals.Tpo -c -o test_run@P@-mpfr_cmp_vals.o `test -f 'mpfr_cmp_vals.c' || echo '$(srcdir)/'`mpfr_cmp_vals.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-mpfr_cmp_vals.Tpo $(DEPDIR)/test_run@P@-mpfr_cmp_vals.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpfr_cmp_vals.c' object='test_run@P@-mpfr_cmp_vals.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-mpfr_cmp_vals.o `test -f 'mpfr_cmp_vals.c' || echo '$(srcdir)/'`mpfr_cmp_vals.c
+
+test_run@P@-mpfr_cmp_vals.obj: mpfr_cmp_vals.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-mpfr_cmp_vals.obj -MD -MP -MF $(DEPDIR)/test_run@P@-mpfr_cmp_vals.Tpo -c -o test_run@P@-mpfr_cmp_vals.obj `if test -f 'mpfr_cmp_vals.c'; then $(CYGPATH_W) 'mpfr_cmp_vals.c'; else $(CYGPATH_W) '$(srcdir)/mpfr_cmp_vals.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-mpfr_cmp_vals.Tpo $(DEPDIR)/test_run@P@-mpfr_cmp_vals.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpfr_cmp_vals.c' object='test_run@P@-mpfr_cmp_vals.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-mpfr_cmp_vals.obj `if test -f 'mpfr_cmp_vals.c'; then $(CYGPATH_W) 'mpfr_cmp_vals.c'; else $(CYGPATH_W) '$(srcdir)/mpfr_cmp_vals.c'; fi`
+
+test_run@P@-mpfr_cmp_arrays.o: mpfr_cmp_arrays.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-mpfr_cmp_arrays.o -MD -MP -MF $(DEPDIR)/test_run@P@-mpfr_cmp_arrays.Tpo -c -o test_run@P@-mpfr_cmp_arrays.o `test -f 'mpfr_cmp_arrays.c' || echo '$(srcdir)/'`mpfr_cmp_arrays.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-mpfr_cmp_arrays.Tpo $(DEPDIR)/test_run@P@-mpfr_cmp_arrays.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpfr_cmp_arrays.c' object='test_run@P@-mpfr_cmp_arrays.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-mpfr_cmp_arrays.o `test -f 'mpfr_cmp_arrays.c' || echo '$(srcdir)/'`mpfr_cmp_arrays.c
+
+test_run@P@-mpfr_cmp_arrays.obj: mpfr_cmp_arrays.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-mpfr_cmp_arrays.obj -MD -MP -MF $(DEPDIR)/test_run@P@-mpfr_cmp_arrays.Tpo -c -o test_run@P@-mpfr_cmp_arrays.obj `if test -f 'mpfr_cmp_arrays.c'; then $(CYGPATH_W) 'mpfr_cmp_arrays.c'; else $(CYGPATH_W) '$(srcdir)/mpfr_cmp_arrays.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-mpfr_cmp_arrays.Tpo $(DEPDIR)/test_run@P@-mpfr_cmp_arrays.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpfr_cmp_arrays.c' object='test_run@P@-mpfr_cmp_arrays.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-mpfr_cmp_arrays.obj `if test -f 'mpfr_cmp_arrays.c'; then $(CYGPATH_W) 'mpfr_cmp_arrays.c'; else $(CYGPATH_W) '$(srcdir)/mpfr_cmp_arrays.c'; fi`
+
+test_run@P@-mpfr_validate.o: mpfr_validate.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-mpfr_validate.o -MD -MP -MF $(DEPDIR)/test_run@P@-mpfr_validate.Tpo -c -o test_run@P@-mpfr_validate.o `test -f 'mpfr_validate.c' || echo '$(srcdir)/'`mpfr_validate.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-mpfr_validate.Tpo $(DEPDIR)/test_run@P@-mpfr_validate.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpfr_validate.c' object='test_run@P@-mpfr_validate.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-mpfr_validate.o `test -f 'mpfr_validate.c' || echo '$(srcdir)/'`mpfr_validate.c
+
+test_run@P@-mpfr_validate.obj: mpfr_validate.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-mpfr_validate.obj -MD -MP -MF $(DEPDIR)/test_run@P@-mpfr_validate.Tpo -c -o test_run@P@-mpfr_validate.obj `if test -f 'mpfr_validate.c'; then $(CYGPATH_W) 'mpfr_validate.c'; else $(CYGPATH_W) '$(srcdir)/mpfr_validate.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-mpfr_validate.Tpo $(DEPDIR)/test_run@P@-mpfr_validate.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='mpfr_validate.c' object='test_run@P@-mpfr_validate.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-mpfr_validate.obj `if test -f 'mpfr_validate.c'; then $(CYGPATH_W) 'mpfr_validate.c'; else $(CYGPATH_W) '$(srcdir)/mpfr_validate.c'; fi`
+
 mostlyclean-libtool:
 	-rm -f *.lo
 
@@ -3000,6 +3560,14 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_point_init.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_point_quad.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_func.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_gfm_cap_density_3d.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_gfm_cap_density_const.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_gfm_cap_density_lateral.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_gfm_cap_q.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_gfm_cap_q_check_prec.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_gfm_global_density_3d.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_gfm_global_density_const.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_gfm_global_density_lateral.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_integ_pn1m1pn2m2.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_integ_yi1n1m1yi2n2m2.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_leg_pnmj_alloc.Po
@@ -3034,11 +3602,18 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/genref_run@P@-misc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-modify_low_degree_coefficients.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_crd.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-module_gfm.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_integ.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_leg.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_sha.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_shc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_shs.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-mpfr_array2file.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-mpfr_cmp_arrays.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-mpfr_cmp_vals.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-mpfr_validate.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-mpfr_write_array.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-mpfr_write_val.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-point_touch_array_elements.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-shc_touch_array_elements.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-test_run.Po
@@ -3080,6 +3655,14 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test_run@P@-check_crd_point_init.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_crd_point_quad.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_func.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_gfm_cap_density_3d.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_gfm_cap_density_const.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_gfm_cap_density_lateral.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_gfm_cap_q.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_gfm_cap_q_check_prec.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_gfm_global_density_3d.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_gfm_global_density_const.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_gfm_global_density_lateral.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_integ_pn1m1pn2m2.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_integ_yi1n1m1yi2n2m2.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_leg_pnmj_alloc.Po
@@ -3114,11 +3697,18 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test_run@P@-misc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-modify_low_degree_coefficients.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-module_crd.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-module_gfm.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-module_integ.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-module_leg.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-module_sha.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-module_shc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-module_shs.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-mpfr_array2file.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-mpfr_cmp_arrays.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-mpfr_cmp_vals.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-mpfr_validate.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-mpfr_write_array.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-mpfr_write_val.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-point_touch_array_elements.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-shc_touch_array_elements.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-test_run.Po
@@ -3180,6 +3770,14 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_point_init.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_crd_point_quad.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_func.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_gfm_cap_density_3d.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_gfm_cap_density_const.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_gfm_cap_density_lateral.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_gfm_cap_q.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_gfm_cap_q_check_prec.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_gfm_global_density_3d.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_gfm_global_density_const.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_gfm_global_density_lateral.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_integ_pn1m1pn2m2.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_integ_yi1n1m1yi2n2m2.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_leg_pnmj_alloc.Po
@@ -3214,11 +3812,18 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/genref_run@P@-misc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-modify_low_degree_coefficients.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_crd.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-module_gfm.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_integ.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_leg.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_sha.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_shc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-module_shs.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-mpfr_array2file.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-mpfr_cmp_arrays.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-mpfr_cmp_vals.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-mpfr_validate.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-mpfr_write_array.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-mpfr_write_val.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-point_touch_array_elements.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-shc_touch_array_elements.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-test_run.Po
@@ -3260,6 +3865,14 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test_run@P@-check_crd_point_init.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_crd_point_quad.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_func.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_gfm_cap_density_3d.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_gfm_cap_density_const.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_gfm_cap_density_lateral.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_gfm_cap_q.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_gfm_cap_q_check_prec.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_gfm_global_density_3d.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_gfm_global_density_const.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_gfm_global_density_lateral.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_integ_pn1m1pn2m2.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_integ_yi1n1m1yi2n2m2.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_leg_pnmj_alloc.Po
@@ -3294,11 +3907,18 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test_run@P@-misc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-modify_low_degree_coefficients.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-module_crd.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-module_gfm.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-module_integ.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-module_leg.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-module_sha.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-module_shc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-module_shs.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-mpfr_array2file.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-mpfr_cmp_arrays.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-mpfr_cmp_vals.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-mpfr_validate.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-mpfr_write_array.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-mpfr_write_val.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-point_touch_array_elements.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-shc_touch_array_elements.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-test_run.Po

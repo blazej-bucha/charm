@@ -31,9 +31,12 @@ Features
 
 * Supports the Gauss--Legendre and Driscoll--Healy quadratures.
 
-* Integrates solid spherical harmonic expansions (e.g., of the gravitational
-  potential) on band-limited irregular surfaces (e.g., on the Earth's
-  surface). [#f1]_
+* Implements spectral gravity forward modelling of band-limited topographic 
+  masses with an arbitrary integration radius and 3D density. [#f1]_
+
+* Evaluates integrals of solid spherical harmonic expansions (e.g., of the 
+  gravitational potential) on band-limited irregular surfaces (e.g., on the 
+  Earth's surface). [#f1]_
 
 * Computes Fourier coefficients of fully-normalized associated Legendre
   functions of the first kind up to ultra-high harmonic degrees.
@@ -49,12 +52,16 @@ Features
 
 * Performs discrete FFT by `FFTW <http://www.fftw.org/>`_.
 
+* For spectral gravity forward modelling with spatially limited integration 
+  radius, `MPFR <https://mpfr.org>`_ is used to enable arbitrary precision 
+  arithmetic on floating point numbers.
+
 * Ships with a Python wrapper to enable high-level programming while retaining 
   the efficiency of the C language.  The wrapper, called PyHarm, wraps CHarm 
   using `ctypes <https://docs.python.org/3/library/ctypes.html>`_ and is fully 
   integrated with `numpy <https://numpy.org/>`_.
 
-.. [#f1] This routine is unique to CHarm.
+.. [#f1] Unique to CHarm.
 
 
 Installation
@@ -70,6 +77,31 @@ Installation
   This will install PyHarm together will all the dependencies.  These include 
   a pre-compiled CHarm library, which is internally called by PyHarm, some 
   other C libraries (FFTW and OpenMP library) and the Python package NumPy.
+
+* **CHarm (C library)**: If you are interested in the C API, you have to build 
+  CHarm from source.  This step is not required if you plan to use the Python 
+  interface only.
+
+Further installation details at 
+`https://www.charmlib.org/build/html/install.html 
+<https://www.charmlib.org/build/html/install.html>`_.
+
+
+
+Installation
+============
+
+* **PyHarm (Python wrapper)**: On Linux (x86_64), macOS (x86_64, ARM64) and 
+  Windows (x86_64), install PyHarm using ``pip``:
+
+  .. code-block:: bash
+
+     pip install pyharm
+
+  This will install PyHarm together will all the dependencies.  These include 
+  a pre-compiled CHarm library, which is internally called by PyHarm, some 
+  other C libraries (FFTW, MPFR, GMP and OpenMP libraries) and the Python 
+  package NumPy.
 
 * **CHarm (C library)**: If you are interested in the C API, you have to build 
   CHarm from source.  This step is not required if you plan to use the Python 
@@ -104,11 +136,11 @@ at `https://www.charmlib.org <https://www.charmlib.org>`_.
 
 A pre-compiled HTML documentation is also available in ``docs/build/html``.  
 Alternatively, it can be built by executing ``make html`` after the 
-``configure`` call (requires ``--enable-python``, ``--enable-mpi``, ``doxygen`` 
-and Python modules ``sphinx``, ``sphinx_book_theme`` and ``breathe``).  Other 
-formats of the documentation, for instance, a PDF file, can be built with ``cd 
-docs && make latexpdf``, etc.  To list all available formats, execute ``cd docs 
-&& make help``.
+``configure`` call (requires ``--enable-python``, ``--enable-mpi``, 
+``--enable-mpfr``, ``doxygen`` and Python modules ``sphinx``, 
+``sphinx_book_theme`` and ``breathe``).  Other formats of the documentation, 
+for instance, a PDF file, can be built with ``cd docs && make latexpdf``, etc.  
+To list all available formats, execute ``cd docs && make help``.
 
 
 .. _contact:

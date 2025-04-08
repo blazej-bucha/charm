@@ -24,6 +24,6 @@ _pyharm = 'pyharm@P@'
 
 # The "err" module is intentionally not imported, as users do not interact with
 # it in PyHarm.
-from . import crd, glob, integ, leg, misc, sha, shc, shs
-__all__ = ['crd', 'glob', 'integ', 'leg', 'misc', 'sha', 'shc', 'shs']
+from . import crd, glob, gfm, integ, leg, misc, sha, shc, shs
+__all__ = ['crd', 'glob', 'gfm', 'integ', 'leg', 'misc', 'sha', 'shc', 'shs']
 

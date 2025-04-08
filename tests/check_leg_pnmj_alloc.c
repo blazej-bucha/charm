@@ -23,9 +23,9 @@ long int check_leg_pnmj_alloc(CHARM(pnmj) *(*pnmj_alloc)(unsigned long,
 
     char func[NSTR_SHORT];
     if (pnmj_alloc == CHARM(leg_pnmj_malloc))
-        sprintf(func, "leg_pnmj_malloc");
+        snprintf(func, NSTR_SHORT, "leg_pnmj_malloc");
     else if (pnmj_alloc == CHARM(leg_pnmj_calloc))
-        sprintf(func, "leg_pnmj_calloc");
+        snprintf(func, NSTR_SHORT, "leg_pnmj_calloc");
 
 
     CHARM(pnmj) *pnmj;
@@ -43,7 +43,8 @@ long int check_leg_pnmj_alloc(CHARM(pnmj) *(*pnmj_alloc)(unsigned long,
         for (unsigned o = 0; o < 2; o++)
         {
             pnmj = pnmj_alloc(nmax, ordering[o]);
-            sprintf(func_call_str, "%s(%lu, %i)", func, nmax, ordering[o]);
+            snprintf(func_call_str, NSTR_LONG, "%s(%lu, %i)", func, nmax,
+                     ordering[o]);
 
 
             e += check_struct_ptr(pnmj, NULL, EQ, VALID, func_call_str,
@@ -65,7 +66,7 @@ long int check_leg_pnmj_alloc(CHARM(pnmj) *(*pnmj_alloc)(unsigned long,
 
 
     pnmj = pnmj_alloc(nmax, ordering);
-    sprintf(func_call_str, "%s(%lu, %i)", func, nmax, ordering);
+    snprintf(func_call_str, NSTR_LONG, "%s(%lu, %i)", func, nmax, ordering);
 
 
     e += check_struct_ptr(pnmj, NULL, NEQ, INVALID, func_call_str,
@@ -82,7 +83,7 @@ long int check_leg_pnmj_alloc(CHARM(pnmj) *(*pnmj_alloc)(unsigned long,
 
 
     pnmj = pnmj_alloc(nmax, ordering);
-    sprintf(func_call_str, "%s(%lu, %i)", func, nmax, ordering);
+    snprintf(func_call_str, NSTR_LONG, "%s(%lu, %i)", func, nmax, ordering);
 
 
     e += check_struct_ulong(pnmj->nmax, nmax, NEQ, VALID, func_call_str,

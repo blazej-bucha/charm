@@ -22,7 +22,7 @@ long int check_integ_yi1n1m1yi2n2m2(void)
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -50,7 +50,7 @@ long int check_integ_yi1n1m1yi2n2m2(void)
                                                  CHARM_LEG_PMJN);
         if (pnmj == NULL)
         {
-            fprintf(stderr, ERR_MSG_PNMJ);
+            fprintf(stderr, "%s", ERR_MSG_PNMJ);
             exit(CHARM_FAILURE);
         }
 

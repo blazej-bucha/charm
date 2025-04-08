@@ -34,6 +34,7 @@ SOURCES = test_run.c \
 		  module_shc.c \
 		  module_shs.c \
 		  module_sha.c \
+		  module_gfm.c \
 		  module_leg.c \
 		  module_integ.c \
 		  misc.c \
@@ -57,6 +58,9 @@ SOURCES = test_run.c \
 		  check_shs_cell_isurf.c \
 		  check_sha_point.c \
 		  check_sha_cell.c \
+		  check_gfm_global_density_3d.c \
+		  check_gfm_global_density_lateral.c \
+		  check_gfm_global_density_const.c \
 		  check_shc_read_type.c \
 		  check_shc_read_gfc.c \
 		  check_shc_write_type.c \
@@ -70,6 +74,19 @@ SOURCES = test_run.c \
 		  check_simd_sum_r.c \
 		  check_simd_masks.c \
 		  check_simd_blend_r.c
+if MPFR
+SOURCES += check_gfm_cap_density_3d.c \
+           check_gfm_cap_density_lateral.c \
+           check_gfm_cap_density_const.c \
+		   check_gfm_cap_q.c \
+		   check_gfm_cap_q_check_prec.c \
+		   mpfr_write_val.c \
+		   mpfr_write_array.c \
+		   mpfr_array2file.c \
+		   mpfr_cmp_vals.c \
+		   mpfr_cmp_arrays.c \
+		   mpfr_validate.c
+endif
 
 
 if MPI

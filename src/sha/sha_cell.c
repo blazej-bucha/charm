@@ -503,14 +503,14 @@ void CHARM(sha_cell)(const CHARM(cell) *cell,
         REAL_SIMD pnm0_latmax, pnm1_latmax, pnm2_latmax;
         REAL_SIMD latmin, latmax;
 #ifdef SIMD
-        const RI_SIMD    zero_ri = SET_ZERO_RI;
-        const RI_SIMD    one_ri  = SET1_RI(1);
-        const RI_SIMD    mone_ri = SET1_RI(-1);
-        const REAL_SIMD  zero_r  = SET_ZERO_R;
-        const REAL_SIMD  BIG_r   = SET1_R(BIG);
-        const REAL_SIMD  BIGI_r  = SET1_R(BIGI);
-        const REAL_SIMD  BIGS_r  = SET1_R(BIGS);
-        const REAL_SIMD  BIGSI_r = SET1_R(BIGSI);
+        RI_SIMD    zero_ri = SET_ZERO_RI;
+        RI_SIMD    one_ri  = SET1_RI(1);
+        RI_SIMD    mone_ri = SET1_RI(-1);
+        REAL_SIMD  zero_r  = SET_ZERO_R;
+        REAL_SIMD  BIG_r   = SET1_R(BIG);
+        REAL_SIMD  BIGI_r  = SET1_R(BIGI);
+        REAL_SIMD  BIGS_r  = SET1_R(BIGS);
+        REAL_SIMD  BIGSI_r = SET1_R(BIGSI);
         REAL_SIMD  tmp1_r,  tmp2_r;
         MASK_SIMD  mask1, mask2;
         MASK2_SIMD mask3;
@@ -794,8 +794,8 @@ void CHARM(sha_cell)(const CHARM(cell) *cell,
 
 
             /* Pre-compute the sectorial "imm" integrals.  This is necessary
-             * for the "defined(HAVE_OPENMP)" parallelization strategy, but can
-             * be used (and in fact it is) also with the other parallelization
+             * for the "HAVE_OPENMP" parallelization strategy, but can be used
+             * (and in fact it is) also with the other parallelization
              * strategies. */
             /* ------------------------------------------------------------- */
             for (unsigned long m = 1; m <= nmax; m++)

@@ -19,7 +19,7 @@
 /* ------------------------------------------------------------------------- */
 static int write_cnmsnm(const CHARM(shc) *,
                         unsigned long,
-                        int,
+                        _Bool,
                         FILE *);
 /* ------------------------------------------------------------------------- */
 
@@ -61,7 +61,7 @@ void CHARM(shc_write_bin)(const CHARM(shc) *shcs,
     if (fptr == NULL)
     {
         char msg[CHARM_ERR_MAX_MSG];
-        sprintf(msg, "Couldn't create \"%s\".", pathname);
+        snprintf(msg, CHARM_ERR_MAX_MSG, "Couldn't create \"%s\".", pathname);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__,
                        CHARM_EFILEIO, msg);
         return;
@@ -92,15 +92,10 @@ void CHARM(shc_write_bin)(const CHARM(shc) *shcs,
     /* Write the maximum harmonic degree, the scaling parameter and the radius
      * of the reference sphere */
     /* ===================================================================== */
-    /* Variable to check whether "fwrite" was successful */
-    int err_tmp;
-
-
     /* The maximum harmonic degree.  Note that written is the user-defined
      * maximum harmonic degree "nmax" (not "shcs->nmax"), as this is what we
      * are asked to do by the user. */
-    err_tmp = fwrite(&nmax, sizeof(unsigned long), 1, fptr);
-    if (err_tmp < 1)
+    if (fwrite(&nmax, sizeof(unsigned long), 1, fptr) != 1)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFILEIO,
                        "Failed to write the maximum harmonic degree.");
@@ -109,8 +104,7 @@ void CHARM(shc_write_bin)(const CHARM(shc) *shcs,
 
 
     /* The scaling parameter */
-    err_tmp = fwrite(&(shcs->mu), sizeof(REAL), 1, fptr);
-    if (err_tmp < 1)
+    if (fwrite(&(shcs->mu), sizeof(REAL), 1, fptr) != 1)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFILEIO,
                        "Failed to write the scaling parameter.");
@@ -119,8 +113,7 @@ void CHARM(shc_write_bin)(const CHARM(shc) *shcs,
 
 
     /* The scaling parameter */
-    err_tmp = fwrite(&(shcs->r), sizeof(REAL), 1, fptr);
-    if (err_tmp < 1)
+    if (fwrite(&(shcs->r), sizeof(REAL), 1, fptr) != 1)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFILEIO,
                        "Failed to write the radius of the reference sphere.");
@@ -135,8 +128,7 @@ void CHARM(shc_write_bin)(const CHARM(shc) *shcs,
 
     /* Write the "shcs->c" coefficients */
     /* ===================================================================== */
-    err_tmp = write_cnmsnm(shcs, nmax, 0, fptr);
-    if (err_tmp != 0)
+    if (write_cnmsnm(shcs, nmax, 0, fptr))
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFILEIO,
                        "Failed to write the \"C\" coefficients).");
@@ -151,8 +143,7 @@ void CHARM(shc_write_bin)(const CHARM(shc) *shcs,
 
     /* Write the "shcs->s" coefficients */
     /* ===================================================================== */
-    err_tmp = write_cnmsnm(shcs, nmax, 1, fptr);
-    if (err_tmp != 0)
+    if (write_cnmsnm(shcs, nmax, 1, fptr))
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFILEIO,
                        "Failed to write the \"S\" coefficients).");
@@ -177,25 +168,18 @@ EXIT:
 
 /* Just a small function to write "Cnm" and "Snm" coefficients to the binary
  * file.  Hopefully, no detailed documentation is needed. */
-static int write_cnmsnm(const CHARM(shc) *shcs, unsigned long nmax, int cnmsnm,
+static int write_cnmsnm(const CHARM(shc) *shcs,
+                        unsigned long nmax,
+                        _Bool cnmsnm,
                         FILE *fptr)
 {
-    int err = 0;
-
-
     /* Loop over the harmonic orders */
     for (unsigned long m = 0; m <= nmax; m++)
     {
-        if (cnmsnm == 0)
-            err = fwrite(shcs->c[m], sizeof(REAL), nmax + 1 - m, fptr);
-        else if (cnmsnm == 1)
-            err = fwrite(shcs->s[m], sizeof(REAL), nmax + 1 - m, fptr);
-        else
+        REAL *cs = (cnmsnm) ? shcs->s[m] : shcs->c[m];
+        size_t nread = (size_t)(nmax + 1 - m);
+        if (fwrite(cs, sizeof(REAL), nread, fptr) != nread)
             return 1;
-
-
-        if (err < 1)
-            return 2;
     }
 
 

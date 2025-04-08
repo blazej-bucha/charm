@@ -27,9 +27,9 @@ long int check_shc_alloc(CHARM(shc) *(*shc_alloc)(unsigned long,
 
     char func[NSTR_SHORT];
     if (shc_alloc == CHARM(shc_malloc))
-        sprintf(func, "shc_malloc");
+        snprintf(func, NSTR_SHORT, "shc_malloc");
     else if (shc_alloc == CHARM(shc_calloc))
-        sprintf(func, "shc_calloc");
+        snprintf(func, NSTR_SHORT, "shc_calloc");
 
 
     char func_call_str[NSTR_LONG];
@@ -41,8 +41,9 @@ long int check_shc_alloc(CHARM(shc) *(*shc_alloc)(unsigned long,
     for (nmax = 0; nmax <= SHCS_NMAX_POT; nmax++)
     {
         shcs = shc_alloc(nmax, mu, r);
-        sprintf(func_call_str, "%s(%lu, " FORMAT ", " FORMAT ")",
-                func, nmax, mu, r);
+        snprintf(func_call_str, NSTR_LONG,
+                 "%s(%lu, " REAL_PRINT_FORMAT ", " REAL_PRINT_FORMAT ")",
+                 func, nmax, mu, r);
 
 
         e += check_struct_ptr(shcs, NULL, EQ, VALID, func_call_str,
@@ -62,8 +63,9 @@ long int check_shc_alloc(CHARM(shc) *(*shc_alloc)(unsigned long,
 
 
     shcs = shc_alloc(nmax, mu, zero);
-    sprintf(func_call_str, "%s(%lu, " FORMAT ", " FORMAT ")",
-            func, nmax, mu, zero);
+    snprintf(func_call_str, NSTR_LONG,
+             "%s(%lu, " REAL_PRINT_FORMAT ", " REAL_PRINT_FORMAT ")",
+             func, nmax, mu, zero);
 
 
     e += check_struct_ptr(shcs, NULL, NEQ, INVALID, func_call_str,
@@ -78,8 +80,9 @@ long int check_shc_alloc(CHARM(shc) *(*shc_alloc)(unsigned long,
 
 
     shcs = shc_alloc(nmax, mu, r);
-    sprintf(func_call_str, "%s(%lu, " FORMAT ", " FORMAT ")",
-            func, nmax, mu, r);
+    snprintf(func_call_str, NSTR_LONG,
+             "%s(%lu, " REAL_PRINT_FORMAT ", " REAL_PRINT_FORMAT ")",
+             func, nmax, mu, r);
 
 
     e += check_struct_ptr(shcs, NULL, NEQ, INVALID, func_call_str,
@@ -97,8 +100,9 @@ long int check_shc_alloc(CHARM(shc) *(*shc_alloc)(unsigned long,
     /* Check that the members of "shcs" are properly set */
     /* --------------------------------------------------------------------- */
     shcs = shc_alloc(nmax, mu, r);
-    sprintf(func_call_str, "%s(%lu, " FORMAT ", " FORMAT ")",
-            func, nmax, mu, r);
+    snprintf(func_call_str, NSTR_LONG,
+             "%s(%lu, " REAL_PRINT_FORMAT ", " REAL_PRINT_FORMAT ")",
+             func, nmax, mu, r);
 
 
     e += check_struct_ulong(shcs->nmax, nmax, NEQ, VALID, func_call_str,

@@ -39,7 +39,7 @@ CHARM(err) *CHARM(err_init)(void)
         goto FAILURE_1;
 
 
-    err->line = malloc(CHARM_ERR_MAX_LEVEL * sizeof(unsigned int));
+    err->line = malloc(CHARM_ERR_MAX_LEVEL * sizeof(size_t));
     if (err->file == NULL)
         goto FAILURE_1;
 

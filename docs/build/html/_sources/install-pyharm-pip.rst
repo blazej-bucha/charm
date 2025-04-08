@@ -36,6 +36,8 @@ The CHarm binaries were compiled using the following settings.
   slightly *worse* than when not using these flags.  Normally, however, one 
   does not need to bother by this.  Should you need compliance with the IEEE 
   specifications, compile the library on your own without these flags.
+* ``--enable-mpfr`` to enable spatially restricted spectral gravity forward 
+  modelling.
 * ``--enable-python`` to build the PyHarm wrapper.
 
 .. tip::

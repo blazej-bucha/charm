@@ -37,7 +37,7 @@ long int check_mpi_shc(CHARM(shc) *shcs,
     etmp = !CHARM(mpi_allequal_ulong)(shcs->nmax, shcs->comm, err);
     CHARM(err_handler)(err, 1);
     if (etmp)
-        fprintf(stderr,
+        fprintf(stderr, "%s",
                 "\"shcs->nmax\" does not match across MPI processes\n");
     e += etmp;
 
@@ -45,35 +45,39 @@ long int check_mpi_shc(CHARM(shc) *shcs,
     etmp = !CHARM(mpi_allequal_real)(shcs->mu, shcs->comm, err);
     CHARM(err_handler)(err, 1);
     if (etmp)
-        fprintf(stderr, "\"shcs->mu\" does not match across MPI processes\n");
+        fprintf(stderr, "%s",
+                "\"shcs->mu\" does not match across MPI processes\n");
     e += etmp;
 
 
     etmp = !CHARM(mpi_allequal_real)(shcs->r, shcs->comm, err);
     CHARM(err_handler)(err, 1);
     if (etmp)
-        fprintf(stderr, "\"shcs->r\" does not match across MPI processes\n");
+        fprintf(stderr, "%s",
+                "\"shcs->r\" does not match across MPI processes\n");
     e += etmp;
 
 
     etmp = !CHARM(mpi_allequal_size_t)(shcs->nc, shcs->comm, err);
     CHARM(err_handler)(err, 1);
     if (etmp)
-        fprintf(stderr, "\"shcs->nc\" does not match across MPI processes\n");
+        fprintf(stderr, "%s",
+                "\"shcs->nc\" does not match across MPI processes\n");
     e += etmp;
 
 
     etmp = !CHARM(mpi_allequal_size_t)(shcs->ns, shcs->comm, err);
     CHARM(err_handler)(err, 1);
     if (etmp)
-        fprintf(stderr, "\"shcs->ns\" does not match across MPI processes\n");
+        fprintf(stderr, "%s",
+                "\"shcs->ns\" does not match across MPI processes\n");
     e += etmp;
 
 
     etmp = !CHARM(mpi_allequal__Bool)(shcs->owner, shcs->comm, err);
     CHARM(err_handler)(err, 1);
     if (etmp)
-        fprintf(stderr,
+        fprintf(stderr, "%s",
                 "\"shcs->owner\" does not match across MPI processes\n");
     e += etmp;
 
@@ -85,7 +89,7 @@ long int check_mpi_shc(CHARM(shc) *shcs,
     etmp = !CHARM(mpi_allequal__Bool)(shcs->distributed, shcs->comm, err);
     CHARM(err_handler)(err, 1);
     if (etmp)
-        fprintf(stderr,
+        fprintf(stderr, "%s",
                 "\"shcs->distributed\" does not match across MPI processes\n");
     e += etmp;
 

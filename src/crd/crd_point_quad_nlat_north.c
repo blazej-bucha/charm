@@ -29,7 +29,8 @@ size_t CHARM(crd_point_quad_nlat_north)(size_t local_nlat,
 
     if (local_nlat > nlat)
     {
-        sprintf(err_msg, "\"local_nlat = %zu\" cannot be larger than the "
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "\"local_nlat = %zu\" cannot be larger than the "
                          "number of latitudes \"%zu\".", local_nlat, nlat);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        err_msg);
@@ -98,7 +99,8 @@ size_t CHARM(crd_point_quad_nlat_north)(size_t local_nlat,
                  * error. */
                 if (local_nlat % 2)
                 {
-                    sprintf(err_msg, "For odd \"nmax = %lu\", "
+                    snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                                     "For odd \"nmax = %lu\", "
                                      "\"local_nlat = %zu\" must be even.",
                                      nmax, local_nlat);
                     CHARM(err_set)(err, __FILE__, __LINE__, __func__,
@@ -124,7 +126,8 @@ size_t CHARM(crd_point_quad_nlat_north)(size_t local_nlat,
                      * must be zero (the equator). */
                     if ((local_0_start + (local_nlat / 2)) != equator)
                     {
-                        sprintf(err_msg, "Wrong latitudinal chunk "
+                        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                                         "Wrong latitudinal chunk "
                                          " \"local_0_start = %zu\" and "
                                          "\"local_nlat = %zu\".  "
                                          "The last latitude of the chunk with "
@@ -156,7 +159,8 @@ size_t CHARM(crd_point_quad_nlat_north)(size_t local_nlat,
                 /* "local_nlat" must be odd if "local_0_start" is zero */
                 if ((local_nlat > 0) && !local_nlat_odd)
                 {
-                    sprintf(err_msg, "For \"local_0_start = %zu\", "
+                    snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                                     "For \"local_0_start = %zu\", "
                                      "\"local_nlat = %zu\" must be odd.",
                                      local_0_start, local_nlat);
                     CHARM(err_set)(err, __FILE__, __LINE__, __func__,
@@ -173,7 +177,8 @@ size_t CHARM(crd_point_quad_nlat_north)(size_t local_nlat,
                  * */
                 if ((local_0_start + (local_nlat / 2)) != equator)
                 {
-                    sprintf(err_msg, "Wrong latitudinal chunk "
+                    snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                                     "Wrong latitudinal chunk "
                                      "\"local_0_start = %zu\" and "
                                      "\"local_nlat = %zu\".  "
                                      "The last latitude of the chunk must be "
@@ -207,7 +212,8 @@ size_t CHARM(crd_point_quad_nlat_north)(size_t local_nlat,
     /* --------------------------------------------------------------------- */
     if ((local_nlat > 0) && (local_0_start + local_nlat_north > nlat_north))
     {
-        sprintf(err_msg, "One or more latitudes in the chunk "
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "One or more latitudes in the chunk "
                          "\"local_nlat = %zu\" and \"local_0_start = %zu\" "
                          "exceed the total number of latitudes \"%zu\".",
                          local_nlat, local_0_start, nlat);

@@ -23,7 +23,7 @@
 /* Maximum number of iterations to seek for a particular latitude of the
  * Gauss-Legendre grid. */
 #undef GL_MAX_ITER
-#define GL_MAX_ITER 1000
+#define GL_MAX_ITER 1000UL
 /* ------------------------------------------------------------------------- */
 
 
@@ -88,17 +88,17 @@ CHARM(point) *CHARM(crd_point_gl_chunk)(unsigned long nmax,
 
     /* Some pre-computations */
     /* --------------------------------------------------------------------- */
-    const unsigned long L = CHARM(crd_point_quad_l)(nmax);
-    const REAL L_fp = (REAL)L;
-    const REAL c1 = L_fp + PREC(0.5);
+    unsigned long L = CHARM(crd_point_quad_l)(nmax);
+    REAL L_fp = (REAL)L;
+    REAL c1 = L_fp + PREC(0.5);
     /* --------------------------------------------------------------------- */
 
 
     /* Latitudes */
     /* --------------------------------------------------------------------- */
     unsigned int ERROR_glob = 0;
-    unsigned long imin = local_0_start;
-    unsigned long imax = local_0_start + local_nlat_north;
+    size_t imin = local_0_start;
+    size_t imax = local_0_start + local_nlat_north;
     REAL thold = CHARM(glob_threshold);
 
 
@@ -110,10 +110,10 @@ CHARM(point) *CHARM(crd_point_gl_chunk)(unsigned long nmax,
     REAL z, z1, p1, p2, p3, pp;
     unsigned long it;
     unsigned int ERROR = 0;
-    unsigned long north, south;
+    size_t north, south;
 
 
-    unsigned long i;
+    size_t i;
 #if HAVE_OPENMP
 #pragma omp for
 #endif

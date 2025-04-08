@@ -135,6 +135,37 @@ gravitational tensor in the :ref:`lnof`.
    :language: python
 
 
+Gravity forward modelling
+-------------------------
+
+Given spherical harmonic coefficients of the Moon's topography and of its 
+density (constant, lateral and 3D density), this example computes the 
+gravitational field implied by the lunar topographic masses.
+
+The lunar shape is here defined by the ``MoonTopo2600p.shape`` model due to
+
+ * Wieczorek, M. A., Gravity and topography of the terrestrial planets, 
+   Treatise on Geophysics, 10, 153-193, doi:10.1016/B978-0-444-53802-4.00169-X, 
+   2015.
+
+The density model is due to
+
+ * Goossens, S., Sabaka, T.J., Wieczorek, M.A., Neumann, G.A., Mazarico, E., 
+   Lemoine, F., Nicholas, J.B., Smith, D.E., Zuber, 
+   M.T. (2020). High-resolution gravity field models from GRAIL data and 
+   implications for models of the density structure of the Moon's crust, 
+   Journal of Geophysical Research: Planets, 125, e2019JE006086, 
+   doi:10.1029/2019JE006086.
+
+The density model of Goossens et al. (2020) was transformed into the form 
+required by our forward modelling method.  While the transformed models that we 
+use in this example are realistic, it is not recommended to use them in any 
+real task.  They were create for learning purposes only.
+
+.. literalinclude:: ../../cookbook/python/gfm.py
+   :language: python
+
+
 Fourier coefficients of Legendre functions
 ------------------------------------------
 

@@ -14,6 +14,8 @@ SUBDIRS = charm \
 		  src/xnum \
 		  src/mpi \
 		  src/glob \
+		  src/gfm \
+		  src/mpfr \
 		  src/simd \
 		  . \
 		  tests \
@@ -35,7 +37,11 @@ SUBLIBS = src/crd/libcharm@P@_crd.la \
 		  src/shs/libcharm@P@_shs.la \
 		  src/xnum/libcharm@P@_xnum.la \
 		  src/glob/libcharm@P@_glob.la \
+		  src/gfm/libcharm@P@_gfm.la \
 		  src/simd/libcharm@P@_simd.la
+if MPFR
+SUBLIBS += src/mpfr/libcharm@P@_mpfr.la
+endif
 if MPI
 SUBLIBS += src/mpi/libcharm@P@_mpi.la
 endif

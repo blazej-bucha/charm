@@ -179,7 +179,7 @@ CHARM_EXTERN int CHARM_CDECL charm@P@_misc_buildopt_omp_charm(void);
 /** @brief Returns a non-zero value if the host's FFTW library supports OpenMP
  * parallelization.  Otherwise, zero is returned.
  *
- * @details If non-zero, all FFTW computations are parallelized. */
+ * @details If non-zero, FFTW computations are parallelized. */
 CHARM_EXTERN int CHARM_CDECL charm@P@_misc_buildopt_omp_fftw(void);
 
 
@@ -196,8 +196,83 @@ CHARM_EXTERN int CHARM_CDECL charm@P@_misc_buildopt_mpi(void);
 
 
 
+/** @brief Returns a non-zero value if CHarm was compiled with the MPFR enabled
+ * (``--enable-mpfr``).  Otherwise, zero is returned. */
+CHARM_EXTERN int CHARM_CDECL charm@P@_misc_buildopt_mpfr(void);
+
+
+
+
+
+
 /** @brief Returns a string specifying the FFTW library version. */
 CHARM_EXTERN const char *CHARM_CDECL charm@P@_misc_buildopt_version_fftw(void);
+
+
+
+
+
+
+/** @brief If CHarm was compiled with the MPI parallelization enabled
+ * (``--enable-mpi``), sets ``major_header``, ``major_lib`` and
+ * ``minor_header``, ``minor_lib`` to the version (``major_*``) and subversion
+ * (``minor_*``) of the MPI standard that is being supported by the linked MPI
+ * implementation.  The ``*_header`` values are taken from the included MPI's
+ * header file on compile time and the ``*_lib`` values are determined on
+ * runtime.  If MPI parallelization is disabled, all four values are set to
+ * ``-1``.
+ *
+ * \verbatim embed:rst:leading-asterisk
+ *
+ *  .. note::
+ *
+ *      All four version numbers are related to the MPI standard.  To see the
+ *      version of the linked MPI implementation, call
+ *      ``charm@P@_misc_print_info()``.
+ *
+ * \endverbatim
+ *
+ * */
+CHARM_EXTERN void CHARM_CDECL charm@P@_misc_buildopt_version_mpi(
+                                            int *major_header,
+                                            int *minor_header,
+                                            int *major_lib,
+                                            int *minor_lib);
+
+
+
+
+
+
+/** @brief If CHarm was compiled with the MPFR support (``--enable-mpfr``),
+ * returns a string determined on runtime specifying the MPFR library version
+ * and sets ``major``, ``minor`` and ``patch`` to the symbolic constants
+ * ``MPFR_VERSION_MAJOR``, ``MPFR_VERSION_MINOR`` and
+ * ``MPFR_VERSION_PATCHLEVEL`` determined on compile time.  Should any of the
+ * symbolic constants not be defined, the corresponding input parameter is set
+ * to ``-1``.
+ *
+ * If CHarm was compiled without the MPFR support, returns the ``n/a`` string
+ * and sets ``major``, ``minor`` and ``patch`` to ``-1``.
+ *
+ * */
+CHARM_EXTERN const char *CHARM_CDECL charm@P@_misc_buildopt_version_mpfr(
+                                                       int *major,
+                                                       int *minor,
+                                                       int *patch);
+
+
+
+
+
+
+/** @brief The same as ``charm@P@_misc_buildopt_version_mpfr()`` but for the
+ * GMP library (note that ``--enable-gmp`` is not a valid installation flag,
+ * though). */
+CHARM_EXTERN const char *CHARM_CDECL charm@P@_misc_buildopt_version_gmp(
+                                                      int *major,
+                                                      int *minor,
+                                                      int *patch);
 
 
 

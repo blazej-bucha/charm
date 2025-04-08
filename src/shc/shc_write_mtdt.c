@@ -33,7 +33,7 @@ void CHARM(shc_write_mtdt)(unsigned long nmax, REAL mu, REAL r,
                        "Failed to write the scaling parameter.");
         return;
     }
-    fprintf(stream, " ");
+    fprintf(stream, "%s", " ");
 
 
     /* Write the radius of the reference sphere */
@@ -43,7 +43,7 @@ void CHARM(shc_write_mtdt)(unsigned long nmax, REAL mu, REAL r,
                        "Failed to write the radius of the reference sphere.");
         return;
     }
-    fprintf(stream, "\n");
+    fprintf(stream, "%s", "\n");
 
 
     return;

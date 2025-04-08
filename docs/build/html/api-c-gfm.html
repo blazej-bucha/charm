@@ -1,0 +1,943 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>charm_gfm &#8212; CHarm 0.4.5 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=21ae117f"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api-c-gfm';</script>
+    <link rel="icon" href="_static/charm-logo.svg"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="charm_leg" href="api-c-leg.html" />
+    <link rel="prev" title="charm_sha" href="api-c-sha.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.4.5" />
+    <meta name="docbuild:last-update" content="Apr 07, 2025"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/charm-logo.svg" class="logo__image only-light" alt=""/>
+    <img src="_static/charm-logo.svg" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">CHarm v0.4.5</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="install.html">Installing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="install-pyharm-pip.html">Installation of PyHarm with pip</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="build-from-src.html">Building from source</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="build-from-src-unix.html">Unix-based operating systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="build-from-src-non-unix.html">Windows 10 and later</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="definitions.html">Some definitions to make things clear</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="cookbook.html">Cookbook</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="cookbook-c.html">CHarm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cookbook-py.html">PyHarm</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="api.html">Interfaces</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="api-c.html">CHarm (C API)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html">charm_shc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-sha.html">charm_sha</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">charm_gfm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-leg.html">charm_leg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html">charm_err</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-mpi.html">charm_mpi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-glob.html">charm_glob</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-charm.html">charm</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="api-py.html">PyHarm (Python API)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="api-py-shc.html">pyharm.shc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">pyharm.sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-gfm.html">pyharm.gfm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-leg.html">pyharm.leg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">pyharm.integ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-glob.html">pyharm.glob</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="platforms.html">Tested platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acknowledgements.html">Acknowledgements</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm/edit/master/docs/src/api-c-gfm.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/blazej-bucha/charm/issues/new?title=Issue%20on%20page%20%2Fapi-c-gfm.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/api-c-gfm.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>charm_gfm</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_GFM_Q00"><code class="docutils literal notranslate"><span class="pre">CHARM_GFM_Q00</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_GFM_Q10"><code class="docutils literal notranslate"><span class="pre">CHARM_GFM_Q10</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_GFM_Q11"><code class="docutils literal notranslate"><span class="pre">CHARM_GFM_Q11</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_GFM_Q20"><code class="docutils literal notranslate"><span class="pre">CHARM_GFM_Q20</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_GFM_Q21"><code class="docutils literal notranslate"><span class="pre">CHARM_GFM_Q21</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_GFM_Q22"><code class="docutils literal notranslate"><span class="pre">CHARM_GFM_Q22</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_GFM_NEAR_ZONE"><code class="docutils literal notranslate"><span class="pre">CHARM_GFM_NEAR_ZONE</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_GFM_FAR_ZONE"><code class="docutils literal notranslate"><span class="pre">CHARM_GFM_FAR_ZONE</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv427charm_gfm_global_density_3dPK9charm_shcmdPP9charm_shcPmjddjjmPKcPKcPKcP9charm_shcP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_global_density_3d()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv432charm_gfm_global_density_lateralPK9charm_shcmdP9charm_shcmddjjmPKcPKcPKcP9charm_shcP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_global_density_lateral()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv430charm_gfm_global_density_constPK9charm_shcmddddjjmPKcPKcPKcP9charm_shcP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_global_density_const()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv424charm_gfm_cap_density_3dPK9charm_shcmdPP9charm_shcPmjddjjjjddjji11mpfr_prec_tmPKcPKcPKcPP9charm_shcP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_density_3d()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv429charm_gfm_cap_density_lateralPK9charm_shcmdP9charm_shcmddjjjjddjji11mpfr_prec_tmPKcPKcPKcPP9charm_shcP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_density_lateral()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv427charm_gfm_cap_density_constPK9charm_shcmddddjjjjddjji11mpfr_prec_tmPKcPKcPKcPP9charm_shcP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_density_const()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv415charm_gfm_cap_qK6mpfr_tK6mpfr_tK6mpfr_tmjjjjij11mpfr_prec_tP6mpfr_tP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_q()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv416charm_gfm_cap_nqmjjjjP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_nq()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv426charm_gfm_cap_q_check_precK6mpfr_tK6mpfr_tK6mpfr_tmjjjjj11mpfr_prec_t11mpfr_prec_tP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_q_check_prec()</span></code></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="charm-gfm">
+<span id="id1"></span><h1>charm_gfm<a class="headerlink" href="#charm-gfm" title="Link to this heading">#</a></h1>
+<p>Module for spectral gravity forward modelling. Offers:</p>
+<p><ul class="simple">
+<li><p>global and spatially limited spectral gravity forward modelling of band-limited topographic masses having constant, lateral and 3D varying mass density.</p></li>
+</ul>
+</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This documentation is written for double precision version of 
+CHarm.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Spatially limited integration radius is available only if
+<code class="docutils literal notranslate"><span class="pre">--enable-mpfr</span></code> is specified when calling <code class="docutils literal notranslate"><span class="pre">./configure</span></code> during
+the installation.  See <a class="reference internal" href="install.html#installing"><span class="std std-ref">Installing</span></a> for further
+details.</p>
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-symbolic-constants-representing-types-of-truncation-coefficients">Symbolic constants representing types of truncation coefficients</p>
+<p><p><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The symbolic constants that follow are available only if
+<code class="docutils literal notranslate"><span class="pre">--enable-mpfr</span></code> is specified when calling <code class="docutils literal notranslate"><span class="pre">./configure</span></code> during
+the installation.  See <a class="reference internal" href="install.html#installing"><span class="std std-ref">Installing</span></a> for further
+details.</p>
+</div>
+</p>
+</p>
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.CHARM_GFM_Q00">
+<span class="target" id="charm__gfm_8h_1afbc70aaa0ee4ccc194c57ed8b8394743"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_GFM_Q00</span></span></span> <span class="pre">0U</span><a class="headerlink" href="#c.CHARM_GFM_Q00" title="Link to this definition">#</a><br /></dt>
+<dd><p>Truncation coefficients <span class="math notranslate nohighlight">\(Q^{0,0,j}_{npi}(r, \psi_0, R)\)</span> defined by Eq. (88) of Bucha (2025). </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.CHARM_GFM_Q10">
+<span class="target" id="charm__gfm_8h_1ac8072f5dae239a36f6382c05a97e96de"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_GFM_Q10</span></span></span> <span class="pre">10U</span><a class="headerlink" href="#c.CHARM_GFM_Q10" title="Link to this definition">#</a><br /></dt>
+<dd><p>Truncation coefficients <span class="math notranslate nohighlight">\(Q^{1, 0, j}_{npi}(r, \psi_0, R)\)</span> defined by Eq. (88) of Bucha (2025). </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.CHARM_GFM_Q11">
+<span class="target" id="charm__gfm_8h_1a1ee8efa2fccf421616c35fa331c85507"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_GFM_Q11</span></span></span> <span class="pre">11U</span><a class="headerlink" href="#c.CHARM_GFM_Q11" title="Link to this definition">#</a><br /></dt>
+<dd><p>Truncation coefficients <span class="math notranslate nohighlight">\(Q^{1, 1, j}_{npi}(r, \psi_0, R)\)</span> defined by Eq. (88) of Bucha (2025). </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.CHARM_GFM_Q20">
+<span class="target" id="charm__gfm_8h_1af634c21bcebfc5c1093806f1010cc13b"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_GFM_Q20</span></span></span> <span class="pre">20U</span><a class="headerlink" href="#c.CHARM_GFM_Q20" title="Link to this definition">#</a><br /></dt>
+<dd><p>Truncation coefficients <span class="math notranslate nohighlight">\(Q^{2, 0, j}_{npi}(r, \psi_0, R)\)</span> defined by Eq. (88) of Bucha (2025). </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.CHARM_GFM_Q21">
+<span class="target" id="charm__gfm_8h_1ae3d6635a0bf9c00b80d75d11f90ee730"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_GFM_Q21</span></span></span> <span class="pre">21U</span><a class="headerlink" href="#c.CHARM_GFM_Q21" title="Link to this definition">#</a><br /></dt>
+<dd><p>Truncation coefficients <span class="math notranslate nohighlight">\(Q^{2, 1, j}_{npi}(r, \psi_0, R)\)</span> defined by Eq. (88) of Bucha (2025). </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.CHARM_GFM_Q22">
+<span class="target" id="charm__gfm_8h_1a4db1c7ec3f0be10c1b56b2692b22a770"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_GFM_Q22</span></span></span> <span class="pre">22U</span><a class="headerlink" href="#c.CHARM_GFM_Q22" title="Link to this definition">#</a><br /></dt>
+<dd><p>Truncation coefficients <span class="math notranslate nohighlight">\(Q^{2, 2, j}_{npi}(r, \psi_0, R)\)</span> defined by Eq. (88) of Bucha (2025). </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.CHARM_GFM_NEAR_ZONE">
+<span class="target" id="charm__gfm_8h_1a2ef0df7dfedcb4506a3d33d013a304e0"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_GFM_NEAR_ZONE</span></span></span> <span class="pre">1</span><a class="headerlink" href="#c.CHARM_GFM_NEAR_ZONE" title="Link to this definition">#</a><br /></dt>
+<dd><p>Symbolic constant that can be used to forward model near-zone masses in the <code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_density_*</span></code> functions. Near-zone masses are defined as masses up to some spherical distance <span class="math notranslate nohighlight">\(\psi_0\)</span> from evaluation points. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.CHARM_GFM_FAR_ZONE">
+<span class="target" id="charm__gfm_8h_1a9c84bcec18c3de57e4f4a3620dc2d2e8"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_GFM_FAR_ZONE</span></span></span> <span class="pre">(-1)</span><a class="headerlink" href="#c.CHARM_GFM_FAR_ZONE" title="Link to this definition">#</a><br /></dt>
+<dd><p>Symbolic constant that can be used to forward model far-zone masses in the <code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_density_*</span></code> functions. Far-zone masses are defined as masses beyond some spherical distance <span class="math notranslate nohighlight">\(\psi_0\)</span> from evaluation points. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-global-spectral-gravity-forward-modelling">Global spectral gravity forward modelling</p>
+<p>These functions perform spectral gravity forward modelling using full integration radius, that is, masses all around the body are forward modelled. The density may be constant, laterally variable or 3D variable. </p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv427charm_gfm_global_density_3dPK9charm_shcmdPP9charm_shcPmjddjjmPKcPKcPKcP9charm_shcP9charm_err">
+<span id="_CPPv327charm_gfm_global_density_3dPK9charm_shcmdPP9charm_shcPmjddjjmPKcPKcPKcP9charm_shcP9charm_err"></span><span id="_CPPv227charm_gfm_global_density_3dPK9charm_shcmdPP9charm_shcPmjddjjmPKcPKcPKcP9charm_shcP9charm_err"></span><span id="charm_gfm_global_density_3d__charm_shcCP.unsigned-l.double.charm_shcPP.unsigned-lP.unsigned.double.double.unsigned.unsigned.unsigned-l.cCP.cCP.cCP.charm_shcP.charm_errP"></span><span class="target" id="charm__gfm_8h_1aa3d20fb12110ff357eea10a6c371e58d"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_gfm_global_density_3d</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shape_shcs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_radius_ref</span></span>, <a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">density_shcs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">density_nmax</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">density_order</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">grav_const</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">mass</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_power_min</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_power_max</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">potential_shcs_nmax</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shape_density_shcs_path</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">potential_shcs_path</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs_file_format</span></span>, <a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">potential_shcs</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv427charm_gfm_global_density_3dPK9charm_shcmdPP9charm_shcPmjddjjmPKcPKcPKcP9charm_shcP9charm_err" title="Link to this definition">#</a><br /></dt>
+<dd><p>Performs global spectral gravity forward modelling of 3D mass densities. </p>
+<p>Assume a body having a star-shaped surface expandable into surface spherical harmonics. Let the body’s density vary in spherical coordinates <span class="math notranslate nohighlight">\(r', \varphi', \lambda'\)</span> as a finite-degree polynomial in the radial direction as</p>
+<p><div class="math notranslate nohighlight">
+\[\rho(r', \varphi', \lambda') = \sum_{i = 0}^I \rho_i(\varphi',
+\lambda') \, \left( r' \right)^i{,}\]</div>
+</p>
+<p>where <span class="math notranslate nohighlight">\(\rho_i(\varphi', \lambda')\)</span> are laterally varying polynomial coefficients of the density that are expandable into surface spherical harmonics. From now on, we assume only those masses that are found between some internal sphere and the surface of the body. This function computes spherical harmonic coefficients of the gravitational potential implied by such mass distributions.</p>
+<p>The routine has several input parameters, so it is useful to group them into a few categories:</p>
+<p><ul class="simple">
+<li><p>parameters defining the <em>shape</em> of the gravitating body (<code class="docutils literal notranslate"><span class="pre">shape_shcs</span></code>, <code class="docutils literal notranslate"><span class="pre">shape_nmax</span></code>, <code class="docutils literal notranslate"><span class="pre">shape_radius_ref</span></code>),</p></li>
+<li><p>parameters defining the <em>density</em> of the gravitating body (<code class="docutils literal notranslate"><span class="pre">density_shcs</span></code>, <code class="docutils literal notranslate"><span class="pre">density_nmax</span></code>, <code class="docutils literal notranslate"><span class="pre">density_order</span></code>),</p></li>
+<li><p>parameters related to <em>outputs</em> (<code class="docutils literal notranslate"><span class="pre">shape_density_shcs_path</span></code>, <code class="docutils literal notranslate"><span class="pre">potential_shcs_path</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs_file_format</span></code>, <code class="docutils literal notranslate"><span class="pre">potential_shcs</span></code>, <code class="docutils literal notranslate"><span class="pre">err</span></code>),</p></li>
+<li><p>parameters related to the <em>method</em> (<code class="docutils literal notranslate"><span class="pre">shape_power_min</span></code>, <code class="docutils literal notranslate"><span class="pre">shape_power_max</span></code>, <code class="docutils literal notranslate"><span class="pre">grav_const</span></code>, <code class="docutils literal notranslate"><span class="pre">mass</span></code>, <code class="docutils literal notranslate"><span class="pre">potential_shcs_nmax</span></code>).</p></li>
+</ul>
+</p>
+<p>Each parameter is described in detail below.</p>
+<p><strong>References</strong>:</p>
+<p><ul class="simple">
+<li><p>Bucha B (2025) Spectral gravity forward modelling of 3D variable densities using an arbitrary integration radius with application to lunar topographic masses. Journal of Geodesy, doi: 10.1007/s00190-025-01951-9.</p></li>
+</ul>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape_shcs</strong> – <strong>[in]</strong> Spherical harmonic coefficients defining the shape of the gravitating body (e.g., planetary topography), that is, the upper integration limit in the radial direction. It must hold that (i) surface spherical harmonic synthesis of coefficients from <code class="docutils literal notranslate"><span class="pre">shape_shcs</span></code> gives the <em>full</em> spherical radius of surface points in metres, (ii) <code class="docutils literal notranslate"><span class="pre">shape_shcs-&gt;mu</span> <span class="pre">==</span> <span class="pre">1.0</span></code> and (iii)<code class="docutils literal notranslate"><span class="pre">shape_shcs-&gt;r</span> <span class="pre">==</span> <span class="pre">1.0</span></code>.</p></li>
+<li><p><strong>shape_nmax</strong> – <strong>[in]</strong> Maximum harmonic degree to take when defining the shape of the gravitating body by the spherical harmonic coefficients in <code class="docutils literal notranslate"><span class="pre">shape_shcs</span></code>. The value cannot be larger than <code class="docutils literal notranslate"><span class="pre">shape_shcs-&gt;nmax</span></code>.</p></li>
+<li><p><strong>shape_radius_ref</strong> – <strong>[in]</strong> Radius in metres defining the lower integration limit in the radial direction. Forward modelled will be the masses between the sphere of radius <code class="docutils literal notranslate"><span class="pre">shape_radius_ref</span></code> and the body’s surface defined by <code class="docutils literal notranslate"><span class="pre">shape_shcs</span></code>. The value must be positive.</p></li>
+<li><p><strong>density_shcs</strong> – <strong>[in]</strong> Pointer to an array of pointers to <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structures defining spherical harmonic coefficients of the polynomial density coefficients. For instance, <code class="docutils literal notranslate"><span class="pre">density_shcs[0]</span></code> is a pointer to <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure defining the spherical harmonic coefficients of the zero-order laterally varying polynomial density coefficients <span class="math notranslate nohighlight">\(\rho_0(\varphi', \lambda')\)</span>; <code class="docutils literal notranslate"><span class="pre">density_shcs[1]</span></code> is a pointer to <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure holding the spherical harmonic coefficients of the first-order laterally varying polynomial density coefficients <span class="math notranslate nohighlight">\(\rho_1(\varphi', \lambda')\)</span>; etc.</p></li>
+<li><p><strong>density_nmax</strong> – <strong>[in]</strong> Pointer to an array of unsigned long integers defining the maximum harmonic degrees to be used with the respective <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structures in <code class="docutils literal notranslate"><span class="pre">density_shcs</span></code> when defining the polynomial density coefficients. More specifically, <code class="docutils literal notranslate"><span class="pre">density_nmax[i]</span></code> is the maximum harmonic degree that will be used when defining the polynomial density coefficients of order <span class="math notranslate nohighlight">\(i\)</span> by <code class="docutils literal notranslate"><span class="pre">density_shcs[i]</span></code>; it must hold that <code class="docutils literal notranslate"><span class="pre">density_nmax[i]</span> <span class="pre">&lt;=</span> <span class="pre">density_shcs[i]-&gt;nmax</span></code>.</p></li>
+<li><p><strong>density_order</strong> – <strong>[in]</strong> Maximum order of the density polynomial. Both <code class="docutils literal notranslate"><span class="pre">density_shcs</span></code> and <code class="docutils literal notranslate"><span class="pre">density_nmax</span></code> must have an access to at least <code class="docutils literal notranslate"><span class="pre">density_order</span> <span class="pre">+</span> <span class="pre">1</span></code> array elements.</p></li>
+<li><p><strong>grav_const</strong> – <strong>[in]</strong> Newton’s gravitational constant.</p></li>
+<li><p><strong>mass</strong> – <strong>[in]</strong> Mass of the body. The value affects the output potential coefficients <code class="docutils literal notranslate"><span class="pre">potential_shcs</span></code> (see below) but do <em>not</em> affect the gravitational effects synthesized from the coefficients. This is because the value is also used to compute <code class="docutils literal notranslate"><span class="pre">potential_shcs-&gt;mu</span></code>, so it cancels out during the synthesis. Only non-zero values are accepted.</p></li>
+<li><p><strong>shape_power_min</strong> – <strong>[in]</strong> Minimum topography power. Usually, the value is <code class="docutils literal notranslate"><span class="pre">1</span></code>. Values higher than <code class="docutils literal notranslate"><span class="pre">1</span></code> do not produce a complete gravity field model, but are useful in specific situations. At any rate, the value must be positive.</p></li>
+<li><p><strong>shape_power_max</strong> – <strong>[in]</strong> Maximum topography power. The value cannot be smaller than <code class="docutils literal notranslate"><span class="pre">shape_power_min</span></code>. The larger is the value, the more complete is the spectral gravity forward modelling.</p></li>
+<li><p><strong>potential_shcs_nmax</strong> – <strong>[in]</strong> Maximum harmonic degree of the output spherical harmonic coefficients of the implied gravitational potential in <code class="docutils literal notranslate"><span class="pre">potential_shcs</span></code> (see below). The value cannot be larger than <code class="docutils literal notranslate"><span class="pre">potential_shcs-&gt;nmax</span></code>.</p></li>
+<li><p><strong>shape_density_shcs_path</strong> – <strong>[in]</strong> Path and prefix of output files containing spherical harmonic coefficients of shape-density functions. For instance, the <code class="docutils literal notranslate"><span class="pre">&quot;/tmp/shape-density&quot;</span></code> string will cause that several files (depending on <code class="docutils literal notranslate"><span class="pre">shape_power_max</span></code> and <code class="docutils literal notranslate"><span class="pre">density_order</span></code>) having the prefix <code class="docutils literal notranslate"><span class="pre">shape-density</span></code> will be created in the <code class="docutils literal notranslate"><span class="pre">/tmp</span></code> folder. If <code class="docutils literal notranslate"><span class="pre">NULL</span></code>, coefficients of shape-density functions are not exported. The topographic-density function is defined as (see Bucha 2025) <span class="math notranslate nohighlight">\(\left( \frac{r_{\mathrm{S}}(\varphi', \lambda')
+  - R}{R} \right)^p \, \rho_i(\varphi', \lambda') \, R^i\)</span>, where <span class="math notranslate nohighlight">\(r_{\mathrm{S}}\)</span> is the radius of a surface point synthesized from <code class="docutils literal notranslate"><span class="pre">shape_shcs</span></code> up to degree <code class="docutils literal notranslate"><span class="pre">shape_nmax</span></code>, <span class="math notranslate nohighlight">\(R\)</span> is <code class="docutils literal notranslate"><span class="pre">shape_radius_ref</span></code> and <span class="math notranslate nohighlight">\(\rho_i(\varphi', \lambda')\)</span> are the polynomial density coefficients of the <span class="math notranslate nohighlight">\(i\)</span>-th order synthesized from <code class="docutils literal notranslate"><span class="pre">density_shcs[i]</span></code> up to degree <code class="docutils literal notranslate"><span class="pre">density_nmax[i]</span></code>.</p></li>
+<li><p><strong>potential_shcs_path</strong> – <strong>[in]</strong> Path and prefix of output files containing spherical harmonic coefficients of gravitational potential contributions due to the shape-density functions. If <code class="docutils literal notranslate"><span class="pre">NULL</span></code>, the coefficients are not exported.</p></li>
+<li><p><strong>shcs_file_format</strong> – <strong>[in]</strong> String defining the format of output files that are specified by <code class="docutils literal notranslate"><span class="pre">shape_density_shcs_path</span></code> and/or <code class="docutils literal notranslate"><span class="pre">potential_shcs_path</span></code>. Accepted strings are <code class="docutils literal notranslate"><span class="pre">&quot;tbl&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;mtx&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;dov&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;bin&quot;</span></code>. If both <code class="docutils literal notranslate"><span class="pre">shape_density_shcs_path</span></code> and <code class="docutils literal notranslate"><span class="pre">potential_shcs_path</span></code> are <code class="docutils literal notranslate"><span class="pre">NULL</span></code>, <code class="docutils literal notranslate"><span class="pre">shcs_file_format</span></code> can be <code class="docutils literal notranslate"><span class="pre">NULL</span></code>, too.</p></li>
+<li><p><strong>potential_shcs</strong> – <strong>[out]</strong> Spherical harmonic coefficients of the output gravitational potential. In a special case, when <code class="docutils literal notranslate"><span class="pre">potential_shcs</span></code> is <code class="docutils literal notranslate"><span class="pre">NULL</span></code>, computed and exported are only partial contributions due to the individual shape and density powers to the potential coefficients, that is, they are not summed to yield potential coefficients. The partial outputs are exported through <code class="docutils literal notranslate"><span class="pre">shape_density_shcs_path</span></code> and <code class="docutils literal notranslate"><span class="pre">potential_shcs_path</span></code>. The output potential coefficients can be reproduced by summing all output files with the prefix <code class="docutils literal notranslate"><span class="pre">potential_shcs_path</span></code>. This option is useful if you need to save some memory.</p></li>
+<li><p><strong>err</strong> – <strong>[out]</strong> Error reported by the function (if any). </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv432charm_gfm_global_density_lateralPK9charm_shcmdP9charm_shcmddjjmPKcPKcPKcP9charm_shcP9charm_err">
+<span id="_CPPv332charm_gfm_global_density_lateralPK9charm_shcmdP9charm_shcmddjjmPKcPKcPKcP9charm_shcP9charm_err"></span><span id="_CPPv232charm_gfm_global_density_lateralPK9charm_shcmdP9charm_shcmddjjmPKcPKcPKcP9charm_shcP9charm_err"></span><span id="charm_gfm_global_density_lateral__charm_shcCP.unsigned-l.double.charm_shcP.unsigned-l.double.double.unsigned.unsigned.unsigned-l.cCP.cCP.cCP.charm_shcP.charm_errP"></span><span class="target" id="charm__gfm_8h_1a67d64dcd5983e2a448e99558e799462d"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_gfm_global_density_lateral</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shape_shcs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_radius_ref</span></span>, <a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">density_shcs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">density_nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">grav_const</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">mass</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_power_min</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_power_max</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">potential_shcs_nmax</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shape_density_shcs_path</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">potential_shcs_path</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs_file_format</span></span>, <a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">potential_shcs</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv432charm_gfm_global_density_lateralPK9charm_shcmdP9charm_shcmddjjmPKcPKcPKcP9charm_shcP9charm_err" title="Link to this definition">#</a><br /></dt>
+<dd><p>Performs global spectral gravity forward modelling with laterally varying mass density. </p>
+<p>The function input parameters are the same as in <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1aa3d20fb12110ff357eea10a6c371e58d"><span class="std std-ref"><span class="pre">charm_gfm_global_density_3d()</span></span></a></code> with two exceptions:</p>
+<p><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">density_shcs</span></code> is now a pointer to a <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure that holds spherical harmonic coefficients of the laterally varying mass density function,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">density_nmax</span></code> is an <code class="docutils literal notranslate"><span class="pre">unsigned</span> <span class="pre">long</span></code> integer indicating the maximum harmonic degree, up to which the coefficients from <code class="docutils literal notranslate"><span class="pre">density_shcs</span></code> are used in forward modelling. </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv430charm_gfm_global_density_constPK9charm_shcmddddjjmPKcPKcPKcP9charm_shcP9charm_err">
+<span id="_CPPv330charm_gfm_global_density_constPK9charm_shcmddddjjmPKcPKcPKcP9charm_shcP9charm_err"></span><span id="_CPPv230charm_gfm_global_density_constPK9charm_shcmddddjjmPKcPKcPKcP9charm_shcP9charm_err"></span><span id="charm_gfm_global_density_const__charm_shcCP.unsigned-l.double.double.double.double.unsigned.unsigned.unsigned-l.cCP.cCP.cCP.charm_shcP.charm_errP"></span><span class="target" id="charm__gfm_8h_1a810b905b321fac7e3496e2c8e02859fe"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_gfm_global_density_const</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shape_shcs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_radius_ref</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">density</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">grav_const</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">mass</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_power_min</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_power_max</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">potential_shcs_nmax</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shape_shcs_path</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">potential_shcs_path</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs_file_format</span></span>, <a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">potential_shcs</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv430charm_gfm_global_density_constPK9charm_shcmddddjjmPKcPKcPKcP9charm_shcP9charm_err" title="Link to this definition">#</a><br /></dt>
+<dd><p>Performs global spectral gravity forward modelling with a constant mass density after <a class="reference external" href="https://agupubs.onlinelibrary.wiley.com/doi/10.1002/2013JB010900">Hirt and Kuhn (2014)</a>. </p>
+<p>The function input parameters are the same as in <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1aa3d20fb12110ff357eea10a6c371e58d"><span class="std std-ref"><span class="pre">charm_gfm_global_density_3d()</span></span></a></code> with two exceptions.</p>
+<p><ul class="simple">
+<li><p>A single constant mass <code class="docutils literal notranslate"><span class="pre">density</span></code> replaced the <code class="docutils literal notranslate"><span class="pre">density_shcs</span></code> and <code class="docutils literal notranslate"><span class="pre">density_nmax</span></code> parameters.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">shape_shcs_path</span></code> variable replaced <code class="docutils literal notranslate"><span class="pre">shape_density_shcs_path</span></code> and is used to export spherical harmonic coefficients of the powers of the topographic height function <span class="math notranslate nohighlight">\(\left( \frac{r_{\mathrm{S}}(\varphi',
+    \lambda') - R}{R} \right)^p\)</span>, where <span class="math notranslate nohighlight">\(r_{\mathrm{S}}\)</span> is defined by <code class="docutils literal notranslate"><span class="pre">shape_shcs</span></code> and <code class="docutils literal notranslate"><span class="pre">shape_nmax</span></code> and <span class="math notranslate nohighlight">\(R\)</span> is <code class="docutils literal notranslate"><span class="pre">shape_radius_ref</span></code>. This time, the coefficients of the exported powers of the topographic height function are therefore <strong>not</strong> multiplied by the constant density, hence the new variable name.</p></li>
+</ul>
+</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The function is optimized in terms of memory usage.  It therefore
+requires smaller amount of working RAM than
+<code class="docutils literal notranslate"><span class="pre">charm_gfm_global_density_3d()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">charm_gfm_global_density_lateral()</span></code> would require if
+used with a constant mass density as their special case.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-cap-modified-spectral-gravity-forward-modelling">Cap-modified spectral gravity forward modelling</p>
+<p>These functions perform spectral gravity forward modelling using spatially restricted integration radius. They can be used to compute the gravitational contribution of masses up to (near-zone) or beyond (far-zone) some distance from evaluation points as opposed to the global integration from the previous routines. The density may be constant, laterally variable or 3D variable.</p>
+<p><p><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These functions are compiled only if <code class="docutils literal notranslate"><span class="pre">--enable-mpfr</span></code> is specified
+when calling <code class="docutils literal notranslate"><span class="pre">./configure</span></code> during the installation.  See
+<a class="reference internal" href="install.html#installing"><span class="std std-ref">Installing</span></a> for further details.</p>
+</div>
+</p>
+</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv424charm_gfm_cap_density_3dPK9charm_shcmdPP9charm_shcPmjddjjjjddjji11mpfr_prec_tmPKcPKcPKcPP9charm_shcP9charm_err">
+<span id="_CPPv324charm_gfm_cap_density_3dPK9charm_shcmdPP9charm_shcPmjddjjjjddjji11mpfr_prec_tmPKcPKcPKcPP9charm_shcP9charm_err"></span><span id="_CPPv224charm_gfm_cap_density_3dPK9charm_shcmdPP9charm_shcPmjddjjjjddjji11mpfr_prec_tmPKcPKcPKcPP9charm_shcP9charm_err"></span><span id="charm_gfm_cap_density_3d__charm_shcCP.unsigned-l.double.charm_shcPP.unsigned-lP.unsigned.double.double.unsigned.unsigned.unsigned.unsigned.double.double.unsigned.unsigned.i.mpfr_prec_t.unsigned-l.cCP.cCP.cCP.charm_shcPP.charm_errP"></span><span class="target" id="charm__gfm_8h_1a707305a0fe70310a4e98456dffae6639"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_gfm_cap_density_3d</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shape_shcs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_radius_ref</span></span>, <a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">density_shcs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">density_nmax</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">density_order</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">grav_const</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">mass</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_power_min</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_power_max</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">radial_derivative_min</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">radial_derivative_max</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">evaluation_spherical_radius</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">integration_radius</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">u</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">v</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">zone</span></span>, <span class="n"><span class="pre">mpfr_prec_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nbits</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">potential_shcs_nmax</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shape_density_shcs_path</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">potential_shcs_path</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs_file_format</span></span>, <a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">potential_shcs</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424charm_gfm_cap_density_3dPK9charm_shcmdPP9charm_shcPmjddjjjjddjji11mpfr_prec_tmPKcPKcPKcPP9charm_shcP9charm_err" title="Link to this definition">#</a><br /></dt>
+<dd><p>Performs cap-modified spectral gravity forward modelling of 3D mass densities. </p>
+<p>Similarly as <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1aa3d20fb12110ff357eea10a6c371e58d"><span class="std std-ref"><span class="pre">charm_gfm_global_density_3d()</span></span></a></code>, this function forward models 3D mass distributions. The difference is that it considers only those topographic masses that are located inside or outside a spherical cap centred at evaluation points. The output spherical harmonic coefficients can thus be used to compute near-zone or far-zone effects on some gravitational field quantity.</p>
+<p>Many of the function parameters have exactly the same meaning as in <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1aa3d20fb12110ff357eea10a6c371e58d"><span class="std std-ref"><span class="pre">charm_gfm_global_density_3d()</span></span></a></code>, so explained will be the new ones only.</p>
+<p><div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_q_check_prec()</span></code> to determine the
+appropriate value of the input parameter <code class="docutils literal notranslate"><span class="pre">nbits</span></code>.</p>
+</div>
+</p>
+<p><strong>References</strong>:</p>
+<p><ul class="simple">
+<li><p>Bucha B (2025) Spectral gravity forward modelling of 3D variable densities using an arbitrary integration radius with application to lunar topographic masses. Journal of Geodesy, doi: 10.1007/s00190-025-01951-9.</p></li>
+</ul>
+</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function is compiled only if <code class="docutils literal notranslate"><span class="pre">--enable-mpfr</span></code> is specified
+when calling <code class="docutils literal notranslate"><span class="pre">./configure</span></code> during the installation.  See
+<a class="reference internal" href="install.html#installing"><span class="std std-ref">Installing</span></a> for further details.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The function parameters <code class="docutils literal notranslate"><span class="pre">u</span></code> and <code class="docutils literal notranslate"><span class="pre">v</span></code> specify the output
+quantity, of which spherical harmonic coefficients
+<code class="docutils literal notranslate"><span class="pre">potential_shcs</span></code> are computed.  However, the output
+quantity is not necessarily some derivative of the gravitational
+potential in the local north-oriented reference frame (LNOF).  Yet,
+you <em>can</em> get the directional potential derivatives in LNOF if you
+do some rather simple manipulations on your own (see Bucha, 2025).
+The exception is the case <code class="docutils literal notranslate"><span class="pre">u</span> <span class="pre">=</span> <span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">v</span> <span class="pre">=</span> <span class="pre">0</span></code>, which leads
+directly to the spherical harmonic coefficients of the
+gravitational potential.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>radial_derivative_min</strong> – <strong>[in]</strong> Minimum radial derivative of the quantity specified by <code class="docutils literal notranslate"><span class="pre">u</span></code> and <code class="docutils literal notranslate"><span class="pre">v</span></code> (see below). Use <code class="docutils literal notranslate"><span class="pre">0</span></code> for no radial derivative.</p></li>
+<li><p><strong>radial_derivative_max</strong> – <strong>[in]</strong> The same as <code class="docutils literal notranslate"><span class="pre">radial_derivative_min</span></code> but for the maximum radial derivative.</p></li>
+<li><p><strong>evaluation_spherical_radius</strong> – <strong>[in]</strong> Spherical radius in metres of evaluation points. The output coefficients <code class="docutils literal notranslate"><span class="pre">potential_shcs</span></code> refer to this sphere. If your goal is to compute your <code class="docutils literal notranslate"><span class="pre">u,v</span></code>-quantity on an irregular surface (e.g., on the Earth’s surface), use analytical continuation through radial derivatives. These can be specified by <code class="docutils literal notranslate"><span class="pre">radial_derivative_min</span></code> and <code class="docutils literal notranslate"><span class="pre">radial_derivative_max</span></code>.</p></li>
+<li><p><strong>integration_radius</strong> – <strong>[in]</strong> Cap radius in radians defining the masses to be integrated. Masses within the cap are here called near-zone masses and masses beyond the cap are here called far-zone masses.</p></li>
+<li><p><strong>u</strong> – <strong>[in]</strong> Order of the potential derivative, of which spherical harmonic coefficients <code class="docutils literal notranslate"><span class="pre">potential_shcs</span></code> are computed. Use <code class="docutils literal notranslate"><span class="pre">0</span></code> to get the gravitational potential, use <code class="docutils literal notranslate"><span class="pre">1</span></code> to get quantities related to the first-order potential derivatives or use <code class="docutils literal notranslate"><span class="pre">2</span></code> for quantities related to the second-order potential derivatives. Values larger than <code class="docutils literal notranslate"><span class="pre">2</span></code> are not allowed.</p></li>
+<li><p><strong>v</strong> – <strong>[in]</strong> Order of the potential derivative with respect to the spherical distance. Valid values are <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">...</span></code>, <code class="docutils literal notranslate"><span class="pre">u</span></code>.</p></li>
+<li><p><strong>zone</strong> – <strong>[in]</strong> Non-negative integer to integrate near-zone masses (e.g., <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1a2ef0df7dfedcb4506a3d33d013a304e0"><span class="std std-ref"><span class="pre">CHARM_GFM_NEAR_ZONE</span></span></a></code>) or negative integer to integrate far-zone masses (e.g., <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1a9c84bcec18c3de57e4f4a3620dc2d2e8"><span class="std std-ref"><span class="pre">CHARM_GFM_FAR_ZONE</span></span></a></code>).</p></li>
+<li><p><strong>nbits</strong> – <strong>[in]</strong> Number of bits to represent the significand of all floating point numbers used to compute the truncation coefficients.</p></li>
+<li><p><strong>potential_shcs</strong> – <strong>[out]</strong> Double pointer to the <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure. <code class="docutils literal notranslate"><span class="pre">potential_shcs</span></code> must have access to <code class="docutils literal notranslate"><span class="pre">radial_derivative_max</span> <span class="pre">-</span> <span class="pre">radial_derivative_min</span> <span class="pre">+</span> <span class="pre">1</span></code> <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structures, each of which must have allocated memory for coefficients at least up to degree <code class="docutils literal notranslate"><span class="pre">potential_shcs_nmax</span></code>. In a special case, when <code class="docutils literal notranslate"><span class="pre">potential_shcs</span></code> is <code class="docutils literal notranslate"><span class="pre">NULL</span></code>, computed and exported are only partial contributions of individual shape and density powers to the potential coefficients, that is, they are not summed. The partial outputs are exported through <code class="docutils literal notranslate"><span class="pre">shape_density_shcs_path</span></code> and <code class="docutils literal notranslate"><span class="pre">potential_shcs_path</span></code>. The output potential coefficients can be reproduced using the output files with the prefix <code class="docutils literal notranslate"><span class="pre">potential_shcs_path</span></code>. This option is useful if you need to save some memory. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv429charm_gfm_cap_density_lateralPK9charm_shcmdP9charm_shcmddjjjjddjji11mpfr_prec_tmPKcPKcPKcPP9charm_shcP9charm_err">
+<span id="_CPPv329charm_gfm_cap_density_lateralPK9charm_shcmdP9charm_shcmddjjjjddjji11mpfr_prec_tmPKcPKcPKcPP9charm_shcP9charm_err"></span><span id="_CPPv229charm_gfm_cap_density_lateralPK9charm_shcmdP9charm_shcmddjjjjddjji11mpfr_prec_tmPKcPKcPKcPP9charm_shcP9charm_err"></span><span id="charm_gfm_cap_density_lateral__charm_shcCP.unsigned-l.double.charm_shcP.unsigned-l.double.double.unsigned.unsigned.unsigned.unsigned.double.double.unsigned.unsigned.i.mpfr_prec_t.unsigned-l.cCP.cCP.cCP.charm_shcPP.charm_errP"></span><span class="target" id="charm__gfm_8h_1a9a0a753947e9c3fdf8a3cbb716844abc"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_gfm_cap_density_lateral</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shape_shcs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_radius_ref</span></span>, <a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">density_shcs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">density_nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">grav_const</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">mass</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_power_min</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_power_max</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">radial_derivative_min</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">radial_derivative_max</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">evaluation_spherical_radius</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">integration_radius</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">u</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">v</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">zone</span></span>, <span class="n"><span class="pre">mpfr_prec_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nbits</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">potential_shcs_nmax</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shape_density_shcs_path</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">potential_shcs_path</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs_file_format</span></span>, <a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">potential_shcs</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv429charm_gfm_cap_density_lateralPK9charm_shcmdP9charm_shcmddjjjjddjji11mpfr_prec_tmPKcPKcPKcPP9charm_shcP9charm_err" title="Link to this definition">#</a><br /></dt>
+<dd><p>Performs cap-modified spectral gravity forward modelling with laterally varying mass density. </p>
+<p>The function input parameters are the same as in <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1a707305a0fe70310a4e98456dffae6639"><span class="std std-ref"><span class="pre">charm_gfm_cap_density_3d()</span></span></a></code> with two exceptions:</p>
+<p><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">density_shcs</span></code> is now a pointer to a <code class="docutils literal notranslate"><a class="reference internal" href="api-c-shc.html#structcharm__shc"><span class="std std-ref"><span class="pre">charm_shc</span></span></a></code> structure that holds spherical harmonic coefficients of the laterally varying mass density function,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">density_nmax</span></code> is an <code class="docutils literal notranslate"><span class="pre">unsigned</span> <span class="pre">long</span></code> integer indicating the maximum harmonic degree, up to which the coefficients from <code class="docutils literal notranslate"><span class="pre">density_shcs</span></code> are used in forward modelling. </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv427charm_gfm_cap_density_constPK9charm_shcmddddjjjjddjji11mpfr_prec_tmPKcPKcPKcPP9charm_shcP9charm_err">
+<span id="_CPPv327charm_gfm_cap_density_constPK9charm_shcmddddjjjjddjji11mpfr_prec_tmPKcPKcPKcPP9charm_shcP9charm_err"></span><span id="_CPPv227charm_gfm_cap_density_constPK9charm_shcmddddjjjjddjji11mpfr_prec_tmPKcPKcPKcPP9charm_shcP9charm_err"></span><span id="charm_gfm_cap_density_const__charm_shcCP.unsigned-l.double.double.double.double.unsigned.unsigned.unsigned.unsigned.double.double.unsigned.unsigned.i.mpfr_prec_t.unsigned-l.cCP.cCP.cCP.charm_shcPP.charm_errP"></span><span class="target" id="charm__gfm_8h_1a79ea4f95f8c7f9e67e52fef040082894"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_gfm_cap_density_const</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shape_shcs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_nmax</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_radius_ref</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">density</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">grav_const</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">mass</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_power_min</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_power_max</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">radial_derivative_min</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">radial_derivative_max</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">evaluation_spherical_radius</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">integration_radius</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">u</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">v</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">zone</span></span>, <span class="n"><span class="pre">mpfr_prec_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nbits</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">potential_shcs_nmax</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shape_shcs_path</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">potential_shcs_path</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">shcs_file_format</span></span>, <a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc" title="charm_shc"><span class="n"><span class="pre">charm_shc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">potential_shcs</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv427charm_gfm_cap_density_constPK9charm_shcmddddjjjjddjji11mpfr_prec_tmPKcPKcPKcPP9charm_shcP9charm_err" title="Link to this definition">#</a><br /></dt>
+<dd><p>Performs cap-modified spectral gravity forward modelling with a constant mass density after <a class="reference external" href="https://doi.org/10.1007/s00190-018-1139-x">Bucha et al (2019)</a>. </p>
+<p>The function input parameters are the same as in <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1a707305a0fe70310a4e98456dffae6639"><span class="std std-ref"><span class="pre">charm_gfm_cap_density_3d()</span></span></a></code> with two exceptions.</p>
+<p><ul class="simple">
+<li><p>A single constant mass <code class="docutils literal notranslate"><span class="pre">density</span></code> replaced the <code class="docutils literal notranslate"><span class="pre">density_shcs</span></code> and <code class="docutils literal notranslate"><span class="pre">density_nmax</span></code> parameters.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">shape_shcs_path</span></code> variable replaced <code class="docutils literal notranslate"><span class="pre">shape_density_shcs_path</span></code> and is used to export spherical harmonic coefficients of the powers of the topographic height function <span class="math notranslate nohighlight">\(\left( \frac{r_{\mathrm{S}}(\varphi',
+    \lambda') - R}{R} \right)^p\)</span>, where <span class="math notranslate nohighlight">\(r_{\mathrm{S}}\)</span> is defined by <code class="docutils literal notranslate"><span class="pre">shape_shcs</span></code> and <code class="docutils literal notranslate"><span class="pre">shape_nmax</span></code> and <span class="math notranslate nohighlight">\(R\)</span> is <code class="docutils literal notranslate"><span class="pre">shape_radius_ref</span></code>. This time, the coefficients of the exported powers of the topographic height function are therefore <strong>not</strong> multiplied by the constant density, hence the new variable name.</p></li>
+</ul>
+</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The function is optimized in terms of memory usage.  It therefore
+requires smaller amount of working RAM than
+<code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_density_3d()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_density_lateral()</span></code> would require if
+used with a constant mass density as their special case.</p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv415charm_gfm_cap_qK6mpfr_tK6mpfr_tK6mpfr_tmjjjjij11mpfr_prec_tP6mpfr_tP9charm_err">
+<span id="_CPPv315charm_gfm_cap_qK6mpfr_tK6mpfr_tK6mpfr_tmjjjjij11mpfr_prec_tP6mpfr_tP9charm_err"></span><span id="_CPPv215charm_gfm_cap_qK6mpfr_tK6mpfr_tK6mpfr_tmjjjjij11mpfr_prec_tP6mpfr_tP9charm_err"></span><span id="charm_gfm_cap_q__mpfr_tC.mpfr_tC.mpfr_tC.unsigned-l.unsigned.unsigned.unsigned.unsigned.i.unsigned.mpfr_prec_t.mpfr_tP.charm_errP"></span><span class="target" id="charm__gfm_8h_1a9e7a840a1572d975f79ca3e15b3e46aa"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_gfm_cap_q</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mpfr_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_radius_ref</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mpfr_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">evaluation_spherical_radius</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mpfr_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">integration_radius</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">potential_shcs_nmax</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_power_max</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">radial_derivative_min</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">radial_derivative_max</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">density_order</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">zone</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">mpfr_prec_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nbits</span></span>, <span class="n"><span class="pre">mpfr_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">qkpin</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415charm_gfm_cap_qK6mpfr_tK6mpfr_tK6mpfr_tmjjjjij11mpfr_prec_tP6mpfr_tP9charm_err" title="Link to this definition">#</a><br /></dt>
+<dd><p>Computes trunction coefficients <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1afbc70aaa0ee4ccc194c57ed8b8394743"><span class="std std-ref"><span class="pre">CHARM_GFM_Q00</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1ac8072f5dae239a36f6382c05a97e96de"><span class="std std-ref"><span class="pre">CHARM_GFM_Q10</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1a1ee8efa2fccf421616c35fa331c85507"><span class="std std-ref"><span class="pre">CHARM_GFM_Q11</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1af634c21bcebfc5c1093806f1010cc13b"><span class="std std-ref"><span class="pre">CHARM_GFM_Q20</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1ae3d6635a0bf9c00b80d75d11f90ee730"><span class="std std-ref"><span class="pre">CHARM_GFM_Q21</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1a4db1c7ec3f0be10c1b56b2692b22a770"><span class="std std-ref"><span class="pre">CHARM_GFM_Q22</span></span></a></code> that are used in spectral gravity forward modelling with spatially limited integration radius. </p>
+<p><div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_q_check_prec()</span></code> to determine the
+appropriate value of the input parameter <code class="docutils literal notranslate"><span class="pre">nbits</span></code>.</p>
+</div>
+</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function is compiled only if <code class="docutils literal notranslate"><span class="pre">--enable-mpfr</span></code> is specified
+when calling <code class="docutils literal notranslate"><span class="pre">./configure</span></code> during the installation.  See
+<a class="reference internal" href="install.html#installing"><span class="std std-ref">Installing</span></a> for further details.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape_radius_ref</strong> – <strong>[in]</strong> Radius of the reference sphere in metres.</p></li>
+<li><p><strong>evaluation_spherical_radius</strong> – <strong>[in]</strong> Spherical radius of evaluation points in metres.</p></li>
+<li><p><strong>integration_radius</strong> – <strong>[in]</strong> Integration radius in radians.</p></li>
+<li><p><strong>potential_shcs_nmax</strong> – <strong>[in]</strong> Maximum spherical harmonic degree of the truncation coefficients.</p></li>
+<li><p><strong>shape_power_max</strong> – <strong>[in]</strong> Maximum topography power of the truncation coefficients (must be larger than zero).</p></li>
+<li><p><strong>radial_derivative_min</strong> – <strong>[in]</strong> Minimum radial derivative of the truncation coefficients.</p></li>
+<li><p><strong>radial_derivative_max</strong> – <strong>[in]</strong> Maximum radial derivative of the truncation coefficients.</p></li>
+<li><p><strong>density_order</strong> – <strong>[in]</strong> Maximum order of the polynomial density coefficients.</p></li>
+<li><p><strong>zone</strong> – <strong>[in]</strong> Non-negative integer for near-zone truncation coefficients (e.g., <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1a2ef0df7dfedcb4506a3d33d013a304e0"><span class="std std-ref"><span class="pre">CHARM_GFM_NEAR_ZONE</span></span></a></code>) or negative integer for far-zone truncation coefficients (e.g., <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1a9c84bcec18c3de57e4f4a3620dc2d2e8"><span class="std std-ref"><span class="pre">CHARM_GFM_FAR_ZONE</span></span></a></code>).</p></li>
+<li><p><strong>type</strong> – <strong>[in]</strong> Type of the truncation coefficients (symbolic constant <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1afbc70aaa0ee4ccc194c57ed8b8394743"><span class="std std-ref"><span class="pre">CHARM_GFM_Q00</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1ac8072f5dae239a36f6382c05a97e96de"><span class="std std-ref"><span class="pre">CHARM_GFM_Q10</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1a1ee8efa2fccf421616c35fa331c85507"><span class="std std-ref"><span class="pre">CHARM_GFM_Q11</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1af634c21bcebfc5c1093806f1010cc13b"><span class="std std-ref"><span class="pre">CHARM_GFM_Q20</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1ae3d6635a0bf9c00b80d75d11f90ee730"><span class="std std-ref"><span class="pre">CHARM_GFM_Q21</span></span></a></code> or <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1a4db1c7ec3f0be10c1b56b2692b22a770"><span class="std std-ref"><span class="pre">CHARM_GFM_Q22</span></span></a></code>).</p></li>
+<li><p><strong>nbits</strong> – <strong>[in]</strong> Number of bits to represent the significand of all floating point numbers used to compute the truncation coefficients.</p></li>
+<li><p><strong>qkpin</strong> – <strong>[out]</strong> Pointer to an array of <code class="docutils literal notranslate"><span class="pre">nq</span></code> elements of the <code class="docutils literal notranslate"><span class="pre">mpfr_t</span></code> data type. <code class="docutils literal notranslate"><span class="pre">nq</span></code> can be obtained by <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1a47c5f406a693f84825cf89b1b94d8724"><span class="std std-ref"><span class="pre">charm_gfm_cap_nq()</span></span></a></code> or it can be computed as follows. Let <code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">=</span> <span class="pre">potential_shcs_nmax</span></code>, <code class="docutils literal notranslate"><span class="pre">pmax</span> <span class="pre">=</span> <span class="pre">shape_power_max</span></code>, <code class="docutils literal notranslate"><span class="pre">kmin</span> <span class="pre">=</span> <span class="pre">radial_derivative_min</span></code>, <code class="docutils literal notranslate"><span class="pre">kmax</span> <span class="pre">=</span> <span class="pre">radial_derivative_max</span></code>, <code class="docutils literal notranslate"><span class="pre">imax</span> <span class="pre">=</span> <span class="pre">density_order</span></code>. The total number of elements is then <code class="docutils literal notranslate"><span class="pre">nq</span> <span class="pre">=</span> <span class="pre">(kmax</span> <span class="pre">-</span> <span class="pre">kmin</span> <span class="pre">+</span> <span class="pre">1)</span> <span class="pre">*</span> <span class="pre">pmax</span> <span class="pre">*</span> <span class="pre">(nmax</span> <span class="pre">+</span> <span class="pre">1)</span> <span class="pre">*</span> <span class="pre">(imax</span> <span class="pre">+</span> <span class="pre">1)</span></code>. The value of <span class="math notranslate nohighlight">\(\partial^k Q^{uvj}_{npi}(r, \psi_0, R) / \partial r^k\)</span> can be accessed as <code class="docutils literal notranslate"><span class="pre">qkpin[(((k</span> <span class="pre">-</span> <span class="pre">kmin)</span> <span class="pre">*</span> <span class="pre">pmax</span> <span class="pre">+</span> <span class="pre">(p</span> <span class="pre">-</span> <span class="pre">1))</span> <span class="pre">*</span> <span class="pre">(imax</span> <span class="pre">+</span> <span class="pre">1)</span> <span class="pre">+</span> <span class="pre">i)</span> <span class="pre">*</span> <span class="pre">(nmax</span> <span class="pre">+</span> <span class="pre">1)</span> <span class="pre">+</span> <span class="pre">n]</span></code>. <code class="docutils literal notranslate"><span class="pre">qkpin</span></code> can thus be considered as a 4D-array, in which harmonic degree <code class="docutils literal notranslate"><span class="pre">n</span></code> varies fastest and the order of the radial derivative varies slowest, or, more precisely, the order is <code class="docutils literal notranslate"><span class="pre">n</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span></code>, <code class="docutils literal notranslate"><span class="pre">p</span></code>, and <code class="docutils literal notranslate"><span class="pre">k</span></code>.</p></li>
+<li><p><strong>err</strong> – <strong>[out]</strong> Error reported by the function (if any). </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416charm_gfm_cap_nqmjjjjP9charm_err">
+<span id="_CPPv316charm_gfm_cap_nqmjjjjP9charm_err"></span><span id="_CPPv216charm_gfm_cap_nqmjjjjP9charm_err"></span><span id="charm_gfm_cap_nq__unsigned-l.unsigned.unsigned.unsigned.unsigned.charm_errP"></span><span class="target" id="charm__gfm_8h_1a47c5f406a693f84825cf89b1b94d8724"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_gfm_cap_nq</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">potential_shcs_nmax</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_power_max</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">radial_derivative_min</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">radial_derivative_max</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">density_order</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416charm_gfm_cap_nqmjjjjP9charm_err" title="Link to this definition">#</a><br /></dt>
+<dd><p>Returns the number of truncation coefficients <code class="docutils literal notranslate"><span class="pre">qkpin</span></code> computed by <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1a9e7a840a1572d975f79ca3e15b3e46aa"><span class="std std-ref"><span class="pre">charm_gfm_cap_q()</span></span></a></code>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>potential_shcs_nmax</strong> – <strong>[in]</strong> Maximum spherical harmonic degree of the truncation coefficients.</p></li>
+<li><p><strong>shape_power_max</strong> – <strong>[in]</strong> Maximum topography power of the truncation coefficients (must be larger than zero).</p></li>
+<li><p><strong>radial_derivative_min</strong> – <strong>[in]</strong> Minimum radial derivative of the truncation coefficients.</p></li>
+<li><p><strong>radial_derivative_max</strong> – <strong>[in]</strong> Maximum radial derivative of the truncation coefficients.</p></li>
+<li><p><strong>density_order</strong> – <strong>[in]</strong> Maximum order of the polynomial density coefficients.</p></li>
+<li><p><strong>err</strong> – <strong>[out]</strong> Error reported by the function (if any).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>On success, returned is the number of truncation coefficients. On error, <code class="docutils literal notranslate"><span class="pre">0</span></code> is returned in addition to the error reporting through <code class="docutils literal notranslate"><span class="pre">err</span></code>. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv426charm_gfm_cap_q_check_precK6mpfr_tK6mpfr_tK6mpfr_tmjjjjj11mpfr_prec_t11mpfr_prec_tP9charm_err">
+<span id="_CPPv326charm_gfm_cap_q_check_precK6mpfr_tK6mpfr_tK6mpfr_tmjjjjj11mpfr_prec_t11mpfr_prec_tP9charm_err"></span><span id="_CPPv226charm_gfm_cap_q_check_precK6mpfr_tK6mpfr_tK6mpfr_tmjjjjj11mpfr_prec_t11mpfr_prec_tP9charm_err"></span><span id="charm_gfm_cap_q_check_prec__mpfr_tC.mpfr_tC.mpfr_tC.unsigned-l.unsigned.unsigned.unsigned.unsigned.unsigned.mpfr_prec_t.mpfr_prec_t.charm_errP"></span><span class="target" id="charm__gfm_8h_1ac43c304e5a81b8813a57b1fb4ef818a1"></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_gfm_cap_q_check_prec</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mpfr_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_radius_ref</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mpfr_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">evaluation_spherical_radius</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mpfr_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">integration_radius</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">potential_shcs_nmax</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shape_power_max</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">radial_derivative_min</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">radial_derivative_max</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">density_order</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">mpfr_prec_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nbits</span></span>, <span class="n"><span class="pre">mpfr_prec_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nbits_ref</span></span>, <a class="reference internal" href="api-c-err.html#_CPPv49charm_err" title="charm_err"><span class="n"><span class="pre">charm_err</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">err</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv426charm_gfm_cap_q_check_precK6mpfr_tK6mpfr_tK6mpfr_tmjjjjj11mpfr_prec_t11mpfr_prec_tP9charm_err" title="Link to this definition">#</a><br /></dt>
+<dd><p>Estimates the lowest number of correct digits of the sum of near- and far-zone truncation coefficients obtained by <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1a9e7a840a1572d975f79ca3e15b3e46aa"><span class="std std-ref"><span class="pre">charm_gfm_cap_q()</span></span></a></code> when using the same input parameters. The uncertainty of the estimate is 1 digit. In case of an error, returned is a negative integer. </p>
+<p>First, near- and far-zone truncation coefficients are computed and summed using the <code class="docutils literal notranslate"><span class="pre">nbits</span></code> precision. Then, reference coefficients from global spectral gravity forward modelling are evaluated using the <code class="docutils literal notranslate"><span class="pre">nbits_ref</span></code> precision. Finally, the sums are compared with respect to the reference values.</p>
+<p><div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Use this function before calling <code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_density_*()</span></code>
+to check whether <code class="docutils literal notranslate"><span class="pre">nbits</span></code> that you enter to
+<code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_density_*()</span></code> is large enough to ensure accurate
+computation of truncation coefficients.  The number returned by
+this function should be at least <code class="docutils literal notranslate"><span class="pre">7</span></code>, <code class="docutils literal notranslate"><span class="pre">16</span></code> or <code class="docutils literal notranslate"><span class="pre">34</span></code> for
+gravity forward modelling in single, double or quadruple precision,
+respectively.  Otherwise, increase <code class="docutils literal notranslate"><span class="pre">nbits</span></code> and <code class="docutils literal notranslate"><span class="pre">nbits_ref</span></code>
+until the desired accuracy is met.  Once the value returned by this
+function is large enough, that particular (or higher) <code class="docutils literal notranslate"><span class="pre">nbits</span></code> can
+safely enter <code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_density_*()</span></code>.</p>
+</div>
+</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If all sums of truncation coefficients are computed accurately to
+the last bit, returned is a large integer (<code class="docutils literal notranslate"><span class="pre">LONG_MAX</span></code> from
+<code class="docutils literal notranslate"><span class="pre">limits.h</span></code>).  This may happen, for instance, if <code class="docutils literal notranslate"><span class="pre">nmax</span></code> is so
+small that all truncation coefficients of a given <code class="docutils literal notranslate"><span class="pre">type</span></code> are zero
+(e.g., <code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">=</span> <span class="pre">0</span></code> for <code class="docutils literal notranslate"><span class="pre">type</span> <span class="pre">=</span> <span class="pre">CHARM_GFM_Q20</span></code>).</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The number returned is related to the <em>sum</em> of near- and far-zone
+truncation coefficients.  Usually, all near- and far-zone
+coefficients are more accurate than indicated by the returned
+value.  Therefore, even a smaller value of <code class="docutils literal notranslate"><span class="pre">nbits</span></code> may suffice to
+get accurate outputs from <code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_density_*()</span></code>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function is compiled only if <code class="docutils literal notranslate"><span class="pre">--enable-mpfr</span></code> is specified
+when calling <code class="docutils literal notranslate"><span class="pre">./configure</span></code> during the installation.  See
+<a class="reference internal" href="install.html#installing"><span class="std std-ref">Installing</span></a> for further details.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape_radius_ref</strong> – <strong>[in]</strong> Radius of the reference sphere in metres.</p></li>
+<li><p><strong>evaluation_spherical_radius</strong> – <strong>[in]</strong> Spherical radius of the evaluation point in metres.</p></li>
+<li><p><strong>integration_radius</strong> – <strong>[in]</strong> Integration radius in radians.</p></li>
+<li><p><strong>potential_shcs_nmax</strong> – <strong>[in]</strong> Maximum spherical harmonic degree of the truncation coefficients.</p></li>
+<li><p><strong>shape_power_max</strong> – <strong>[in]</strong> Maximum topography power of the truncation coefficients (must be larger than zero).</p></li>
+<li><p><strong>radial_derivative_min</strong> – <strong>[in]</strong> Minimum radial derivative of the truncation coefficients.</p></li>
+<li><p><strong>radial_derivative_max</strong> – <strong>[in]</strong> Maximum radial derivative of the truncation coefficients.</p></li>
+<li><p><strong>density_order</strong> – <strong>[in]</strong> Maximum order of the density polynomial.</p></li>
+<li><p><strong>type</strong> – <strong>[in]</strong> Type of the truncation coefficients (symbolic constant <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1afbc70aaa0ee4ccc194c57ed8b8394743"><span class="std std-ref"><span class="pre">CHARM_GFM_Q00</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1ac8072f5dae239a36f6382c05a97e96de"><span class="std std-ref"><span class="pre">CHARM_GFM_Q10</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1a1ee8efa2fccf421616c35fa331c85507"><span class="std std-ref"><span class="pre">CHARM_GFM_Q11</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1af634c21bcebfc5c1093806f1010cc13b"><span class="std std-ref"><span class="pre">CHARM_GFM_Q20</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1ae3d6635a0bf9c00b80d75d11f90ee730"><span class="std std-ref"><span class="pre">CHARM_GFM_Q21</span></span></a></code> or <code class="docutils literal notranslate"><a class="reference internal" href="#charm__gfm_8h_1a4db1c7ec3f0be10c1b56b2692b22a770"><span class="std std-ref"><span class="pre">CHARM_GFM_Q22</span></span></a></code>).</p></li>
+<li><p><strong>nbits</strong> – <strong>[in]</strong> Number of bits to represent the significand of all floating point numbers used to compute the truncation coefficients.</p></li>
+<li><p><strong>nbits_ref</strong> – <strong>[in]</strong> Number of bits to represent the significand of all floating point numbers used to compute the reference values (cannot be smaller than<code class="docutils literal notranslate"><span class="pre">nbits</span></code>).</p></li>
+<li><p><strong>err</strong> – <strong>[out]</strong> Error reported by the function (if any).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An estimate of the lowest number of correct digits across all harmonic degrees up to <code class="docutils literal notranslate"><span class="pre">potential_shcs_nmax</span></code>, all topography powers up to <code class="docutils literal notranslate"><span class="pre">shape_power_max</span></code> and radial derivatives from <code class="docutils literal notranslate"><span class="pre">radial_derivative_min</span></code> to <code class="docutils literal notranslate"><span class="pre">radial_derivative_max</span></code>, respectively. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="api-c-sha.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">charm_sha</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="api-c-leg.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">charm_leg</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_GFM_Q00"><code class="docutils literal notranslate"><span class="pre">CHARM_GFM_Q00</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_GFM_Q10"><code class="docutils literal notranslate"><span class="pre">CHARM_GFM_Q10</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_GFM_Q11"><code class="docutils literal notranslate"><span class="pre">CHARM_GFM_Q11</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_GFM_Q20"><code class="docutils literal notranslate"><span class="pre">CHARM_GFM_Q20</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_GFM_Q21"><code class="docutils literal notranslate"><span class="pre">CHARM_GFM_Q21</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_GFM_Q22"><code class="docutils literal notranslate"><span class="pre">CHARM_GFM_Q22</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_GFM_NEAR_ZONE"><code class="docutils literal notranslate"><span class="pre">CHARM_GFM_NEAR_ZONE</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_GFM_FAR_ZONE"><code class="docutils literal notranslate"><span class="pre">CHARM_GFM_FAR_ZONE</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv427charm_gfm_global_density_3dPK9charm_shcmdPP9charm_shcPmjddjjmPKcPKcPKcP9charm_shcP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_global_density_3d()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv432charm_gfm_global_density_lateralPK9charm_shcmdP9charm_shcmddjjmPKcPKcPKcP9charm_shcP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_global_density_lateral()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv430charm_gfm_global_density_constPK9charm_shcmddddjjmPKcPKcPKcP9charm_shcP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_global_density_const()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv424charm_gfm_cap_density_3dPK9charm_shcmdPP9charm_shcPmjddjjjjddjji11mpfr_prec_tmPKcPKcPKcPP9charm_shcP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_density_3d()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv429charm_gfm_cap_density_lateralPK9charm_shcmdP9charm_shcmddjjjjddjji11mpfr_prec_tmPKcPKcPKcPP9charm_shcP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_density_lateral()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv427charm_gfm_cap_density_constPK9charm_shcmddddjjjjddjji11mpfr_prec_tmPKcPKcPKcPP9charm_shcP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_density_const()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv415charm_gfm_cap_qK6mpfr_tK6mpfr_tK6mpfr_tmjjjjij11mpfr_prec_tP6mpfr_tP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_q()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv416charm_gfm_cap_nqmjjjjP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_nq()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv426charm_gfm_cap_q_check_precK6mpfr_tK6mpfr_tK6mpfr_tmjjjjj11mpfr_prec_t11mpfr_prec_tP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_q_check_prec()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Blažej Bucha
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Blažej Bucha.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+  Last updated on Apr 07, 2025.
+  <br/>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

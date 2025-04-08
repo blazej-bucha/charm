@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
     MPI_Init_thread(&argc, &argv, MPI_THREAD_FUNNELED, &provided);
     if (provided != MPI_THREAD_FUNNELED)
     {
-        fprintf(stderr, "MPI did not provide MPI_THREAD_FUNNELED\n");
+        fprintf(stderr, "%s", "MPI did not provide MPI_THREAD_FUNNELED\n");
         exit(CHARM_FAILURE);
     }
 #else

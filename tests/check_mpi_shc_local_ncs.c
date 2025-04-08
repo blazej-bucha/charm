@@ -25,7 +25,7 @@ long int check_mpi_shc_local_ncs(void)
     CHARM(err) *err = CHARM(mpi_err_init)(comm);
     if (CHARM(err_is_null_ptr)(err, 1, comm))
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -117,7 +117,7 @@ long int check_mpi_shc_local_ncs(void)
     CHARM(err) *err_d0 = CHARM(err_init)();
     if (err_d0 == NULL)
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -127,9 +127,10 @@ long int check_mpi_shc_local_ncs(void)
     CHARM(mpi_shc_local_ncs)(nmax, 1, local_order, err_d0);
     if (err_d0->code == CHARM_SUCCESS)
     {
-        fprintf(stderr, "charm" CHARM_SUFFIX "_mpi_local_shcs_local_ncs "
-                        "incorrectly accepted non-distributed "
-                        "\"charm" CHARM_SUFFIX "_err\" structure");
+        fprintf(stderr, "%s",
+                "charm" CHARM_SUFFIX "_mpi_local_shcs_local_ncs "
+                "incorrectly accepted non-distributed "
+                "\"charm" CHARM_SUFFIX "_err\" structure");
         e += 1;
     }
     /* Call error handler only if "mpi_shc_alloc" wrongly did not report any

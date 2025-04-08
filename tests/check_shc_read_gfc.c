@@ -21,7 +21,7 @@ long int check_shc_read_gfc(void)
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -34,7 +34,7 @@ long int check_shc_read_gfc(void)
     CHARM(shc) *shcs = CHARM(shc_calloc)(SHCS_NMAX_POT, PREC(1.0), PREC(1.0));
     if (shcs == NULL)
     {
-        fprintf(stderr, ERR_MSG_SHC);
+        fprintf(stderr, "%s", ERR_MSG_SHC);
         exit(CHARM_FAILURE);
     }
 
@@ -59,10 +59,10 @@ long int check_shc_read_gfc(void)
             stat_tvg = tvg;
 
 
-        sprintf(file_c, "%s/shc_nx%lu_c_gfc_%s%s",
-                FOLDER, shcs->nmax, stat_tvg, FTYPE);
-        sprintf(file_s, "%s/shc_nx%lu_s_gfc_%s%s",
-                FOLDER, shcs->nmax, stat_tvg, FTYPE);
+        snprintf(file_c, NSTR_LONG, "%s/shc_nx%lu_c_gfc_%s%s",
+                 FOLDER, shcs->nmax, stat_tvg, FTYPE);
+        snprintf(file_s, NSTR_LONG, "%s/shc_nx%lu_s_gfc_%s%s",
+                 FOLDER, shcs->nmax, stat_tvg, FTYPE);
 
 
 #ifdef GENREF

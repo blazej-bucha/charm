@@ -107,7 +107,7 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt,
 
     /* Check whether the number of latitudes is even or odd */
     /* ..................................................................... */
-    const int pnt_type = pnt->type;
+    int pnt_type = pnt->type;
     size_t pnt_nlat = CHARM(crd_point_get_local_nlat)(pnt);
     const size_t local_0_start = CHARM(crd_point_get_local_0_start)(pnt);
 
@@ -207,7 +207,7 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt,
      * longitudinal sampling.  Below, we determined whether FFT can be applied
      * or not. */
     /* --------------------------------------------------------------------- */
-    const size_t pnt_nlon = CHARM(crd_point_get_local_nlon)(pnt);
+    size_t pnt_nlon = CHARM(crd_point_get_local_nlon)(pnt);
 
 
     /* If "pnt" is a user-defined grid with more than one longitude, we have to
@@ -240,8 +240,7 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt,
     /* Get the longitudinal step of the grid.  At this point, we know the
      * longitudinal step is constant over each latitude parallel, so let's get
      * the step from, say, the first two longitudes. */
-    const REAL deltalon = (pnt_nlon > 1) ? pnt->lon[1] - pnt->lon[0] :
-                                           PREC(0.0);
+    REAL deltalon = (pnt_nlon > 1) ? pnt->lon[1] - pnt->lon[0] : PREC(0.0);
 
 
     /* Auxiliary constant to be used only in case the PSLR algorithm is
@@ -251,10 +250,10 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt,
 
 
     /* Length of the lumped coefficients arrays in case FFT will be applied */
-    const size_t nfc = pnt_nlon / 2 + 1;
+    size_t nfc = pnt_nlon / 2 + 1;
 
 
-    const _Bool use_fft = CHARM(shs_grd_point_fft_check)(pnt, deltalon, nmax);
+    _Bool use_fft = CHARM(shs_grd_point_fft_check)(pnt, deltalon, nmax);
     if (!use_fft)
     {
         /* Get the origin of the longitude "pnt->lon" vector (will be necessary
@@ -271,7 +270,7 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt,
     /* Check whether all values of "pnt->r" are equal to "shcs->r".  If true,
      * a faster code can be used inside "shs_point_kernel".  */
     /* --------------------------------------------------------------------- */
-    const _Bool r_eq_rref = CHARM(shs_r_eq_rref)(pnt, shcs);
+    _Bool r_eq_rref = CHARM(shs_r_eq_rref)(pnt, shcs);
     /* --------------------------------------------------------------------- */
 
 
@@ -343,12 +342,12 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt,
 
 
 #if HAVE_MPI
-    const size_t BLOCK_S = CHARM(glob_get_shs_block_lat_multiplier)();
+    size_t BLOCK_S = CHARM(glob_get_shs_block_lat_multiplier)();
 #else
 #   define BLOCK_S SIMD_BLOCK_S
 #endif
-    const size_t nfi_1par = pnt_nlon * SIMD_SIZE * BLOCK_S;
-    const size_t nfi = npar * nfi_1par;
+    size_t nfi_1par = pnt_nlon * SIMD_SIZE * BLOCK_S;
+    size_t nfi = npar * nfi_1par;
     /* --------------------------------------------------------------------- */
 
 
@@ -570,7 +569,7 @@ BARRIER_1:
 
 
     /* Get the polar optimization threshold */
-    const REAL_SIMD pt = CHARM(misc_polar_optimization_threshold)(nmax);
+    REAL_SIMD pt = CHARM(misc_polar_optimization_threshold)(nmax);
 
 
     /* Radius of the reference sphere that is associated with the spherical

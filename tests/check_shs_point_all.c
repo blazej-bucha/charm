@@ -82,7 +82,7 @@ static void allocate_signal(REAL **f, size_t npoint)
         f[i] = (REAL *)malloc(npoint * sizeof(REAL));
         if (f[i] == NULL)
         {
-            fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+            fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
             exit(CHARM_FAILURE);
         }
     }
@@ -128,8 +128,8 @@ static void stop_at_j_corresponding_to_dr_dlat_dlon(size_t j,
 
     /* If we got here, we are in serious troubles, as this implies wrong
      * implementation */
-    fprintf(stderr, "Wrong implementation of "
-                    "\"stop_at_j_corresponding_to_dr_dlat_dlon\".");
+    fprintf(stderr, "%s", "Wrong implementation of "
+                          "\"stop_at_j_corresponding_to_dr_dlat_dlon\".");
     exit(CHARM_FAILURE);
 
 
@@ -315,7 +315,7 @@ long int check_shs_point_guru(void)
     CHARM(shc) *shcs = CHARM(shc_calloc)(SHCS_NMAX_POT, PREC(1.0), PREC(1.0));
     if (shcs == NULL)
     {
-        fprintf(stderr, ERR_MSG_SHC);
+        fprintf(stderr, "%s", ERR_MSG_SHC);
         exit(CHARM_FAILURE);
     }
 
@@ -324,7 +324,7 @@ long int check_shs_point_guru(void)
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -356,7 +356,7 @@ long int check_shs_point_guru(void)
     REAL **f = (REAL **)malloc(NPAR * sizeof(REAL *));
     if (f == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
     for (size_t i = 0; i < NPAR; i++)
@@ -425,7 +425,7 @@ SHS_0POINTS_ERROR:
     char guru_ijk[9];
     {
     GURU_LOOP(
-              sprintf(guru_ijk, "_guru%u%u%u", dr, dlat, dlon);
+              snprintf(guru_ijk, 9, "_guru%u%u%u", dr, dlat, dlon);
               strcpy(elem[gn], guru_ijk);
              );
     }
@@ -464,7 +464,7 @@ SHS_0POINTS_ERROR:
                     grd_pnt = CHARM(crd_point_dh2)(nmax, rref);
                 if (grd_pnt == NULL)
                 {
-                    fprintf(stderr, ERR_MSG_POINT);
+                    fprintf(stderr, "%s", ERR_MSG_POINT);
                     exit(CHARM_FAILURE);
                 }
 
@@ -477,8 +477,9 @@ SHS_0POINTS_ERROR:
                 else if (g == 2)
                     strcpy(grd_str, "dh2");
                 for (size_t j = 0; j < NPAR; j++)
-                    sprintf(file[j], "%s/shs_p_nx%lu_dr%d_fft1_%s%s%s",
-                            FOLDER, nmax, deltar, grd_str, elem[j], FTYPE);
+                    snprintf(file[j], NSTR_LONG,
+                             "%s/shs_p_nx%lu_dr%d_fft1_%s%s%s",
+                             FOLDER, nmax, deltar, grd_str, elem[j], FTYPE);
 
 
                 allocate_signal(f, grd_pnt->npoint);
@@ -573,7 +574,7 @@ SHS_0POINTS_ERROR:
                                                           nlat[i], nlon[i]);
                         if (grd_pnt == NULL)
                         {
-                            fprintf(stderr, ERR_MSG_POINT);
+                            fprintf(stderr, "%s", ERR_MSG_POINT);
                             exit(CHARM_FAILURE);
                         }
 
@@ -596,10 +597,11 @@ SHS_0POINTS_ERROR:
 
                         /* Generate output file name */
                         for (size_t j = 0; j < NPAR; j++)
-                            sprintf(file[j], "%s/shs_%s_nx%lu_n%zu_dr%d_fft%d"
-                                             "_s%d%s%s",
-                                    FOLDER, "p", nmax, i, deltar, fft,
-                                    (s == 0) ? 0 : 1, elem[j], FTYPE);
+                            snprintf(file[j], NSTR_LONG,
+                                              "%s/shs_%s_nx%lu_n%zu_dr%d_fft%d"
+                                              "_s%d%s%s",
+                                     FOLDER, "p", nmax, i, deltar, fft,
+                                     (s == 0) ? 0 : 1, elem[j], FTYPE);
 
 
                         allocate_signal(f, grd_pnt->npoint);
@@ -684,7 +686,7 @@ SHS_0POINTS_ERROR:
                                                    nlat[i], nlon[i]);
                 if (sctr_pnt == NULL)
                 {
-                    fprintf(stderr, ERR_MSG_POINT);
+                    fprintf(stderr, "%s", ERR_MSG_POINT);
                     exit(CHARM_FAILURE);
                 }
 
@@ -694,8 +696,9 @@ SHS_0POINTS_ERROR:
 
                 /* Generate output file name */
                 for (size_t j = 0; j < NPAR; j++)
-                    sprintf(file[j], "%s/shs_%s_nx%lu_n%zu_dr%d_sctr%s%s",
-                            FOLDER, "p", nmax, i, deltar, elem[j], FTYPE);
+                    snprintf(file[j], NSTR_LONG,
+                             "%s/shs_%s_nx%lu_n%zu_dr%d_sctr%s%s",
+                             FOLDER, "p", nmax, i, deltar, elem[j], FTYPE);
 
 
                 allocate_signal(f, sctr_pnt->npoint);
@@ -772,7 +775,7 @@ SHS_0POINTS_ERROR:
         shcs = CHARM(shc_calloc)(nmax, PREC(1.0), PREC(1.0));
         if (shcs == NULL)
         {
-            fprintf(stderr, ERR_MSG_SHC);
+            fprintf(stderr, "%s", ERR_MSG_SHC);
             exit(CHARM_FAILURE);
         }
         for (size_t m = 0; m <= nmax; m++)
@@ -813,7 +816,7 @@ SHS_0POINTS_ERROR:
                         grd_pnt = CHARM(crd_point_gl)(nmax, r);
                         if (grd_pnt == NULL)
                         {
-                            fprintf(stderr, ERR_MSG_POINT);
+                            fprintf(stderr, "%s", ERR_MSG_POINT);
                             exit(CHARM_FAILURE);
                         }
                         /* Given that we are testing features that are related
@@ -842,10 +845,11 @@ SHS_0POINTS_ERROR:
 
                         /* Generate output file name */
                         for (size_t j = 0; j < NPAR; j++)
-                            sprintf(file[j], "%s/shs_%s_nx%lu_n%zu_dr%d_fft%d"
-                                             "_s%d_dsun%s%s",
-                                    FOLDER, "p", nmax, i, deltar, fft,
-                                    (s == 0) ? 0 : 1, elem[j], FTYPE);
+                            snprintf(file[j], NSTR_LONG,
+                                              "%s/shs_%s_nx%lu_n%zu_dr%d_fft%d"
+                                              "_s%d_dsun%s%s",
+                                     FOLDER, "p", nmax, i, deltar, fft,
+                                     (s == 0) ? 0 : 1, elem[j], FTYPE);
 
 
                         allocate_signal(f, grd_pnt->npoint);

@@ -91,7 +91,7 @@ long int check_mpi_shs_point(void)
     CHARM(err) *err_d1 = CHARM(mpi_err_init)(comm);
     if (CHARM(err_is_null_ptr)(err_d1, 1, comm))
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -99,7 +99,7 @@ long int check_mpi_shs_point(void)
     CHARM(err) *err_d0 = CHARM(err_init)();
     if (err_d0 == NULL)
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
     /* --------------------------------------------------------------------- */
@@ -142,7 +142,7 @@ long int check_mpi_shs_point(void)
     shcs_d0 = CHARM(shc_calloc)(nmax, mu, r);
     if (shcs_d0 == NULL)
     {
-        fprintf(stderr, ERR_MSG_SHC);
+        fprintf(stderr, "%s", ERR_MSG_SHC);
         exit(CHARM_FAILURE);
     }
 
@@ -265,7 +265,7 @@ long int check_mpi_shs_point(void)
                                            pnt_d1->r);
             if (pnt_d0 == NULL)
             {
-                fprintf(stderr, ERR_MSG_POINT);
+                fprintf(stderr, "%s", ERR_MSG_POINT);
                 exit(CHARM_FAILURE);
             }
 
@@ -273,7 +273,7 @@ long int check_mpi_shs_point(void)
             REAL *f_d1 = (REAL *)malloc(pnt_d1->local_npoint * sizeof(REAL));
             if (f_d1 == NULL)
             {
-                fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+                fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
                 exit(CHARM_FAILURE);
             }
 
@@ -281,7 +281,7 @@ long int check_mpi_shs_point(void)
             REAL *f_d0 = (REAL *)malloc(pnt_d0->npoint * sizeof(REAL));
             if (f_d0 == NULL)
             {
-                fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+                fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
                 exit(CHARM_FAILURE);
             }
 
@@ -299,9 +299,10 @@ long int check_mpi_shs_point(void)
              * check this. */
             if (pnt_d1->local_npoint != pnt_d0->npoint)
             {
-                fprintf(stderr, "The number of local points of a distributed "
-                                "point structure does not match the number of "
-                                "points of a non-distributed structure.\n");
+                fprintf(stderr, "%s",
+                        "The number of local points of a distributed "
+                        "point structure does not match the number of "
+                        "points of a non-distributed structure.\n");
                 exit(CHARM_FAILURE);
             }
 
@@ -337,7 +338,7 @@ long int check_mpi_shs_point(void)
     pnt_d0  = CHARM(crd_point_gl)(NMAX_MPI, r);
     if (pnt_d0 == NULL)
     {
-        fprintf(stderr, ERR_MSG_POINT);
+        fprintf(stderr, "%s", ERR_MSG_POINT);
         exit(CHARM_FAILURE);
     }
     unsigned long local_order[2] = {0, NMAX_MPI};
@@ -347,7 +348,7 @@ long int check_mpi_shs_point(void)
     REAL *f = (REAL *)malloc(pnt_d0->local_npoint * sizeof(REAL));
     if (f == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE);
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE);
         exit(CHARM_FAILURE);
     }
 
@@ -355,11 +356,12 @@ long int check_mpi_shs_point(void)
     CHARM(shs_point)(pnt_d0, shcs_d1, shcs_d1->nmax, f, err_d1);
     if (err_d1->code == CHARM_SUCCESS)
     {
-        fprintf(stderr, "\"charm" CHARM_SUFFIX "_shs_point\" incorrectly "
-                        "accepted distributed \"charm" CHARM_SUFFIX "_shc\" "
-                        "and \"charm" CHARM_SUFFIX "_err\" structures and "
-                        "non-distributed \"charm" CHARM_SUFFIX "_point\" "
-                        "structure.");
+        fprintf(stderr, "%s",
+                "\"charm" CHARM_SUFFIX "_shs_point\" incorrectly "
+                "accepted distributed \"charm" CHARM_SUFFIX "_shc\" "
+                "and \"charm" CHARM_SUFFIX "_err\" structures and "
+                "non-distributed \"charm" CHARM_SUFFIX "_point\" "
+                "structure.");
         e += 1;
         CHARM(err_handler)(err_d1, 0);
     }
@@ -384,13 +386,13 @@ long int check_mpi_shs_point(void)
     shcs_d0 = CHARM(shc_malloc)(NMAX_MPI, mu, r);
     if (shcs_d0 == NULL)
     {
-        fprintf(stderr, ERR_MSG_SHC);
+        fprintf(stderr, "%s", ERR_MSG_SHC);
         exit(CHARM_FAILURE);
     }
     REAL *f = (REAL *)malloc(pnt_d1->local_npoint * sizeof(REAL));
     if (f == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE);
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE);
         exit(CHARM_FAILURE);
     }
 
@@ -398,11 +400,12 @@ long int check_mpi_shs_point(void)
     CHARM(shs_point)(pnt_d1, shcs_d0, shcs_d0->nmax, f, err_d1);
     if (err_d1->code == CHARM_SUCCESS)
     {
-        fprintf(stderr, "\"charm" CHARM_SUFFIX "_shs_point\" incorrectly "
-                        "accepted distributed \"charm" CHARM_SUFFIX "_point\" "
-                        "and \"charm" CHARM_SUFFIX "_err\" structures and "
-                        "non-distributed \"charm" CHARM_SUFFIX "_shc\" "
-                        "structure.");
+        fprintf(stderr, "%s",
+                "\"charm" CHARM_SUFFIX "_shs_point\" incorrectly "
+                "accepted distributed \"charm" CHARM_SUFFIX "_point\" "
+                "and \"charm" CHARM_SUFFIX "_err\" structures and "
+                "non-distributed \"charm" CHARM_SUFFIX "_shc\" "
+                "structure.");
         e += 1;
         CHARM(err_handler)(err_d1, 0);
     }
@@ -431,7 +434,7 @@ long int check_mpi_shs_point(void)
     REAL *f = (REAL *)malloc(pnt_d1->local_npoint * sizeof(REAL));
     if (f == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE);
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE);
         exit(CHARM_FAILURE);
     }
 
@@ -439,11 +442,12 @@ long int check_mpi_shs_point(void)
     CHARM(shs_point)(pnt_d1, shcs_d1, shcs_d1->nmax, f, err_d0);
     if (err_d0->code == CHARM_SUCCESS)
     {
-        fprintf(stderr, "\"charm" CHARM_SUFFIX "_shs_point\" incorrectly "
-                        "accepted distributed \"charm" CHARM_SUFFIX "_point\" "
-                        "and \"charm" CHARM_SUFFIX "_shc\" structures and "
-                        "non-distributed \"charm" CHARM_SUFFIX "_err\" "
-                        "structure.");
+        fprintf(stderr, "%s",
+                "\"charm" CHARM_SUFFIX "_shs_point\" incorrectly "
+                "accepted distributed \"charm" CHARM_SUFFIX "_point\" "
+                "and \"charm" CHARM_SUFFIX "_shc\" structures and "
+                "non-distributed \"charm" CHARM_SUFFIX "_err\" "
+                "structure.");
         e += 1;
         CHARM(err_handler)(err_d0, 0);
     }

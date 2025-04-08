@@ -29,6 +29,7 @@ the differences is given in :ref:`PyHarm_in_single_precision`.
    pyharm.crd <api-py-crd>
    pyharm.shs <api-py-shs>
    pyharm.sha <api-py-sha>
+   pyharm.gfm <api-py-gfm>
    pyharm.leg <api-py-leg>
    pyharm.integ <api-py-integ>
    pyharm.misc <api-py-misc>

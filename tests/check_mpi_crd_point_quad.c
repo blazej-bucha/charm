@@ -65,21 +65,21 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
         grd_type = CHARM_CRD_POINT_GRID_GL;
         quad  = CHARM(crd_point_gl);
         shape = CHARM(crd_point_gl_shape);
-        sprintf(func, "mpi_crd_point_gl");
+        snprintf(func, NSTR_SHORT, "mpi_crd_point_gl");
     }
     else if (mpi_quad == CHARM(mpi_crd_point_dh1))
     {
         grd_type = CHARM_CRD_POINT_GRID_DH1;
         quad  = CHARM(crd_point_dh1);
         shape = CHARM(crd_point_dh1_shape);
-        sprintf(func, "mpi_crd_point_dh1");
+        snprintf(func, NSTR_SHORT, "mpi_crd_point_dh1");
     }
     else if (mpi_quad == CHARM(mpi_crd_point_dh2))
     {
         grd_type = CHARM_CRD_POINT_GRID_DH2;
         quad  = CHARM(crd_point_dh2);
         shape = CHARM(crd_point_dh2_shape);
-        sprintf(func, "mpi_crd_point_dh2");
+        snprintf(func, NSTR_SHORT, "mpi_crd_point_dh2");
     }
 
 
@@ -91,7 +91,7 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
     CHARM(err) *err = CHARM(mpi_err_init)(comm);
     if (CHARM(err_is_null_ptr)(err, 1, comm))
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
     /* --------------------------------------------------------------------- */
@@ -108,7 +108,7 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
         grd_d0 = quad(nmax, r);
         if (grd_d0 == NULL)
         {
-            fprintf(stderr, ERR_MSG_POINT);
+            fprintf(stderr, "%s", ERR_MSG_POINT);
             exit(CHARM_FAILURE);
         }
 
@@ -127,9 +127,10 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
         CHARM(err_handler)(err, 0);
 
 
-        sprintf(func_call_str, "%s(%lu, " FORMAT ", %zu, %zu, MPI_COMM_WORLD, "
-                               "err)", func, nmax, r, local_nlat,
-                               local_0_start);
+        snprintf(func_call_str, NSTR_LONG,
+                                "%s(%lu, " REAL_PRINT_FORMAT
+                                ", %zu, %zu, MPI_COMM_WORLD, err)",
+                                func, nmax, r, local_nlat, local_0_start);
 
 
         e += check_struct_ptr(grd_d1, NULL, EQ, VALID, func_call_str,
@@ -142,7 +143,7 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
         REAL *lat = (REAL *)malloc(grd_d0->nlat * sizeof(REAL));
         if (lat == NULL)
         {
-            fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+            fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
             exit(CHARM_FAILURE);
         }
 
@@ -150,7 +151,7 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
         REAL *lon = (REAL *)malloc(grd_d0->nlon * sizeof(REAL));
         if (lon == NULL)
         {
-            fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+            fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
             exit(CHARM_FAILURE);
         }
 
@@ -158,7 +159,7 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
         REAL *r = (REAL *)malloc(grd_d0->nlat * sizeof(REAL));
         if (r == NULL)
         {
-            fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+            fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
             exit(CHARM_FAILURE);
         }
 
@@ -166,7 +167,7 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
         REAL *w = (REAL *)malloc(grd_d0->nlat * sizeof(REAL));
         if (w == NULL)
         {
-            fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+            fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
             exit(CHARM_FAILURE);
         }
 
@@ -175,7 +176,7 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
                      (CHARM_MPI_COUNT *)malloc(size * sizeof(CHARM_MPI_COUNT));
         if (recvcounts == NULL)
         {
-            fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+            fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
             exit(CHARM_FAILURE);
         }
         CHARM_MPI_COUNT local_nlat_c =
@@ -192,7 +193,7 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
                        (CHARM_MPI_AINT *)malloc(size * sizeof(CHARM_MPI_AINT));
         if (displs == NULL)
         {
-            fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+            fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
             exit(CHARM_FAILURE);
         }
         displs[0] = 0;
@@ -301,9 +302,10 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
     grd_d1 = mpi_quad(NMAX_MPI, r, local_nlat, local_0_start, comm, err);
 
 
-    sprintf(func_call_str, "%s(%lu, " FORMAT ", %zu, %zu, MPI_COMM_WORLD, "
-                           "err)", func, NMAX_MPI, r, local_nlat,
-                           local_0_start);
+    snprintf(func_call_str, NSTR_LONG,
+                            "%s(%lu, " REAL_PRINT_FORMAT
+                            ", %zu, %zu, MPI_COMM_WORLD, err)",
+                            func, NMAX_MPI, r, local_nlat, local_0_start);
 
 
     e += check_struct_ptr(grd_d1, NULL, NEQ, INVALID, func_call_str,
@@ -350,9 +352,10 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
         grd_d1 = mpi_quad(NMAX_MPI, r, local_nlat, local_0_start, comm, err);
 
 
-        sprintf(func_call_str, "%s(%lu, " FORMAT ", %zu, %zu, MPI_COMM_WORLD, "
-                               "err)", func, NMAX_MPI, r, local_nlat,
-                               local_0_start);
+        snprintf(func_call_str, NSTR_LONG,
+                                "%s(%lu, " REAL_PRINT_FORMAT
+                                ", %zu, %zu, MPI_COMM_WORLD, err)",
+                                func, NMAX_MPI, r, local_nlat, local_0_start);
 
 
         e += check_struct_ptr(grd_d1, NULL, NEQ, INVALID, func_call_str,
@@ -372,7 +375,7 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
     CHARM(err) *err_d0 = CHARM(err_init)();
     if (err_d0 == NULL)
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -391,9 +394,10 @@ long int check_mpi_crd_point_quad(CHARM(point) *(*mpi_quad)(unsigned long,
     if (err_d0->code == CHARM_SUCCESS)
     {
         char err_msg[NSTR_LONG];
-        sprintf(err_msg, "\"%s\" incorrectly accepted non-distributed "
-                         "\"charm" CHARM_SUFFIX "_err\" structure", func);
-        fprintf(stderr, err_msg);
+        snprintf(err_msg, NSTR_LONG,
+                          "\"%s\" incorrectly accepted non-distributed "
+                          "\"charm" CHARM_SUFFIX "_err\" structure", func);
+        fprintf(stderr, "%s", err_msg);
         e += 1;
 
 

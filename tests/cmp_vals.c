@@ -62,16 +62,16 @@ long int cmp_vals_real(REAL x,
                                      x);
         if ((size_t)flt128_n >= BUF_QUAD)
         {
-            fprintf(stderr, "Failed to convert a \"__float128\" "
-                            "number to a string.\n");
+            fprintf(stderr, "%s", "Failed to convert a \"__float128\" "
+                                  "number to a string.\n");
             exit(CHARM_FAILURE);
         }
         flt128_n = quadmath_snprintf(buf2, sizeof(buf2), "%41.34Qe", 70,
                                      xref);
         if ((size_t)flt128_n >= BUF_QUAD)
         {
-            fprintf(stderr, "Failed to convert a \"__float128\""
-                            "number to a string.\n");
+            fprintf(stderr, "%s", "Failed to convert a \"__float128\""
+                                  "number to a string.\n");
             exit(CHARM_FAILURE);
         }
 

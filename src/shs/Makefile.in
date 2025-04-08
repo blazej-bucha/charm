@@ -96,6 +96,7 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/ax_check_compile_flag.m4 \
 	$(top_srcdir)/m4/ax_openmp.m4 \
 	$(top_srcdir)/m4/ax_prog_cc_mpi.m4 \
 	$(top_srcdir)/m4/ax_split_version.m4 \
+	$(top_srcdir)/m4/ax_with_build_path.m4 \
 	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/ltoptions.m4 \
 	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
 	$(top_srcdir)/m4/lt~obsolete.m4 $(top_srcdir)/VERSION \
@@ -111,11 +112,10 @@ LTLIBRARIES = $(noinst_LTLIBRARIES)
 libcharm@P@_shs_la_LIBADD =
 am_libcharm@P@_shs_la_OBJECTS = shs_cell.lo shs_cell_grd.lo \
 	shs_cell_isurf_coeffs.lo shs_cell_isurf.lo \
-	shs_cell_isurf_lr.lo shs_cell_isurf_offset.lo \
-	shs_cell_kernel.lo shs_cell_sctr.lo shs_cell_check_grd_lons.lo \
-	shs_point.lo shs_point_grads.lo shs_point_grd.lo \
-	shs_point_kernels.lo shs_point_sctr.lo shs_grd_lr.lo \
-	shs_grd_lr2.lo shs_grd_point_fft_check.lo \
+	shs_cell_isurf_lr.lo shs_cell_kernel.lo shs_cell_sctr.lo \
+	shs_cell_check_grd_lons.lo shs_point.lo shs_point_grads.lo \
+	shs_point_grd.lo shs_point_kernels.lo shs_point_sctr.lo \
+	shs_grd_lr.lo shs_grd_lr2.lo shs_grd_point_fft_check.lo \
 	shs_grd_cell_fft_check.lo shs_grd_fft_lc.lo shs_grd_fft.lo \
 	shs_sctr_mulc.lo shs_lc_init.lo shs_lc_free.lo \
 	shs_check_symm_simd.lo shs_r_eq_rref.lo shs_point_guru.lo \
@@ -146,7 +146,6 @@ am__depfiles_remade = ./$(DEPDIR)/shs_cell.Plo \
 	./$(DEPDIR)/shs_cell_grd.Plo ./$(DEPDIR)/shs_cell_isurf.Plo \
 	./$(DEPDIR)/shs_cell_isurf_coeffs.Plo \
 	./$(DEPDIR)/shs_cell_isurf_lr.Plo \
-	./$(DEPDIR)/shs_cell_isurf_offset.Plo \
 	./$(DEPDIR)/shs_cell_kernel.Plo ./$(DEPDIR)/shs_cell_sctr.Plo \
 	./$(DEPDIR)/shs_check_grads.Plo \
 	./$(DEPDIR)/shs_check_single_derivative.Plo \
@@ -282,6 +281,7 @@ SHARED_EXT = @SHARED_EXT@
 SHELL = @SHELL@
 STRIP = @STRIP@
 VERSION = @VERSION@
+WITH_MPFR = @WITH_MPFR@
 WITH_MPI = @WITH_MPI@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
@@ -348,7 +348,6 @@ libcharm@P@_shs_la_SOURCES = shs_cell.c \
 							 shs_cell_isurf_coeffs.c \
 							 shs_cell_isurf.c \
 							 shs_cell_isurf_lr.c \
-							 shs_cell_isurf_offset.c \
 							 shs_cell_kernel.c \
 							 shs_cell_sctr.c \
 							 shs_cell_check_grd_lons.c \
@@ -438,7 +437,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_cell_isurf.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_cell_isurf_coeffs.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_cell_isurf_lr.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_cell_isurf_offset.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_cell_kernel.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_cell_sctr.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shs_check_grads.Plo@am__quote@ # am--include-marker
@@ -580,7 +578,6 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/shs_cell_isurf.Plo
 	-rm -f ./$(DEPDIR)/shs_cell_isurf_coeffs.Plo
 	-rm -f ./$(DEPDIR)/shs_cell_isurf_lr.Plo
-	-rm -f ./$(DEPDIR)/shs_cell_isurf_offset.Plo
 	-rm -f ./$(DEPDIR)/shs_cell_kernel.Plo
 	-rm -f ./$(DEPDIR)/shs_cell_sctr.Plo
 	-rm -f ./$(DEPDIR)/shs_check_grads.Plo
@@ -654,7 +651,6 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/shs_cell_isurf.Plo
 	-rm -f ./$(DEPDIR)/shs_cell_isurf_coeffs.Plo
 	-rm -f ./$(DEPDIR)/shs_cell_isurf_lr.Plo
-	-rm -f ./$(DEPDIR)/shs_cell_isurf_offset.Plo
 	-rm -f ./$(DEPDIR)/shs_cell_kernel.Plo
 	-rm -f ./$(DEPDIR)/shs_cell_sctr.Plo
 	-rm -f ./$(DEPDIR)/shs_check_grads.Plo

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Building from source on Unix-based operating systems &#8212; CHarm 0.4.4 documentation</title>
+    <title>Building from source on Unix-based operating systems &#8212; CHarm 0.4.5 documentation</title>
   
   
   
@@ -40,7 +40,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="_static/documentation_options.js?v=9a529362"></script>
+    <script src="_static/documentation_options.js?v=21ae117f"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -52,8 +52,8 @@
     <link rel="prev" title="Building from source" href="build-from-src.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.4.4" />
-    <meta name="docbuild:last-update" content="Feb 12, 2025"/>
+  <meta name="docsearch:version" content="0.4.5" />
+    <meta name="docbuild:last-update" content="Apr 07, 2025"/>
   </head>
   
   
@@ -136,7 +136,7 @@
     <img src="_static/charm-logo.svg" class="logo__image only-dark pst-js-only" alt=""/>
   
   
-    <p class="title logo__title">CHarm v0.4.4</p>
+    <p class="title logo__title">CHarm v0.4.5</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -171,6 +171,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-sha.html">charm_sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-gfm.html">charm_gfm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-leg.html">charm_leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
@@ -185,6 +186,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">pyharm.sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-gfm.html">pyharm.gfm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-leg.html">pyharm.leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">pyharm.integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
@@ -411,14 +413,17 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-on-linux">Installation on Linux</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fftw-installation">FFTW installation</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mpi-installation">MPI installation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mpfr-installation">MPFR installation</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#default-charm-installation">Default CHarm installation</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#customized-charm-installation">Customized CHarm installation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#customized-charm-installation-examples">Customized CHarm installation (examples)</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-on-macos">Installation on macOS</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">FFTW installation</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">MPI installation</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">CHarm installation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">FFTW installation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">MPFR installation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">MPI installation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">CHarm installation</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-few-installation-notes">A few installation notes</a></li>
@@ -431,7 +436,7 @@
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-installation">Example installation</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Uninstallation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Uninstallation</a></li>
 </ul>
 </li>
 </ul>
@@ -460,9 +465,8 @@ wrapper)</span></a>.</p>
 <h4>Mandatory<a class="headerlink" href="#mandatory" title="Link to this heading">#</a></h4>
 <ul>
 <li><p>C compiler supporting C99.  <a class="reference external" href="https://gcc.gnu.org/">GCC</a> is recommended
-(available by default on most Linux distributions).  Other compilers that are
-known to successfully compile CHarm are listed in the <a class="reference internal" href="platforms.html#tested-platforms"><span class="std std-ref">Tested platforms</span></a>
-chapter.</p>
+(available by default on most Linux distributions).  Other compilers known to
+successfully compile CHarm are listed in the <a class="reference internal" href="platforms.html#tested-platforms"><span class="std std-ref">Tested platforms</span></a> chapter.</p>
 <p><em>To compile in quadruple precision, GCC is mandatory (v4.6 or later)</em> and no
 other compiler is allowed.</p>
 </li>
@@ -479,16 +483,21 @@ distributions).</p></li>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.mpi-forum.org/">MPI</a> for parallelization on distributed-memory
 systems (e.g., high-performance computing clusters).</p></li>
+<li><p><a class="reference external" href="https://mpfr.org">MPFR</a> for arbitrary precision arithmetic on floating
+point numbers with correct rounding.  CHarm can be compiled without the MPFR
+support, though at the cost of loosing the ability to spatially limit the
+integration radius in spectral gravity forward modelling.</p></li>
 </ul>
 </section>
 </section>
 <section id="installation-on-linux">
 <span id="installation-linux"></span><h3>Installation on Linux<a class="headerlink" href="#installation-on-linux" title="Link to this heading">#</a></h3>
-<p>At first, we will install FFTW and (optionally) MPI, after which we will
-proceed with the installation of CHarm.</p>
+<p>At first, we will install FFTW (mandatory), MPFR (optional) and MPI (optional),
+after which we will proceed with the installation of CHarm.</p>
 <section id="fftw-installation">
 <span id="installation-fftw-linux"></span><h4>FFTW installation<a class="headerlink" href="#fftw-installation" title="Link to this heading">#</a></h4>
-<p>FFTW can either be installed via you package manager or built from the source.</p>
+<p>FFTW can either be installed via your package manager or it can be built from
+the source.</p>
 <ul>
 <li><p><em>Using your package manager</em></p>
 <ul>
@@ -539,8 +548,8 @@ the <code class="docutils literal notranslate"><span class="pre">--enable-openmp
 </section>
 <section id="mpi-installation">
 <span id="installation-mpi-linux"></span><h4>MPI installation<a class="headerlink" href="#mpi-installation" title="Link to this heading">#</a></h4>
-<p>Skip this chapter if you do not intend to use CHarm on distributed-memory
-system like HPC clusters.</p>
+<p>This step is optional.  Skip this chapter if you do not intend to use CHarm on
+distributed-memory system like HPC clusters.</p>
 <p>Choose an MPI implementation (e.g., <a class="reference external" href="https://www.open-mpi.org/">OpenMPI</a>,
 <a class="reference external" href="https://www.mpich.org/">MPICH</a>) and either build the MPI library from source
 or install it using your package manager.</p>
@@ -549,15 +558,82 @@ or install it using your package manager.</p>
 <code class="docutils literal notranslate"><span class="pre">__float128</span></code> data type, CHarm in quadruple precision cannot be built with the
 MPI support.</p>
 </section>
+<section id="mpfr-installation">
+<span id="installation-mpfr-linux"></span><h4>MPFR installation<a class="headerlink" href="#mpfr-installation" title="Link to this heading">#</a></h4>
+<p>This step is optional.  If you don’t care about spectral gravity forward
+modelling with spatially limited integration radius, you may skip this section.</p>
+<p>MPFR can either be installed using your package manager or it can be built from
+the source.</p>
+<ul>
+<li><p><em>Using your package manager</em></p>
+<p>This is the simplest and for most users also the recommended way of
+installing MPFR.</p>
+<ul>
+<li><p>Debian-based distributions:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt install libmpfr-dev</span>
+</pre></div>
+</div>
+</li>
+<li><p>Arch Linux: You may try to install, for instance, this package
+<a class="reference external" href="https://archlinux.org/packages/core/x86_64/mpfr/">https://archlinux.org/packages/core/x86_64/mpfr/</a> using your package
+manager.</p></li>
+</ul>
+<p>This should automatically install also <a class="reference external" href="https://gmplib.org">GMP</a>, the GNU
+multiple precision arithmetic library, which is required by MPFR.</p>
+</li>
+<li><p><em>Compilation from source</em></p>
+<ul>
+<li><p>Download, build and install the <a class="reference external" href="https://gmplib.org">GMP</a> library, which
+is required to build MPFR.  The compilation and installation of GMP may
+look like:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure</span>
+<span class="go">make</span>
+<span class="go">make check</span>
+<span class="go">sudo make install</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>You may want to specify a custom installation path by adding the
+<code class="docutils literal notranslate"><span class="pre">--prefix=/your/path/to/gmp</span></code> flag to the <code class="docutils literal notranslate"><span class="pre">./configure</span></code> call (see the
+installation manual of GMP).</p>
+</li>
+<li><p>Then, download, build and install <a class="reference external" href="https://mpfr.org">MPFR</a>:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure</span>
+<span class="go">make</span>
+<span class="go">make check</span>
+<span class="go">sudo make install</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>If you used a custom installation path for GMP, use:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure LDFLAGS=-L/your/path/to/gmp/lib \</span>
+<span class="go">            CPPFLAGS=-I/your/path/to/gmp/include</span>
+<span class="go">make</span>
+<span class="go">make check</span>
+<span class="go">sudo make install</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Optionally, you may want to use a custom installation path also for MPFR
+(again by using the <code class="docutils literal notranslate"><span class="pre">--prefix</span></code> flag).</p>
+</li>
+</ul>
+</li>
+</ul>
+</section>
 <section id="default-charm-installation">
 <span id="default-installation-charm-linux"></span><h4>Default CHarm installation<a class="headerlink" href="#default-charm-installation" title="Link to this heading">#</a></h4>
 <p>If you</p>
 <ul class="simple">
-<li><p>want to install CHarm to <code class="docutils literal notranslate"><span class="pre">/usr/local</span></code>,</p></li>
+<li><p>want to install CHarm to your default installation path,</p></li>
 <li><p>have installed FFTW (version <code class="docutils literal notranslate"><span class="pre">3.X.X</span></code>) to the default path available to the
 compiler,</p></li>
 <li><p>want a double precision version of CHarm,</p></li>
-<li><p>do not want to enable SIMD CPU instructions,</p></li>
+<li><p>do not want the MPFR-related features,</p></li>
+<li><p>do not want SIMD parallelization,</p></li>
 <li><p>do not want OpenMP parallelization,</p></li>
 <li><p>do not want MPI parallelization,</p></li>
 <li><p>have root privileges,</p></li>
@@ -629,64 +705,122 @@ shared-memory systems, most users should therefore prefer OpenMP over MPI.</p>
 <p>For best performance with high-degree spherical harmonic transforms, you can
 (and in fact should) combine MPI with OpenMP and SIMD.</p>
 </li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--enable-mpfr</span></code> to compile CHarm with the MPFR support enabling spectral
+gravity forward modelling with spatially limited integration radius (disabled
+by default).  GMP and MPFR libraries are mandatory if <code class="docutils literal notranslate"><span class="pre">--enable-mpfr</span></code> is
+used.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--prefix=/your/custom/path</span></code> to specify a custom installation path for
-CHarm (default is <code class="docutils literal notranslate"><span class="pre">--prefix=/usr/local</span></code>).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">LDFLAGS</span></code> to specify a custom path to your FFTW (and optionally MPI) libs,
-e.g., <code class="docutils literal notranslate"><span class="pre">LDFLAGS=&quot;-L/your/path/to/FFTW/lib</span> <span class="pre">-L/your/another/path/to/MPI/lib&quot;</span></code>
-(empty by default, that is, default is to assume that these libraries are
-accessible to the compiler).</p>
-<p>You only need to specify the path; the lib files themselves are linked
-automatically.</p>
+CHarm.</p></li>
+<li><p>There are two ways to specify your custom installation paths for FFTW and,
+optionally, also for MPFR, GMP and MPI libraries.  If you installed FFTW
+(possibly also MPFR, GMP and MPI) to default installation paths available to
+the compiler, you may skip this bullet point.</p>
+<ul>
+<li><p>The easiest way is to use <code class="docutils literal notranslate"><span class="pre">--with-build-path=/path/to/fftw</span></code> or, if you
+want to compile, say, with the MPFR and MPI support,
+<code class="docutils literal notranslate"><span class="pre">--with-build-path=/path/to/fftw:/path/to/mpfr:/path/to/gmp:/path/to/mpi</span></code>.
+Specify only the top directories of the libraries, that is, do not add the
+<code class="docutils literal notranslate"><span class="pre">include</span></code> or <code class="docutils literal notranslate"><span class="pre">lib</span></code> subdirectories.</p></li>
+<li><p>The other way is to use the <code class="docutils literal notranslate"><span class="pre">LDFLAGS</span></code> and <code class="docutils literal notranslate"><span class="pre">CPPFLAGS</span></code> variables.</p>
+<ul>
+<li><p>To specify a custom path to your FFTW libs, use
+<code class="docutils literal notranslate"><span class="pre">LDFLAGS=-L/your/path/to/FFTW/lib</span></code>.</p>
+<p>Optionally, if you use, say, the <code class="docutils literal notranslate"><span class="pre">--enable-mpfr</span></code> installation flag, you
+may need to provide also the path(s) for the GMP and MPFR libraries if
+you installed these to custom paths, e.g.,
+<code class="docutils literal notranslate"><span class="pre">LDFLAGS=&quot;-L/your/path/to/FFTW/lib</span> <span class="pre">-L/your/path/to/MPFR/lib</span>
+<span class="pre">-L/your/path/to/GMP/lib&quot;</span></code>.</p>
+<p>Specify only the path(s) to the library (libraries); the lib files
+themselves are linked automatically.</p>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CPPFLAGS</span></code> to specify a custom path to your FFTW (optionally MPI) header
-files, e.g., <code class="docutils literal notranslate"><span class="pre">CPPFLAGS=&quot;-I/your/path/to/FFTW/include</span>
-<span class="pre">-I/your/another/path/to/MPI/include&quot;</span></code> (empty by default, that is, default is
-to assume the header file(s) is accessible to the compiler).</p></li>
+<li><p>To specify a custom path to your FFTW header file, use
+<code class="docutils literal notranslate"><span class="pre">CPPFLAGS=-I/your/path/to/FFTW/include</span></code>.</p>
+<p>Optionally, if you compile with, say, the <code class="docutils literal notranslate"><span class="pre">--enable-mpfr</span></code> installation
+flag, you may need to provide also the path(s) for the GMP and MPFR
+header files if you installed these to custom paths, e.g.,
+<code class="docutils literal notranslate"><span class="pre">LDFLAGS=&quot;-L/your/path/to/FFTW/include</span> <span class="pre">-L/your/path/to/MPFR/include</span>
+<span class="pre">-L/your/path/to/GMP/include&quot;</span></code>.</p>
+</li>
+</ul>
+<p>Do not forget to add the <code class="docutils literal notranslate"><span class="pre">lib</span></code> and <code class="docutils literal notranslate"><span class="pre">include</span></code> subdirectories to each
+entry in <code class="docutils literal notranslate"><span class="pre">LDFLAGS</span></code> and <code class="docutils literal notranslate"><span class="pre">CPPFLAGS</span></code>, respectively.</p>
+</li>
+</ul>
+</li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--disable-shared</span></code> to not compile CHarm as a shared library.</p></li>
 <li><p>Other useful variables:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">CC</span></code> selects other than your system’s default C compiler,
-e.g. <code class="docutils literal notranslate"><span class="pre">CC=clang</span></code> for Clang, and</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CFLAGS</span></code> defines user-defined compiler flags, e.g.,  <code class="docutils literal notranslate"><span class="pre">CFLAGS=&quot;-O3</span>
-<span class="pre">-ffast-math&quot;</span></code>
-(GCC).</p></li>
+e.g. <code class="docutils literal notranslate"><span class="pre">CC=clang</span></code> for Clang.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CFLAGS</span></code> defines user-defined compiler flags.  For instance, for solid
+performance with GCC, you may want to use <code class="docutils literal notranslate"><span class="pre">CFLAGS=&quot;-O3&quot;</span></code> or, if you know
+what you are doing, <code class="docutils literal notranslate"><span class="pre">CFLAGS=&quot;-O3</span> <span class="pre">-ffast-math&quot;</span></code>.</p></li>
 </ul>
 </li>
-<li><p>To get a summary of all the supported flags, execute <code class="docutils literal notranslate"><span class="pre">./configure</span> <span class="pre">--help</span></code>.</p></li>
 </ul>
-<p>An example installation</p>
+<p>To get a summary of all supported flags, execute <code class="docutils literal notranslate"><span class="pre">./configure</span> <span class="pre">--help</span></code>.</p>
+</section>
+<section id="customized-charm-installation-examples">
+<h4>Customized CHarm installation (examples)<a class="headerlink" href="#customized-charm-installation-examples" title="Link to this heading">#</a></h4>
+<ul>
+<li><p><em>Example 1</em></p>
 <ul class="simple">
-<li><p>with a custom CHarm installation directory,</p></li>
-<li><p>with a custom FFTW installation directory,</p></li>
-<li><p>in quadruple precision,</p></li>
-<li><p>with OpenMP parallelization enabled, and</p></li>
-<li><p>with SIMD instructions disabled</p></li>
+<li><p>Custom CHarm installation directory</p></li>
+<li><p>Custom FFTW installation directory</p></li>
+<li><p>Quadruple precision</p></li>
+<li><p>OpenMP parallelization enabled</p></li>
+<li><p>SIMD instructions disabled</p></li>
+<li><p>MPI parallelization disabled</p></li>
+<li><p>Spatially restricted spectral gravity forward modelling (MPFR) disabled</p></li>
 </ul>
-<p>looks like:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --prefix=/opt/charm --enable-openmp --enable-quad-precision \</span>
-<span class="go">     LDFLAGS=-L/opt/fftwq-3.3.9/lib \</span>
-<span class="go">     CPPFLAGS=-I/opt/fftwq-3.3.9/include</span>
+<span class="go">     LDFLAGS=-L/opt/fftwq-3.3.10/lib CPPFLAGS=-I/opt/fftwq-3.3.10/include</span>
 <span class="go">make</span>
 <span class="go">make check</span>
 <span class="go">sudo make install</span>
 </pre></div>
 </div>
+</li>
+<li><p><em>Example 2</em></p>
+<ul class="simple">
+<li><p>Custom CHarm installation directory</p></li>
+<li><p>Custom FFTW installation directory</p></li>
+<li><p>Custom GMP installation directory</p></li>
+<li><p>Custom MPFR installation directory</p></li>
+<li><p>Double precision</p></li>
+<li><p>AVX SIMD instructions enabled</p></li>
+<li><p>OpenMP parallelization enabled</p></li>
+<li><p>MPI parallelization disabled</p></li>
+<li><p>Aggressive optimizations during the compile time</p></li>
+</ul>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --prefix=/opt/charm \</span>
+<span class="go">--with-build-path=/opt/fftw-3.3.10:/opt/mpfr-4.2.0:/opt/gmp-6.2.1 \</span>
+<span class="go">--enable-openmp --enable-avx --enable-mpfr CFLAGS=&quot;-O3 -ffast-math&quot;</span>
+<span class="go">make</span>
+<span class="go">make check</span>
+<span class="go">sudo make install</span>
+</pre></div>
+</div>
+</li>
+</ul>
 </section>
 </section>
 <section id="installation-on-macos">
 <span id="installation-mac"></span><h3>Installation on macOS<a class="headerlink" href="#installation-on-macos" title="Link to this heading">#</a></h3>
-<p>At first, we will install FFTW and then we will proceed with the installation
-of CHarm.</p>
-<section id="id1">
-<h4>FFTW installation<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
-<p>FFTW can either be installed via you package manager or built from the source,
+<p>At first, we will install FFTW (optionally also MPFR and MPI) and then we will
+proceed with the installation of CHarm.</p>
+<section id="id3">
+<h4>FFTW installation<a class="headerlink" href="#id3" title="Link to this heading">#</a></h4>
+<p>FFTW can either be installed via your package manager or built from the source,
 preferably with GCC.  The latter is strongly recommended on macOS.</p>
 <ul>
 <li><p><em>Using your package manager</em></p>
 <p>You can use one of the following commands, depending on the package manager
 you use:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo port install fftw-3</span>
-<span class="go">brew install fftw</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">brew install fftw</span>
 </pre></div>
 </div>
 <p>This, however, most likely does not install FFTW in quadruple precision
@@ -697,7 +831,9 @@ in single or double precision with OpenMP disabled.</p>
 <p>It is recommended to compile FFTW using GCC.  If you do not have GCC
 installed yet, you may execute one of the following commands:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo port install gcc10</span>
-<span class="go">brew install gcc@10</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">brew install gcc@10</span>
 </pre></div>
 </div>
 <p>Now, you should be ready to build FFTW by following the instructions in the
@@ -716,14 +852,38 @@ Clang.</p>
 </li>
 </ul>
 </section>
-<section id="id2">
-<h4>MPI installation<a class="headerlink" href="#id2" title="Link to this heading">#</a></h4>
+<section id="id4">
+<h4>MPFR installation<a class="headerlink" href="#id4" title="Link to this heading">#</a></h4>
+<p>This step is optional.  If you don’t care about spectral gravity forward
+modelling with spatially limited integration radius, you may skip this section.</p>
+<p>You can install <a class="reference external" href="https://mpfr.org">MPFR</a> and <a class="reference external" href="https://gmplib.org">GMP</a>,
+which is required by MPFR, either by your package manager or they can be built
+from the source.</p>
+<ul>
+<li><p><em>Using your package manager</em></p>
+<p>You may try to install MPFR using one of the following commands:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo port install mpfr</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">brew install mpfr</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><em>Compilation from source</em></p>
+<p>See <em>Compilation from source</em> in <a class="reference internal" href="#installation-mpfr-linux"><span class="std std-ref">MPFR installation</span></a>.</p>
+</li>
+</ul>
+</section>
+<section id="id7">
+<h4>MPI installation<a class="headerlink" href="#id7" title="Link to this heading">#</a></h4>
 <p>See <a class="reference internal" href="#installation-mpi-linux"><span class="std std-ref">MPI installation on Linux</span></a>.</p>
 </section>
-<section id="id3">
-<h4>CHarm installation<a class="headerlink" href="#id3" title="Link to this heading">#</a></h4>
-<p>Having installed FFTW, you may proceed with the same instructions as given in
-the <a class="reference internal" href="#default-installation-charm-linux"><span class="std std-ref">Default CHarm installation</span></a> and
+<section id="id8">
+<h4>CHarm installation<a class="headerlink" href="#id8" title="Link to this heading">#</a></h4>
+<p>Having installed FFTW (and optionally GMP, MPFR, MPI), you may proceed with the
+same instructions as given in the <a class="reference internal" href="#default-installation-charm-linux"><span class="std std-ref">Default CHarm installation</span></a> and
 <a class="reference internal" href="#customized-installation-charm-linux"><span class="std std-ref">Customized CHarm installation</span></a> chapters for Linux.  Similarly as
 when installing FFTW, it is recommended to use the GCC compiler via the <code class="docutils literal notranslate"><span class="pre">CC</span></code>
 variable when calling the <code class="docutils literal notranslate"><span class="pre">./configure</span></code> script from the CHarm installation.</p>
@@ -764,7 +924,7 @@ lib files.</p></li>
 <li><p>Python module <a class="reference external" href="https://docs.python.org/3/library/ctypes.html">ctypes</a>
 (reasonably old version).</p></li>
 </ul>
-<p>PyHarm does not support the MPI parallelization.</p>
+<p>PyHarm does not support quadruple precision and the MPI parallelization.</p>
 </section>
 <section id="building-pyharm">
 <h3>Building PyHarm<a class="headerlink" href="#building-pyharm" title="Link to this heading">#</a></h3>
@@ -833,8 +993,9 @@ this:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>/tmp/python-venv
 <span class="nb">source</span><span class="w"> </span>/tmp/python-venv/bin/activate
 ./configure<span class="w"> </span>--prefix<span class="o">=</span>/tmp/charm<span class="w"> </span>--enable-openmp<span class="w"> </span><span class="se">\</span>
-<span class="w">   </span><span class="nv">LDFLAGS</span><span class="o">=</span>-L/opt/fftw-3.3.9/lib<span class="w"> </span><span class="nv">CPPFLAGS</span><span class="o">=</span>-I/opt/fftw-3.3.9/include<span class="w"> </span><span class="se">\</span>
-<span class="w">   </span>--enable-python<span class="w"> </span><span class="nv">PYTHON</span><span class="o">=</span>python3.9<span class="w"> </span>--with-python_prefix<span class="o">=</span>/tmp/python-venv
+<span class="w">   </span>--with-build-path<span class="o">=</span>/opt/fftw-3.3.10:/opt/mpfr-4.2.1:/opt/gmp-6.3.0<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--enable-python<span class="w"> </span>--enable-mpfr<span class="w"> </span><span class="nv">PYTHON</span><span class="o">=</span>python3.9<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--with-python_prefix<span class="o">=</span>/tmp/python-venv
 make
 make<span class="w"> </span>check
 make<span class="w"> </span>install
@@ -856,8 +1017,8 @@ make<span class="w"> </span>install
 </div>
 </section>
 </section>
-<section id="id4">
-<h3>Uninstallation<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<section id="id9">
+<h3>Uninstallation<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
 <p>See <a class="reference internal" href="#charm-uninstallation"><span class="std std-ref">Uninstallation</span></a>.</p>
 </section>
 </section>
@@ -918,14 +1079,17 @@ make<span class="w"> </span>install
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-on-linux">Installation on Linux</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fftw-installation">FFTW installation</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mpi-installation">MPI installation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mpfr-installation">MPFR installation</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#default-charm-installation">Default CHarm installation</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#customized-charm-installation">Customized CHarm installation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#customized-charm-installation-examples">Customized CHarm installation (examples)</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-on-macos">Installation on macOS</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">FFTW installation</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">MPI installation</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">CHarm installation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">FFTW installation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">MPFR installation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">MPI installation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">CHarm installation</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-few-installation-notes">A few installation notes</a></li>
@@ -938,7 +1102,7 @@ make<span class="w"> </span>install
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-installation">Example installation</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Uninstallation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Uninstallation</a></li>
 </ul>
 </li>
 </ul>
@@ -974,7 +1138,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Feb 12, 2025.
+  Last updated on Apr 07, 2025.
   <br/>
 </p>
   </div>

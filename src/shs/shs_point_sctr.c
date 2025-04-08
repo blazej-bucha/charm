@@ -128,7 +128,7 @@ void CHARM(shs_point_sctr)(const CHARM(point) *pnt,
 
 
 #if HAVE_MPI
-    const size_t BLOCK_S = CHARM(glob_get_shs_block_lat_multiplier)();
+    size_t BLOCK_S = CHARM(glob_get_shs_block_lat_multiplier)();
 #else
 #   define BLOCK_S SIMD_BLOCK_S
 #endif
@@ -145,7 +145,8 @@ void CHARM(shs_point_sctr)(const CHARM(point) *pnt,
 
     if (local_nlat != local_nlon)
     {
-        sprintf(err_msg, "The number of latitudes \"%zu\" do not "
+        snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                         "The number of latitudes \"%zu\" do not "
                          "match the number of longitudes \"%zu\".",
                          local_nlat, local_nlon);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,

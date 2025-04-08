@@ -8,7 +8,7 @@ import ctypes as _ct
 from . import _libcharm, _libcharmname, _CHARM
 from ._get_module_constants import _get_module_constants
 from ._constants import _globals
-from ._data_types import _ct_int
+from ._data_types import _ct_int, _ct_size_t
 from ._check_types import _check_pointer
 
 
@@ -26,9 +26,9 @@ class _Err(_ct.Structure):
     Private class to represent the `charm_err` structure of CHarm.
     """
 
-    _fields_ = [('level',       _ct.c_uint),
+    _fields_ = [('level',       _ct_size_t),
                 ('file',        _ct.POINTER(_ct.POINTER(_ct.c_char))),
-                ('line',        _ct.POINTER(_ct.c_uint)),
+                ('line',        _ct.POINTER(_ct_size_t)),
                 ('func',        _ct.POINTER(_ct.POINTER(_ct.c_char))),
                 ('code',        _ct_int),
                 ('msg',         _ct.POINTER(_ct.c_char)),

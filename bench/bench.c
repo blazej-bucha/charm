@@ -135,7 +135,9 @@ int main(void)
 
 
     /* Open the file stream to save computation time for SHA */
-    char file_sha_time[2048];
+#undef NSTR
+#define NSTR (2048)
+    char file_sha_time[NSTR];
 #undef SHA_TIME
 #if CHARM_FLOAT
 #   define SHA_TIME "%s/benchf-sha-time.txt"
@@ -144,12 +146,12 @@ int main(void)
 #else
 #   define SHA_TIME "%s/bench-sha-time.txt"
 #endif
-    sprintf(file_sha_time, SHA_TIME, path);
+    snprintf(file_sha_time, NSTR, SHA_TIME, path);
     fid_sha_time = fopen(file_sha_time, "w");
 
 
     /* Open the file stream to save computation time for SHS */
-    char file_shs_time[2048];
+    char file_shs_time[NSTR];
 #undef SHS_TIME
 #if CHARM_FLOAT
 #   define SHS_TIME "%s/benchf-shs-time.txt"
@@ -158,12 +160,12 @@ int main(void)
 #else
 #   define SHS_TIME "%s/bench-shs-time.txt"
 #endif
-    sprintf(file_shs_time, SHS_TIME, path);
+    snprintf(file_shs_time, NSTR, SHS_TIME, path);
     fid_shs_time = fopen(file_shs_time, "w");
 
 
     /* Open the file stream to save difference degree variances */
-    char file_sha_acc[2048];
+    char file_sha_acc[NSTR];
 #undef ACC
 #if CHARM_FLOAT
 #   define ACC "%s/benchf-acc.txt"
@@ -172,7 +174,7 @@ int main(void)
 #else
 #   define ACC "%s/bench-acc.txt"
 #endif
-    sprintf(file_sha_acc, ACC, path);
+    snprintf(file_sha_acc, NSTR, ACC, path);
     fid_sha_acc = fopen(file_sha_acc, "w");
 
 

@@ -30,7 +30,7 @@ long int check_crd_point_init(void)
     REAL *lat = (REAL *)malloc(nlat * sizeof(REAL));
     if (lat == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 
@@ -38,7 +38,7 @@ long int check_crd_point_init(void)
     REAL *lon = (REAL *)malloc(nlon * sizeof(REAL));
     if (lon == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 
@@ -46,14 +46,14 @@ long int check_crd_point_init(void)
     REAL *r = (REAL *)malloc(nlat * sizeof(REAL));
     if (r == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 
 
     CHARM(point) *pnt = CHARM(crd_point_init)(CHARM_CRD_POINT_GRID, nlat, nlon,
                                               lat, lon, r);
-    sprintf(func_call_str, "of %s", func);
+    snprintf(func_call_str, NSTR_LONG, "of %s", func);
 
 
     e += check_struct_ptr(pnt, NULL, EQ, VALID, func_call_str,

@@ -61,7 +61,7 @@ long int check_mpi_shc_init(void)
     CHARM(err) *err = CHARM(mpi_err_init)(comm);
     if (CHARM(err_is_null_ptr)(err, 1, comm))
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -74,7 +74,7 @@ long int check_mpi_shc_init(void)
     REAL *c = (REAL *)malloc(local_ncs * sizeof(REAL));
     if (c == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 
@@ -82,7 +82,7 @@ long int check_mpi_shc_init(void)
     REAL *s = (REAL *)malloc(local_ncs * sizeof(REAL));
     if (s == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 
@@ -92,13 +92,17 @@ long int check_mpi_shc_init(void)
     CHARM(err_handler)(err, 0);
 
 
-    sprintf(func_call_str, "%s(%lu, " FORMAT ", " FORMAT ", c, s, %zu, {",
+    snprintf(func_call_str, NSTR_LONG,
+                            "%s(%lu, " REAL_PRINT_FORMAT ", " REAL_PRINT_FORMAT
+                            ", c, s, %zu, {",
             "charm" CHARM_SUFFIX "_mpi_shc_init", NMAX_MPI, mu, r, local_nchunk);
     for (size_t j = 0; j < 2 * local_nchunk - 1; j++)
-        sprintf(func_call_str + strlen(func_call_str), "%lu, ",
-                local_order[j]);
-    sprintf(func_call_str + strlen(func_call_str), "%lu}, "
-            "MPI_COMM_WORLD, err)", local_order[2 * local_nchunk - 1]);
+        snprintf(func_call_str + strlen(func_call_str),
+                 NSTR_LONG - strlen(func_call_str), "%lu, ",
+                 local_order[j]);
+    snprintf(func_call_str + strlen(func_call_str),
+             NSTR_LONG - strlen(func_call_str), "%lu}, "
+             "MPI_COMM_WORLD, err)", local_order[2 * local_nchunk - 1]);
 
 
     e += check_mpi_shc(shcs, func_call_str, err);

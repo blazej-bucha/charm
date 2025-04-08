@@ -23,7 +23,7 @@ long int check_sha_point(void)
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
     /* --------------------------------------------------------------------- */
@@ -39,7 +39,7 @@ long int check_sha_point(void)
                                              PREC(1.0));
     if (shcs_ref == NULL)
     {
-        fprintf(stderr, ERR_MSG_SHC);
+        fprintf(stderr, "%s", ERR_MSG_SHC);
         exit(CHARM_FAILURE);
     }
 
@@ -67,13 +67,13 @@ long int check_sha_point(void)
     REAL *dda = (REAL *)malloc((SHCS_NMAX_POT + 1) * sizeof(REAL));
     if (dda == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
     REAL *dda_ref = (REAL *)calloc((SHCS_NMAX_POT + 1), sizeof(REAL));
     if (dda_ref == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 
@@ -105,7 +105,7 @@ long int check_sha_point(void)
                 grd_pnt = CHARM(crd_point_dh2)(nmax_tmp, shcs_ref->r + deltar);
             if (grd_pnt == NULL)
             {
-                fprintf(stderr, ERR_MSG_POINT);
+                fprintf(stderr, "%s", ERR_MSG_POINT);
                 exit(CHARM_FAILURE);
             }
 
@@ -113,7 +113,7 @@ long int check_sha_point(void)
             shcs_out = CHARM(shc_calloc)(nmax_tmp, shcs_ref->mu, shcs_ref->r);
             if (shcs_out == NULL)
             {
-                fprintf(stderr, ERR_MSG_SHC);
+                fprintf(stderr, "%s", ERR_MSG_SHC);
                 exit(CHARM_FAILURE);
             }
 
@@ -121,7 +121,7 @@ long int check_sha_point(void)
             f = (REAL *)malloc(grd_pnt->npoint * sizeof(REAL));
             if (f == NULL)
             {
-                fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+                fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
                 exit(CHARM_FAILURE);
             }
 
@@ -181,7 +181,7 @@ long int check_sha_point(void)
             shcs_ref = CHARM(shc_calloc)(nmax_tmp, PREC(1.0), PREC(1.0));
             if (shcs_ref == NULL)
             {
-                fprintf(stderr, ERR_MSG_SHC);
+                fprintf(stderr, "%s", ERR_MSG_SHC);
                 exit(CHARM_FAILURE);
             }
             for (size_t m = 0; m <= nmax_tmp; m++)
@@ -198,7 +198,7 @@ long int check_sha_point(void)
             dda_ref = (REAL *)calloc((nmax_tmp + 1), sizeof(REAL));
             if (dda_ref == NULL)
             {
-                fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+                fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
                 exit(CHARM_FAILURE);
             }
 
@@ -206,7 +206,7 @@ long int check_sha_point(void)
             dda = (REAL *)calloc((nmax_tmp + 1), sizeof(REAL));
             if (dda_ref == NULL)
             {
-                fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+                fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
                 exit(CHARM_FAILURE);
             }
 
@@ -219,7 +219,7 @@ long int check_sha_point(void)
                 grd_pnt = CHARM(crd_point_dh2)(nmax_tmp, shcs_ref->r);
             if (grd_pnt == NULL)
             {
-                fprintf(stderr, ERR_MSG_POINT);
+                fprintf(stderr, "%s", ERR_MSG_POINT);
                 exit(CHARM_FAILURE);
             }
 
@@ -227,7 +227,7 @@ long int check_sha_point(void)
             shcs_out = CHARM(shc_calloc)(nmax_tmp, shcs_ref->mu, shcs_ref->r);
             if (shcs_out == NULL)
             {
-                fprintf(stderr, ERR_MSG_SHC);
+                fprintf(stderr, "%s", ERR_MSG_SHC);
                 exit(CHARM_FAILURE);
             }
 
@@ -235,7 +235,7 @@ long int check_sha_point(void)
             f = (REAL *)malloc(grd_pnt->npoint * sizeof(REAL));
             if (f == NULL)
             {
-                fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+                fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
                 exit(CHARM_FAILURE);
             }
 

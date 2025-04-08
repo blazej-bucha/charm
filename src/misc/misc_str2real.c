@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include <errno.h>
 #include "../prec.h"
 #include "../err/err_set.h"
@@ -15,7 +16,13 @@
 
 
 
-REAL CHARM(misc_str2real)(const char *str,
+/* Converts "str" to "REAL".  If failed, error message "err_msg" is entered to
+ * "err".
+ *
+ * IMPORTANT NOTE: The function assumes write access to "str" if "d" or "D" is
+ * used as decimal exponents.  "str" should thus not be a string literal,
+ * etc. */
+REAL CHARM(misc_str2real)(char *str,
                           const char *err_msg,
                           CHARM(err) *err)
 {
@@ -47,7 +54,7 @@ REAL CHARM(misc_str2real)(const char *str,
      * by "STR2REAL" is an error, except for one or more spaces or the
      * terminating null byte. */
     while (*end_ptr != '\0')
-        if (*end_ptr++ != ' ')
+        if (!isspace(*end_ptr++))
             goto FAILURE;
 
 

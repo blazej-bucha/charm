@@ -134,7 +134,8 @@ BARRIER:
             sum += local_nlat[i];
         if (sum != pnt->nlat)
         {
-            sprintf(err_msg, "The sum of \"pnt->local_nlat\" is \"%zu\" which "
+            snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                             "The sum of \"pnt->local_nlat\" is \"%zu\" which "
                              "does not match the total number in "
                              "\"pnt->nlat = %zu\".",
                              sum, pnt->nlat);
@@ -161,7 +162,8 @@ BARRIER:
 
         if (sum > 1)
         {
-            sprintf(err_msg, "\"pnt->local_0_start\" is \"0\" at \"%d\" "
+            snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                             "\"pnt->local_0_start\" is \"0\" at \"%d\" "
                              "processes, but this must be true at one "
                              "process.", sum);
             CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
@@ -233,7 +235,8 @@ BARRIER:
 
             if (!match)
             {
-                sprintf(err_msg, "Wrong distribution of latitudinal chunks.  "
+                snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                                 "Wrong distribution of latitudinal chunks.  "
                                  "Expected to find "
                                  "\"pnt->local_0_start = %zu\" on "
                                  "one MPI process.", start);
@@ -277,7 +280,8 @@ BARRIER:
                       MPI_SUM, pnt->comm);
         if (local_nlon_sum != pnt->nlon)
         {
-            sprintf(err_msg, "The sum of \"pnt->local_nlon = %zu\" across "
+            snprintf(err_msg, CHARM_ERR_MAX_MSG,
+                             "The sum of \"pnt->local_nlon = %zu\" across "
                              "all processes in \"pnt->comm\" does not match "
                              "the total number of latitudes "
                              "\"pnt->nlon = %zu\".",

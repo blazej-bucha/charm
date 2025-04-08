@@ -1,8 +1,8 @@
 /* This header file is not a part of API. */
 
 
-#ifndef __WRITE_H__
-#define __WRITE_H__
+#ifndef __ARRAY2FILE_H__
+#define __ARRAY2FILE_H__
 
 
 #include <config.h>

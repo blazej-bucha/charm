@@ -9,7 +9,6 @@ libcharm@P@_shs_la_SOURCES = shs_cell.c \
 							 shs_cell_isurf_coeffs.c \
 							 shs_cell_isurf.c \
 							 shs_cell_isurf_lr.c \
-							 shs_cell_isurf_offset.c \
 							 shs_cell_kernel.c \
 							 shs_cell_sctr.c \
 							 shs_cell_check_grd_lons.c \

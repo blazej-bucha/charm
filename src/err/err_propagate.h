@@ -20,7 +20,7 @@ extern "C"
  * */
 extern void CHARM(err_propagate)(CHARM(err) *err,
                                  const char *file,
-                                 unsigned int line,
+                                 size_t line,
                                  const char *func);
 
 

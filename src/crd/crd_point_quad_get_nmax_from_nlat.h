@@ -15,8 +15,8 @@ extern "C"
 #endif
 
 
-extern size_t CHARM(crd_point_quad_get_nmax_from_nlat)(int,
-                                                       size_t);
+extern unsigned long CHARM(crd_point_quad_get_nmax_from_nlat)(int,
+                                                              size_t);
 
 
 #ifdef __cplusplus

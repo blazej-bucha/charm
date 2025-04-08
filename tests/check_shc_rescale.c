@@ -35,7 +35,7 @@ long int check_shc_rescale(void)
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -43,7 +43,7 @@ long int check_shc_rescale(void)
     CHARM(shc) *shcs = CHARM(shc_calloc)(SHCS_NMAX_POT, PREC(1.0), PREC(1.0));
     if (shcs == NULL)
     {
-        fprintf(stderr, ERR_MSG_SHC);
+        fprintf(stderr, "%s", ERR_MSG_SHC);
         exit(CHARM_FAILURE);
     }
 
@@ -60,8 +60,8 @@ long int check_shc_rescale(void)
     long int e = 0;
     char filec[NSTR_LONG];
     char files[NSTR_LONG];
-    sprintf(filec, "%s/shc_rescale_c%s", FOLDER, FTYPE);
-    sprintf(files, "%s/shc_rescale_s%s", FOLDER, FTYPE);
+    snprintf(filec, NSTR_LONG, "%s/shc_rescale_c%s", FOLDER, FTYPE);
+    snprintf(files, NSTR_LONG, "%s/shc_rescale_s%s", FOLDER, FTYPE);
 #ifdef GENREF
     e += array2file(filec, shcs->c[0], shcs->nc);
     e += array2file(files, shcs->s[0], shcs->ns);

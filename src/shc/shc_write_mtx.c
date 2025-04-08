@@ -51,7 +51,7 @@ void CHARM(shc_write_mtx)(const CHARM(shc) *shcs,
     if (fptr == NULL)
     {
         char msg[CHARM_ERR_MAX_MSG];
-        sprintf(msg, "Couldn't create \"%s\".", pathname);
+        snprintf(msg, CHARM_ERR_MAX_MSG, "Couldn't create \"%s\".", pathname);
         CHARM(err_set)(err, __FILE__, __LINE__, __func__,
                        CHARM_EFILEIO, msg);
         return;
@@ -111,11 +111,11 @@ void CHARM(shc_write_mtx)(const CHARM(shc) *shcs,
 
 
             if (col < nmax)
-                fprintf(fptr, " ");
+                fprintf(fptr, "%s", " ");
         }
 
 
-        if (fprintf(fptr, "\n") < 1)
+        if (fprintf(fptr, "%s", "\n") < 1)
         {
             CHARM(err_set)(err, __FILE__, __LINE__, __func__,
                            CHARM_EFILEIO,

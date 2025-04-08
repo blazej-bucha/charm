@@ -30,7 +30,7 @@ long int check_shs_cell(void)
                                              PREC(1.0));
     if (shcs_pot == NULL)
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -39,7 +39,7 @@ long int check_shs_cell(void)
     CHARM(err) *err = CHARM(err_init)();
     if (err == NULL)
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -129,7 +129,7 @@ long int check_shs_cell(void)
                                                           nlat[i], nlon[i]);
                         if (grd_cell == NULL)
                         {
-                            fprintf(stderr, ERR_MSG_CELL);
+                            fprintf(stderr, "%s", ERR_MSG_CELL);
                             exit(CHARM_FAILURE);
                         }
 
@@ -151,16 +151,18 @@ long int check_shs_cell(void)
 
 
                         /* Generate output file name */
-                        sprintf(file, "%s/shs_%s_nx%lu_n%zu_dr%d_fft%d"
-                                      "_s%d%s",
-                                FOLDER, "c", nmax, i, deltar, fft,
-                                (s == 0) ? 0 : 1, FTYPE);
+                        snprintf(file, NSTR_LONG,
+                                       "%s/shs_%s_nx%lu_n%zu_dr%d_fft%d"
+                                       "_s%d%s",
+                                 FOLDER, "c", nmax, i, deltar, fft,
+                                 (s == 0) ? 0 : 1, FTYPE);
 
 
                         f = (REAL *)malloc(grd_cell->ncell * sizeof(REAL));
                         if (f == NULL)
                         {
-                            fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+                            fprintf(stderr, "%s",
+                                    CHARM_ERR_MALLOC_FAILURE"\n");
                             exit(CHARM_FAILURE);
                         }
 
@@ -215,7 +217,7 @@ long int check_shs_cell(void)
                                                    nlat[i], nlon[i]);
                 if (sctr_cell == NULL)
                 {
-                    fprintf(stderr, ERR_MSG_CELL);
+                    fprintf(stderr, "%s", ERR_MSG_CELL);
                     exit(CHARM_FAILURE);
                 }
 
@@ -224,14 +226,14 @@ long int check_shs_cell(void)
 
 
                 /* Generate output file name */
-                sprintf(file, "%s/shs_%s_nx%lu_n%zu_dr%d_sctr%s",
-                        FOLDER, "c", nmax, i, deltar, FTYPE);
+                snprintf(file, NSTR_LONG, "%s/shs_%s_nx%lu_n%zu_dr%d_sctr%s",
+                         FOLDER, "c", nmax, i, deltar, FTYPE);
 
 
                 f = (REAL *)malloc(sctr_cell->ncell * sizeof(REAL));
                 if (f == NULL)
                 {
-                    fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+                    fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
                     exit(CHARM_FAILURE);
                 }
 

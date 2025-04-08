@@ -53,7 +53,7 @@ long int check_mpi_crd_point_init(void)
     CHARM(err) *err = CHARM(mpi_err_init)(comm);
     if (CHARM(err_is_null_ptr)(err, 1, comm))
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
     /* --------------------------------------------------------------------- */
@@ -66,7 +66,7 @@ long int check_mpi_crd_point_init(void)
     REAL *lat = (REAL *)malloc(local_nlat * sizeof(REAL));
     if (lat == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 
@@ -74,7 +74,7 @@ long int check_mpi_crd_point_init(void)
     REAL *lon = (REAL *)malloc(nlon * sizeof(REAL));
     if (lon == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 
@@ -82,7 +82,7 @@ long int check_mpi_crd_point_init(void)
     REAL *r = (REAL *)malloc(local_nlat * sizeof(REAL));
     if (r == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
 
@@ -92,9 +92,10 @@ long int check_mpi_crd_point_init(void)
     CHARM(err_handler)(err, 0);
 
 
-    sprintf(func_call_str, "%s(%d, %zu, %zu, %zu, MPI_COMM_WORLD, "
-                           "err)", func, type, local_nlat, nlon,
-                           local_0_start);
+    snprintf(func_call_str, NSTR_LONG,
+                            "%s(%d, %zu, %zu, %zu, MPI_COMM_WORLD, "
+                            "err)", func, type, local_nlat, nlon,
+                            local_0_start);
 
 
     e += check_mpi_crd_point(pnt, func_call_str, err);
@@ -126,7 +127,7 @@ long int check_mpi_crd_point_init(void)
     CHARM(err) *err_d0 = CHARM(err_init)();
     if (err_d0 == NULL)
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -138,9 +139,10 @@ long int check_mpi_crd_point_init(void)
     if (err_d0->code == CHARM_SUCCESS)
     {
         char err_msg[NSTR_LONG];
-        sprintf(err_msg, "\"%s\" incorrectly accepted non-distributed "
-                         "\"charm" CHARM_SUFFIX "_err\" structure", func);
-        fprintf(stderr, err_msg);
+        snprintf(err_msg, NSTR_LONG,
+                          "\"%s\" incorrectly accepted non-distributed "
+                          "\"charm" CHARM_SUFFIX "_err\" structure", func);
+        fprintf(stderr, "%s", err_msg);
         e += 1;
 
 

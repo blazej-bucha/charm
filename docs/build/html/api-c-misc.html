@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>charm_misc &#8212; CHarm 0.4.4 documentation</title>
+    <title>charm_misc &#8212; CHarm 0.4.5 documentation</title>
   
   
   
@@ -40,7 +40,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="_static/documentation_options.js?v=9a529362"></script>
+    <script src="_static/documentation_options.js?v=21ae117f"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -52,8 +52,8 @@
     <link rel="prev" title="charm_integ" href="api-c-integ.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.4.4" />
-    <meta name="docbuild:last-update" content="Feb 12, 2025"/>
+  <meta name="docsearch:version" content="0.4.5" />
+    <meta name="docbuild:last-update" content="Apr 07, 2025"/>
   </head>
   
   
@@ -136,7 +136,7 @@
     <img src="_static/charm-logo.svg" class="logo__image only-dark pst-js-only" alt=""/>
   
   
-    <p class="title logo__title">CHarm v0.4.4</p>
+    <p class="title logo__title">CHarm v0.4.5</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -171,6 +171,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-sha.html">charm_sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-gfm.html">charm_gfm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-leg.html">charm_leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">charm_misc</a></li>
@@ -185,6 +186,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">pyharm.sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-gfm.html">pyharm.gfm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-leg.html">pyharm.leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">pyharm.integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
@@ -402,6 +404,12 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_VERSION_MAJOR"><code class="docutils literal notranslate"><span class="pre">CHARM_VERSION_MAJOR</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_VERSION_MINOR"><code class="docutils literal notranslate"><span class="pre">CHARM_VERSION_MINOR</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_VERSION_PATCH"><code class="docutils literal notranslate"><span class="pre">CHARM_VERSION_PATCH</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_VERSION_STRING"><code class="docutils literal notranslate"><span class="pre">CHARM_VERSION_STRING</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_MIN"><code class="docutils literal notranslate"><span class="pre">CHARM_MIN</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_MAX"><code class="docutils literal notranslate"><span class="pre">CHARM_MAX</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv422charm_misc_get_versionv"><code class="docutils literal notranslate"><span class="pre">charm_misc_get_version()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv421charm_misc_print_infov"><code class="docutils literal notranslate"><span class="pre">charm_misc_print_info()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv429charm_misc_buildopt_precisionv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_precision()</span></code></a></li>
@@ -410,7 +418,11 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv429charm_misc_buildopt_omp_charmv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_omp_charm()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv428charm_misc_buildopt_omp_fftwv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_omp_fftw()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv423charm_misc_buildopt_mpiv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_mpi()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv424charm_misc_buildopt_mpfrv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_mpfr()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv432charm_misc_buildopt_version_fftwv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_version_fftw()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv431charm_misc_buildopt_version_mpiPiPiPiPi"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_version_mpi()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv432charm_misc_buildopt_version_mpfrPiPiPi"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_version_mpfr()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv431charm_misc_buildopt_version_gmpPiPiPi"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_version_gmp()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv428charm_misc_buildopt_isfinitev"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_isfinite()</span></code></a></li>
 </ul>
             </nav>
@@ -447,13 +459,13 @@ CHarm.</p>
 
 <dl class="cpp macro">
 <dt class="sig sig-object cpp" id="c.CHARM_VERSION_PATCH">
-<span class="target" id="charm__misc_8h_1ae357fec8d63b5118bf7bb30d4f987029"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_VERSION_PATCH</span></span></span> <span class="pre">4</span><a class="headerlink" href="#c.CHARM_VERSION_PATCH" title="Link to this definition">#</a><br /></dt>
+<span class="target" id="charm__misc_8h_1ae357fec8d63b5118bf7bb30d4f987029"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_VERSION_PATCH</span></span></span> <span class="pre">5</span><a class="headerlink" href="#c.CHARM_VERSION_PATCH" title="Link to this definition">#</a><br /></dt>
 <dd><p>Patch number of CHarm. </p>
 </dd></dl>
 
 <dl class="cpp macro">
 <dt class="sig sig-object cpp" id="c.CHARM_VERSION_STRING">
-<span class="target" id="charm__misc_8h_1a36ebf3672df1a097e2476b797116aa31"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_VERSION_STRING</span></span></span> <span class="pre">&quot;0.4.4&quot;</span><a class="headerlink" href="#c.CHARM_VERSION_STRING" title="Link to this definition">#</a><br /></dt>
+<span class="target" id="charm__misc_8h_1a36ebf3672df1a097e2476b797116aa31"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_VERSION_STRING</span></span></span> <span class="pre">&quot;0.4.5&quot;</span><a class="headerlink" href="#c.CHARM_VERSION_STRING" title="Link to this definition">#</a><br /></dt>
 <dd><p>Version of CHarm. </p>
 </dd></dl>
 
@@ -527,7 +539,7 @@ CHarm.</p>
 <dt class="sig sig-object cpp" id="_CPPv428charm_misc_buildopt_omp_fftwv">
 <span id="_CPPv328charm_misc_buildopt_omp_fftwv"></span><span id="_CPPv228charm_misc_buildopt_omp_fftwv"></span><span id="charm_misc_buildopt_omp_fftw__void"></span><span class="target" id="charm__misc_8h_1ac869ccc00d2ef189bd93f256c7d67848"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_misc_buildopt_omp_fftw</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv428charm_misc_buildopt_omp_fftwv" title="Link to this definition">#</a><br /></dt>
 <dd><p>Returns a non-zero value if the host’s FFTW library supports OpenMP parallelization. Otherwise, zero is returned. </p>
-<p>If non-zero, all FFTW computations are parallelized. </p>
+<p>If non-zero, FFTW computations are parallelized. </p>
 </dd></dl>
 
 <dl class="cpp function">
@@ -537,9 +549,40 @@ CHarm.</p>
 </dd></dl>
 
 <dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv424charm_misc_buildopt_mpfrv">
+<span id="_CPPv324charm_misc_buildopt_mpfrv"></span><span id="_CPPv224charm_misc_buildopt_mpfrv"></span><span id="charm_misc_buildopt_mpfr__void"></span><span class="target" id="charm__misc_8h_1ab549645722df6d548cd0d54f30825f4c"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_misc_buildopt_mpfr</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424charm_misc_buildopt_mpfrv" title="Link to this definition">#</a><br /></dt>
+<dd><p>Returns a non-zero value if CHarm was compiled with the MPFR enabled (<code class="docutils literal notranslate"><span class="pre">--enable-mpfr</span></code>). Otherwise, zero is returned. </p>
+</dd></dl>
+
+<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv432charm_misc_buildopt_version_fftwv">
 <span id="_CPPv332charm_misc_buildopt_version_fftwv"></span><span id="_CPPv232charm_misc_buildopt_version_fftwv"></span><span id="charm_misc_buildopt_version_fftw__void"></span><span class="target" id="charm__misc_8h_1a0a70e48bf534e72b30f03f9384ab3951"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_misc_buildopt_version_fftw</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv432charm_misc_buildopt_version_fftwv" title="Link to this definition">#</a><br /></dt>
 <dd><p>Returns a string specifying the FFTW library version. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv431charm_misc_buildopt_version_mpiPiPiPiPi">
+<span id="_CPPv331charm_misc_buildopt_version_mpiPiPiPiPi"></span><span id="_CPPv231charm_misc_buildopt_version_mpiPiPiPiPi"></span><span id="charm_misc_buildopt_version_mpi__iP.iP.iP.iP"></span><span class="target" id="charm__misc_8h_1ac79118c459c3b3c772faf8856e54f831"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">charm_misc_buildopt_version_mpi</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">major_header</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">minor_header</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">major_lib</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">minor_lib</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv431charm_misc_buildopt_version_mpiPiPiPiPi" title="Link to this definition">#</a><br /></dt>
+<dd><p>If CHarm was compiled with the MPI parallelization enabled (<code class="docutils literal notranslate"><span class="pre">--enable-mpi</span></code>), sets <code class="docutils literal notranslate"><span class="pre">major_header</span></code>, <code class="docutils literal notranslate"><span class="pre">major_lib</span></code> and <code class="docutils literal notranslate"><span class="pre">minor_header</span></code>, <code class="docutils literal notranslate"><span class="pre">minor_lib</span></code> to the version (<code class="docutils literal notranslate"><span class="pre">major_*</span></code>) and subversion (<code class="docutils literal notranslate"><span class="pre">minor_*</span></code>) of the MPI standard that is being supported by the linked MPI implementation. The <code class="docutils literal notranslate"><span class="pre">*_header</span></code> values are taken from the included MPI’s header file on compile time and the <code class="docutils literal notranslate"><span class="pre">*_lib</span></code> values are determined on runtime. If MPI parallelization is disabled, all four values are set to <code class="docutils literal notranslate"><span class="pre">-1</span></code>. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All four version numbers are related to the MPI standard.  To see the
+version of the linked MPI implementation, call
+<code class="docutils literal notranslate"><span class="pre">charm_misc_print_info()</span></code>.</p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv432charm_misc_buildopt_version_mpfrPiPiPi">
+<span id="_CPPv332charm_misc_buildopt_version_mpfrPiPiPi"></span><span id="_CPPv232charm_misc_buildopt_version_mpfrPiPiPi"></span><span id="charm_misc_buildopt_version_mpfr__iP.iP.iP"></span><span class="target" id="charm__misc_8h_1a895ce1aae61bb625f33d8125b9f20ff4"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_misc_buildopt_version_mpfr</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">major</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">minor</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">patch</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv432charm_misc_buildopt_version_mpfrPiPiPi" title="Link to this definition">#</a><br /></dt>
+<dd><p>If CHarm was compiled with the MPFR support (<code class="docutils literal notranslate"><span class="pre">--enable-mpfr</span></code>), returns a string determined on runtime specifying the MPFR library version and sets <code class="docutils literal notranslate"><span class="pre">major</span></code>, <code class="docutils literal notranslate"><span class="pre">minor</span></code> and <code class="docutils literal notranslate"><span class="pre">patch</span></code> to the symbolic constants <code class="docutils literal notranslate"><span class="pre">MPFR_VERSION_MAJOR</span></code>, <code class="docutils literal notranslate"><span class="pre">MPFR_VERSION_MINOR</span></code> and <code class="docutils literal notranslate"><span class="pre">MPFR_VERSION_PATCHLEVEL</span></code> determined on compile time. Should any of the symbolic constants not be defined, the corresponding input parameter is set to <code class="docutils literal notranslate"><span class="pre">-1</span></code>. </p>
+<p>If CHarm was compiled without the MPFR support, returns the <code class="docutils literal notranslate"><span class="pre">n/a</span></code> string and sets <code class="docutils literal notranslate"><span class="pre">major</span></code>, <code class="docutils literal notranslate"><span class="pre">minor</span></code> and <code class="docutils literal notranslate"><span class="pre">patch</span></code> to <code class="docutils literal notranslate"><span class="pre">-1</span></code>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv431charm_misc_buildopt_version_gmpPiPiPi">
+<span id="_CPPv331charm_misc_buildopt_version_gmpPiPiPi"></span><span id="_CPPv231charm_misc_buildopt_version_gmpPiPiPi"></span><span id="charm_misc_buildopt_version_gmp__iP.iP.iP"></span><span class="target" id="charm__misc_8h_1abee75de4cdc2c593324cacd69d421be2"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">charm_misc_buildopt_version_gmp</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">major</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">minor</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">patch</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv431charm_misc_buildopt_version_gmpPiPiPi" title="Link to this definition">#</a><br /></dt>
+<dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="#charm__misc_8h_1a895ce1aae61bb625f33d8125b9f20ff4"><span class="std std-ref"><span class="pre">charm_misc_buildopt_version_mpfr()</span></span></a></code> but for the GMP library (note that <code class="docutils literal notranslate"><span class="pre">--enable-gmp</span></code> is not a valid installation flag, though). </p>
 </dd></dl>
 
 <dl class="cpp function">
@@ -598,6 +641,12 @@ CHarm.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_VERSION_MAJOR"><code class="docutils literal notranslate"><span class="pre">CHARM_VERSION_MAJOR</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_VERSION_MINOR"><code class="docutils literal notranslate"><span class="pre">CHARM_VERSION_MINOR</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_VERSION_PATCH"><code class="docutils literal notranslate"><span class="pre">CHARM_VERSION_PATCH</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_VERSION_STRING"><code class="docutils literal notranslate"><span class="pre">CHARM_VERSION_STRING</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_MIN"><code class="docutils literal notranslate"><span class="pre">CHARM_MIN</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_MAX"><code class="docutils literal notranslate"><span class="pre">CHARM_MAX</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv422charm_misc_get_versionv"><code class="docutils literal notranslate"><span class="pre">charm_misc_get_version()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv421charm_misc_print_infov"><code class="docutils literal notranslate"><span class="pre">charm_misc_print_info()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv429charm_misc_buildopt_precisionv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_precision()</span></code></a></li>
@@ -606,7 +655,11 @@ CHarm.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv429charm_misc_buildopt_omp_charmv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_omp_charm()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv428charm_misc_buildopt_omp_fftwv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_omp_fftw()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv423charm_misc_buildopt_mpiv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_mpi()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv424charm_misc_buildopt_mpfrv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_mpfr()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv432charm_misc_buildopt_version_fftwv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_version_fftw()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv431charm_misc_buildopt_version_mpiPiPiPiPi"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_version_mpi()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv432charm_misc_buildopt_version_mpfrPiPiPi"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_version_mpfr()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv431charm_misc_buildopt_version_gmpPiPiPi"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_version_gmp()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv428charm_misc_buildopt_isfinitev"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_isfinite()</span></code></a></li>
 </ul>
   </nav></div>
@@ -641,7 +694,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Feb 12, 2025.
+  Last updated on Apr 07, 2025.
   <br/>
 </p>
   </div>

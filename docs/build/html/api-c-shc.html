@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>charm_shc &#8212; CHarm 0.4.4 documentation</title>
+    <title>charm_shc &#8212; CHarm 0.4.5 documentation</title>
   
   
   
@@ -40,7 +40,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="_static/documentation_options.js?v=9a529362"></script>
+    <script src="_static/documentation_options.js?v=21ae117f"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -53,8 +53,8 @@
     <link rel="prev" title="CHarm (C API)" href="api-c.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.4.4" />
-    <meta name="docbuild:last-update" content="Feb 12, 2025"/>
+  <meta name="docsearch:version" content="0.4.5" />
+    <meta name="docbuild:last-update" content="Apr 07, 2025"/>
   </head>
   
   
@@ -137,7 +137,7 @@
     <img src="_static/charm-logo.svg" class="logo__image only-dark pst-js-only" alt=""/>
   
   
-    <p class="title logo__title">CHarm v0.4.4</p>
+    <p class="title logo__title">CHarm v0.4.5</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -172,6 +172,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-sha.html">charm_sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-gfm.html">charm_gfm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-leg.html">charm_leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
@@ -186,6 +187,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">pyharm.sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-gfm.html">pyharm.gfm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-leg.html">pyharm.leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">pyharm.integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
@@ -403,6 +405,8 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_SHC_NMAX_MODEL"><code class="docutils literal notranslate"><span class="pre">CHARM_SHC_NMAX_MODEL</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_SHC_NMAX_ERROR"><code class="docutils literal notranslate"><span class="pre">CHARM_SHC_NMAX_ERROR</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv416charm_shc_mallocmdd"><code class="docutils literal notranslate"><span class="pre">charm_shc_malloc()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv416charm_shc_callocmdd"><code class="docutils literal notranslate"><span class="pre">charm_shc_calloc()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv414charm_shc_initmddPdPd"><code class="docutils literal notranslate"><span class="pre">charm_shc_init()</span></code></a></li>
@@ -422,25 +426,25 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv413charm_shc_ddaPK9charm_shcPK9charm_shcmPdP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_shc_dda()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv417charm_shc_rescaleP9charm_shcddP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_shc_rescale()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4Ut1_4"><code class="docutils literal notranslate"><span class="pre">@4</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_417CHARM_SHC_WRITE_NE"><code class="docutils literal notranslate"><span class="pre">@4::CHARM_SHC_WRITE_N</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_417CHARM_SHC_WRITE_ME"><code class="docutils literal notranslate"><span class="pre">@4::CHARM_SHC_WRITE_M</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_417CHARM_SHC_WRITE_NE"><code class="docutils literal notranslate"><span class="pre">CHARM_SHC_WRITE_N</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_417CHARM_SHC_WRITE_ME"><code class="docutils literal notranslate"><span class="pre">CHARM_SHC_WRITE_M</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv49charm_shc"><code class="docutils literal notranslate"><span class="pre">charm_shc</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc4nmaxE"><code class="docutils literal notranslate"><span class="pre">charm_shc::nmax</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc2muE"><code class="docutils literal notranslate"><span class="pre">charm_shc::mu</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc1rE"><code class="docutils literal notranslate"><span class="pre">charm_shc::r</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc2ncE"><code class="docutils literal notranslate"><span class="pre">charm_shc::nc</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc2nsE"><code class="docutils literal notranslate"><span class="pre">charm_shc::ns</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc1cE"><code class="docutils literal notranslate"><span class="pre">charm_shc::c</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc1sE"><code class="docutils literal notranslate"><span class="pre">charm_shc::s</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc5ownerE"><code class="docutils literal notranslate"><span class="pre">charm_shc::owner</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc11distributedE"><code class="docutils literal notranslate"><span class="pre">charm_shc::distributed</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc8local_ncE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_nc</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc8local_nsE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_ns</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc12local_nchunkE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_nchunk</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc11local_orderE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_order</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc4commE"><code class="docutils literal notranslate"><span class="pre">charm_shc::comm</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc4nmaxE"><code class="docutils literal notranslate"><span class="pre">nmax</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc2muE"><code class="docutils literal notranslate"><span class="pre">mu</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc1rE"><code class="docutils literal notranslate"><span class="pre">r</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc2ncE"><code class="docutils literal notranslate"><span class="pre">nc</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc2nsE"><code class="docutils literal notranslate"><span class="pre">ns</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc1cE"><code class="docutils literal notranslate"><span class="pre">c</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc1sE"><code class="docutils literal notranslate"><span class="pre">s</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc5ownerE"><code class="docutils literal notranslate"><span class="pre">owner</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc11distributedE"><code class="docutils literal notranslate"><span class="pre">distributed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc8local_ncE"><code class="docutils literal notranslate"><span class="pre">local_nc</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc8local_nsE"><code class="docutils literal notranslate"><span class="pre">local_ns</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc12local_nchunkE"><code class="docutils literal notranslate"><span class="pre">local_nchunk</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc11local_orderE"><code class="docutils literal notranslate"><span class="pre">local_order</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc4commE"><code class="docutils literal notranslate"><span class="pre">comm</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -474,7 +478,7 @@
 <p>The values are used with <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a8964cfa35210c0504a66352d4a08de62"><span class="std std-ref"><span class="pre">charm_shc_read_dov()</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1af6995bacff72c260aecb449bf9a41967"><span class="std std-ref"><span class="pre">charm_shc_read_gfc()</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1ad38866f0da4c14d02631c4ddbb723a1a"><span class="std std-ref"><span class="pre">charm_shc_read_tbl()</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a15f826d9e23977fd774db07c11a22939"><span class="std std-ref"><span class="pre">charm_shc_read_mtx()</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a8964cfa35210c0504a66352d4a08de62"><span class="std std-ref"><span class="pre">charm_shc_read_dov()</span></span></a></code>. </p>
 <dl class="cpp macro">
 <dt class="sig sig-object cpp" id="c.CHARM_SHC_NMAX_MODEL">
-<span class="target" id="charm__shc_8h_1a386fcf3135c8b896e0ab20d4ab63c5a2"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_SHC_NMAX_MODEL</span></span></span> <span class="pre">(ULONG_MAX</span> <span class="pre">-</span> <span class="pre">1)</span><a class="headerlink" href="#c.CHARM_SHC_NMAX_MODEL" title="Link to this definition">#</a><br /></dt>
+<span class="target" id="charm__shc_8h_1a386fcf3135c8b896e0ab20d4ab63c5a2"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_SHC_NMAX_MODEL</span></span></span> <span class="pre">(ULONG_MAX</span> <span class="pre">-</span> <span class="pre">1UL)</span><a class="headerlink" href="#c.CHARM_SHC_NMAX_MODEL" title="Link to this definition">#</a><br /></dt>
 <dd><p>Special value of the <code class="docutils literal notranslate"><span class="pre">nmax</span></code> input parameter to all functions that read spherical harmonic coefficients. If <code class="docutils literal notranslate"><span class="pre">nmax</span></code> is <code class="docutils literal notranslate"><a class="reference internal" href="#charm__shc_8h_1a386fcf3135c8b896e0ab20d4ab63c5a2"><span class="std std-ref"><span class="pre">CHARM_SHC_NMAX_MODEL</span></span></a></code> and <code class="docutils literal notranslate"><span class="pre">shcs</span></code> is <code class="docutils literal notranslate"><span class="pre">NULL</span></code>, the functions return the maximum harmonic degree found inside the file and do not read the rest of the file (see the documentation to <code class="docutils literal notranslate"><span class="pre">charm_shc_read_*</span></code> functions). The value is platform-dependent. </p>
 </dd></dl>
 
@@ -925,10 +929,16 @@ The path to the output file in <code class="docutils literal notranslate"><span 
 0 &amp; 0 &amp; \bar{C}_{0,0}\\
 1 &amp; 0 &amp; \bar{C}_{1,0}\\
 2 &amp; 0 &amp; \bar{C}_{2,0}\\
+\vdots &amp; \vdots &amp; \vdots \\
+\mathrm{nmax} &amp; 0 &amp; \bar{C}_{\mathrm{nmax},0}\\
 1 &amp; 1 &amp; \bar{C}_{1,1}\\
 1 &amp; -1 &amp; \bar{S}_{1,1}\\
 2 &amp; 1 &amp; \bar{C}_{2,1}\\
 2 &amp; -1 &amp; \bar{S}_{2,1}\\
+3 &amp; 1 &amp; \bar{C}_{3,1}\\
+3 &amp; -1 &amp; \bar{S}_{3,1}\\
+\vdots &amp; \vdots &amp; \vdots \\
+\mathrm{nmax} &amp; -1 &amp; \bar{S}_{\mathrm{nmax},1}\\
 2 &amp; 2 &amp; \bar{C}_{2,2}\\
 2 &amp; -2 &amp; \bar{S}_{2,2}\\
 \vdots &amp; \vdots &amp; \vdots \\
@@ -1325,6 +1335,8 @@ m_1}}_{\textrm{chunk 0}} | \underbrace{\bar{C}_{m_2, m_2}, ...,
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_SHC_NMAX_MODEL"><code class="docutils literal notranslate"><span class="pre">CHARM_SHC_NMAX_MODEL</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_SHC_NMAX_ERROR"><code class="docutils literal notranslate"><span class="pre">CHARM_SHC_NMAX_ERROR</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv416charm_shc_mallocmdd"><code class="docutils literal notranslate"><span class="pre">charm_shc_malloc()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv416charm_shc_callocmdd"><code class="docutils literal notranslate"><span class="pre">charm_shc_calloc()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv414charm_shc_initmddPdPd"><code class="docutils literal notranslate"><span class="pre">charm_shc_init()</span></code></a></li>
@@ -1344,25 +1356,25 @@ m_1}}_{\textrm{chunk 0}} | \underbrace{\bar{C}_{m_2, m_2}, ...,
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv413charm_shc_ddaPK9charm_shcPK9charm_shcmPdP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_shc_dda()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv417charm_shc_rescaleP9charm_shcddP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_shc_rescale()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4Ut1_4"><code class="docutils literal notranslate"><span class="pre">@4</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_417CHARM_SHC_WRITE_NE"><code class="docutils literal notranslate"><span class="pre">@4::CHARM_SHC_WRITE_N</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_417CHARM_SHC_WRITE_ME"><code class="docutils literal notranslate"><span class="pre">@4::CHARM_SHC_WRITE_M</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_417CHARM_SHC_WRITE_NE"><code class="docutils literal notranslate"><span class="pre">CHARM_SHC_WRITE_N</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_417CHARM_SHC_WRITE_ME"><code class="docutils literal notranslate"><span class="pre">CHARM_SHC_WRITE_M</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv49charm_shc"><code class="docutils literal notranslate"><span class="pre">charm_shc</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc4nmaxE"><code class="docutils literal notranslate"><span class="pre">charm_shc::nmax</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc2muE"><code class="docutils literal notranslate"><span class="pre">charm_shc::mu</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc1rE"><code class="docutils literal notranslate"><span class="pre">charm_shc::r</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc2ncE"><code class="docutils literal notranslate"><span class="pre">charm_shc::nc</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc2nsE"><code class="docutils literal notranslate"><span class="pre">charm_shc::ns</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc1cE"><code class="docutils literal notranslate"><span class="pre">charm_shc::c</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc1sE"><code class="docutils literal notranslate"><span class="pre">charm_shc::s</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc5ownerE"><code class="docutils literal notranslate"><span class="pre">charm_shc::owner</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc11distributedE"><code class="docutils literal notranslate"><span class="pre">charm_shc::distributed</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc8local_ncE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_nc</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc8local_nsE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_ns</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc12local_nchunkE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_nchunk</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc11local_orderE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_order</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc4commE"><code class="docutils literal notranslate"><span class="pre">charm_shc::comm</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc4nmaxE"><code class="docutils literal notranslate"><span class="pre">nmax</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc2muE"><code class="docutils literal notranslate"><span class="pre">mu</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc1rE"><code class="docutils literal notranslate"><span class="pre">r</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc2ncE"><code class="docutils literal notranslate"><span class="pre">nc</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc2nsE"><code class="docutils literal notranslate"><span class="pre">ns</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc1cE"><code class="docutils literal notranslate"><span class="pre">c</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc1sE"><code class="docutils literal notranslate"><span class="pre">s</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc5ownerE"><code class="docutils literal notranslate"><span class="pre">owner</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc11distributedE"><code class="docutils literal notranslate"><span class="pre">distributed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc8local_ncE"><code class="docutils literal notranslate"><span class="pre">local_nc</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc8local_nsE"><code class="docutils literal notranslate"><span class="pre">local_ns</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc12local_nchunkE"><code class="docutils literal notranslate"><span class="pre">local_nchunk</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc11local_orderE"><code class="docutils literal notranslate"><span class="pre">local_order</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N9charm_shc4commE"><code class="docutils literal notranslate"><span class="pre">comm</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1398,7 +1410,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Feb 12, 2025.
+  Last updated on Apr 07, 2025.
   <br/>
 </p>
   </div>

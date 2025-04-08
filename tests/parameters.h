@@ -212,16 +212,6 @@
 #endif
 
 
-/* Format to print/write floating points */
-#if CHARM_FLOAT
-#   define FORMAT "%0.7e"
-#elif CHARM_QUAD
-#   define FORMAT "%0.34Qe"
-#else
-#   define FORMAT "%0.16e"
-#endif
-
-
 /* In the tests, we want to use reference potential coefficients that are all
  * non-zero, but this is not the case with the degree-1 coefficients of our
  * reference model.  Therefore, in some of the tests, we artificially set these
@@ -302,6 +292,112 @@
 #undef NCHUNK_MAX
 #define NCHUNK_MAX 3
 #endif
+
+
+/* Path to input spherical harmonic coefficients of the lunar shape */
+#undef SHCS_IN_PATH_MOON_SHAPE
+#define SHCS_IN_PATH_MOON_SHAPE "../data/input/MoonTopo2600p_to10-tbl.txt"
+
+
+/* Paths to input spherical harmonic coefficients of the lunar crust density */
+#undef SHCS_IN_PATH_MOON_DENSITY0
+#define SHCS_IN_PATH_MOON_DENSITY0 "../data/input/moon-rho0_to10.tbl"
+#undef SHCS_IN_PATH_MOON_DENSITY1
+#define SHCS_IN_PATH_MOON_DENSITY1 "../data/input/moon-rho1_to10.tbl"
+
+
+/* Order of the polynomial density coefficients */
+#undef GFM_MOON_IMAX
+#define GFM_MOON_IMAX (1U)
+
+
+/* Maximum harmonic degree of the lunar shape in "SHCS_IN_PATH_MOON_SHAPE" */
+#undef SHCS_NMAX_MOON_SHAPE
+#define SHCS_NMAX_MOON_SHAPE (10UL)
+
+
+/* Maximum harmonic degree of the lunar crust density in
+ * "SHCS_IN_PATH_MOON_DENSITY*" */
+#undef SHCS_NMAX_MOON_DENSITY0
+#define SHCS_NMAX_MOON_DENSITY0 (10UL)
+#undef SHCS_NMAX_MOON_DENSITY1
+#define SHCS_NMAX_MOON_DENSITY1 (10UL)
+
+
+/* Moon's Bjerhammar sphere */
+#undef MOON_RREF
+#define MOON_RREF (PREC(1728000.0))
+
+
+/* Newton's gravitational constant ("kg^-1 * m^3 * s^-2") */
+#undef GRAV_CONST
+#define GRAV_CONST (PREC(6.67430e-11))
+
+
+/* Mass of the Moon ("kg") */
+#undef MOON_MASS
+#define MOON_MASS (PREC(7.346e22))
+
+
+/* Minimum and maximum topography powers in GFM */
+#undef GFM_MOON_PMIN
+#define GFM_MOON_PMIN (1U)
+#undef GFM_MOON_PMAX
+#define GFM_MOON_PMAX (4U)
+
+
+/* Maximum harmonic degree of the implied gravitational potential in SGFM */
+#undef GFM_NMAX_POTENTIAL
+#define GFM_NMAX_POTENTIAL (10UL)
+
+
+/* Constant density of the lunar crust */
+#undef GFM_MOON_DENSITY_CONST
+#define GFM_MOON_DENSITY_CONST (PREC(2550.0))
+
+
+/* Minimum and maximum orders of the radial derivatives of the output
+ * gravitational quantity with cap-modified SGFM */
+#undef GFM_CAP_KMIN
+#define GFM_CAP_KMIN (0U)
+#undef GFM_CAP_KMAX
+#define GFM_CAP_KMAX (2U)
+
+
+/* Integration radius with cap-modified SGFM */
+#undef GFM_CAP_PSI0
+#define GFM_CAP_PSI0 (PREC(1.0))
+
+
+/* Height of the evaluation sphere above the Bjerhammar sphere with
+ * cap-modified SGFM */
+#undef GFM_CAP_HEIGHT
+#define GFM_CAP_HEIGHT (PREC(25000.0))
+
+
+/* Number of bits to represent significants of floating point numbers used to
+ * compute truncation coefficients */
+#undef GFM_CAP_NBITS
+#define GFM_CAP_NBITS (256)
+
+
+/* Maximum order of the potential derivative in cap-modified SGFM */
+#undef GFM_CAP_UMAX
+#define GFM_CAP_UMAX (2U)
+
+
+/* Maximum order of polynomial density coefficients in tests of truncation
+ * coefficients */
+#undef GFM_Q_IMAX
+#define GFM_Q_IMAX (3U)
+
+
+/* Threshold to just whether two "mpfr_t" numbers are nearly equal (similar to
+ * "CHARM(glob_threshold)").  The value must be proportional to
+ * "GFM_CAP_NBITS", meaning that it must be neither too low, nor too large.  No
+ * "PREC" macro should be used here. */
+#undef GFM_Q_THRESHOLD
+#define GFM_Q_THRESHOLD (1e-70)
 
 
 #endif

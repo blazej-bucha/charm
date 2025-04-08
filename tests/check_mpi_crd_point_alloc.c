@@ -57,9 +57,9 @@ long int check_mpi_crd_point_alloc(CHARM(point) *(*mpi_alloc)(int,
 
     char func[NSTR_SHORT];
     if (mpi_alloc == CHARM(mpi_crd_point_malloc))
-        sprintf(func, "mpi_crd_point_malloc");
+        snprintf(func, NSTR_SHORT, "mpi_crd_point_malloc");
     else if (mpi_alloc == CHARM(mpi_crd_point_calloc))
-        sprintf(func, "mpi_crd_point_calloc");
+        snprintf(func, NSTR_SHORT, "mpi_crd_point_calloc");
 
 
     int type;
@@ -79,7 +79,7 @@ long int check_mpi_crd_point_alloc(CHARM(point) *(*mpi_alloc)(int,
     CHARM(err) *err = CHARM(mpi_err_init)(comm);
     if (CHARM(err_is_null_ptr)(err, 1, comm))
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
     /* --------------------------------------------------------------------- */
@@ -105,9 +105,10 @@ long int check_mpi_crd_point_alloc(CHARM(point) *(*mpi_alloc)(int,
                     CHARM(err_handler)(err, 0);
 
 
-                sprintf(func_call_str, "%s(%d, %zu, %zu, %zu, MPI_COMM_WORLD, "
-                                       "err)", func, type, i, j,
-                                       local_0_start);
+                snprintf(func_call_str, NSTR_LONG,
+                                        "%s(%d, %zu, %zu, %zu, MPI_COMM_WORLD, "
+                                        "err)", func, type, i, j,
+                                        local_0_start);
 
 
                 if ((type == CHARM_CRD_POINT_SCATTERED) && (i != j))
@@ -144,7 +145,7 @@ long int check_mpi_crd_point_alloc(CHARM(point) *(*mpi_alloc)(int,
     CHARM(err) *err_d0 = CHARM(err_init)();
     if (err_d0 == NULL)
     {
-        fprintf(stderr, ERR_MSG_ERR);
+        fprintf(stderr, "%s", ERR_MSG_ERR);
         exit(CHARM_FAILURE);
     }
 
@@ -155,9 +156,10 @@ long int check_mpi_crd_point_alloc(CHARM(point) *(*mpi_alloc)(int,
     if (err_d0->code == CHARM_SUCCESS)
     {
         char err_msg[NSTR_LONG];
-        sprintf(err_msg, "\"%s\" incorrectly accepted non-distributed "
-                         "\"charm" CHARM_SUFFIX "_err\" structure", func);
-        fprintf(stderr, err_msg);
+        snprintf(err_msg, NSTR_LONG,
+                          "\"%s\" incorrectly accepted non-distributed "
+                          "\"charm" CHARM_SUFFIX "_err\" structure", func);
+        fprintf(stderr, "%s", err_msg);
         e += 1;
 
 

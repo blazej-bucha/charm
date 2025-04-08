@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>CHarm (C API) &#8212; CHarm 0.4.4 documentation</title>
+    <title>CHarm (C API) &#8212; CHarm 0.4.5 documentation</title>
   
   
   
@@ -40,11 +40,10 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="_static/documentation_options.js?v=9a529362"></script>
+    <script src="_static/documentation_options.js?v=21ae117f"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api-c';</script>
     <link rel="icon" href="_static/charm-logo.svg"/>
     <link rel="index" title="Index" href="genindex.html" />
@@ -53,8 +52,8 @@
     <link rel="prev" title="Interfaces" href="api.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.4.4" />
-    <meta name="docbuild:last-update" content="Feb 12, 2025"/>
+  <meta name="docsearch:version" content="0.4.5" />
+    <meta name="docbuild:last-update" content="Apr 07, 2025"/>
   </head>
   
   
@@ -137,7 +136,7 @@
     <img src="_static/charm-logo.svg" class="logo__image only-dark pst-js-only" alt=""/>
   
   
-    <p class="title logo__title">CHarm v0.4.4</p>
+    <p class="title logo__title">CHarm v0.4.5</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -172,6 +171,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-c-crd.html">charm_crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-shs.html">charm_shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-sha.html">charm_sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-gfm.html">charm_gfm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-leg.html">charm_leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-integ.html">charm_integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-c-misc.html">charm_misc</a></li>
@@ -186,6 +186,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api-py-crd.html">pyharm.crd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-shs.html">pyharm.shs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-sha.html">pyharm.sha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-py-gfm.html">pyharm.gfm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-leg.html">pyharm.leg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-integ.html">pyharm.integ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api-py-misc.html">pyharm.misc</a></li>
@@ -420,6 +421,8 @@ omitted.  The list of the differences is given in
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api-c-shc.html">charm_shc</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api-c-shc.html#c.CHARM_SHC_NMAX_MODEL"><code class="docutils literal notranslate"><span class="pre">CHARM_SHC_NMAX_MODEL</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-shc.html#c.CHARM_SHC_NMAX_ERROR"><code class="docutils literal notranslate"><span class="pre">CHARM_SHC_NMAX_ERROR</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-shc.html#_CPPv416charm_shc_mallocmdd"><code class="docutils literal notranslate"><span class="pre">charm_shc_malloc()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-shc.html#_CPPv416charm_shc_callocmdd"><code class="docutils literal notranslate"><span class="pre">charm_shc_calloc()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-shc.html#_CPPv414charm_shc_initmddPdPd"><code class="docutils literal notranslate"><span class="pre">charm_shc_init()</span></code></a></li>
@@ -439,25 +442,25 @@ omitted.  The list of the differences is given in
 <li class="toctree-l2"><a class="reference internal" href="api-c-shc.html#_CPPv413charm_shc_ddaPK9charm_shcPK9charm_shcmPdP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_shc_dda()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-shc.html#_CPPv417charm_shc_rescaleP9charm_shcddP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_shc_rescale()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-shc.html#_CPPv4Ut1_4"><code class="docutils literal notranslate"><span class="pre">&#64;4</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4NUt1_417CHARM_SHC_WRITE_NE"><code class="docutils literal notranslate"><span class="pre">&#64;4::CHARM_SHC_WRITE_N</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4NUt1_417CHARM_SHC_WRITE_ME"><code class="docutils literal notranslate"><span class="pre">&#64;4::CHARM_SHC_WRITE_M</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4NUt1_417CHARM_SHC_WRITE_NE"><code class="docutils literal notranslate"><span class="pre">CHARM_SHC_WRITE_N</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4NUt1_417CHARM_SHC_WRITE_ME"><code class="docutils literal notranslate"><span class="pre">CHARM_SHC_WRITE_M</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-shc.html#_CPPv49charm_shc"><code class="docutils literal notranslate"><span class="pre">charm_shc</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc4nmaxE"><code class="docutils literal notranslate"><span class="pre">charm_shc::nmax</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc2muE"><code class="docutils literal notranslate"><span class="pre">charm_shc::mu</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc1rE"><code class="docutils literal notranslate"><span class="pre">charm_shc::r</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc2ncE"><code class="docutils literal notranslate"><span class="pre">charm_shc::nc</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc2nsE"><code class="docutils literal notranslate"><span class="pre">charm_shc::ns</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc1cE"><code class="docutils literal notranslate"><span class="pre">charm_shc::c</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc1sE"><code class="docutils literal notranslate"><span class="pre">charm_shc::s</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc5ownerE"><code class="docutils literal notranslate"><span class="pre">charm_shc::owner</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc11distributedE"><code class="docutils literal notranslate"><span class="pre">charm_shc::distributed</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc8local_ncE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_nc</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc8local_nsE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_ns</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc12local_nchunkE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_nchunk</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc11local_orderE"><code class="docutils literal notranslate"><span class="pre">charm_shc::local_order</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc4commE"><code class="docutils literal notranslate"><span class="pre">charm_shc::comm</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc4nmaxE"><code class="docutils literal notranslate"><span class="pre">nmax</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc2muE"><code class="docutils literal notranslate"><span class="pre">mu</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc1rE"><code class="docutils literal notranslate"><span class="pre">r</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc2ncE"><code class="docutils literal notranslate"><span class="pre">nc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc2nsE"><code class="docutils literal notranslate"><span class="pre">ns</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc1cE"><code class="docutils literal notranslate"><span class="pre">c</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc1sE"><code class="docutils literal notranslate"><span class="pre">s</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc5ownerE"><code class="docutils literal notranslate"><span class="pre">owner</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc11distributedE"><code class="docutils literal notranslate"><span class="pre">distributed</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc8local_ncE"><code class="docutils literal notranslate"><span class="pre">local_nc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc8local_nsE"><code class="docutils literal notranslate"><span class="pre">local_ns</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc12local_nchunkE"><code class="docutils literal notranslate"><span class="pre">local_nchunk</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc11local_orderE"><code class="docutils literal notranslate"><span class="pre">local_order</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-shc.html#_CPPv4N9charm_shc4commE"><code class="docutils literal notranslate"><span class="pre">comm</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -478,44 +481,44 @@ omitted.  The list of the differences is given in
 <li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv419charm_crd_cell_initi6size_t6size_tPdPdPdPdPd"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_init()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv419charm_crd_cell_freeP10charm_cell"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_free()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv4Ut1_0"><code class="docutils literal notranslate"><span class="pre">&#64;0</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4NUt1_019CHARM_CRD_CELL_GRIDE"><code class="docutils literal notranslate"><span class="pre">&#64;0::CHARM_CRD_CELL_GRID</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4NUt1_024CHARM_CRD_CELL_SCATTEREDE"><code class="docutils literal notranslate"><span class="pre">&#64;0::CHARM_CRD_CELL_SCATTERED</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4NUt1_025CHARM_CRD_POINT_SCATTEREDE"><code class="docutils literal notranslate"><span class="pre">&#64;0::CHARM_CRD_POINT_SCATTERED</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4NUt1_020CHARM_CRD_POINT_GRIDE"><code class="docutils literal notranslate"><span class="pre">&#64;0::CHARM_CRD_POINT_GRID</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4NUt1_023CHARM_CRD_POINT_GRID_GLE"><code class="docutils literal notranslate"><span class="pre">&#64;0::CHARM_CRD_POINT_GRID_GL</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH1E"><code class="docutils literal notranslate"><span class="pre">&#64;0::CHARM_CRD_POINT_GRID_DH1</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH2E"><code class="docutils literal notranslate"><span class="pre">&#64;0::CHARM_CRD_POINT_GRID_DH2</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4NUt1_019CHARM_CRD_CELL_GRIDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_GRID</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4NUt1_024CHARM_CRD_CELL_SCATTEREDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4NUt1_025CHARM_CRD_POINT_SCATTEREDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_SCATTERED</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4NUt1_020CHARM_CRD_POINT_GRIDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4NUt1_023CHARM_CRD_POINT_GRID_GLE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH1E"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH2E"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv411charm_point"><code class="docutils literal notranslate"><span class="pre">charm_point</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point4typeE"><code class="docutils literal notranslate"><span class="pre">charm_point::type</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point4nlatE"><code class="docutils literal notranslate"><span class="pre">charm_point::nlat</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point4nlonE"><code class="docutils literal notranslate"><span class="pre">charm_point::nlon</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point6npointE"><code class="docutils literal notranslate"><span class="pre">charm_point::npoint</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point3latE"><code class="docutils literal notranslate"><span class="pre">charm_point::lat</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point3lonE"><code class="docutils literal notranslate"><span class="pre">charm_point::lon</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point1rE"><code class="docutils literal notranslate"><span class="pre">charm_point::r</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point1wE"><code class="docutils literal notranslate"><span class="pre">charm_point::w</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point5ownerE"><code class="docutils literal notranslate"><span class="pre">charm_point::owner</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point11distributedE"><code class="docutils literal notranslate"><span class="pre">charm_point::distributed</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point10local_nlatE"><code class="docutils literal notranslate"><span class="pre">charm_point::local_nlat</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point10local_nlonE"><code class="docutils literal notranslate"><span class="pre">charm_point::local_nlon</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point12local_npointE"><code class="docutils literal notranslate"><span class="pre">charm_point::local_npoint</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point13local_0_startE"><code class="docutils literal notranslate"><span class="pre">charm_point::local_0_start</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point4commE"><code class="docutils literal notranslate"><span class="pre">charm_point::comm</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point4typeE"><code class="docutils literal notranslate"><span class="pre">type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point4nlatE"><code class="docutils literal notranslate"><span class="pre">nlat</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point4nlonE"><code class="docutils literal notranslate"><span class="pre">nlon</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point6npointE"><code class="docutils literal notranslate"><span class="pre">npoint</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point3latE"><code class="docutils literal notranslate"><span class="pre">lat</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point3lonE"><code class="docutils literal notranslate"><span class="pre">lon</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point1rE"><code class="docutils literal notranslate"><span class="pre">r</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point1wE"><code class="docutils literal notranslate"><span class="pre">w</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point5ownerE"><code class="docutils literal notranslate"><span class="pre">owner</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point11distributedE"><code class="docutils literal notranslate"><span class="pre">distributed</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point10local_nlatE"><code class="docutils literal notranslate"><span class="pre">local_nlat</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point10local_nlonE"><code class="docutils literal notranslate"><span class="pre">local_nlon</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point12local_npointE"><code class="docutils literal notranslate"><span class="pre">local_npoint</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point13local_0_startE"><code class="docutils literal notranslate"><span class="pre">local_0_start</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N11charm_point4commE"><code class="docutils literal notranslate"><span class="pre">comm</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-crd.html#_CPPv410charm_cell"><code class="docutils literal notranslate"><span class="pre">charm_cell</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N10charm_cell4typeE"><code class="docutils literal notranslate"><span class="pre">charm_cell::type</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N10charm_cell4nlatE"><code class="docutils literal notranslate"><span class="pre">charm_cell::nlat</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N10charm_cell4nlonE"><code class="docutils literal notranslate"><span class="pre">charm_cell::nlon</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N10charm_cell5ncellE"><code class="docutils literal notranslate"><span class="pre">charm_cell::ncell</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N10charm_cell6latminE"><code class="docutils literal notranslate"><span class="pre">charm_cell::latmin</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N10charm_cell6latmaxE"><code class="docutils literal notranslate"><span class="pre">charm_cell::latmax</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N10charm_cell6lonminE"><code class="docutils literal notranslate"><span class="pre">charm_cell::lonmin</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N10charm_cell6lonmaxE"><code class="docutils literal notranslate"><span class="pre">charm_cell::lonmax</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N10charm_cell1rE"><code class="docutils literal notranslate"><span class="pre">charm_cell::r</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N10charm_cell5ownerE"><code class="docutils literal notranslate"><span class="pre">charm_cell::owner</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N10charm_cell4typeE"><code class="docutils literal notranslate"><span class="pre">type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N10charm_cell4nlatE"><code class="docutils literal notranslate"><span class="pre">nlat</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N10charm_cell4nlonE"><code class="docutils literal notranslate"><span class="pre">nlon</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N10charm_cell5ncellE"><code class="docutils literal notranslate"><span class="pre">ncell</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N10charm_cell6latminE"><code class="docutils literal notranslate"><span class="pre">latmin</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N10charm_cell6latmaxE"><code class="docutils literal notranslate"><span class="pre">latmax</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N10charm_cell6lonminE"><code class="docutils literal notranslate"><span class="pre">lonmin</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N10charm_cell6lonmaxE"><code class="docutils literal notranslate"><span class="pre">lonmax</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N10charm_cell1rE"><code class="docutils literal notranslate"><span class="pre">r</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-crd.html#_CPPv4N10charm_cell5ownerE"><code class="docutils literal notranslate"><span class="pre">owner</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -533,9 +536,29 @@ omitted.  The list of the differences is given in
 <li class="toctree-l2"><a class="reference internal" href="api-c-sha.html#_CPPv415charm_sha_pointPK11charm_pointPKdmP9charm_shcP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_sha_point()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-sha.html#_CPPv414charm_sha_cellPK10charm_cellPKdmiP9charm_shcP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_sha_cell()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-sha.html#_CPPv4Ut1_3"><code class="docutils literal notranslate"><span class="pre">&#64;3</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api-c-sha.html#_CPPv4NUt1_317CHARM_SHA_CELL_AQE"><code class="docutils literal notranslate"><span class="pre">&#64;3::CHARM_SHA_CELL_AQ</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-sha.html#_CPPv4NUt1_317CHARM_SHA_CELL_AQE"><code class="docutils literal notranslate"><span class="pre">CHARM_SHA_CELL_AQ</span></code></a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api-c-gfm.html">charm_gfm</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api-c-gfm.html#c.CHARM_GFM_Q00"><code class="docutils literal notranslate"><span class="pre">CHARM_GFM_Q00</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-gfm.html#c.CHARM_GFM_Q10"><code class="docutils literal notranslate"><span class="pre">CHARM_GFM_Q10</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-gfm.html#c.CHARM_GFM_Q11"><code class="docutils literal notranslate"><span class="pre">CHARM_GFM_Q11</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-gfm.html#c.CHARM_GFM_Q20"><code class="docutils literal notranslate"><span class="pre">CHARM_GFM_Q20</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-gfm.html#c.CHARM_GFM_Q21"><code class="docutils literal notranslate"><span class="pre">CHARM_GFM_Q21</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-gfm.html#c.CHARM_GFM_Q22"><code class="docutils literal notranslate"><span class="pre">CHARM_GFM_Q22</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-gfm.html#c.CHARM_GFM_NEAR_ZONE"><code class="docutils literal notranslate"><span class="pre">CHARM_GFM_NEAR_ZONE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-gfm.html#c.CHARM_GFM_FAR_ZONE"><code class="docutils literal notranslate"><span class="pre">CHARM_GFM_FAR_ZONE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-gfm.html#_CPPv427charm_gfm_global_density_3dPK9charm_shcmdPP9charm_shcPmjddjjmPKcPKcPKcP9charm_shcP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_global_density_3d()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-gfm.html#_CPPv432charm_gfm_global_density_lateralPK9charm_shcmdP9charm_shcmddjjmPKcPKcPKcP9charm_shcP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_global_density_lateral()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-gfm.html#_CPPv430charm_gfm_global_density_constPK9charm_shcmddddjjmPKcPKcPKcP9charm_shcP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_global_density_const()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-gfm.html#_CPPv424charm_gfm_cap_density_3dPK9charm_shcmdPP9charm_shcPmjddjjjjddjji11mpfr_prec_tmPKcPKcPKcPP9charm_shcP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_density_3d()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-gfm.html#_CPPv429charm_gfm_cap_density_lateralPK9charm_shcmdP9charm_shcmddjjjjddjji11mpfr_prec_tmPKcPKcPKcPP9charm_shcP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_density_lateral()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-gfm.html#_CPPv427charm_gfm_cap_density_constPK9charm_shcmddddjjjjddjji11mpfr_prec_tmPKcPKcPKcPP9charm_shcP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_density_const()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-gfm.html#_CPPv415charm_gfm_cap_qK6mpfr_tK6mpfr_tK6mpfr_tmjjjjij11mpfr_prec_tP6mpfr_tP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_q()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-gfm.html#_CPPv416charm_gfm_cap_nqmjjjjP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_nq()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-gfm.html#_CPPv426charm_gfm_cap_q_check_precK6mpfr_tK6mpfr_tK6mpfr_tmjjjjj11mpfr_prec_t11mpfr_prec_tP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_gfm_cap_q_check_prec()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api-c-leg.html">charm_leg</a><ul>
@@ -546,15 +569,15 @@ omitted.  The list of the differences is given in
 <li class="toctree-l2"><a class="reference internal" href="api-c-leg.html#_CPPv418charm_leg_pnmj_j2kmm"><code class="docutils literal notranslate"><span class="pre">charm_leg_pnmj_j2k()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-leg.html#_CPPv418charm_leg_pnmj_k2jm"><code class="docutils literal notranslate"><span class="pre">charm_leg_pnmj_k2j()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-leg.html#_CPPv4Ut1_2"><code class="docutils literal notranslate"><span class="pre">&#64;2</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api-c-leg.html#_CPPv4NUt1_214CHARM_LEG_PMNJE"><code class="docutils literal notranslate"><span class="pre">&#64;2::CHARM_LEG_PMNJ</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-leg.html#_CPPv4NUt1_214CHARM_LEG_PMJNE"><code class="docutils literal notranslate"><span class="pre">&#64;2::CHARM_LEG_PMJN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-leg.html#_CPPv4NUt1_214CHARM_LEG_PMNJE"><code class="docutils literal notranslate"><span class="pre">CHARM_LEG_PMNJ</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-leg.html#_CPPv4NUt1_214CHARM_LEG_PMJNE"><code class="docutils literal notranslate"><span class="pre">CHARM_LEG_PMJN</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-leg.html#_CPPv410charm_pnmj"><code class="docutils literal notranslate"><span class="pre">charm_pnmj</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api-c-leg.html#_CPPv4N10charm_pnmj4nmaxE"><code class="docutils literal notranslate"><span class="pre">charm_pnmj::nmax</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-leg.html#_CPPv4N10charm_pnmj8orderingE"><code class="docutils literal notranslate"><span class="pre">charm_pnmj::ordering</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-leg.html#_CPPv4N10charm_pnmj5npnmjE"><code class="docutils literal notranslate"><span class="pre">charm_pnmj::npnmj</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-leg.html#_CPPv4N10charm_pnmj4pnmjE"><code class="docutils literal notranslate"><span class="pre">charm_pnmj::pnmj</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-leg.html#_CPPv4N10charm_pnmj4nmaxE"><code class="docutils literal notranslate"><span class="pre">nmax</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-leg.html#_CPPv4N10charm_pnmj8orderingE"><code class="docutils literal notranslate"><span class="pre">ordering</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-leg.html#_CPPv4N10charm_pnmj5npnmjE"><code class="docutils literal notranslate"><span class="pre">npnmj</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-leg.html#_CPPv4N10charm_pnmj4pnmjE"><code class="docutils literal notranslate"><span class="pre">pnmj</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -565,6 +588,12 @@ omitted.  The list of the differences is given in
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api-c-misc.html">charm_misc</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#c.CHARM_VERSION_MAJOR"><code class="docutils literal notranslate"><span class="pre">CHARM_VERSION_MAJOR</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#c.CHARM_VERSION_MINOR"><code class="docutils literal notranslate"><span class="pre">CHARM_VERSION_MINOR</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#c.CHARM_VERSION_PATCH"><code class="docutils literal notranslate"><span class="pre">CHARM_VERSION_PATCH</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#c.CHARM_VERSION_STRING"><code class="docutils literal notranslate"><span class="pre">CHARM_VERSION_STRING</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#c.CHARM_MIN"><code class="docutils literal notranslate"><span class="pre">CHARM_MIN</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#c.CHARM_MAX"><code class="docutils literal notranslate"><span class="pre">CHARM_MAX</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv422charm_misc_get_versionv"><code class="docutils literal notranslate"><span class="pre">charm_misc_get_version()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv421charm_misc_print_infov"><code class="docutils literal notranslate"><span class="pre">charm_misc_print_info()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv429charm_misc_buildopt_precisionv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_precision()</span></code></a></li>
@@ -573,19 +602,29 @@ omitted.  The list of the differences is given in
 <li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv429charm_misc_buildopt_omp_charmv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_omp_charm()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv428charm_misc_buildopt_omp_fftwv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_omp_fftw()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv423charm_misc_buildopt_mpiv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_mpi()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv424charm_misc_buildopt_mpfrv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_mpfr()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv432charm_misc_buildopt_version_fftwv"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_version_fftw()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv431charm_misc_buildopt_version_mpiPiPiPiPi"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_version_mpi()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv432charm_misc_buildopt_version_mpfrPiPiPi"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_version_mpfr()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv431charm_misc_buildopt_version_gmpPiPiPi"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_version_gmp()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-misc.html#_CPPv428charm_misc_buildopt_isfinitev"><code class="docutils literal notranslate"><span class="pre">charm_misc_buildopt_isfinite()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api-c-err.html">charm_err</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api-c-err.html#c.CHARM_ERR_MAX_FILE"><code class="docutils literal notranslate"><span class="pre">CHARM_ERR_MAX_FILE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-err.html#c.CHARM_ERR_MAX_FUNC"><code class="docutils literal notranslate"><span class="pre">CHARM_ERR_MAX_FUNC</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-err.html#c.CHARM_ERR_MAX_MSG"><code class="docutils literal notranslate"><span class="pre">CHARM_ERR_MAX_MSG</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-err.html#c.CHARM_ERR_MAX_LEVEL"><code class="docutils literal notranslate"><span class="pre">CHARM_ERR_MAX_LEVEL</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-err.html#c.CHARM_ERR_MALLOC_FAILURE"><code class="docutils literal notranslate"><span class="pre">CHARM_ERR_MALLOC_FAILURE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-c-err.html#c.CHARM_ERR_FFTW_INIT_FAILURE"><code class="docutils literal notranslate"><span class="pre">CHARM_ERR_FFTW_INIT_FAILURE</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-err.html#_CPPv4Ut1_1"><code class="docutils literal notranslate"><span class="pre">&#64;1</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4NUt1_113CHARM_FAILUREE"><code class="docutils literal notranslate"><span class="pre">&#64;1::CHARM_FAILURE</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4NUt1_113CHARM_SUCCESSE"><code class="docutils literal notranslate"><span class="pre">&#64;1::CHARM_SUCCESS</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4NUt1_110CHARM_EMEME"><code class="docutils literal notranslate"><span class="pre">&#64;1::CHARM_EMEM</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4NUt1_114CHARM_EFUNCARGE"><code class="docutils literal notranslate"><span class="pre">&#64;1::CHARM_EFUNCARG</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4NUt1_113CHARM_EFILEIOE"><code class="docutils literal notranslate"><span class="pre">&#64;1::CHARM_EFILEIO</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4NUt1_115CHARM_EFFTWINITE"><code class="docutils literal notranslate"><span class="pre">&#64;1::CHARM_EFFTWINIT</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4NUt1_117CHARM_EMPIPROCESSE"><code class="docutils literal notranslate"><span class="pre">&#64;1::CHARM_EMPIPROCESS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4NUt1_113CHARM_FAILUREE"><code class="docutils literal notranslate"><span class="pre">CHARM_FAILURE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4NUt1_113CHARM_SUCCESSE"><code class="docutils literal notranslate"><span class="pre">CHARM_SUCCESS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4NUt1_110CHARM_EMEME"><code class="docutils literal notranslate"><span class="pre">CHARM_EMEM</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4NUt1_114CHARM_EFUNCARGE"><code class="docutils literal notranslate"><span class="pre">CHARM_EFUNCARG</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4NUt1_113CHARM_EFILEIOE"><code class="docutils literal notranslate"><span class="pre">CHARM_EFILEIO</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4NUt1_115CHARM_EFFTWINITE"><code class="docutils literal notranslate"><span class="pre">CHARM_EFFTWINIT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4NUt1_117CHARM_EMPIPROCESSE"><code class="docutils literal notranslate"><span class="pre">CHARM_EMPIPROCESS</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-err.html#_CPPv414charm_err_initv"><code class="docutils literal notranslate"><span class="pre">charm_err_init()</span></code></a></li>
@@ -594,15 +633,15 @@ omitted.  The list of the differences is given in
 <li class="toctree-l2"><a class="reference internal" href="api-c-err.html#_CPPv417charm_err_handlerP9charm_err5_Bool"><code class="docutils literal notranslate"><span class="pre">charm_err_handler()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-err.html#_CPPv417charm_err_isemptyPK9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_err_isempty()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-c-err.html#_CPPv49charm_err"><code class="docutils literal notranslate"><span class="pre">charm_err</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err5levelE"><code class="docutils literal notranslate"><span class="pre">charm_err::level</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err4fileE"><code class="docutils literal notranslate"><span class="pre">charm_err::file</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err4lineE"><code class="docutils literal notranslate"><span class="pre">charm_err::line</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err4funcE"><code class="docutils literal notranslate"><span class="pre">charm_err::func</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err4codeE"><code class="docutils literal notranslate"><span class="pre">charm_err::code</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err3msgE"><code class="docutils literal notranslate"><span class="pre">charm_err::msg</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err9saturatedE"><code class="docutils literal notranslate"><span class="pre">charm_err::saturated</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err11distributedE"><code class="docutils literal notranslate"><span class="pre">charm_err::distributed</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err4commE"><code class="docutils literal notranslate"><span class="pre">charm_err::comm</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err5levelE"><code class="docutils literal notranslate"><span class="pre">level</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err4fileE"><code class="docutils literal notranslate"><span class="pre">file</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err4lineE"><code class="docutils literal notranslate"><span class="pre">line</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err4funcE"><code class="docutils literal notranslate"><span class="pre">func</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err4codeE"><code class="docutils literal notranslate"><span class="pre">code</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err3msgE"><code class="docutils literal notranslate"><span class="pre">msg</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err9saturatedE"><code class="docutils literal notranslate"><span class="pre">saturated</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err11distributedE"><code class="docutils literal notranslate"><span class="pre">distributed</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-c-err.html#_CPPv4N9charm_err4commE"><code class="docutils literal notranslate"><span class="pre">comm</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -701,7 +740,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Feb 12, 2025.
+  Last updated on Apr 07, 2025.
   <br/>
 </p>
   </div>

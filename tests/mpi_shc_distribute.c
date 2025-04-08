@@ -36,7 +36,7 @@ unsigned long *mpi_shc_distribute(unsigned long nmax,
                                                         sizeof(unsigned long));
     if (local_order == NULL)
     {
-        fprintf(stderr, CHARM_ERR_MALLOC_FAILURE"\n");
+        fprintf(stderr, "%s", CHARM_ERR_MALLOC_FAILURE"\n");
         exit(CHARM_FAILURE);
     }
     for (size_t j = 0; j < local_nchunk; j++)

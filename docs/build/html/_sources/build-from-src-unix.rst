@@ -26,9 +26,8 @@ Mandatory
 """""""""
 
 * C compiler supporting C99.  `GCC <https://gcc.gnu.org/>`_ is recommended 
-  (available by default on most Linux distributions).  Other compilers that are 
-  known to successfully compile CHarm are listed in the :ref:`tested_platforms` 
-  chapter.
+  (available by default on most Linux distributions).  Other compilers known to 
+  successfully compile CHarm are listed in the :ref:`tested_platforms` chapter.
 
   *To compile in quadruple precision, GCC is mandatory (v4.6 or later)* and no
   other compiler is allowed.
@@ -48,21 +47,27 @@ Optional
 * `MPI <https://www.mpi-forum.org/>`_ for parallelization on distributed-memory 
   systems (e.g., high-performance computing clusters).
 
+* `MPFR <https://mpfr.org>`_ for arbitrary precision arithmetic on floating 
+  point numbers with correct rounding.  CHarm can be compiled without the MPFR 
+  support, though at the cost of loosing the ability to spatially limit the 
+  integration radius in spectral gravity forward modelling.
+
 
 .. _installation_linux:
 
 Installation on Linux
 ~~~~~~~~~~~~~~~~~~~~~
 
-At first, we will install FFTW and (optionally) MPI, after which we will 
-proceed with the installation of CHarm.
+At first, we will install FFTW (mandatory), MPFR (optional) and MPI (optional), 
+after which we will proceed with the installation of CHarm.
 
 .. _installation_FFTW_linux:
 
 FFTW installation
 """""""""""""""""
 
-FFTW can either be installed via you package manager or built from the source.
+FFTW can either be installed via your package manager or it can be built from 
+the source.
 
 * *Using your package manager*
 
@@ -116,8 +121,8 @@ FFTW can either be installed via you package manager or built from the source.
 MPI installation
 """"""""""""""""
 
-Skip this chapter if you do not intend to use CHarm on distributed-memory 
-system like HPC clusters.
+This step is optional.  Skip this chapter if you do not intend to use CHarm on 
+distributed-memory system like HPC clusters.
 
 Choose an MPI implementation (e.g., `OpenMPI <https://www.open-mpi.org/>`_, 
 `MPICH <https://www.mpich.org/>`_) and either build the MPI library from source 
@@ -129,6 +134,75 @@ Importantly, the MPI implementation must support the MPI standard version 3.0
 MPI support.
 
 
+.. _installation_MPFR_linux:
+
+MPFR installation
+"""""""""""""""""
+
+This step is optional.  If you don't care about spectral gravity forward 
+modelling with spatially limited integration radius, you may skip this section.
+
+MPFR can either be installed using your package manager or it can be built from 
+the source.
+
+* *Using your package manager*
+
+  This is the simplest and for most users also the recommended way of 
+  installing MPFR.
+
+  * Debian-based distributions:
+
+    .. code-block:: console
+
+         sudo apt install libmpfr-dev
+
+  * Arch Linux: You may try to install, for instance, this package 
+    `<https://archlinux.org/packages/core/x86_64/mpfr/>`_ using your package 
+    manager.
+
+  This should automatically install also `GMP <https://gmplib.org>`_, the GNU 
+  multiple precision arithmetic library, which is required by MPFR.
+
+* *Compilation from source*
+
+  * Download, build and install the `GMP <https://gmplib.org>`_ library, which 
+    is required to build MPFR.  The compilation and installation of GMP may 
+    look like:
+
+     .. code-block:: console
+
+        ./configure
+        make
+        make check
+        sudo make install
+
+    You may want to specify a custom installation path by adding the 
+    ``--prefix=/your/path/to/gmp`` flag to the ``./configure`` call (see the 
+    installation manual of GMP).
+
+  * Then, download, build and install `MPFR <https://mpfr.org>`_:
+
+     .. code-block:: console
+
+        ./configure
+        make
+        make check
+        sudo make install
+
+    If you used a custom installation path for GMP, use:
+
+     .. code-block:: console
+
+        ./configure LDFLAGS=-L/your/path/to/gmp/lib \
+                    CPPFLAGS=-I/your/path/to/gmp/include
+        make
+        make check
+        sudo make install
+
+    Optionally, you may want to use a custom installation path also for MPFR 
+    (again by using the ``--prefix`` flag).
+
+
 .. _default_installation_charm_linux:
 
 Default CHarm installation
@@ -136,11 +210,12 @@ Default CHarm installation
 
 If you
 
-* want to install CHarm to ``/usr/local``,
+* want to install CHarm to your default installation path,
 * have installed FFTW (version ``3.X.X``) to the default path available to the
   compiler,
 * want a double precision version of CHarm,
-* do not want to enable SIMD CPU instructions,
+* do not want the MPFR-related features,
+* do not want SIMD parallelization,
 * do not want OpenMP parallelization,
 * do not want MPI parallelization,
 * have root privileges,
@@ -227,57 +302,121 @@ following flags to the ``./configure`` call.
   For best performance with high-degree spherical harmonic transforms, you can 
   (and in fact should) combine MPI with OpenMP and SIMD.
 
+* ``--enable-mpfr`` to compile CHarm with the MPFR support enabling spectral 
+  gravity forward modelling with spatially limited integration radius (disabled 
+  by default).  GMP and MPFR libraries are mandatory if ``--enable-mpfr`` is 
+  used.
+
 * ``--prefix=/your/custom/path`` to specify a custom installation path for
-  CHarm (default is ``--prefix=/usr/local``).
+  CHarm.
 
-* ``LDFLAGS`` to specify a custom path to your FFTW (and optionally MPI) libs, 
-  e.g., ``LDFLAGS="-L/your/path/to/FFTW/lib -L/your/another/path/to/MPI/lib"`` 
-  (empty by default, that is, default is to assume that these libraries are 
-  accessible to the compiler).
+* There are two ways to specify your custom installation paths for FFTW and, 
+  optionally, also for MPFR, GMP and MPI libraries.  If you installed FFTW 
+  (possibly also MPFR, GMP and MPI) to default installation paths available to 
+  the compiler, you may skip this bullet point.
 
-  You only need to specify the path; the lib files themselves are linked 
-  automatically.
+  * The easiest way is to use ``--with-build-path=/path/to/fftw`` or, if you 
+    want to compile, say, with the MPFR and MPI support, 
+    ``--with-build-path=/path/to/fftw:/path/to/mpfr:/path/to/gmp:/path/to/mpi``.  
+    Specify only the top directories of the libraries, that is, do not add the 
+    ``include`` or ``lib`` subdirectories.
 
-* ``CPPFLAGS`` to specify a custom path to your FFTW (optionally MPI) header 
-  files, e.g., ``CPPFLAGS="-I/your/path/to/FFTW/include 
-  -I/your/another/path/to/MPI/include"`` (empty by default, that is, default is 
-  to assume the header file(s) is accessible to the compiler).
+  * The other way is to use the ``LDFLAGS`` and ``CPPFLAGS`` variables.
+
+    * To specify a custom path to your FFTW libs, use 
+      ``LDFLAGS=-L/your/path/to/FFTW/lib``.
+
+      Optionally, if you use, say, the ``--enable-mpfr`` installation flag, you 
+      may need to provide also the path(s) for the GMP and MPFR libraries if 
+      you installed these to custom paths, e.g., 
+      ``LDFLAGS="-L/your/path/to/FFTW/lib -L/your/path/to/MPFR/lib 
+      -L/your/path/to/GMP/lib"``.
+
+      Specify only the path(s) to the library (libraries); the lib files 
+      themselves are linked automatically.
+
+    * To specify a custom path to your FFTW header file, use 
+      ``CPPFLAGS=-I/your/path/to/FFTW/include``.
+
+      Optionally, if you compile with, say, the ``--enable-mpfr`` installation 
+      flag, you may need to provide also the path(s) for the GMP and MPFR 
+      header files if you installed these to custom paths, e.g., 
+      ``LDFLAGS="-L/your/path/to/FFTW/include -L/your/path/to/MPFR/include 
+      -L/your/path/to/GMP/include"``.
+
+    Do not forget to add the ``lib`` and ``include`` subdirectories to each 
+    entry in ``LDFLAGS`` and ``CPPFLAGS``, respectively.
 
 * ``--disable-shared`` to not compile CHarm as a shared library.
 
 * Other useful variables:
 
   * ``CC`` selects other than your system's default C compiler,
-    e.g. ``CC=clang`` for Clang, and
+    e.g. ``CC=clang`` for Clang.
 
-  * ``CFLAGS`` defines user-defined compiler flags, e.g.,  ``CFLAGS="-O3 
-    -ffast-math"``
-    (GCC).
+  * ``CFLAGS`` defines user-defined compiler flags.  For instance, for solid 
+    performance with GCC, you may want to use ``CFLAGS="-O3"`` or, if you know 
+    what you are doing, ``CFLAGS="-O3 -ffast-math"``.
 
-* To get a summary of all the supported flags, execute ``./configure --help``.
+To get a summary of all supported flags, execute ``./configure --help``.
 
-An example installation
 
-* with a custom CHarm installation directory,
+Customized CHarm installation (examples)
+""""""""""""""""""""""""""""""""""""""""
 
-* with a custom FFTW installation directory,
+* *Example 1*
 
-* in quadruple precision,
+  * Custom CHarm installation directory
 
-* with OpenMP parallelization enabled, and
+  * Custom FFTW installation directory
 
-* with SIMD instructions disabled
+  * Quadruple precision
 
-looks like:
+  * OpenMP parallelization enabled
 
-.. code-block:: console
+  * SIMD instructions disabled
 
-   ./configure --prefix=/opt/charm --enable-openmp --enable-quad-precision \
-        LDFLAGS=-L/opt/fftwq-3.3.9/lib \
-        CPPFLAGS=-I/opt/fftwq-3.3.9/include
-   make
-   make check
-   sudo make install
+  * MPI parallelization disabled
+
+  * Spatially restricted spectral gravity forward modelling (MPFR) disabled
+
+  .. code-block:: console
+
+     ./configure --prefix=/opt/charm --enable-openmp --enable-quad-precision \
+          LDFLAGS=-L/opt/fftwq-3.3.10/lib CPPFLAGS=-I/opt/fftwq-3.3.10/include
+     make
+     make check
+     sudo make install
+
+
+* *Example 2*
+
+  * Custom CHarm installation directory
+
+  * Custom FFTW installation directory
+
+  * Custom GMP installation directory
+
+  * Custom MPFR installation directory
+
+  * Double precision
+
+  * AVX SIMD instructions enabled
+
+  * OpenMP parallelization enabled
+
+  * MPI parallelization disabled
+
+  * Aggressive optimizations during the compile time
+
+  .. code-block:: console
+
+     ./configure --prefix=/opt/charm \
+     --with-build-path=/opt/fftw-3.3.10:/opt/mpfr-4.2.0:/opt/gmp-6.2.1 \
+     --enable-openmp --enable-avx --enable-mpfr CFLAGS="-O3 -ffast-math"
+     make
+     make check
+     sudo make install
 
 
 .. _installation_mac:
@@ -286,13 +425,13 @@ looks like:
 Installation on macOS
 ~~~~~~~~~~~~~~~~~~~~~
 
-At first, we will install FFTW and then we will proceed with the installation
-of CHarm.
+At first, we will install FFTW (optionally also MPFR and MPI) and then we will 
+proceed with the installation of CHarm.
 
 FFTW installation
 """""""""""""""""
 
-FFTW can either be installed via you package manager or built from the source,
+FFTW can either be installed via your package manager or built from the source,
 preferably with GCC.  The latter is strongly recommended on macOS.
 
 * *Using your package manager*
@@ -303,6 +442,10 @@ preferably with GCC.  The latter is strongly recommended on macOS.
   .. code-block:: console
 
      sudo port install fftw-3
+
+
+  .. code-block:: console
+
      brew install fftw
 
   This, however, most likely does not install FFTW in quadruple precision
@@ -317,6 +460,10 @@ preferably with GCC.  The latter is strongly recommended on macOS.
   .. code-block:: console
 
      sudo port install gcc10
+
+
+  .. code-block:: console
+
      brew install gcc@10
 
   Now, you should be ready to build FFTW by following the instructions in the
@@ -335,20 +482,44 @@ preferably with GCC.  The latter is strongly recommended on macOS.
   ``CC=gcc`` (GCC version number omitted), as this will still likely call 
   Clang.
 
+MPFR installation
+"""""""""""""""""
+
+This step is optional.  If you don't care about spectral gravity forward 
+modelling with spatially limited integration radius, you may skip this section.
+
+You can install `MPFR <https://mpfr.org>`_ and `GMP <https://gmplib.org>`_, 
+which is required by MPFR, either by your package manager or they can be built 
+from the source.
+
+* *Using your package manager*
+
+  You may try to install MPFR using one of the following commands:
+
+   .. code-block:: console
+
+     sudo port install mpfr
+
+   .. code-block:: console
+
+     brew install mpfr
+
+* *Compilation from source*
+
+  See *Compilation from source* in :ref:`installation_MPFR_linux`.
 
 MPI installation
 """"""""""""""""
 
 See :ref:`MPI installation on Linux <installation_MPI_linux>`.
 
-
 CHarm installation
 """"""""""""""""""
 
-Having installed FFTW, you may proceed with the same instructions as given in
-the :ref:`default_installation_charm_linux` and
-:ref:`customized_installation_charm_linux` chapters for Linux.  Similarly as
-when installing FFTW, it is recommended to use the GCC compiler via the ``CC``
+Having installed FFTW (and optionally GMP, MPFR, MPI), you may proceed with the 
+same instructions as given in the :ref:`default_installation_charm_linux` and 
+:ref:`customized_installation_charm_linux` chapters for Linux.  Similarly as 
+when installing FFTW, it is recommended to use the GCC compiler via the ``CC`` 
 variable when calling the ``./configure`` script from the CHarm installation.
 
 
@@ -400,7 +571,7 @@ Requirements
 * Python module `ctypes <https://docs.python.org/3/library/ctypes.html>`_ 
   (reasonably old version).
 
-PyHarm does not support the MPI parallelization.
+PyHarm does not support quadruple precision and the MPI parallelization.
 
 
 Building PyHarm
@@ -485,8 +656,9 @@ this:
   python3 -m venv /tmp/python-venv
   source /tmp/python-venv/bin/activate
   ./configure --prefix=/tmp/charm --enable-openmp \
-     LDFLAGS=-L/opt/fftw-3.3.9/lib CPPFLAGS=-I/opt/fftw-3.3.9/include \
-     --enable-python PYTHON=python3.9 --with-python_prefix=/tmp/python-venv
+     --with-build-path=/opt/fftw-3.3.10:/opt/mpfr-4.2.1:/opt/gmp-6.3.0 \
+     --enable-python --enable-mpfr PYTHON=python3.9 \
+     --with-python_prefix=/tmp/python-venv
   make
   make check
   make install
