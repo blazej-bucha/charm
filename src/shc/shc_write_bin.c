@@ -177,8 +177,8 @@ static int write_cnmsnm(const CHARM(shc) *shcs,
     for (unsigned long m = 0; m <= nmax; m++)
     {
         REAL *cs = (cnmsnm) ? shcs->s[m] : shcs->c[m];
-        size_t nread = (size_t)(nmax + 1 - m);
-        if (fwrite(cs, sizeof(REAL), nread, fptr) != nread)
+        size_t nwrite = (size_t)(nmax + 1 - m);
+        if (fwrite(cs, sizeof(REAL), nwrite, fptr) != nwrite)
             return 1;
     }
 
