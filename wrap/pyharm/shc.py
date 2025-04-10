@@ -19,6 +19,8 @@ from warnings import warn as _warn
 from . import _libcharm, _libcharmname, _CHARM, _pyharm
 from ._get_module_constants import _get_module_constants
 from ._data_types import _ct_ulong, _ct_flt, _ct_int, _charm_flt, _pyharm_flt
+from ._encoding import _default_encoding, _str_ptr
+from ._formatting import _default_formatting
 from ._get_empty_array import _get_empty_array
 from ._check_types import _check_deg_ord, _check_radius, _check_flt_scalar, \
                           _check_flt_ndarray, _check_pointer, _check_int_scalar
@@ -408,7 +410,8 @@ class Shc:
 
 
     @classmethod
-    def from_file(cls, file_type, pathname, nmax, epoch=None):
+    def from_file(cls, file_type, pathname, nmax, epoch=None,
+                  encoding=_default_encoding):
         """
         Reads spherical harmonic coefficients up to degree ``nmax`` from the
         ``pathname`` file of a given ``file_type``.  For time variable models
@@ -440,6 +443,14 @@ class Shc:
             models; optional.  For the structure of the string, refer to
             `charm_shc <./api-c-shc.html>`_.  This input parameter is used only
             if ``file_type`` is ``gfc``.  Default value is ``None``.
+        encoding : str
+            Encoding of the ``pathname`` and ``epoch`` strings.  In case you
+            have special characters in your ``pathname`` string, you may need
+            to select proper encoding.
+
+            The encoding does not apply to the content of the file.  The file
+            reading is done by CHarm, so the file content encoding depends on
+            your operating system.
 
         Returns
         -------
@@ -450,11 +461,13 @@ class Shc:
         # "nmax" needs to be checked already here, because "_read_shc" accepts
         # also "_NMAX_MODEL"
         _check_deg_ord(nmax, 'degree')
-        return Shc._read_shc(file_type, pathname, nmax, epoch)
+        return Shc._read_shc(file_type, pathname, nmax, epoch=epoch,
+                             encoding=encoding)
 
 
-    def to_file(self, file_type, nmax, pathname, formatting='%0.16e',
-                ordering=WRITE_N):
+    def to_file(self, file_type, nmax, pathname,
+                formatting=_default_formatting, ordering=WRITE_N,
+                encoding=_default_encoding):
         """
         Writes an :class:`Shc` class instance up to degree ``nmax`` to a file
         ``pathname`` of a given ``file_type``.  If ``file_type`` represents
@@ -481,15 +494,24 @@ class Shc:
             Output file path
         formatting : str
             Formatting to write floating point numbers to text formats,
-            optional.  Default is ``'%0.16e'``.
+            optional.  Default is ``'%0.18e'``.
         ordering : integer
             Scheme to sort spherical harmonic coefficients when ``file_type``
             is ``dov`` or ``tbl``, optional.  Accepted values are
             :obj:`pyharm.shc.WRITE_N` and :obj:`pyharm.shc.WRITE_M`.  Default
             is :obj:`pyharm.shc.WRITE_N`.
+        encoding : str
+            Encoding of the ``pathname`` and ``formatting`` strings.  In case
+            you have special characters in your ``pathname`` string, you may
+            need to select proper encoding.
+
+            The encoding does not apply to the content of the file.  The file
+            writting is done by CHarm, so the file content encoding depends on
+            your operating system.
         """
 
-        self._write_shc(file_type, nmax, pathname, formatting, ordering)
+        self._write_shc(file_type, nmax, pathname, formatting=formatting,
+                        ordering=ordering, encoding=encoding)
         return
 
 
@@ -506,7 +528,7 @@ class Shc:
 
 
     @staticmethod
-    def nmax_from_file(file_type, pathname):
+    def nmax_from_file(file_type, pathname, encoding=_default_encoding):
         """
         Returns the maximum harmonic degree of coefficients stored in
         the ``pathname`` file that is of a given ``file_type``.
@@ -534,6 +556,14 @@ class Shc:
             Type of the input file
         pathname : str
             Input file path
+        encoding : str
+            Encoding of the ``pathname`` string.  In case you have special
+            characters in your ``pathname`` string, you may need to select
+            proper encoding.
+
+            The encoding does not apply to the content of the input file.  The
+            file reading is done by CHarm, so the file content encoding depends
+            on your operating system.
 
         Returns
         -------
@@ -541,7 +571,8 @@ class Shc:
             Maximum harmonic degree of the model
         """
 
-        return Shc._read_shc(file_type, pathname, _NMAX_MODEL)
+        return Shc._read_shc(file_type, pathname, _NMAX_MODEL,
+                             encoding=encoding)
 
 
     def get_coeffs(self, n=None, m=None):
@@ -1071,7 +1102,8 @@ class Shc:
 
 
     @classmethod
-    def _read_shc(cls, file_type, pathname, nmax, epoch=None):
+    def _read_shc(cls, file_type, pathname, nmax, epoch=None,
+                  encoding=_default_encoding):
         """
         Private function to call CHarm functions to load spherical harmonic
         coefficients up to degree ``nmax`` from a file of ``file_type``
@@ -1089,6 +1121,8 @@ class Shc:
             Epoch of the output spherical harmonic coefficients.  Relevant only
             for "gfc" files with time variable coefficients.  Default is
             'None'.
+        encoding : str
+            Encoding of the ``pathname`` string.
 
         Returns
         -------
@@ -1136,34 +1170,29 @@ class Shc:
                                   _ct.POINTER(_Shc),
                                   _ct.POINTER(_ph_err._Err)]
 
-        if epoch is None:
-            epoch_ptr = None
-        else:
-            epoch_ptr = _ct.create_string_buffer(epoch.encode())
-
         err = _ph_err.init()
         if nmax == _NMAX_MODEL:
             if file_type == 'gfc':
-                ret = func_gfc(_ct.create_string_buffer(pathname.encode()),
+                ret = func_gfc(_str_ptr(pathname, encoding),
                                _ct_ulong(_get_nmax_model()),
-                               epoch_ptr,
+                               _str_ptr(epoch, encoding),
                                None,
                                err)
             else:
-                ret = func_rest(_ct.create_string_buffer(pathname.encode()),
+                ret = func_rest(_str_ptr(pathname, encoding),
                                 _ct_ulong(_get_nmax_model()),
                                 None,
                                 err)
         else:
             shcs = cls.from_garbage(nmax)
             if file_type == 'gfc':
-                ret = func_gfc(_ct.create_string_buffer(pathname.encode()),
+                ret = func_gfc(_str_ptr(pathname, encoding),
                                _ct_ulong(nmax),
-                               epoch_ptr,
+                               _str_ptr(epoch, encoding),
                                shcs._Shc,
                                err)
             else:
-                ret = func_rest(_ct.create_string_buffer(pathname.encode()),
+                ret = func_rest(_str_ptr(pathname, encoding),
                                 _ct_ulong(nmax),
                                 shcs._Shc,
                                 err)
@@ -1179,13 +1208,14 @@ class Shc:
             return shcs
 
 
-    def _write_shc(self, file_type, nmax, pathname, formatting='%0.16e',
-                   ordering=WRITE_N):
+    def _write_shc(self, file_type, nmax, pathname,
+                   formatting=_default_formatting, ordering=WRITE_N,
+                   encoding=_default_encoding):
         """
         Private function to call CHarm functions to write spherical harmonic
         coefficients up to degree ``nmax`` to a file ``pathname`` of a given
         ``file_type``.  Default formatting for floating point numbers in text
-        files is '%0.16e' and the default ordering scheme for ``dov`` and
+        files is '%0.18e' and the default ordering scheme for ``dov`` and
         ``tbl`` file types is ``WRITE_N``.
 
         Parameters
@@ -1199,10 +1229,12 @@ class Shc:
             Output file path
         formatting : str
             Formatting to write floating point numbers to text files.  Default
-            is `'%0.16e'`,
+            is `'%0.18e'`,
         ordering : int
             Ordering scheme for ``dov`` and ``tbl`` file types.  Default is
             ``WRITE_N``
+        encoding : str
+            Encoding of ``pathname`` and ``formatting`` strings
         """
 
         Shc._check_file_type(file_type)
@@ -1250,20 +1282,20 @@ class Shc:
         if file_type == 'tbl' or file_type == 'dov':
             func(self._Shc,
                  _ct_ulong(nmax),
-                 _ct.create_string_buffer(formatting.encode()),
+                 _str_ptr(formatting, encoding),
                  _ct_int(ordering),
-                 _ct.create_string_buffer(pathname.encode()),
+                 _str_ptr(pathname, encoding),
                  err)
         elif file_type == 'bin':
             func(self._Shc,
                  _ct_ulong(nmax),
-                 _ct.create_string_buffer(pathname.encode()),
+                 _str_ptr(pathname, encoding),
                  err)
         else:
             func(self._Shc,
                  _ct_ulong(nmax),
-                 _ct.create_string_buffer(formatting.encode()),
-                 _ct.create_string_buffer(pathname.encode()),
+                 _str_ptr(formatting, encoding),
+                 _str_ptr(pathname, encoding),
                  err)
         _ph_err.handler(err, 1)
         _ph_err.free(err)
