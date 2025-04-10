@@ -1,4 +1,4 @@
-Upcoming release:
+CHarm 0.4.6:
 
 * Added `encoding` input parameter to the following PyHarm routines:
 
@@ -12,7 +12,7 @@ Upcoming release:
     * `pyharm.gfm.cap_density_lateral`,
     * `pyharm.gfm.cap_density_const`.
 
-  The parameter allows to specify proper encoding for string inputs to this 
+  The parameter allows to specify proper encoding for string inputs to these 
   routines.  For instance, if the path to a file contains special characters, 
   the default `utf-8` encoding can be replaced by the proper one.
 
