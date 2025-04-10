@@ -1,3 +1,24 @@
+Upcoming release:
+
+* Added `encoding` input parameter to the following PyHarm routines:
+
+    * `pyharm.shc.from_file`,
+    * `pyharm.shc.nmax_from_file`,
+    * `pyharm.shc.to_file`,
+    * `pyharm.gfm.global_density_3d`,
+    * `pyharm.gfm.global_density_lateral`,
+    * `pyharm.gfm.global_density_const`,
+    * `pyharm.gfm.cap_density_3d`,
+    * `pyharm.gfm.cap_density_lateral`,
+    * `pyharm.gfm.cap_density_const`.
+
+  The parameter allows to specify proper encoding for string inputs to this 
+  routines.  For instance, if the path to a file contains special characters, 
+  the default `utf-8` encoding can be replaced by the proper one.
+
+* Changed default formatting in `pyharm.shc.Shc.to_file` from `%0.16e` to 
+  `%0.18e`.
+
 CHarm 0.4.5:
 
 * Added `gfm` module for spectral gravity forward modelling using global and 

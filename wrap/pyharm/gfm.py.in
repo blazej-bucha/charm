@@ -19,6 +19,7 @@ from . import _libcharm, _CHARM
 from . import shc as _ph_shc
 from . import _err as _ph_err
 from ._get_module_constants import _get_module_constants
+from ._encoding import _default_encoding, _str_ptr
 from ._data_types import _ct_ulong, _ct_flt, _ct_uint, _ct_long, _ct_int, \
                          _ct_size_t
 from ._check_types import _check_nonneg_int_scalar, _check_flt_scalar, \
@@ -45,6 +46,7 @@ def global_density_3d(shape_shcs,
                       shape_density_shcs_path=None,
                       potential_shcs_path=None,
                       shcs_file_format='tbl',
+                      encoding=_default_encoding,
                       return_output=True):
     """
     Performs global spectral gravity forward modelling of an arbitrary 3D
@@ -117,6 +119,15 @@ def global_density_3d(shape_shcs,
         ``potential_shcs_path``.  Accepted strings are ``tbl``,
         ``mtx``, ``dov``, ``bin``.  Optional, default value is
         ``tbl``.
+    encoding : str
+        Encoding of the ``shape_density_shcs_path``, ``potential_shcs_path``,
+        ``shcs_file_format`` strings.  In case you have special characters in
+        your ``shape_density_shcs_path`` or ``potential_shcs_path`` strings,
+        you may need to select proper encoding.
+
+        The encoding does not apply to the content of the files.  The file
+        reading is done by CHarm, so the file content encoding depends on
+        your operating system.
     return_output : bool
         If ``True`` (default), returns an output variable (see ``out``
         below).  If ``False``, ``None`` is returned.  Refer to `charm_gfm
@@ -190,9 +201,9 @@ def global_density_3d(shape_shcs,
          _ct_uint(shape_power_min),
          _ct_uint(shape_power_max),
          _ct_ulong(potential_shcs_nmax),
-         _str_ptr(shape_density_shcs_path),
-         _str_ptr(potential_shcs_path),
-         _str_ptr(shcs_file_format),
+         _str_ptr(shape_density_shcs_path, encoding),
+         _str_ptr(potential_shcs_path, encoding),
+         _str_ptr(shcs_file_format, encoding),
          shcs_Shc,
          err)
     _ph_err.handler(err, 1)
@@ -217,6 +228,7 @@ def global_density_lateral(shape_shcs,
                            shape_density_shcs_path=None,
                            potential_shcs_path=None,
                            shcs_file_format='tbl',
+                           encoding=_default_encoding,
                            return_output=True):
     """
     Performs global spectral gravity forward modelling with laterally varying
@@ -291,9 +303,9 @@ def global_density_lateral(shape_shcs,
          _ct_uint(shape_power_min),
          _ct_uint(shape_power_max),
          _ct_ulong(potential_shcs_nmax),
-         _str_ptr(shape_density_shcs_path),
-         _str_ptr(potential_shcs_path),
-         _str_ptr(shcs_file_format),
+         _str_ptr(shape_density_shcs_path, encoding),
+         _str_ptr(potential_shcs_path, encoding),
+         _str_ptr(shcs_file_format, encoding),
          shcs_Shc,
          err)
     _ph_err.handler(err, 1)
@@ -317,6 +329,7 @@ def global_density_const(shape_shcs,
                          shape_shcs_powers_path=None,
                          potential_shcs_path=None,
                          shcs_file_format='tbl',
+                         encoding=_default_encoding,
                          return_output=True):
     """
     Performs global spectral gravity forward modelling with a constant mass
@@ -387,9 +400,9 @@ def global_density_const(shape_shcs,
          _ct_uint(shape_power_min),
          _ct_uint(shape_power_max),
          _ct_ulong(potential_shcs_nmax),
-         _str_ptr(shape_shcs_powers_path),
-         _str_ptr(potential_shcs_path),
-         _str_ptr(shcs_file_format),
+         _str_ptr(shape_shcs_powers_path, encoding),
+         _str_ptr(potential_shcs_path, encoding),
+         _str_ptr(shcs_file_format, encoding),
          shcs_Shc,
          err)
     _ph_err.handler(err, 1)
@@ -518,19 +531,6 @@ def _check_gfm3(radial_derivative_min,
     return
 
 
-def _str_ptr(string):
-    """
-    Private function to return a pointer to a `string` or `None` if `string` is
-    `None`.  Can be used only after it has been checked that `string` is
-    `None` or a string.
-    """
-
-    if string is None:
-        return None
-    else:
-        return _ct.create_string_buffer(string.encode())
-
-
 _WITH_MPFR = @WITH_MPFR@
 if _WITH_MPFR:
 
@@ -592,6 +592,7 @@ if _WITH_MPFR:
                        shape_density_shcs_path=None,
                        potential_shcs_path=None,
                        shcs_file_format='tbl',
+                       encoding=_default_encoding,
                        return_output=True):
         """
         Performs cap-modified spectral gravity forward modelling of an
@@ -745,9 +746,9 @@ if _WITH_MPFR:
              _ct_int(zone),
              _ct_int(nbits),
              _ct_ulong(potential_shcs_nmax),
-             _str_ptr(shape_density_shcs_path),
-             _str_ptr(potential_shcs_path),
-             _str_ptr(shcs_file_format),
+             _str_ptr(shape_density_shcs_path, encoding),
+             _str_ptr(potential_shcs_path, encoding),
+             _str_ptr(shcs_file_format, encoding),
              shcs_pptr,
              err)
         _ph_err.handler(err, 1)
@@ -781,6 +782,7 @@ if _WITH_MPFR:
                             shape_density_shcs_path=None,
                             potential_shcs_path=None,
                             shcs_file_format='tbl',
+                            encoding=_default_encoding,
                             return_output=True):
         """
         Performs cap-modified spectral gravity forward modelling of a laterally
@@ -907,9 +909,9 @@ if _WITH_MPFR:
              _ct_int(zone),
              _ct_int(nbits),
              _ct_ulong(potential_shcs_nmax),
-             _str_ptr(shape_density_shcs_path),
-             _str_ptr(potential_shcs_path),
-             _str_ptr(shcs_file_format),
+             _str_ptr(shape_density_shcs_path, encoding),
+             _str_ptr(potential_shcs_path, encoding),
+             _str_ptr(shcs_file_format, encoding),
              shcs_pptr,
              err)
         _ph_err.handler(err, 1)
@@ -942,6 +944,7 @@ if _WITH_MPFR:
                           shape_shcs_powers_path=None,
                           potential_shcs_path=None,
                           shcs_file_format='tbl',
+                          encoding=_default_encoding,
                           return_output=True):
         """
         Performs cap-modified spectral gravity forward modelling of a constant
@@ -1046,9 +1049,9 @@ if _WITH_MPFR:
              _ct_int(zone),
              _ct_int(nbits),
              _ct_ulong(potential_shcs_nmax),
-             _str_ptr(shape_shcs_powers_path),
-             _str_ptr(potential_shcs_path),
-             _str_ptr(shcs_file_format),
+             _str_ptr(shape_shcs_powers_path, encoding),
+             _str_ptr(potential_shcs_path, encoding),
+             _str_ptr(shcs_file_format, encoding),
              shcs_pptr,
              err)
         _ph_err.handler(err, 1)
