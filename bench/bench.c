@@ -114,7 +114,7 @@ int main(void)
 
 
     /* Some variables to evaluate the accuracy */
-    REAL rmse, maxe, diff;
+    REAL rmse, maxe, diff, abs_diff;
 
 
     /* Some variables to measure the execution time */
@@ -290,14 +290,16 @@ int main(void)
             for (unsigned long n = m; n <= nmax; n++)
             {
                 diff = shcs->c[m][n - m] - shcs_ref->c[m][n - m];
-                if (FABS(diff) > maxe)
-                    maxe = diff;
+                abs_diff = FABS(diff);
+                if (abs_diff > maxe)
+                    maxe = abs_diff;
                 rmse += diff * diff;
 
 
                 diff = shcs->s[m][n - m] - shcs_ref->s[m][n - m];
-                if (FABS(diff) > maxe)
-                    maxe = diff;
+                abs_diff = FABS(diff);
+                if (abs_diff > maxe)
+                    maxe = abs_diff;
                 rmse += diff * diff;
             }
         }
