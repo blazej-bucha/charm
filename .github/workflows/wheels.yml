@@ -65,7 +65,7 @@ jobs:
           if [ "$RUNNER_OS" == "macOS" ]; then
                # Instead of installing FFTW using homebrew, we need to build it 
                # from source (see above)
-               wget http://fftw.org/$X_FFTW.tar.gz
+               wget --no-check-certificate http://fftw.org/$X_FFTW.tar.gz
                tar xzf $X_FFTW.tar.gz
           elif [ "$RUNNER_OS" == "Windows" ]; then
                vcpkg install fftw3:x64-windows
@@ -76,11 +76,11 @@ jobs:
           if [ "$RUNNER_OS" == "macOS" ]; then
                # Instead of installing MPFR and GMP using homebrew, we need to 
                # build it from source (see above)
-               wget http://www.mpfr.org/mpfr-current/$X_MPFR.tar.gz
+               wget --no-check-certificate http://www.mpfr.org/mpfr-current/$X_MPFR.tar.gz
                tar xzf $X_MPFR.tar.gz
                # It seems that GMP blocks GitHub servers, so we have to use 
                # some other server
-               wget http://ftp.gnu.org/gnu/gmp/$X_GMP.tar.xz
+               wget --no-check-certificate http://ftp.gnu.org/gnu/gmp/$X_GMP.tar.xz
                tar xJf $X_GMP.tar.xz
           elif [ "$RUNNER_OS" == "Windows" ]; then
                vcpkg install mpfr:x64-windows
