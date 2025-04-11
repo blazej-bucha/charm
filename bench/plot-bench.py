@@ -99,15 +99,22 @@ xmin_fig, xmax_fig = ax.get_xlim()
 
 xmin = sha_t[:, 0].min()
 xmax = sha_t[:, 0].max()
+
 y = 1.0 / 60.0
-ax.text(xmin, y + 0.005, '1 sec')
-ax.hlines(y, xmin, xmax, colors='black', linestyles='dashed', linewidth=0.75)
+if y <= ymax_fig:
+    ax.text(xmin, y + 0.005, '1 sec')
+    ax.hlines(y, xmin, xmax, colors='black', linestyles='dashed',
+              linewidth=0.75)
 y = 1.0
-ax.text(xmin, y + 0.3, '1 min')
-ax.hlines(y, xmin, xmax, colors='black', linestyles='dashed', linewidth=0.75)
+if y <= ymax_fig:
+    ax.text(xmin, y + 0.3, '1 min')
+    ax.hlines(y, xmin, xmax, colors='black', linestyles='dashed',
+              linewidth=0.75)
 y = 60.0
-ax.text(xmin, y + 10, '1 hour')
-ax.hlines(y, xmin, xmax, colors='black', linestyles='dashed', linewidth=0.75)
+if y <= ymax_fig:
+    ax.text(xmin, y + 10, '1 hour')
+    ax.hlines(y, xmin, xmax, colors='black', linestyles='dashed',
+              linewidth=0.75)
 
 
 ax.set_ylim(ymin_fig, ymax_fig)
