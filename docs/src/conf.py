@@ -113,10 +113,10 @@ html_static_path = []
 
 
 # Logo
-html_logo = "../img/logo/charm-logo.svg"
+html_logo = "../img/logo/charm-logo.png"
 
 # Favicon
-html_favicon = "../img/logo/charm-logo.svg"
+html_favicon = "../img/logo/charm-logo-favicon.png"
 
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
