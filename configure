@@ -16863,7 +16863,7 @@ printf "%s\n" "$mpfr_buildopt_float128_p" >&6; }
 
 
         if test "$mpfr_buildopt_float128_p" = "no" ; then
-            as_fn_error $? "MPFR was compiled without the --enable-float128 configuration option, but this is mandatory to compile CHarm in quadruple precision and --with-mpfr, recompile MPFR with the --enable-float128 flag" "$LINENO" 5
+            as_fn_error $? "MPFR was compiled without the --enable-float128 configuration option, but this is mandatory for quadruple precision and --enable-mpfr, recompile MPFR with the --enable-float128 flag" "$LINENO" 5
         fi
     fi
 fi
