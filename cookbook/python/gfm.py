@@ -1,7 +1,7 @@
 # IMPORTANT: To run this program, CHarm must be compiled with the MPFR
-# support, that is, using the "--with-mpfr" installation flag.  If this is your
-# case, manually delete (or comment out) all lines between the following
-# marks:
+# support, that is, the "--enable-mpfr" installation flag must be used during
+# the installation.  If you didn't enable MPFR, manually delete (or comment
+# out) all lines between the following marks:
 #
 # @@@
 #
