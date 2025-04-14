@@ -6,6 +6,9 @@
 
 
 #include <config.h>
+#if HAVE_MPI
+#   include <mpi.h>
+#endif
 #include "../prec.h"
 
 
