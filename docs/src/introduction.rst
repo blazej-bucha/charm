@@ -76,30 +76,6 @@ Installation
 
   This will install PyHarm together will all the dependencies.  These include 
   a pre-compiled CHarm library, which is internally called by PyHarm, some 
-  other C libraries (FFTW and OpenMP library) and the Python package NumPy.
-
-* **CHarm (C library)**: If you are interested in the C API, you have to build 
-  CHarm from source.  This step is not required if you plan to use the Python 
-  interface only.
-
-Further installation details at 
-`https://www.charmlib.org/build/html/install.html 
-<https://www.charmlib.org/build/html/install.html>`_.
-
-
-
-Installation
-============
-
-* **PyHarm (Python wrapper)**: On Linux (x86_64), macOS (x86_64, ARM64) and 
-  Windows (x86_64), install PyHarm using ``pip``:
-
-  .. code-block:: bash
-
-     pip install pyharm
-
-  This will install PyHarm together will all the dependencies.  These include 
-  a pre-compiled CHarm library, which is internally called by PyHarm, some 
   other C libraries (FFTW, MPFR, GMP and OpenMP libraries) and the Python 
   package NumPy.
 
