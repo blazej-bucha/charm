@@ -1008,6 +1008,8 @@ CHARM_EXTERN unsigned long CHARM_CDECL
  *
  * The path to the output file in ``pathname`` must already exist.
  *
+ * @note The output file is platform-dependent.
+ *
  * */
 CHARM_EXTERN void CHARM_CDECL
                   charm@P@_shc_write_bin(const charm@P@_shc *shcs,
