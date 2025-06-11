@@ -144,7 +144,7 @@ enum
  *
  * @param[in] f Input signal with point data given at the nodes of the ``pnt`` 
  * structure and containing harmonics up to degree ``nmax_signal`` 
- * at most.  The pointer ``f`` must have an access to ``pnt->nlat * pnt->nlon`` 
+ * at most.  The pointer ``f`` must have an access to ``pnt->npoint`` 
  * array elements.  The value of ``f`` at ``pnt->lat[i]`` and ``pnt->lon[j]`` 
  * must be stored as ``f[i * pnt->nlon + j]`` with
  * ``i = 0, 1, ..., pnt->nlat - 1`` and ``j = 0, 1, ..., pnt->nlon - 1``.
@@ -293,10 +293,10 @@ CHARM_EXTERN void CHARM_CDECL
  *
  * @param[in] f Input signal with block mean data given at the nodes of the
  * ``cell`` structure.  The pointer ``f`` must have an access to
- * ``cell->nlat * cell->nlon`` array elements.  The mean value of the signal at
+ * ``cell->ncell`` array elements.  The mean value of the signal at
  * the ``i``-th cell in the latitudinal direction and the ``j``-th cell in the
  * longitudinal direction must be stored as ``f[i * cell->nlon + j]`` with
- * ``i = 0, 1, ..., cell->nlat 1`` and ``j = 0, 1, ..., pnt->nlon 1``.
+ * ``i = 0, 1, ..., cell->nlat - 1`` and ``j = 0, 1, ..., pnt->nlon - 1``.
  *
  * @param[in] nmax Maximum harmonic degree of the output spherical harmonic 
  * coefficients.

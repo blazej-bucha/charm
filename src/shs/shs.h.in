@@ -154,13 +154,13 @@ extern "C"
  *
  * @param[out] f Pointer to an output array with the synthesized signal.  If 
  * ``pnt`` holds a **grid**, the pointer ``f`` must have an access to
- * ``pnt->nlat * pnt->nlon`` array elements.   The value of the signal
+ * ``pnt->npoint`` array elements.   The value of the signal
  * synthesized at ``pnt->lat[i]`` and ``pnt->lon[j]`` can be found as:
  * ``f[i * pnt->nlon + j]`` with ``i = 0, 1, ..., pnt->nlat - 1`` and 
- * ``j = 0, 1, ..., pnt->nlon 1``.  In case ``pnt`` represents **scattered
- * points**, ``f`` must have an access to ``pnt->nlat == pnt->nlon`` elements
+ * ``j = 0, 1, ..., pnt->nlon - 1``.  In case ``pnt`` represents **scattered
+ * points**, ``f`` must have an access to ``pnt->npoint`` elements
  * and ``f[i]`` stands for the value synthesized at ``pnt->lat[i]`` and
- * ``pnt->lon[i]`` with ``i = 0, 1, ..., pnt->nlat - 1`` .
+ * ``pnt->lon[i]`` with ``i = 0, 1, ..., pnt->npoint - 1`` .
  *
  * @param[out] err Error reported by the function (if any).
  *
@@ -587,13 +587,13 @@ CHARM_EXTERN void CHARM_CDECL
  *
  * @param[out] f Pointer to an output array with the synthesized mean 
  * values. If ``cell`` holds a **grid**, the pointer ``f`` must have an access 
- * to ``cell->nlat * cell->nlon`` array elements.   The mean value of the
+ * to ``cell->ncell`` array elements.   The mean value of the
  * signal synthesized at the ``i``th cell in the latitudinal direction and
  * ``j``th cell in the longitudinal direction can be found as:
  * ``f[i * cell->nlon + j]`` with ``i = 0, 1, ..., cell->nlat - 1`` and
  * ``j = 0, 1, ..., cell->nlon - 1``.  In case ``cell`` represents **scattered
   * cells**, ``f`` must have an access to
- * ``cell->nlat == cell->nlon`` elements and ``f[i]`` stands for the mean value
+ * ``cell->ncell`` elements and ``f[i]`` stands for the mean value
  * synthesized at the ``i``th cell with ``i = 0, 1, ..., cell->nlat - 1``.
  *
  * @param[out] err Error reported by the function (if any).
@@ -732,7 +732,7 @@ CHARM_EXTERN void CHARM_CDECL
  * the ``nmax3`` maximum degree is used.
  *
  * @param[out] f Pointer to an output array with the synthesized mean 
- * values. The pointer ``f`` must have an access to ``cell->nlat * cell->nlon`` 
+ * values. The pointer ``f`` must have an access to ``cell->ncell`` 
  * array elements.   The mean value of the signal synthesized at the ``i``th
  * cell in the latitudinal direction and ``j``th cell in the longitudinal
  * direction can be found as: ``f[i * cell->nlon + j]`` with
