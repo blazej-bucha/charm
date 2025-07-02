@@ -41,6 +41,7 @@
 #include "shs_point_gradn.h"
 #include "shs_max_npar.h"
 #include "shs_get_imax.h"
+#include "shs_rpows.h"
 #include "shs_point_sctr.h"
 /* ------------------------------------------------------------------------- */
 
@@ -104,9 +105,9 @@ void CHARM(shs_point_sctr)(const CHARM(point) *pnt,
     REAL *lonv                   = NULL;
     REAL *pnt_rv                 = NULL;
     REAL *tmpv                   = NULL;
+    REAL_SIMD *rpows             = NULL;
     MISC_SD_CALLOC_REAL_SIMD_INIT(t);
     MISC_SD_CALLOC_REAL_SIMD_INIT(u);
-    MISC_SD_CALLOC_REAL_SIMD_INIT(ratio);
     MISC_SD_CALLOC_REAL_SIMD_INIT(fi);
 
 
@@ -257,6 +258,14 @@ void CHARM(shs_point_sctr)(const CHARM(point) *pnt,
     tmpv = (REAL *)CHARM(calloc_aligned)(SIMD_MEMALIGN, SIMD_SIZE,
                                          sizeof(REAL));
     CHECK_NULL(tmpv, BARRIER_1);
+
+
+    size_t nrpows = BLOCK_S * (nmax + 2 + dorder);
+    rpows = (REAL_SIMD *)CHARM(calloc_aligned)(SIMD_MEMALIGN, nrpows,
+                                               sizeof(REAL_SIMD));
+    CHECK_NULL(rpows, BARRIER_1);
+    for (size_t i = 0; i < nrpows; i++)
+        rpows[i] = SET1_R(PREC(1.0));
     /* ................................................................. */
 
 
@@ -267,12 +276,9 @@ void CHARM(shs_point_sctr)(const CHARM(point) *pnt,
 
     MISC_SD_CALLOC_REAL_SIMD_ERR(t, BLOCK_S, SIMD_BLOCK_S, err, BARRIER_1);
     MISC_SD_CALLOC_REAL_SIMD_ERR(u, BLOCK_S, SIMD_BLOCK_S, err, BARRIER_1);
-    MISC_SD_CALLOC_REAL_SIMD_ERR(ratio, BLOCK_S, SIMD_BLOCK_S, err, BARRIER_1);
     MISC_SD_CALLOC_REAL_SIMD_ERR(fi, SHS_MAX_NPAR * BLOCK_S,
                                  SHS_MAX_NPAR * SIMD_BLOCK_S, err, BARRIER_1);
     REAL_SIMD pnt_r;
-    for (l = 0; l < BLOCK_S; l++)
-        ratio[l] = SET_ZERO_R;
     REAL_SIMD tmp = SET_ZERO_R;
 
 
@@ -312,9 +318,9 @@ BARRIER_1:
             t[l]  = LOAD_R(&tv[0]);
             u[l]  = LOAD_R(&uv[0]);
             pnt_r = LOAD_R(&pnt_rv[0]);
-
-
-            ratio[l]  = DIV_R(rref, pnt_r);
+            if (!r_eq_rref)
+                CHARM(shs_rpows)(pnt_r, rref, nmax + 1 + dorder, BLOCK_S,
+                                 rpows + l);
 
 
             /* Prepare arrays for sectorial Legendre functions */
@@ -341,7 +347,7 @@ BARRIER_1:
 
 #if HAVE_OPENMP
 #pragma omp parallel default(none) \
-shared(nmax, err, pt, t, u, ratio, ri, r, ips, ps, dorder, dr, dlat, dlon) \
+shared(nmax, err, pt, t, u, rpows, ri, r, ips, ps, dorder, dr, dlat, dlon) \
 shared(grad, r_eq_rref, shcs, shcs_block, lonv, fi, npar) \
 shared(err_glob, lc_err_glob) \
 private(l, idx) MPI_VARS
@@ -365,7 +371,6 @@ private(l, idx) MPI_VARS
         REAL *clonimv    = NULL;
         REAL *slonimv    = NULL;
         MISC_SD_CALLOC_REAL_SIMD_INIT(zeros);
-        MISC_SD_CALLOC_REAL_SIMD_INIT(ratiom);
         MISC_SD_CALLOC_REAL_SIMD_INIT(fi_thread);
         /* ------------------------------------------------------------- */
 
@@ -433,15 +438,11 @@ private(l, idx) MPI_VARS
 
         MISC_SD_CALLOC_REAL_SIMD_ERR(zeros, BLOCK_S, SIMD_BLOCK_S, err,
                                      BARRIER_2);
-        MISC_SD_CALLOC_REAL_SIMD_ERR(ratiom, BLOCK_S, SIMD_BLOCK_S, err,
-                                     BARRIER_2);
         MISC_SD_CALLOC_REAL_SIMD_ERR(fi_thread, SHS_MAX_NPAR * BLOCK_S,
                                      SHS_MAX_NPAR * SIMD_BLOCK_S, err,
                                      BARRIER_2);
         for (l = 0; l < BLOCK_S; l++)
             zeros[l] = SET_ZERO_R;
-        for (l = 0; l < BLOCK_S; l++)
-            ratiom[l] = ratio[l];
         for (l = 0; l < SHS_MAX_NPAR * BLOCK_S; l++)
             fi_thread[l] = SET_ZERO_R;
         /* ------------------------------------------------------------- */
@@ -519,19 +520,6 @@ BARRIER_2:
                     continue;
 
 
-                /* Compute "(R / r)^(m + 1)" ("m" is not a typo) */
-                if (!r_eq_rref)
-                {
-                    for (l = 0; l < BLOCK_S; l++)
-                        ratiom[l] = ratio[l];
-
-
-                    for (unsigned long mtmp = 1; mtmp <= m; mtmp++)
-                        for (l = 0; l < BLOCK_S; l++)
-                            ratiom[l] = MUL_R(ratiom[l], ratio[l]);
-                }
-
-
                 /* "anm" and "bnm" coefficients for Legendre recurrence
                  * relations and their derivatives */
                 CHARM(leg_func_anm_bnm)(nmax, m, r, ri, anm, bnm);
@@ -547,8 +535,8 @@ BARRIER_2:
                  * with scattered points. */
 #undef KERNEL_IO_PARS
 #define KERNEL_IO_PARS (nmax, m, shcs_block, r_eq_rref, anm, bnm, enm,        \
-                        &t[0], &u[0], ps, ips, &ratio[0], &zeros[0],          \
-                        &ratiom[0], &zeros[0], &zeros[0], dorder, lc)
+                        &t[0], &u[0], ps, ips, &rpows[0], &zeros[0],          \
+                        &zeros[0], dorder, lc)
                 if ((dr == 0) && (dlat == 0) && (dlon == 0))
                 {
                     CHARM(shs_point_kernel_dr0_dlat0_dlon0) KERNEL_IO_PARS;
@@ -687,7 +675,6 @@ FAILURE_2:
         CHARM(free_aligned)(clonimv);
         CHARM(free_aligned)(slonimv);
         MISC_SD_FREE(zeros);
-        MISC_SD_FREE(ratiom);
         MISC_SD_FREE(fi_thread);
         }
         /* ------------------------------------------------------------- */
@@ -726,9 +713,9 @@ FAILURE_1:
     CHARM(free_aligned)(lonv);
     CHARM(free_aligned)(pnt_rv);
     CHARM(free_aligned)(tmpv);
+    CHARM(free_aligned)(rpows);
     MISC_SD_FREE(t);
     MISC_SD_FREE(u);
-    MISC_SD_FREE(ratio);
     MISC_SD_FREE(fi);
     /* --------------------------------------------------------------------- */
 

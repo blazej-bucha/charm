@@ -59,6 +59,7 @@
 #include "shs_lc_free.h"
 #include "shs_max_npar.h"
 #include "shs_get_imax.h"
+#include "shs_rpows.h"
 #include "shs_point_grd.h"
 /* ------------------------------------------------------------------------- */
 
@@ -300,11 +301,11 @@ void CHARM(shs_point_grd)(const CHARM(point) *pnt,
     REAL *fc_simd                = NULL;
     REAL *fc2_simd               = NULL;
     CHARM(shc_block) *shcs_block = NULL;
+    REAL_SIMD *rpows             = NULL;
+    REAL_SIMD *rpows2            = NULL;
     MISC_SD_CALLOC_REAL_SIMD_INIT(t);
     MISC_SD_CALLOC_REAL_SIMD_INIT(u);
     MISC_SD_CALLOC_REAL_SIMD_INIT(symm_simd);
-    MISC_SD_CALLOC_REAL_SIMD_INIT(ratio);
-    MISC_SD_CALLOC_REAL_SIMD_INIT(ratio2);
     /* --------------------------------------------------------------------- */
 
 
@@ -538,6 +539,24 @@ BARRIER_FFTW:
     CHECK_NULL(shcs_block, BARRIER_1);
 
 
+    size_t nrpows = BLOCK_S * (nmax + 2 + dorder);
+    rpows = (REAL_SIMD *)CHARM(calloc_aligned)(SIMD_MEMALIGN, nrpows,
+                                               sizeof(REAL_SIMD));
+    CHECK_NULL(rpows, BARRIER_1);
+    for (size_t i = 0; i < nrpows; i++)
+        rpows[i] = SET1_R(PREC(1.0));
+
+
+    if (symm)
+    {
+        rpows2 = (REAL_SIMD *)CHARM(calloc_aligned)(SIMD_MEMALIGN, nrpows,
+                                                    sizeof(REAL_SIMD));
+        CHECK_NULL(rpows2, BARRIER_1);
+        for (size_t i = 0; i < nrpows; i++)
+            rpows2[i] = SET1_R(PREC(1.0));
+    }
+
+
 BARRIER_1:
     if (!CHARM_ERR_ISEMPTY_ALL_MPI_PROCESSES(err))
         goto FAILURE_1;
@@ -560,12 +579,7 @@ BARRIER_1:
     MISC_SD_CALLOC_REAL_SIMD_ERR(u, BLOCK_S, SIMD_BLOCK_S, err, BARRIER_1);
     MISC_SD_CALLOC_REAL_SIMD_ERR(symm_simd, BLOCK_S, SIMD_BLOCK_S, err,
                                  BARRIER_1);
-    MISC_SD_CALLOC_REAL_SIMD_ERR(ratio, BLOCK_S, SIMD_BLOCK_S, err, BARRIER_1);
-    MISC_SD_CALLOC_REAL_SIMD_ERR(ratio2, BLOCK_S, SIMD_BLOCK_S, err,
-                                 BARRIER_1);
     REAL_SIMD pnt_r, pnt_r2;
-    for (l = 0; l < BLOCK_S; l++)
-        ratio[l] = ratio2[l] = SET_ZERO_R;
 
 
     /* Get the polar optimization threshold */
@@ -637,13 +651,16 @@ BARRIER_1:
             u[l]         = LOAD_R(&uv[0]);
             pnt_r        = LOAD_R(&pnt_rv[0]);
             symm_simd[l] = LOAD_R(&symmv[l * SIMD_SIZE]);
+            if (!r_eq_rref)
+                CHARM(shs_rpows)(pnt_r, rref, nmax + 1 + dorder, BLOCK_S,
+                                 rpows + l);
 
 
-            ratio[l]  = DIV_R(rref, pnt_r);
-            if (symm)
+            if (symm && !r_eq_rref)
             {
                 pnt_r2    = LOAD_R(&pnt_r2v[0]);
-                ratio2[l] = DIV_R(rref, pnt_r2);
+                CHARM(shs_rpows)(pnt_r2, rref, nmax + 1 + dorder, BLOCK_S,
+                                 rpows2 + l);
             }
 
 
@@ -696,7 +713,7 @@ BARRIER_1:
 #if HAVE_OPENMP
 #pragma omp parallel default(none) \
 shared(nmax, err, dorder, pt, t, u, ri, r, ips, ps, dr, dlat, dlon) \
-shared(symm_simd, ratio, ratio2, r_eq_rref, shcs, shcs_block) \
+shared(symm_simd, rpows, rpows2, r_eq_rref, shcs, shcs_block) \
 shared(use_fft, nfc, symm, grad, fi, fi2, nfi, nfi_1par) \
 shared(pnt_type, pnt_nlon, deltalon, lon0, fc_simd, fc2_simd, err_glob) \
 shared(lc_err_glob) \
@@ -714,8 +731,6 @@ private(l) MPI_VARS
         REAL *enm        = NULL;
         REAL *fi_thread  = NULL;
         REAL *fi2_thread = NULL;
-        MISC_SD_CALLOC_REAL_SIMD_INIT(ratiom);
-        MISC_SD_CALLOC_REAL_SIMD_INIT(ratio2m);
         /* ------------------------------------------------------------- */
 
 
@@ -776,17 +791,6 @@ private(l) MPI_VARS
                                                        sizeof(REAL));
             CHECK_NULL_OMP(fi2_thread, err_priv, BARRIER_2);
         }
-
-
-        MISC_SD_CALLOC_REAL_SIMD_ERR(ratiom, BLOCK_S, SIMD_BLOCK_S, err,
-                                     BARRIER_2);
-        MISC_SD_CALLOC_REAL_SIMD_ERR(ratio2m, BLOCK_S, SIMD_BLOCK_S, err,
-                                     BARRIER_2);
-        for (l = 0; l < BLOCK_S; l++)
-            ratiom[l] = ratio[l];
-        if (symm)
-            for (l = 0; l < BLOCK_S; l++)
-                ratio2m[l] = ratio2[l];
         /* ------------------------------------------------------------- */
 
 
@@ -859,27 +863,6 @@ BARRIER_2:
                     continue;
 
 
-                /* Compute "(R / r)^(m + 1)" ("m" is not a typo) */
-                if (!r_eq_rref)
-                {
-                    for (l = 0; l < BLOCK_S; l++)
-                        ratiom[l] = ratio[l];
-                    if (symm)
-                        for (l = 0; l < BLOCK_S; l++)
-                            ratio2m[l] = ratio2[l];
-
-
-                    for (unsigned long mtmp = 1; mtmp <= m; mtmp++)
-                    {
-                        for (l = 0; l < BLOCK_S; l++)
-                            ratiom[l] = MUL_R(ratiom[l], ratio[l]);
-                        if (symm)
-                            for (l = 0; l < BLOCK_S; l++)
-                                ratio2m[l] = MUL_R(ratio2m[l], ratio2[l]);
-                    }
-                }
-
-
                 /* "anm" and "bnm" coefficients for Legendre recurrence
                  * relations and for their derivatives */
                 CHARM(leg_func_anm_bnm)(nmax, m, r, ri, anm, bnm);
@@ -892,7 +875,7 @@ BARRIER_2:
 #undef KERNEL_IO_PARS
 #define KERNEL_IO_PARS (nmax, m, shcs_block, r_eq_rref, anm, bnm, enm,        \
                         &t[0], &u[0], ps, ips,                                \
-                        &ratio[0], &ratio2[0], &ratiom[0], &ratio2m[0],       \
+                        &rpows[0], &rpows2[0],                                \
                         &symm_simd[0], dorder, lc);
                 if ((dr == 0) && (dlat == 0) && (dlon == 0))
                 {
@@ -1009,8 +992,6 @@ FAILURE_2:
         free(enm);
         CHARM(free_aligned)(fi_thread);
         CHARM(free_aligned)(fi2_thread);
-        MISC_SD_FREE(ratiom);
-        MISC_SD_FREE(ratio2m);
         }  /* End of parallel block */
         /* ------------------------------------------------------------- */
 
@@ -1079,12 +1060,12 @@ FAILURE_1:
     CHARM(free_aligned)(fi2);
     CHARM(free_aligned)(fc_simd);
     CHARM(free_aligned)(fc2_simd);
+    CHARM(free_aligned)(rpows);
+    CHARM(free_aligned)(rpows2);
     CHARM(shc_block_free)(shcs_block);
     MISC_SD_FREE(t);
     MISC_SD_FREE(u);
     MISC_SD_FREE(symm_simd);
-    MISC_SD_FREE(ratio);
-    MISC_SD_FREE(ratio2);
     /* --------------------------------------------------------------------- */
 
 

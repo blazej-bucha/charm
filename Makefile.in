@@ -231,7 +231,7 @@ DIST_SUBDIRS = $(SUBDIRS)
 am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/charm-tmpl.pc.in \
 	$(srcdir)/config.h.in $(srcdir)/setup.py.in AUTHORS COPYING \
 	INSTALL NEWS TODO ar-lib compile config.guess config.sub \
-	install-sh ltmain.sh missing py-compile
+	depcomp install-sh ltmain.sh missing py-compile
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
