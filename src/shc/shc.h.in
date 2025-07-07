@@ -262,12 +262,12 @@ typedef struct
 
     /** * If ``0``, the structure is not distributed, meaning that each process
      *    (be it an OpenMP or MPI process) accesses the same data through
-     *    ``charm@P@_shc.c``, ``charm@P@_shc.s`` and, if compiled with MPI
-     *    support, ``charm@P@_shc.local_order``.
+     *    ``charm@P@_shc.c``, ``charm@P@_shc.s`` and (if compiled with MPI
+     *    support) ``charm@P@_shc.local_order``.
      *
      * * If ``1``, the structure is distributed across MPI processes, that is,
      *   each MPI process accesses different data through ``charm@P@_shc.c``,
-     *   ``charm@P@_shc.s`` and, if compiled with MPI support,
+     *   ``charm@P@_shc.s`` and (if compiled with MPI support)
      *   ``charm@P@_shc.local_order``.
      *
      * @note  If CHarm was compiled without the MPI support (default),
