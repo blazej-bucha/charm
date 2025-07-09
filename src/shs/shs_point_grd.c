@@ -669,34 +669,33 @@ BARRIER_1:
             CHARM(leg_func_prepare)(uv, ps + l * SIMD_SIZE * nmax,
                                     ips + l * SIMD_SIZE * nmax, dm, nmax);
             /* --------------------------------------------------------- */
+        }
 
 
-            if (use_fft)
-            {
-                /* Reset the lumped coefficients.  Required in some
-                 * cases. */
-                /* ----------------------------------------------------- */
-                memset(fc, 0, nfc * sizeof(FFTWC(complex)));
+        if (use_fft)
+        {
+            /* Reset the lumped coefficients.  Required in some cases. */
+            /* ------------------------------------------------------------- */
+            memset(fc, 0, nfc * sizeof(FFTWC(complex)));
 
 
-                if (symm)
-                    memset(fc2, 0, nfc * sizeof(FFTWC(complex)));
-                /* ----------------------------------------------------- */
-            }
-            else
-            {
-                /* The "fi" vector represents the synthesized quantity "f"
-                 * for the "ipv"th latitude parallel. Therefore, it needs
-                 * to be reinitialized to zero for each "ith" latitude. The
-                 * same holds true for "fi2" in case of symmetric grids. */
-                /* ----------------------------------------------------- */
-                memset(fi, 0, nfi * sizeof(REAL));
+            if (symm)
+                memset(fc2, 0, nfc * sizeof(FFTWC(complex)));
+            /* ------------------------------------------------------------- */
+        }
+        else
+        {
+            /* The "fi" vector represents the synthesized quantity "f" for the
+             * "ipv"th latitude parallel. Therefore, it needs to be
+             * reinitialized to zero for each "ith" latitude. The same holds
+             * true for "fi2" in case of symmetric grids. */
+            /* ------------------------------------------------------------- */
+            memset(fi, 0, nfi * sizeof(REAL));
 
 
-                if (symm)
-                    memset(fi2, 0, nfi * sizeof(REAL));
-                /* ----------------------------------------------------- */
-            }
+            if (symm)
+                memset(fi2, 0, nfi * sizeof(REAL));
+            /* ------------------------------------------------------------- */
         }
 
 
