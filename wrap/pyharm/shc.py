@@ -410,7 +410,7 @@ class Shc:
 
 
     @classmethod
-    def from_file(cls, file_type, pathname, nmax, epoch=None,
+    def from_file(cls, file_type, pathname, nmax=-1, epoch=None,
                   encoding=_default_encoding):
         """
         Reads spherical harmonic coefficients up to degree ``nmax`` from the
@@ -436,7 +436,9 @@ class Shc:
         pathname : str
             Input file path
         nmax : integer
-            Maximum harmonic degree to read the spherical harmonic coefficients
+            Maximum harmonic degree to read the spherical harmonic
+            coefficients.  If negative, all coefficients are read.  Default
+            value is ``-1``.
         epoch : str
             Epoch, to which spherical harmonic coefficients from ``gfc`` file
             types are transformed in case of time variable gravity field
@@ -458,10 +460,22 @@ class Shc:
             An :class:`Shc` class instance
         """
 
-        # "nmax" needs to be checked already here, because "_read_shc" accepts
-        # also "_NMAX_MODEL"
-        _check_deg_ord(nmax, 'degree')
-        return Shc._read_shc(file_type, pathname, nmax, epoch=epoch,
+        # At this point, "nmax" must be an integer, positive or negative
+        _check_int_scalar(nmax, 'nmax')
+
+        if nmax < 0:
+            # If "nmax" is negative, get "nmax" from "pathname" an then use
+            # this value to read all coefficients in the file
+            nmax_read = Shc.nmax_from_file(file_type, pathname,
+                                           encoding=encoding)
+        else:
+            # Non-negative "nmax" means: read the file up to degree "nmax"
+            # only.  But "nmax" needs to be checked already here, because
+            # "_read_shc" also accepts "_NMAX_MODEL"
+            _check_deg_ord(nmax, 'degree')
+            nmax_read = nmax
+
+        return Shc._read_shc(file_type, pathname, nmax_read, epoch=epoch,
                              encoding=encoding)
 
 
@@ -532,15 +546,6 @@ class Shc:
         """
         Returns the maximum harmonic degree of coefficients stored in
         the ``pathname`` file that is of a given ``file_type``.
-
-        .. tip:: Use this method to get the maximum degree of spherical
-                 harmonic coefficients stored in a file and then load the file
-                 up to its maximum harmonic degree:
-
-                 >>> import pyharm as ph
-                 >>> path = '/some/path/to/gfc'
-                 >>> nmax = ph.shc.Shc.nmax_from_file('gfc', path)
-                 >>> shcs = ph.shc.Shc.from_file('gfc', path, nmax)
 
         .. tip:: To print all supported file types, use :meth:`get_file_types`:
 
