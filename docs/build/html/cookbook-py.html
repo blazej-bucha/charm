@@ -53,7 +53,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.4.6-dev" />
-    <meta name="docbuild:last-update" content="Jun 11, 2025"/>
+    <meta name="docbuild:last-update" content="Jul 15, 2025"/>
   </head>
   
   
@@ -508,10 +508,6 @@ files and how to compute (difference) degree variances.</p>
 <span class="n">shcs_in_file</span> <span class="o">=</span> <span class="s1">&#39;../../data/input/EGM96-degree10.gfc&#39;</span>
 
 
-<span class="c1"># Maximum harmonic degree to read the spherical harmonic coefficients</span>
-<span class="n">nmax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-
-
 <span class="c1"># Define the path to an output binary file with spherical harmonic</span>
 <span class="c1"># coefficients.  For details on the structure of the output binary file, see</span>
 <span class="c1"># the documentation of the &quot;shc&quot; module of &quot;CHarm&quot;.</span>
@@ -523,7 +519,7 @@ files and how to compute (difference) degree variances.</p>
 <span class="c1"># Read the spherical harmonic coefficients using the factory method &quot;from_file&quot;</span>
 <span class="c1"># of the &quot;Shc&quot; class from the &quot;ph.shc&quot; module.</span>
 <span class="c1"># -----------------------------------------------------------------------------</span>
-<span class="n">shcs</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="s1">&#39;gfc&#39;</span><span class="p">,</span> <span class="n">shcs_in_file</span><span class="p">,</span> <span class="n">nmax</span><span class="p">)</span>
+<span class="n">shcs</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="s1">&#39;gfc&#39;</span><span class="p">,</span> <span class="n">shcs_in_file</span><span class="p">)</span>
 <span class="c1"># -----------------------------------------------------------------------------</span>
 
 
@@ -557,11 +553,11 @@ files and how to compute (difference) degree variances.</p>
 <span class="c1"># Now let&#39;s save the coefficients to a binary file and then read them back to</span>
 <span class="c1"># a new &quot;Shc&quot; class instance.  Just for the fun...</span>
 <span class="c1"># -----------------------------------------------------------------------------</span>
-<span class="n">shcs</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s1">&#39;bin&#39;</span><span class="p">,</span> <span class="n">nmax</span><span class="p">,</span> <span class="n">shcs_out_file</span><span class="p">)</span>
+<span class="n">shcs</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s1">&#39;bin&#39;</span><span class="p">,</span> <span class="n">shcs_out_file</span><span class="p">)</span>
 
 
 <span class="c1"># Read back the coefficients to a new class instance called &quot;shcs2&quot;</span>
-<span class="n">shcs2</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="s1">&#39;bin&#39;</span><span class="p">,</span> <span class="n">shcs_out_file</span><span class="p">,</span> <span class="n">nmax</span><span class="p">)</span>
+<span class="n">shcs2</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="s1">&#39;bin&#39;</span><span class="p">,</span> <span class="n">shcs_out_file</span><span class="p">)</span>
 <span class="c1"># -----------------------------------------------------------------------------</span>
 
 
@@ -902,22 +898,16 @@ gravitational tensor in the <a class="reference internal" href="definitions.html
 
 
 <span class="c1"># =============================================================================</span>
-<span class="c1"># First, let&#39;s get the maximum harmonic degree stored in &quot;shcs_file&quot;.  This is</span>
-<span class="c1"># especially useful to read all coefficients in &quot;shcs_file&quot; without knowing its</span>
-<span class="c1"># maximum harmonic degree a priori.</span>
-<span class="n">nmax</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">nmax_from_file</span><span class="p">(</span><span class="s1">&#39;gfc&#39;</span><span class="p">,</span> <span class="n">shcs_file</span><span class="p">)</span>
-
-
 <span class="c1"># Now read all coefficients in &quot;shcs_file&quot;</span>
-<span class="n">shcs</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="s1">&#39;gfc&#39;</span><span class="p">,</span> <span class="n">shcs_file</span><span class="p">,</span> <span class="n">nmax</span><span class="p">)</span>
+<span class="n">shcs</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="s1">&#39;gfc&#39;</span><span class="p">,</span> <span class="n">shcs_file</span><span class="p">)</span>
 
 
-<span class="c1"># Compute the Gauss--Legendre point grid for an &quot;nmax&quot; given by the maximum</span>
-<span class="c1"># degree stored in &quot;shcs&quot; and for a radius equal to the reference sphere,</span>
-<span class="c1"># to which the spherical harmonic coefficients are scaled to.  We intentionally</span>
-<span class="c1"># use here the Gauss--Legendre grid instead of the Driscoll--Healy grids in</span>
-<span class="c1"># order to avoid the inaccuracies due to the singularities at the poles (see</span>
-<span class="c1"># the documentation).</span>
+<span class="c1"># Compute the Gauss--Legendre point grid for the &quot;nmax&quot; given by the</span>
+<span class="c1"># maximum degree stored in &quot;shcs&quot; and for a radius equal to the reference</span>
+<span class="c1"># sphere, to which the spherical harmonic coefficients are scaled to.  We</span>
+<span class="c1"># intentionally use here the Gauss--Legendre grid instead of the</span>
+<span class="c1"># Driscoll--Healy grids in order to avoid the inaccuracies due to the</span>
+<span class="c1"># singularities at the poles (see the documentation).</span>
 <span class="n">grd</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">crd</span><span class="o">.</span><span class="n">PointGridGL</span><span class="p">(</span><span class="n">shcs</span><span class="o">.</span><span class="n">nmax</span><span class="p">,</span> <span class="n">shcs</span><span class="o">.</span><span class="n">r</span><span class="p">)</span>
 
 
@@ -1427,7 +1417,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 11, 2025.
+  Last updated on Jul 15, 2025.
   <br/>
 </p>
   </div>
