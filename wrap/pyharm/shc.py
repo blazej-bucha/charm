@@ -464,7 +464,7 @@ class Shc:
         _check_int_scalar(nmax, 'nmax')
 
         if nmax < 0:
-            # If "nmax" is negative, get "nmax" from "pathname" an then use
+            # If "nmax" is negative, get "nmax" from "pathname" and then use
             # this value to read all coefficients in the file
             nmax_read = Shc.nmax_from_file(file_type, pathname,
                                            encoding=encoding)
@@ -479,7 +479,7 @@ class Shc:
                              encoding=encoding)
 
 
-    def to_file(self, file_type, nmax, pathname,
+    def to_file(self, file_type, pathname, nmax=-1,
                 formatting=_default_formatting, ordering=WRITE_N,
                 encoding=_default_encoding):
         """
@@ -503,7 +503,9 @@ class Shc:
         file_type : str
             Type of the input file
         nmax : integer
-            Maximum harmonic degree to write the spherical harmonic coefficients
+            Maximum harmonic degree to write the spherical harmonic
+            coefficients.  If negative, all coefficients are written.  Default
+            value is ``-1``.
         pathname : str
             Output file path
         formatting : str
@@ -524,7 +526,18 @@ class Shc:
             your operating system.
         """
 
-        self._write_shc(file_type, nmax, pathname, formatting=formatting,
+        # At this point, "nmax" must be an integer, positive or negative
+        _check_int_scalar(nmax, 'nmax')
+
+        if nmax < 0:
+            # If "nmax" is negative, write all coefficients
+            nmax_write = self.nmax
+        else:
+            # If "nmax" is non-negative, write coefficients up to "nmax"
+            _check_deg_ord(nmax, 'degree')
+            nmax_write = nmax
+
+        self._write_shc(file_type, nmax_write, pathname, formatting=formatting,
                         ordering=ordering, encoding=encoding)
         return
 
