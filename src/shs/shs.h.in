@@ -257,9 +257,9 @@ CHARM_EXTERN void CHARM_CDECL
  *      \nabla \otimes \nabla f =
  *      %
  *      \begin{bmatrix}
- *      f_{\mathrm{xx}}, f_{\mathrm{xy}}, f_{\mathrm{xz}}\\
- *      f_{\mathrm{yx}}, f_{\mathrm{yy}}, f_{\mathrm{yz}}\\
- *      f_{\mathrm{zx}}, f_{\mathrm{zy}}, f_{\mathrm{zz}}\\
+ *      f_{\mathrm{xx}} & f_{\mathrm{xy}} & f_{\mathrm{xz}}\\
+ *      f_{\mathrm{yx}} & f_{\mathrm{yy}} & f_{\mathrm{yz}}\\
+ *      f_{\mathrm{zx}} & f_{\mathrm{zy}} & f_{\mathrm{zz}}\\
  *      \end{bmatrix}
  *      {.}
  *
