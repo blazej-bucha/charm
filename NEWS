@@ -1,8 +1,8 @@
 CHarm 0.4.7:
 
 This release modifies the PyHarm routines to read/write spherical harmonic 
-coefficients to files.  The edits made in the writing routine are not backward 
-compatible.
+coefficients from/to files.  The edits made in the writing routine are not 
+backward compatible.  The CHarm API remains unchanged.
 
 * The input parameter `nmax` in `pyharm.shc.Shc.from_file` is now optional.  
   Default is to read all coefficients.  Old code using the `from_file` method 
