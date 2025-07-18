@@ -262,12 +262,12 @@ typedef struct
 
     /** * If ``0``, the structure is not distributed, meaning that each process
      *    (be it an OpenMP or MPI process) accesses the same data through
-     *    ``charm@P@_shc.c``, ``charm@P@_shc.s`` and, if compiled with MPI
-     *    support, ``charm@P@_shc.local_order``.
+     *    ``charm@P@_shc.c``, ``charm@P@_shc.s`` and (if compiled with MPI
+     *    support) ``charm@P@_shc.local_order``.
      *
      * * If ``1``, the structure is distributed across MPI processes, that is,
      *   each MPI process accesses different data through ``charm@P@_shc.c``,
-     *   ``charm@P@_shc.s`` and, if compiled with MPI support,
+     *   ``charm@P@_shc.s`` and (if compiled with MPI support)
      *   ``charm@P@_shc.local_order``.
      *
      * @note  If CHarm was compiled without the MPI support (default),
@@ -1007,6 +1007,8 @@ CHARM_EXTERN unsigned long CHARM_CDECL
  * and order ``m``. It must hold that ``nmax <= shcs->nmax``.
  *
  * The path to the output file in ``pathname`` must already exist.
+ *
+ * @note The output file is platform-dependent.
  *
  * */
 CHARM_EXTERN void CHARM_CDECL

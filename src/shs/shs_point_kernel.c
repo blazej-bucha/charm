@@ -186,6 +186,13 @@
 #endif
 
 
+/* Get the offset for "rpows" and "rpows2" to get the suitable power "(R
+ * / r)^(n + 1 + p)" for a given degree "n" and the "p"th derivative of the
+ * "potential" */
+#undef GET_RPOWS_IDX
+#define GET_RPOWS_IDX(n) ((n + 1 + dorder) * BLOCK_S)
+
+
 /* When implementing the latitudinal symmetry property of Legendre functions,
  * we end up with equations where the sums for "a2" and "b2" have alternating
  * signs with respect to degree "n".  To allow an easy implementation, that is,
@@ -274,7 +281,7 @@
            for (l = 0; l < BLOCK_S; l++)                                      \
            {                                                                  \
                lc->CAT(ab, i)[l] = PM_R(lc->CAT(ab, i)[l],                    \
-                                        MUL_R(CAT2(ratio, i, n)[l],           \
+                                        MUL_R(CAT2(rpows, i, _m)[l],          \
                                               CAT2(leg_, cs, nm)[l]));        \
            }
 
@@ -299,19 +306,19 @@
            for (l = 0; l < BLOCK_S; l++)                                      \
            {                                                                  \
                lc->CAT(ab, i)[l] = PM1_R(lc->CAT(ab, i)[l],                   \
-                                         MUL_R(CAT2(ratio, i, n)[l],          \
+                                         MUL_R(CAT2(rpows, i, _m)[l],         \
                                                CAT2(leg_, cs, nm)[l]));       \
            }                                                                  \
            for (l = 0; l < BLOCK_S; l++)                                      \
            {                                                                  \
                lc->CAT2(ab, r, i)[l] = PM1_R(lc->CAT2(ab, r, i)[l],           \
-                                             MUL_R(CAT2(ratio, i, n)[l],      \
+                                             MUL_R(CAT2(rpows, i, _m)[l],     \
                                                    CAT2(leg_, cs, nm_r)[l])); \
            }                                                                  \
            for (l = 0; l < BLOCK_S; l++)                                      \
            {                                                                  \
                lc->CAT2(ab, p, i)[l] = PM2_R(lc->CAT2(ab, p, i)[l],           \
-                                             MUL_R(CAT2(ratio, i, n)[l],      \
+                                             MUL_R(CAT2(rpows, i, _m)[l],     \
                                                    CAT2(leg_, cs, nm_p)[l])); \
            }
 
@@ -346,19 +353,19 @@
            for (l = 0; l < BLOCK_S; l++)                                      \
            {                                                                  \
                lc->CAT2(ab, rr, i)[l] = PM1_R(lc->CAT2(ab, rr, i)[l],         \
-                                              MUL_R(CAT2(ratio, i, n)[l],     \
+                                              MUL_R(CAT2(rpows, i, _m)[l],    \
                                                   CAT2(leg_, cs, nm_rr)[l])); \
            }                                                                  \
            for (l = 0; l < BLOCK_S; l++)                                      \
            {                                                                  \
                lc->CAT2(ab, rp, i)[l] = PM2_R(lc->CAT2(ab, rp, i)[l],         \
-                                              MUL_R(CAT2(ratio, i, n)[l],     \
+                                              MUL_R(CAT2(rpows, i, _m)[l],    \
                                                   CAT2(leg_, cs, nm_rp)[l])); \
            }                                                                  \
            for (l = 0; l < BLOCK_S; l++)                                      \
            {                                                                  \
                lc->CAT2(ab, pp, i)[l] = PM1_R(lc->CAT2(ab, pp, i)[l],         \
-                                              MUL_R(CAT2(ratio, i, n)[l],     \
+                                              MUL_R(CAT2(rpows, i, _m)[l],    \
                                                   CAT2(leg_, cs, nm_pp)[l])); \
            }
 
@@ -466,31 +473,25 @@
 /* Similarly, a single macro for lumped coefficients, all grads and "(R / r)
  * > 1" */
 #undef LCAB
-#define LCAB(PM1_R, PM2_R)                                                    \
+#define LCAB(n, PM1_R, PM2_R)                                                 \
+    rpows_m = rpows + GET_RPOWS_IDX(n);                                       \
     GRAD0_LC(ADD_R, a, , c);                                                  \
     GRAD0_LC(ADD_R, b, , s);                                                  \
     GRAD1_LC(ADD_R, ADD_R, a, , c);                                           \
     GRAD1_LC(ADD_R, ADD_R, b, , s);                                           \
     GRAD2_LC(ADD_R, ADD_R, a, , c);                                           \
     GRAD2_LC(ADD_R, ADD_R, b, , s);                                           \
-    for (l = 0; l < BLOCK_S; l++)                                             \
-    {                                                                         \
-        ration[l] = MUL_R(ration[l], ratio[l]);                               \
-    }                                                                         \
                                                                               \
                                                                               \
     if (symm)                                                                 \
     {                                                                         \
+        rpows2_m = rpows2 + GET_RPOWS_IDX(n);                                 \
         GRAD0_LC(PM1_R, a, 2, c);                                             \
         GRAD0_LC(PM1_R, b, 2, s);                                             \
         GRAD1_LC(PM1_R, PM2_R, a, 2, c);                                      \
         GRAD1_LC(PM1_R, PM2_R, b, 2, s);                                      \
         GRAD2_LC(PM1_R, PM2_R, a, 2, c);                                      \
         GRAD2_LC(PM1_R, PM2_R, b, 2, s);                                      \
-        for (l = 0; l < BLOCK_S; l++)                                         \
-        {                                                                     \
-            ratio2n[l] = MUL_R(ratio2n[l], ratio2[l]);                        \
-        }                                                                     \
     }
 
 
@@ -584,7 +585,7 @@
  * lengthy. */
 #define LOOP_ITER(n, PM1_R, PM2_R)                                            \
     LEG_CS((n))                                                               \
-    LCAB(PM1_R, PM2_R)                                                        \
+    LCAB((n), PM1_R, PM2_R)                                                   \
     idx++;
 
 
@@ -766,10 +767,8 @@ void CHARM(shs_point_kernel_grad2)
                              const REAL_SIMD *u,
                              const REAL *ps,
                              const INT *ips,
-                             const REAL_SIMD *ratio,
-                             const REAL_SIMD *ratio2,
-                             const REAL_SIMD *ratiom,
-                             const REAL_SIMD *ratio2m,
+                             REAL_SIMD *rpows,
+                             REAL_SIMD *rpows2,
                              const REAL_SIMD *symm_simd,
                              unsigned dorder,
                              CHARM(lc) *lc)
@@ -794,8 +793,6 @@ void CHARM(shs_point_kernel_grad2)
     MISC_SD_CALLOC_REAL_SIMD_INIT(pnm2);
     MISC_SD_CALLOC_REAL_SIMD_INIT(leg_cnm);
     MISC_SD_CALLOC_REAL_SIMD_INIT(leg_snm);
-    MISC_SD_CALLOC_REAL_SIMD_INIT(ration);
-    MISC_SD_CALLOC_REAL_SIMD_INIT(ratio2n);
     MISC_SD_CALLOC__BOOL_INIT(ds);
 #if DLAT > 0
     MISC_SD_CALLOC_REAL_SIMD_INIT(tu);
@@ -846,10 +843,6 @@ void CHARM(shs_point_kernel_grad2)
     MISC_SD_CALLOC_REAL_SIMD_E(leg_cnm, BLOCK_S, SIMD_BLOCK_S, lc->error,
                                BARRIER_1);
     MISC_SD_CALLOC_REAL_SIMD_E(leg_snm, BLOCK_S, SIMD_BLOCK_S, lc->error,
-                               BARRIER_1);
-    MISC_SD_CALLOC_REAL_SIMD_E(ration, BLOCK_S, SIMD_BLOCK_S, lc->error,
-                               BARRIER_1);
-    MISC_SD_CALLOC_REAL_SIMD_E(ratio2n, BLOCK_S, SIMD_BLOCK_S, lc->error,
                                BARRIER_1);
     MISC_SD_CALLOC__BOOL_E(ds, BLOCK_S, SIMD_BLOCK_S, lc->error, BARRIER_1);
 #if DLAT > 0
@@ -947,23 +940,6 @@ BARRIER_1:
     const REAL_SIMD ROOT3_r = SET1_R(ROOT3);
 
 
-    /* (R / r)^(n + 1 + dorder) */
-    for (l = 0; l < BLOCK_S; l++)
-    {
-        /* (R / r)^(n + 1) */
-        ration[l]  = ratiom[l];
-        ratio2n[l] = ratio2m[l];
-
-
-        /* (R / r)^(n + 1 + dorder) */
-        for (unsigned p = 0; p < dorder; p++)
-        {
-            ration[l]  = MUL_R(ration[l], ratio[l]);
-            ratio2n[l] = MUL_R(ratio2n[l], ratio2[l]);
-        }
-    }
-
-
     REAL_SIMD cnm, snm;
 
 
@@ -976,6 +952,10 @@ BARRIER_1:
     /* Get the index of "Cmm" and "Smm" in "shcs_block->c" and "shcs_block->s"
      * */
     unsigned long idx = CHARM(shc_block_get_idx)(shcs_block, m);
+
+
+    REAL_SIMD *rpows_m;
+    REAL_SIMD *rpows2_m;
 
 
     REAL_SIMD anms, bnms;
@@ -1045,36 +1025,36 @@ BARRIER_1:
 #if KERNEL_GRAD > 1
         GRAD2_LEGCS(ddpnm0, c);
 #endif
+        rpows_m = rpows + GET_RPOWS_IDX(0);
         for (l = 0; l < BLOCK_S; l++)
-            lc->a[l] = MUL_R(ration[l], leg_cnm[l]);
+            lc->a[l] = MUL_R(rpows_m[l], leg_cnm[l]);
         for (l = 0; l < BLOCK_S; l++)
             lc->b[l] = SET_ZERO_R;
 #if KERNEL_GRAD > 0
         for (l = 0; l < BLOCK_S; l++)
-            lc->ar[l] = MUL_R(ration[l], leg_cnm_r[l]);
+            lc->ar[l] = MUL_R(rpows_m[l], leg_cnm_r[l]);
         for (l = 0; l < BLOCK_S; l++)
             lc->br[l] = SET_ZERO_R;
         for (l = 0; l < BLOCK_S; l++)
-            lc->ap[l] = MUL_R(ration[l], leg_cnm_p[l]);
+            lc->ap[l] = MUL_R(rpows_m[l], leg_cnm_p[l]);
         for (l = 0; l < BLOCK_S; l++)
             lc->bp[l] = SET_ZERO_R;
 #endif
 #if KERNEL_GRAD > 1
         for (l = 0; l < BLOCK_S; l++)
-            lc->arr[l] = MUL_R(ration[l], leg_cnm_rr[l]);
+            lc->arr[l] = MUL_R(rpows_m[l], leg_cnm_rr[l]);
         for (l = 0; l < BLOCK_S; l++)
-            lc->arp[l] = MUL_R(ration[l], leg_cnm_rp[l]);
+            lc->arp[l] = MUL_R(rpows_m[l], leg_cnm_rp[l]);
         for (l = 0; l < BLOCK_S; l++)
-            lc->app[l] = MUL_R(ration[l], leg_cnm_pp[l]);
+            lc->app[l] = MUL_R(rpows_m[l], leg_cnm_pp[l]);
         for (l = 0; l < BLOCK_S; l++)
             lc->brr[l] = lc->brp[l] = lc->bpp[l] = SET_ZERO_R;
 #endif
-        for (l = 0; l < BLOCK_S; l++)
-            ration[l] = MUL_R(ration[l], ratio[l]);
 
 
         if (symm)
         {
+            rpows2_m = rpows2 + GET_RPOWS_IDX(0);
 #if KERNEL_GRAD == 0
             GRAD0_LC(SIGN2, a, 2, c);
             for (l = 0; l < BLOCK_S; l++)
@@ -1090,8 +1070,6 @@ BARRIER_1:
             for (l = 0; l < BLOCK_S; l++)
                 lc->brr2[l] = lc->brp2[l] = lc->bpp2[l] = SET_ZERO_R;
 #endif
-            for (l = 0; l < BLOCK_S; l++)
-                ratio2n[l] = MUL_R(ratio2n[l], ratio2[l]);
         }
 
 
@@ -1124,6 +1102,7 @@ BARRIER_1:
 #if KERNEL_GRAD > 1
             GRAD2_LEGCS(ddpnm1, c);
 #endif
+            rpows_m = rpows + GET_RPOWS_IDX(1);
 #if KERNEL_GRAD == 0
             GRAD0_LC(ADD_R, a, , c);
 #endif
@@ -1133,12 +1112,11 @@ BARRIER_1:
 #if KERNEL_GRAD > 1
             GRAD2_LC(ADD_R, ADD_R, a, , c);
 #endif
-            for (l = 0; l < BLOCK_S; l++)
-                ration[l]  = MUL_R(ration[l], ratio[l]);
 
 
             if (symm)
             {
+                rpows2_m = rpows2 + GET_RPOWS_IDX(1);
 #if KERNEL_GRAD == 0
                 GRAD0_LC(SIGN1, a, 2, c);
 #endif
@@ -1148,8 +1126,6 @@ BARRIER_1:
 #if KERNEL_GRAD > 1
                 GRAD2_LC(SUB_R, ADD_R, a, 2, c);
 #endif
-                for (l = 0; l < BLOCK_S; l++)
-                    ratio2n[l] = MUL_R(ratio2n[l], ratio2[l]);
             }
         }
 
@@ -1205,6 +1181,7 @@ BARRIER_1:
 #endif
 
 
+                rpows_m = rpows + GET_RPOWS_IDX(n);
 #if KERNEL_GRAD == 0
                 GRAD0_LC(ADD_R, a, , c);
 #endif
@@ -1214,8 +1191,6 @@ BARRIER_1:
 #if KERNEL_GRAD > 1
                 GRAD2_LC(ADD_R, ADD_R, a, , c);
 #endif
-                for (l = 0; l < BLOCK_S; l++)
-                    ration[l]  = MUL_R(ration[l], ratio[l]);
 
 
                 for (l = 0; l < BLOCK_S; l++)
@@ -1224,6 +1199,7 @@ BARRIER_1:
 
                 if (symm)
                 {
+                    rpows2_m = rpows2 + GET_RPOWS_IDX(n);
                     if (npm_even)
                     {
 #if KERNEL_GRAD == 0
@@ -1248,8 +1224,6 @@ BARRIER_1:
                         GRAD2_LC(SUB_R, ADD_R, a, 2, c);
 #endif
                     }
-                    for (l = 0; l < BLOCK_S; l++)
-                        ratio2n[l] = MUL_R(ratio2n[l], ratio2[l]);
                 }
             }
         }
@@ -1316,40 +1290,40 @@ BARRIER_1:
 #endif
 
 
+        rpows_m = rpows + GET_RPOWS_IDX(m);
         for (l = 0; l < BLOCK_S; l++)
-            lc->a[l] = MUL_R(ration[l], leg_cnm[l]);
+            lc->a[l] = MUL_R(rpows_m[l], leg_cnm[l]);
         for (l = 0; l < BLOCK_S; l++)
-            lc->b[l] = MUL_R(ration[l], leg_snm[l]);
+            lc->b[l] = MUL_R(rpows_m[l], leg_snm[l]);
 #if KERNEL_GRAD > 0
         for (l = 0; l < BLOCK_S; l++)
-            lc->ar[l] = MUL_R(ration[l], leg_cnm_r[l]);
+            lc->ar[l] = MUL_R(rpows_m[l], leg_cnm_r[l]);
         for (l = 0; l < BLOCK_S; l++)
-            lc->ap[l] = MUL_R(ration[l], leg_cnm_p[l]);
+            lc->ap[l] = MUL_R(rpows_m[l], leg_cnm_p[l]);
         for (l = 0; l < BLOCK_S; l++)
-            lc->br[l] = MUL_R(ration[l], leg_snm_r[l]);
+            lc->br[l] = MUL_R(rpows_m[l], leg_snm_r[l]);
         for (l = 0; l < BLOCK_S; l++)
-            lc->bp[l] = MUL_R(ration[l], leg_snm_p[l]);
+            lc->bp[l] = MUL_R(rpows_m[l], leg_snm_p[l]);
 #endif
 #if KERNEL_GRAD > 1
         for (l = 0; l < BLOCK_S; l++)
-            lc->arr[l] = MUL_R(ration[l], leg_cnm_rr[l]);
+            lc->arr[l] = MUL_R(rpows_m[l], leg_cnm_rr[l]);
         for (l = 0; l < BLOCK_S; l++)
-            lc->arp[l] = MUL_R(ration[l], leg_cnm_rp[l]);
+            lc->arp[l] = MUL_R(rpows_m[l], leg_cnm_rp[l]);
         for (l = 0; l < BLOCK_S; l++)
-            lc->app[l] = MUL_R(ration[l], leg_cnm_pp[l]);
+            lc->app[l] = MUL_R(rpows_m[l], leg_cnm_pp[l]);
         for (l = 0; l < BLOCK_S; l++)
-            lc->brr[l] = MUL_R(ration[l], leg_snm_rr[l]);
+            lc->brr[l] = MUL_R(rpows_m[l], leg_snm_rr[l]);
         for (l = 0; l < BLOCK_S; l++)
-            lc->brp[l] = MUL_R(ration[l], leg_snm_rp[l]);
+            lc->brp[l] = MUL_R(rpows_m[l], leg_snm_rp[l]);
         for (l = 0; l < BLOCK_S; l++)
-            lc->bpp[l] = MUL_R(ration[l], leg_snm_pp[l]);
+            lc->bpp[l] = MUL_R(rpows_m[l], leg_snm_pp[l]);
 #endif
-        for (l = 0; l < BLOCK_S; l++)
-            ration[l] = MUL_R(ration[l], ratio[l]);
 
 
         if (symm)
         {
+            rpows2_m = rpows2 + GET_RPOWS_IDX(m);
 #if KERNEL_GRAD == 0
             GRAD0_LC(SIGN2, a, 2, c);
             GRAD0_LC(SIGN2, b, 2, s);
@@ -1362,8 +1336,6 @@ BARRIER_1:
             GRAD2_LC(ADD_R, SUB_R, a, 2, c);
             GRAD2_LC(ADD_R, SUB_R, b, 2, s);
 #endif
-            for (l = 0; l < BLOCK_S; l++)
-                ratio2n[l] = MUL_R(ratio2n[l], ratio2[l]);
         }
         /* ----------------------------------------------------- */
 
@@ -1426,6 +1398,7 @@ BARRIER_1:
 #endif
 
 
+            rpows_m = rpows + GET_RPOWS_IDX(m + 1);
 #if KERNEL_GRAD == 0
             GRAD0_LC(ADD_R, a, , c);
             GRAD0_LC(ADD_R, b, , s);
@@ -1438,12 +1411,11 @@ BARRIER_1:
             GRAD2_LC(ADD_R, ADD_R, a, , c);
             GRAD2_LC(ADD_R, ADD_R, b, , s);
 #endif
-            for (l = 0; l < BLOCK_S; l++)
-                ration[l] = MUL_R(ration[l], ratio[l]);
 
 
             if (symm)
             {
+                rpows2_m = rpows2 + GET_RPOWS_IDX(m + 1);
 #if KERNEL_GRAD == 0
                 GRAD0_LC(SIGN1, a, 2, c);
                 GRAD0_LC(SIGN1, b, 2, s);
@@ -1456,8 +1428,6 @@ BARRIER_1:
                 GRAD2_LC(SUB_R, ADD_R, a, 2, c);
                 GRAD2_LC(SUB_R, ADD_R, b, 2, s);
 #endif
-                for (l = 0; l < BLOCK_S; l++)
-                    ratio2n[l] = MUL_R(ratio2n[l], ratio2[l]);
             }
 
 
@@ -1538,6 +1508,7 @@ BARRIER_1:
 #endif
 
 
+                rpows_m = rpows + GET_RPOWS_IDX(n);
 #if KERNEL_GRAD == 0
                 GRAD0_LC(ADD_R, a, , c);
                 GRAD0_LC(ADD_R, b, , s);
@@ -1550,12 +1521,11 @@ BARRIER_1:
                 GRAD2_LC(ADD_R, ADD_R, a, , c);
                 GRAD2_LC(ADD_R, ADD_R, b, , s);
 #endif
-                for (l = 0; l < BLOCK_S; l++)
-                    ration[l] = MUL_R(ration[l], ratio[l]);
 
 
                 if (symm)
                 {
+                    rpows2_m = rpows2 + GET_RPOWS_IDX(n);
                     if (npm_even)
                     {
 #if KERNEL_GRAD == 0
@@ -1586,8 +1556,6 @@ BARRIER_1:
                         GRAD2_LC(SUB_R, ADD_R, b, 2, s);
 #endif
                     }
-                    for (l = 0; l < BLOCK_S; l++)
-                        ratio2n[l] = MUL_R(ratio2n[l], ratio2[l]);
                 }
             }
 
@@ -1979,8 +1947,6 @@ FAILURE_1:
     MISC_SD_FREE(pnm2);
     MISC_SD_FREE(leg_cnm);
     MISC_SD_FREE(leg_snm);
-    MISC_SD_FREE(ration);
-    MISC_SD_FREE(ratio2n);
     MISC_SD_FREE(ds);
 #if DLAT > 0
     MISC_SD_FREE(tu);

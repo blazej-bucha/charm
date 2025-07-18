@@ -22,5 +22,7 @@
 #define PYWRAP 0
 
 
+#undef GFM_SGFM_COMPILE
+#define GFM_SGFM_COMPILE 1
 /* Not a typo, c-file is needed here */
 #include "gfm_sgfm.c"

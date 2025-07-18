@@ -5,7 +5,7 @@
  *
  * * defines, initializes, frees and resets the ``charm@P@_err`` structure,
  *
- * * tests whether an ``charm@P@_err`` structure is empty, and
+ * * tests whether a ``charm@P@_err`` structure is empty, and
  *
  * * handles errors.
  *

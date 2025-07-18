@@ -11,22 +11,16 @@ shcs_file = '../../data/input/EGM96-degree10.gfc'
 
 
 # =============================================================================
-# First, let's get the maximum harmonic degree stored in "shcs_file".  This is
-# especially useful to read all coefficients in "shcs_file" without knowing its
-# maximum harmonic degree a priori.
-nmax = ph.shc.Shc.nmax_from_file('gfc', shcs_file)
-
-
 # Now read all coefficients in "shcs_file"
-shcs = ph.shc.Shc.from_file('gfc', shcs_file, nmax)
+shcs = ph.shc.Shc.from_file('gfc', shcs_file)
 
 
-# Compute the Gauss--Legendre point grid for an "nmax" given by the maximum
-# degree stored in "shcs" and for a radius equal to the reference sphere,
-# to which the spherical harmonic coefficients are scaled to.  We intentionally
-# use here the Gauss--Legendre grid instead of the Driscoll--Healy grids in
-# order to avoid the inaccuracies due to the singularities at the poles (see
-# the documentation).
+# Compute the Gauss--Legendre point grid for the "nmax" given by the
+# maximum degree stored in "shcs" and for a radius equal to the reference
+# sphere, to which the spherical harmonic coefficients are scaled to.  We
+# intentionally use here the Gauss--Legendre grid instead of the
+# Driscoll--Healy grids in order to avoid the inaccuracies due to the
+# singularities at the poles (see the documentation).
 grd = ph.crd.PointGridGL(shcs.nmax, shcs.r)
 
 

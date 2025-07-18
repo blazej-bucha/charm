@@ -6,6 +6,9 @@
 
 
 
+#if GFM_SGFM_COMPILE
+
+
 /* Header files */
 /* ------------------------------------------------------------------------- */
 #include <config.h>
@@ -1183,3 +1186,5 @@ EXIT:
 }
 #endif
 
+
+#endif

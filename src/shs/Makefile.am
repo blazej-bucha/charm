@@ -28,6 +28,7 @@ libcharm@P@_shs_la_SOURCES = shs_cell.c \
 							 shs_lc_free.c \
 							 shs_check_symm_simd.c \
 							 shs_r_eq_rref.c \
+							 shs_rpows.c \
 							 shs_point_guru.c \
 							 shs_check_single_derivative.c \
 							 shs_check_grads.c \

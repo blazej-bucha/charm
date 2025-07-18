@@ -30,10 +30,8 @@ extern "C"
                  const REAL_SIMD *u,                                          \
                  const REAL *ps,                                              \
                  const INT *ips,                                              \
-                 const REAL_SIMD *ratio,                                      \
-                 const REAL_SIMD *ratio2,                                     \
-                 const REAL_SIMD *ratiom,                                     \
-                 const REAL_SIMD *ratio2m,                                    \
+                 REAL_SIMD *rpows,                                            \
+                 REAL_SIMD *rpows2,                                           \
                  const REAL_SIMD *symm_simd,                                  \
                  unsigned dorder,                                             \
                  CHARM(lc) *lc)

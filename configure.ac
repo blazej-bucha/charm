@@ -548,7 +548,7 @@ if test "$mpfr" = "yes"; then
 
 
         if test "$mpfr_buildopt_float128_p" = "no" ; then
-            AC_MSG_ERROR([MPFR was compiled without the --enable-float128 configuration option, but this is mandatory to compile CHarm in quadruple precision and --with-mpfr, recompile MPFR with the --enable-float128 flag])
+            AC_MSG_ERROR([MPFR was compiled without the --enable-float128 configuration option, but this is mandatory for quadruple precision and --enable-mpfr, recompile MPFR with the --enable-float128 flag])
         fi
     fi
 fi

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>charm_shc &#8212; CHarm 0.4.6 documentation</title>
+    <title>charm_shc &#8212; CHarm 0.4.7 documentation</title>
   
   
   
@@ -40,7 +40,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="_static/documentation_options.js?v=36da9119"></script>
+    <script src="_static/documentation_options.js?v=8d261304"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -53,8 +53,8 @@
     <link rel="prev" title="CHarm (C API)" href="api-c.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.4.6" />
-    <meta name="docbuild:last-update" content="Apr 14, 2025"/>
+  <meta name="docsearch:version" content="0.4.7" />
+    <meta name="docbuild:last-update" content="Jul 18, 2025"/>
   </head>
   
   
@@ -137,7 +137,7 @@
     <img src="_static/charm-logo.png" class="logo__image only-dark pst-js-only" alt=""/>
   
   
-    <p class="title logo__title">CHarm v0.4.6</p>
+    <p class="title logo__title">CHarm v0.4.7</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -864,7 +864,11 @@ without reading the spherical harmonic coefficients.</p>
 \bar{S}_{3,2},\, \cdots, \bar{S}_{\mathrm{nmax},\mathrm{nmax}},\end{split}\]</div>
 </p>
 <p>where <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(R\)</span> are the scaling parameter of the coefficients and the associated radius of the reference sphere and <span class="math notranslate nohighlight">\(\bar{C}_{n,m}\)</span> and <span class="math notranslate nohighlight">\(\bar{S}_{n,m}\)</span> are spherical harmonic coefficients of degree <code class="docutils literal notranslate"><span class="pre">n</span></code> and order <code class="docutils literal notranslate"><span class="pre">m</span></code>. It must hold that <code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">&lt;=</span> <span class="pre">shcs-&gt;nmax</span></code>.</p>
-<p>The path to the output file in <code class="docutils literal notranslate"><span class="pre">pathname</span></code> must already exist. </p>
+<p>The path to the output file in <code class="docutils literal notranslate"><span class="pre">pathname</span></code> must already exist.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The output file is platform-dependent. </p>
+</div>
 </dd></dl>
 
 <dl class="cpp function">
@@ -1207,8 +1211,8 @@ Assuming the <code class="docutils literal notranslate"><a class="reference inte
 <dt class="sig sig-object cpp" id="_CPPv4N9charm_shc11distributedE">
 <span id="_CPPv3N9charm_shc11distributedE"></span><span id="_CPPv2N9charm_shc11distributedE"></span><span id="charm_shc::distributed___Bool"></span><span class="target" id="structcharm__shc_1a8d7afa2ae075e75529008ec97ee20b1b"></span><span class="n"><span class="pre">_Bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">distributed</span></span></span><a class="headerlink" href="#_CPPv4N9charm_shc11distributedE" title="Link to this definition">#</a><br /></dt>
 <dd><p><ul class="simple">
-<li><p>If <code class="docutils literal notranslate"><span class="pre">0</span></code>, the structure is not distributed, meaning that each process (be it an OpenMP or MPI process) accesses the same data through <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1aec89546b6e791b22c41e47531cae878f"><span class="std std-ref"><span class="pre">charm_shc.c</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1a6818b02906586ec66ddf28095c779558"><span class="std std-ref"><span class="pre">charm_shc.s</span></span></a></code> and, if compiled with MPI support, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1adf572eb83bceaabf961e8abd47f9422c"><span class="std std-ref"><span class="pre">charm_shc.local_order</span></span></a></code>.</p></li>
-<li><p>If <code class="docutils literal notranslate"><span class="pre">1</span></code>, the structure is distributed across MPI processes, that is, each MPI process accesses different data through <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1aec89546b6e791b22c41e47531cae878f"><span class="std std-ref"><span class="pre">charm_shc.c</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1a6818b02906586ec66ddf28095c779558"><span class="std std-ref"><span class="pre">charm_shc.s</span></span></a></code> and, if compiled with MPI support, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1adf572eb83bceaabf961e8abd47f9422c"><span class="std std-ref"><span class="pre">charm_shc.local_order</span></span></a></code>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">0</span></code>, the structure is not distributed, meaning that each process (be it an OpenMP or MPI process) accesses the same data through <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1aec89546b6e791b22c41e47531cae878f"><span class="std std-ref"><span class="pre">charm_shc.c</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1a6818b02906586ec66ddf28095c779558"><span class="std std-ref"><span class="pre">charm_shc.s</span></span></a></code> and (if compiled with MPI support) <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1adf572eb83bceaabf961e8abd47f9422c"><span class="std std-ref"><span class="pre">charm_shc.local_order</span></span></a></code>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">1</span></code>, the structure is distributed across MPI processes, that is, each MPI process accesses different data through <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1aec89546b6e791b22c41e47531cae878f"><span class="std std-ref"><span class="pre">charm_shc.c</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1a6818b02906586ec66ddf28095c779558"><span class="std std-ref"><span class="pre">charm_shc.s</span></span></a></code> and (if compiled with MPI support) <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__shc_1adf572eb83bceaabf961e8abd47f9422c"><span class="std std-ref"><span class="pre">charm_shc.local_order</span></span></a></code>.</p></li>
 </ul>
 </p>
 <div class="admonition note">
@@ -1410,7 +1414,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Apr 14, 2025.
+  Last updated on Jul 18, 2025.
   <br/>
 </p>
   </div>
