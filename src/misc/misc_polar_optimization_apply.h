@@ -20,7 +20,7 @@ extern "C"
  *
  * @param[in] nmax Maximum spherical harmonic degree of the synthesis/analysis.
  *
- * @param[in] sinlat Sines of the latitudes.
+ * @param[in] coslat Cosines of the latitudes.
  *
  * @param[in] threshold Polar optimization threshold.
  *
@@ -29,8 +29,8 @@ extern "C"
  * */
 extern _Bool CHARM(misc_polar_optimization_apply)(unsigned long m,
                                                   unsigned long nmax,
-                                                  REAL_SIMD *sinlat,
-                                                  size_t nsinlat,
+                                                  REAL_SIMD *coslat,
+                                                  size_t ncoslat,
                                                   REAL_SIMD threshold);
 
 
