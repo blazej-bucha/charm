@@ -87,7 +87,7 @@ enum
  *        \bar{C}_{nm} \\
  *        \bar{S}_{nm}
  *        \end{aligned}\right\}
- *        = \dfrac{1}{4 \pi} \, \dfrac{R}{\mu} \, \left( \dfrac{r}{R} \right)^n 
+ *        = \dfrac{1}{4 \pi} \, \dfrac{r}{\mu} \, \left( \dfrac{r}{R} \right)^n 
  *        \displaystyle\iint_{\sigma} f(r, \varphi, \lambda) \, 
  *        \bar{Y}_{nm}(\varphi,\lambda) \, \mathrm{d}\sigma {.}
  *
@@ -199,7 +199,7 @@ CHARM_EXTERN void CHARM_CDECL
  *    \bar{S}_{nm} 
  *    \end{aligned}
  *    \right\}
- *    =& \dfrac{1}{4 \pi} \, \dfrac{R}{\mu} \, \left( \dfrac{r}{R} \right)^n \, 
+ *    =& \dfrac{1}{4 \pi} \, \dfrac{r}{\mu} \, \left( \dfrac{r}{R} \right)^n \, 
  *    \sum_{i,j} \tilde{f}(\varphi_i^{\min}, \varphi_i^{\max}, 
  *    \lambda_j^{\min}, \lambda_j^{\max}) \\
  *    &\times \int\limits_{\varphi_i^\mathrm{\min}}^{\varphi_i^\mathrm{\max}} 
