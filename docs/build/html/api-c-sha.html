@@ -16,29 +16,26 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
   
-  <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="_static/documentation_options.js?v=8d261304"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
@@ -53,8 +50,7 @@
     <link rel="prev" title="charm_shs" href="api-c-shs.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.4.7" />
-    <meta name="docbuild:last-update" content="Jul 18, 2025"/>
+    <meta name="docbuild:last-update" content="Nov 12, 2025"/>
   </head>
   
   
@@ -70,8 +66,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -79,6 +86,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -86,8 +94,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -103,8 +111,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -134,7 +141,7 @@
     
     
     <img src="_static/charm-logo.png" class="logo__image only-light" alt=""/>
-    <img src="_static/charm-logo.png" class="logo__image only-dark pst-js-only" alt=""/>
+    <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt=""/>`);</script>
   
   
     <p class="title logo__title">CHarm v0.4.7</p>
@@ -142,11 +149,15 @@
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
@@ -372,16 +383,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -407,10 +426,7 @@
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv415charm_sha_pointPK11charm_pointPKdmP9charm_shcP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_sha_point()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv414charm_sha_cellPK10charm_cellPKdmiP9charm_shcP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_sha_cell()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4Ut1_3"><code class="docutils literal notranslate"><span class="pre">@3</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_317CHARM_SHA_CELL_AQE"><code class="docutils literal notranslate"><span class="pre">CHARM_SHA_CELL_AQ</span></code></a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError17CHARM_SHA_CELL_AQE"><code class="docutils literal notranslate"><span class="pre">CHARM_SHA_CELL_AQ</span></code></a></li>
 </ul>
             </nav>
         </div>
@@ -447,7 +463,7 @@ CHarm.</p>
 \bar{C}_{nm} \\
 \bar{S}_{nm}
 \end{aligned}\right\}
-= \dfrac{1}{4 \pi} \, \dfrac{R}{\mu} \, \left( \dfrac{r}{R} \right)^n 
+= \dfrac{1}{4 \pi} \, \dfrac{r}{\mu} \, \left( \dfrac{r}{R} \right)^n 
 \displaystyle\iint_{\sigma} f(r, \varphi, \lambda) \, 
 \bar{Y}_{nm}(\varphi,\lambda) \, \mathrm{d}\sigma {.}\end{split}\]</div>
 </p>
@@ -494,7 +510,7 @@ CHarm.</p>
 \bar{S}_{nm} 
 \end{aligned}
 \right\}
-=&amp; \dfrac{1}{4 \pi} \, \dfrac{R}{\mu} \, \left( \dfrac{r}{R} \right)^n \, 
+=&amp; \dfrac{1}{4 \pi} \, \dfrac{r}{\mu} \, \left( \dfrac{r}{R} \right)^n \, 
 \sum_{i,j} \tilde{f}(\varphi_i^{\min}, \varphi_i^{\max}, 
 \lambda_j^{\min}, \lambda_j^{\max}) \\
 &amp;\times \int\limits_{\varphi_i^\mathrm{\min}}^{\varphi_i^\mathrm{\max}} 
@@ -553,13 +569,13 @@ coefficients beyond <code class="docutils literal notranslate"><span class="pre"
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-enums">Enums</p>
 <dl class="cpp enum">
-<dt class="sig sig-object cpp" id="_CPPv4Ut1_3">
-<span id="_CPPv3Ut1_3"></span><span class="target" id="charm__sha_8h_1abc6126af1d45847bc59afa0aa3216b04"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">[anonymous]</span></span></span><a class="headerlink" href="#_CPPv4Ut1_3" title="Link to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="target" id="charm__sha_8h_1abc6126af1d45847bc59afa0aa3216b04"></span><span class="sig-name descname"></span></dt>
 <dd><p>Harmonic analysis methods using evaluation cells. </p>
 <p><em>Values:</em></p>
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4NUt1_317CHARM_SHA_CELL_AQE">
-<span id="_CPPv3NUt1_317CHARM_SHA_CELL_AQE"></span><span class="target" id="charm__sha_8h_1abc6126af1d45847bc59afa0aa3216b04ac5edf8164d412c4f07f63ad008ad12f8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_SHA_CELL_AQ</span></span></span><a class="headerlink" href="#_CPPv4NUt1_317CHARM_SHA_CELL_AQE" title="Link to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError17CHARM_SHA_CELL_AQE">
+<span id="_CPPv3N19PhonyNameDueToError17CHARM_SHA_CELL_AQE"></span><span id="_CPPv2N19PhonyNameDueToError17CHARM_SHA_CELL_AQE"></span><span class="target" id="charm__sha_8h_1abc6126af1d45847bc59afa0aa3216b04ac5edf8164d412c4f07f63ad008ad12f8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_SHA_CELL_AQ</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError17CHARM_SHA_CELL_AQE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Spherical harmonic analysis of cell data using the <em>approximate</em> quadrature method. </p>
 </dd></dl>
 
@@ -604,8 +620,7 @@ coefficients beyond <code class="docutils literal notranslate"><span class="pre"
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -616,10 +631,7 @@ coefficients beyond <code class="docutils literal notranslate"><span class="pre"
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv415charm_sha_pointPK11charm_pointPKdmP9charm_shcP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_sha_point()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv414charm_sha_cellPK10charm_cellPKdmiP9charm_shcP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_sha_cell()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4Ut1_3"><code class="docutils literal notranslate"><span class="pre">@3</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_317CHARM_SHA_CELL_AQE"><code class="docutils literal notranslate"><span class="pre">CHARM_SHA_CELL_AQ</span></code></a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError17CHARM_SHA_CELL_AQE"><code class="docutils literal notranslate"><span class="pre">CHARM_SHA_CELL_AQ</span></code></a></li>
 </ul>
   </nav></div>
 
@@ -653,7 +665,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jul 18, 2025.
+  Last updated on Nov 12, 2025.
   <br/>
 </p>
   </div>
@@ -671,8 +683,8 @@ By Blažej Bucha
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

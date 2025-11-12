@@ -16,29 +16,26 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
   
-  <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="_static/documentation_options.js?v=8d261304"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
@@ -52,8 +49,7 @@
     <link rel="prev" title="charm_misc" href="api-c-misc.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.4.7" />
-    <meta name="docbuild:last-update" content="Jul 18, 2025"/>
+    <meta name="docbuild:last-update" content="Nov 12, 2025"/>
   </head>
   
   
@@ -69,8 +65,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -78,6 +85,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -85,8 +93,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -102,8 +110,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -133,7 +140,7 @@
     
     
     <img src="_static/charm-logo.png" class="logo__image only-light" alt=""/>
-    <img src="_static/charm-logo.png" class="logo__image only-dark pst-js-only" alt=""/>
+    <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt=""/>`);</script>
   
   
     <p class="title logo__title">CHarm v0.4.7</p>
@@ -141,11 +148,15 @@
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
@@ -371,16 +382,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -410,16 +429,13 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_ERR_MAX_LEVEL"><code class="docutils literal notranslate"><span class="pre">CHARM_ERR_MAX_LEVEL</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_ERR_MALLOC_FAILURE"><code class="docutils literal notranslate"><span class="pre">CHARM_ERR_MALLOC_FAILURE</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_ERR_FFTW_INIT_FAILURE"><code class="docutils literal notranslate"><span class="pre">CHARM_ERR_FFTW_INIT_FAILURE</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4Ut1_1"><code class="docutils literal notranslate"><span class="pre">@1</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_FAILUREE"><code class="docutils literal notranslate"><span class="pre">CHARM_FAILURE</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_SUCCESSE"><code class="docutils literal notranslate"><span class="pre">CHARM_SUCCESS</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_110CHARM_EMEME"><code class="docutils literal notranslate"><span class="pre">CHARM_EMEM</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_114CHARM_EFUNCARGE"><code class="docutils literal notranslate"><span class="pre">CHARM_EFUNCARG</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_EFILEIOE"><code class="docutils literal notranslate"><span class="pre">CHARM_EFILEIO</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_115CHARM_EFFTWINITE"><code class="docutils literal notranslate"><span class="pre">CHARM_EFFTWINIT</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_117CHARM_EMPIPROCESSE"><code class="docutils literal notranslate"><span class="pre">CHARM_EMPIPROCESS</span></code></a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError13CHARM_FAILUREE"><code class="docutils literal notranslate"><span class="pre">CHARM_FAILURE</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError13CHARM_SUCCESSE"><code class="docutils literal notranslate"><span class="pre">CHARM_SUCCESS</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError10CHARM_EMEME"><code class="docutils literal notranslate"><span class="pre">CHARM_EMEM</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError14CHARM_EFUNCARGE"><code class="docutils literal notranslate"><span class="pre">CHARM_EFUNCARG</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError13CHARM_EFILEIOE"><code class="docutils literal notranslate"><span class="pre">CHARM_EFILEIO</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError15CHARM_EFFTWINITE"><code class="docutils literal notranslate"><span class="pre">CHARM_EFFTWINIT</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError17CHARM_EMPIPROCESSE"><code class="docutils literal notranslate"><span class="pre">CHARM_EMPIPROCESS</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv414charm_err_initv"><code class="docutils literal notranslate"><span class="pre">charm_err_init()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv414charm_err_freeP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_err_free()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv415charm_err_resetP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_err_reset()</span></code></a></li>
@@ -503,49 +519,49 @@
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-enums">Enums</p>
 <dl class="cpp enum">
-<dt class="sig sig-object cpp" id="_CPPv4Ut1_1">
-<span id="_CPPv3Ut1_1"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">[anonymous]</span></span></span><a class="headerlink" href="#_CPPv4Ut1_1" title="Link to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7"></span><span class="sig-name descname"></span></dt>
 <dd><p>Errors enumeration. </p>
 <p><em>Values:</em></p>
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4NUt1_113CHARM_FAILUREE">
-<span id="_CPPv3NUt1_113CHARM_FAILUREE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7aa184de9ef11b8d67321e8efb5a0bb882"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_FAILURE</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">1</span></span><a class="headerlink" href="#_CPPv4NUt1_113CHARM_FAILUREE" title="Link to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError13CHARM_FAILUREE">
+<span id="_CPPv3N19PhonyNameDueToError13CHARM_FAILUREE"></span><span id="_CPPv2N19PhonyNameDueToError13CHARM_FAILUREE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7aa184de9ef11b8d67321e8efb5a0bb882"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_FAILURE</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">1</span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError13CHARM_FAILUREE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Exit status returned when CHarm is explicitly asked to terminate the program in case it encounters an error. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4NUt1_113CHARM_SUCCESSE">
-<span id="_CPPv3NUt1_113CHARM_SUCCESSE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7a2f5b21353cdb465cb3d173b9071e474a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_SUCCESS</span></span></span><a class="headerlink" href="#_CPPv4NUt1_113CHARM_SUCCESSE" title="Link to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError13CHARM_SUCCESSE">
+<span id="_CPPv3N19PhonyNameDueToError13CHARM_SUCCESSE"></span><span id="_CPPv2N19PhonyNameDueToError13CHARM_SUCCESSE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7a2f5b21353cdb465cb3d173b9071e474a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_SUCCESS</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError13CHARM_SUCCESSE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Successful execution of a CHarm function. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4NUt1_110CHARM_EMEME">
-<span id="_CPPv3NUt1_110CHARM_EMEME"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7a92551a2515ec22bf06eadf651d0f93e5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_EMEM</span></span></span><a class="headerlink" href="#_CPPv4NUt1_110CHARM_EMEME" title="Link to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError10CHARM_EMEME">
+<span id="_CPPv3N19PhonyNameDueToError10CHARM_EMEME"></span><span id="_CPPv2N19PhonyNameDueToError10CHARM_EMEME"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7a92551a2515ec22bf06eadf651d0f93e5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_EMEM</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError10CHARM_EMEME" title="Link to this definition">#</a><br /></dt>
 <dd><p>Memory allocation failure (malloc, calloc). </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4NUt1_114CHARM_EFUNCARGE">
-<span id="_CPPv3NUt1_114CHARM_EFUNCARGE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7a9ab9c557b568ecae2d60cf5166b03c48"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_EFUNCARG</span></span></span><a class="headerlink" href="#_CPPv4NUt1_114CHARM_EFUNCARGE" title="Link to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError14CHARM_EFUNCARGE">
+<span id="_CPPv3N19PhonyNameDueToError14CHARM_EFUNCARGE"></span><span id="_CPPv2N19PhonyNameDueToError14CHARM_EFUNCARGE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7a9ab9c557b568ecae2d60cf5166b03c48"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_EFUNCARG</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError14CHARM_EFUNCARGE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Error in function input/output argument(s). </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4NUt1_113CHARM_EFILEIOE">
-<span id="_CPPv3NUt1_113CHARM_EFILEIOE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7a8bd99c831aaa3b5293d2d0f862ac2f8b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_EFILEIO</span></span></span><a class="headerlink" href="#_CPPv4NUt1_113CHARM_EFILEIOE" title="Link to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError13CHARM_EFILEIOE">
+<span id="_CPPv3N19PhonyNameDueToError13CHARM_EFILEIOE"></span><span id="_CPPv2N19PhonyNameDueToError13CHARM_EFILEIOE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7a8bd99c831aaa3b5293d2d0f862ac2f8b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_EFILEIO</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError13CHARM_EFILEIOE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Error in file reading/writing. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4NUt1_115CHARM_EFFTWINITE">
-<span id="_CPPv3NUt1_115CHARM_EFFTWINITE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7adb17096d12ede0d617451b330f59ec34"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_EFFTWINIT</span></span></span><a class="headerlink" href="#_CPPv4NUt1_115CHARM_EFFTWINITE" title="Link to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError15CHARM_EFFTWINITE">
+<span id="_CPPv3N19PhonyNameDueToError15CHARM_EFFTWINITE"></span><span id="_CPPv2N19PhonyNameDueToError15CHARM_EFFTWINITE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7adb17096d12ede0d617451b330f59ec34"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_EFFTWINIT</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError15CHARM_EFFTWINITE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Error in threads initialization by FFTW. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4NUt1_117CHARM_EMPIPROCESSE">
-<span id="_CPPv3NUt1_117CHARM_EMPIPROCESSE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7aa9eafeb93d9935a7dd70ad6f68791c7b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_EMPIPROCESS</span></span></span><a class="headerlink" href="#_CPPv4NUt1_117CHARM_EMPIPROCESSE" title="Link to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError17CHARM_EMPIPROCESSE">
+<span id="_CPPv3N19PhonyNameDueToError17CHARM_EMPIPROCESSE"></span><span id="_CPPv2N19PhonyNameDueToError17CHARM_EMPIPROCESSE"></span><span class="target" id="charm__err_8h_1adf764cbdea00d65edcd07bb9953ad2b7aa9eafeb93d9935a7dd70ad6f68791c7b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_EMPIPROCESS</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError17CHARM_EMPIPROCESSE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Error reported by some other MPI process within the communicator. </p>
 </dd></dl>
 
@@ -714,8 +730,7 @@
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -730,16 +745,13 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_ERR_MAX_LEVEL"><code class="docutils literal notranslate"><span class="pre">CHARM_ERR_MAX_LEVEL</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_ERR_MALLOC_FAILURE"><code class="docutils literal notranslate"><span class="pre">CHARM_ERR_MALLOC_FAILURE</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_ERR_FFTW_INIT_FAILURE"><code class="docutils literal notranslate"><span class="pre">CHARM_ERR_FFTW_INIT_FAILURE</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4Ut1_1"><code class="docutils literal notranslate"><span class="pre">@1</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_FAILUREE"><code class="docutils literal notranslate"><span class="pre">CHARM_FAILURE</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_SUCCESSE"><code class="docutils literal notranslate"><span class="pre">CHARM_SUCCESS</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_110CHARM_EMEME"><code class="docutils literal notranslate"><span class="pre">CHARM_EMEM</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_114CHARM_EFUNCARGE"><code class="docutils literal notranslate"><span class="pre">CHARM_EFUNCARG</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_113CHARM_EFILEIOE"><code class="docutils literal notranslate"><span class="pre">CHARM_EFILEIO</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_115CHARM_EFFTWINITE"><code class="docutils literal notranslate"><span class="pre">CHARM_EFFTWINIT</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_117CHARM_EMPIPROCESSE"><code class="docutils literal notranslate"><span class="pre">CHARM_EMPIPROCESS</span></code></a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError13CHARM_FAILUREE"><code class="docutils literal notranslate"><span class="pre">CHARM_FAILURE</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError13CHARM_SUCCESSE"><code class="docutils literal notranslate"><span class="pre">CHARM_SUCCESS</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError10CHARM_EMEME"><code class="docutils literal notranslate"><span class="pre">CHARM_EMEM</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError14CHARM_EFUNCARGE"><code class="docutils literal notranslate"><span class="pre">CHARM_EFUNCARG</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError13CHARM_EFILEIOE"><code class="docutils literal notranslate"><span class="pre">CHARM_EFILEIO</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError15CHARM_EFFTWINITE"><code class="docutils literal notranslate"><span class="pre">CHARM_EFFTWINIT</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError17CHARM_EMPIPROCESSE"><code class="docutils literal notranslate"><span class="pre">CHARM_EMPIPROCESS</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv414charm_err_initv"><code class="docutils literal notranslate"><span class="pre">charm_err_init()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv414charm_err_freeP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_err_free()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv415charm_err_resetP9charm_err"><code class="docutils literal notranslate"><span class="pre">charm_err_reset()</span></code></a></li>
@@ -790,7 +802,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jul 18, 2025.
+  Last updated on Nov 12, 2025.
   <br/>
 </p>
   </div>
@@ -808,8 +820,8 @@ By Blažej Bucha
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -87,7 +87,7 @@ CHarm can work with evaluation points and evaluation cells.
   \in [-\frac{\pi}{2}, \frac{\pi}{2}]`, the spherical longitude, :math:`\lambda
   \in [0, 2\pi)`, and the spherical radius, :math:`r > 0`.
 
-* An evaluation **cell** is given the minimum and the maximum latitude,
+* An evaluation **cell** is given by the minimum and the maximum latitude,
   :math:`\varphi^{\mathrm{min}}` and :math:`\varphi^{\mathrm{max}}`,
   respectively, the minimum and the maximum longitude,
   :math:`\lambda^{\mathrm{min}}` and :math:`\lambda^{\mathrm{max}}`,
@@ -357,13 +357,13 @@ with the radius :math:`r`.  By surface spherical harmonic analysis,
    \bar{C}_{nm} \\
    \bar{S}_{nm}
    \end{aligned}\right\}
-   = \dfrac{1}{4 \pi} \, \dfrac{R}{\mu} \, \left( \dfrac{r}{R} \right)^n
+   = \dfrac{1}{4 \pi} \, \dfrac{r}{\mu} \, \left( \dfrac{r}{R} \right)^n
    \displaystyle\iint_{\sigma} f(r, \varphi, \lambda) \,
    \bar{Y}_{nm}(\varphi,\lambda) \, \mathrm{d}\sigma {,}
 
 it is possible to compute its spherical harmonic coefficients
 :math:`\{ \bar{C}_{nm},\, \bar{S}_{nm} \}`.  The coefficients are normalized by
-the :math:`\mu` constant and, if :math:`r \neq R`, they are
+the :math:`\mu` and :math:`R` constants and, if :math:`r \neq R`, they are
 additionally rescaled **from** the data sphere with the radius :math:`r` **to**
 the reference sphere with the radius :math:`R`.
 
