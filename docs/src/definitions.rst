@@ -87,7 +87,7 @@ CHarm can work with evaluation points and evaluation cells.
   \in [-\frac{\pi}{2}, \frac{\pi}{2}]`, the spherical longitude, :math:`\lambda
   \in [0, 2\pi)`, and the spherical radius, :math:`r > 0`.
 
-* An evaluation **cell** is given the minimum and the maximum latitude,
+* An evaluation **cell** is given by the minimum and the maximum latitude,
   :math:`\varphi^{\mathrm{min}}` and :math:`\varphi^{\mathrm{max}}`,
   respectively, the minimum and the maximum longitude,
   :math:`\lambda^{\mathrm{min}}` and :math:`\lambda^{\mathrm{max}}`,
