@@ -357,13 +357,13 @@ with the radius :math:`r`.  By surface spherical harmonic analysis,
    \bar{C}_{nm} \\
    \bar{S}_{nm}
    \end{aligned}\right\}
-   = \dfrac{1}{4 \pi} \, \dfrac{R}{\mu} \, \left( \dfrac{r}{R} \right)^n
+   = \dfrac{1}{4 \pi} \, \dfrac{r}{\mu} \, \left( \dfrac{r}{R} \right)^n
    \displaystyle\iint_{\sigma} f(r, \varphi, \lambda) \,
    \bar{Y}_{nm}(\varphi,\lambda) \, \mathrm{d}\sigma {,}
 
 it is possible to compute its spherical harmonic coefficients
 :math:`\{ \bar{C}_{nm},\, \bar{S}_{nm} \}`.  The coefficients are normalized by
-the :math:`\mu` constant and, if :math:`r \neq R`, they are
+the :math:`\mu` and :math:`R` constants and, if :math:`r \neq R`, they are
 additionally rescaled **from** the data sphere with the radius :math:`r` **to**
 the reference sphere with the radius :math:`R`.
 
