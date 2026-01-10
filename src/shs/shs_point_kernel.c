@@ -147,6 +147,23 @@
 #else
 #   define KERNEL_GRAD 0
 #endif
+
+
+/* gcc 15.2.1 miscompiles kernels from this source file if SIMD is disabled and
+ * "-O3 -ffast-math" (or "-march=native", etc.) are enabled.  It seems that gcc
+ * incorrectly reorders some statements that must not be reordered, thereby
+ * producing grossly invalid results.  "MEMORY_BARRIER" ensures that gcc will
+ * never reorder the statements found before and after the macro.
+ * "MEMORY_BARRIER" is non-empty only if compiling with gcc, SIMD is disabled
+ * and gcc version 4.4 or newer is used (required by the assembly call). */
+#undef MEMORY_BARRIER
+#define MEMORY_BARRIER
+#if defined(__GNUC__) && !defined(SIMD)
+#   if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)
+#       undef MEMORY_BARRIER
+#       define MEMORY_BARRIER asm volatile("" : : : "memory");
+#   endif
+#endif
 /* ------------------------------------------------------------------------- */
 
 
@@ -1574,6 +1591,7 @@ BARRIER_1:
             if (!npm_even)
             {
                 LOOP_ITER(n, SIGN1, SIGN2);
+                MEMORY_BARRIER;
                 n++;
             }
 
@@ -1583,6 +1601,7 @@ BARRIER_1:
                 for (; (n + 1) <= nmax; n += 2)
                 {
                     LOOP_ITER_R1(n,     SIGN2, SIGN1);
+                    MEMORY_BARRIER;
                     LOOP_ITER_R1(n + 1, SIGN1, SIGN2);
                 }
             }
@@ -1591,6 +1610,7 @@ BARRIER_1:
                 for (; (n + 1) <= nmax; n += 2)
                 {
                     LOOP_ITER(n,     SIGN2, SIGN1);
+                    MEMORY_BARRIER;
                     LOOP_ITER(n + 1, SIGN1, SIGN2);
                 }
             }
@@ -1599,7 +1619,7 @@ BARRIER_1:
             if (n > nmax)
                 goto DR_DERIVATIVE;
 
-
+            MEMORY_BARRIER;
             LOOP_ITER(n, SIGN2, SIGN1);
             /* ------------------------------------------------- */
 
