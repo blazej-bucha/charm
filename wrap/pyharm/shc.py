@@ -1202,7 +1202,7 @@ class Shc:
                                 None,
                                 err)
         else:
-            shcs = cls.from_garbage(nmax)
+            shcs = cls.from_zeros(nmax)
             if file_type == 'gfc':
                 ret = func_gfc(_str_ptr(pathname, encoding),
                                _ct_ulong(nmax),
