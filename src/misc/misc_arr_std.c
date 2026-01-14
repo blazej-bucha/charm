@@ -23,7 +23,7 @@ REAL CHARM(misc_arr_std)(const REAL *a, size_t na, CHARM(err) *err)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "The array size cannot be smaller than \"1\".");
-        return NAN;
+        return CHARM_NAN;
     }
 
 
@@ -32,7 +32,7 @@ REAL CHARM(misc_arr_std)(const REAL *a, size_t na, CHARM(err) *err)
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
-        return NAN;
+        return CHARM_NAN;
     }
 
 

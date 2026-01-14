@@ -20,7 +20,7 @@ REAL CHARM(misc_arr_mean)(const REAL *a, size_t na, CHARM(err) *err)
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "The array size cannot be smaller than \"1\".");
-        return NAN;
+        return CHARM_NAN;
     }
 
 

@@ -35,7 +35,7 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin,
     if (!CHARM(err_isempty)(err))
     {
         CHARM(err_propagate)(err, __FILE__, __LINE__, __func__);
-        return NAN;
+        return CHARM_NAN;
     }
 
 
@@ -43,7 +43,7 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"cltmin\" cannot be larger than \"cltmax\".");
-        return NAN;
+        return CHARM_NAN;
     }
 
 
@@ -51,7 +51,7 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"n1\" cannot be larger than \"pnmj->nmax\".");
-        return NAN;
+        return CHARM_NAN;
     }
 
 
@@ -59,7 +59,7 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"n2\" cannot be larger than \"pnmj->nmax\".");
-        return NAN;
+        return CHARM_NAN;
     }
 
 
@@ -68,7 +68,7 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"m1\" cannot be larger than \"n1\".");
-        return NAN;
+        return CHARM_NAN;
     }
 
 
@@ -76,7 +76,7 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "\"m2\" cannot be larger than \"n2\".");
-        return NAN;
+        return CHARM_NAN;
     }
 
 
@@ -84,7 +84,7 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EFUNCARG,
                        "Unsupported value of \"pnmj->ordering\".");
-        return NAN;
+        return CHARM_NAN;
     }
     /* --------------------------------------------------------------------- */
 
@@ -100,7 +100,7 @@ REAL CHARM(integ_pn1m1pn2m2)(REAL cltmin,
     {
         CHARM(err_set)(err, __FILE__, __LINE__, __func__, CHARM_EMEM,
                        CHARM_ERR_MALLOC_FAILURE);
-        return NAN;
+        return CHARM_NAN;
     }
 
 

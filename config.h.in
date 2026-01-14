@@ -11,7 +11,7 @@
 /* Define to 1 to compile in quadruple precision. */
 #undef CHARM_QUAD
 
-/* Define to 1 if you have the `aligned_alloc' function. */
+/* Define to 1 if you have the 'aligned_alloc' function. */
 #undef HAVE_ALIGNED_ALLOC
 
 /* Define to 1 to enable avx instructions */
@@ -39,40 +39,40 @@
    file. */
 #undef HAVE_ISFINITE
 
-/* Define to 1 if you have the `fftw3' library (-lfftw3). */
+/* Define to 1 if you have the 'fftw3' library (-lfftw3). */
 #undef HAVE_LIBFFTW3
 
-/* Define to 1 if you have the `fftw3f' library (-lfftw3f). */
+/* Define to 1 if you have the 'fftw3f' library (-lfftw3f). */
 #undef HAVE_LIBFFTW3F
 
-/* Define to 1 if you have the `fftw3f_omp' library (-lfftw3f_omp). */
+/* Define to 1 if you have the 'fftw3f_omp' library (-lfftw3f_omp). */
 #undef HAVE_LIBFFTW3F_OMP
 
-/* Define to 1 if you have the `fftw3q' library (-lfftw3q). */
+/* Define to 1 if you have the 'fftw3q' library (-lfftw3q). */
 #undef HAVE_LIBFFTW3Q
 
-/* Define to 1 if you have the `fftw3q_omp' library (-lfftw3q_omp). */
+/* Define to 1 if you have the 'fftw3q_omp' library (-lfftw3q_omp). */
 #undef HAVE_LIBFFTW3Q_OMP
 
-/* Define to 1 if you have the `fftw3_omp' library (-lfftw3_omp). */
+/* Define to 1 if you have the 'fftw3_omp' library (-lfftw3_omp). */
 #undef HAVE_LIBFFTW3_OMP
 
-/* Define to 1 if you have the `gmp' library (-lgmp). */
+/* Define to 1 if you have the 'gmp' library (-lgmp). */
 #undef HAVE_LIBGMP
 
-/* Define to 1 if you have the `m' library (-lm). */
+/* Define to 1 if you have the 'm' library (-lm). */
 #undef HAVE_LIBM
 
-/* Define to 1 if you have the `mpfr' library (-lmpfr). */
+/* Define to 1 if you have the 'mpfr' library (-lmpfr). */
 #undef HAVE_LIBMPFR
 
-/* Define to 1 if you have the `quadmath' library (-lquadmath). */
+/* Define to 1 if you have the 'quadmath' library (-lquadmath). */
 #undef HAVE_LIBQUADMATH
 
 /* Define to 1 if you have the <malloc.h> header file. */
 #undef HAVE_MALLOC_H
 
-/* Define to 1 if you have the `malloc_trim' function. */
+/* Define to 1 if you have the 'malloc_trim' function. */
 #undef HAVE_MALLOC_TRIM
 
 /* Define to 1 if you have the <mm_malloc.h> header file. */
@@ -102,7 +102,7 @@
 /* Define if OpenMP is enabled */
 #undef HAVE_OPENMP
 
-/* Define to 1 if you have the `posix_memalign' function. */
+/* Define to 1 if you have the 'posix_memalign' function. */
 #undef HAVE_POSIX_MEMALIGN
 
 /* Define to 1 to enable sse4.1 instructions */
@@ -132,7 +132,7 @@
 /* Define to 1 if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
 
-/* Define to 1 if you have the `_aligned_malloc' function. */
+/* Define to 1 if you have the '_aligned_malloc' function. */
 #undef HAVE__ALIGNED_MALLOC
 
 /* Define to the sub-directory where libtool stores uninstalled libraries. */
@@ -165,7 +165,7 @@
 /* Define to the version of this package. */
 #undef PACKAGE_VERSION
 
-/* Define to 1 if all of the C90 standard headers exist (not just the ones
+/* Define to 1 if all of the C89 standard headers exist (not just the ones
    required in a freestanding environment). This macro is provided for
    backward compatibility; new code need not use it. */
 #undef STDC_HEADERS
@@ -188,10 +188,10 @@
 /* LDFLAGS used to compile CHarm. */
 #undef _CHARM_LIBS
 
-/* Define to empty if `const' does not conform to ANSI C. */
+/* Define to empty if 'const' does not conform to ANSI C. */
 #undef const
 
-/* Define to `__inline__' or `__inline' if that's what the C compiler
+/* Define to '__inline__' or '__inline' if that's what the C compiler
    calls it, or to nothing if 'inline' is not supported under any name.  */
 #ifndef __cplusplus
 #undef inline
@@ -205,7 +205,7 @@
    such a type exists and the standard includes do not define it. */
 #undef int64_t
 
-/* Define to `unsigned int' if <sys/types.h> does not define. */
+/* Define as 'unsigned int' if <stddef.h> doesn't define. */
 #undef size_t
 
 

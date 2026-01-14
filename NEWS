@@ -1,3 +1,14 @@
+CHarm 0.4.8:
+
+* Fixed miscompilation by gcc 15.2.1 when vector instructions are 
+  disabled and optimizations flags `-O3 -ffast-math` (or `-march=native`) are 
+  enabled.
+
+* Quiet `NaN`s are now obtained by the `nanf`, `nan` and `nanq` routines 
+  instead of the `NAN` macro.
+
+* Drop support for Python wheels 3.10, add support for 3.14.
+
 CHarm 0.4.7:
 
 This release modifies the PyHarm routines to read/write spherical harmonic 

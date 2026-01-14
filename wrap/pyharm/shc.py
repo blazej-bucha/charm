@@ -130,7 +130,7 @@ class Shc:
     @property
     def mu(self):
         """
-        Scaling parameter :math:`\mu` associated with the spherical
+        Scaling parameter :math:`\\mu` associated with the spherical
         harmonic coefficients, for instance, the geocentric gravitational
         constant. In case the coefficients are not associated with any scaling
         parameter (as it is, for instance, with planetary topographies), simply
@@ -156,8 +156,8 @@ class Shc:
         The :math:`\\bar{C}_{nm}` spherical harmonic coefficients.  A numpy
         array with the shape (((:attr:`nmax` + 2) * (:attr:`nmax` + 1)) / 2,)
         and the array structure :math:`\\bar{C}_{00}`, :math:`\\bar{C}_{10}`,
-        ..., :math:`\\bar{C}_{\mathrm{nmax},0}`, :math:`\\bar{C}_{1,1}`, ...,
-        :math:`\\bar{C}_{\mathrm{nmax},\mathrm{nmax}}`.
+        ..., :math:`\\bar{C}_{\\mathrm{nmax},0}`, :math:`\\bar{C}_{1,1}`, ...,
+        :math:`\\bar{C}_{\\mathrm{nmax},\\mathrm{nmax}}`.
         """
         return self._c
 
@@ -1202,7 +1202,7 @@ class Shc:
                                 None,
                                 err)
         else:
-            shcs = cls.from_garbage(nmax)
+            shcs = cls.from_zeros(nmax)
             if file_type == 'gfc':
                 ret = func_gfc(_str_ptr(pathname, encoding),
                                _ct_ulong(nmax),

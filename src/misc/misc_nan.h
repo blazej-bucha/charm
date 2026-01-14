@@ -10,8 +10,13 @@
 #include "../prec.h"
 
 
-#ifndef NAN
-#   define NAN (PREC(0.0) / PREC(0.0))
+#undef CHARM_NAN
+#if CHARM_FLOAT
+#   define CHARM_NAN        nanf("")
+#elif CHARM_QUAD
+#   define CHARM_NAN        nanq("")
+#else
+#   define CHARM_NAN        nan("")
 #endif
 
 
