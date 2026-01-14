@@ -194,11 +194,11 @@ def point_guru(pnt, shcs, nmax, dr, dlat, dlon):
 
     .. math::
 
-        \\frac{1}{r^{j + k} \, \cos^k\\varphi} \, \\frac{\partial^{i + j + k}
-        f}{\partial r^i \, \partial \\varphi^j \, \lambda^k}
+        \\frac{1}{r^{j + k} \\, \\cos^k\\varphi} \\, \\frac{\\partial^{i
+        + j + k} f}{\\partial r^i \\, \\partial \\varphi^j \\, \\lambda^k}
 
     for :math:`i = 0, 1, 2` (``dr``), :math:`j = 0, 1, 2` (``dlat``) and
-    :math:`k = 0, 1, 2` (``dlon``) satisfying :math:`i + j + k \leq 2` from
+    :math:`k = 0, 1, 2` (``dlon``) satisfying :math:`i + j + k \\leq 2` from
     ``shcs`` at ``pnt`` up to maximum degree ``nmax``.  Refer to
     `charm_shs_point_guru` in `charm_shs <./api-c-shs.html>`_ for the full
     documentation.

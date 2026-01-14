@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>charm_crd &#8212; CHarm 0.4.7-dev documentation</title>
+    <title>charm_crd &#8212; CHarm 0.4.8 documentation</title>
   
   
   
@@ -16,33 +16,30 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
   
-  <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=6e296e2c"></script>
-    <script src="_static/doctools.js?v=9bcbadda"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/documentation_options.js?v=c78092fa"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api-c-crd';</script>
     <link rel="icon" href="_static/charm-logo-favicon.png"/>
@@ -52,8 +49,7 @@
     <link rel="prev" title="charm_shc" href="api-c-shc.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.4.7-dev" />
-    <meta name="docbuild:last-update" content="Jul 18, 2025"/>
+    <meta name="docbuild:last-update" content="Jan 14, 2026"/>
   </head>
   
   
@@ -69,8 +65,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -78,6 +85,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -85,8 +93,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -102,8 +110,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -133,19 +140,23 @@
     
     
     <img src="_static/charm-logo.png" class="logo__image only-light" alt=""/>
-    <img src="_static/charm-logo.png" class="logo__image only-dark pst-js-only" alt=""/>
+    <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt=""/>`);</script>
   
   
-    <p class="title logo__title">CHarm v0.4.7-dev</p>
+    <p class="title logo__title">CHarm v0.4.8</p>
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
@@ -371,16 +382,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -418,16 +437,13 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv421charm_crd_cell_calloci6size_t6size_t"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_calloc()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv419charm_crd_cell_initi6size_t6size_tPdPdPdPdPd"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_init()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv419charm_crd_cell_freeP10charm_cell"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_free()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4Ut1_0"><code class="docutils literal notranslate"><span class="pre">@0</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_019CHARM_CRD_CELL_GRIDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_GRID</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_024CHARM_CRD_CELL_SCATTEREDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_025CHARM_CRD_POINT_SCATTEREDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_SCATTERED</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_020CHARM_CRD_POINT_GRIDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_023CHARM_CRD_POINT_GRID_GLE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH1E"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH2E"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></code></a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError19CHARM_CRD_CELL_GRIDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_GRID</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError24CHARM_CRD_CELL_SCATTEREDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError25CHARM_CRD_POINT_SCATTEREDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_SCATTERED</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError20CHARM_CRD_POINT_GRIDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError23CHARM_CRD_POINT_GRID_GLE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError24CHARM_CRD_POINT_GRID_DH1E"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError24CHARM_CRD_POINT_GRID_DH2E"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv411charm_point"><code class="docutils literal notranslate"><span class="pre">charm_point</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4typeE"><code class="docutils literal notranslate"><span class="pre">type</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4nlatE"><code class="docutils literal notranslate"><span class="pre">nlat</span></code></a></li>
@@ -742,49 +758,49 @@ longitudinal step is constant.</p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-enums">Enums</p>
 <dl class="cpp enum">
-<dt class="sig sig-object cpp" id="_CPPv4Ut1_0">
-<span id="_CPPv3Ut1_0"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55b"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">[anonymous]</span></span></span><a class="headerlink" href="#_CPPv4Ut1_0" title="Link to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp">
+<span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55b"></span><span class="sig-name descname"></span></dt>
 <dd><p>Defines supported values of <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__point_1aa35333657beaf178363c136623b0473d"><span class="std std-ref"><span class="pre">charm_point.type</span></span></a></code> to <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba6b99f8561350326841b455125b2820f9"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_SCATTERED</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bae65b0ee9dba031d62ff7758344ace23c"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bab4d94ce6d422441b136e7a4c1004fe60"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba7b6b9df94846ef66a06576f859b33490"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></span></a></code>, <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bac257fe0b50a555185faec82d04a70ee6"><span class="std std-ref"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></span></a></code>. For <code class="docutils literal notranslate"><a class="reference internal" href="#structcharm__cell_1a6f1a65bcfb966a604f080f4a1db87fe9"><span class="std std-ref"><span class="pre">charm_cell.type</span></span></a></code>, valid constants are <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bafb6b3c1a3904ae4db02d4ab932893ec2"><span class="std std-ref"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="#charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba66aff589c459da043f1c2cf320c49768"><span class="std std-ref"><span class="pre">CHARM_CRD_CELL_GRID</span></span></a></code>. </p>
 <p><em>Values:</em></p>
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4NUt1_019CHARM_CRD_CELL_GRIDE">
-<span id="_CPPv3NUt1_019CHARM_CRD_CELL_GRIDE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba66aff589c459da043f1c2cf320c49768"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_CELL_GRID</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">2</span></span><a class="headerlink" href="#_CPPv4NUt1_019CHARM_CRD_CELL_GRIDE" title="Link to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError19CHARM_CRD_CELL_GRIDE">
+<span id="_CPPv3N19PhonyNameDueToError19CHARM_CRD_CELL_GRIDE"></span><span id="_CPPv2N19PhonyNameDueToError19CHARM_CRD_CELL_GRIDE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba66aff589c459da043f1c2cf320c49768"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_CELL_GRID</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">2</span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError19CHARM_CRD_CELL_GRIDE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Custom grid of cells. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4NUt1_024CHARM_CRD_CELL_SCATTEREDE">
-<span id="_CPPv3NUt1_024CHARM_CRD_CELL_SCATTEREDE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bafb6b3c1a3904ae4db02d4ab932893ec2"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></span></span><a class="headerlink" href="#_CPPv4NUt1_024CHARM_CRD_CELL_SCATTEREDE" title="Link to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError24CHARM_CRD_CELL_SCATTEREDE">
+<span id="_CPPv3N19PhonyNameDueToError24CHARM_CRD_CELL_SCATTEREDE"></span><span id="_CPPv2N19PhonyNameDueToError24CHARM_CRD_CELL_SCATTEREDE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bafb6b3c1a3904ae4db02d4ab932893ec2"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError24CHARM_CRD_CELL_SCATTEREDE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Scattered cells. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4NUt1_025CHARM_CRD_POINT_SCATTEREDE">
-<span id="_CPPv3NUt1_025CHARM_CRD_POINT_SCATTEREDE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba6b99f8561350326841b455125b2820f9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_POINT_SCATTERED</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><a class="headerlink" href="#_CPPv4NUt1_025CHARM_CRD_POINT_SCATTEREDE" title="Link to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError25CHARM_CRD_POINT_SCATTEREDE">
+<span id="_CPPv3N19PhonyNameDueToError25CHARM_CRD_POINT_SCATTEREDE"></span><span id="_CPPv2N19PhonyNameDueToError25CHARM_CRD_POINT_SCATTEREDE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba6b99f8561350326841b455125b2820f9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_POINT_SCATTERED</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError25CHARM_CRD_POINT_SCATTEREDE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Scattered points. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4NUt1_020CHARM_CRD_POINT_GRIDE">
-<span id="_CPPv3NUt1_020CHARM_CRD_POINT_GRIDE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bae65b0ee9dba031d62ff7758344ace23c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_POINT_GRID</span></span></span><a class="headerlink" href="#_CPPv4NUt1_020CHARM_CRD_POINT_GRIDE" title="Link to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError20CHARM_CRD_POINT_GRIDE">
+<span id="_CPPv3N19PhonyNameDueToError20CHARM_CRD_POINT_GRIDE"></span><span id="_CPPv2N19PhonyNameDueToError20CHARM_CRD_POINT_GRIDE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bae65b0ee9dba031d62ff7758344ace23c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_POINT_GRID</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError20CHARM_CRD_POINT_GRIDE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Custom point grid. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4NUt1_023CHARM_CRD_POINT_GRID_GLE">
-<span id="_CPPv3NUt1_023CHARM_CRD_POINT_GRID_GLE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bab4d94ce6d422441b136e7a4c1004fe60"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></span></span><a class="headerlink" href="#_CPPv4NUt1_023CHARM_CRD_POINT_GRID_GLE" title="Link to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError23CHARM_CRD_POINT_GRID_GLE">
+<span id="_CPPv3N19PhonyNameDueToError23CHARM_CRD_POINT_GRID_GLE"></span><span id="_CPPv2N19PhonyNameDueToError23CHARM_CRD_POINT_GRID_GLE"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bab4d94ce6d422441b136e7a4c1004fe60"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError23CHARM_CRD_POINT_GRID_GLE" title="Link to this definition">#</a><br /></dt>
 <dd><p>Gauss-Legendre point grid. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH1E">
-<span id="_CPPv3NUt1_024CHARM_CRD_POINT_GRID_DH1E"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba7b6b9df94846ef66a06576f859b33490"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></span></span><a class="headerlink" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH1E" title="Link to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError24CHARM_CRD_POINT_GRID_DH1E">
+<span id="_CPPv3N19PhonyNameDueToError24CHARM_CRD_POINT_GRID_DH1E"></span><span id="_CPPv2N19PhonyNameDueToError24CHARM_CRD_POINT_GRID_DH1E"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55ba7b6b9df94846ef66a06576f859b33490"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError24CHARM_CRD_POINT_GRID_DH1E" title="Link to this definition">#</a><br /></dt>
 <dd><p>Driscoll-Healy point grid as defined by Driscoll and Healy (1994) (non-equiangular). </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH2E">
-<span id="_CPPv3NUt1_024CHARM_CRD_POINT_GRID_DH2E"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bac257fe0b50a555185faec82d04a70ee6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></span></span><a class="headerlink" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH2E" title="Link to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N19PhonyNameDueToError24CHARM_CRD_POINT_GRID_DH2E">
+<span id="_CPPv3N19PhonyNameDueToError24CHARM_CRD_POINT_GRID_DH2E"></span><span id="_CPPv2N19PhonyNameDueToError24CHARM_CRD_POINT_GRID_DH2E"></span><span class="target" id="charm__crd_8h_1a06fc87d81c62e9abb8790b6e5713c55bac257fe0b50a555185faec82d04a70ee6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></span></span><a class="headerlink" href="#_CPPv4N19PhonyNameDueToError24CHARM_CRD_POINT_GRID_DH2E" title="Link to this definition">#</a><br /></dt>
 <dd><p>The equiangular modification of the Driscoll-Healy point grid after Wieczorek and Meschede (2018). </p>
 </dd></dl>
 
@@ -1063,8 +1079,7 @@ longitudinal step is constant.</p>
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1087,16 +1102,13 @@ longitudinal step is constant.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv421charm_crd_cell_calloci6size_t6size_t"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_calloc()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv419charm_crd_cell_initi6size_t6size_tPdPdPdPdPd"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_init()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv419charm_crd_cell_freeP10charm_cell"><code class="docutils literal notranslate"><span class="pre">charm_crd_cell_free()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4Ut1_0"><code class="docutils literal notranslate"><span class="pre">@0</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_019CHARM_CRD_CELL_GRIDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_GRID</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_024CHARM_CRD_CELL_SCATTEREDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_025CHARM_CRD_POINT_SCATTEREDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_SCATTERED</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_020CHARM_CRD_POINT_GRIDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_023CHARM_CRD_POINT_GRID_GLE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH1E"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4NUt1_024CHARM_CRD_POINT_GRID_DH2E"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></code></a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError19CHARM_CRD_CELL_GRIDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_GRID</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError24CHARM_CRD_CELL_SCATTEREDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_CELL_SCATTERED</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError25CHARM_CRD_POINT_SCATTEREDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_SCATTERED</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError20CHARM_CRD_POINT_GRIDE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError23CHARM_CRD_POINT_GRID_GLE"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID_GL</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError24CHARM_CRD_POINT_GRID_DH1E"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID_DH1</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N19PhonyNameDueToError24CHARM_CRD_POINT_GRID_DH2E"><code class="docutils literal notranslate"><span class="pre">CHARM_CRD_POINT_GRID_DH2</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv411charm_point"><code class="docutils literal notranslate"><span class="pre">charm_point</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4typeE"><code class="docutils literal notranslate"><span class="pre">type</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N11charm_point4nlatE"><code class="docutils literal notranslate"><span class="pre">nlat</span></code></a></li>
@@ -1152,7 +1164,7 @@ By Blažej Bucha
 
   <p class="copyright">
     
-      © Copyright 2025, Blažej Bucha.
+      © Copyright 2026, Blažej Bucha.
       <br/>
     
   </p>
@@ -1161,7 +1173,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jul 18, 2025.
+  Last updated on Jan 14, 2026.
   <br/>
 </p>
   </div>
@@ -1179,8 +1191,8 @@ By Blažej Bucha
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

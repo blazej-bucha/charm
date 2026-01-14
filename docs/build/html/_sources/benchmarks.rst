@@ -32,7 +32,7 @@ Accuracy
 ========
 
 We generated reference random spherical harmonic coefficients from the interval
-``[-1.0, 1.0]`` up to degree ``N``, then synthesized the signal up to degree 
+``[-1.0, 1.0)`` up to degree ``N``, then synthesized the signal up to degree 
 ``N``, and, finally, harmonically analyzed the signal
 up to the same ``N`` degree.  Below are plotted the following statistics
 obtained from the differences between the recovered and the reference

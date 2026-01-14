@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>PyHarm &#8212; CHarm 0.4.7-dev documentation</title>
+    <title>PyHarm &#8212; CHarm 0.4.8 documentation</title>
   
   
   
@@ -16,33 +16,30 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom_BB.css" />
   
-  <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=6e296e2c"></script>
-    <script src="_static/doctools.js?v=9bcbadda"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/documentation_options.js?v=c78092fa"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'cookbook-py';</script>
     <link rel="icon" href="_static/charm-logo-favicon.png"/>
@@ -52,8 +49,7 @@
     <link rel="prev" title="CHarm" href="cookbook-c.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.4.7-dev" />
-    <meta name="docbuild:last-update" content="Jul 18, 2025"/>
+    <meta name="docbuild:last-update" content="Jan 14, 2026"/>
   </head>
   
   
@@ -69,8 +65,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -78,6 +85,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -85,8 +93,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -102,8 +110,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -133,19 +140,23 @@
     
     
     <img src="_static/charm-logo.png" class="logo__image only-light" alt=""/>
-    <img src="_static/charm-logo.png" class="logo__image only-dark pst-js-only" alt=""/>
+    <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt=""/>`);</script>
   
   
-    <p class="title logo__title">CHarm v0.4.7-dev</p>
+    <p class="title logo__title">CHarm v0.4.8</p>
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
@@ -371,16 +382,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -433,16 +452,16 @@ PyHarm.  For a detailed description of the classes, methods, functions, etc. to
 be used, see the <a class="reference internal" href="api-py.html#py-api"><span class="std std-ref">PyHarm (Python API)</span></a> chapter.  The source codes of the examples can
 be found in the <code class="docutils literal notranslate"><span class="pre">cookbook/python</span></code> directory.</p>
 <p>In your Python code, import PyHarm in double precision by:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pyharm</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ph</span>
 </pre></div>
 </div>
 <p>To import PyHarm in single precision, use:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharmf</span> <span class="k">as</span> <span class="nn">phf</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pyharmf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">phf</span>
 </pre></div>
 </div>
 <p>Both precisions can be combined in a single Python file, too:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharmf</span> <span class="k">as</span> <span class="nn">phf</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pyharm</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ph</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pyharmf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">phf</span>
 </pre></div>
 </div>
 <p>The chapters that follow show how to work with PyHarm in double and single
@@ -469,7 +488,7 @@ the library was compiled in single precision), and</p></li>
 </ul>
 <p>As an example, let’s create a 1D numpy array <code class="docutils literal notranslate"><span class="pre">x</span></code> that meets all of these
 conditions.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">5</span><span class="p">,))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span>
 <span class="go">dtype(&#39;float64&#39;)</span>
@@ -481,7 +500,7 @@ conditions.</p>
 calling <code class="docutils literal notranslate"><span class="pre">numpy.zeros</span></code>,  so numpy automatically used their default values,
 namely <code class="docutils literal notranslate"><span class="pre">numpy.float64</span></code> and <code class="docutils literal notranslate"><span class="pre">'C'</span></code>.  In some cases, you might need to
 explicitly specify the two flags:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">5</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span>
 <span class="go">dtype(&#39;float64&#39;)</span>
@@ -497,7 +516,7 @@ will throw an error.</p>
 <h3>Working with spherical harmonic coefficients<a class="headerlink" href="#working-with-spherical-harmonic-coefficients" title="Link to this heading">#</a></h3>
 <p>This example shows how to read/write spherical harmonic coefficients from/to
 files and how to compute (difference) degree variances.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pyharm</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ph</span>
 
 
 <span class="c1"># INPUTS</span>
@@ -614,8 +633,8 @@ points.</p></li>
 <li><p>A solid spherical harmonic synthesis of block mean values at a grid of cells.</p></li>
 <li><p>Surface spherical harmonic analysis with block-mean values in cells.</p></li>
 </ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pyharm</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ph</span>
 
 
 <span class="c1"># INPUTS</span>
@@ -885,8 +904,8 @@ points.</p></li>
 <h3>First- and second-order gradients (gravitational vector and tensor)<a class="headerlink" href="#first-and-second-order-gradients-gravitational-vector-and-tensor" title="Link to this heading">#</a></h3>
 <p>This example shows how to compute the full gravitational vector and the full
 gravitational tensor in the <a class="reference internal" href="definitions.html#lnof"><span class="std std-ref">Local north-oriented reference frame</span></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pyharm</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ph</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 
 <span class="c1"># INPUTS</span>
@@ -974,7 +993,7 @@ real task.  They were create for learning purposes only.</p>
 <span class="c1"># !!!</span>
 
 
-<span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pyharm</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ph</span>
 
 
 <span class="c1"># INPUTS</span>
@@ -1186,7 +1205,7 @@ real task.  They were create for learning purposes only.</p>
 </section>
 <section id="fourier-coefficients-of-legendre-functions">
 <h3>Fourier coefficients of Legendre functions<a class="headerlink" href="#fourier-coefficients-of-legendre-functions" title="Link to this heading">#</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pyharm</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ph</span>
 
 
 <span class="c1"># Maximum harmonic degree to compute the Fourier coefficients of Legendre</span>
@@ -1234,7 +1253,7 @@ real task.  They were create for learning purposes only.</p>
 <p>Finally, let’s compute an integral of a product of two spherical harmonics over
 a restricted domain on the unit sphere.  Then, we do the same, but with the
 product of Legendre functions only.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pyharm</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ph</span>
 
 
 <span class="c1"># Type of the first spherical harmonic function, its harmonic degree and order,</span>
@@ -1296,19 +1315,19 @@ precision.</p>
 <li><p>Make sure you have compiled the library in single precision (see
 <a class="reference internal" href="install.html#installing"><span class="std std-ref">Installing</span></a>).</p></li>
 <li><p>In Python, import the PyHarm package as</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharmf</span> <span class="k">as</span> <span class="nn">phf</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pyharmf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">phf</span>
 </pre></div>
 </div>
 </li>
 <li><p>All floating point constants must be of the <code class="docutils literal notranslate"><span class="pre">numpy.float32</span></code> data type.  For
 instance, while in double precision you can write this:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharm</span> <span class="k">as</span> <span class="nn">ph</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pyharm</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ph</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">shcs</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">from_zeros</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>in single precision, you have to write:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharmf</span> <span class="k">as</span> <span class="nn">phf</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pyharmf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">phf</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">shcs</span> <span class="o">=</span> <span class="n">phf</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">from_zeros</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="mf">1.0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -1316,8 +1335,8 @@ instance, while in double precision you can write this:</p>
 <li><p>All floating point numpy arrays must be of the <code class="docutils literal notranslate"><span class="pre">numpy.float32</span></code> data type.
 So when creating a numpy array to be passed to PyHarm, you must set the
 <code class="docutils literal notranslate"><span class="pre">dtype</span></code> flag to <code class="docutils literal notranslate"><span class="pre">numpy.float32</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyharmf</span> <span class="k">as</span> <span class="nn">phf</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pyharmf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">phf</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">5</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">phf</span><span class="o">.</span><span class="n">crd</span><span class="o">.</span><span class="n">PointSctr</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 </pre></div>
@@ -1363,8 +1382,7 @@ So when creating a numpy array to be passed to PyHarm, you must set the
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1408,7 +1426,7 @@ By Blažej Bucha
 
   <p class="copyright">
     
-      © Copyright 2025, Blažej Bucha.
+      © Copyright 2026, Blažej Bucha.
       <br/>
     
   </p>
@@ -1417,7 +1435,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jul 18, 2025.
+  Last updated on Jan 14, 2026.
   <br/>
 </p>
   </div>
@@ -1435,8 +1453,8 @@ By Blažej Bucha
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>
