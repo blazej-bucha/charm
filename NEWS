@@ -4,8 +4,10 @@ Upcoming release:
   disabled and optimizations flags `-O3 -ffast-math` (or `-march=native`) are 
   enabled.
 
-* The `nanf`, `nan` and `nanq` routines are now used to get quiet `NaN`s 
+* Quiet `NaN`s are now obtained by the `nanf`, `nan` and `nanq` routines 
   instead of the `NAN` macro.
+
+* Drop support for Python wheels 3.10, add support for 3.14.
 
 CHarm 0.4.7:
 

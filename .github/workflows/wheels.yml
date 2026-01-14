@@ -11,7 +11,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-13, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-15-intel, macos-14, windows-2022]
     defaults:
       run:
         shell: bash
@@ -29,7 +29,7 @@ jobs:
             echo "X_SIMD_CHARM=--enable-avx" >> $GITHUB_ENV
             echo "X_SIMD_FFTW=--enable-avx" >> $GITHUB_ENV
           fi
-          echo "X_LLVM_TARGZ=openmp-14.0.6-darwin20-Release.tar.gz" >> $GITHUB_ENV
+          echo "X_LLVM_TARGZ=openmp-19.1.5-darwin20-Release.tar.gz" >> $GITHUB_ENV
           echo "X_FFTW=fftw-3.3.10" >> $GITHUB_ENV
           echo "X_MPFR=mpfr-4.2.2" >> $GITHUB_ENV
           echo "X_GMP=gmp-6.3.0" >> $GITHUB_ENV
@@ -104,10 +104,11 @@ jobs:
           fi
 
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.22.0
+        uses: pypa/cibuildwheel@v3.3.1
         env:
           CIBW_BUILD_VERBOSITY: 1
-          CIBW_SKIP: "cp36-* cp37-* cp38-* cp39-* pp37-* pp38-* pp39-*
+          CIBW_SKIP: "cp36-* cp37-* cp38-* cp39-* cp310-*
+                      pp37-* pp38-* pp39-* pp310-*
                       *-manylinux_i686 *-musllinux_i686 *-win32*"
           CIBW_CACHE_PATH: "./cibw_cache"
 
@@ -119,8 +120,6 @@ jobs:
                                   ./configure --enable-openmp --enable-avx --enable-mpfr --enable-python --with-gnu-ld &&
                                   make -j &&
                                   make check"
-          CIBW_MANYLINUX_X86_64_IMAGE: "manylinux_2_28"
-          CIBW_MANYLINUX_PYPY_X86_64_IMAGE: "manylinux_2_28"
 
 
           MACOSX_DEPLOYMENT_TARGET: 11.0
