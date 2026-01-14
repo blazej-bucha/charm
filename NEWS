@@ -1,8 +1,11 @@
 Upcoming release:
 
-* Fix miscompilation by gcc 15.2.1 when vector instructions are 
-  disabled and optimizations flags "-O3 -ffast-math" (or "-march=native") are 
+* Fixed miscompilation by gcc 15.2.1 when vector instructions are 
+  disabled and optimizations flags `-O3 -ffast-math` (or `-march=native`) are 
   enabled.
+
+* The `nanf`, `nan` and `nanq` routines are now used to get quiet `NaN`s 
+  instead of the `NAN` macro.
 
 CHarm 0.4.7:
 
