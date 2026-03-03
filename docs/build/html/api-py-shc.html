@@ -50,7 +50,7 @@
     <link rel="prev" title="PyHarm (Python API)" href="api-py.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Jan 14, 2026"/>
+    <meta name="docbuild:last-update" content="Mar 02, 2026"/>
   </head>
   
   
@@ -438,6 +438,14 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_arrays"><code class="docutils literal notranslate"><span class="pre">Shc.from_arrays()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_file"><code class="docutils literal notranslate"><span class="pre">Shc.from_file()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.to_file"><code class="docutils literal notranslate"><span class="pre">Shc.to_file()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.add"><code class="docutils literal notranslate"><span class="pre">Shc.add()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.sub"><code class="docutils literal notranslate"><span class="pre">Shc.sub()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.mul"><code class="docutils literal notranslate"><span class="pre">Shc.mul()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.mul_degree_wise"><code class="docutils literal notranslate"><span class="pre">Shc.mul_degree_wise()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.mul_order_wise"><code class="docutils literal notranslate"><span class="pre">Shc.mul_order_wise()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.div"><code class="docutils literal notranslate"><span class="pre">Shc.div()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.div_degree_wise"><code class="docutils literal notranslate"><span class="pre">Shc.div_degree_wise()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.div_order_wise"><code class="docutils literal notranslate"><span class="pre">Shc.div_order_wise()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.get_file_types"><code class="docutils literal notranslate"><span class="pre">Shc.get_file_types()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.nmax_from_file"><code class="docutils literal notranslate"><span class="pre">Shc.nmax_from_file()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.get_coeffs"><code class="docutils literal notranslate"><span class="pre">Shc.get_coeffs()</span></code></a></li>
@@ -808,6 +816,189 @@ your operating system.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pyharm.shc.Shc.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.add" title="Link to this definition">#</a></dt>
+<dd><p>Adds spherical harmonic coefficients of matching degrees and orders
+from <code class="docutils literal notranslate"><span class="pre">op2</span></code> starting at degree <code class="docutils literal notranslate"><span class="pre">nmin</span></code> and ending at degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.</p>
+<p>Whenever user asks to perform an addition beyond the object’s degree
+<a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a> or <code class="docutils literal notranslate"><span class="pre">op2.nmax</span></code>, the non-existing coefficients are zero
+padded.  For the full documentation, refer to <a class="reference external" href="./api-c-shc.html">charm_shc</a>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>A few examples:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pyharm</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ph</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate two instances of the &quot;Shc&quot; class with random</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># coefficients</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">op1</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span><span class="n">nmax</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                             <span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">21</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>                             <span class="n">s</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">21</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">op2</span> <span class="o">=</span> <span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span><span class="n">nmax</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                             <span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>                             <span class="n">s</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">op1</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">op2</span><span class="p">)</span>  <span class="c1"># In-place addition &quot;op1 = op1 + op2&quot;.  As</span>
+<span class="gp">&gt;&gt;&gt; </span>              <span class="c1"># the truncation degrees of &quot;op1&quot; and &quot;op2&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span>              <span class="c1"># do not match, this command zero pads &quot;op2&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span>              <span class="c1"># to degree &quot;op1.nmax = 5&quot; during the</span>
+<span class="gp">&gt;&gt;&gt; </span>              <span class="c1"># addition.  The coefficients of &quot;op1&quot; are</span>
+<span class="gp">&gt;&gt;&gt; </span>              <span class="c1"># rewritten by the result of the addition.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">op2</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">op1</span><span class="p">)</span>  <span class="c1"># The addition is now performed only up to</span>
+<span class="gp">&gt;&gt;&gt; </span>              <span class="c1"># degree &quot;op2.nmax = 3&quot;, as the truncation</span>
+<span class="gp">&gt;&gt;&gt; </span>              <span class="c1"># degree of the object, to which we add</span>
+<span class="gp">&gt;&gt;&gt; </span>              <span class="c1"># &quot;op1&quot;, can store coefficients only to</span>
+<span class="gp">&gt;&gt;&gt; </span>              <span class="c1"># &quot;op2.nmax = 3&quot;.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">op1</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">op2</span><span class="p">,</span> <span class="n">nmax</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># In-place addition up to degree</span>
+<span class="gp">&gt;&gt;&gt; </span>                      <span class="c1"># 2.  Rewrites &quot;op1&quot;, but only up</span>
+<span class="gp">&gt;&gt;&gt; </span>                      <span class="c1"># to degree 2.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">op1</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">op2</span><span class="p">,</span> <span class="n">nmin</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">nmax</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># In-place addition from</span>
+<span class="gp">&gt;&gt;&gt; </span>                              <span class="c1"># degree 1 to degree 4.  The</span>
+<span class="gp">&gt;&gt;&gt; </span>                              <span class="c1"># coefficients of &quot;op2&quot; are</span>
+<span class="gp">&gt;&gt;&gt; </span>                              <span class="c1"># zero-padded beyond degree</span>
+<span class="gp">&gt;&gt;&gt; </span>                              <span class="c1"># 3.  &quot;op1&quot; is rewritten due</span>
+<span class="gp">&gt;&gt;&gt; </span>                              <span class="c1"># to the in-place addition,</span>
+<span class="gp">&gt;&gt;&gt; </span>                              <span class="c1"># but only from degree 1 to</span>
+<span class="gp">&gt;&gt;&gt; </span>                              <span class="c1"># degree 5.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">op1</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">op1</span><span class="p">)</span>  <span class="c1"># In-place addition &quot;op1 + op1&quot; up to degree</span>
+<span class="gp">&gt;&gt;&gt; </span>              <span class="c1"># &quot;op1.nmax&quot;.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rop</span> <span class="o">=</span> <span class="n">op1</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">op2</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># Out-of-place addition</span>
+<span class="gp">&gt;&gt;&gt; </span>                                   <span class="c1"># &quot;rop = op1 + op2&quot;.</span>
+<span class="gp">&gt;&gt;&gt; </span>                                   <span class="c1"># The output &quot;rop&quot; is</span>
+<span class="gp">&gt;&gt;&gt; </span>                                   <span class="c1"># a new &quot;Shc&quot; instance</span>
+<span class="gp">&gt;&gt;&gt; </span>                                   <span class="c1"># with truncation</span>
+<span class="gp">&gt;&gt;&gt; </span>                                   <span class="c1"># degree &quot;rop.nmax&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span>                                   <span class="c1"># being &quot;max(op1.nmax,</span>
+<span class="gp">&gt;&gt;&gt; </span>                                   <span class="c1"># op2.nmax)&quot;.</span>
+<span class="gp">&gt;&gt;&gt; </span>                                   <span class="c1"># &quot;op1&quot; remains</span>
+<span class="gp">&gt;&gt;&gt; </span>                                   <span class="c1"># unmodified and &quot;op2&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span>                                   <span class="c1"># is zero padded during</span>
+<span class="gp">&gt;&gt;&gt; </span>                                   <span class="c1"># the addition.</span>
+</pre></div>
+</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>op2</strong> (<a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><em>Shc</em></a>) – The second operand of the addition.  The first operand is always
+<code class="docutils literal notranslate"><span class="pre">self</span></code>.</p></li>
+<li><p><strong>nmin</strong> (<em>integer</em>) – Spherical harmonic degree, at which the addition starts.  Default
+is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
+<li><p><strong>nmax</strong> (<em>integer</em>) – Spherical harmonic degree, at which the addition ends.  Default is
+<a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a> if <code class="docutils literal notranslate"><span class="pre">inplace</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> and
+<code class="docutils literal notranslate"><span class="pre">max(self.nmax,</span> <span class="pre">op2.nmax)</span></code> if <code class="docutils literal notranslate"><span class="pre">inplace</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>inplace</strong> (<em>bool</em>) – Performs the addition in-place if <code class="docutils literal notranslate"><span class="pre">True</span></code> (rewrites the
+coefficients of <code class="docutils literal notranslate"><span class="pre">self</span></code>, no return) and out-of-place if <code class="docutils literal notranslate"><span class="pre">False</span></code>
+(<code class="docutils literal notranslate"><span class="pre">self</span></code> remains untouched, returns <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>None or out</strong></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code> if in-place, <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> if out-of-place.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyharm.shc.Shc.sub">
+<span class="sig-name descname"><span class="pre">sub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.sub" title="Link to this definition">#</a></dt>
+<dd><p>The same as <a class="reference internal" href="#pyharm.shc.Shc.add" title="pyharm.shc.Shc.add"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add()</span></code></a> but the coefficients of <code class="docutils literal notranslate"><span class="pre">op2</span></code> are
+subtracted from the coefficients of <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p>
+<p>For the full documentation, refer to <a class="reference external" href="./api-c-shc.html">charm_shc</a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyharm.shc.Shc.mul">
+<span class="sig-name descname"><span class="pre">mul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.mul" title="Link to this definition">#</a></dt>
+<dd><p>The same as <a class="reference internal" href="#pyharm.shc.Shc.add" title="pyharm.shc.Shc.add"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add()</span></code></a> but the coefficients of <code class="docutils literal notranslate"><span class="pre">op2</span></code> are
+multiplied by the coefficients of <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p>
+<p>For the full documentation, refer to <a class="reference external" href="./api-c-shc.html">charm_shc</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Multiplying coefficients of matching degrees and orders from
+<code class="docutils literal notranslate"><span class="pre">self</span></code> and <code class="docutils literal notranslate"><span class="pre">op2</span></code> in the spectral domain is not equivalent
+to the multiplication the functions given by <code class="docutils literal notranslate"><span class="pre">self</span></code> and
+<code class="docutils literal notranslate"><span class="pre">op2</span></code> in the spatial domain.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyharm.shc.Shc.mul_degree_wise">
+<span class="sig-name descname"><span class="pre">mul_degree_wise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.mul_degree_wise" title="Link to this definition">#</a></dt>
+<dd><p>Multiplies spherical harmonic coefficients by degree-dependent factors
+<code class="docutils literal notranslate"><span class="pre">a</span></code> starting at degree <code class="docutils literal notranslate"><span class="pre">nmin</span></code> and ending at <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.</p>
+<p>All spherical harmonic coefficients of degree <code class="docutils literal notranslate"><span class="pre">nmin</span></code> are multiplied
+by <code class="docutils literal notranslate"><span class="pre">a[0]</span></code>, all coefficients of degree <code class="docutils literal notranslate"><span class="pre">nmin</span> <span class="pre">+</span> <span class="pre">1</span></code> are multiplied by
+<code class="docutils literal notranslate"><span class="pre">a[1]</span></code> and so on.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>numpy array</em><em> of </em><em>floating points</em>) – Array of the degree-dependent factors. The size of <code class="docutils literal notranslate"><span class="pre">a</span></code> must be
+<code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">-</span> <span class="pre">nmin</span> <span class="pre">+</span> <span class="pre">1</span></code>. The <code class="docutils literal notranslate"><span class="pre">a[0]</span></code> element represents the multiplier
+for all coefficients of degree <code class="docutils literal notranslate"><span class="pre">nmin</span></code>, <code class="docutils literal notranslate"><span class="pre">a[1]</span></code> holds the
+multiplier for all coefficients of degree <code class="docutils literal notranslate"><span class="pre">nmin</span> <span class="pre">+</span> <span class="pre">1</span></code>, etc.</p></li>
+<li><p><strong>nmin</strong> (<em>integer</em>) – Spherical harmonic degree, at which the multiplication starts.
+Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
+<li><p><strong>nmax</strong> (<em>integer</em>) – Spherical harmonic degree, at which the multiplication ends.
+Default is the object’s <a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a> attribute.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyharm.shc.Shc.mul_order_wise">
+<span class="sig-name descname"><span class="pre">mul_order_wise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.mul_order_wise" title="Link to this definition">#</a></dt>
+<dd><p>Multiplies spherical harmonic coefficients by order-dependent factors
+<code class="docutils literal notranslate"><span class="pre">a</span></code> starting at <em>degree</em> <code class="docutils literal notranslate"><span class="pre">nmin</span></code> and <em>ending</em> at <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>numpy array</em><em> of </em><em>floating points</em>) – Array of the order-dependent factors.  The size of <code class="docutils literal notranslate"><span class="pre">a</span></code> must be
+<code class="docutils literal notranslate"><span class="pre">nmax</span> <span class="pre">+</span> <span class="pre">1</span></code>.  The <code class="docutils literal notranslate"><span class="pre">a[0]</span></code> element represents the multiplier for
+all coefficients of order <code class="docutils literal notranslate"><span class="pre">0</span></code> within degrees from <code class="docutils literal notranslate"><span class="pre">nmin</span></code> to
+<code class="docutils literal notranslate"><span class="pre">nmax</span></code>, <code class="docutils literal notranslate"><span class="pre">a[1]</span></code> holds the multiplier for all coefficients of
+order <code class="docutils literal notranslate"><span class="pre">1</span></code> within degrees from <code class="docutils literal notranslate"><span class="pre">nmin</span></code> to <code class="docutils literal notranslate"><span class="pre">nmax</span></code>, etc.,
+<code class="docutils literal notranslate"><span class="pre">a[nmax]</span></code> is the multiplier for coefficients of order <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.</p></li>
+<li><p><strong>nmin</strong> (<em>integer</em>) – Spherical harmonic degree, at which the multiplication starts.
+Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
+<li><p><strong>nmax</strong> (<em>integer</em>) – Spherical harmonic degree, at which the multiplication ends.
+Default is the object’s <a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a> attribute.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyharm.shc.Shc.div">
+<span class="sig-name descname"><span class="pre">div</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.div" title="Link to this definition">#</a></dt>
+<dd><p>The same as <a class="reference internal" href="#pyharm.shc.Shc.add" title="pyharm.shc.Shc.add"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add()</span></code></a> but the coefficients of <code class="docutils literal notranslate"><span class="pre">op2</span></code> are
+divided by the coefficients of <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p>
+<p>For the full documentation, refer to <a class="reference external" href="./api-c-shc.html">charm_shc</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Dividing coefficients of matching degrees and orders from
+<code class="docutils literal notranslate"><span class="pre">self</span></code> and <code class="docutils literal notranslate"><span class="pre">op2</span></code> in the spectral domain is not equivalent
+to the division of the functions given by <code class="docutils literal notranslate"><span class="pre">self</span></code> and
+<code class="docutils literal notranslate"><span class="pre">op2</span></code> in the spatial domain.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyharm.shc.Shc.div_degree_wise">
+<span class="sig-name descname"><span class="pre">div_degree_wise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.div_degree_wise" title="Link to this definition">#</a></dt>
+<dd><p>The same as <a class="reference internal" href="#pyharm.shc.Shc.mul_degree_wise" title="pyharm.shc.Shc.mul_degree_wise"><code class="xref py py-meth docutils literal notranslate"><span class="pre">mul_degree_wise()</span></code></a>, but the coefficients are divided
+by the degree-dependent factor.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyharm.shc.Shc.div_order_wise">
+<span class="sig-name descname"><span class="pre">div_order_wise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.div_order_wise" title="Link to this definition">#</a></dt>
+<dd><p>The same as <a class="reference internal" href="#pyharm.shc.Shc.mul_order_wise" title="pyharm.shc.Shc.mul_order_wise"><code class="xref py py-meth docutils literal notranslate"><span class="pre">mul_order_wise()</span></code></a>, but the coefficients are divided
+by the order-dependent factor.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pyharm.shc.Shc.get_file_types">
 <span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_file_types</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.get_file_types" title="Link to this definition">#</a></dt>
 <dd><p>Prints all file types supported by the <a class="reference internal" href="#pyharm.shc.Shc.to_file" title="pyharm.shc.Shc.to_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_file()</span></code></a> and
@@ -1033,7 +1224,7 @@ attribute is not changed.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>nmax</strong> (<em>integer</em>) – Maximum spherical harmonic degree to compute the degree variances,
 optional.  If not provided, it will be set to the object’s
-<a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a>.</p>
+<a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a> attribute.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>out</strong> – A numpy floating point array with the degree variances</p>
@@ -1051,7 +1242,8 @@ optional.  If not provided, it will be set to the object’s
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>nmax</strong> (<em>integer</em>) – Maximum spherical harmonic degree to compute the degree amplitudes,
-optional.  If not provided, it will be set to <code class="docutils literal notranslate"><span class="pre">self.nmax</span></code>.</p>
+optional.  If not provided, it will be set to the object’s
+<a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a>.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>out</strong> – A numpy floating point array with the degree amplitudes</p>
@@ -1073,7 +1265,7 @@ degree <code class="docutils literal notranslate"><span class="pre">nmax</span><
 <li><p><strong>shcs</strong> (<a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><em>Shc</em></a>) – An instance of the <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Shc</span></code></a> class.</p></li>
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum spherical harmonic degree to compute the degree variances,
 optional.  If not provided, <code class="docutils literal notranslate"><span class="pre">nmax</span></code> is set to the smallest of
-<code class="xref py py-attr docutils literal notranslate"><span class="pre">self.nmax</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs.nmax</span></code>.</p></li>
+the object’s <a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a> and <code class="docutils literal notranslate"><span class="pre">shcs.nmax</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1096,7 +1288,7 @@ degree <code class="docutils literal notranslate"><span class="pre">nmax</span><
 <li><p><strong>shcs</strong> (<a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><em>Shc</em></a>) – An instance of the <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Shc</span></code></a> class.</p></li>
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum spherical harmonic degree to compute the degree amplitudes,
 optional.  If not provided, <code class="docutils literal notranslate"><span class="pre">nmax</span></code> is set to the smallest of
-<code class="docutils literal notranslate"><span class="pre">self.nmax</span></code> and <code class="docutils literal notranslate"><span class="pre">shcs.nmax</span></code>.</p></li>
+the object’s <a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a> and <code class="docutils literal notranslate"><span class="pre">shcs.nmax</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1171,6 +1363,14 @@ optional.  If not provided, <code class="docutils literal notranslate"><span cla
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_arrays"><code class="docutils literal notranslate"><span class="pre">Shc.from_arrays()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_file"><code class="docutils literal notranslate"><span class="pre">Shc.from_file()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.to_file"><code class="docutils literal notranslate"><span class="pre">Shc.to_file()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.add"><code class="docutils literal notranslate"><span class="pre">Shc.add()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.sub"><code class="docutils literal notranslate"><span class="pre">Shc.sub()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.mul"><code class="docutils literal notranslate"><span class="pre">Shc.mul()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.mul_degree_wise"><code class="docutils literal notranslate"><span class="pre">Shc.mul_degree_wise()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.mul_order_wise"><code class="docutils literal notranslate"><span class="pre">Shc.mul_order_wise()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.div"><code class="docutils literal notranslate"><span class="pre">Shc.div()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.div_degree_wise"><code class="docutils literal notranslate"><span class="pre">Shc.div_degree_wise()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.div_order_wise"><code class="docutils literal notranslate"><span class="pre">Shc.div_order_wise()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.get_file_types"><code class="docutils literal notranslate"><span class="pre">Shc.get_file_types()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.nmax_from_file"><code class="docutils literal notranslate"><span class="pre">Shc.nmax_from_file()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.get_coeffs"><code class="docutils literal notranslate"><span class="pre">Shc.get_coeffs()</span></code></a></li>
@@ -1216,7 +1416,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jan 14, 2026.
+  Last updated on Mar 02, 2026.
   <br/>
 </p>
   </div>

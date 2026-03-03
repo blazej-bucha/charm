@@ -542,6 +542,212 @@ class Shc:
         return
 
 
+    def add(self, op2, nmin=0, nmax=None, inplace=True):
+        """
+        Adds spherical harmonic coefficients of matching degrees and orders
+        from ``op2`` starting at degree ``nmin`` and ending at degree ``nmax``.
+
+        Whenever user asks to perform an addition beyond the object's degree
+        :attr:`nmax` or ``op2.nmax``, the non-existing coefficients are zero
+        padded.  For the full documentation, refer to `charm_shc
+        <./api-c-shc.html>`_.
+
+        .. tip:: A few examples:
+
+                 >>> import pyharm as ph
+                 >>> import numpy as np
+                 >>> # Generate two instances of the "Shc" class with random
+                 >>> # coefficients
+                 >>> op1 = ph.shc.Shc.from_arrays(nmax=5,
+                 >>>                              c=np.random.randn(21),
+                 >>>                              s=np.random.randn(21))
+                 >>> op2 = ph.shc.Shc.from_arrays(nmax=3,
+                 >>>                              c=np.random.randn(10),
+                 >>>                              s=np.random.randn(10))
+                 >>> op1.add(op2)  # In-place addition "op1 = op1 + op2".  As
+                 >>>               # the truncation degrees of "op1" and "op2"
+                 >>>               # do not match, this command zero pads "op2"
+                 >>>               # to degree "op1.nmax = 5" during the
+                 >>>               # addition.  The coefficients of "op1" are
+                 >>>               # rewritten by the result of the addition.
+                 >>> op2.add(op1)  # The addition is now performed only up to
+                 >>>               # degree "op2.nmax = 3", as the truncation
+                 >>>               # degree of the object, to which we add
+                 >>>               # "op1", can store coefficients only to
+                 >>>               # "op2.nmax = 3".
+                 >>> op1.add(op2, nmax=2)  # In-place addition up to degree
+                 >>>                       # 2.  Rewrites "op1", but only up
+                 >>>                       # to degree 2.
+                 >>> op1.add(op2, nmin=1, nmax=4)  # In-place addition from
+                 >>>                               # degree 1 to degree 4.  The
+                 >>>                               # coefficients of "op2" are
+                 >>>                               # zero-padded beyond degree
+                 >>>                               # 3.  "op1" is rewritten due
+                 >>>                               # to the in-place addition,
+                 >>>                               # but only from degree 1 to
+                 >>>                               # degree 5.
+                 >>> op1.add(op1)  # In-place addition "op1 + op1" up to degree
+                 >>>               # "op1.nmax".
+                 >>> rop = op1.add(op2, inplace=False)  # Out-of-place addition
+                 >>>                                    # "rop = op1 + op2".
+                 >>>                                    # The output "rop" is
+                 >>>                                    # a new "Shc" instance
+                 >>>                                    # with truncation
+                 >>>                                    # degree "rop.nmax"
+                 >>>                                    # being "max(op1.nmax,
+                 >>>                                    # op2.nmax)".
+                 >>>                                    # "op1" remains
+                 >>>                                    # unmodified and "op2"
+                 >>>                                    # is zero padded during
+                 >>>                                    # the addition.
+
+        Parameters
+        ----------
+        op2: Shc
+            The second operand of the addition.  The first operand is always
+            ``self``.
+        nmin : integer
+            Spherical harmonic degree, at which the addition starts.  Default
+            is ``0``.
+        nmax : integer
+            Spherical harmonic degree, at which the addition ends.  Default is
+            :attr:`nmax` if ``inplace`` is ``True`` and
+            ``max(self.nmax, op2.nmax)`` if ``inplace`` is ``False``.
+        inplace : bool
+            Performs the addition in-place if ``True`` (rewrites the
+            coefficients of ``self``, no return) and out-of-place if ``False``
+            (``self`` remains untouched, returns :class:`Shc`).
+
+        Returns
+        -------
+        None or out : ``None`` if in-place, :class:`Shc` if out-of-place.
+        """
+
+        return self._shc_arithmetics('shc_add', op2, nmin=nmin, nmax=nmax,
+                                     inplace=inplace)
+
+
+    def sub(self, op2, nmin=0, nmax=None, inplace=True):
+        """
+        The same as :meth:`add` but the coefficients of ``op2`` are
+        subtracted from the coefficients of ``self``.
+
+        For the full documentation, refer to `charm_shc <./api-c-shc.html>`_.
+        """
+
+
+        return self._shc_arithmetics('shc_sub', op2, nmin=nmin, nmax=nmax,
+                                     inplace=inplace)
+
+
+    def mul(self, op2, nmin=0, nmax=None, inplace=True):
+        """
+        The same as :meth:`add` but the coefficients of ``op2`` are
+        multiplied by the coefficients of ``self``.
+
+        For the full documentation, refer to `charm_shc <./api-c-shc.html>`_.
+
+        .. note:: Multiplying coefficients of matching degrees and orders from
+                  ``self`` and ``op2`` in the spectral domain is not equivalent
+                  to the multiplication the functions given by ``self`` and
+                  ``op2`` in the spatial domain.
+        """
+
+        return self._shc_arithmetics('shc_mul', op2, nmin=nmin, nmax=nmax,
+                                     inplace=inplace)
+
+
+    def mul_degree_wise(self, a, nmin=0, nmax=None):
+        """
+        Multiplies spherical harmonic coefficients by degree-dependent factors
+        ``a`` starting at degree ``nmin`` and ending at ``nmax``.
+
+        All spherical harmonic coefficients of degree ``nmin`` are multiplied
+        by ``a[0]``, all coefficients of degree ``nmin + 1`` are multiplied by
+        ``a[1]`` and so on.
+
+        Parameters
+        ----------
+        a: numpy array of floating points
+            Array of the degree-dependent factors. The size of ``a`` must be
+            ``nmax - nmin + 1``. The ``a[0]`` element represents the multiplier
+            for all coefficients of degree ``nmin``, ``a[1]`` holds the
+            multiplier for all coefficients of degree ``nmin + 1``, etc.
+        nmin : integer
+            Spherical harmonic degree, at which the multiplication starts.
+            Default is ``0``.
+        nmax : integer
+            Spherical harmonic degree, at which the multiplication ends.
+            Default is the object's :attr:`nmax` attribute.
+        """
+
+        return self._shc_arithmetics_wise('shc_mul_degree_wise', a, nmin=nmin,
+                                          nmax=nmax)
+
+
+    def mul_order_wise(self, a, nmin=0, nmax=None):
+        """
+        Multiplies spherical harmonic coefficients by order-dependent factors
+        ``a`` starting at *degree* ``nmin`` and *ending* at ``nmax``.
+
+        Parameters
+        ----------
+        a: numpy array of floating points
+            Array of the order-dependent factors.  The size of ``a`` must be
+            ``nmax + 1``.  The ``a[0]`` element represents the multiplier for
+            all coefficients of order ``0`` within degrees from ``nmin`` to
+            ``nmax``, ``a[1]`` holds the multiplier for all coefficients of
+            order ``1`` within degrees from ``nmin`` to ``nmax``, etc.,
+            ``a[nmax]`` is the multiplier for coefficients of order ``nmax``.
+        nmin : integer
+            Spherical harmonic degree, at which the multiplication starts.
+            Default is ``0``.
+        nmax : integer
+            Spherical harmonic degree, at which the multiplication ends.
+            Default is the object's :attr:`nmax` attribute.
+        """
+
+        return self._shc_arithmetics_wise('shc_mul_order_wise', a, nmin=nmin,
+                                          nmax=nmax)
+
+
+    def div(self, op2, nmin=0, nmax=None, inplace=True):
+        """
+        The same as :meth:`add` but the coefficients of ``op2`` are
+        divided by the coefficients of ``self``.
+
+        For the full documentation, refer to `charm_shc <./api-c-shc.html>`_.
+
+        .. note:: Dividing coefficients of matching degrees and orders from
+                  ``self`` and ``op2`` in the spectral domain is not equivalent
+                  to the division of the functions given by ``self`` and
+                  ``op2`` in the spatial domain.
+        """
+
+        return self._shc_arithmetics('shc_div', op2, nmin=nmin, nmax=nmax,
+                                     inplace=inplace)
+
+
+    def div_degree_wise(self, a, nmin=0, nmax=None):
+        """
+        The same as :meth:`mul_degree_wise`, but the coefficients are divided
+        by the degree-dependent factor.
+        """
+
+        return self._shc_arithmetics_wise('shc_div_degree_wise', a, nmin=nmin,
+                                          nmax=nmax)
+
+
+    def div_order_wise(self, a, nmin=0, nmax=None):
+        """
+        The same as :meth:`mul_order_wise`, but the coefficients are divided
+        by the order-dependent factor.
+        """
+
+        return self._shc_arithmetics_wise('shc_div_order_wise', a, nmin=nmin,
+                                          nmax=nmax)
+
+
     @staticmethod
     def get_file_types():
         """
@@ -978,7 +1184,7 @@ class Shc:
         nmax : integer
             Maximum spherical harmonic degree to compute the degree variances,
             optional.  If not provided, it will be set to the object's
-            :attr:`nmax`.
+            :attr:`nmax` attribute.
 
         Returns
         -------
@@ -997,7 +1203,8 @@ class Shc:
         ----------
         nmax : integer
             Maximum spherical harmonic degree to compute the degree amplitudes,
-            optional.  If not provided, it will be set to ``self.nmax``.
+            optional.  If not provided, it will be set to the object's
+            :attr:`nmax`.
 
         Returns
         -------
@@ -1020,7 +1227,7 @@ class Shc:
         nmax : integer
             Maximum spherical harmonic degree to compute the degree variances,
             optional.  If not provided, ``nmax`` is set to the smallest of
-            :attr:`self.nmax` and ``shcs.nmax``.
+            the object's :attr:`nmax` and ``shcs.nmax``.
 
         Returns
         -------
@@ -1043,7 +1250,7 @@ class Shc:
         nmax : integer
             Maximum spherical harmonic degree to compute the degree amplitudes,
             optional.  If not provided, ``nmax`` is set to the smallest of
-            ``self.nmax`` and ``shcs.nmax``.
+            the object's :attr:`nmax` and ``shcs.nmax``.
 
         Returns
         -------
@@ -1528,8 +1735,7 @@ class Shc:
             or difference degree variances.
         """
 
-        if not isinstance(shcs, Shc):
-            raise TypeError('\'shcs\' must be instances of the \'Shc\' class.')
+        _check_shcs(shcs, 'shcs')
 
         if nmax is None:
             nmax = min(self.nmax, shcs.nmax)
@@ -1564,6 +1770,175 @@ class Shc:
         return ret
 
 
+    def _shc_arithmetics(self, f, op2, nmin=0, nmax=None, inplace=True):
+        """
+        Private function to call CHarm functions ``charm_shc_add``,
+        ``charm_shc_sub``, ``charm_shc_mul`` or ``charm_shc_div``.
+
+        Parameters
+        ----------
+        f : str
+            One of ``charm_shc_add``, ``charm_shc_sub``, ``charm_shc_mul`` or
+            ``charm_shc_div``.
+        op2: Shc
+            An instance of the :obj:`Shc` class.  The second operand.  The
+            first operand is always ``self``.
+        nmin : integer
+            Minimum spherical harmonic degree to perform the arithmetic
+            operation.  Default is ``0``.
+        nmax : integer
+            Maximum spherical harmonic degree to perform the arithmetic
+            operation.  Default is ``self.nmax`` if ``inplace`` is ``True`` and
+            ``max(self.nmax, op2.nmax)`` if ``inplace`` is ``False``.
+        inplace : bool
+            Performs the addition in-place if ``True`` (rewrites the
+            coefficients of ``self``, no return) and out-of-place if ``False``
+            (returned is an :class:`Shc` class instance and the coefficients of
+            ``self`` are left untouched).
+
+        Returns
+        -------
+        out : No return if ``inplace`` is ``True`` and :class:`Shc` otherwise.
+        """
+
+        if not isinstance(f, str):
+            raise TypeError('\'f\' must be a string.')
+
+        if f not in ['shc_add', 'shc_sub', 'shc_mul', 'shc_div']:
+            raise ValueError(f'Unsupported routine {file_type} for '
+                             f'arithmetics with spherical harmonic '
+                             f'coefficients.')
+
+        _check_shcs(op2, 'op2')
+
+        _check_deg_ord(nmin, 'degree')
+
+        if nmax is None:
+            if inplace:
+                nmax = self.nmax
+            else:
+                nmax = max(self.nmax, op2.nmax)
+        else:
+            if inplace:
+                self._check_nmax(nmax)
+            else:
+                _check_deg_ord(nmax, 'degree')
+
+        if not isinstance(inplace, bool):
+            raise TypeError('\'inplace\' must be boolean.')
+
+        func          = _libcharm[_CHARM + f]
+        func.restype  = None
+        func.argtypes = [_ct.POINTER(_Shc),
+                         _ct.POINTER(_Shc),
+                         _ct.POINTER(_Shc),
+                         _ct_ulong,
+                         _ct_ulong,
+                         _ct.POINTER(_ph_err._Err)]
+
+        err = _ph_err.init()
+        if inplace:
+            func(self._Shc,
+                 self._Shc,
+                 op2._Shc,
+                 _ct_ulong(nmin),
+                 _ct_ulong(nmax),
+                 err)
+        else:
+            rop = Shc.from_zeros(nmax, self.mu, self.r)
+            func(rop._Shc,
+                 self._Shc,
+                 op2._Shc,
+                 _ct_ulong(nmin),
+                 _ct_ulong(nmax),
+                 err)
+        _ph_err.handler(err, 1)
+        _ph_err.free(err)
+
+        if inplace:
+            return
+        else:
+            return rop
+
+
+    def _shc_arithmetics_wise(self, f, a, nmin=0, nmax=None):
+        """
+        Private function to call CHarm functions ``charm_shc_mul_degree_wise``,
+        ``charm_shc_mul_order_wise``, ``charm_shc_div_degree_wise`` and
+        ``charm_shc_div_order_wise``.
+
+        Parameters
+        ----------
+        f : str
+            One of ``charm_shc_mul_degree_wise``,
+            ``charm_shc_mul_order_wise``, ``charm_shc_div_degree_wise`` and
+            ``charm_shc_div_order_wise``.
+        a: numpy array of floating points
+            Array of the degree-dependent factors of length "nmax - nmin + 1".
+            The ``a[0]`` element represents the multiplier/divider for all
+            coefficients of degree ``nmin``, ``a[1]`` holds the
+            multiplier/divider for all coefficients of degree ``nmin + 1``,
+            etc.
+        nmin : integer
+            Minimum spherical harmonic degree to perform the arithmetic
+            operation.  Default is ``0``.
+        nmax : integer
+            Maximum spherical harmonic degree to perform the arithmetic
+            operation.  Default is ``self.nmax``.
+        """
+
+        if not isinstance(f, str):
+            raise TypeError('\'f\' must be a string.')
+
+        if f not in ['shc_mul_degree_wise',
+                     'shc_mul_order_wise',
+                     'shc_div_degree_wise',
+                     'shc_div_order_wise']:
+            raise ValueError(f'Unsupported routine {file_type} for '
+                             f'arithmetics with spherical harmonic '
+                             f'coefficients.')
+
+        _check_flt_ndarray(a, 1, 'The \'a\' array')
+
+        _check_deg_ord(nmin, 'degree')
+
+        if nmax is None:
+            nmax = self.nmax
+        _check_deg_ord(nmax, 'degree')
+
+        if f in ['shc_mul_degree_wise', 'shc_div_degree_wise']:
+            req_size = nmax - nmin + 1
+            if a.size != req_size:
+                raise ValueError(f'For \'nmin = {nmin}\' and '
+                                 f'\'nmax = {nmax}\', the size of the \'a\' '
+                                 f'array must be {req_size}.')
+        else:
+            req_size = self.nmax + 1
+            if a.size != req_size:
+                raise ValueError(f'For \'nmin = {nmin}\' and '
+                                 f'\'self.nmax = {self.nmax}\', the size of '
+                                 f'the \'a\' array must be {req_size}.')
+
+        func          = _libcharm[_CHARM + f]
+        func.restype  = None
+        func.argtypes = [_ct.POINTER(_Shc),
+                         _ct.POINTER(_ct_flt),
+                         _ct_ulong,
+                         _ct_ulong,
+                         _ct.POINTER(_ph_err._Err)]
+
+        err = _ph_err.init()
+        func(self._Shc,
+             a.ctypes.data_as(_ct.POINTER(_ct_flt)),
+             _ct_ulong(nmin),
+             _ct_ulong(nmax),
+             err)
+        _ph_err.handler(err, 1)
+        _ph_err.free(err)
+
+        return
+
+
 def _get_nmax_model():
     """
     Private function to return the CHarm's ``CHARM_SHC_NMAX_MODEL`` value.
@@ -1574,4 +1949,22 @@ def _get_nmax_model():
     func.restype  = _ct_ulong
 
     return func()
+
+
+def _check_shcs(shcs, varname):
+    """
+    Private function to check whether 'shcs' is an 'Shc' class instance.
+
+    Parameters
+    ----------
+    shcs : Shc
+        A 'Shc' class instance to be checked
+    varname : str
+        Caller's name of the 'shcs' variable.
+    """
+
+    if not isinstance(shcs, Shc):
+        raise TypeError(f'\'{varname}\' must be a \'{Shc}\' class instance.')
+
+    return
 

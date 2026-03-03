@@ -114,9 +114,13 @@ LTLIBRARIES = $(noinst_LTLIBRARIES)
 libcharm@P@_shc_la_LIBADD =
 am_libcharm@P@_shc_la_OBJECTS = shc_da.lo shc_dda.lo shc_ddv.lo \
 	shc_dv.lo shc_alloc.lo shc_malloc.lo shc_calloc.lo shc_init.lo \
-	shc_init_chunk.lo shc_block_init.lo shc_block_free.lo \
-	shc_block_have_order.lo shc_block_get_coeffs.lo \
-	shc_block_set_coeffs.lo shc_block_nan.lo shc_block_get_idx.lo \
+	shc_init_chunk.lo shc_arithmetics_checks.lo \
+	shc_arithmetics_wise_checks.lo shc_add.lo shc_sub.lo \
+	shc_mul.lo shc_mul_degree_wise.lo shc_mul_order_wise.lo \
+	shc_div.lo shc_div_degree_wise.lo shc_div_order_wise.lo \
+	shc_block_init.lo shc_block_free.lo shc_block_have_order.lo \
+	shc_block_get_coeffs.lo shc_block_set_coeffs.lo \
+	shc_block_nan.lo shc_block_get_idx.lo \
 	shc_block_get_mlast_ncs_root.lo shc_block_reset_coeffs.lo \
 	shc_block_set_mfirst.lo shc_check_chunk_orders.lo \
 	shc_local_ncs.lo shc_free.lo shc_read_bin.lo shc_read_mtx.lo \
@@ -145,7 +149,10 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/shc_alloc.Plo \
+am__depfiles_remade = ./$(DEPDIR)/shc_add.Plo \
+	./$(DEPDIR)/shc_alloc.Plo \
+	./$(DEPDIR)/shc_arithmetics_checks.Plo \
+	./$(DEPDIR)/shc_arithmetics_wise_checks.Plo \
 	./$(DEPDIR)/shc_block_free.Plo \
 	./$(DEPDIR)/shc_block_get_coeffs.Plo \
 	./$(DEPDIR)/shc_block_get_idx.Plo \
@@ -159,17 +166,22 @@ am__depfiles_remade = ./$(DEPDIR)/shc_alloc.Plo \
 	./$(DEPDIR)/shc_check_chunk_orders.Plo \
 	./$(DEPDIR)/shc_check_distribution.Plo ./$(DEPDIR)/shc_da.Plo \
 	./$(DEPDIR)/shc_dda.Plo ./$(DEPDIR)/shc_ddv.Plo \
-	./$(DEPDIR)/shc_dv.Plo ./$(DEPDIR)/shc_free.Plo \
-	./$(DEPDIR)/shc_get_nmax_model.Plo ./$(DEPDIR)/shc_init.Plo \
-	./$(DEPDIR)/shc_init_chunk.Plo ./$(DEPDIR)/shc_local_ncs.Plo \
-	./$(DEPDIR)/shc_malloc.Plo ./$(DEPDIR)/shc_read_bin.Plo \
-	./$(DEPDIR)/shc_read_dov.Plo ./$(DEPDIR)/shc_read_gfc.Plo \
-	./$(DEPDIR)/shc_read_mtdt.Plo ./$(DEPDIR)/shc_read_mtx.Plo \
+	./$(DEPDIR)/shc_div.Plo ./$(DEPDIR)/shc_div_degree_wise.Plo \
+	./$(DEPDIR)/shc_div_order_wise.Plo ./$(DEPDIR)/shc_dv.Plo \
+	./$(DEPDIR)/shc_free.Plo ./$(DEPDIR)/shc_get_nmax_model.Plo \
+	./$(DEPDIR)/shc_init.Plo ./$(DEPDIR)/shc_init_chunk.Plo \
+	./$(DEPDIR)/shc_local_ncs.Plo ./$(DEPDIR)/shc_malloc.Plo \
+	./$(DEPDIR)/shc_mul.Plo ./$(DEPDIR)/shc_mul_degree_wise.Plo \
+	./$(DEPDIR)/shc_mul_order_wise.Plo \
+	./$(DEPDIR)/shc_read_bin.Plo ./$(DEPDIR)/shc_read_dov.Plo \
+	./$(DEPDIR)/shc_read_gfc.Plo ./$(DEPDIR)/shc_read_mtdt.Plo \
+	./$(DEPDIR)/shc_read_mtx.Plo \
 	./$(DEPDIR)/shc_read_nmax_only.Plo \
 	./$(DEPDIR)/shc_read_tbl.Plo ./$(DEPDIR)/shc_rescale.Plo \
-	./$(DEPDIR)/shc_reset_coeffs.Plo ./$(DEPDIR)/shc_write_bin.Plo \
-	./$(DEPDIR)/shc_write_dov.Plo ./$(DEPDIR)/shc_write_mtdt.Plo \
-	./$(DEPDIR)/shc_write_mtx.Plo ./$(DEPDIR)/shc_write_tbl.Plo
+	./$(DEPDIR)/shc_reset_coeffs.Plo ./$(DEPDIR)/shc_sub.Plo \
+	./$(DEPDIR)/shc_write_bin.Plo ./$(DEPDIR)/shc_write_dov.Plo \
+	./$(DEPDIR)/shc_write_mtdt.Plo ./$(DEPDIR)/shc_write_mtx.Plo \
+	./$(DEPDIR)/shc_write_tbl.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -362,6 +374,16 @@ libcharm@P@_shc_la_SOURCES = shc_da.c \
 							 shc_calloc.c \
 							 shc_init.c \
 							 shc_init_chunk.c \
+							 shc_arithmetics_checks.c \
+							 shc_arithmetics_wise_checks.c \
+							 shc_add.c \
+							 shc_sub.c \
+							 shc_mul.c \
+							 shc_mul_degree_wise.c \
+							 shc_mul_order_wise.c \
+							 shc_div.c \
+							 shc_div_degree_wise.c \
+							 shc_div_order_wise.c \
 							 shc_block_init.c \
 							 shc_block_free.c \
 							 shc_block_have_order.c \
@@ -445,7 +467,10 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_add.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_alloc.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_arithmetics_checks.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_arithmetics_wise_checks.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_block_free.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_block_get_coeffs.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_block_get_idx.Plo@am__quote@ # am--include-marker
@@ -462,6 +487,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_da.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_dda.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_ddv.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_div.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_div_degree_wise.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_div_order_wise.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_dv.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_free.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_get_nmax_model.Plo@am__quote@ # am--include-marker
@@ -469,6 +497,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_init_chunk.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_local_ncs.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_malloc.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_mul.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_mul_degree_wise.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_mul_order_wise.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_read_bin.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_read_dov.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_read_gfc.Plo@am__quote@ # am--include-marker
@@ -478,6 +509,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_read_tbl.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_rescale.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_reset_coeffs.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_sub.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_write_bin.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_write_dov.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shc_write_mtdt.Plo@am__quote@ # am--include-marker
@@ -595,7 +627,10 @@ clean-am: clean-generic clean-libtool clean-noinstLTLIBRARIES \
 	mostlyclean-am
 
 distclean: distclean-am
+	-rm -f ./$(DEPDIR)/shc_add.Plo
 	-rm -f ./$(DEPDIR)/shc_alloc.Plo
+	-rm -f ./$(DEPDIR)/shc_arithmetics_checks.Plo
+	-rm -f ./$(DEPDIR)/shc_arithmetics_wise_checks.Plo
 	-rm -f ./$(DEPDIR)/shc_block_free.Plo
 	-rm -f ./$(DEPDIR)/shc_block_get_coeffs.Plo
 	-rm -f ./$(DEPDIR)/shc_block_get_idx.Plo
@@ -612,6 +647,9 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/shc_da.Plo
 	-rm -f ./$(DEPDIR)/shc_dda.Plo
 	-rm -f ./$(DEPDIR)/shc_ddv.Plo
+	-rm -f ./$(DEPDIR)/shc_div.Plo
+	-rm -f ./$(DEPDIR)/shc_div_degree_wise.Plo
+	-rm -f ./$(DEPDIR)/shc_div_order_wise.Plo
 	-rm -f ./$(DEPDIR)/shc_dv.Plo
 	-rm -f ./$(DEPDIR)/shc_free.Plo
 	-rm -f ./$(DEPDIR)/shc_get_nmax_model.Plo
@@ -619,6 +657,9 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/shc_init_chunk.Plo
 	-rm -f ./$(DEPDIR)/shc_local_ncs.Plo
 	-rm -f ./$(DEPDIR)/shc_malloc.Plo
+	-rm -f ./$(DEPDIR)/shc_mul.Plo
+	-rm -f ./$(DEPDIR)/shc_mul_degree_wise.Plo
+	-rm -f ./$(DEPDIR)/shc_mul_order_wise.Plo
 	-rm -f ./$(DEPDIR)/shc_read_bin.Plo
 	-rm -f ./$(DEPDIR)/shc_read_dov.Plo
 	-rm -f ./$(DEPDIR)/shc_read_gfc.Plo
@@ -628,6 +669,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/shc_read_tbl.Plo
 	-rm -f ./$(DEPDIR)/shc_rescale.Plo
 	-rm -f ./$(DEPDIR)/shc_reset_coeffs.Plo
+	-rm -f ./$(DEPDIR)/shc_sub.Plo
 	-rm -f ./$(DEPDIR)/shc_write_bin.Plo
 	-rm -f ./$(DEPDIR)/shc_write_dov.Plo
 	-rm -f ./$(DEPDIR)/shc_write_mtdt.Plo
@@ -677,7 +719,10 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
+	-rm -f ./$(DEPDIR)/shc_add.Plo
 	-rm -f ./$(DEPDIR)/shc_alloc.Plo
+	-rm -f ./$(DEPDIR)/shc_arithmetics_checks.Plo
+	-rm -f ./$(DEPDIR)/shc_arithmetics_wise_checks.Plo
 	-rm -f ./$(DEPDIR)/shc_block_free.Plo
 	-rm -f ./$(DEPDIR)/shc_block_get_coeffs.Plo
 	-rm -f ./$(DEPDIR)/shc_block_get_idx.Plo
@@ -694,6 +739,9 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/shc_da.Plo
 	-rm -f ./$(DEPDIR)/shc_dda.Plo
 	-rm -f ./$(DEPDIR)/shc_ddv.Plo
+	-rm -f ./$(DEPDIR)/shc_div.Plo
+	-rm -f ./$(DEPDIR)/shc_div_degree_wise.Plo
+	-rm -f ./$(DEPDIR)/shc_div_order_wise.Plo
 	-rm -f ./$(DEPDIR)/shc_dv.Plo
 	-rm -f ./$(DEPDIR)/shc_free.Plo
 	-rm -f ./$(DEPDIR)/shc_get_nmax_model.Plo
@@ -701,6 +749,9 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/shc_init_chunk.Plo
 	-rm -f ./$(DEPDIR)/shc_local_ncs.Plo
 	-rm -f ./$(DEPDIR)/shc_malloc.Plo
+	-rm -f ./$(DEPDIR)/shc_mul.Plo
+	-rm -f ./$(DEPDIR)/shc_mul_degree_wise.Plo
+	-rm -f ./$(DEPDIR)/shc_mul_order_wise.Plo
 	-rm -f ./$(DEPDIR)/shc_read_bin.Plo
 	-rm -f ./$(DEPDIR)/shc_read_dov.Plo
 	-rm -f ./$(DEPDIR)/shc_read_gfc.Plo
@@ -710,6 +761,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/shc_read_tbl.Plo
 	-rm -f ./$(DEPDIR)/shc_rescale.Plo
 	-rm -f ./$(DEPDIR)/shc_reset_coeffs.Plo
+	-rm -f ./$(DEPDIR)/shc_sub.Plo
 	-rm -f ./$(DEPDIR)/shc_write_bin.Plo
 	-rm -f ./$(DEPDIR)/shc_write_dov.Plo
 	-rm -f ./$(DEPDIR)/shc_write_mtdt.Plo

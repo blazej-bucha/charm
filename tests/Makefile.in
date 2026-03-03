@@ -147,7 +147,8 @@ am__genref_run@P@_SOURCES_DIST = test_run.c test_suite_start.c \
 	check_sha_point.c check_sha_cell.c \
 	check_gfm_global_density_3d.c \
 	check_gfm_global_density_lateral.c \
-	check_gfm_global_density_const.c check_shc_read_type.c \
+	check_gfm_global_density_const.c check_shc_arithmetics.c \
+	check_shc_arithmetics_wise.c check_shc_read_type.c \
 	check_shc_read_gfc.c check_shc_write_type.c check_shc_dav.c \
 	check_shc_ddav.c check_shc_rescale.c check_shc_alloc.c \
 	check_shc_init.c check_simd_abs_r.c check_simd_neg_r.c \
@@ -215,6 +216,8 @@ am__objects_2 = genref_run@P@-test_run.$(OBJEXT) \
 	genref_run@P@-check_gfm_global_density_3d.$(OBJEXT) \
 	genref_run@P@-check_gfm_global_density_lateral.$(OBJEXT) \
 	genref_run@P@-check_gfm_global_density_const.$(OBJEXT) \
+	genref_run@P@-check_shc_arithmetics.$(OBJEXT) \
+	genref_run@P@-check_shc_arithmetics_wise.$(OBJEXT) \
 	genref_run@P@-check_shc_read_type.$(OBJEXT) \
 	genref_run@P@-check_shc_read_gfc.$(OBJEXT) \
 	genref_run@P@-check_shc_write_type.$(OBJEXT) \
@@ -300,7 +303,8 @@ am__test_run@P@_SOURCES_DIST = test_run.c test_suite_start.c \
 	check_sha_point.c check_sha_cell.c \
 	check_gfm_global_density_3d.c \
 	check_gfm_global_density_lateral.c \
-	check_gfm_global_density_const.c check_shc_read_type.c \
+	check_gfm_global_density_const.c check_shc_arithmetics.c \
+	check_shc_arithmetics_wise.c check_shc_read_type.c \
 	check_shc_read_gfc.c check_shc_write_type.c check_shc_dav.c \
 	check_shc_ddav.c check_shc_rescale.c check_shc_alloc.c \
 	check_shc_init.c check_simd_abs_r.c check_simd_neg_r.c \
@@ -366,6 +370,8 @@ am__objects_5 = test_run@P@-test_run.$(OBJEXT) \
 	test_run@P@-check_gfm_global_density_3d.$(OBJEXT) \
 	test_run@P@-check_gfm_global_density_lateral.$(OBJEXT) \
 	test_run@P@-check_gfm_global_density_const.$(OBJEXT) \
+	test_run@P@-check_shc_arithmetics.$(OBJEXT) \
+	test_run@P@-check_shc_arithmetics_wise.$(OBJEXT) \
 	test_run@P@-check_shc_read_type.$(OBJEXT) \
 	test_run@P@-check_shc_read_gfc.$(OBJEXT) \
 	test_run@P@-check_shc_write_type.$(OBJEXT) \
@@ -424,6 +430,8 @@ am__depfiles_remade = ./$(DEPDIR)/genref_run@P@-array2file.Po \
 	./$(DEPDIR)/genref_run@P@-check_sha_cell.Po \
 	./$(DEPDIR)/genref_run@P@-check_sha_point.Po \
 	./$(DEPDIR)/genref_run@P@-check_shc_alloc.Po \
+	./$(DEPDIR)/genref_run@P@-check_shc_arithmetics.Po \
+	./$(DEPDIR)/genref_run@P@-check_shc_arithmetics_wise.Po \
 	./$(DEPDIR)/genref_run@P@-check_shc_dav.Po \
 	./$(DEPDIR)/genref_run@P@-check_shc_ddav.Po \
 	./$(DEPDIR)/genref_run@P@-check_shc_init.Po \
@@ -519,6 +527,8 @@ am__depfiles_remade = ./$(DEPDIR)/genref_run@P@-array2file.Po \
 	./$(DEPDIR)/test_run@P@-check_sha_cell.Po \
 	./$(DEPDIR)/test_run@P@-check_sha_point.Po \
 	./$(DEPDIR)/test_run@P@-check_shc_alloc.Po \
+	./$(DEPDIR)/test_run@P@-check_shc_arithmetics.Po \
+	./$(DEPDIR)/test_run@P@-check_shc_arithmetics_wise.Po \
 	./$(DEPDIR)/test_run@P@-check_shc_dav.Po \
 	./$(DEPDIR)/test_run@P@-check_shc_ddav.Po \
 	./$(DEPDIR)/test_run@P@-check_shc_init.Po \
@@ -788,7 +798,8 @@ SOURCES = test_run.c test_suite_start.c test_suite_end.c cmp_vals.c \
 	check_sha_point.c check_sha_cell.c \
 	check_gfm_global_density_3d.c \
 	check_gfm_global_density_lateral.c \
-	check_gfm_global_density_const.c check_shc_read_type.c \
+	check_gfm_global_density_const.c check_shc_arithmetics.c \
+	check_shc_arithmetics_wise.c check_shc_read_type.c \
 	check_shc_read_gfc.c check_shc_write_type.c check_shc_dav.c \
 	check_shc_ddav.c check_shc_rescale.c check_shc_alloc.c \
 	check_shc_init.c check_simd_abs_r.c check_simd_neg_r.c \
@@ -935,6 +946,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_sha_cell.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_sha_point.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_shc_alloc.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_shc_arithmetics.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_shc_arithmetics_wise.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_shc_dav.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_shc_ddav.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_shc_init.Po@am__quote@ # am--include-marker
@@ -1030,6 +1043,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_sha_cell.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_sha_point.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_shc_alloc.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_shc_arithmetics.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_shc_arithmetics_wise.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_shc_dav.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_shc_ddav.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_shc_init.Po@am__quote@ # am--include-marker
@@ -1747,6 +1762,34 @@ genref_run@P@-check_gfm_global_density_const.obj: check_gfm_global_density_const
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_gfm_global_density_const.c' object='genref_run@P@-check_gfm_global_density_const.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_gfm_global_density_const.obj `if test -f 'check_gfm_global_density_const.c'; then $(CYGPATH_W) 'check_gfm_global_density_const.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_global_density_const.c'; fi`
+
+genref_run@P@-check_shc_arithmetics.o: check_shc_arithmetics.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_shc_arithmetics.o -MD -MP -MF $(DEPDIR)/genref_run@P@-check_shc_arithmetics.Tpo -c -o genref_run@P@-check_shc_arithmetics.o `test -f 'check_shc_arithmetics.c' || echo '$(srcdir)/'`check_shc_arithmetics.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_shc_arithmetics.Tpo $(DEPDIR)/genref_run@P@-check_shc_arithmetics.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shc_arithmetics.c' object='genref_run@P@-check_shc_arithmetics.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_shc_arithmetics.o `test -f 'check_shc_arithmetics.c' || echo '$(srcdir)/'`check_shc_arithmetics.c
+
+genref_run@P@-check_shc_arithmetics.obj: check_shc_arithmetics.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_shc_arithmetics.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-check_shc_arithmetics.Tpo -c -o genref_run@P@-check_shc_arithmetics.obj `if test -f 'check_shc_arithmetics.c'; then $(CYGPATH_W) 'check_shc_arithmetics.c'; else $(CYGPATH_W) '$(srcdir)/check_shc_arithmetics.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_shc_arithmetics.Tpo $(DEPDIR)/genref_run@P@-check_shc_arithmetics.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shc_arithmetics.c' object='genref_run@P@-check_shc_arithmetics.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_shc_arithmetics.obj `if test -f 'check_shc_arithmetics.c'; then $(CYGPATH_W) 'check_shc_arithmetics.c'; else $(CYGPATH_W) '$(srcdir)/check_shc_arithmetics.c'; fi`
+
+genref_run@P@-check_shc_arithmetics_wise.o: check_shc_arithmetics_wise.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_shc_arithmetics_wise.o -MD -MP -MF $(DEPDIR)/genref_run@P@-check_shc_arithmetics_wise.Tpo -c -o genref_run@P@-check_shc_arithmetics_wise.o `test -f 'check_shc_arithmetics_wise.c' || echo '$(srcdir)/'`check_shc_arithmetics_wise.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_shc_arithmetics_wise.Tpo $(DEPDIR)/genref_run@P@-check_shc_arithmetics_wise.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shc_arithmetics_wise.c' object='genref_run@P@-check_shc_arithmetics_wise.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_shc_arithmetics_wise.o `test -f 'check_shc_arithmetics_wise.c' || echo '$(srcdir)/'`check_shc_arithmetics_wise.c
+
+genref_run@P@-check_shc_arithmetics_wise.obj: check_shc_arithmetics_wise.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_shc_arithmetics_wise.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-check_shc_arithmetics_wise.Tpo -c -o genref_run@P@-check_shc_arithmetics_wise.obj `if test -f 'check_shc_arithmetics_wise.c'; then $(CYGPATH_W) 'check_shc_arithmetics_wise.c'; else $(CYGPATH_W) '$(srcdir)/check_shc_arithmetics_wise.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_shc_arithmetics_wise.Tpo $(DEPDIR)/genref_run@P@-check_shc_arithmetics_wise.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shc_arithmetics_wise.c' object='genref_run@P@-check_shc_arithmetics_wise.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_shc_arithmetics_wise.obj `if test -f 'check_shc_arithmetics_wise.c'; then $(CYGPATH_W) 'check_shc_arithmetics_wise.c'; else $(CYGPATH_W) '$(srcdir)/check_shc_arithmetics_wise.c'; fi`
 
 genref_run@P@-check_shc_read_type.o: check_shc_read_type.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_shc_read_type.o -MD -MP -MF $(DEPDIR)/genref_run@P@-check_shc_read_type.Tpo -c -o genref_run@P@-check_shc_read_type.o `test -f 'check_shc_read_type.c' || echo '$(srcdir)/'`check_shc_read_type.c
@@ -3078,6 +3121,34 @@ test_run@P@-check_gfm_global_density_const.obj: check_gfm_global_density_const.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_gfm_global_density_const.obj `if test -f 'check_gfm_global_density_const.c'; then $(CYGPATH_W) 'check_gfm_global_density_const.c'; else $(CYGPATH_W) '$(srcdir)/check_gfm_global_density_const.c'; fi`
 
+test_run@P@-check_shc_arithmetics.o: check_shc_arithmetics.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_shc_arithmetics.o -MD -MP -MF $(DEPDIR)/test_run@P@-check_shc_arithmetics.Tpo -c -o test_run@P@-check_shc_arithmetics.o `test -f 'check_shc_arithmetics.c' || echo '$(srcdir)/'`check_shc_arithmetics.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_shc_arithmetics.Tpo $(DEPDIR)/test_run@P@-check_shc_arithmetics.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shc_arithmetics.c' object='test_run@P@-check_shc_arithmetics.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_shc_arithmetics.o `test -f 'check_shc_arithmetics.c' || echo '$(srcdir)/'`check_shc_arithmetics.c
+
+test_run@P@-check_shc_arithmetics.obj: check_shc_arithmetics.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_shc_arithmetics.obj -MD -MP -MF $(DEPDIR)/test_run@P@-check_shc_arithmetics.Tpo -c -o test_run@P@-check_shc_arithmetics.obj `if test -f 'check_shc_arithmetics.c'; then $(CYGPATH_W) 'check_shc_arithmetics.c'; else $(CYGPATH_W) '$(srcdir)/check_shc_arithmetics.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_shc_arithmetics.Tpo $(DEPDIR)/test_run@P@-check_shc_arithmetics.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shc_arithmetics.c' object='test_run@P@-check_shc_arithmetics.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_shc_arithmetics.obj `if test -f 'check_shc_arithmetics.c'; then $(CYGPATH_W) 'check_shc_arithmetics.c'; else $(CYGPATH_W) '$(srcdir)/check_shc_arithmetics.c'; fi`
+
+test_run@P@-check_shc_arithmetics_wise.o: check_shc_arithmetics_wise.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_shc_arithmetics_wise.o -MD -MP -MF $(DEPDIR)/test_run@P@-check_shc_arithmetics_wise.Tpo -c -o test_run@P@-check_shc_arithmetics_wise.o `test -f 'check_shc_arithmetics_wise.c' || echo '$(srcdir)/'`check_shc_arithmetics_wise.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_shc_arithmetics_wise.Tpo $(DEPDIR)/test_run@P@-check_shc_arithmetics_wise.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shc_arithmetics_wise.c' object='test_run@P@-check_shc_arithmetics_wise.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_shc_arithmetics_wise.o `test -f 'check_shc_arithmetics_wise.c' || echo '$(srcdir)/'`check_shc_arithmetics_wise.c
+
+test_run@P@-check_shc_arithmetics_wise.obj: check_shc_arithmetics_wise.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_shc_arithmetics_wise.obj -MD -MP -MF $(DEPDIR)/test_run@P@-check_shc_arithmetics_wise.Tpo -c -o test_run@P@-check_shc_arithmetics_wise.obj `if test -f 'check_shc_arithmetics_wise.c'; then $(CYGPATH_W) 'check_shc_arithmetics_wise.c'; else $(CYGPATH_W) '$(srcdir)/check_shc_arithmetics_wise.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_shc_arithmetics_wise.Tpo $(DEPDIR)/test_run@P@-check_shc_arithmetics_wise.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shc_arithmetics_wise.c' object='test_run@P@-check_shc_arithmetics_wise.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_shc_arithmetics_wise.obj `if test -f 'check_shc_arithmetics_wise.c'; then $(CYGPATH_W) 'check_shc_arithmetics_wise.c'; else $(CYGPATH_W) '$(srcdir)/check_shc_arithmetics_wise.c'; fi`
+
 test_run@P@-check_shc_read_type.o: check_shc_read_type.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_shc_read_type.o -MD -MP -MF $(DEPDIR)/test_run@P@-check_shc_read_type.Tpo -c -o test_run@P@-check_shc_read_type.o `test -f 'check_shc_read_type.c' || echo '$(srcdir)/'`check_shc_read_type.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_shc_read_type.Tpo $(DEPDIR)/test_run@P@-check_shc_read_type.Po
@@ -3570,6 +3641,8 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_sha_cell.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_sha_point.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_alloc.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_arithmetics.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_arithmetics_wise.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_dav.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_ddav.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_init.Po
@@ -3665,6 +3738,8 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test_run@P@-check_sha_cell.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_sha_point.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_alloc.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_arithmetics.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_arithmetics_wise.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_dav.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_ddav.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_init.Po
@@ -3780,6 +3855,8 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_sha_cell.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_sha_point.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_alloc.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_arithmetics.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_arithmetics_wise.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_dav.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_ddav.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_init.Po
@@ -3875,6 +3952,8 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test_run@P@-check_sha_cell.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_sha_point.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_alloc.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_arithmetics.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_arithmetics_wise.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_dav.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_ddav.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_init.Po

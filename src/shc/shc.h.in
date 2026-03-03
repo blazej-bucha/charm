@@ -572,6 +572,7 @@ CHARM_EXTERN void CHARM_CDECL charm@P@_shc_free(charm@P@_shc *shcs);
 
 
 
+
 /* ......................................................................... */
 /** @name Read and write the charm@P@_shc structure
  *
@@ -1259,6 +1260,234 @@ CHARM_EXTERN void CHARM_CDECL
 /**
  * @}
  * */
+/* ......................................................................... */
+
+
+
+
+
+
+/* ......................................................................... */
+/** @name Arithmetics with the charm@P@_shc structure
+ *
+ * These functions perform basic arithmetics with the ``charm@P@_shc``
+ * structure such as adding two ``charm@P@_shc`` structures, etc.
+ *
+ * @{
+ * */
+
+
+/** @brief Adds spherical harmonic coefficients of matching degrees and orders
+ *  from ``op1`` and ``op2`` and writes the output to ``rop``.  The addition
+ *  starts at degree ``nmin`` and ends at ``nmax``.
+ *
+ * @details A few rules and restrictions apply.
+ *
+ * * The ``mu`` and ``r`` members of ``rop``, ``op1`` and ``op2`` must be
+ *   equal.
+ *
+ * * ``nmin`` cannot be larger than ``nmax``.
+ *
+ * * Neither ``nmin`` nor ``nmax`` can be larger than ``rop->nmax``.
+ *
+ * * If any degree from ``nmin`` to ``nmax`` reaches beyond ``op1->nmax``
+ *   and/or ``op2->nmax``, then the coefficients of that degree(s) are assumed
+ *   to be zero for ``op1`` and/or ``op2`` (zero padding).
+ *
+ * * ``rop`` is never modified outside the ``nmin`` to ``nmax`` degree range.
+ *   Keep this in mind when performing an in-place addition.
+ *
+ * * All coefficients in ``rop`` in the ``nmin`` to ``nmax`` degree range are
+ *   always modified.  Due to the zero padding, this is true even if
+ *   ``op1->nmax`` and/or ``op2->nmax`` are smaller than ``nmax``.
+ *
+ * @note The function works in-place, that is, ``rop`` can be equal to ``op1``
+ * or ``op2`` and ``op1`` can be equal to ``op2``.  For instance,
+ * ``charm@P@_shc_add(op1, op1, op1, nmin, nmax, err)`` adds the coefficients
+ * of ``op1`` and ``op1`` from degrees ``nmin`` to ``nmax`` and writes the
+ * result back to ``op1``.
+ *
+ * @param[out] rop Result of the operation.
+ *
+ * @param[in,out] op1 First operand.
+ *
+ * @param[in,out] op2 Second operand.
+ *
+ * @param[out] err Error reported by the function (if any).
+ *
+ * */
+CHARM_EXTERN void CHARM_CDECL charm@P@_shc_add(charm@P@_shc *rop,
+                                               charm@P@_shc *op1,
+                                               charm@P@_shc *op2,
+                                               unsigned long nmin,
+                                               unsigned long nmax,
+                                               charm@P@_err *err);
+
+
+
+
+
+
+
+/** @brief The same as ``charm@P@_shc_add()`` but the coefficients of ``op2``
+ * are subtracted from the coefficients of ``op1``.
+ *
+ * */
+CHARM_EXTERN void CHARM_CDECL charm@P@_shc_sub(charm@P@_shc *rop,
+                                               charm@P@_shc *op1,
+                                               charm@P@_shc *op2,
+                                               unsigned long nmin,
+                                               unsigned long nmax,
+                                               charm@P@_err *err);
+
+
+
+
+
+
+
+/** @brief The same as ``charm@P@_shc_add()`` but the coefficients of ``op1``
+ * are multiplied by the coefficients of ``op2``.
+ *
+ * @note Multiplying coefficients of matching degrees and orders from ``op1``
+ * and ``op2`` in the spectral domain is not equivalent to the multiplication
+ * the functions given by ``op1`` and ``op2`` in the spatial domain.
+ *
+ * */
+CHARM_EXTERN void CHARM_CDECL charm@P@_shc_mul(charm@P@_shc *rop,
+                                               charm@P@_shc *op1,
+                                               charm@P@_shc *op2,
+                                               unsigned long nmin,
+                                               unsigned long nmax,
+                                               charm@P@_err *err);
+
+
+
+
+
+
+
+/** @brief Multiplies coefficients of ``shcs`` by degree-dependent factors
+ * pointed to by ``a`` starting at degree ``nmin`` and ending at ``nmax``.
+ *
+ * @details All spherical harmonic coefficients of degree ``nmin`` are
+ * multiplied by ``a[0]``, all coefficients of degree ``nmin + 1`` are
+ * multiplied by ``a[1]`` and so on.
+ *
+ * @param[in,out] shcs Spherical harmonic coefficients.
+ *
+ * @param[in] a Array of the degree-dependent factors.  The pointer ``a`` must
+ * have an access to ``nmax - nmin + 1`` array elements.  The ``a[0]`` element
+ * represents the multiplier for all coefficients of degree ``nmin``, ``a[1]``
+ * holds the multiplier for all coefficients of degree ``nmin + 1``, etc.
+ *
+ * @param[in] nmin Starting degree to apply the degree-dependent factor.
+ *
+ * @param[in] nmax Ending degree to apply the degree-dependent factor.
+ *
+ * @param[out] err Error reported by the function (if any).
+ *
+ * */
+CHARM_EXTERN void CHARM_CDECL charm@P@_shc_mul_degree_wise(charm@P@_shc *shcs,
+                                                           const @RDT@ *a,
+                                                           unsigned long nmin,
+                                                           unsigned long nmax,
+                                                           charm@P@_err *err);
+
+
+
+
+
+
+
+/** @brief Multiplies coefficients of ``shcs`` by order-dependent factors
+ * pointed to by ``a`` starting at *degree* ``nmin`` and ending at *degree*
+ * ``nmax``.
+ *
+ * @param[in,out] shcs Spherical harmonic coefficients.
+ *
+ * @param[in] a Array of the order-dependent factors.  The pointer ``a`` must
+ * have an access to ``nmax + 1`` array elements.  The ``a[0]`` element
+ * represents the multiplier for all coefficients of order ``0`` within degrees
+ * from ``nmin`` to ``nmax``, ``a[1]`` holds the multiplier for all
+ * coefficients of order ``1`` within degrees from ``nmin`` to ``nmax``, etc.,
+ * ``a[nmax]`` is the multiplier for coefficients of order ``nmax``.
+ *
+ * @param[in] nmin Starting degree to apply the order-dependent factor.
+ *
+ * @param[in] nmax Ending degree to apply the order-dependent factor.
+ *
+ * @param[out] err Error reported by the function (if any).
+ *
+ * */
+CHARM_EXTERN void CHARM_CDECL charm@P@_shc_mul_order_wise(charm@P@_shc *shcs,
+                                                          const @RDT@ *a,
+                                                          unsigned long nmin,
+                                                          unsigned long nmax,
+                                                          charm@P@_err *err);
+
+
+
+
+
+
+
+/** @brief The same as ``charm@P@_shc_add()`` but the coefficients of ``op1``
+ * are divided by the coefficients of ``op2``.
+ *
+ * @note Dividing coefficients of matching degrees and orders from ``op1`` and
+ * ``op2`` in the spectral domain is not equivalent to the division of the
+ * functions given by ``op1`` and ``op2`` in the spatial domain.
+ *
+ * @note The coefficients of ``op2`` must not be zero within the ``nmin`` to
+ * ``nmax`` range to avoid division by zero.  The only exceptions are the
+ * non-existing coefficients \f$\bar{S}_{n,0}\f$.
+ *
+ * */
+CHARM_EXTERN void CHARM_CDECL charm@P@_shc_div(charm@P@_shc *rop,
+                                               charm@P@_shc *op1,
+                                               charm@P@_shc *op2,
+                                               unsigned long nmin,
+                                               unsigned long nmax,
+                                               charm@P@_err *err);
+
+
+
+
+
+
+
+/** @brief The same as ``charm@P@_shc_mul_degree_wise()``, but the coefficients
+ * are divided by the degree-dependent factor.
+ *
+ * */
+CHARM_EXTERN void CHARM_CDECL charm@P@_shc_div_degree_wise(charm@P@_shc *shcs,
+                                                           const @RDT@ *a,
+                                                           unsigned long nmin,
+                                                           unsigned long nmax,
+                                                           charm@P@_err *err);
+
+
+
+
+
+
+
+/** @brief The same as ``charm@P@_shc_mul_order_wise()``, but the coefficients
+ * are divided by the order-dependent factor.
+ *
+ * */
+CHARM_EXTERN void CHARM_CDECL charm@P@_shc_div_order_wise(charm@P@_shc *shcs,
+                                                          const @RDT@ *a,
+                                                          unsigned long nmin,
+                                                          unsigned long nmax,
+                                                          charm@P@_err *err);
+
+
+/**
+ * @}
+ * */
+/* ......................................................................... */
 /* ......................................................................... */
 
 
