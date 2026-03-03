@@ -50,7 +50,7 @@
     <link rel="prev" title="CHarm (C API)" href="api-c.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Mar 02, 2026"/>
+    <meta name="docbuild:last-update" content="Mar 03, 2026"/>
   </head>
   
   
@@ -1041,6 +1041,7 @@ The path to the output file in <code class="docutils literal notranslate"><span 
 <dd><p>Adds spherical harmonic coefficients of matching degrees and orders from <code class="docutils literal notranslate"><span class="pre">op1</span></code> and <code class="docutils literal notranslate"><span class="pre">op2</span></code> and writes the output to <code class="docutils literal notranslate"><span class="pre">rop</span></code>. The addition starts at degree <code class="docutils literal notranslate"><span class="pre">nmin</span></code> and ends at <code class="docutils literal notranslate"><span class="pre">nmax</span></code>. </p>
 <p>A few rules and restrictions apply.</p>
 <p><ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">mu</span></code> and <code class="docutils literal notranslate"><span class="pre">r</span></code> members of <code class="docutils literal notranslate"><span class="pre">rop</span></code>, <code class="docutils literal notranslate"><span class="pre">op1</span></code> and <code class="docutils literal notranslate"><span class="pre">op2</span></code> must be equal.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">nmin</span></code> cannot be larger than <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.</p></li>
 <li><p>Neither <code class="docutils literal notranslate"><span class="pre">nmin</span></code> nor <code class="docutils literal notranslate"><span class="pre">nmax</span></code> can be larger than <code class="docutils literal notranslate"><span class="pre">rop-&gt;nmax</span></code>.</p></li>
 <li><p>If any degree from <code class="docutils literal notranslate"><span class="pre">nmin</span></code> to <code class="docutils literal notranslate"><span class="pre">nmax</span></code> reaches beyond <code class="docutils literal notranslate"><span class="pre">op1-&gt;nmax</span></code> and/or <code class="docutils literal notranslate"><span class="pre">op2-&gt;nmax</span></code>, then the coefficients of that degree(s) are assumed to be zero for <code class="docutils literal notranslate"><span class="pre">op1</span></code> and/or <code class="docutils literal notranslate"><span class="pre">op2</span></code> (zero padding).</p></li>
@@ -1552,7 +1553,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Mar 02, 2026.
+  Last updated on Mar 03, 2026.
   <br/>
 </p>
   </div>
