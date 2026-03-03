@@ -328,6 +328,54 @@ class Shc:
         return
 
 
+    def __add__(self, other):
+
+        return self.add(other, inplace=False)
+
+
+    def __iadd__(self, other):
+
+        self.add(other, inplace=True)
+
+        return self
+
+
+    def __sub__(self, other):
+
+        return self.sub(other, inplace=False)
+
+
+    def __isub__(self, other):
+
+        self.sub(other, inplace=True)
+
+        return self
+
+
+    def __mul__(self, other):
+
+        return self.mul(other, inplace=False)
+
+
+    def __imul__(self, other):
+
+        self.mul(other, inplace=True)
+
+        return self
+
+
+    def __truediv__(self, other):
+
+        return self.div(other, inplace=False)
+
+
+    def __itruediv__(self, other):
+
+        self.div(other, inplace=True)
+
+        return self
+
+
     @classmethod
     def from_garbage(cls, nmax, mu=_MU, r=_R):
         """
@@ -552,7 +600,8 @@ class Shc:
         padded.  For the full documentation, refer to `charm_shc
         <./api-c-shc.html>`_.
 
-        .. tip:: A few examples:
+        .. tip:: To learn how :meth:`add` works, go thorough the
+                 following examples:
 
                  >>> import pyharm as ph
                  >>> import numpy as np
@@ -600,6 +649,37 @@ class Shc:
                  >>>                                    # unmodified and "op2"
                  >>>                                    # is zero padded during
                  >>>                                    # the addition.
+
+        .. tip:: You can use
+
+
+                 >>> rop = op1 + op2
+
+                 as a useful alias for
+
+                 >>> rop = op1.add(op2, inplace=False)
+
+                 and
+
+                 >>> op1 += op2
+
+                 as an alias for
+
+                 >>> op1.add(op2)
+
+                 Importantly, however,
+
+                 >>> op1 = op1 + op2
+
+                 is generally not the same as
+
+                 >>> op1 += op2
+
+                 as the former rewrites ``op1`` by returning a new :class:`Shc`
+                 class instance called ``op1`` with the truncation degree
+                 being ``max(op1.nmax, op2.nmax)``, while the latter updates
+                 ``op1`` by adding the coefficients of ``op2`` up to degree
+                 ``op1.nmax`` (see the other tip).
 
         Parameters
         ----------

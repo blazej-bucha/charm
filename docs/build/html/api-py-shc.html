@@ -825,7 +825,8 @@ from <code class="docutils literal notranslate"><span class="pre">op2</span></co
 padded.  For the full documentation, refer to <a class="reference external" href="./api-c-shc.html">charm_shc</a>.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>A few examples:</p>
+<p>To learn how <a class="reference internal" href="#pyharm.shc.Shc.add" title="pyharm.shc.Shc.add"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add()</span></code></a> works, go thorough the
+following examples:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pyharm</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ph</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate two instances of the &quot;Shc&quot; class with random</span>
@@ -874,6 +875,38 @@ padded.  For the full documentation, refer to <a class="reference external" href
 <span class="gp">&gt;&gt;&gt; </span>                                   <span class="c1"># the addition.</span>
 </pre></div>
 </div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can use</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rop</span> <span class="o">=</span> <span class="n">op1</span> <span class="o">+</span> <span class="n">op2</span>
+</pre></div>
+</div>
+<p>as a useful alias for</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rop</span> <span class="o">=</span> <span class="n">op1</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">op2</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">op1</span> <span class="o">+=</span> <span class="n">op2</span>
+</pre></div>
+</div>
+<p>as an alias for</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">op1</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">op2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Importantly, however,</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">op1</span> <span class="o">=</span> <span class="n">op1</span> <span class="o">+</span> <span class="n">op2</span>
+</pre></div>
+</div>
+<p>is generally not the same as</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">op1</span> <span class="o">+=</span> <span class="n">op2</span>
+</pre></div>
+</div>
+<p>as the former rewrites <code class="docutils literal notranslate"><span class="pre">op1</span></code> by returning a new <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a>
+class instance called <code class="docutils literal notranslate"><span class="pre">op1</span></code> with the truncation degree
+being <code class="docutils literal notranslate"><span class="pre">max(op1.nmax,</span> <span class="pre">op2.nmax)</span></code>, while the latter updates
+<code class="docutils literal notranslate"><span class="pre">op1</span></code> by adding the coefficients of <code class="docutils literal notranslate"><span class="pre">op2</span></code> up to degree
+<code class="docutils literal notranslate"><span class="pre">op1.nmax</span></code> (see the other tip).</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
