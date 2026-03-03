@@ -6,9 +6,9 @@ Module to compute the following integrals:
 
   .. math::
 
-      \int\limits_{\\theta_1}^{\\theta_2} \\bar{P}_{n_1,m_1}(\cos\\theta) \,
-      \\bar{P}_{n_2,m_2}(\cos\\theta) \, \sin(\\theta) \,
-      \mathrm{d}\\theta{,} \quad \\theta_1 \leq \\theta_2{,}
+      \\int\\limits_{\\theta_1}^{\\theta_2} \\bar{P}_{n_1,m_1}(\\cos\\theta) \\,
+      \\bar{P}_{n_2,m_2}(\\cos\\theta) \\, \\sin(\\theta) \\,
+      \\mathrm{d}\\theta{,} \\quad \\theta_1 \\leq \\theta_2{,}
 
 
 * a product of two ``4pi`` fully-normalized surface spherical harmonic
@@ -16,11 +16,11 @@ Module to compute the following integrals:
 
   .. math::
 
-      \int\limits_{\\theta_1}^{\\theta_2}
-      \int\limits_{\lambda_1}^{\lambda_2} \\bar{Y}_{n_1,m_1}(\\theta,
-      \lambda) \, \\bar{Y}_{n_2,m_2}(\\theta, \lambda) \, \mathrm{d}\lambda
-      \, \sin(\\theta) \, \mathrm{d}\\theta{,} \quad \\theta_1 \leq
-      \\theta_2{,} \quad \lambda_1 \leq \lambda_2{.}
+      \\int\\limits_{\\theta_1}^{\\theta_2}
+      \\int\\limits_{\\lambda_1}^{\\lambda_2} \\bar{Y}_{n_1,m_1}(\\theta,
+      \\lambda) \\, \\bar{Y}_{n_2,m_2}(\\theta, \\lambda) \\, \\mathrm{d}\\lambda
+      \\, \\sin(\\theta) \\, \\mathrm{d}\\theta{,} \\quad \\theta_1 \\leq
+      \\theta_2{,} \\quad \\lambda_1 \\leq \\lambda_2{.}
 
 
 Note
@@ -43,10 +43,10 @@ def pn1m1pn2m2(cltmin, cltmax, n1, m1, n2, m2, pnmj):
 
     .. math::
 
-        \mathrm{ip} = \int\limits_{\\theta_{\mathrm{min}}}^{\\theta_{\mathrm{max}}}
-        \\bar{P}_{n_1, m_1}(\cos\\theta) \, \\bar{P}_{n_2, m_2}(\cos\\theta) \,
-        \sin\\theta \, \mathrm{d}\\theta{,} \quad \\theta_{\mathrm{min}} \leq
-        \\theta_{\mathrm{max}}{.}
+        \\mathrm{ip} = \\int\\limits_{\\theta_{\\mathrm{min}}}^{\\theta_{\\mathrm{max}}}
+        \\bar{P}_{n_1, m_1}(\\cos\\theta) \\, \\bar{P}_{n_2, m_2}(\\cos\\theta) \\,
+        \\sin\\theta \\, \\mathrm{d}\\theta{,} \\quad \\theta_{\\mathrm{min}} \\leq
+        \\theta_{\\mathrm{max}}{.}
 
     The computation is based on the Fourier coefficients of the associated
     Legendre functions (see Eq. 33 of Pail and Plank, 2001).
@@ -110,23 +110,23 @@ def yi1n1m1yi2n2m2(cltmin, cltmax, lonmin, lonmax, i1, n1, m1, i2, n2, m2,
 
     .. math::
 
-        \mathrm{iy} =
-             \int\limits_{\\theta_{\mathrm{min}}}^{\\theta_{\mathrm{max}}}
-             \int\limits_{\lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}}
-             \\bar{Y}_{i_1,n_1,m_1}(\\theta, \lambda) \,
-             \\bar{Y}_{i_2,n_2,m_2}(\\theta, \lambda) \, \mathrm{d}
-             \lambda \, \sin(\\theta) \, \mathrm{d}\\theta{,} \quad
-             \\theta_{\mathrm{min}} \leq \\theta_{\mathrm{max}}{,} \quad
-             \lambda_{\mathrm{min}} \leq \lambda_{\mathrm{max}}{,}
+        \\mathrm{iy} =
+             \\int\\limits_{\\theta_{\\mathrm{min}}}^{\\theta_{\\mathrm{max}}}
+             \\int\\limits_{\\lambda_{\\mathrm{min}}}^{\\lambda_{\\mathrm{max}}}
+             \\bar{Y}_{i_1,n_1,m_1}(\\theta, \\lambda) \\,
+             \\bar{Y}_{i_2,n_2,m_2}(\\theta, \\lambda) \\, \\mathrm{d}
+             \\lambda \\, \\sin(\\theta) \\, \\mathrm{d}\\theta{,} \\quad
+             \\theta_{\\mathrm{min}} \\leq \\theta_{\\mathrm{max}}{,} \\quad
+             \\lambda_{\\mathrm{min}} \\leq \\lambda_{\\mathrm{max}}{,}
 
     where
 
     .. math::
 
-        \\bar{Y}_{i,n,m}(\\theta, \lambda) = \\begin{cases}
-        \\bar{P}_{nm}(\cos\\theta) \, \cos(m \, \lambda) \quad &\\textrm{if}
-        \quad i = 0{,}\\\\ \\bar{P}_{nm}(\cos\\theta) \, \sin(m \, \lambda)
-        \quad &\\textrm{if} \quad i = 1{.} \end{cases}
+        \\bar{Y}_{i,n,m}(\\theta, \\lambda) = \\begin{cases}
+        \\bar{P}_{nm}(\\cos\\theta) \\, \\cos(m \\, \\lambda) \\quad &\\textrm{if}
+        \\quad i = 0{,}\\\\ \\bar{P}_{nm}(\\cos\\theta) \\, \\sin(m \\, \\lambda)
+        \\quad &\\textrm{if} \\quad i = 1{.} \\end{cases}
 
     Parameters
     ----------
