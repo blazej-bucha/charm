@@ -325,6 +325,16 @@ class Shc:
                              _ct_ulong(method[2]),
                              _ct_ulong(nmax))
 
+            # The "method" variable is later attached to the object.  This is
+            # ok with all other factory methods and is especially important for
+            # "from_arrays", as it keeps alive the numpy arrays, from which
+            # this object is created.  However, with the "from_copy" factory
+            # method, attaching this variable to the object would
+            # effectively mean to store in the object both the original and the
+            # copied coefficients.  To avoid this, we rewrite here "method" to
+            # a string indicating that the object was created from a copy.
+            method = 'from copy'
+
         else:
             raise ValueError('Unsupported value of the \'method\' input '
                              'parameter.')
