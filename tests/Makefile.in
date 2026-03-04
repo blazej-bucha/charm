@@ -151,13 +151,13 @@ am__genref_run@P@_SOURCES_DIST = test_run.c test_suite_start.c \
 	check_shc_arithmetics_wise.c check_shc_read_type.c \
 	check_shc_read_gfc.c check_shc_write_type.c check_shc_dav.c \
 	check_shc_ddav.c check_shc_rescale.c check_shc_alloc.c \
-	check_shc_init.c check_simd_abs_r.c check_simd_neg_r.c \
-	check_simd_sum_r.c check_simd_masks.c check_simd_blend_r.c \
-	check_gfm_cap_density_3d.c check_gfm_cap_density_lateral.c \
-	check_gfm_cap_density_const.c check_gfm_cap_q.c \
-	check_gfm_cap_q_check_prec.c mpfr_write_val.c \
-	mpfr_write_array.c mpfr_array2file.c mpfr_cmp_vals.c \
-	mpfr_cmp_arrays.c mpfr_validate.c
+	check_shc_init.c check_shc_copy.c check_simd_abs_r.c \
+	check_simd_neg_r.c check_simd_sum_r.c check_simd_masks.c \
+	check_simd_blend_r.c check_gfm_cap_density_3d.c \
+	check_gfm_cap_density_lateral.c check_gfm_cap_density_const.c \
+	check_gfm_cap_q.c check_gfm_cap_q_check_prec.c \
+	mpfr_write_val.c mpfr_write_array.c mpfr_array2file.c \
+	mpfr_cmp_vals.c mpfr_cmp_arrays.c mpfr_validate.c
 @MPFR_TRUE@am__objects_1 =  \
 @MPFR_TRUE@	genref_run@P@-check_gfm_cap_density_3d.$(OBJEXT) \
 @MPFR_TRUE@	genref_run@P@-check_gfm_cap_density_lateral.$(OBJEXT) \
@@ -226,6 +226,7 @@ am__objects_2 = genref_run@P@-test_run.$(OBJEXT) \
 	genref_run@P@-check_shc_rescale.$(OBJEXT) \
 	genref_run@P@-check_shc_alloc.$(OBJEXT) \
 	genref_run@P@-check_shc_init.$(OBJEXT) \
+	genref_run@P@-check_shc_copy.$(OBJEXT) \
 	genref_run@P@-check_simd_abs_r.$(OBJEXT) \
 	genref_run@P@-check_simd_neg_r.$(OBJEXT) \
 	genref_run@P@-check_simd_sum_r.$(OBJEXT) \
@@ -307,13 +308,13 @@ am__test_run@P@_SOURCES_DIST = test_run.c test_suite_start.c \
 	check_shc_arithmetics_wise.c check_shc_read_type.c \
 	check_shc_read_gfc.c check_shc_write_type.c check_shc_dav.c \
 	check_shc_ddav.c check_shc_rescale.c check_shc_alloc.c \
-	check_shc_init.c check_simd_abs_r.c check_simd_neg_r.c \
-	check_simd_sum_r.c check_simd_masks.c check_simd_blend_r.c \
-	check_gfm_cap_density_3d.c check_gfm_cap_density_lateral.c \
-	check_gfm_cap_density_const.c check_gfm_cap_q.c \
-	check_gfm_cap_q_check_prec.c mpfr_write_val.c \
-	mpfr_write_array.c mpfr_array2file.c mpfr_cmp_vals.c \
-	mpfr_cmp_arrays.c mpfr_validate.c
+	check_shc_init.c check_shc_copy.c check_simd_abs_r.c \
+	check_simd_neg_r.c check_simd_sum_r.c check_simd_masks.c \
+	check_simd_blend_r.c check_gfm_cap_density_3d.c \
+	check_gfm_cap_density_lateral.c check_gfm_cap_density_const.c \
+	check_gfm_cap_q.c check_gfm_cap_q_check_prec.c \
+	mpfr_write_val.c mpfr_write_array.c mpfr_array2file.c \
+	mpfr_cmp_vals.c mpfr_cmp_arrays.c mpfr_validate.c
 @MPFR_TRUE@am__objects_4 =  \
 @MPFR_TRUE@	test_run@P@-check_gfm_cap_density_3d.$(OBJEXT) \
 @MPFR_TRUE@	test_run@P@-check_gfm_cap_density_lateral.$(OBJEXT) \
@@ -380,6 +381,7 @@ am__objects_5 = test_run@P@-test_run.$(OBJEXT) \
 	test_run@P@-check_shc_rescale.$(OBJEXT) \
 	test_run@P@-check_shc_alloc.$(OBJEXT) \
 	test_run@P@-check_shc_init.$(OBJEXT) \
+	test_run@P@-check_shc_copy.$(OBJEXT) \
 	test_run@P@-check_simd_abs_r.$(OBJEXT) \
 	test_run@P@-check_simd_neg_r.$(OBJEXT) \
 	test_run@P@-check_simd_sum_r.$(OBJEXT) \
@@ -432,6 +434,7 @@ am__depfiles_remade = ./$(DEPDIR)/genref_run@P@-array2file.Po \
 	./$(DEPDIR)/genref_run@P@-check_shc_alloc.Po \
 	./$(DEPDIR)/genref_run@P@-check_shc_arithmetics.Po \
 	./$(DEPDIR)/genref_run@P@-check_shc_arithmetics_wise.Po \
+	./$(DEPDIR)/genref_run@P@-check_shc_copy.Po \
 	./$(DEPDIR)/genref_run@P@-check_shc_dav.Po \
 	./$(DEPDIR)/genref_run@P@-check_shc_ddav.Po \
 	./$(DEPDIR)/genref_run@P@-check_shc_init.Po \
@@ -529,6 +532,7 @@ am__depfiles_remade = ./$(DEPDIR)/genref_run@P@-array2file.Po \
 	./$(DEPDIR)/test_run@P@-check_shc_alloc.Po \
 	./$(DEPDIR)/test_run@P@-check_shc_arithmetics.Po \
 	./$(DEPDIR)/test_run@P@-check_shc_arithmetics_wise.Po \
+	./$(DEPDIR)/test_run@P@-check_shc_copy.Po \
 	./$(DEPDIR)/test_run@P@-check_shc_dav.Po \
 	./$(DEPDIR)/test_run@P@-check_shc_ddav.Po \
 	./$(DEPDIR)/test_run@P@-check_shc_init.Po \
@@ -802,9 +806,9 @@ SOURCES = test_run.c test_suite_start.c test_suite_end.c cmp_vals.c \
 	check_shc_arithmetics_wise.c check_shc_read_type.c \
 	check_shc_read_gfc.c check_shc_write_type.c check_shc_dav.c \
 	check_shc_ddav.c check_shc_rescale.c check_shc_alloc.c \
-	check_shc_init.c check_simd_abs_r.c check_simd_neg_r.c \
-	check_simd_sum_r.c check_simd_masks.c check_simd_blend_r.c \
-	$(am__append_2)
+	check_shc_init.c check_shc_copy.c check_simd_abs_r.c \
+	check_simd_neg_r.c check_simd_sum_r.c check_simd_masks.c \
+	check_simd_blend_r.c $(am__append_2)
 @MPI_TRUE@SOURCES_MPI = mpi_test_run.c \
 @MPI_TRUE@			  test_suite_start.c \
 @MPI_TRUE@			  test_suite_end.c \
@@ -948,6 +952,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_shc_alloc.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_shc_arithmetics.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_shc_arithmetics_wise.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_shc_copy.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_shc_dav.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_shc_ddav.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/genref_run@P@-check_shc_init.Po@am__quote@ # am--include-marker
@@ -1045,6 +1050,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_shc_alloc.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_shc_arithmetics.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_shc_arithmetics_wise.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_shc_copy.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_shc_dav.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_shc_ddav.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_run@P@-check_shc_init.Po@am__quote@ # am--include-marker
@@ -1902,6 +1908,20 @@ genref_run@P@-check_shc_init.obj: check_shc_init.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shc_init.c' object='genref_run@P@-check_shc_init.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_shc_init.obj `if test -f 'check_shc_init.c'; then $(CYGPATH_W) 'check_shc_init.c'; else $(CYGPATH_W) '$(srcdir)/check_shc_init.c'; fi`
+
+genref_run@P@-check_shc_copy.o: check_shc_copy.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_shc_copy.o -MD -MP -MF $(DEPDIR)/genref_run@P@-check_shc_copy.Tpo -c -o genref_run@P@-check_shc_copy.o `test -f 'check_shc_copy.c' || echo '$(srcdir)/'`check_shc_copy.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_shc_copy.Tpo $(DEPDIR)/genref_run@P@-check_shc_copy.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shc_copy.c' object='genref_run@P@-check_shc_copy.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_shc_copy.o `test -f 'check_shc_copy.c' || echo '$(srcdir)/'`check_shc_copy.c
+
+genref_run@P@-check_shc_copy.obj: check_shc_copy.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_shc_copy.obj -MD -MP -MF $(DEPDIR)/genref_run@P@-check_shc_copy.Tpo -c -o genref_run@P@-check_shc_copy.obj `if test -f 'check_shc_copy.c'; then $(CYGPATH_W) 'check_shc_copy.c'; else $(CYGPATH_W) '$(srcdir)/check_shc_copy.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/genref_run@P@-check_shc_copy.Tpo $(DEPDIR)/genref_run@P@-check_shc_copy.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shc_copy.c' object='genref_run@P@-check_shc_copy.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -c -o genref_run@P@-check_shc_copy.obj `if test -f 'check_shc_copy.c'; then $(CYGPATH_W) 'check_shc_copy.c'; else $(CYGPATH_W) '$(srcdir)/check_shc_copy.c'; fi`
 
 genref_run@P@-check_simd_abs_r.o: check_simd_abs_r.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(genref_run@P@_CPPFLAGS) $(CPPFLAGS) $(genref_run@P@_CFLAGS) $(CFLAGS) -MT genref_run@P@-check_simd_abs_r.o -MD -MP -MF $(DEPDIR)/genref_run@P@-check_simd_abs_r.Tpo -c -o genref_run@P@-check_simd_abs_r.o `test -f 'check_simd_abs_r.c' || echo '$(srcdir)/'`check_simd_abs_r.c
@@ -3261,6 +3281,20 @@ test_run@P@-check_shc_init.obj: check_shc_init.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_shc_init.obj `if test -f 'check_shc_init.c'; then $(CYGPATH_W) 'check_shc_init.c'; else $(CYGPATH_W) '$(srcdir)/check_shc_init.c'; fi`
 
+test_run@P@-check_shc_copy.o: check_shc_copy.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_shc_copy.o -MD -MP -MF $(DEPDIR)/test_run@P@-check_shc_copy.Tpo -c -o test_run@P@-check_shc_copy.o `test -f 'check_shc_copy.c' || echo '$(srcdir)/'`check_shc_copy.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_shc_copy.Tpo $(DEPDIR)/test_run@P@-check_shc_copy.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shc_copy.c' object='test_run@P@-check_shc_copy.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_shc_copy.o `test -f 'check_shc_copy.c' || echo '$(srcdir)/'`check_shc_copy.c
+
+test_run@P@-check_shc_copy.obj: check_shc_copy.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_shc_copy.obj -MD -MP -MF $(DEPDIR)/test_run@P@-check_shc_copy.Tpo -c -o test_run@P@-check_shc_copy.obj `if test -f 'check_shc_copy.c'; then $(CYGPATH_W) 'check_shc_copy.c'; else $(CYGPATH_W) '$(srcdir)/check_shc_copy.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_shc_copy.Tpo $(DEPDIR)/test_run@P@-check_shc_copy.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='check_shc_copy.c' object='test_run@P@-check_shc_copy.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -c -o test_run@P@-check_shc_copy.obj `if test -f 'check_shc_copy.c'; then $(CYGPATH_W) 'check_shc_copy.c'; else $(CYGPATH_W) '$(srcdir)/check_shc_copy.c'; fi`
+
 test_run@P@-check_simd_abs_r.o: check_simd_abs_r.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_run@P@_CPPFLAGS) $(CPPFLAGS) $(test_run@P@_CFLAGS) $(CFLAGS) -MT test_run@P@-check_simd_abs_r.o -MD -MP -MF $(DEPDIR)/test_run@P@-check_simd_abs_r.Tpo -c -o test_run@P@-check_simd_abs_r.o `test -f 'check_simd_abs_r.c' || echo '$(srcdir)/'`check_simd_abs_r.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/test_run@P@-check_simd_abs_r.Tpo $(DEPDIR)/test_run@P@-check_simd_abs_r.Po
@@ -3643,6 +3677,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_alloc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_arithmetics.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_arithmetics_wise.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_copy.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_dav.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_ddav.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_init.Po
@@ -3740,6 +3775,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_alloc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_arithmetics.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_arithmetics_wise.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_copy.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_dav.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_ddav.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_init.Po
@@ -3857,6 +3893,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_alloc.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_arithmetics.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_arithmetics_wise.Po
+	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_copy.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_dav.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_ddav.Po
 	-rm -f ./$(DEPDIR)/genref_run@P@-check_shc_init.Po
@@ -3954,6 +3991,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_alloc.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_arithmetics.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_arithmetics_wise.Po
+	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_copy.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_dav.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_ddav.Po
 	-rm -f ./$(DEPDIR)/test_run@P@-check_shc_init.Po

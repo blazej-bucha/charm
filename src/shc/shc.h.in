@@ -389,7 +389,7 @@ typedef struct
 
 
 /* ......................................................................... */
-/** @name Allocate, initialize and free the charm@P@_shc structure
+/** @name Allocate, initialize, copy and free the charm@P@_shc structure
  *
  * These functions allocate, initialize and free the ``charm@P@_shc``
  * structure, which is designed to store spherical harmonic coefficients and
@@ -439,10 +439,11 @@ CHARM_EXTERN charm@P@_shc * CHARM_CDECL
 
 
 
-/** @brief Takes spherical harmonic coefficients up to degree ``nmax`` from the
- * arrays pointed to by ``c`` and ``s`` (shallow copy). The
- * ``charm@P@_shc.mu``, ``charm@P@_shc.r`` and ``charm@P@_shc.owner`` members
- * are set to ``mu``, ``r`` and ``0``, respectively.
+/** @brief Creates ``charm@P@_shc`` by taking spherical harmonic coefficients
+ * up to degree ``nmax`` from the arrays pointed to by ``c`` and ``s`` (shallow
+ * copy). The ``charm@P@_shc.mu``, ``charm@P@_shc.r`` and
+ * ``charm@P@_shc.owner`` members are set to ``mu``, ``r`` and ``0``,
+ * respectively.
  *
  * @returns On success, returned is a pointer to the ``charm@P@_shc``
  * structure. On error, ``NULL`` is returned.
@@ -545,6 +546,42 @@ CHARM_EXTERN charm@P@_shc * CHARM_CDECL
                                              @RDT@ r,
                                              @RDT@ *c,
                                              @RDT@ *s);
+
+
+
+
+
+
+/** @brief Creates ``charm@P@_shc`` by coping spherical harmonic coefficients
+ * of ``shcs`` starting at degree ``nmin`` and ending at degree ``nmax``.  The
+ * output structure is allocated up to degree ``nmax_shcs_out`` and all
+ * coefficients outside the ``nmin`` to ``nmax`` range are set to zero.
+ * ``charm@P@_shc.mu`` and ``charm@P@_shc.r`` are set to ``shcs.mu`` and
+ * ``shcs.r``, respectively. ``charm@P@_shc.owner`` and
+ * ``charm@P@_shc.distributed`` are set to ``1`` and ``0``, respectively.
+ *
+ * @details A few restrictions apply:
+ *
+ * * ``nmin`` and ``nmax`` must both be smaller than or equal to
+ *   ``shcs->nmax``,
+ *
+ * * ``nmax`` cannot be smaller than ``nmin``,
+ *
+ * * ``nmin_shcs_out`` cannot be smaller than ``nmax``,
+ *
+ * * ``charm@P@_shc.distributed`` must be ``0``.
+ *
+ * If any of these conditions is violated, ``NULL`` is returned.
+ *
+ * @returns On success, returned is a pointer to the ``charm@P@_shc``
+ * structure. On error, ``NULL`` is returned.
+ *
+ * */
+CHARM_EXTERN charm@P@_shc * CHARM_CDECL 
+                                charm@P@_shc_copy(const charm@P@_shc *shcs,
+                                                  unsigned long nmin,
+                                                  unsigned long nmax,
+                                                  unsigned long nmax_shcs_out);
 
 
 

@@ -83,7 +83,8 @@ class Shc:
         * :meth:`from_garbage`,
         * :meth:`from_zeros`,
         * :meth:`from_arrays`,
-        * :meth:`from_file`.
+        * :meth:`from_file`,
+        * :meth:`from_copy`.
 
     Examples
     --------
@@ -95,9 +96,9 @@ class Shc:
     nmax : integer
         Maximum spherical harmonic degree
     mu : floating point
-        Scaling parameter
+        Scaling parameter (not used with :meth:`from_copy`)
     r : floating point
-        Radius of the reference sphere
+        Radius of the reference sphere (not used with :meth:`from_copy`)
     coeffs : None, 0 or tuple
         Determines the way of initializing spherical harmonic coefficients:
 
@@ -111,7 +112,11 @@ class Shc:
               two numpy floating point arrays ``c`` and ``s``, each of
               shape ``(((nmax + 2) * (nmax + 1)) // 2,)``.  For ordering
               scheme of the coefficients in the ``c`` and ``s`` arrays,
-              see the :attr:`c` and :attr:`s` properties.
+              see the :attr:`c` and :attr:`s` properties,
+
+            * ``(shcs, nmin, nmax)`` to create a copy of spherical harmonic
+              coefficients in ``shcs`` starting at degree ``nmin`` and ending
+              at degree ``nmax``.
 
     Note
     ----
@@ -229,8 +234,11 @@ class Shc:
         self._Shc         = None
 
         _check_deg_ord(nmax, 'degree')
-        _check_flt_scalar(mu, 'Scaling parameter')
-        _check_radius(r)
+        if not (isinstance(coeffs, tuple) and len(coeffs) == 3):
+            # These checks are necessary only when not creating "Shc" from
+            # a copy
+            _check_flt_scalar(mu, 'Scaling parameter')
+            _check_radius(r)
 
         f = ''
         if coeffs is None or coeffs == 0:
@@ -248,7 +256,7 @@ class Shc:
 
             self._Shc = func(_ct_ulong(nmax), _ct_flt(mu), _ct_flt(r))
 
-        elif isinstance(coeffs, tuple):
+        elif isinstance(coeffs, tuple) and len(coeffs) == 2:
 
             if len(coeffs) != 2:
                 raise ValueError('The length of the \'coeffs\' tuple must be '
@@ -283,6 +291,39 @@ class Shc:
                              _ct_flt(r),
                              coeffs[0].ctypes.data_as(_ct.POINTER(_ct_flt)),
                              coeffs[1].ctypes.data_as(_ct.POINTER(_ct_flt)))
+
+        elif isinstance(coeffs, tuple) and len(coeffs) == 3:
+
+            _check_deg_ord(coeffs[1], 'degree')
+            _check_deg_ord(coeffs[2], 'degree')
+
+            if coeffs[1] > coeffs[2]:
+                msg  = f'\'coeffs[1] = {coeffs[1]}\' cannot be larger than '
+                msg += f'\'coeffs[2] = {coeffs[2]}\'.'
+                raise ValueError(msg)
+
+            if coeffs[1] > coeffs[0].nmax:
+                msg  = f'\'coeffs[1] = {coeffs[1]}\' cannot be larger than '
+                msg += f'\'coeffs[0].nmax = {coeffs[0].nmax}\'.'
+                raise ValueError(msg)
+
+            if coeffs[2] > coeffs[0].nmax:
+                msg  = f'\'coeffs[2] = {coeffs[2]}\' cannot be larger than '
+                msg += f'\'coeffs[0].nmax = {coeffs[0].nmax}\'.'
+                raise ValueError(msg)
+
+            f             = _CHARM + 'shc_copy'
+            func          = _libcharm[f]
+            func.restype  = _ct.POINTER(_Shc)
+            func.argtypes = [_ct.POINTER(_Shc),
+                             _ct_ulong,
+                             _ct_ulong,
+                             _ct_ulong]
+
+            self._Shc = func(coeffs[0]._Shc,
+                             _ct_ulong(coeffs[1]),
+                             _ct_ulong(coeffs[2]),
+                             _ct_ulong(nmax))
 
         else:
             raise ValueError('Unsupported value of the \'coeffs\' input '
@@ -455,6 +496,53 @@ class Shc:
         """
 
         return cls(nmax, mu, r, (c, s))
+
+
+    @classmethod
+    def from_copy(cls, shcs, nmin=0, nmax=None, nmax_shcs_out=None):
+        """
+        Creates a copy of spherical harmonic coefficients from ``shcs``
+        starting at degree ``nmin`` and ending at degree ``nmax``.  The output
+        class instance is allocated up to degree ``nmax_shcs_out``, with all
+        coefficients outside the range ``nmin`` to ``nmax`` being zero.
+
+        The following restrictions apply:
+
+        * ``nmin`` and ``nmax`` must both be smaller than or equal to
+          ``shcs.nmax``,
+
+        * ``nmax`` cannot be smaller than ``nmin``,
+
+        * ``nmin_shcs_out`` cannot be smaller than ``nmax``,
+
+        Parameters
+        ----------
+        shcs : Shc
+            Spherical harmonic coefficients to be copied.
+        nmin : integer
+            Degree, at which the copying starts.  Default is ``0``.
+        nmax : integer
+            Degree, at which the copying ends.  Default is ``None``, which is
+            here an alias for ``shcs.nmax``.
+        nmax_shcs_out : integer
+            Maximum degree of the returned :class:`Shc` instance.  Default is
+            ``None``, which is here an alias for ``shcs.nmax``.
+
+        Returns
+        -------
+        out : Shc
+            A copy of ``shcs``.
+        """
+
+        _check_shcs(shcs, 'shcs')
+
+        if nmax is None:
+            nmax = shcs.nmax
+
+        if nmax_shcs_out is None:
+            nmax_shcs_out = shcs.nmax
+
+        return cls(nmax_shcs_out, shcs.mu, shcs.r, (shcs, nmin, nmax))
 
 
     @classmethod

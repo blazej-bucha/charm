@@ -13,6 +13,7 @@ libcharm@P@_shc_la_SOURCES = shc_da.c \
 							 shc_calloc.c \
 							 shc_init.c \
 							 shc_init_chunk.c \
+							 shc_copy.c \
 							 shc_arithmetics_checks.c \
 							 shc_arithmetics_wise_checks.c \
 							 shc_add.c \

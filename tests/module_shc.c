@@ -16,6 +16,7 @@
 #include "check_shc_rescale.h"
 #include "check_shc_alloc.h"
 #include "check_shc_init.h"
+#include "check_shc_copy.h"
 #include "module_shc.h"
 /* ------------------------------------------------------------------------- */
 
@@ -44,6 +45,12 @@ long int module_shc(void)
 
     check_func("shc_init");
     e = check_shc_init();
+    check_outcome(e);
+    esum += e;
+
+
+    check_func("shc_copy");
+    e = check_shc_copy();
     check_outcome(e);
     esum += e;
 

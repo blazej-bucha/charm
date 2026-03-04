@@ -50,7 +50,7 @@
     <link rel="prev" title="PyHarm (Python API)" href="api-py.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Mar 03, 2026"/>
+    <meta name="docbuild:last-update" content="Mar 04, 2026"/>
   </head>
   
   
@@ -436,6 +436,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_garbage"><code class="docutils literal notranslate"><span class="pre">Shc.from_garbage()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_zeros"><code class="docutils literal notranslate"><span class="pre">Shc.from_zeros()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_arrays"><code class="docutils literal notranslate"><span class="pre">Shc.from_arrays()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_copy"><code class="docutils literal notranslate"><span class="pre">Shc.from_copy()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_file"><code class="docutils literal notranslate"><span class="pre">Shc.from_file()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.to_file"><code class="docutils literal notranslate"><span class="pre">Shc.to_file()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.add"><code class="docutils literal notranslate"><span class="pre">Shc.add()</span></code></a></li>
@@ -521,7 +522,8 @@ factory methods:</p>
 <li><p><a class="reference internal" href="#pyharm.shc.Shc.from_garbage" title="pyharm.shc.Shc.from_garbage"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_garbage()</span></code></a>,</p></li>
 <li><p><a class="reference internal" href="#pyharm.shc.Shc.from_zeros" title="pyharm.shc.Shc.from_zeros"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_zeros()</span></code></a>,</p></li>
 <li><p><a class="reference internal" href="#pyharm.shc.Shc.from_arrays" title="pyharm.shc.Shc.from_arrays"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_arrays()</span></code></a>,</p></li>
-<li><p><a class="reference internal" href="#pyharm.shc.Shc.from_file" title="pyharm.shc.Shc.from_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_file()</span></code></a>.</p></li>
+<li><p><a class="reference internal" href="#pyharm.shc.Shc.from_file" title="pyharm.shc.Shc.from_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_file()</span></code></a>,</p></li>
+<li><p><a class="reference internal" href="#pyharm.shc.Shc.from_copy" title="pyharm.shc.Shc.from_copy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_copy()</span></code></a>.</p></li>
 </ul>
 </div></blockquote>
 <p class="rubric">Examples</p>
@@ -533,8 +535,8 @@ factory methods:</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum spherical harmonic degree</p></li>
-<li><p><strong>mu</strong> (<em>floating point</em>) – Scaling parameter</p></li>
-<li><p><strong>r</strong> (<em>floating point</em>) – Radius of the reference sphere</p></li>
+<li><p><strong>mu</strong> (<em>floating point</em>) – Scaling parameter (not used with <a class="reference internal" href="#pyharm.shc.Shc.from_copy" title="pyharm.shc.Shc.from_copy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_copy()</span></code></a>)</p></li>
+<li><p><strong>r</strong> (<em>floating point</em>) – Radius of the reference sphere (not used with <a class="reference internal" href="#pyharm.shc.Shc.from_copy" title="pyharm.shc.Shc.from_copy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_copy()</span></code></a>)</p></li>
 <li><p><strong>coeffs</strong> (<em>None</em><em>, </em><em>0</em><em> or </em><em>tuple</em>) – <p>Determines the way of initializing spherical harmonic coefficients:</p>
 <blockquote>
 <div><ul>
@@ -546,7 +548,10 @@ factory methods:</p>
 two numpy floating point arrays <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code>, each of
 shape <code class="docutils literal notranslate"><span class="pre">(((nmax</span> <span class="pre">+</span> <span class="pre">2)</span> <span class="pre">*</span> <span class="pre">(nmax</span> <span class="pre">+</span> <span class="pre">1))</span> <span class="pre">//</span> <span class="pre">2,)</span></code>.  For ordering
 scheme of the coefficients in the <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> arrays,
-see the <a class="reference internal" href="#pyharm.shc.Shc.c" title="pyharm.shc.Shc.c"><code class="xref py py-attr docutils literal notranslate"><span class="pre">c</span></code></a> and <a class="reference internal" href="#pyharm.shc.Shc.s" title="pyharm.shc.Shc.s"><code class="xref py py-attr docutils literal notranslate"><span class="pre">s</span></code></a> properties.</p></li>
+see the <a class="reference internal" href="#pyharm.shc.Shc.c" title="pyharm.shc.Shc.c"><code class="xref py py-attr docutils literal notranslate"><span class="pre">c</span></code></a> and <a class="reference internal" href="#pyharm.shc.Shc.s" title="pyharm.shc.Shc.s"><code class="xref py py-attr docutils literal notranslate"><span class="pre">s</span></code></a> properties,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(shcs,</span> <span class="pre">nmin,</span> <span class="pre">nmax)</span></code> to create a copy of spherical harmonic
+coefficients in <code class="docutils literal notranslate"><span class="pre">shcs</span></code> starting at degree <code class="docutils literal notranslate"><span class="pre">nmin</span></code> and ending
+at degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.</p></li>
 </ul>
 </div></blockquote>
 </p></li>
@@ -711,6 +716,40 @@ on the structure of the array, see <a class="reference internal" href="#pyharm.s
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>out</strong> – An <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> class instance</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc">Shc</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyharm.shc.Shc.from_copy">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shcs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax_shcs_out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.from_copy" title="Link to this definition">#</a></dt>
+<dd><p>Creates a copy of spherical harmonic coefficients from <code class="docutils literal notranslate"><span class="pre">shcs</span></code>
+starting at degree <code class="docutils literal notranslate"><span class="pre">nmin</span></code> and ending at degree <code class="docutils literal notranslate"><span class="pre">nmax</span></code>.  The output
+class instance is allocated up to degree <code class="docutils literal notranslate"><span class="pre">nmax_shcs_out</span></code>, with all
+coefficients outside the range <code class="docutils literal notranslate"><span class="pre">nmin</span></code> to <code class="docutils literal notranslate"><span class="pre">nmax</span></code> being zero.</p>
+<p>The following restrictions apply:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nmin</span></code> and <code class="docutils literal notranslate"><span class="pre">nmax</span></code> must both be smaller than or equal to
+<code class="docutils literal notranslate"><span class="pre">shcs.nmax</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nmax</span></code> cannot be smaller than <code class="docutils literal notranslate"><span class="pre">nmin</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nmin_shcs_out</span></code> cannot be smaller than <code class="docutils literal notranslate"><span class="pre">nmax</span></code>,</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shcs</strong> (<a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><em>Shc</em></a>) – Spherical harmonic coefficients to be copied.</p></li>
+<li><p><strong>nmin</strong> (<em>integer</em>) – Degree, at which the copying starts.  Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
+<li><p><strong>nmax</strong> (<em>integer</em>) – Degree, at which the copying ends.  Default is <code class="docutils literal notranslate"><span class="pre">None</span></code>, which is
+here an alias for <code class="docutils literal notranslate"><span class="pre">shcs.nmax</span></code>.</p></li>
+<li><p><strong>nmax_shcs_out</strong> (<em>integer</em>) – Maximum degree of the returned <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> instance.  Default is
+<code class="docutils literal notranslate"><span class="pre">None</span></code>, which is here an alias for <code class="docutils literal notranslate"><span class="pre">shcs.nmax</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>out</strong> – A copy of <code class="docutils literal notranslate"><span class="pre">shcs</span></code>.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc">Shc</a></p>
@@ -1394,6 +1433,7 @@ the object’s <a class="reference internal" href="#pyharm.shc.Shc.nmax" title="
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_garbage"><code class="docutils literal notranslate"><span class="pre">Shc.from_garbage()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_zeros"><code class="docutils literal notranslate"><span class="pre">Shc.from_zeros()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_arrays"><code class="docutils literal notranslate"><span class="pre">Shc.from_arrays()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_copy"><code class="docutils literal notranslate"><span class="pre">Shc.from_copy()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.from_file"><code class="docutils literal notranslate"><span class="pre">Shc.from_file()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.to_file"><code class="docutils literal notranslate"><span class="pre">Shc.to_file()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pyharm.shc.Shc.add"><code class="docutils literal notranslate"><span class="pre">Shc.add()</span></code></a></li>
@@ -1449,7 +1489,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Mar 03, 2026.
+  Last updated on Mar 04, 2026.
   <br/>
 </p>
   </div>
