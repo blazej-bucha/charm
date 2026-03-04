@@ -6,14 +6,16 @@
  * * defines the ``charm@P@_shc`` structure to store spherical harmonic 
  *   coefficients,
  *
- * * allocates, initializes and frees ``charm@P@_shc``,
+ * * allocates, initializes, copies and frees ``charm@P@_shc``,
  *
  * * reads/writes spherical harmonic coefficients from/to text and binary 
  *   files,
  *
- * * computes (difference) degree variances and degree amplitudes.
+ * * performs arithmetics with ``charm@P@_shc`` such as addition, etc.,
  *
- * * rescales spherical harmonic coefficients,
+ * * computes (difference) degree variances and degree amplitudes,
+ *
+ * * rescales spherical harmonic coefficients.
  *
  * @note This documentation is written for double precision version of CHarm.
  *

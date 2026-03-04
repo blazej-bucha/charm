@@ -3,6 +3,8 @@ Module to work with spherical harmonic coefficients.  Defines the :class:`Shc`
 class, including its methods that are designed to:
 
     * read/write spherical harmonic coefficients,
+    * perform basic arithmetic operations with spherical harmonic coefficients
+      such as addition, etc.,
     * rescale spherical harmonic coefficients, and
     * compute (difference) degree variances and amplitudes.
 
