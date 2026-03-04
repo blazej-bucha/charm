@@ -248,8 +248,8 @@ typedef struct
     /** * If ``1``, the spherical harmonic coefficients in ``charm@P@_shc.c``
      *    and ``charm@P@_shc.s`` were allocated by CHarm, so
      *    ``charm@P@_shc_free()`` deallocates them. This is the case with
-     *    ``charm@P@_shc`` returned by ``charm@P@_shc_malloc()`` and
-     *    ``charm@P@_shc_calloc()``.
+     *    ``charm@P@_shc`` returned by ``charm@P@_shc_malloc()``,
+     *    ``charm@P@_shc_calloc()`` and ``charm@P@_shc_copy()``.
      *
      * * If ``0``, the coefficients in ``charm@P@_shc.c`` and
      *   ``charm@P@_shc.s`` were allocated outside CHarm, so

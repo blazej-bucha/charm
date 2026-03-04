@@ -18,6 +18,7 @@ omitted.  The list of the differences is given in
 :ref:`CHarm_in_single_and_quad_precision`.
 
 .. toctree::
+   :maxdepth: 1
 
    api-c-shc
    api-c-crd
