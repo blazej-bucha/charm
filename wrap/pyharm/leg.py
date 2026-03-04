@@ -161,9 +161,9 @@ class Pnmj:
     def __str__(self):
 
         ordering = self.get_ordering_str()
-        out  = f'nmax = {self.nmax}\n\n'
-        out += f'ordering = {self.ordering}\n\n'
-        out += f'pnmj = {self.pnmj}\n'
+        out  = f'nmax = {self.nmax}\n'
+        out += f'ordering = {self.ordering}\n'
+        out += f'pnmj = {self.pnmj}'
 
         return out
 

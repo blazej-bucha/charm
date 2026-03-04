@@ -99,7 +99,7 @@ class Shc:
         Scaling parameter (not used with :meth:`from_copy`)
     r : floating point
         Radius of the reference sphere (not used with :meth:`from_copy`)
-    coeffs : None, 0 or tuple
+    method : None, 0 or tuple
         Determines the way of initializing spherical harmonic coefficients:
 
             * ``None`` to not initialize spherical harmonic coefficients
@@ -220,7 +220,7 @@ class Shc:
         return self._owner
 
 
-    def __init__(self, nmax, mu, r, coeffs):
+    def __init__(self, nmax, mu, r, method):
 
         self._nmax        = None
         self._mu          = None
@@ -234,18 +234,18 @@ class Shc:
         self._Shc         = None
 
         _check_deg_ord(nmax, 'degree')
-        if not (isinstance(coeffs, tuple) and len(coeffs) == 3):
+        if not (isinstance(method, tuple) and len(method) == 3):
             # These checks are necessary only when not creating "Shc" from
             # a copy
             _check_flt_scalar(mu, 'Scaling parameter')
             _check_radius(r)
 
         f = ''
-        if coeffs is None or coeffs == 0:
+        if method is None or method == 0:
 
-            if coeffs is None:
+            if method is None:
                 f = _CHARM + 'shc_malloc'
-            elif coeffs == 0:
+            elif method == 0:
                 f = _CHARM + 'shc_calloc'
 
             func          = _libcharm[f]
@@ -256,23 +256,23 @@ class Shc:
 
             self._Shc = func(_ct_ulong(nmax), _ct_flt(mu), _ct_flt(r))
 
-        elif isinstance(coeffs, tuple) and len(coeffs) == 2:
+        elif isinstance(method, tuple) and len(method) == 2:
 
-            if len(coeffs) != 2:
-                raise ValueError('The length of the \'coeffs\' tuple must be '
+            if len(method) != 2:
+                raise ValueError('The length of the \'method\' tuple must be '
                                  '2.')
 
-            _check_flt_ndarray(coeffs[0], 1, 'The \'c\' item form the '
-                                             '\'coeffs\' tuple')
-            _check_flt_ndarray(coeffs[1], 1, 'The \'s\' item from the '
-                                             '\'coeffs\' tuple')
+            _check_flt_ndarray(method[0], 1, 'The \'c\' item form the '
+                                             '\'method\' tuple')
+            _check_flt_ndarray(method[1], 1, 'The \'s\' item from the '
+                                             '\'method\' tuple')
 
             ncs = ((nmax + 2) * (nmax + 1)) // 2
-            if coeffs[0].shape != (ncs,):
+            if method[0].shape != (ncs,):
                 msg  = f'Wrong shape of the input \'c\' array.  The required '
                 msg += f'shape for \'nmax = {nmax}\' is \'({ncs},)\'.'
                 raise ValueError(msg)
-            if coeffs[1].shape != (ncs,):
+            if method[1].shape != (ncs,):
                 msg  = f'Wrong shape of the input \'s\' array.  The required '
                 msg += f'shape for \'nmax = {nmax}\' is \'({ncs},)\'.'
                 raise ValueError(msg)
@@ -289,27 +289,27 @@ class Shc:
             self._Shc = func(_ct_ulong(nmax),
                              _ct_flt(mu),
                              _ct_flt(r),
-                             coeffs[0].ctypes.data_as(_ct.POINTER(_ct_flt)),
-                             coeffs[1].ctypes.data_as(_ct.POINTER(_ct_flt)))
+                             method[0].ctypes.data_as(_ct.POINTER(_ct_flt)),
+                             method[1].ctypes.data_as(_ct.POINTER(_ct_flt)))
 
-        elif isinstance(coeffs, tuple) and len(coeffs) == 3:
+        elif isinstance(method, tuple) and len(method) == 3:
 
-            _check_deg_ord(coeffs[1], 'degree')
-            _check_deg_ord(coeffs[2], 'degree')
+            _check_deg_ord(method[1], 'degree')
+            _check_deg_ord(method[2], 'degree')
 
-            if coeffs[1] > coeffs[2]:
-                msg  = f'\'coeffs[1] = {coeffs[1]}\' cannot be larger than '
-                msg += f'\'coeffs[2] = {coeffs[2]}\'.'
+            if method[1] > method[2]:
+                msg  = f'\'method[1] = {method[1]}\' cannot be larger than '
+                msg += f'\'method[2] = {method[2]}\'.'
                 raise ValueError(msg)
 
-            if coeffs[1] > coeffs[0].nmax:
-                msg  = f'\'coeffs[1] = {coeffs[1]}\' cannot be larger than '
-                msg += f'\'coeffs[0].nmax = {coeffs[0].nmax}\'.'
+            if method[1] > method[0].nmax:
+                msg  = f'\'method[1] = {method[1]}\' cannot be larger than '
+                msg += f'\'method[0].nmax = {method[0].nmax}\'.'
                 raise ValueError(msg)
 
-            if coeffs[2] > coeffs[0].nmax:
-                msg  = f'\'coeffs[2] = {coeffs[2]}\' cannot be larger than '
-                msg += f'\'coeffs[0].nmax = {coeffs[0].nmax}\'.'
+            if method[2] > method[0].nmax:
+                msg  = f'\'method[2] = {method[2]}\' cannot be larger than '
+                msg += f'\'method[0].nmax = {method[0].nmax}\'.'
                 raise ValueError(msg)
 
             f             = _CHARM + 'shc_copy'
@@ -320,31 +320,31 @@ class Shc:
                              _ct_ulong,
                              _ct_ulong]
 
-            self._Shc = func(coeffs[0]._Shc,
-                             _ct_ulong(coeffs[1]),
-                             _ct_ulong(coeffs[2]),
+            self._Shc = func(method[0]._Shc,
+                             _ct_ulong(method[1]),
+                             _ct_ulong(method[2]),
                              _ct_ulong(nmax))
 
         else:
-            raise ValueError('Unsupported value of the \'coeffs\' input '
+            raise ValueError('Unsupported value of the \'method\' input '
                              'parameter.')
 
         _check_pointer(self._Shc, f, _libcharmname)
 
         self._Shc2Shc()
-        self._from_method = coeffs
+        self._from_method = method
 
         return
 
 
     def __str__(self):
 
-        ret  = f'nmax = {self.nmax}\n\n'
-        ret += f'mu = {self.mu}\n\n'
-        ret += f'r = {self.r}\n\n'
-        ret += f'c = {self.c}\n\n'
-        ret += f's = {self.s}\n\n'
-        ret += f'owner = {self.owner}\n'
+        ret  = f'nmax = {self.nmax}\n'
+        ret += f'mu = {self.mu}\n'
+        ret += f'r = {self.r}\n'
+        ret += f'c = {self.c}\n'
+        ret += f's = {self.s}\n'
+        ret += f'owner = {self.owner}'
 
         return ret
 

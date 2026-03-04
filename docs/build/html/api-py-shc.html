@@ -513,7 +513,7 @@ fastest.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pyharm.shc.Shc">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pyharm.shc.</span></span><span class="sig-name descname"><span class="pre">Shc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coeffs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc" title="Link to this definition">#</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">pyharm.shc.</span></span><span class="sig-name descname"><span class="pre">Shc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc" title="Link to this definition">#</a></dt>
 <dd><p>Class for spherical harmonic coefficients.</p>
 <p>To create an <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> class instance, always use one of the following
 factory methods:</p>
@@ -537,7 +537,7 @@ factory methods:</p>
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum spherical harmonic degree</p></li>
 <li><p><strong>mu</strong> (<em>floating point</em>) – Scaling parameter (not used with <a class="reference internal" href="#pyharm.shc.Shc.from_copy" title="pyharm.shc.Shc.from_copy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_copy()</span></code></a>)</p></li>
 <li><p><strong>r</strong> (<em>floating point</em>) – Radius of the reference sphere (not used with <a class="reference internal" href="#pyharm.shc.Shc.from_copy" title="pyharm.shc.Shc.from_copy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_copy()</span></code></a>)</p></li>
-<li><p><strong>coeffs</strong> (<em>None</em><em>, </em><em>0</em><em> or </em><em>tuple</em>) – <p>Determines the way of initializing spherical harmonic coefficients:</p>
+<li><p><strong>method</strong> (<em>None</em><em>, </em><em>0</em><em> or </em><em>tuple</em>) – <p>Determines the way of initializing spherical harmonic coefficients:</p>
 <blockquote>
 <div><ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> to not initialize spherical harmonic coefficients

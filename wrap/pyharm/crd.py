@@ -209,12 +209,12 @@ class _PointBase:
 
     def __str__(self):
 
-        ret  = f'lat = {self.lat}\n\n'
-        ret += f'lon = {self.lon}\n\n'
-        ret += f'r = {self.r}\n\n'
+        ret  = f'lat = {self.lat}\n'
+        ret += f'lon = {self.lon}\n'
+        ret += f'r = {self.r}\n'
         if self._w is not None:
-            ret += f'w = {self.w}\n\n'
-        ret += f'owner = {self.owner}\n'
+            ret += f'w = {self.w}\n'
+        ret += f'owner = {self.owner}'
 
         return ret
 
@@ -1224,12 +1224,12 @@ class _CellBase:
 
     def __str__(self):
 
-        ret  = f'latmin = {self.latmin}\n\n'
-        ret += f'latmax = {self.latmax}\n\n'
-        ret += f'lonmin = {self.lonmin}\n\n'
-        ret += f'lonmax = {self.lonmax}\n\n'
-        ret += f'r = {self.r}\n\n'
-        ret += f'owner = {self.owner}\n'
+        ret  = f'latmin = {self.latmin}\n'
+        ret += f'latmax = {self.latmax}\n'
+        ret += f'lonmin = {self.lonmin}\n'
+        ret += f'lonmax = {self.lonmax}\n'
+        ret += f'r = {self.r}\n'
+        ret += f'owner = {self.owner}'
 
         return ret
 
