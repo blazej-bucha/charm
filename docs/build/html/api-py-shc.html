@@ -955,8 +955,10 @@ being <code class="docutils literal notranslate"><span class="pre">max(op1.nmax,
 <li><p><strong>nmin</strong> (<em>integer</em>) – Spherical harmonic degree, at which the addition starts.  Default
 is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
 <li><p><strong>nmax</strong> (<em>integer</em>) – Spherical harmonic degree, at which the addition ends.  Default is
-<a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a> if <code class="docutils literal notranslate"><span class="pre">inplace</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> and
-<code class="docutils literal notranslate"><span class="pre">max(self.nmax,</span> <span class="pre">op2.nmax)</span></code> if <code class="docutils literal notranslate"><span class="pre">inplace</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<code class="docutils literal notranslate"><span class="pre">None</span></code>, which is here an alias either for the object’s
+<a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a> attribute if <code class="docutils literal notranslate"><span class="pre">inplace</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> or for the
+largest of <a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a> and <code class="docutils literal notranslate"><span class="pre">op2.nmax</span></code> if <code class="docutils literal notranslate"><span class="pre">inplace</span></code> is
+<code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
 <li><p><strong>inplace</strong> (<em>bool</em>) – Performs the addition in-place if <code class="docutils literal notranslate"><span class="pre">True</span></code> (rewrites the
 coefficients of <code class="docutils literal notranslate"><span class="pre">self</span></code>, no return) and out-of-place if <code class="docutils literal notranslate"><span class="pre">False</span></code>
 (<code class="docutils literal notranslate"><span class="pre">self</span></code> remains untouched, returns <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a>).</p></li>
@@ -1012,7 +1014,8 @@ multiplier for all coefficients of degree <code class="docutils literal notransl
 <li><p><strong>nmin</strong> (<em>integer</em>) – Spherical harmonic degree, at which the multiplication starts.
 Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
 <li><p><strong>nmax</strong> (<em>integer</em>) – Spherical harmonic degree, at which the multiplication ends.
-Default is the object’s <a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a> attribute.</p></li>
+Default is <code class="docutils literal notranslate"><span class="pre">None</span></code>, which is here an alias for the object’s
+<a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a> attribute.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1035,7 +1038,8 @@ order <code class="docutils literal notranslate"><span class="pre">1</span></cod
 <li><p><strong>nmin</strong> (<em>integer</em>) – Spherical harmonic degree, at which the multiplication starts.
 Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
 <li><p><strong>nmax</strong> (<em>integer</em>) – Spherical harmonic degree, at which the multiplication ends.
-Default is the object’s <a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a> attribute.</p></li>
+Default is <code class="docutils literal notranslate"><span class="pre">None</span></code>, which is here an alias for the object’s
+<a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a> attribute.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1279,9 +1283,9 @@ spherical harmonic coefficients stored in <a class="reference internal" href="#p
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>mu</strong> (<em>floating point</em>) – New scaling parameter, optional.  If not provided, the <a class="reference internal" href="#pyharm.shc.Shc.mu" title="pyharm.shc.Shc.mu"><code class="xref py py-attr docutils literal notranslate"><span class="pre">mu</span></code></a>
+<li><p><strong>mu</strong> (<em>floating point</em>) – New scaling parameter, optional.  If <code class="docutils literal notranslate"><span class="pre">None</span></code>, the <a class="reference internal" href="#pyharm.shc.Shc.mu" title="pyharm.shc.Shc.mu"><code class="xref py py-attr docutils literal notranslate"><span class="pre">mu</span></code></a>
 attribute is not changed.</p></li>
-<li><p><strong>r</strong> (<em>floating point</em>) – New radius of the reference sphere, optional.  If not provided, the
+<li><p><strong>r</strong> (<em>floating point</em>) – New radius of the reference sphere, optional.  If <code class="docutils literal notranslate"><span class="pre">None</span></code>, the
 <a class="reference internal" href="#pyharm.shc.Shc.r" title="pyharm.shc.Shc.r"><code class="xref py py-attr docutils literal notranslate"><span class="pre">r</span></code></a> attribute is not changed.</p></li>
 </ul>
 </dd>
@@ -1295,8 +1299,8 @@ attribute is not changed.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>nmax</strong> (<em>integer</em>) – Maximum spherical harmonic degree to compute the degree variances,
-optional.  If not provided, it will be set to the object’s
-<a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a> attribute.</p>
+optional.  Default is <code class="docutils literal notranslate"><span class="pre">None</span></code>, which is here an alias for the
+object’s <a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a> attribute.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>out</strong> – A numpy floating point array with the degree variances</p>
@@ -1314,8 +1318,8 @@ optional.  If not provided, it will be set to the object’s
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>nmax</strong> (<em>integer</em>) – Maximum spherical harmonic degree to compute the degree amplitudes,
-optional.  If not provided, it will be set to the object’s
-<a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a>.</p>
+optional.  Default is <code class="docutils literal notranslate"><span class="pre">None</span></code>, which is here an alias for the
+object’s <a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a> attribute.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>out</strong> – A numpy floating point array with the degree amplitudes</p>
@@ -1336,8 +1340,8 @@ degree <code class="docutils literal notranslate"><span class="pre">nmax</span><
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>shcs</strong> (<a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><em>Shc</em></a>) – An instance of the <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Shc</span></code></a> class.</p></li>
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum spherical harmonic degree to compute the degree variances,
-optional.  If not provided, <code class="docutils literal notranslate"><span class="pre">nmax</span></code> is set to the smallest of
-the object’s <a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a> and <code class="docutils literal notranslate"><span class="pre">shcs.nmax</span></code>.</p></li>
+optional.  Default is <code class="docutils literal notranslate"><span class="pre">None</span></code>, which sets <code class="docutils literal notranslate"><span class="pre">nmax</span></code> to the smallest
+of the object’s <a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a> and <code class="docutils literal notranslate"><span class="pre">shcs.nmax</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1359,8 +1363,8 @@ degree <code class="docutils literal notranslate"><span class="pre">nmax</span><
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>shcs</strong> (<a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><em>Shc</em></a>) – An instance of the <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Shc</span></code></a> class.</p></li>
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum spherical harmonic degree to compute the degree amplitudes,
-optional.  If not provided, <code class="docutils literal notranslate"><span class="pre">nmax</span></code> is set to the smallest of
-the object’s <a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a> and <code class="docutils literal notranslate"><span class="pre">shcs.nmax</span></code>.</p></li>
+optional.  Default is <code class="docutils literal notranslate"><span class="pre">None</span></code>, which sets <code class="docutils literal notranslate"><span class="pre">nmax</span></code> to the smallest
+of the object’s <a class="reference internal" href="#pyharm.shc.Shc.nmax" title="pyharm.shc.Shc.nmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nmax</span></code></a> and <code class="docutils literal notranslate"><span class="pre">shcs.nmax</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

@@ -779,8 +779,10 @@ class Shc:
             is ``0``.
         nmax : integer
             Spherical harmonic degree, at which the addition ends.  Default is
-            :attr:`nmax` if ``inplace`` is ``True`` and
-            ``max(self.nmax, op2.nmax)`` if ``inplace`` is ``False``.
+            ``None``, which is here an alias either for the object's
+            :attr:`nmax` attribute if ``inplace`` is ``True`` or for the
+            largest of :attr:`nmax` and ``op2.nmax`` if ``inplace`` is
+            ``False``.
         inplace : bool
             Performs the addition in-place if ``True`` (rewrites the
             coefficients of ``self``, no return) and out-of-place if ``False``
@@ -846,7 +848,8 @@ class Shc:
             Default is ``0``.
         nmax : integer
             Spherical harmonic degree, at which the multiplication ends.
-            Default is the object's :attr:`nmax` attribute.
+            Default is ``None``, which is here an alias for the object's
+            :attr:`nmax` attribute.
         """
 
         return self._shc_arithmetics_wise('shc_mul_degree_wise', a, nmin=nmin,
@@ -872,7 +875,8 @@ class Shc:
             Default is ``0``.
         nmax : integer
             Spherical harmonic degree, at which the multiplication ends.
-            Default is the object's :attr:`nmax` attribute.
+            Default is ``None``, which is here an alias for the object's
+            :attr:`nmax` attribute.
         """
 
         return self._shc_arithmetics_wise('shc_mul_order_wise', a, nmin=nmin,
@@ -1307,10 +1311,10 @@ class Shc:
         Parameters
         ----------
         mu : floating point
-            New scaling parameter, optional.  If not provided, the :attr:`mu`
+            New scaling parameter, optional.  If ``None``, the :attr:`mu`
             attribute is not changed.
         r : floating point
-            New radius of the reference sphere, optional.  If not provided, the
+            New radius of the reference sphere, optional.  If ``None``, the
             :attr:`r` attribute is not changed.
         """
 
@@ -1351,8 +1355,8 @@ class Shc:
         ----------
         nmax : integer
             Maximum spherical harmonic degree to compute the degree variances,
-            optional.  If not provided, it will be set to the object's
-            :attr:`nmax` attribute.
+            optional.  Default is ``None``, which is here an alias for the
+            object's :attr:`nmax` attribute.
 
         Returns
         -------
@@ -1371,8 +1375,8 @@ class Shc:
         ----------
         nmax : integer
             Maximum spherical harmonic degree to compute the degree amplitudes,
-            optional.  If not provided, it will be set to the object's
-            :attr:`nmax`.
+            optional.  Default is ``None``, which is here an alias for the
+            object's :attr:`nmax` attribute.
 
         Returns
         -------
@@ -1394,8 +1398,8 @@ class Shc:
             An instance of the :obj:`Shc` class.
         nmax : integer
             Maximum spherical harmonic degree to compute the degree variances,
-            optional.  If not provided, ``nmax`` is set to the smallest of
-            the object's :attr:`nmax` and ``shcs.nmax``.
+            optional.  Default is ``None``, which sets ``nmax`` to the smallest
+            of the object's :attr:`nmax` and ``shcs.nmax``.
 
         Returns
         -------
@@ -1417,8 +1421,8 @@ class Shc:
             An instance of the :obj:`Shc` class.
         nmax : integer
             Maximum spherical harmonic degree to compute the degree amplitudes,
-            optional.  If not provided, ``nmax`` is set to the smallest of
-            the object's :attr:`nmax` and ``shcs.nmax``.
+            optional.  Default is ``None``, which sets ``nmax`` to the smallest
+            of the object's :attr:`nmax` and ``shcs.nmax``.
 
         Returns
         -------

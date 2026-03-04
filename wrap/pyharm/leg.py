@@ -243,8 +243,8 @@ class Pnmj:
         Parameters
         ----------
         nmax : integer
-            Maximum harmonic degree, optional.  If not provided, the object's
-            :obj:`nmax` attribute is used.
+            Maximum harmonic degree, optional.  Default value is ``None``,
+            which is here an alias for the object's :obj:`nmax` attribute.
         """
 
         if nmax is not None:
