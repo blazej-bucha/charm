@@ -103,7 +103,8 @@ html_theme_options = {
         'use_download_button': True,
         'pygment_light_style': 'default',
         'pygment_dark_style': 'gruvbox-dark',
-        'logo': {'text': project + ' v' + ver}
+        'logo': {'text': project + ' v' + ver},
+        "show_toc_level": 2
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
