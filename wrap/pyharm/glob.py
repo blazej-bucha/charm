@@ -34,6 +34,8 @@ class Constants:
                 _pyharm_flt(_ct.c_double.in_dll(_libcharm,
                             _CHARM + 'glob_polar_optimization_a2'))
 
+        return
+
 
     @property
     def threshold(self):
@@ -61,6 +63,8 @@ class Constants:
         _ct.c_double.in_dll(_libcharm, _CHARM + 'glob_threshold').value = \
             _charm_flt(c)
         self._threshold = _charm_flt(c)
+
+        return
 
 
     @property
@@ -90,6 +94,8 @@ class Constants:
             _charm_flt(c)
         self._threshold2 = _charm_flt(c)
 
+        return
+
 
     @property
     def polar_optimization_a1(self):
@@ -118,6 +124,8 @@ class Constants:
                             _CHARM + 'glob_polar_optimization_a1').value = c
         self._polar_optimization_a1 = c
 
+        return
+
 
     @property
     def polar_optimization_a2(self):
@@ -145,4 +153,6 @@ class Constants:
                             _CHARM + 'glob_polar_optimization_a2').value = \
             _charm_flt(c)
         self._polar_optimization_a2 = _charm_flt(c)
+
+        return
 

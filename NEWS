@@ -27,6 +27,9 @@ Upcoming release:
 * Introduced symbolic constants `CHARM_WITH_MPFR` and `CHARM_WITH_MPI` to 
   detect the CHarm's support for MPFR and MPI at compile-time.
 
+* Allow to change the `mu` and `r` attributes of `pyharm.shc.Shc` directly 
+  without calling `pyharm.shc.shc.rescale`.
+
 CHarm 0.4.8:
 
 * Fixed miscompilation by gcc 15.2.1 when vector instructions are 

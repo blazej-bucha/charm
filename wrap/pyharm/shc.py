@@ -136,6 +136,11 @@ class Shc:
 
     @property
     def mu(self):
+        return self._mu
+
+
+    @mu.getter
+    def mu(self):
         """
         Scaling parameter :math:`\\mu` associated with the spherical
         harmonic coefficients, for instance, the geocentric gravitational
@@ -146,7 +151,20 @@ class Shc:
         return self._mu
 
 
+    @mu.setter
+    def mu(self, mu):
+        _check_flt_scalar(mu, '\'mu\'')
+        self._mu = _pyharm_flt(mu)
+
+        return
+
+
     @property
+    def r(self):
+        return self._r
+
+
+    @r.getter
     def r(self):
         """
         Radius of the reference sphere :math:`R`, to which the spherical
@@ -155,6 +173,14 @@ class Shc:
         working with planetary topographies, set this variable to ``1.0``.
         """
         return self._r
+
+
+    @r.setter
+    def r(self, r):
+        _check_flt_scalar(r, '\'r\'')
+        self._r = _pyharm_flt(r)
+
+        return
 
 
     @property
