@@ -154,7 +154,8 @@ class Shc:
     @mu.setter
     def mu(self, mu):
         _check_flt_scalar(mu, '\'mu\'')
-        self._mu = _pyharm_flt(mu)
+        self._Shc.contents.mu = _charm_flt(mu)
+        self._mu = _charm_flt(self._Shc.contents.mu)
 
         return
 
@@ -178,7 +179,8 @@ class Shc:
     @r.setter
     def r(self, r):
         _check_flt_scalar(r, '\'r\'')
-        self._r = _pyharm_flt(r)
+        self._Shc.contents.r = _charm_flt(r)
+        self._r = _charm_flt(self._Shc.contents.r)
 
         return
 
