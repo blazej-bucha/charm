@@ -50,7 +50,7 @@
     <link rel="prev" title="PyHarm (Python API)" href="api-py.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Mar 04, 2026"/>
+    <meta name="docbuild:last-update" content="Mar 05, 2026"/>
   </head>
   
   
@@ -1125,7 +1125,7 @@ on your operating system.</p>
 <span class="sig-name descname"><span class="pre">get_coeffs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.shc.Shc.get_coeffs" title="Link to this definition">#</a></dt>
 <dd><p>Returns spherical harmonic coefficients <span class="math notranslate nohighlight">\(\bar{C}_{nm}\)</span> and
 <span class="math notranslate nohighlight">\(\bar{S}_{nm}\)</span> of degree <code class="docutils literal notranslate"><span class="pre">n</span></code> and order <code class="docutils literal notranslate"><span class="pre">m</span></code>.  If the returned
-variables are arrays, these are deep copies, meaning that the arrays
+variables are arrays, they are deep copies, meaning that they
 have their own memory space.</p>
 <p>The behaviour of the method depends on the type of the input variables
 <code class="docutils literal notranslate"><span class="pre">n</span></code> and <code class="docutils literal notranslate"><span class="pre">m</span></code>.</p>
@@ -1146,6 +1146,10 @@ degrees <code class="docutils literal notranslate"><span class="pre">n</span> <s
 arrays of spherical harmonic coefficients <span class="math notranslate nohighlight">\(\bar{C}_{nm}\)</span>
 and <span class="math notranslate nohighlight">\(\bar{S}_{nm}\)</span> of degrees taken from the <code class="docutils literal notranslate"><span class="pre">n</span></code> list
 and orders taken from the <code class="docutils literal notranslate"><span class="pre">m</span></code> list.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">n</span></code> and <code class="docutils literal notranslate"><span class="pre">m</span></code> are both <code class="docutils literal notranslate"><span class="pre">None</span></code> (default), returned are all
+spherical harmonic coefficients stored by the object, that is, copies
+of the <a class="reference internal" href="#pyharm.shc.Shc.c" title="pyharm.shc.Shc.c"><code class="xref py py-attr docutils literal notranslate"><span class="pre">c</span></code></a> and <a class="reference internal" href="#pyharm.shc.Shc.s" title="pyharm.shc.Shc.s"><code class="xref py py-attr docutils literal notranslate"><span class="pre">s</span></code></a> arrays.  The coefficients in the
+output arrays are ordered as reported by <a class="reference internal" href="#pyharm.shc.Shc.get_degrees_orders" title="pyharm.shc.Shc.get_degrees_orders"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_degrees_orders()</span></code></a>.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1169,6 +1173,7 @@ copies of the original spherical harmonic coefficients.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">shcs</span><span class="o">.</span><span class="n">get_coeffs</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="c1"># Returns &quot;C3,2&quot;, &quot;C5,4&quot;, &quot;C6,6&quot; and &quot;S3,2&quot;,</span>
 <span class="gp">&gt;&gt;&gt; </span>                      <span class="c1"># &quot;S5,4&quot;, &quot;S6,6&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shcs</span><span class="o">.</span><span class="n">get_coeffs</span><span class="p">()</span>  <span class="c1"># Returns all coefficients stored in &quot;shcs&quot;</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -1215,12 +1220,16 @@ spherical harmonic coefficients of degrees and orders taken from the
 <code class="docutils literal notranslate"><span class="pre">n</span></code> and <code class="docutils literal notranslate"><span class="pre">m</span></code> lists, respectively, to the corresponding
 values taken from the input parameters <code class="docutils literal notranslate"><span class="pre">c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">s</span></code>.  The
 length of the input parameters must match.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">n</span></code> and <code class="docutils literal notranslate"><span class="pre">m</span></code> are both <code class="docutils literal notranslate"><span class="pre">None</span></code>, sets all coefficients in
+<a class="reference internal" href="#pyharm.shc.Shc.c" title="pyharm.shc.Shc.c"><code class="xref py py-attr docutils literal notranslate"><span class="pre">c</span></code></a> and <a class="reference internal" href="#pyharm.shc.Shc.s" title="pyharm.shc.Shc.s"><code class="xref py py-attr docutils literal notranslate"><span class="pre">s</span></code></a> to <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code>, respectively.  The
+lengths of all arrays must match.  The coefficients in <code class="docutils literal notranslate"><span class="pre">c</span></code> and
+<code class="docutils literal notranslate"><span class="pre">s</span></code> must be ordered as reported by <a class="reference internal" href="#pyharm.shc.Shc.get_degrees_orders" title="pyharm.shc.Shc.get_degrees_orders"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_degrees_orders()</span></code></a>.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If the object’s <a class="reference internal" href="#pyharm.shc.Shc.owner" title="pyharm.shc.Shc.owner"><code class="xref py py-obj docutils literal notranslate"><span class="pre">owner</span></code></a> attribute is <code class="docutils literal notranslate"><span class="pre">True</span></code>, the copy of the
-new coefficients is deep.  If <a class="reference internal" href="#pyharm.shc.Shc.owner" title="pyharm.shc.Shc.owner"><code class="xref py py-obj docutils literal notranslate"><span class="pre">owner</span></code></a> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, the copy is
-shallow.</p>
+<p>If the object’s <a class="reference internal" href="#pyharm.shc.Shc.owner" title="pyharm.shc.Shc.owner"><code class="xref py py-obj docutils literal notranslate"><span class="pre">owner</span></code></a> attribute is <code class="docutils literal notranslate"><span class="pre">False</span></code>, then by setting
+the spherical harmonic coefficients you also modify the original
+arrays, from which the <a class="reference internal" href="#pyharm.shc.Shc" title="pyharm.shc.Shc"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shc</span></code></a> class instance was derived.</p>
 </div>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -1245,6 +1254,10 @@ shallow.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">shcs</span><span class="o">.</span><span class="n">set_coeffs</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="n">m</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
 <span class="gp">&gt;&gt;&gt; </span>                <span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">]),</span>
 <span class="gp">&gt;&gt;&gt; </span>                <span class="n">s</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Set all coefficients of &quot;shcs&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cnew</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">ncs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">snew</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">ncs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shcs</span><span class="o">.</span><span class="n">set_coeffs</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="n">cnew</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">snew</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -1495,7 +1508,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Mar 04, 2026.
+  Last updated on Mar 05, 2026.
   <br/>
 </p>
   </div>

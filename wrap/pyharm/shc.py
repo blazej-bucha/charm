@@ -987,7 +987,7 @@ class Shc:
         """
         Returns spherical harmonic coefficients :math:`\\bar{C}_{nm}` and
         :math:`\\bar{S}_{nm}` of degree ``n`` and order ``m``.  If the returned
-        variables are arrays, these are deep copies, meaning that the arrays
+        variables are arrays, they are deep copies, meaning that they
         have their own memory space.
 
         The behaviour of the method depends on the type of the input variables
@@ -1013,6 +1013,11 @@ class Shc:
           and :math:`\\bar{S}_{nm}` of degrees taken from the ``n`` list
           and orders taken from the ``m`` list.
 
+        * If ``n`` and ``m`` are both ``None`` (default), returned are all
+          spherical harmonic coefficients stored by the object, that is, copies
+          of the :attr:`c` and :attr:`s` arrays.  The coefficients in the
+          output arrays are ordered as reported by :meth:`get_degrees_orders`.
+
         Note
         ----
         When the method returns numpy arrays, the output arrays are always deep
@@ -1036,6 +1041,7 @@ class Shc:
         >>> m = [2, 4, 6]
         >>> shcs.get_coeffs(n, m) # Returns "C3,2", "C5,4", "C6,6" and "S3,2",
         >>>                       # "S5,4", "S6,6"
+        >>> shcs.get_coeffs()  # Returns all coefficients stored in "shcs"
 
 
         Parameters
@@ -1054,11 +1060,11 @@ class Shc:
             The same as ``c`` but with the :math:`\\bar{S}_{nm}` coefficient(s)
         """
 
-        if n is None and m is None:
-            return
-
         ls = (list, _np.ndarray)
-        if isinstance(n, ls) and isinstance(m, ls):
+        if n is None and m is None:
+            retc = self.c.copy()
+            rets = self.s.copy()
+        elif isinstance(n, ls) and isinstance(m, ls):
             if len(n) != len(m):
                 raise ValueError(f'The lengths of the \'n\' and \'m\' lists '
                                  f'do not match ({len(n)} vs. {len(m)}).')
@@ -1132,11 +1138,16 @@ class Shc:
           values taken from the input parameters ``c`` and/or ``s``.  The
           length of the input parameters must match.
 
+        * If ``n`` and ``m`` are both ``None``, sets all coefficients in
+          :attr:`c` and :attr:`s` to ``c`` and ``s``, respectively.  The
+          lengths of all arrays must match.  The coefficients in ``c`` and
+          ``s`` must be ordered as reported by :meth:`get_degrees_orders`.
+
         Note
         ----
-        If the object's :obj:`owner` attribute is ``True``, the copy of the
-        new coefficients is deep.  If :obj:`owner` is ``False``, the copy is
-        shallow.
+        If the object's :obj:`owner` attribute is ``False``, then by setting
+        the spherical harmonic coefficients you also modify the original
+        arrays, from which the :class:`Shc` class instance was derived.
 
         Examples
         --------
@@ -1162,6 +1173,10 @@ class Shc:
         >>> shcs.set_coeffs(n=[3, 5, 6], m=[2, 4, 6],
         >>>                 c=np.array([1.1, 1.2, 1.3]),
         >>>                 s=np.array([1.1, 1.2, 1.3]))
+        >>> # Set all coefficients of "shcs"
+        >>> cnew = np.random.randn(ncs)
+        >>> snew = np.random.randn(ncs)
+        >>> shcs.set_coeffs(c=cnew, s=snew)
 
         Parameters
         ----------
@@ -1175,11 +1190,24 @@ class Shc:
             Spherical harmonic coefficient(s) :math:`\\bar{S}_{nm}`, optional.
         """
 
-        if n is None and m is None:
-            return
-
         ls = (list, _np.ndarray)
-        if isinstance(n, ls) and isinstance(m, ls):
+        if n is None and m is None:
+            if c is not None:
+                _check_flt_ndarray(c, 1, 'The \'c\' variable')
+                if c.shape != self.c.shape:
+                    raise ValueError(f'The shapes of \'c\' and \'self.c\' do '
+                                     f'not match ({c.shape} vs. '
+                                     f'{self.c.shape}).')
+                self.c[:] = c
+            if s is not None:
+                _check_flt_ndarray(s, 1, 'The \'s\' variable')
+                if s.shape != self.s.shape:
+                    raise ValueError(f'The shapes of \'s\' and \'self.s\' do '
+                                     f'not match ({s.shape} vs. '
+                                     f'{self.s.shape}).')
+                self.s[:] = s
+
+        elif isinstance(n, ls) and isinstance(m, ls):
             if len(n) != len(m):
                 raise ValueError(f'The lengths of the \'n\' and \'m\' lists '
                                  f'do not match ({len(n)} vs. {len(m)}).')

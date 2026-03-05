@@ -21,6 +21,9 @@ Upcoming release:
   In PyHarm, the routine is implemented as a method of the `pyharm.shc.Shc` 
   class.
 
+* `pyharm.shc.Shc.get_coeffs` and `pyharm.shc.Shc.set_coeffs` can now also 
+  get and set all coefficients of `pyharm.shc.Shc` class instances.
+
 CHarm 0.4.8:
 
 * Fixed miscompilation by gcc 15.2.1 when vector instructions are 
