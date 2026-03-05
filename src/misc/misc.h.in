@@ -65,6 +65,21 @@ extern "C"
 /**
  * Version of CHarm. */
 #define CHARM_VERSION_STRING "@CHARM_MAJOR@.@CHARM_MINOR@.@CHARM_PATCH@"
+
+
+/**
+ * ``1`` if CHarm header files declare routines and define symbolic constants
+ * that are necessary for spatially limited spectral gravity forward modelling
+ * (see the <a href="./api-c-gfm.html"> gfm</a> module) and ``0`` otherwise.
+ * The value is build-dependent. Use this constant for compile-time detection
+ * of MPFR support in CHarm. For run-time detection, use
+ * `charm@P@_misc_buildopt_mpfr()`. */
+#define CHARM_WITH_MPFR @WITH_MPFR@
+
+
+/**
+ * The same as ``::CHARM_WITH_MPFR``, but for the MPI support. */
+#define CHARM_WITH_MPI @WITH_MPI@
 /* ------------------------------------------------------------------------- */
 
 

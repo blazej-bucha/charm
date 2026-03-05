@@ -427,6 +427,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_VERSION_MINOR"><code class="docutils literal notranslate"><span class="pre">CHARM_VERSION_MINOR</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_VERSION_PATCH"><code class="docutils literal notranslate"><span class="pre">CHARM_VERSION_PATCH</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_VERSION_STRING"><code class="docutils literal notranslate"><span class="pre">CHARM_VERSION_STRING</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_WITH_MPFR"><code class="docutils literal notranslate"><span class="pre">CHARM_WITH_MPFR</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_WITH_MPI"><code class="docutils literal notranslate"><span class="pre">CHARM_WITH_MPI</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_MIN"><code class="docutils literal notranslate"><span class="pre">CHARM_MIN</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_MAX"><code class="docutils literal notranslate"><span class="pre">CHARM_MAX</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv422charm_misc_get_versionv"><code class="docutils literal notranslate"><span class="pre">charm_misc_get_version()</span></code></a></li>
@@ -486,6 +488,18 @@ CHarm.</p>
 <dt class="sig sig-object cpp" id="c.CHARM_VERSION_STRING">
 <span class="target" id="charm__misc_8h_1a36ebf3672df1a097e2476b797116aa31"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_VERSION_STRING</span></span></span> <span class="pre">&quot;0.4.8-dev&quot;</span><a class="headerlink" href="#c.CHARM_VERSION_STRING" title="Link to this definition">#</a><br /></dt>
 <dd><p>Version of CHarm. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.CHARM_WITH_MPFR">
+<span class="target" id="charm__misc_8h_1a5dff0c33e5f816f20ca651918497ad78"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_WITH_MPFR</span></span></span> <span class="pre">1</span><a class="headerlink" href="#c.CHARM_WITH_MPFR" title="Link to this definition">#</a><br /></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">1</span></code> if CHarm header files declare routines and define symbolic constants that are necessary for spatially limited spectral gravity forward modelling (see the <a class="reference external" href="./api-c-gfm.html">gfm</a> module) and <code class="docutils literal notranslate"><span class="pre">0</span></code> otherwise. The value is build-dependent. Use this constant for compile-time detection of MPFR support in CHarm. For run-time detection, use <code class="docutils literal notranslate"><a class="reference internal" href="#charm__misc_8h_1ab549645722df6d548cd0d54f30825f4c"><span class="std std-ref"><span class="pre">charm_misc_buildopt_mpfr()</span></span></a></code>. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.CHARM_WITH_MPI">
+<span class="target" id="charm__misc_8h_1a20362d684c21dcb467793c40733a881b"></span><span class="sig-name descname"><span class="n"><span class="pre">CHARM_WITH_MPI</span></span></span> <span class="pre">1</span><a class="headerlink" href="#c.CHARM_WITH_MPI" title="Link to this definition">#</a><br /></dt>
+<dd><p>The same as <code class="docutils literal notranslate"><a class="reference internal" href="#charm__misc_8h_1a5dff0c33e5f816f20ca651918497ad78"><span class="std std-ref"><span class="pre">CHARM_WITH_MPFR</span></span></a></code>, but for the MPI support. </p>
 </dd></dl>
 
 <dl class="cpp macro">
@@ -663,6 +677,8 @@ version of the linked MPI implementation, call
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_VERSION_MINOR"><code class="docutils literal notranslate"><span class="pre">CHARM_VERSION_MINOR</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_VERSION_PATCH"><code class="docutils literal notranslate"><span class="pre">CHARM_VERSION_PATCH</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_VERSION_STRING"><code class="docutils literal notranslate"><span class="pre">CHARM_VERSION_STRING</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_WITH_MPFR"><code class="docutils literal notranslate"><span class="pre">CHARM_WITH_MPFR</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_WITH_MPI"><code class="docutils literal notranslate"><span class="pre">CHARM_WITH_MPI</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_MIN"><code class="docutils literal notranslate"><span class="pre">CHARM_MIN</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c.CHARM_MAX"><code class="docutils literal notranslate"><span class="pre">CHARM_MAX</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv422charm_misc_get_versionv"><code class="docutils literal notranslate"><span class="pre">charm_misc_get_version()</span></code></a></li>
