@@ -203,9 +203,9 @@ if ph.misc.buildopt_mpfr():
                      density_order, ph.gfm.NEAR_ZONE, ph.gfm.Q00, nbits)
     # -------------------------------------------------------------------------
 else:
-    print('Note: Your CHarm was built with MPFR support disabled.  Spatially '
-          'restricted spectral gravity forward modelling is therefore not '
-          'possible.')
+    print('Note: Your CHarm build does not support MPFR.  Spatially '
+          'restricted spectral gravity forward modelling was therefore not '
+          'performed.')
 
 
 print('Great, all done!')
