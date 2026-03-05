@@ -42,6 +42,8 @@ _globals = {
     'CHARM_VERSION_MINOR': 4,
     'CHARM_VERSION_PATCH': 8,
     'CHARM_VERSION_STRING': '0.4.8-dev',
+    'CHARM_WITH_MPFR': 1,
+    'CHARM_WITH_MPI': 1,
     'CHARM_LEG_PMNJ': 0,
     'CHARM_LEG_PMJN': 1,
     'GRAD_0': 0,
