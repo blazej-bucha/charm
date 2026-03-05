@@ -101,7 +101,7 @@ class Pnmj:
     @property
     def nmax(self):
         """ Maximum harmonic degree of the Fourier coefficients. """
-        return self._nmax
+        return int(self._Pnmj.contents.nmax)
 
 
     @property
@@ -111,13 +111,17 @@ class Pnmj:
         :meth:`get_ordering_str` method to transform the attribute to a pretty
         string.
         """
-        return self._ordering
+        return int(self._Pnmj.contents.ordering)
 
 
     @property
     def pnmj(self):
         """ Fourier coefficients. """
-        return self._pnmj
+        if not self._Pnmj.contents.pnmj:
+            raise ValueError('\'self._Pnmj.contents.pnmj\' is a \'NULL\' '
+                             'pointer.')
+        return _np.ctypeslib.as_array(self._Pnmj.contents.pnmj[0][0],
+                                       shape=(int(self._Pnmj.contents.npnmj),))
 
 
     def __init__(self, nmax, ordering, coeffs):
@@ -138,10 +142,6 @@ class Pnmj:
             raise ValueError('Unsupported method \'%s\' to create a '
                              '\'Pnmj\' class instance.' % coeffs)
 
-        self._nmax        = None
-        self._ordering    = None
-        self._npnmj       = None
-        self._pnmj        = _get_empty_array()
         self._from_method = None
         self._Pnmj        = None
 
@@ -152,7 +152,6 @@ class Pnmj:
         self._Pnmj = func(_ct_ulong(nmax), _ct_int(ordering))
         _check_pointer(self._Pnmj, f, _libcharmname)
 
-        self._Pnmj2Pnmj()
         self._from_method = coeffs
 
         return
@@ -267,7 +266,6 @@ class Pnmj:
         func(self._Pnmj, _ct_ulong(nmax), err)
         _ph_err.handler(err, 1)
         _ph_err.free(err)
-        self._Pnmj2Pnmj()
 
         return
 
@@ -403,31 +401,6 @@ class Pnmj:
         """
 
         print(Pnmj._get_ordering_types())
-
-        return
-
-
-    def _Pnmj2Pnmj(self):
-        """
-        Private function to transform the :class:`_Pnmj` class instance in
-        ``self._Pnmj.contents`` to a :class:`Pnmj` class instance in``self``.
-        The :attr:`pnmj` attribute of``self`` shares the same memory space as
-        the corresponding attribute``self._Pnmj.contents.pnmj``.
-        """
-
-        if not isinstance(self._Pnmj.contents, _Pnmj):
-            raise TypeError('\'self._Pnmj.contents\' must be a \'_Pnmj\' '
-                            'class instance.')
-
-        self._nmax     = int(self._Pnmj.contents.nmax)
-        self._npnmj    = int(self._Pnmj.contents.npnmj)
-        self._ordering = int(self._Pnmj.contents.ordering)
-
-        if not self._Pnmj.contents.pnmj:
-            raise ValueError('\'self._Pnmj.contents.pnmj\' is a \'NULL\' '
-                             'pointer.')
-        self._pnmj = _np.ctypeslib.as_array(self._Pnmj.contents.pnmj[0][0],
-                                       shape=(int(self._Pnmj.contents.npnmj),))
 
         return
 

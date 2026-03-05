@@ -123,23 +123,17 @@ class Shc:
     Note
     ----
     Once an :class:`Shc` class instance is created, its attributes are not
-    writable.  The :obj:`r` and :obj:`mu` attributes can properly be changed by
-    the :meth:`rescale` method.
+    writable except for :obj:`r` and :obj:`mu`.
     """
 
 
     @property
     def nmax(self):
         """ Maximum harmonic degree of the spherical harmonic coefficients. """
-        return self._nmax
+        return int(self._Shc.contents.nmax)
 
 
     @property
-    def mu(self):
-        return self._mu
-
-
-    @mu.getter
     def mu(self):
         """
         Scaling parameter :math:`\\mu` associated with the spherical
@@ -148,24 +142,18 @@ class Shc:
         parameter (as it is, for instance, with planetary topographies), simply
         set this variable to ``1.0`` (not to ``0.0``!).
         """
-        return self._mu
+        return _charm_flt(self._Shc.contents.mu)
 
 
     @mu.setter
     def mu(self, mu):
         _check_flt_scalar(mu, '\'mu\'')
         self._Shc.contents.mu = _charm_flt(mu)
-        self._mu = _charm_flt(self._Shc.contents.mu)
 
         return
 
 
     @property
-    def r(self):
-        return self._r
-
-
-    @r.getter
     def r(self):
         """
         Radius of the reference sphere :math:`R`, to which the spherical
@@ -173,14 +161,13 @@ class Shc:
         than zero. To get the unit sphere, as needed, for instance, when
         working with planetary topographies, set this variable to ``1.0``.
         """
-        return self._r
+        return _charm_flt(self._Shc.contents.r)
 
 
     @r.setter
     def r(self, r):
         _check_flt_scalar(r, '\'r\'')
         self._Shc.contents.r = _charm_flt(r)
-        self._r = _charm_flt(self._Shc.contents.r)
 
         return
 
@@ -194,7 +181,11 @@ class Shc:
         ..., :math:`\\bar{C}_{\\mathrm{nmax},0}`, :math:`\\bar{C}_{1,1}`, ...,
         :math:`\\bar{C}_{\\mathrm{nmax},\\mathrm{nmax}}`.
         """
-        return self._c
+        if not self._Shc.contents.c:
+            raise ValueError('\'self._Shc.contents.c\' is a \'NULL\' pointer.')
+
+        return _np.ctypeslib.as_array(self._Shc.contents.c[0],
+                                      shape=(int(self._Shc.contents.nc),))
 
 
     @property
@@ -203,7 +194,11 @@ class Shc:
         The same as :attr:`c` but for the :math:`\\bar{S}_{nm}` spherical
         harmonic coefficients.
         """
-        return self._s
+        if not self._Shc.contents.s:
+            raise ValueError('\'self._Shc.contents.s\' is a \'NULL\' pointer.')
+
+        return _np.ctypeslib.as_array(self._Shc.contents.s[0],
+                                      shape=(int(self._Shc.contents.ns),))
 
 
     @property
@@ -247,19 +242,11 @@ class Shc:
           >>>          # "s" if needed
 
         """
-        return self._owner
+        return bool(self._Shc.contents.owner)
 
 
     def __init__(self, nmax, mu, r, method):
 
-        self._nmax        = None
-        self._mu          = None
-        self._r           = None
-        self._c           = _get_empty_array()
-        self._nc          = None
-        self._s           = _get_empty_array()
-        self._ns          = None
-        self._owner       = None
         self._from_method = None
         self._Shc         = None
 
@@ -371,7 +358,6 @@ class Shc:
 
         _check_pointer(self._Shc, f, _libcharmname)
 
-        self._Shc2Shc()
         self._from_method = method
 
         return
@@ -1409,9 +1395,6 @@ class Shc:
         _ph_err.handler(err, 1)
         _ph_err.free(err)
 
-        self._mu = mu
-        self._r  = r
-
         return
 
 
@@ -1520,36 +1503,6 @@ class Shc:
         ret += 'method.'
 
         return ret
-
-
-    def _Shc2Shc(self):
-        """
-        Private function to convert an :class:`_Shc` class instance in
-        ``self._Shc.contents`` to an :class:`Shc` class instance in ``self``.
-        The :attr:`c` and :attr:`s` attributes of ``self`` share the same
-        memory space as the corresponding attributes of
-        ``self._Shc.contents.c`` and ``self._Shc.contents.s``.
-        """
-
-        self._nmax = int(self._Shc.contents.nmax)
-        self._mu   = _charm_flt(self._Shc.contents.mu)
-        self._r    = _charm_flt(self._Shc.contents.r)
-        self._nc   = int(self._Shc.contents.nc)
-        self._ns   = int(self._Shc.contents.ns)
-
-        if not self._Shc.contents.c:
-            raise ValueError('\'self._Shc.contents.c\' is a \'NULL\' pointer.')
-        self._c = _np.ctypeslib.as_array(self._Shc.contents.c[0],
-                                         shape=(self._nc,))
-
-        if not self._Shc.contents.s:
-            raise ValueError('\'self._Shc.contents.s\' is a \'NULL\' pointer.')
-        self._s = _np.ctypeslib.as_array(self._Shc.contents.s[0],
-                                         shape=(self._ns,))
-
-        self._owner = bool(self._Shc.contents.owner)
-
-        return
 
 
     def _free(self):
@@ -1668,7 +1621,6 @@ class Shc:
             # Returns maximum harmonic degree of the model
             return ret
         else:
-            shcs._Shc2Shc()
             # Returns "Shc" class instance
             return shcs
 
