@@ -17,6 +17,7 @@ import numpy as _np
 from warnings import warn
 from . import _libcharm, _CHARM
 from . import shc as _ph_shc
+from . import misc as _ph_misc
 from . import _err as _ph_err
 from ._get_module_constants import _get_module_constants
 from ._encoding import _default_encoding, _str_ptr
@@ -522,8 +523,7 @@ def _check_gfm3(radial_derivative_min,
     return
 
 
-_WITH_MPFR = @WITH_MPFR@
-if _WITH_MPFR:
+if _ph_misc.buildopt_mpfr():
 
     #: int: Truncation coefficients :math:`Q_{npi}^{0,0,j}(r, \psi_0, R)`.
     #: The ``--enable-mpfr`` flag must be attached during the installation

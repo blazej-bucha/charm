@@ -19214,7 +19214,7 @@ printf "%s\n" "#define _CHARM_LIBS \"$LIBS\"" >>confdefs.h
 
 
 
-ac_config_files="$ac_config_files Makefile charm/charm${P}.h:src/charm.h.in charm/charm${P}_crd.h:src/crd/crd.h.in charm/charm${P}_err.h:src/err/err.h.in charm/charm${P}_integ.h:src/integ/integ.h.in charm/charm${P}_leg.h:src/leg/leg.h.in charm/charm${P}_misc.h:src/misc/misc.h.in charm/charm${P}_sha.h:src/sha/sha.h.in charm/charm${P}_shc.h:src/shc/shc.h.in charm/charm${P}_shs.h:src/shs/shs.h.in charm/charm${P}_gfm.h:src/gfm/gfm.h.in charm/charm${P}_mpi.h:src/mpi/mpi.h.in charm/charm${P}_glob.h:src/glob/glob.h.in charm/Makefile src/Makefile src/crd/Makefile src/err/Makefile src/integ/Makefile src/leg/Makefile src/misc/Makefile src/sha/Makefile src/shc/Makefile src/shs/Makefile src/xnum/Makefile src/gfm/Makefile src/mpi/Makefile src/glob/Makefile src/simd/Makefile src/mpfr/Makefile tests/Makefile bench/Makefile docs/Makefile m4/Makefile cookbook/Makefile data/Makefile wrap/pyharm/Makefile tests/module_gfm.c tests/check_gfm_sgfm_all.c tests/check_gfm_sgfm_all.h charm-tmpl.pc setup.py wrap/pyharm/__init__.py wrap/pyharm/_data_types.py wrap/pyharm/gfm.py"
+ac_config_files="$ac_config_files Makefile charm/charm${P}.h:src/charm.h.in charm/charm${P}_crd.h:src/crd/crd.h.in charm/charm${P}_err.h:src/err/err.h.in charm/charm${P}_integ.h:src/integ/integ.h.in charm/charm${P}_leg.h:src/leg/leg.h.in charm/charm${P}_misc.h:src/misc/misc.h.in charm/charm${P}_sha.h:src/sha/sha.h.in charm/charm${P}_shc.h:src/shc/shc.h.in charm/charm${P}_shs.h:src/shs/shs.h.in charm/charm${P}_gfm.h:src/gfm/gfm.h.in charm/charm${P}_mpi.h:src/mpi/mpi.h.in charm/charm${P}_glob.h:src/glob/glob.h.in charm/Makefile src/Makefile src/crd/Makefile src/err/Makefile src/integ/Makefile src/leg/Makefile src/misc/Makefile src/sha/Makefile src/shc/Makefile src/shs/Makefile src/xnum/Makefile src/gfm/Makefile src/mpi/Makefile src/glob/Makefile src/simd/Makefile src/mpfr/Makefile tests/Makefile bench/Makefile docs/Makefile m4/Makefile cookbook/Makefile data/Makefile wrap/pyharm/Makefile tests/module_gfm.c tests/check_gfm_sgfm_all.c tests/check_gfm_sgfm_all.h charm-tmpl.pc setup.py wrap/pyharm/__init__.py wrap/pyharm/_data_types.py"
 
 
 
@@ -20328,7 +20328,6 @@ do
     "setup.py") CONFIG_FILES="$CONFIG_FILES setup.py" ;;
     "wrap/pyharm/__init__.py") CONFIG_FILES="$CONFIG_FILES wrap/pyharm/__init__.py" ;;
     "wrap/pyharm/_data_types.py") CONFIG_FILES="$CONFIG_FILES wrap/pyharm/_data_types.py" ;;
-    "wrap/pyharm/gfm.py") CONFIG_FILES="$CONFIG_FILES wrap/pyharm/gfm.py" ;;
 
   *) as_fn_error $? "invalid argument: '$ac_config_target'" "$LINENO" 5;;
   esac

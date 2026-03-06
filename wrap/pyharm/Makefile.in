@@ -107,7 +107,7 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 DIST_COMMON = $(srcdir)/Makefile.am $(am__DIST_COMMON)
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
-CONFIG_CLEAN_FILES = __init__.py _data_types.py gfm.py
+CONFIG_CLEAN_FILES = __init__.py _data_types.py
 CONFIG_CLEAN_VPATH_FILES =
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -130,7 +130,7 @@ am__can_run_installinfo = \
   esac
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/__init__.py.in \
-	$(srcdir)/_data_types.py.in $(srcdir)/gfm.py.in
+	$(srcdir)/_data_types.py.in
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
@@ -327,8 +327,6 @@ $(am__aclocal_m4_deps):
 __init__.py: $(top_builddir)/config.status $(srcdir)/__init__.py.in
 	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
 _data_types.py: $(top_builddir)/config.status $(srcdir)/_data_types.py.in
-	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
-gfm.py: $(top_builddir)/config.status $(srcdir)/gfm.py.in
 	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
 
 mostlyclean-libtool:
