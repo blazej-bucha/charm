@@ -1067,6 +1067,7 @@ pyharm:
 @PY_FALSE@	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 pyharm-parser: all
+	$(MAKE) -j
 	$(PYTHON) pyharm-parser.py
 
 generate-reference-data:

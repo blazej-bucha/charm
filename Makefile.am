@@ -95,6 +95,7 @@ endif
 
 
 pyharm-parser: all
+	$(MAKE) -j
 	$(PYTHON) pyharm-parser.py
 
 
