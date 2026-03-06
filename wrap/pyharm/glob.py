@@ -14,7 +14,7 @@ import ctypes as _ct
 import numpy as _np
 from . import _libcharm, _CHARM
 from ._check_types import _check_flt_scalar, _check_int_scalar
-from ._data_types import _charm_flt, _pyharm_flt, _ct_int
+from ._data_types import _charm_flt, _pyharm_flt
 
 
 class Constants:

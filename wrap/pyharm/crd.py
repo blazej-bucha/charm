@@ -459,7 +459,7 @@ class PointSctr(_PointBase):
       initialized to zero:
 
       >>> import pyharm as ph
-      >>> grd = ph.crd.PointSctr.from_zeros(5)
+      >>> sctr = ph.crd.PointSctr.from_zeros(5)
 
     * Create an instance with 3 scattered points with latitudes, longitudes and
       spherical radii taken from numpy arrays:
@@ -469,7 +469,7 @@ class PointSctr(_PointBase):
       >>> lat  = np.array([0.1, 0.2, 0.3])
       >>> lon  = np.array([0.5, 0.6, 0.7])
       >>> r    = np.array([1.1, 1.2, 1.3])
-      >>> sctr = ph.crd.PointGrid.from_arrays(lat, lon, r)
+      >>> sctr = ph.crd.PointSctr.from_arrays(lat, lon, r)
 
     Parameters
     ----------
@@ -591,7 +591,7 @@ class PointGrid(_PointBase):
     * Create an instance with 5 grid latitudes and 10 grid longitudes and
       initialize all array elements to zero:
 
-      >>> import ph
+      >>> import pyharm as ph
       >>> grd = ph.crd.PointGrid.from_zeros(5, 10)
 
     * Create an instance with grid latitudes, longitudes and spherical radii
@@ -801,7 +801,7 @@ class PointGridDH1(_PointBase):
     Create a :class:`PointGridDH1` class instance like this:
 
     >>> import pyharm as ph
-    >>> gl = ph.crd.PointGridDH1(10)
+    >>> dh1 = ph.crd.PointGridDH1(10)
 
     Parameters
     ----------
@@ -880,7 +880,7 @@ class PointGridDH2(_PointBase):
     Create a :class:`PointGridDH2` class instance like this:
 
     >>> import pyharm as ph
-    >>> gl = ph.crd.PointGridDH2(10)
+    >>> dh2 = ph.crd.PointGridDH2(10)
 
     Parameters
     ----------
@@ -1285,7 +1285,7 @@ class CellSctr(_CellBase):
       initialized to zero:
 
       >>> import pyharm as ph
-      >>> grd = ph.crd.CellSctr.from_zeros(5)
+      >>> sctr = ph.crd.CellSctr.from_zeros(5)
 
     * Create an instance with 3 scattered cells with latitudes, longitudes
       and spherical radii taken from numpy arrays:
