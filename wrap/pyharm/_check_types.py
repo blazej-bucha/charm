@@ -30,10 +30,12 @@ def _check_int_scalar(x, s):
     if not _np.isscalar(x):
         raise ValueError(f'{s} must be a scalar.')
 
+    return
+
 
 def _check_nonneg_int_scalar(x, s):
     """
-    The same as `_check_int_scalar` but additionally checks whether `x` is 
+    The same as `_check_int_scalar` but additionally checks whether `x` is
     non-negative.
 
     Parameters
@@ -48,6 +50,8 @@ def _check_nonneg_int_scalar(x, s):
     _check_int_scalar(x, s)
     if x < 0:
         raise ValueError(f'{s} must not be negative.')
+
+    return
 
 
 def _check_flt_scalar(x, s):
@@ -72,6 +76,8 @@ def _check_flt_scalar(x, s):
 
     if not _np.isscalar(x):
         raise ValueError(f'{s} must be a scalar.')
+
+    return
 
 
 def _check_deg_ord(x, do):
@@ -98,6 +104,8 @@ def _check_deg_ord(x, do):
         msg  = f'Spherical harmonic {do} cannot be smaller than zero.'
         raise ValueError(msg)
 
+    return
+
 
 def _check_radius(x):
     """
@@ -112,6 +120,8 @@ def _check_radius(x):
 
     if x <= 0.0:
         raise ValueError('Spherical radius must be larger than zero.')
+
+    return
 
 
 def _check_flt_ndarray(x, n, s):
@@ -153,6 +163,8 @@ def _check_flt_ndarray(x, n, s):
         msg += f'of numpy arrays).'
         raise ValueError(msg)
 
+    return
+
 
 def _check_pointer(pointer, func_name, lib_name):
 
@@ -160,4 +172,6 @@ def _check_pointer(pointer, func_name, lib_name):
         msg  = f'Function call to \'{func_name}\' from the CHarm library '
         msg += f'\'{lib_name}\' returned a NULL pointer.'
         raise ValueError(msg)
+
+    return
 

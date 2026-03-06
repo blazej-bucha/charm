@@ -13,6 +13,17 @@ libcharm@P@_shc_la_SOURCES = shc_da.c \
 							 shc_calloc.c \
 							 shc_init.c \
 							 shc_init_chunk.c \
+							 shc_copy.c \
+							 shc_arithmetics_checks.c \
+							 shc_arithmetics_wise_checks.c \
+							 shc_add.c \
+							 shc_sub.c \
+							 shc_mul.c \
+							 shc_mul_degree_wise.c \
+							 shc_mul_order_wise.c \
+							 shc_div.c \
+							 shc_div_degree_wise.c \
+							 shc_div_order_wise.c \
 							 shc_block_init.c \
 							 shc_block_free.c \
 							 shc_block_have_order.c \

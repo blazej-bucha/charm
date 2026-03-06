@@ -102,44 +102,53 @@ class _PointBase:
     @property
     def lat(self):
         """ Spherical latitudes. """
-        return self._lat
+        return _buff2arr(self._Point.contents.lat, self._Point.contents.nlat,
+                         'lat')
 
 
     @property
     def lon(self):
         """ Spherical longitudes. """
-        return self._lon
+        return _buff2arr(self._Point.contents.lon, self._Point.contents.nlon,
+                         'lon')
 
 
     @property
     def r(self):
         """ Spherical radii. """
-        return self._r
+        return _buff2arr(self._Point.contents.r, self._Point.contents.nlat,
+                         'r')
 
 
     @property
     def npoint(self):
         """ Total number of points. """
-        return self._npoint
+        return int(self._Point.contents.npoint)
 
 
     @property
     def owner(self):
         """ Refer to :class:`pyharm.shc.Shc` for documentation. """
-        return self._owner
+        return bool(self._Point.contents.owner)
+
+
+    @property
+    def _type(self):
+        return int(self._Point.contents.type)
+
+
+    @property
+    def _nlat(self):
+        return int(self._Point.contents.nlat)
+
+
+    @property
+    def _nlon(self):
+        return int(self._Point.contents.nlon)
 
 
     def __init__(self, crd_type=None, nlat=None, nlon=None, data=None):
 
-        self._type         = None
-        self._nlat         = None
-        self._nlon         = None
-        self._npoint       = None
-        self._lat          = _get_empty_array()
-        self._lon          = _get_empty_array()
-        self._r            = _get_empty_array()
-        self._w            = None
-        self._owner        = None
         self._from_method  = None
         self._Point        = None
 
@@ -201,7 +210,6 @@ class _PointBase:
                              'parameter.')
 
         _check_pointer(self._Point, f, _libcharmname)
-        self._Point2Point()
         self._from_method = data
 
         return
@@ -209,12 +217,12 @@ class _PointBase:
 
     def __str__(self):
 
-        ret  = f'lat = {self.lat}\n\n'
-        ret += f'lon = {self.lon}\n\n'
-        ret += f'r = {self.r}\n\n'
-        if self._w is not None:
-            ret += f'w = {self.w}\n\n'
-        ret += f'owner = {self.owner}\n'
+        ret  = f'lat = {self.lat}\n'
+        ret += f'lon = {self.lon}\n'
+        ret += f'r = {self.r}\n'
+        if self._Point.contents.type in _CRD_TYPES_QUADS:
+            ret += f'w = {self.w}\n'
+        ret += f'owner = {self.owner}'
 
         return ret
 
@@ -272,68 +280,6 @@ class _PointBase:
         return
 
 
-    def _Point2Point(self):
-        """
-        Private function to transform the `_Point` class instance in
-        ``self._Point`` to a :class:`_PointBase` class instance in ``self``.
-        The array attributes of ``self._Point.contents.`` share the same memory
-        space as the corresponding attributes of ``self``.
-        """
-
-        self._type   = int(self._Point.contents.type)
-        self._nlat   = int(self._Point.contents.nlat)
-        self._nlon   = int(self._Point.contents.nlon)
-        self._npoint = int(self._Point.contents.npoint)
-
-
-        def get_error_msg(arr):
-            """
-            Private function to return an error message.
-
-            Parameters
-            ----------
-            arr : str
-                Name of an array
-
-            Returns
-            -------
-            ret : str
-                Error message
-            """
-
-            if not isinstance(arr, str):
-                raise TypeError('\'arr\' must be a string.')
-
-            ret  = f'Failed to convert a \'_Point\' class instance to a '
-            ret += f'\'_PointBase\' class instance.  The \'{arr}\' attribute '
-            ret += f'of the \'_Point\' class instance is a \'NULL\' pointer.'
-
-            return ret
-
-        self._lat = _buff2arr(self._Point.contents.lat, self._nlat, 'lat')
-        self._lon = _buff2arr(self._Point.contents.lon, self._nlon, 'lon')
-        self._r   = _buff2arr(self._Point.contents.r,   self._nlat, 'r')
-
-        if self._Point.contents.type in _CRD_TYPES_QUADS:
-            # Quadrature grids are generated based on "nmax", so they will
-            # always have at least one latitude, one longitude and one
-            # spherical radius.  Zero-length arrays of integration weight are
-            # therefore not possible, so accepted are only valid pointers
-            # contrary to "lat", "lon" and "r" arrays.
-            if not self._Point.contents.w:
-                raise ValueError(get_error_msg('w'))
-            self._w = _np.ctypeslib.as_array(self._Point.contents.w,
-                                             shape=(self._nlat,))
-        else:
-            # "NULL" pointer in "self._Point.contents.w" is perfectly valid for
-            # non-quadrature grids
-            self._w = None
-
-        self._owner = bool(self._Point.contents.owner)
-
-        return
-
-
     def _free(self):
         """
         Frees the memory associated with class instance.
@@ -380,21 +326,6 @@ class _PointBase:
 
         self._Point = func(_ct_ulong(nmax), _ct_flt(r))
         _check_pointer(self._Point, f, _libcharmname)
-
-        self._Point2Point()
-
-        return
-
-
-    def _lock_arrays(self):
-        """
-        Private method to lock all array attributes.
-        """
-
-        self._lat.flags.writeable = False
-        self._lon.flags.writeable = False
-        self._r.flags.writeable   = False
-        self._w.flags.writeable   = False
 
         return
 
@@ -528,7 +459,7 @@ class PointSctr(_PointBase):
       initialized to zero:
 
       >>> import pyharm as ph
-      >>> grd = ph.crd.PointSctr.from_zeros(5)
+      >>> sctr = ph.crd.PointSctr.from_zeros(5)
 
     * Create an instance with 3 scattered points with latitudes, longitudes and
       spherical radii taken from numpy arrays:
@@ -538,7 +469,7 @@ class PointSctr(_PointBase):
       >>> lat  = np.array([0.1, 0.2, 0.3])
       >>> lon  = np.array([0.5, 0.6, 0.7])
       >>> r    = np.array([1.1, 1.2, 1.3])
-      >>> sctr = ph.crd.PointGrid.from_arrays(lat, lon, r)
+      >>> sctr = ph.crd.PointSctr.from_arrays(lat, lon, r)
 
     Parameters
     ----------
@@ -660,7 +591,7 @@ class PointGrid(_PointBase):
     * Create an instance with 5 grid latitudes and 10 grid longitudes and
       initialize all array elements to zero:
 
-      >>> import ph
+      >>> import pyharm as ph
       >>> grd = ph.crd.PointGrid.from_zeros(5, 10)
 
     * Create an instance with grid latitudes, longitudes and spherical radii
@@ -803,15 +734,16 @@ class PointGridGL(_PointBase):
 
     Note
     ----
-    Once a :class:`PointGridGL` class instance is created, neither its
-    attributes nor its array elements are writeable.
+    Once a :class:`PointGridGL` class instance is created, its attributes are
+    not writeable, but all array elements are writeable.
     """
 
 
     @property
     def w(self):
         """ Integration weights on the unit sphere. """
-        return self._w
+        return _buff2arr(self._Point.contents.w, self._Point.contents.nlat,
+                         'w')
 
 
     @property
@@ -826,7 +758,6 @@ class PointGridGL(_PointBase):
 
         super().__init__()
         super()._gl(nmax, r)
-        self._lock_arrays()
         self._nmax = nmax
 
         return
@@ -870,7 +801,7 @@ class PointGridDH1(_PointBase):
     Create a :class:`PointGridDH1` class instance like this:
 
     >>> import pyharm as ph
-    >>> gl = ph.crd.PointGridDH1(10)
+    >>> dh1 = ph.crd.PointGridDH1(10)
 
     Parameters
     ----------
@@ -882,15 +813,16 @@ class PointGridDH1(_PointBase):
 
     Note
     ----
-    Once a :class:`PointGridDH1` class instance is created, neither its
-    attributes nor its array elements are writeable.
+    Once a :class:`PointGridDH1` class instance is created, its attributes are
+    not writeable, but all array elements are writeable.
     """
 
 
     @property
     def w(self):
         """ Integration weights on the unit sphere. """
-        return self._w
+        return _buff2arr(self._Point.contents.w, self._Point.contents.nlat,
+                         'w')
 
 
     @property
@@ -905,7 +837,6 @@ class PointGridDH1(_PointBase):
 
         super().__init__()
         super()._dh1(nmax, r)
-        self._lock_arrays()
         self._nmax = nmax
 
         return
@@ -949,7 +880,7 @@ class PointGridDH2(_PointBase):
     Create a :class:`PointGridDH2` class instance like this:
 
     >>> import pyharm as ph
-    >>> gl = ph.crd.PointGridDH2(10)
+    >>> dh2 = ph.crd.PointGridDH2(10)
 
     Parameters
     ----------
@@ -961,8 +892,8 @@ class PointGridDH2(_PointBase):
 
     Note
     ----
-    Once a :class:`PointGridDH2` class instance is created, neither its
-    attributes nor its array elements are writeable.
+    Once a :class:`PointGridDH2` class instance is created, its attributes are
+    not writeable, but all array elements are writeable.
     """
 
 
@@ -971,7 +902,8 @@ class PointGridDH2(_PointBase):
         """
         Integration weights on the unit sphere.
         """
-        return self._w
+        return _buff2arr(self._Point.contents.w, self._Point.contents.nlat,
+                         'w')
 
 
     @property
@@ -986,7 +918,6 @@ class PointGridDH2(_PointBase):
 
         super().__init__()
         super()._dh2(nmax, r)
-        self._lock_arrays()
         self._nmax = nmax
 
         return
@@ -1084,57 +1015,66 @@ class _CellBase:
     @property
     def latmin(self):
         """ Minimum spherical cell latitudes. """
-        return self._latmin
+        return _buff2arr(self._Cell.contents.latmin, self._Cell.contents.nlat,
+                         'latmin')
 
 
     @property
     def latmax(self):
         """ Maximum spherical cell latitudes. """
-        return self._latmax
+        return _buff2arr(self._Cell.contents.latmax, self._Cell.contents.nlat,
+                         'latmax')
 
 
     @property
     def lonmin(self):
         """ Minimum spherical cell longitudes. """
-        return self._lonmin
+        return _buff2arr(self._Cell.contents.lonmin, self._Cell.contents.nlon,
+                         'lonmin')
 
 
     @property
     def lonmax(self):
         """ Maximum spherical cell longitudes. """
-        return self._lonmax
+        return _buff2arr(self._Cell.contents.lonmax, self._Cell.contents.nlon,
+                         'lonmax')
 
 
     @property
     def r(self):
         """ Spherical radii (constant over each cell). """
-        return self._r
+        return _buff2arr(self._Cell.contents.r, self._Cell.contents.nlat, 'r')
 
 
     @property
     def ncell(self):
         """ Total number of cells. """
-        return self._ncell
+        return int(self._Cell.contents.ncell)
 
 
     @property
     def owner(self):
         """ Refer to :class:`pyharm.shc.Shc` for documentation. """
-        return self._owner
+        return bool(self._Cell.contents.owner)
+
+
+    @property
+    def _type(self):
+        return int(self._Cell.contents.type)
+
+
+    @property
+    def _nlat(self):
+        return int(self._Cell.contents.nlat)
+
+
+    @property
+    def _nlon(self):
+        return int(self._Cell.contents.nlon)
 
 
     def __init__(self, crd_type=None, nlat=None, nlon=None, data=None):
 
-        self._type        = None
-        self._nlat        = None
-        self._nlon        = None
-        self._ncell       = None
-        self._latmin      = _get_empty_array()
-        self._latmax      = _get_empty_array()
-        self._lonmin      = _get_empty_array()
-        self._lonmax      = _get_empty_array()
-        self._r           = _get_empty_array()
-        self._owner       = None
         self._from_method = None
         self._Cell        = None
 
@@ -1216,7 +1156,6 @@ class _CellBase:
                              'parameter.')
 
         _check_pointer(self._Cell, f, _libcharmname)
-        self._Cell2Cell()
         self._from_method = data
 
         return
@@ -1224,12 +1163,12 @@ class _CellBase:
 
     def __str__(self):
 
-        ret  = f'latmin = {self.latmin}\n\n'
-        ret += f'latmax = {self.latmax}\n\n'
-        ret += f'lonmin = {self.lonmin}\n\n'
-        ret += f'lonmax = {self.lonmax}\n\n'
-        ret += f'r = {self.r}\n\n'
-        ret += f'owner = {self.owner}\n'
+        ret  = f'latmin = {self.latmin}\n'
+        ret += f'latmax = {self.latmax}\n'
+        ret += f'lonmin = {self.lonmin}\n'
+        ret += f'lonmax = {self.lonmax}\n'
+        ret += f'r = {self.r}\n'
+        ret += f'owner = {self.owner}'
 
         return ret
 
@@ -1250,58 +1189,6 @@ class _CellBase:
     def __exit__(self):
 
         self._free()
-
-        return
-
-
-    def _Cell2Cell(self):
-        """
-        Private function to transform the `_Cell` class instance in
-        ``self._Cell`` to a :class:`_CellBase` class instance in ``self``.  The
-        array attributes of ``self._Cell.contents.`` share the same memory
-        space as the corresponding attributes of ``self``.
-        """
-
-        self._type  = int(self._Cell.contents.type)
-        self._nlat  = int(self._Cell.contents.nlat)
-        self._nlon  = int(self._Cell.contents.nlon)
-        self._ncell = int(self._Cell.contents.ncell)
-
-
-        def get_error_msg(arr):
-            """
-            Private function to return an error message.
-
-            Parameters
-            ----------
-            arr : str
-                Name of an array
-
-            Returns
-            -------
-            out : str
-                Error message
-            """
-
-            if not isinstance(arr, str):
-                raise TypeError('\'arr\' must be a string.')
-
-            ret  = f'Failed to convert a \'_Cell\' class instance to a '
-            ret += f'\'_CellBase\' class instance.  The \'{arr}\' attribute '
-            ret += f'of the \'_Cell\' class instance is a \'NULL\' pointer.'
-
-            return ret
-
-        self._latmin = _buff2arr(self._Cell.contents.latmin, self._nlat,
-                                 'latmin')
-        self._latmax = _buff2arr(self._Cell.contents.latmax, self._nlat,
-                                 'latmax')
-        self._lonmin = _buff2arr(self._Cell.contents.lonmin, self._nlon,
-                                 'lonmin')
-        self._lonmax = _buff2arr(self._Cell.contents.lonmax, self._nlon,
-                                 'lonmax')
-        self._r      = _buff2arr(self._Cell.contents.r, self._nlat, 'r')
-        self._owner  = bool(self._Cell.contents.owner)
 
         return
 
@@ -1398,7 +1285,7 @@ class CellSctr(_CellBase):
       initialized to zero:
 
       >>> import pyharm as ph
-      >>> grd = ph.crd.CellSctr.from_zeros(5)
+      >>> sctr = ph.crd.CellSctr.from_zeros(5)
 
     * Create an instance with 3 scattered cells with latitudes, longitudes
       and spherical radii taken from numpy arrays:
@@ -1694,6 +1581,10 @@ def _buff2arr(ptr, length, string):
     ret : numpy floating point array
     """
 
+    if not isinstance(length, int):
+        raise TypeError(f'The type of \'length\' is {type(length)}, but must '
+                        f'be {type(int)}.')
+
     if length == 0:
         ret = _get_empty_array()
     elif not ptr:
@@ -1722,3 +1613,4 @@ def _check_nlat_nlon(x, nx):
         raise ValueError(f'\'{nx}\' cannot be negative.')
 
     return
+

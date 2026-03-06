@@ -1,23 +1,9 @@
-/* IMPORTANT: To compile this code, CHarm must be compiled with the MPFR
- * support, that is, the "--enable-mpfr" installation flag must be used during
- * the installation.  If you didn't enable MPFR, manually delete (or comment
- * out) all lines between the following marks:
- *
- * @@@
- *
- * lines to be deleted or commented out
- *
- * !!!
- *
- * */
-
-
 #include <stdio.h>
 #include <stdlib.h>
-/* @@@ */
-#include <mpfr.h>
-/* !!! */
 #include <charm/charm.h>
+#if CHARM_WITH_MPFR
+#   include <mpfr.h>
+#endif
 
 
 int main(void)
@@ -229,7 +215,7 @@ int main(void)
     /* --------------------------------------------------------------------- */
 
 
-    /* @@@ */
+#if CHARM_WITH_MPFR
     /* Spatially restricted gravity forward modelling of near-zone masses using
      * 3D density */
     /* --------------------------------------------------------------------- */
@@ -426,7 +412,11 @@ int main(void)
      * */
     /* ..................................................................... */
     /* --------------------------------------------------------------------- */
-    /* !!! */
+#else
+    printf("Note: Your CHarm build does not support MPFR.  Spatially "
+           "restricted spectral gravity forward modelling was therefore not "
+           "performed.\n");
+#endif
 
 
     /* Free the heap memory */
@@ -436,16 +426,18 @@ int main(void)
     for (unsigned i = 0; i <= density_order; i++)
         charm_shc_free(density_shcs[i]);
     charm_shc_free(potential_global_shcs);
+#if CHARM_WITH_MPFR
     for (unsigned k = kmin; k <= kmax; k++)
         charm_shc_free(potential_cap_shcs[k - kmin]);
     free(potential_cap_shcs);
+#endif
     charm_crd_point_free(grd);
     free(vgfm);
     /* --------------------------------------------------------------------- */
 
 
     /* --------------------------------------------------------------------- */
-    printf("\nGreat, all done!\n");
+    printf("Great, all done!\n");
     exit(CHARM_SUCCESS);
     /* --------------------------------------------------------------------- */
     /* ===================================================================== */

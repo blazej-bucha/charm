@@ -85,7 +85,7 @@ dda = shcs.dda(shcs2)
 
 # Print some difference degree amplitudes
 n = 0
-print('Now print the difference degree amplitudes.  These should be'
+print('Now print the difference degree amplitudes.  These should be '
       'very small, say, at the order of 1e-18 or less...')
 print(f'Difference degree amplitude for harmonic degree {n} = {dda[n]}')
 n = 4

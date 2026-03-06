@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>pyharm.integ &#8212; CHarm 0.4.8 documentation</title>
+    <title>pyharm.integ &#8212; CHarm 0.4.9 documentation</title>
   
   
   
@@ -37,7 +37,7 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=c78092fa"></script>
+    <script src="_static/documentation_options.js?v=7c7c10e7"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -50,7 +50,7 @@
     <link rel="prev" title="pyharm.leg" href="api-py-leg.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Jan 14, 2026"/>
+    <meta name="docbuild:last-update" content="Mar 06, 2026"/>
   </head>
   
   
@@ -144,7 +144,7 @@
     <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt=""/>`);</script>
   
   
-    <p class="title logo__title">CHarm v0.4.8</p>
+    <p class="title logo__title">CHarm v0.4.9</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -444,8 +444,8 @@ document.write(`
 <li><p>a product of two fully-normalized associated Legendre functions and a sine
 of a co-latitude,</p>
 <div class="math notranslate nohighlight">
-\[\int\limits_{\theta_1}^{\theta_2} \bar{P}_{n_1,m_1}(\cos\theta) \,
-\bar{P}_{n_2,m_2}(\cos\theta) \, \sin(\theta) \,
+\[\int\limits_{\theta_1}^{\theta_2} \bar{P}_{n_1,m_1}(\cos\theta)
+\, \bar{P}_{n_2,m_2}(\cos\theta) \, \sin(\theta) \,
 \mathrm{d}\theta{,} \quad \theta_1 \leq \theta_2{,}\]</div>
 </li>
 <li><p>a product of two <code class="docutils literal notranslate"><span class="pre">4pi</span></code> fully-normalized surface spherical harmonic
@@ -453,9 +453,9 @@ functions over a rectangular cell on the unit sphere,</p>
 <div class="math notranslate nohighlight">
 \[\int\limits_{\theta_1}^{\theta_2}
 \int\limits_{\lambda_1}^{\lambda_2} \bar{Y}_{n_1,m_1}(\theta,
-\lambda) \, \bar{Y}_{n_2,m_2}(\theta, \lambda) \, \mathrm{d}\lambda
-\, \sin(\theta) \, \mathrm{d}\theta{,} \quad \theta_1 \leq
-\theta_2{,} \quad \lambda_1 \leq \lambda_2{.}\]</div>
+\lambda) \, \bar{Y}_{n_2,m_2}(\theta, \lambda) \,
+\mathrm{d}\lambda \, \sin(\theta) \, \mathrm{d}\theta{,} \quad
+\theta_1 \leq \theta_2{,} \quad \lambda_1 \leq \lambda_2{.}\]</div>
 </li>
 </ul>
 <div class="admonition note">
@@ -467,10 +467,11 @@ functions over a rectangular cell on the unit sphere,</p>
 <span class="sig-prename descclassname"><span class="pre">pyharm.integ.</span></span><span class="sig-name descname"><span class="pre">pn1m1pn2m2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cltmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cltmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pnmj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyharm.integ.pn1m1pn2m2" title="Link to this definition">#</a></dt>
 <dd><p>Analytically computes the integral</p>
 <div class="math notranslate nohighlight">
-\[\mathrm{ip} = \int\limits_{\theta_{\mathrm{min}}}^{\theta_{\mathrm{max}}}
-\bar{P}_{n_1, m_1}(\cos\theta) \, \bar{P}_{n_2, m_2}(\cos\theta) \,
-\sin\theta \, \mathrm{d}\theta{,} \quad \theta_{\mathrm{min}} \leq
-\theta_{\mathrm{max}}{.}\]</div>
+\[\mathrm{ip}
+= \int\limits_{\theta_{\mathrm{min}}}^{\theta_{\mathrm{max}}}
+\bar{P}_{n_1, m_1}(\cos\theta) \, \bar{P}_{n_2, m_2}(\cos\theta)
+\, \sin\theta \, \mathrm{d}\theta{,} \quad
+\theta_{\mathrm{min}} \leq \theta_{\mathrm{max}}{.}\]</div>
 <p>The computation is based on the Fourier coefficients of the associated
 Legendre functions (see Eq. 33 of Pail and Plank, 2001).</p>
 <p><strong>References</strong>:</p>
@@ -510,16 +511,16 @@ applications. Journal of Geodesy 75:44–56</p></li>
      \int\limits_{\theta_{\mathrm{min}}}^{\theta_{\mathrm{max}}}
      \int\limits_{\lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}}
      \bar{Y}_{i_1,n_1,m_1}(\theta, \lambda) \,
-     \bar{Y}_{i_2,n_2,m_2}(\theta, \lambda) \, \mathrm{d}
-     \lambda \, \sin(\theta) \, \mathrm{d}\theta{,} \quad
+     \bar{Y}_{i_2,n_2,m_2}(\theta, \lambda) \, \mathrm{d} \lambda
+     \, \sin(\theta) \, \mathrm{d}\theta{,} \quad
      \theta_{\mathrm{min}} \leq \theta_{\mathrm{max}}{,} \quad
      \lambda_{\mathrm{min}} \leq \lambda_{\mathrm{max}}{,}\]</div>
 <p>where</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\bar{Y}_{i,n,m}(\theta, \lambda) = \begin{cases}
-\bar{P}_{nm}(\cos\theta) \, \cos(m \, \lambda) \quad &amp;\textrm{if}
-\quad i = 0{,}\\ \bar{P}_{nm}(\cos\theta) \, \sin(m \, \lambda)
-\quad &amp;\textrm{if} \quad i = 1{.} \end{cases}\end{split}\]</div>
+\bar{P}_{nm}(\cos\theta) \, \cos(m \, \lambda) \quad
+&amp;\textrm{if} \quad i = 0{,}\\ \bar{P}_{nm}(\cos\theta) \,
+\sin(m \, \lambda) \quad &amp;\textrm{if} \quad i = 1{.} \end{cases}\end{split}\]</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -629,7 +630,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jan 14, 2026.
+  Last updated on Mar 06, 2026.
   <br/>
 </p>
   </div>

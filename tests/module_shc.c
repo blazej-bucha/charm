@@ -9,11 +9,14 @@
 #include "check_shc_read_gfc.h"
 #include "check_shc_read_type.h"
 #include "check_shc_write_type.h"
+#include "check_shc_arithmetics.h"
+#include "check_shc_arithmetics_wise.h"
 #include "check_shc_dav.h"
 #include "check_shc_ddav.h"
 #include "check_shc_rescale.h"
 #include "check_shc_alloc.h"
 #include "check_shc_init.h"
+#include "check_shc_copy.h"
 #include "module_shc.h"
 /* ------------------------------------------------------------------------- */
 
@@ -42,6 +45,12 @@ long int module_shc(void)
 
     check_func("shc_init");
     e = check_shc_init();
+    check_outcome(e);
+    esum += e;
+
+
+    check_func("shc_copy");
+    e = check_shc_copy();
     check_outcome(e);
     esum += e;
 
@@ -101,6 +110,54 @@ long int module_shc(void)
     check_func("shc_write_dov");
     e  = check_shc_write_type(4);
     e += check_shc_write_type(5);
+    check_outcome(e);
+    esum += e;
+
+
+    check_func("shc_add");
+    e = check_shc_arithmetics(CHARM(shc_add));
+    check_outcome(e);
+    esum += e;
+
+
+    check_func("shc_sub");
+    e = check_shc_arithmetics(CHARM(shc_sub));
+    check_outcome(e);
+    esum += e;
+
+
+    check_func("shc_mul");
+    e = check_shc_arithmetics(CHARM(shc_mul));
+    check_outcome(e);
+    esum += e;
+
+
+    check_func("shc_mul_degree_wise");
+    e = check_shc_arithmetics_wise(CHARM(shc_mul_degree_wise));
+    check_outcome(e);
+    esum += e;
+
+
+    check_func("shc_mul_order_wise");
+    e = check_shc_arithmetics_wise(CHARM(shc_mul_order_wise));
+    check_outcome(e);
+    esum += e;
+
+
+    check_func("shc_div");
+    e = check_shc_arithmetics(CHARM(shc_div));
+    check_outcome(e);
+    esum += e;
+
+
+    check_func("shc_div_degree_wise");
+    e = check_shc_arithmetics_wise(CHARM(shc_div_degree_wise));
+    check_outcome(e);
+    esum += e;
+
+
+    check_func("shc_div_order_wise");
+    e = check_shc_arithmetics_wise(CHARM(shc_div_order_wise));
     check_outcome(e);
     esum += e;
 

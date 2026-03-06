@@ -1,3 +1,44 @@
+CHarm 0.4.9:
+
+* Added routines for basic arithmetics with spherical harmonic coefficients:
+
+    * `charm_shc_add`,
+    * `charm_shc_sub`,
+    * `charm_shc_mul`,
+    * `charm_shc_mul_degree_wise`,
+    * `charm_shc_mul_order_wise`,
+    * `charm_shc_div`,
+    * `charm_shc_div_degree_wise`,
+    * `charm_shc_div_order_wise`.
+
+  In PyHarm, the routines are implemented as `pyharm.shc.Shc` class methods.
+
+* Added routine to create spherical harmonic coefficients from a copy:
+
+    * `charm_shc_copy`
+
+  In PyHarm, the routine is implemented as a `pyharm.shc.Shc` class method.
+
+* `pyharm.shc.Shc.get_coeffs` and `pyharm.shc.Shc.set_coeffs` can now also 
+  get and set all coefficients of `pyharm.shc.Shc` class instances.
+
+* Introduced symbolic constants `CHARM_WITH_MPFR` and `CHARM_WITH_MPI` to 
+  detect the CHarm's support for MPFR and MPI at compile-time.
+
+* Allow to change the `mu` and `r` attributes of `pyharm.shc.Shc` directly 
+  without calling `pyharm.shc.shc.rescale`.
+
+* In PyHarm v0.4.8, the following constants were missing in the `gfm` module:
+
+    * `CHARM_GFM_Q00`,
+    * `CHARM_GFM_Q10`,
+    * `CHARM_GFM_Q11`,
+    * `CHARM_GFM_Q20`,
+    * `CHARM_GFM_Q21`,
+    * `CHARM_GFM_Q22`,
+    * `CHARM_GFM_NEAR_ZONE`,
+    * `CHARM_GFM_FAR_ZONE`.
+
 CHarm 0.4.8:
 
 * Fixed miscompilation by gcc 15.2.1 when vector instructions are 

@@ -46,7 +46,7 @@ def point(pnt, shcs, nmax):
     """
 
     _check_crd_instance(pnt, _ph_crd._PointBase, 'pnt')
-    _check_shcs(shcs, 'shcs')
+    _ph_shc._check_shcs(shcs, 'shcs')
     _check_deg_ord(nmax, 'degree')
     _check_nmax(nmax, shcs.nmax, 'nmax', 'shcs.nmax')
 
@@ -140,7 +140,7 @@ def point_grad2(pnt, shcs, nmax):
 def _point_gradn(pnt, shcs, nmax, gradn):
 
     _check_crd_instance(pnt, _ph_crd._PointBase, 'pnt')
-    _check_shcs(shcs, 'shcs')
+    _ph_shc._check_shcs(shcs, 'shcs')
     _check_deg_ord(nmax, 'degree')
     _check_nmax(nmax, shcs.nmax, 'nmax', 'shcs.nmax')
 
@@ -228,7 +228,7 @@ def point_guru(pnt, shcs, nmax, dr, dlat, dlon):
     """
 
     _check_crd_instance(pnt, _ph_crd._PointBase, 'pnt')
-    _check_shcs(shcs, 'shcs')
+    _ph_shc._check_shcs(shcs, 'shcs')
     _check_deg_ord(nmax, 'degree')
     _check_nmax(nmax, shcs.nmax, 'nmax', 'shcs.nmax')
     _check_int_scalar(dr, '\'dr\'')
@@ -303,7 +303,7 @@ def cell(cell, shcs, nmax):
     """
 
     _check_crd_instance(cell, _ph_crd._CellBase, 'cell')
-    _check_shcs(shcs, 'shcs')
+    _ph_shc._check_shcs(shcs, 'shcs')
     _check_deg_ord(nmax, 'degree')
     _check_nmax(nmax, shcs.nmax, 'nmax', 'shcs.nmax')
 
@@ -369,8 +369,8 @@ def cell_isurf(cell, shcs1, nmax1, shcs2, nmax2, nmax3, nmax4):
     """
 
     _check_crd_instance(cell, _ph_crd.CellGrid, 'cell')
-    _check_shcs(shcs1, 'shcs1')
-    _check_shcs(shcs2, 'shcs2')
+    _ph_shc._check_shcs(shcs1, 'shcs1')
+    _ph_shc._check_shcs(shcs2, 'shcs2')
     _check_deg_ord(nmax1, 'degree')
     _check_deg_ord(nmax2, 'degree')
     _check_deg_ord(nmax3, 'degree')
@@ -405,25 +405,6 @@ def cell_isurf(cell, shcs1, nmax1, shcs2, nmax2, nmax3, nmax4):
     _ph_err.free(err)
 
     return f
-
-
-def _check_shcs(shcs, varname):
-    """
-    Private function to check whether 'shcs' is an 'Shc' class instance.
-
-    Parameters
-    ----------
-    shcs : Shc
-        A 'Shc' class instance to be checked
-    varname : str
-        Caller's name of the 'shcs' variable.
-    """
-
-    if not isinstance(shcs, _ph_shc.Shc):
-        raise TypeError(f'\'{varname}\' must be a \'{_ph_shc.Shc}\' '
-                        f'class instance.')
-
-    return
 
 
 def _check_crd_instance(instance, base, varname):

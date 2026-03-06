@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>CHarm &#8212; CHarm 0.4.8 documentation</title>
+    <title>CHarm &#8212; CHarm 0.4.9 documentation</title>
   
   
   
@@ -37,7 +37,7 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=c78092fa"></script>
+    <script src="_static/documentation_options.js?v=7c7c10e7"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -49,7 +49,7 @@
     <link rel="prev" title="Cookbook" href="cookbook.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Jan 14, 2026"/>
+    <meta name="docbuild:last-update" content="Mar 06, 2026"/>
   </head>
   
   
@@ -143,7 +143,7 @@
     <script>document.write(`<img src="_static/charm-logo.png" class="logo__image only-dark" alt=""/>`);</script>
   
   
-    <p class="title logo__title">CHarm v0.4.8</p>
+    <p class="title logo__title">CHarm v0.4.9</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -423,7 +423,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#charm-in-double-precision">CHarm in double precision</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#charm-in-double-precision">CHarm in double precision</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compilation-on-linux">Compilation on Linux</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-spherical-harmonic-coefficients">Working with spherical harmonic coefficients</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spherical-harmonic-synthesis-and-analysis">Spherical harmonic synthesis and analysis</a></li>
@@ -434,7 +434,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distributed-computing-with-mpi">Distributed computing with MPI</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#charm-in-single-and-quadruple-precision">CHarm in single and quadruple precision</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#charm-in-single-and-quadruple-precision">CHarm in single and quadruple precision</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-compilation-in-single-precision">Example compilation in single precision</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-compilation-in-quadruple-precision">Example compilation in quadruple precision</a></li>
 </ul>
@@ -1489,26 +1489,12 @@ doi:10.1029/2019JE006086.</p></li>
 required by our forward modelling method.  While the transformed models that we
 use in this example are realistic, it is not recommended to use them in any
 real task.  They were create for learning purposes only.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* IMPORTANT: To compile this code, CHarm must be compiled with the MPFR</span>
-<span class="cm"> * support, that is, the &quot;--enable-mpfr&quot; installation flag must be used during</span>
-<span class="cm"> * the installation.  If you didn&#39;t enable MPFR, manually delete (or comment</span>
-<span class="cm"> * out) all lines between the following marks:</span>
-<span class="cm"> *</span>
-<span class="cm"> * @@@</span>
-<span class="cm"> *</span>
-<span class="cm"> * lines to be deleted or commented out</span>
-<span class="cm"> *</span>
-<span class="cm"> * !!!</span>
-<span class="cm"> *</span>
-<span class="cm"> * */</span>
-
-
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
-<span class="cm">/* @@@ */</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;mpfr.h&gt;</span>
-<span class="cm">/* !!! */</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;charm/charm.h&gt;</span>
+<span class="cp">#if CHARM_WITH_MPFR</span>
+<span class="cp">#</span><span class="w">   </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;mpfr.h&gt;</span>
+<span class="cp">#endif</span>
 
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
@@ -1720,7 +1706,7 @@ real task.  They were create for learning purposes only.</p>
 <span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
 
 
-<span class="w">    </span><span class="cm">/* @@@ */</span>
+<span class="cp">#if CHARM_WITH_MPFR</span>
 <span class="w">    </span><span class="cm">/* Spatially restricted gravity forward modelling of near-zone masses using</span>
 <span class="cm">     * 3D density */</span>
 <span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
@@ -1917,7 +1903,11 @@ real task.  They were create for learning purposes only.</p>
 <span class="cm">     * */</span>
 <span class="w">    </span><span class="cm">/* ..................................................................... */</span>
 <span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
-<span class="w">    </span><span class="cm">/* !!! */</span>
+<span class="cp">#else</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Note: Your CHarm build does not support MPFR.  Spatially &quot;</span>
+<span class="w">           </span><span class="s">&quot;restricted spectral gravity forward modelling was therefore not &quot;</span>
+<span class="w">           </span><span class="s">&quot;performed.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="cp">#endif</span>
 
 
 <span class="w">    </span><span class="cm">/* Free the heap memory */</span>
@@ -1927,16 +1917,18 @@ real task.  They were create for learning purposes only.</p>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">density_order</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
 <span class="w">        </span><span class="n">charm_shc_free</span><span class="p">(</span><span class="n">density_shcs</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
 <span class="w">    </span><span class="n">charm_shc_free</span><span class="p">(</span><span class="n">potential_global_shcs</span><span class="p">);</span>
+<span class="cp">#if CHARM_WITH_MPFR</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kmin</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">kmax</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="o">++</span><span class="p">)</span>
 <span class="w">        </span><span class="n">charm_shc_free</span><span class="p">(</span><span class="n">potential_cap_shcs</span><span class="p">[</span><span class="n">k</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">kmin</span><span class="p">]);</span>
 <span class="w">    </span><span class="n">free</span><span class="p">(</span><span class="n">potential_cap_shcs</span><span class="p">);</span>
+<span class="cp">#endif</span>
 <span class="w">    </span><span class="n">charm_crd_point_free</span><span class="p">(</span><span class="n">grd</span><span class="p">);</span>
 <span class="w">    </span><span class="n">free</span><span class="p">(</span><span class="n">vgfm</span><span class="p">);</span>
 <span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
 
 
 <span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">Great, all done!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Great, all done!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
 <span class="w">    </span><span class="n">exit</span><span class="p">(</span><span class="n">CHARM_SUCCESS</span><span class="p">);</span>
 <span class="w">    </span><span class="cm">/* --------------------------------------------------------------------- */</span>
 <span class="w">    </span><span class="cm">/* ===================================================================== */</span>
@@ -2641,7 +2633,7 @@ with the static library might look like this:</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#charm-in-double-precision">CHarm in double precision</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#charm-in-double-precision">CHarm in double precision</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compilation-on-linux">Compilation on Linux</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-spherical-harmonic-coefficients">Working with spherical harmonic coefficients</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spherical-harmonic-synthesis-and-analysis">Spherical harmonic synthesis and analysis</a></li>
@@ -2652,7 +2644,7 @@ with the static library might look like this:</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distributed-computing-with-mpi">Distributed computing with MPI</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#charm-in-single-and-quadruple-precision">CHarm in single and quadruple precision</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#charm-in-single-and-quadruple-precision">CHarm in single and quadruple precision</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-compilation-in-single-precision">Example compilation in single precision</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-compilation-in-quadruple-precision">Example compilation in quadruple precision</a></li>
 </ul>
@@ -2690,7 +2682,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jan 14, 2026.
+  Last updated on Mar 06, 2026.
   <br/>
 </p>
   </div>

@@ -10,7 +10,6 @@ All functions that deal with numerics are written in double precision.
 from . import _libcharm, _CHARM
 from ._data_types import _ct_int
 import ctypes as _ct
-from .gfm import _WITH_MPFR
 
 
 def get_version():

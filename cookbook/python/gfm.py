@@ -1,15 +1,3 @@
-# IMPORTANT: To run this program, CHarm must be compiled with the MPFR
-# support, that is, the "--enable-mpfr" installation flag must be used during
-# the installation.  If you didn't enable MPFR, manually delete (or comment
-# out) all lines between the following marks:
-#
-# @@@
-#
-# lines to be deleted or commented out
-#
-# !!!
-
-
 import pyharm as ph
 
 
@@ -136,83 +124,88 @@ potential_global_shcs = ph.gfm.global_density_const(shape_shcs, shape_nmax,
 # -----------------------------------------------------------------------------
 
 
-# @@@
-# Spatially restricted gravity forward modelling of near-zone masses using 3D
-# density
-# -----------------------------------------------------------------------------
-# Minimum and maximum order of the radial derivatives of the output quantity
-kmin, kmax = 0, 3
+# Perform spatially restricted spectral gravity forward modelling only if CHarm
+# was built with the MPFR support
+if ph.misc.buildopt_mpfr():
+    # Spatially restricted gravity forward modelling of near-zone masses using
+    # 3D density
+    # -------------------------------------------------------------------------
+    # Minimum and maximum order of the radial derivatives of the output
+    # quantity
+    kmin, kmax = 0, 3
 
 
-# Radius of the sphere, on which evaluation points reside
-r = rref + 25000.0
+    # Radius of the sphere, on which evaluation points reside
+    r = rref + 25000.0
 
 
-# Integration radius in radians
-psi0 = 0.2
+    # Integration radius in radians
+    psi0 = 0.2
 
 
-# Order of the potential derivative ("0" for potential, "1" for quantities
-# related to gravitational vector elements, and "2" for quantities related
-# to gravitational tensor elements)
-u = 0
+    # Order of the potential derivative ("0" for potential, "1" for quantities
+    # related to gravitational vector elements, and "2" for quantities related
+    # to gravitational tensor elements)
+    u = 0
 
 
-# Order of the potential derivative with respect to the spherical distance
-v = 0
+    # Order of the potential derivative with respect to the spherical distance
+    v = 0
 
 
-# We want to integrate all masses up to distance "psi0" from evalution
-# points.  To integrate masses beyond "psi0", set "zone" to
-# "ph.gfm.FAR_ZOZE". */
-zone = ph.gfm.NEAR_ZONE
+    # We want to integrate all masses up to distance "psi0" from evalution
+    # points.  To integrate masses beyond "psi0", set "zone" to
+    # "ph.gfm.FAR_ZOZE". */
+    zone = ph.gfm.NEAR_ZONE
 
 
-# Number of bits to represent significands of floating points numbers used to
-# evaluate
-# truncation coefficients
-nbits = 512
+    # Number of bits to represent significands of floating points numbers used
+    # to evaluate truncation coefficients
+    nbits = 512
 
 
-potential_cap_shcs = ph.gfm.cap_density_3d(shape_shcs, shape_nmax, rref,
-                                           density_shcs, density_nmax,
-                                           density_order,
-                                           gc, mass,
-                                           pmin, pmax,
-                                           kmin, kmax,
-                                           r,
-                                           psi0,
-                                           u, v,
-                                           zone,
-                                           nbits,
-                                           nmax_potential)
-# -----------------------------------------------------------------------------
+    potential_cap_shcs = ph.gfm.cap_density_3d(shape_shcs, shape_nmax, rref,
+                                               density_shcs, density_nmax,
+                                               density_order,
+                                               gc, mass,
+                                               pmin, pmax,
+                                               kmin, kmax,
+                                               r,
+                                               psi0,
+                                               u, v,
+                                               zone,
+                                               nbits,
+                                               nmax_potential)
+    # -------------------------------------------------------------------------
 
 
-# Spatially restricted gravity forward modelling of near-zone masses using
-# constant density
-# -----------------------------------------------------------------------------
-potential_cap_shcs = ph.gfm.cap_density_const(shape_shcs, shape_nmax, rref,
-                                              density_const,
-                                              gc, mass,
-                                              pmin, pmax,
-                                              kmin, kmax,
-                                              r,
-                                              psi0,
-                                              u, v,
-                                              zone,
-                                              nbits,
-                                              nmax_potential)
-# -----------------------------------------------------------------------------
+    # Spatially restricted gravity forward modelling of near-zone masses using
+    # constant density
+    # -------------------------------------------------------------------------
+    potential_cap_shcs = ph.gfm.cap_density_const(shape_shcs, shape_nmax, rref,
+                                                  density_const,
+                                                  gc, mass,
+                                                  pmin, pmax,
+                                                  kmin, kmax,
+                                                  r,
+                                                  psi0,
+                                                  u, v,
+                                                  zone,
+                                                  nbits,
+                                                  nmax_potential)
+    # -------------------------------------------------------------------------
 
 
-# Let's compute some Molodensky's truncation coefficients, which are used
-# internally whenever calling the "charm_gfm_cap_density_*" routines.
-# -----------------------------------------------------------------------------
-q = ph.gfm.cap_q(rref, r, psi0, nmax_potential, pmax, kmin, kmax,
-                 density_order, ph.gfm.NEAR_ZONE, ph.gfm.Q00, nbits)
-# -----------------------------------------------------------------------------
-# !!!
+    # Let's compute some Molodensky's truncation coefficients, which are used
+    # internally whenever calling the "charm_gfm_cap_density_*" routines.
+    # -------------------------------------------------------------------------
+    q = ph.gfm.cap_q(rref, r, psi0, nmax_potential, pmax, kmin, kmax,
+                     density_order, ph.gfm.NEAR_ZONE, ph.gfm.Q00, nbits)
+    # -------------------------------------------------------------------------
+else:
+    print('Note: Your CHarm build does not support MPFR.  Spatially '
+          'restricted spectral gravity forward modelling was therefore not '
+          'performed.')
 
 
 print('Great, all done!')

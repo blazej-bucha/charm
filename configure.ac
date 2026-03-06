@@ -769,8 +769,7 @@ AC_CONFIG_FILES([Makefile \
                  charm-tmpl.pc \
                  setup.py \
                  wrap/pyharm/__init__.py \
-                 wrap/pyharm/_data_types.py \
-                 wrap/pyharm/gfm.py], [], [P=${P}])
+                 wrap/pyharm/_data_types.py], [], [P=${P}])
 
 
 AC_OUTPUT

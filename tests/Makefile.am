@@ -61,6 +61,8 @@ SOURCES = test_run.c \
 		  check_gfm_global_density_3d.c \
 		  check_gfm_global_density_lateral.c \
 		  check_gfm_global_density_const.c \
+		  check_shc_arithmetics.c \
+		  check_shc_arithmetics_wise.c \
 		  check_shc_read_type.c \
 		  check_shc_read_gfc.c \
 		  check_shc_write_type.c \
@@ -69,6 +71,7 @@ SOURCES = test_run.c \
 		  check_shc_rescale.c \
 		  check_shc_alloc.c \
 		  check_shc_init.c \
+		  check_shc_copy.c \
 		  check_simd_abs_r.c \
 		  check_simd_neg_r.c \
 		  check_simd_sum_r.c \
