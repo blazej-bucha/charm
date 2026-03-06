@@ -121,7 +121,7 @@ class Pnmj:
             raise ValueError('\'self._Pnmj.contents.pnmj\' is a \'NULL\' '
                              'pointer.')
         return _np.ctypeslib.as_array(self._Pnmj.contents.pnmj[0][0],
-                                       shape=(int(self._Pnmj.contents.npnmj),))
+                                      shape=(int(self._Pnmj.contents.npnmj),))
 
 
     def __init__(self, nmax, ordering, coeffs):

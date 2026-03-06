@@ -142,7 +142,7 @@ class Shc:
         parameter (as it is, for instance, with planetary topographies), simply
         set this variable to ``1.0`` (not to ``0.0``!).
         """
-        return _charm_flt(self._Shc.contents.mu)
+        return _pyharm_flt(self._Shc.contents.mu)
 
 
     @mu.setter
@@ -161,7 +161,7 @@ class Shc:
         than zero. To get the unit sphere, as needed, for instance, when
         working with planetary topographies, set this variable to ``1.0``.
         """
-        return _charm_flt(self._Shc.contents.r)
+        return _pyharm_flt(self._Shc.contents.r)
 
 
     @r.setter
