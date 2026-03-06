@@ -210,7 +210,6 @@ class _PointBase:
                              'parameter.')
 
         _check_pointer(self._Point, f, _libcharmname)
-        self._Point2Point()
         self._from_method = data
 
         return
@@ -327,8 +326,6 @@ class _PointBase:
 
         self._Point = func(_ct_ulong(nmax), _ct_flt(r))
         _check_pointer(self._Point, f, _libcharmname)
-
-        self._Point2Point()
 
         return
 
@@ -1159,7 +1156,6 @@ class _CellBase:
                              'parameter.')
 
         _check_pointer(self._Cell, f, _libcharmname)
-        self._Cell2Cell()
         self._from_method = data
 
         return

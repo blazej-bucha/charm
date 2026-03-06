@@ -209,9 +209,6 @@ def global_density_3d(shape_shcs,
     _ph_err.handler(err, 1)
     _ph_err.free(err)
 
-    if return_output:
-        shcs._Shc2Shc()
-
     return shcs
 
 
@@ -311,9 +308,6 @@ def global_density_lateral(shape_shcs,
     _ph_err.handler(err, 1)
     _ph_err.free(err)
 
-    if return_output:
-        shcs._Shc2Shc()
-
     return shcs
 
 
@@ -407,9 +401,6 @@ def global_density_const(shape_shcs,
          err)
     _ph_err.handler(err, 1)
     _ph_err.free(err)
-
-    if return_output:
-        shcs._Shc2Shc()
 
     return shcs
 
@@ -754,10 +745,6 @@ if _WITH_MPFR:
         _ph_err.handler(err, 1)
         _ph_err.free(err)
 
-        if return_output:
-            for k in range(nk):
-                shcs[k]._Shc2Shc()
-
         return shcs
 
 
@@ -917,10 +904,6 @@ if _WITH_MPFR:
         _ph_err.handler(err, 1)
         _ph_err.free(err)
 
-        if return_output:
-            for k in range(nk):
-                shcs[k]._Shc2Shc()
-
         return shcs
 
 
@@ -1056,10 +1039,6 @@ if _WITH_MPFR:
              err)
         _ph_err.handler(err, 1)
         _ph_err.free(err)
-
-        if return_output:
-            for k in range(nk):
-                shcs[k]._Shc2Shc()
 
         return shcs
 
