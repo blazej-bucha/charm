@@ -714,8 +714,8 @@ class Shc:
         padded.  For the full documentation, refer to `charm_shc
         <./api-c-shc.html>`_.
 
-        .. tip:: To learn how :meth:`add` works, go thorough the
-                 following examples:
+        .. tip:: To learn how :meth:`add` works, go through the following
+                 examples:
 
                  >>> import pyharm as ph
                  >>> import numpy as np
