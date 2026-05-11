@@ -748,7 +748,7 @@ class Shc:
                  >>>                               # 3.  "op1" is rewritten due
                  >>>                               # to the in-place addition,
                  >>>                               # but only from degree 1 to
-                 >>>                               # degree 5.
+                 >>>                               # degree 4.
                  >>> op1.add(op1)  # In-place addition "op1 + op1" up to degree
                  >>>               # "op1.nmax".
                  >>> rop = op1.add(op2, inplace=False)  # Out-of-place addition
