@@ -1173,7 +1173,8 @@ class Shc:
         * If ``n`` and ``m`` are both ``None``, sets all coefficients in
           :attr:`c` and :attr:`s` to ``c`` and ``s``, respectively.  The
           lengths of all arrays must match.  The coefficients in ``c`` and
-          ``s`` must be ordered as reported by :meth:`get_degrees_orders`.
+          ``s`` must be ordered as :attr:`c` and :attr:`s` (see also
+          :meth:`get_degrees_orders`).
 
         Note
         ----
