@@ -104,7 +104,7 @@ jobs:
           fi
 
       - name: Build wheels
-        uses: pypa/cibuildwheel@v3.3.1
+        uses: pypa/cibuildwheel@v4.2.0
         env:
           CIBW_BUILD_VERBOSITY: 1
           CIBW_SKIP: "cp36-* cp37-* cp38-* cp39-* cp310-*
