@@ -1825,6 +1825,13 @@ class Shc:
                 elif file_type == 'npz_compressed':
                     compression = _zipfile.ZIP_DEFLATED
 
+                # If "nmax == self.nmax", we use "np.savez" to write the data.
+                # "np.savez" automatically adds the ".npz" suffix to the file
+                # name if it does not contain it.  Here, we ensure the same
+                # behaviour also for "nmax < self.nmax".
+                if not pathname.endswith('.npz'):
+                    pathname += '.npz'
+
                 # Create "npy" files with individual members of "self" and add
                 # them to the final "npz" file.
                 with _zipfile.ZipFile(pathname, mode='w',
