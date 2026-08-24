@@ -671,9 +671,9 @@ class Shc:
         arrays named ``nmax``, ``mu`` , ``r``, ``c`` and ``s``.  ``shape`` of
         ``nmax``, ``mu`` and ``r`` is ``()``.  The ``c`` and ``s`` arrays have
         the same shape and ordering as :attr:`c` and :attr:`s`, respectively,
-        with ``nmax`` being the input parameter to this method.  The ``npz``
-        file type stores the data uncompressed (see the documentation to
-        ``numpy.savez``), while ``npz_compressed`` uses a compression (see
+        though with ``nmax`` being the input parameter to this method.  The
+        ``npz`` file type stores the data uncompressed (see the documentation
+        to ``numpy.savez``), while ``npz_compressed`` uses a compression (see
         ``numpy.savez_compressed``).
 
         Parameters
