@@ -5,14 +5,14 @@ CHarm 0.4.10:
   `from_file` and `to_file` methods needs to be set to `npz` for the 
   uncompressed or `npz_compressed` for the compressed `npz` file.
 
-  The `npz` format is suitable for efficient reading/writing large sets of 
-  spherical harmonic coefficients or for storing the data in a binary format 
-  that is portable across platforms.
+  The `npz` format is suitable to read/write large sets of spherical harmonic 
+  coefficients efficiently or to store the data in a binary format that is 
+  portable across platforms.
 
 * PyHarm wheels distributed through `pip` now include the ARM64 architecture 
   for Linux.
 
-* Add support for Python 3.15, drop support for Python 3.10.
+* Added support for Python 3.15, dropped support for Python 3.10.
 
 CHarm 0.4.9:
 
