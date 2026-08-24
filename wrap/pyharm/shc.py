@@ -685,7 +685,10 @@ class Shc:
             coefficients.  If negative, all coefficients are written.  Default
             value is ``-1``.
         pathname : str
-            Output file path
+            Output file path.  If ``file_type`` is ``npz`` or
+            ``npz_compressed``, ``numpy`` automatically adds the ``.npz``
+            suffix to ``pathname`` if it does not contain it.  For any other
+            ``file_type``, no suffix is added.
         formatting : str
             Formatting to write floating point numbers to text formats,
             optional.  Default is ``'%0.18e'``.
@@ -2014,6 +2017,9 @@ class Shc:
         pathname : str
             Path to a file
         """
+
+        if pathname == '':
+            raise ValueError('\'pathname\' cannot be empty.')
 
         dirpath = _os.path.dirname(pathname)
         if dirpath == '':

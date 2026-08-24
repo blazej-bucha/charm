@@ -852,7 +852,10 @@ to <code class="docutils literal notranslate"><span class="pre">numpy.savez</spa
 <li><p><strong>nmax</strong> (<em>integer</em>) – Maximum harmonic degree to write the spherical harmonic
 coefficients.  If negative, all coefficients are written.  Default
 value is <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</p></li>
-<li><p><strong>pathname</strong> (<em>str</em>) – Output file path</p></li>
+<li><p><strong>pathname</strong> (<em>str</em>) – Output file path.  If <code class="docutils literal notranslate"><span class="pre">file_type</span></code> is <code class="docutils literal notranslate"><span class="pre">npz</span></code> or
+<code class="docutils literal notranslate"><span class="pre">npz_compressed</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy</span></code> automatically adds the <code class="docutils literal notranslate"><span class="pre">.npz</span></code>
+suffix to <code class="docutils literal notranslate"><span class="pre">pathname</span></code> if it does not contain it.  For any other
+<code class="docutils literal notranslate"><span class="pre">file_type</span></code>, no suffix is added.</p></li>
 <li><p><strong>formatting</strong> (<em>str</em>) – Formatting to write floating point numbers to text formats,
 optional.  Default is <code class="docutils literal notranslate"><span class="pre">'%0.18e'</span></code>.</p></li>
 <li><p><strong>ordering</strong> (<em>integer</em>) – Scheme to sort spherical harmonic coefficients when <code class="docutils literal notranslate"><span class="pre">file_type</span></code>
