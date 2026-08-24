@@ -4,8 +4,8 @@
 Installation of PyHarm with pip
 ===============================
 
-On Linux (x86_64), macOS (x86_64, ARM64) and Windows (x86_64), install PyHarm 
-using the command:
+On Linux (x86_64, ARM64), macOS (x86_64, ARM64) and Windows (x86_64), install 
+PyHarm using the command:
 
 .. code-block:: bash
 

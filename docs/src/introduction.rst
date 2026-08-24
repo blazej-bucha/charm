@@ -67,8 +67,8 @@ Features
 Installation
 ============
 
-* **PyHarm (Python wrapper)**: On Linux (x86_64), macOS (x86_64, ARM64) and 
-  Windows (x86_64), install PyHarm using ``pip``:
+* **PyHarm (Python wrapper)**: On Linux (x86_64, ARM64), macOS (x86_64, ARM64) 
+  and Windows (x86_64), install PyHarm using ``pip``:
 
   .. code-block:: bash
 
