@@ -50,7 +50,7 @@
     <link rel="prev" title="PyHarm (Python API)" href="api-py.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Mar 06, 2026"/>
+    <meta name="docbuild:last-update" content="Aug 24, 2026"/>
   </head>
   
   
@@ -777,7 +777,9 @@ coefficients to a given epoch.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">get_file_types</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>For the structure of the file types, refer to <a class="reference external" href="./api-c-shc.html">charm_shc</a>.</p>
+<p>For the structure of all file types except for <code class="docutils literal notranslate"><span class="pre">npz</span></code> and
+<code class="docutils literal notranslate"><span class="pre">npz_compressed</span></code>, refer to <a class="reference external" href="./api-c-shc.html">charm_shc</a>.
+For <code class="docutils literal notranslate"><span class="pre">npz</span></code> and <code class="docutils literal notranslate"><span class="pre">npz_compressed</span></code>, see <a class="reference internal" href="#pyharm.shc.Shc.to_file" title="pyharm.shc.Shc.to_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_file()</span></code></a>.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -799,6 +801,8 @@ to select proper encoding.</p>
 <p>The encoding does not apply to the content of the file.  The file
 reading is done by CHarm, so the file content encoding depends on
 your operating system.</p>
+<p>The encoding is ignored with the <code class="docutils literal notranslate"><span class="pre">npz</span></code> and <code class="docutils literal notranslate"><span class="pre">npz_compressed</span></code>
+file types.</p>
 </p></li>
 </ul>
 </dd>
@@ -827,8 +831,19 @@ coefficients in the output file.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ph</span><span class="o">.</span><span class="n">shc</span><span class="o">.</span><span class="n">Shc</span><span class="o">.</span><span class="n">get_file_types</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>For the structure of the file types, refer to <a class="reference external" href="./api-c-shc.html">charm_shc</a>.</p>
+<p>For the structure of all file types except for <code class="docutils literal notranslate"><span class="pre">npz</span></code> and
+<code class="docutils literal notranslate"><span class="pre">npz_compressed</span></code>, refer to <a class="reference external" href="./api-c-shc.html">charm_shc</a>.
+The structure of <code class="docutils literal notranslate"><span class="pre">npz</span></code> and <code class="docutils literal notranslate"><span class="pre">npz_compressed</span></code> is explained
+below.</p>
 </div>
+<p>In the <code class="docutils literal notranslate"><span class="pre">npz</span></code> and <code class="docutils literal notranslate"><span class="pre">npz_compressed</span></code> formats, the data are stored as
+arrays named <code class="docutils literal notranslate"><span class="pre">nmax</span></code>, <code class="docutils literal notranslate"><span class="pre">mu</span></code> , <code class="docutils literal notranslate"><span class="pre">r</span></code>, <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code>.  <code class="docutils literal notranslate"><span class="pre">shape</span></code> of
+<code class="docutils literal notranslate"><span class="pre">nmax</span></code>, <code class="docutils literal notranslate"><span class="pre">mu</span></code> and <code class="docutils literal notranslate"><span class="pre">r</span></code> is <code class="docutils literal notranslate"><span class="pre">()</span></code>.  The <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> arrays have
+the same shape and ordering as <a class="reference internal" href="#pyharm.shc.Shc.c" title="pyharm.shc.Shc.c"><code class="xref py py-attr docutils literal notranslate"><span class="pre">c</span></code></a> and <a class="reference internal" href="#pyharm.shc.Shc.s" title="pyharm.shc.Shc.s"><code class="xref py py-attr docutils literal notranslate"><span class="pre">s</span></code></a>, respectively,
+with <code class="docutils literal notranslate"><span class="pre">nmax</span></code> being the input parameter to this method.  The <code class="docutils literal notranslate"><span class="pre">npz</span></code>
+file type stores the data uncompressed (see the documentation to
+<code class="docutils literal notranslate"><span class="pre">numpy.savez</span></code>), while <code class="docutils literal notranslate"><span class="pre">npz_compressed</span></code> uses a compression (see
+<code class="docutils literal notranslate"><span class="pre">numpy.savez_compressed</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -849,6 +864,8 @@ need to select proper encoding.</p>
 <p>The encoding does not apply to the content of the file.  The file
 writting is done by CHarm, so the file content encoding depends on
 your operating system.</p>
+<p>The encoding is ignored with the <code class="docutils literal notranslate"><span class="pre">npz</span></code> and <code class="docutils literal notranslate"><span class="pre">npz_compressed</span></code>
+file types.</p>
 </p></li>
 </ul>
 </dd>
@@ -865,8 +882,8 @@ from <code class="docutils literal notranslate"><span class="pre">op2</span></co
 padded.  For the full documentation, refer to <a class="reference external" href="./api-c-shc.html">charm_shc</a>.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>To learn how <a class="reference internal" href="#pyharm.shc.Shc.add" title="pyharm.shc.Shc.add"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add()</span></code></a> works, go thorough the
-following examples:</p>
+<p>To learn how <a class="reference internal" href="#pyharm.shc.Shc.add" title="pyharm.shc.Shc.add"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add()</span></code></a> works, go through the following
+examples:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pyharm</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ph</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate two instances of the &quot;Shc&quot; class with random</span>
@@ -898,7 +915,7 @@ following examples:</p>
 <span class="gp">&gt;&gt;&gt; </span>                              <span class="c1"># 3.  &quot;op1&quot; is rewritten due</span>
 <span class="gp">&gt;&gt;&gt; </span>                              <span class="c1"># to the in-place addition,</span>
 <span class="gp">&gt;&gt;&gt; </span>                              <span class="c1"># but only from degree 1 to</span>
-<span class="gp">&gt;&gt;&gt; </span>                              <span class="c1"># degree 5.</span>
+<span class="gp">&gt;&gt;&gt; </span>                              <span class="c1"># degree 4.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">op1</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">op1</span><span class="p">)</span>  <span class="c1"># In-place addition &quot;op1 + op1&quot; up to degree</span>
 <span class="gp">&gt;&gt;&gt; </span>              <span class="c1"># &quot;op1.nmax&quot;.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rop</span> <span class="o">=</span> <span class="n">op1</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">op2</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># Out-of-place addition</span>
@@ -1507,7 +1524,7 @@ By Blažej Bucha
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Mar 06, 2026.
+  Last updated on Aug 24, 2026.
   <br/>
 </p>
   </div>

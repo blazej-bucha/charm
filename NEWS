@@ -1,3 +1,14 @@
+Upcoming release:
+
+* PyHarm can now read/write spherical harmonic coefficients from/to the 
+  portable binary Numpy's format `npz`.  The `file_type` input parameter in the 
+  `from_file` and `to_file` methods needs to be set to `npz` for the 
+  uncompressed or `npz_compressed` for the compressed `npz` file.
+
+  The `npz` format is suitable for efficient reading/writing large sets of 
+  spherical harmonic coefficients or for storing the data in a binary format 
+  that is portable across platforms.
+
 CHarm 0.4.9:
 
 * Added routines for basic arithmetics with spherical harmonic coefficients:
