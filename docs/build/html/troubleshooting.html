@@ -438,9 +438,12 @@ document.write(`
                   
   <section id="troubleshooting">
 <h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h1>
-<p>This chapter discusses some relevant issues reported by users.</p>
+<p>This chapter discusses issues that may be encountered during the build or
+runtime.</p>
 <section id="omp-error-15">
 <h2>OMP: Error #15:<a class="headerlink" href="#omp-error-15" title="Link to this heading">#</a></h2>
+<p><strong>Description:</strong> Python crashes when running a code that imports PyHarm and
+some other library (for instance, Matplotlib).</p>
 <p><strong>Error message:</strong></p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>OMP: Error #15: Initializing libiomp5md.dll, but found libomp140.x86_64.dll
 already initialized.
@@ -458,14 +461,14 @@ information, please see http://www.intel.com/software/products/support/.
 Fatal Python error: Aborted
 </pre></div>
 </div>
-<p><strong>Root cause:</strong> Two or more of your Python modules are linked against different
+<p><strong>Cause:</strong> Two or more of your Python modules are linked against different
 OpenMP implementations (e.g., PyHarm and Matplotlib).</p>
 <p><strong>Solution:</strong> You have to ensure that only one OpenMP library is loaded during
 the runtime.  There are several ways to achieve this, each with its pros and
 cons.</p>
 <ul>
-<li><p><em>Solution 1</em>: Follow the advice from the error message and put this at the
-top of your code, that is, before any <code class="docutils literal notranslate"><span class="pre">import</span></code> statements:</p>
+<li><p><em>Solution 1</em>: Follow the hint from the error message and put this at the top
+of your code, that is, before any <code class="docutils literal notranslate"><span class="pre">import</span></code> statements:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;KMP_DUPLICATE_LIB_OK&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
 </pre></div>

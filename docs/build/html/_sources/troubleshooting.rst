@@ -2,10 +2,14 @@
 Troubleshooting
 ===============
 
-This chapter discusses some relevant issues reported by users.
+This chapter discusses issues that may be encountered during the build or 
+runtime.
 
 OMP: Error #15:
 ===============
+
+**Description:** Python crashes when running a code that imports PyHarm and 
+some other library (for instance, Matplotlib).
 
 **Error message:**
 
@@ -26,15 +30,15 @@ OMP: Error #15:
 
    Fatal Python error: Aborted
 
-**Root cause:** Two or more of your Python modules are linked against different 
+**Cause:** Two or more of your Python modules are linked against different 
 OpenMP implementations (e.g., PyHarm and Matplotlib).
 
 **Solution:** You have to ensure that only one OpenMP library is loaded during 
 the runtime.  There are several ways to achieve this, each with its pros and 
 cons.
 
-* *Solution 1*: Follow the advice from the error message and put this at the 
-  top of your code, that is, before any ``import`` statements:
+* *Solution 1*: Follow the hint from the error message and put this at the top 
+  of your code, that is, before any ``import`` statements:
 
   .. code:: python
 
