@@ -1,4 +1,4 @@
-Upcoming release:
+CHarm 0.4.10:
 
 * PyHarm can now read/write spherical harmonic coefficients from/to the 
   portable binary Numpy's format `npz`.  The `file_type` input parameter in the 
@@ -8,6 +8,11 @@ Upcoming release:
   The `npz` format is suitable for efficient reading/writing large sets of 
   spherical harmonic coefficients or for storing the data in a binary format 
   that is portable across platforms.
+
+* PyHarm wheels distributed through `pip` now include the ARM64 architecture 
+  for Linux.
+
+* Add support for Python 3.15, drop support for Python 3.10.
 
 CHarm 0.4.9:
 
