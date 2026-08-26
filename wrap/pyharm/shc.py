@@ -17,6 +17,7 @@ This documentation is written for double precision version of PyHarm.
 import os as _os
 import ctypes as _ct
 import numpy as _np
+import zipfile as _zipfile
 from warnings import warn as _warn
 from . import _libcharm, _libcharmname, _CHARM, _pyharm
 from ._get_module_constants import _get_module_constants
@@ -59,7 +60,7 @@ _MU = _pyharm_flt(1.0)
 # All possible file types to read and write spherical harmonic coefficients.
 # An exception is that 'gfc' format is not supported to write spherical
 # harmonic coefficients.
-_FILE_TYPES = ['gfc', 'bin', 'mtx', 'tbl', 'dov']
+_FILE_TYPES = ['gfc', 'bin', 'mtx', 'tbl', 'dov', 'npz', 'npz_compressed']
 
 
 class _Shc(_ct.Structure):
@@ -588,8 +589,9 @@ class Shc:
                  >>> import pyharm as ph
                  >>> ph.shc.Shc.get_file_types()
 
-                 For the structure of the file types, refer to `charm_shc
-                 <./api-c-shc.html>`_.
+                 For the structure of all file types except for ``npz`` and
+                 ``npz_compressed``, refer to `charm_shc <./api-c-shc.html>`_.
+                 For ``npz`` and ``npz_compressed``, see :meth:`to_file`.
 
         Parameters
         ----------
@@ -615,6 +617,9 @@ class Shc:
             The encoding does not apply to the content of the file.  The file
             reading is done by CHarm, so the file content encoding depends on
             your operating system.
+
+            The encoding is ignored with the ``npz`` and ``npz_compressed``
+            file types.
 
         Returns
         -------
@@ -657,8 +662,19 @@ class Shc:
                  >>> import pyharm as ph
                  >>> ph.shc.Shc.get_file_types()
 
-                 For the structure of the file types, refer to `charm_shc
-                 <./api-c-shc.html>`_.
+                 For the structure of all file types except for ``npz`` and
+                 ``npz_compressed``, refer to `charm_shc <./api-c-shc.html>`_.
+                 The structure of ``npz`` and ``npz_compressed`` is explained
+                 below.
+
+        In the ``npz`` and ``npz_compressed`` formats, the data are stored as
+        arrays named ``nmax``, ``mu`` , ``r``, ``c`` and ``s``.  ``shape`` of
+        ``nmax``, ``mu`` and ``r`` is ``()``.  The ``c`` and ``s`` arrays have
+        the same shape and ordering as :attr:`c` and :attr:`s`, respectively,
+        though with ``nmax`` being the input parameter to this method.  The
+        ``npz`` file type stores the data uncompressed (see the documentation
+        to ``numpy.savez``), while ``npz_compressed`` uses a compression (see
+        ``numpy.savez_compressed``).
 
         Parameters
         ----------
@@ -669,7 +685,10 @@ class Shc:
             coefficients.  If negative, all coefficients are written.  Default
             value is ``-1``.
         pathname : str
-            Output file path
+            Output file path.  If ``file_type`` is ``npz`` or
+            ``npz_compressed``, ``numpy`` automatically adds the ``.npz``
+            suffix to ``pathname`` if it does not contain it.  For any other
+            ``file_type``, no suffix is added.
         formatting : str
             Formatting to write floating point numbers to text formats,
             optional.  Default is ``'%0.18e'``.
@@ -686,6 +705,9 @@ class Shc:
             The encoding does not apply to the content of the file.  The file
             writting is done by CHarm, so the file content encoding depends on
             your operating system.
+
+            The encoding is ignored with the ``npz`` and ``npz_compressed``
+            file types.
         """
 
         # At this point, "nmax" must be an integer, positive or negative
@@ -714,8 +736,8 @@ class Shc:
         padded.  For the full documentation, refer to `charm_shc
         <./api-c-shc.html>`_.
 
-        .. tip:: To learn how :meth:`add` works, go thorough the
-                 following examples:
+        .. tip:: To learn how :meth:`add` works, go through the following
+                 examples:
 
                  >>> import pyharm as ph
                  >>> import numpy as np
@@ -748,7 +770,7 @@ class Shc:
                  >>>                               # 3.  "op1" is rewritten due
                  >>>                               # to the in-place addition,
                  >>>                               # but only from degree 1 to
-                 >>>                               # degree 5.
+                 >>>                               # degree 4.
                  >>> op1.add(op1)  # In-place addition "op1 + op1" up to degree
                  >>>               # "op1.nmax".
                  >>> rop = op1.add(op2, inplace=False)  # Out-of-place addition
@@ -1102,12 +1124,11 @@ class Shc:
             if n is not None and m is not None:
                 self._check_mlen(n, m)
                 idx = self._get_m_idx(m)
+
                 retc, rets = self.c[idx + (n - m)], self.s[idx + (n - m)]
             elif n is not None and m is None:
-                idx    = (n + 1) * [None]
-                idx[0] = n
-                for m in range(1, n + 1):
-                    idx[m] = idx[m - 1] + self.nmax + 1 - m
+                m   = _np.arange(n + 1)
+                idx = n + m * (self.nmax + 1) - m * (m + 1) // 2
 
                 retc, rets = self.c[idx].copy(), self.s[idx].copy()
             elif n is None and m is not None:
@@ -1155,7 +1176,8 @@ class Shc:
         * If ``n`` and ``m`` are both ``None``, sets all coefficients in
           :attr:`c` and :attr:`s` to ``c`` and ``s``, respectively.  The
           lengths of all arrays must match.  The coefficients in ``c`` and
-          ``s`` must be ordered as reported by :meth:`get_degrees_orders`.
+          ``s`` must be ordered as :attr:`c` and :attr:`s` (see also
+          :meth:`get_degrees_orders`).
 
         Note
         ----
@@ -1530,7 +1552,8 @@ class Shc:
         Parameters
         ----------
         file_type : str
-            Either ``gfc``, ``tbl``, ``mtx`` or ``bin``
+            Either ``gfc``, ``tbl``, ``mtx``, ``bin``, ``dov``, ``npz`` or
+            ``npz_compressed``
         pathname : str
             Input file path
         nmax : integer
@@ -1570,52 +1593,127 @@ class Shc:
         if epoch is not None and not isinstance(epoch, str):
             raise TypeError('\'epoch\' must be a string or \'None\'.')
 
-        func_name = _CHARM + 'shc_read_' + file_type
+        if file_type in ['npz', 'npz_compressed']:
+            npz_file = _np.load(pathname, mmap_mode="r")
+            npz_keys = list(npz_file.keys())
 
-        if file_type == 'gfc':
-            func_gfc          = _libcharm[func_name]
-            func_gfc.restype  = _ct_ulong
-            func_gfc.argtypes = [_ct.c_char_p,
-                                 _ct_ulong,
-                                 _ct.c_char_p,
-                                 _ct.POINTER(_Shc),
-                                 _ct.POINTER(_ph_err._Err)]
-        else:
-            func_rest          = _libcharm[func_name]
-            func_rest.restype  = _ct_ulong
-            func_rest.argtypes = [_ct.c_char_p,
-                                  _ct_ulong,
-                                  _ct.POINTER(_Shc),
-                                  _ct.POINTER(_ph_err._Err)]
+            def find_member(member):
+                if member not in npz_keys:
+                    raise ValueError(f'The \'{member}\' keyword not found in '
+                                     f'\'{pathname}\'.')
 
-        err = _ph_err.init()
-        if nmax == _NMAX_MODEL:
-            if file_type == 'gfc':
-                ret = func_gfc(_str_ptr(pathname, encoding),
-                               _ct_ulong(_get_nmax_model()),
-                               _str_ptr(epoch, encoding),
-                               None,
-                               err)
+                return
+
+            find_member('nmax')
+            find_member('mu')
+            find_member('r')
+            find_member('c')
+            find_member('s')
+
+            def check_scalar_member(member):
+
+                if member.ndim != 0:
+                    raise ValueError(f'\'ndim\' must be \'0\' for '
+                                     f'\'{member}\'.')
+
+                return
+
+            check_scalar_member(npz_file['nmax'])
+            nmax_file = npz_file['nmax'].item()
+
+            check_scalar_member(npz_file['mu'])
+            mu = npz_file['mu'].item()
+
+            check_scalar_member(npz_file['r'])
+            r = npz_file['r'].item()
+
+
+            def check_array_member(npz, member):
+
+                _check_flt_ndarray(npz[member], 1, f'The \'{member}\' array')
+
+                ncs_required = _get_ncs(nmax_file)
+                if npz[member].shape != (ncs_required,):
+                    raise ValueError(f'The shape of \'{member}\' must be '
+                                     f'\'({ncs_required},)\' give the '
+                                     f'\'nmax = {nmax_file}\' in '
+                                     f'\'{pathname}\'.')
+
+                return
+
+            check_array_member(npz_file, 'c')
+            check_array_member(npz_file, 's')
+
+            if nmax == _NMAX_MODEL:
+                ret = nmax_file
             else:
-                ret = func_rest(_str_ptr(pathname, encoding),
-                                _ct_ulong(_get_nmax_model()),
-                                None,
-                                err)
+                if nmax > nmax_file:
+                    raise ValueError('Too low maximum degree inside the '
+                                     'input file to read coefficients '
+                                     'up to degree \"nmax\".')
+                shcs = cls.from_zeros(nmax, mu, r)
+
+                if nmax == nmax_file:
+                    shcs.c[:] = npz_file['c'][:]
+                    shcs.s[:] = npz_file['s'][:]
+                else:
+                    start = 0
+                    for m in range(nmax + 1):
+                        cnm = npz_file['c'][start:(start + nmax + 1 - m)]
+                        snm = npz_file['s'][start:(start + nmax + 1 - m)]
+
+                        shcs.set_coeffs(m=m, c=cnm, s=snm)
+
+                        start += nmax_file + 1 - m
+
+            del npz_file
         else:
-            shcs = cls.from_zeros(nmax)
+            func_name = _CHARM + 'shc_read_' + file_type
+
             if file_type == 'gfc':
-                ret = func_gfc(_str_ptr(pathname, encoding),
-                               _ct_ulong(nmax),
-                               _str_ptr(epoch, encoding),
-                               shcs._Shc,
-                               err)
+                func_gfc          = _libcharm[func_name]
+                func_gfc.restype  = _ct_ulong
+                func_gfc.argtypes = [_ct.c_char_p,
+                                     _ct_ulong,
+                                     _ct.c_char_p,
+                                     _ct.POINTER(_Shc),
+                                     _ct.POINTER(_ph_err._Err)]
             else:
-                ret = func_rest(_str_ptr(pathname, encoding),
-                                _ct_ulong(nmax),
-                                shcs._Shc,
-                                err)
-        _ph_err.handler(err, 1)
-        _ph_err.free(err)
+                func_rest          = _libcharm[func_name]
+                func_rest.restype  = _ct_ulong
+                func_rest.argtypes = [_ct.c_char_p,
+                                      _ct_ulong,
+                                      _ct.POINTER(_Shc),
+                                      _ct.POINTER(_ph_err._Err)]
+
+            err = _ph_err.init()
+            if nmax == _NMAX_MODEL:
+                if file_type == 'gfc':
+                    ret = func_gfc(_str_ptr(pathname, encoding),
+                                   _ct_ulong(_get_nmax_model()),
+                                   _str_ptr(epoch, encoding),
+                                   None,
+                                   err)
+                else:
+                    ret = func_rest(_str_ptr(pathname, encoding),
+                                    _ct_ulong(_get_nmax_model()),
+                                    None,
+                                    err)
+            else:
+                shcs = cls.from_zeros(nmax)
+                if file_type == 'gfc':
+                    ret = func_gfc(_str_ptr(pathname, encoding),
+                                   _ct_ulong(nmax),
+                                   _str_ptr(epoch, encoding),
+                                   shcs._Shc,
+                                   err)
+                else:
+                    ret = func_rest(_str_ptr(pathname, encoding),
+                                    _ct_ulong(nmax),
+                                    shcs._Shc,
+                                    err)
+            _ph_err.handler(err, 1)
+            _ph_err.free(err)
 
         if nmax == _NMAX_MODEL:
             # Returns maximum harmonic degree of the model
@@ -1638,7 +1736,8 @@ class Shc:
         Parameters
         ----------
         file_type : str
-            Either ``tbl``, ``mtx`` or ``bin``
+            Either ``tbl``, ``mtx``, ``bin``, ``dov``, ``npz`` or
+            ``npz_compressed``
         nmax : integer
             Maximum harmonic degree to write the spherical harmonic
             coefficients
@@ -1667,55 +1766,130 @@ class Shc:
         if not isinstance(formatting, str):
             raise TypeError('\'formatting\' must be a string.')
 
-        if file_type == 'dov' and ordering not in [WRITE_N, WRITE_M]:
-            raise ValueError('Unsupported value of \'ordering\'.')
-        elif file_type == 'tbl' and ordering not in [WRITE_N, WRITE_M]:
+        if file_type in ['tbl', 'dov'] and ordering not in [WRITE_N, WRITE_M]:
             raise ValueError('Unsupported value of \'ordering\'.')
 
         self._create_path(pathname)
 
-        func         = _libcharm[_CHARM + 'shc_write_' + file_type]
-        func.restype = None
-        if file_type == 'tbl' or file_type == 'dov':
-            func.argtypes = [_ct.POINTER(_Shc),
-                             _ct_ulong,
-                             _ct.c_char_p,
-                             _ct_int,
-                             _ct.c_char_p,
-                             _ct.POINTER(_ph_err._Err)]
-        elif file_type == 'bin':
-            func.argtypes = [_ct.POINTER(_Shc),
-                             _ct_ulong,
-                             _ct.c_char_p,
-                             _ct.POINTER(_ph_err._Err)]
-        else:
-            func.argtypes = [_ct.POINTER(_Shc),
-                             _ct_ulong,
-                             _ct.c_char_p,
-                             _ct.c_char_p,
-                             _ct.POINTER(_ph_err._Err)]
+        if file_type in ['npz', 'npz_compressed']:
+            if self.nmax == nmax:
+                # This one is easy.  We can simply save the full "self.c" and
+                # "self.s" arrays and all the associated data using "np.savez"
+                # or "np.savez_compressed".
 
-        err = _ph_err.init()
-        if file_type == 'tbl' or file_type == 'dov':
-            func(self._Shc,
-                 _ct_ulong(nmax),
-                 _str_ptr(formatting, encoding),
-                 _ct_int(ordering),
-                 _str_ptr(pathname, encoding),
-                 err)
-        elif file_type == 'bin':
-            func(self._Shc,
-                 _ct_ulong(nmax),
-                 _str_ptr(pathname, encoding),
-                 err)
+                if file_type == 'npz':
+                    func = _np.savez
+                elif file_type == 'npz_compressed':
+                    func = _np.savez_compressed
+
+                func(pathname,
+                     nmax=self.nmax,
+                     mu=self.mu,
+                     r=self.r,
+                     c=self.c,
+                     s=self.s,
+                     allow_pickle=False)
+            else:
+                # This one is tricky.  We want to write only some parts of
+                # "self.c" and "self.s", but we want to do this efficiently in
+                # terms of memory, meaning we do not want to introduce any new
+                # temporary arrays.  This is because "self.c" and "self.s" may
+                # be very large and thus the temporary arrays could be huge,
+                # too, depending on "nmax".
+
+                def write_slices(npz, array, array_name):
+
+                    # Create the "npy" header
+                    header = {'descr':
+                                    _np.lib.format.dtype_to_descr(array.dtype),
+                              'fortran_order': False,
+                              'shape': (_get_ncs(nmax),)}
+
+                    # Create "npy" file inside the "npz" file.  "npz" is
+                    # nothing but a "zip" archive.
+                    with npz.open(array_name, mode='w') as npy:
+                        _np.lib.format.write_array_header_2_0(npy, header)
+
+                        # Create proper views of "array" and write them to
+                        # "npy"
+                        start = 0
+                        for m in range(nmax + 1):
+                            array_slice = array[start:(start + nmax + 1 - m)]
+                            npy.write(memoryview(array_slice).cast('B'))
+
+                            start += self.nmax + 1 - m
+
+                    return
+
+                # Zip compressions used by numpy in "np.savez" and
+                # "np.savez_compressed"
+                if file_type == 'npz':
+                    compression = _zipfile.ZIP_STORED
+                elif file_type == 'npz_compressed':
+                    compression = _zipfile.ZIP_DEFLATED
+
+                # If "nmax == self.nmax", we use "np.savez" to write the data.
+                # "np.savez" automatically adds the ".npz" suffix to the file
+                # name if it does not contain it.  Here, we ensure the same
+                # behaviour also for "nmax < self.nmax".
+                if not pathname.endswith('.npz'):
+                    pathname += '.npz'
+
+                # Create "npy" files with individual members of "self" and add
+                # them to the final "npz" file.
+                with _zipfile.ZipFile(pathname, mode='w',
+                                      compression=compression) as npz:
+                    with npz.open('nmax.npy', mode='w') as npy:
+                        _np.save(npy, nmax, allow_pickle=False)
+                    with npz.open('mu.npy', mode='w') as npy:
+                        _np.save(npy, self.mu, allow_pickle=False)
+                    with npz.open('r.npy', mode='w') as npy:
+                        _np.save(npy, self.r, allow_pickle=False)
+                    write_slices(npz, self.c, 'c.npy')
+                    write_slices(npz, self.s, 's.npy')
         else:
-            func(self._Shc,
-                 _ct_ulong(nmax),
-                 _str_ptr(formatting, encoding),
-                 _str_ptr(pathname, encoding),
-                 err)
-        _ph_err.handler(err, 1)
-        _ph_err.free(err)
+            func         = _libcharm[_CHARM + 'shc_write_' + file_type]
+            func.restype = None
+            if file_type == 'tbl' or file_type == 'dov':
+                func.argtypes = [_ct.POINTER(_Shc),
+                                 _ct_ulong,
+                                 _ct.c_char_p,
+                                 _ct_int,
+                                 _ct.c_char_p,
+                                 _ct.POINTER(_ph_err._Err)]
+            elif file_type == 'bin':
+                func.argtypes = [_ct.POINTER(_Shc),
+                                 _ct_ulong,
+                                 _ct.c_char_p,
+                                 _ct.POINTER(_ph_err._Err)]
+            else:
+                func.argtypes = [_ct.POINTER(_Shc),
+                                 _ct_ulong,
+                                 _ct.c_char_p,
+                                 _ct.c_char_p,
+                                 _ct.POINTER(_ph_err._Err)]
+
+            err = _ph_err.init()
+            if file_type == 'tbl' or file_type == 'dov':
+                func(self._Shc,
+                     _ct_ulong(nmax),
+                     _str_ptr(formatting, encoding),
+                     _ct_int(ordering),
+                     _str_ptr(pathname, encoding),
+                     err)
+            elif file_type == 'bin':
+                func(self._Shc,
+                     _ct_ulong(nmax),
+                     _str_ptr(pathname, encoding),
+                     err)
+            else:
+                func(self._Shc,
+                     _ct_ulong(nmax),
+                     _str_ptr(formatting, encoding),
+                     _str_ptr(pathname, encoding),
+                     err)
+            _ph_err.handler(err, 1)
+            _ph_err.free(err)
 
         return
 
@@ -1843,6 +2017,9 @@ class Shc:
         pathname : str
             Path to a file
         """
+
+        if pathname == '':
+            raise ValueError('\'pathname\' cannot be empty.')
 
         dirpath = _os.path.dirname(pathname)
         if dirpath == '':
@@ -2159,4 +2336,25 @@ def _check_shcs(shcs, varname):
         raise TypeError(f'\'{varname}\' must be a \'{Shc}\' class instance.')
 
     return
+
+
+def _get_ncs(nmax):
+    """
+    Private function to get the length of the ``c`` and ``s`` arrays of ``Shc``
+    class instances from maximum harmonic degree.
+
+    Parameters
+    ----------
+    nmax : integer
+        Maximum harmonic degree
+
+    Returns
+    -------
+    out : integer
+        Number of ``c`` and ``s`` coefficients for a given ``nmax``
+    """
+
+    _check_deg_ord(nmax, 'degree')
+
+    return ((nmax + 2) * (nmax + 1)) // 2
 

@@ -12,6 +12,7 @@ Welcome to CHarm
    api
    benchmarks
    platforms
+   troubleshooting
    citing
    license
    acknowledgements

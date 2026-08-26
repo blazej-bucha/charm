@@ -11,13 +11,28 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-15-intel, macos-14, windows-2022]
+        os: [
+             ubuntu-24.04,
+             ubuntu-24.04-arm,
+             macos-15-intel,
+             macos-14,
+             windows-2022
+            ]
     defaults:
       run:
         shell: bash
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set OpenMP environmental variables on Linux
+        if: startsWith(matrix.os, 'ubuntu')
+        run: |
+          if [ "$RUNNER_ARCH" == "ARM64" ]; then
+            echo "X_SIMD_CHARM=--enable-neon" >> $GITHUB_ENV
+          else
+            echo "X_SIMD_CHARM=--enable-avx" >> $GITHUB_ENV
+          fi
 
       - name: Set some environmental variables on macOS
         if: startsWith(matrix.os, 'macos')
@@ -104,20 +119,19 @@ jobs:
           fi
 
       - name: Build wheels
-        uses: pypa/cibuildwheel@v3.3.1
+        uses: pypa/cibuildwheel@v4.2.0
         env:
           CIBW_BUILD_VERBOSITY: 1
-          CIBW_SKIP: "cp36-* cp37-* cp38-* cp39-* cp310-*
-                      pp37-* pp38-* pp39-* pp310-*
+          CIBW_SKIP: "cp39-* cp310-*
                       *-manylinux_i686 *-musllinux_i686 *-win32*"
           CIBW_CACHE_PATH: "./cibw_cache"
 
 
-          CIBW_ENVIRONMENT_LINUX: CC='gcc' CFLAGS='-O3 -ffast-math -Wpedantic -Wall' LIBS='-lgomp'
+          CIBW_ENVIRONMENT_LINUX: CC='gcc' CFLAGS='-O3 -ffast-math -Wpedantic -Wall' LIBS='-lgomp' X_SIMD_CHARM='${{ env.X_SIMD_CHARM }}'
           CIBW_BEFORE_ALL_LINUX: "yum install -y fftw-devel mpfr-devel ||
                                   apk add --upgrade fftw-dev gmp-dev mpfr-dev ||
                                   apt-get install -y libfftw3-dev mpfr-dev &&
-                                  ./configure --enable-openmp --enable-avx --enable-mpfr --enable-python --with-gnu-ld &&
+                                  ./configure --enable-openmp $X_SIMD_CHARM --enable-mpfr --enable-python --with-gnu-ld &&
                                   make -j &&
                                   make check"
 

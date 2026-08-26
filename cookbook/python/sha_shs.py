@@ -72,7 +72,7 @@ print('')
 # coefficients by harmonic analysis.  The output coefficients in "shcs2" should
 # be the same as the input ones in "shcs".  Note that the signal "f" resides on
 # a sphere that is "1000.0" metres above the reference sphere "shcs.r".  The
-# last input parameter therefore allows user to define the reference radius of
+# last input parameter therefore allows users to define the reference radius of
 # the output coefficients.  In this case, this value is set to "shcs.r" to
 # ensure that "shcs2.r" will be the same as "shcs.r".
 shcs2 = ph.sha.point(grd_pnt, f, nmax, shcs.mu, shcs.r)
