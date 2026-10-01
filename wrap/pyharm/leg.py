@@ -307,6 +307,11 @@ class Pnmj:
             msg  = f'Harmonic degree \'n = {n}\' cannot be smaller than '
             msg += f'harmonic order \'m = {m}\'.'
             raise ValueError(msg)
+        if 2 * j > self.nmax:
+            msg  = f'Couldn\'t get Fourier coefficient for the '
+            msg += f'wavenumber-related variable j = {j}, because the object '
+            msg += f'is initialized only up to degree {self.nmax}.'
+            raise ValueError(msg)
 
 
         if self.ordering == PMNJ:
