@@ -329,6 +329,11 @@ class Shc:
                 msg += f'\'method[0].nmax = {method[0].nmax}\'.'
                 raise ValueError(msg)
 
+            if method[2] > nmax:
+                msg  = f'\'method[2] = {method[2]}\' cannot be larger than '
+                msg += f'\'nmax = {nmax}\'.'
+                raise ValueError(msg)
+
             f             = _CHARM + 'shc_copy'
             func          = _libcharm[f]
             func.restype  = _ct.POINTER(_Shc)
@@ -532,7 +537,7 @@ class Shc:
 
         * ``nmax`` cannot be smaller than ``nmin``,
 
-        * ``nmin_shcs_out`` cannot be smaller than ``nmax``,
+        * ``nmax_shcs_out`` cannot be smaller than ``nmax``,
 
         Parameters
         ----------
