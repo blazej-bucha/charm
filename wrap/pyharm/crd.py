@@ -242,13 +242,6 @@ class _PointBase:
         return
 
 
-    def __exit__(self):
-
-        self._free()
-
-        return
-
-
     def _gl(self, nmax, r=_R):
         """
         Computes the Gauss--Legendre grid for harmonic degree ``nmax`` and
@@ -1185,13 +1178,6 @@ class _CellBase:
 
 
     def __del__(self):
-
-        self._free()
-
-        return
-
-
-    def __exit__(self):
 
         self._free()
 

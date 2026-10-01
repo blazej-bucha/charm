@@ -388,13 +388,6 @@ class Shc:
         return
 
 
-    def __exit__(self):
-
-        self._free()
-
-        return
-
-
     def __add__(self, other):
 
         return self.add(other, inplace=False)

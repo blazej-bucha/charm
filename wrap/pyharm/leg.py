@@ -180,13 +180,6 @@ class Pnmj:
         return
 
 
-    def __exit__(self):
-
-        self._free()
-
-        return
-
-
     @classmethod
     def from_garbage(cls, nmax, ordering=PMNJ):
         """
