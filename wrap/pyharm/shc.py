@@ -2305,7 +2305,7 @@ class Shc:
             raise TypeError('\'f\' must be a string.')
 
         if f not in ['shc_add', 'shc_sub', 'shc_mul', 'shc_div']:
-            raise ValueError(f'Unsupported routine {file_type} for '
+            raise ValueError(f'Unsupported routine {f} for '
                              f'arithmetics with spherical harmonic '
                              f'coefficients.')
 
@@ -2394,7 +2394,7 @@ class Shc:
                      'shc_mul_order_wise',
                      'shc_div_degree_wise',
                      'shc_div_order_wise']:
-            raise ValueError(f'Unsupported routine {file_type} for '
+            raise ValueError(f'Unsupported routine {f} for '
                              f'arithmetics with spherical harmonic '
                              f'coefficients.')
 
