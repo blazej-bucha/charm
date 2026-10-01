@@ -1116,6 +1116,7 @@ class _CellBase:
                         msg += f'latmax.shape[0] = {data[i].shape[0]} '
 
                     msg += f'value.'
+                    raise ValueError(msg)
 
             for i in range(2, 4):
                 if nlon != data[i].shape[0]:
@@ -1126,11 +1127,13 @@ class _CellBase:
                     elif i == 3:
                         msg += f'lonmax.shape[0] = {data[i].shape[0]} '
                     msg += f'value.'
+                    raise ValueError(msg)
 
             if nlat != data[4].shape[0]:
                 msg  = f'The \'nlat = {nlat}\' input parameter does not '
                 msg += f'match the size of the '
                 msg += f'r.shape[0] = {data[4].shape[0]} value.'
+                raise ValueError(msg)
 
             f             = _CHARM + 'crd_cell_init'
             func          = _libcharm[f]
