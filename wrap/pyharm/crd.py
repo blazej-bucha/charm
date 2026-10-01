@@ -182,11 +182,13 @@ class _PointBase:
                 msg  = f'The \'nlat = {nlat}\' input parameter does not match '
                 msg += f'the size of the '
                 msg += f'data[0].shape[0] = {data[0].shape[0]} value.'
+                raise ValueError(msg)
 
             if nlon != data[1].shape[0]:
                 msg  = f'The \'nlon = {nlon}\' input parameter does not match '
                 msg += f'the size of the '
                 msg += f'data[1].shape[0] = {data[1].shape[0]} value.'
+                raise ValueError(msg)
 
             f             = _CHARM + 'crd_point_init'
             func          = _libcharm[f]
