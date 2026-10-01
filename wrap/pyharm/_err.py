@@ -110,18 +110,15 @@ def reset(a):
     ----------
     a : _Err
         An instance of the `_Err` class to be reset.
-
-    Returns
-    -------
-    out : _Err
-        `a` reset to empty values
     """
 
     func          = _libcharm[_CHARM + 'err_reset']
     func.restype  = None
     func.argtypes = [_ct.POINTER(_Err)]
 
-    return func(a)
+    func(a)
+
+    return
 
 
 def handler(a, terminate):
