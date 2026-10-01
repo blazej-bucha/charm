@@ -20,7 +20,7 @@ from . import _libcharm, _libcharmname, _CHARM, _pyharm
 from ._data_types import _ct_int, _ct_ulong, _ct_size_t, _ct_flt
 from ._get_module_constants import _get_module_constants
 from ._check_types import _check_deg_ord, _check_radius, _check_flt_ndarray, \
-                          _check_int_scalar, _check_pointer, _check_pointer
+                          _check_int_scalar, _check_pointer
 from ._get_empty_array import _get_empty_array
 from .shc import _R
 
