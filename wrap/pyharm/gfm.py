@@ -14,7 +14,6 @@ Module for spectral gravity forward modelling.  Offers:
 
 import ctypes as _ct
 import numpy as _np
-from warnings import warn
 from . import _libcharm, _CHARM
 from . import shc as _ph_shc
 from . import misc as _ph_misc
