@@ -498,4 +498,6 @@ def _get_pnmj_ordering_str(ordering):
         return f'{_pyharm}.leg.PMJN'
     elif ordering is None:
         return None
+    else:
+        raise ValueError(f'Unsupported ordering value \'{ordering}\'.')
 
