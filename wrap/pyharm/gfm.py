@@ -872,11 +872,6 @@ if _ph_misc.buildopt_mpfr():
             shcs      = None
             shcs_pptr = None
 
-        if not isinstance(density_shcs, _ph_shc.Shc):
-            msg  = f'\'density_shcs\' must be an instance of the following '
-            msg += f'class: {_ph_shc.Shc}.'
-            raise TypeError(msg)
-
         err = _ph_err.init()
         func(shape_shcs._Shc,
              _ct_ulong(shape_nmax),
