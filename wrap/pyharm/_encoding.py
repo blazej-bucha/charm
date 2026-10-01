@@ -16,17 +16,15 @@ import ctypes as _ct
 
 def _str_ptr(string, encoding=_default_encoding):
     """
-    Returns a ctypes pointer to `string` encoded with `encoding`.  If `string`
-    is `None`, returned is `None`.
-
-    Before entering this function, `string` should be checked whether it is
-    indeed a string or `None`.
+    Returns a ctypes pointer to `string` encoded with `encoding`.
     """
 
-    if string is None:
+    if isinstance(string, str):
+        return _ct.create_string_buffer(string.encode(encoding))
+    elif string is None:
         return None
     else:
-        return _ct.create_string_buffer(string.encode(encoding))
+        raise ValueError('\'string\' must be of \'str\' type or \'None\'.')
 
 
 def _bytes_decode(string,
@@ -38,5 +36,10 @@ def _bytes_decode(string,
     `_default_encoding_errors`.
     """
 
-    return string.decode(encoding=_default_encoding,
-                         errors=_default_encoding_errors)
+    if isinstance(string, bytes):
+        return string.decode(encoding=_default_encoding,
+                             errors=_default_encoding_errors)
+    elif string is None:
+        return None
+    else:
+        raise ValueError('\'string\' must be of \'bytes\' type.')
