@@ -165,7 +165,7 @@ def handler(a, terminate):
             raise ValueError(f'The \'func[{l}]\' string in the '
                              f'\'{_CHARM}err\' structure that was passed by '
                              f'CHarm to PyHarm does not contain the '
-                             f'null character.  Canot read the CHarm error.')
+                             f'null character.  Cannot read the CHarm error.')
 
         err_msg += f'   File \'{f[:idx1]}\', line: {e.line[l]}, '
         err_msg += f'function: \'{func[:idx2]}\'\n\n'
@@ -182,7 +182,7 @@ def handler(a, terminate):
         raise ValueError(f'The \'msg\' string in the '
                          f'\'{_CHARM}err\' structure that was passed by '
                          f'CHarm to PyHarm does not contain the '
-                         f'null character.  Canot read the CHarm error.')
+                         f'null character.  Cannot read the CHarm error.')
     err_msg += f'Error message: {msg[:idx]}\n'
 
     if terminate:
