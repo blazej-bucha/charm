@@ -450,7 +450,7 @@ def _check_gfm1(shape_shcs,
 
     if potential_shcs_path is not None and \
         not isinstance(potential_shcs_path, str):
-        raise TypeError('\'shape_density_shcs_path\' must be a string '
+        raise TypeError('\'potential_shcs_path\' must be a string '
                         'or \'None\'.')
 
     if shcs_file_format is not None and \
