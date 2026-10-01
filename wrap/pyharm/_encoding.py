@@ -6,6 +6,10 @@ ctype pointer to a Python string.
 # Default encoding
 _default_encoding = 'utf-8'
 
+# Default treatment of characters outside "_default_encoding" when calling the
+# "decode" method on strings of the "bytes" class
+_default_encoding_errors = 'replace'
+
 
 import ctypes as _ct
 
@@ -23,3 +27,16 @@ def _str_ptr(string, encoding=_default_encoding):
         return None
     else:
         return _ct.create_string_buffer(string.encode(encoding))
+
+
+def _bytes_decode(string,
+                  encoding=_default_encoding,
+                  errors=_default_encoding_errors):
+    """
+    Returns `str` by encoding `string` of class `bytes` using
+    `_default_encoding` and treating encoding errors by
+    `_default_encoding_errors`.
+    """
+
+    return string.decode(encoding=_default_encoding,
+                         errors=_default_encoding_errors)
