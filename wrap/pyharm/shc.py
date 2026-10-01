@@ -277,10 +277,6 @@ class Shc:
 
         elif isinstance(method, tuple) and len(method) == 2:
 
-            if len(method) != 2:
-                raise ValueError('The length of the \'method\' tuple must be '
-                                 '2.')
-
             _check_flt_ndarray(method[0], 1, 'The \'c\' item form the '
                                              '\'method\' tuple')
             _check_flt_ndarray(method[1], 1, 'The \'s\' item from the '
