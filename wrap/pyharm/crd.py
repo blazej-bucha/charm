@@ -1587,6 +1587,29 @@ def _buff2arr(ptr, length, string):
         raise TypeError(f'The type of \'length\' is {type(length)}, but must '
                         f'be {type(int)}.')
 
+    def get_error_msg(arr):
+        """
+        Private function to return an error message.
+
+        Parameters
+        ----------
+        arr : str
+            Name of an array
+
+        Returns
+        -------
+        out : str
+            Error message
+        """
+
+        if not isinstance(arr, str):
+            raise TypeError('\'arr\' must be a string.')
+
+        ret = f'The \'{arr}\' attribute is a \'NULL\' pointer.'
+
+        return ret
+
+
     if length == 0:
         ret = _get_empty_array()
     elif not ptr:
