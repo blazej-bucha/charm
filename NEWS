@@ -1,18 +1,20 @@
-Upcoming release:
+CHarm 0.4.11:
 
 * Added support for reading and writing spherical harmonic coefficients to the 
   Python's `npy` format in PyHarm.  This is the most efficient format for 
   reading and writing spherical harmonic coefficients in a portable binary 
   format in terms of speed and memory usage.
 
-  The downside of `npz` and `npz_compressed` is that reading coefficients from 
-  these formats is inefficient when requesting only a part of the coefficients 
-  from the file.  This is slow and also requires to temporarily read all 
-  coefficients from the file despite only some of them actually need to be 
-  extracted.  So, if these formats store coefficients up to degree, say, 
-  `50000`, then all `c` or `s` coefficients must be temporarily loaded into RAM 
-  even though the user wants only coefficients to degree, say, `0`.  These 
-  issues do not occur with the newly introduced `npy` format.
+  The downside of `npz` and `npz_compressed` is that reading these formats is 
+  inefficient when requesting only a part of the coefficients from the file.  
+  This is slow and requires background reading of all coefficients from the 
+  file despite only some of them actually need to be extracted.  So, if these 
+  formats store coefficients up to degree, say, `50000`, then all `c` or `s` 
+  coefficients must be temporarily loaded into RAM even though the user wants 
+  only coefficients to degree, say, `0`.  These issues do not occur with the 
+  newly introduced `npy` format.
+
+* Many tiny improvements in the PyHarm source code.
 
 CHarm 0.4.10:
 
