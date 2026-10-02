@@ -170,7 +170,7 @@ class Shc:
     def r(self, r):
         _check_flt_scalar(r, '\'r\'')
         if r <= 0.0:
-            raise ValueError('\'r\' cannot be negative.')
+            raise ValueError('\'r\' must be positive.')
         self._Shc.contents.r = _charm_flt(r)
 
         return
