@@ -180,13 +180,6 @@ class Pnmj:
         return
 
 
-    def __exit__(self):
-
-        self._free()
-
-        return
-
-
     @classmethod
     def from_garbage(cls, nmax, ordering=PMNJ):
         """
@@ -306,6 +299,11 @@ class Pnmj:
         if n < m:
             msg  = f'Harmonic degree \'n = {n}\' cannot be smaller than '
             msg += f'harmonic order \'m = {m}\'.'
+            raise ValueError(msg)
+        if 2 * j > self.nmax:
+            msg  = f'Couldn\'t get Fourier coefficient for the '
+            msg += f'wavenumber-related variable j = {j}, because the object '
+            msg += f'is initialized only up to degree {self.nmax}.'
             raise ValueError(msg)
 
 
@@ -493,4 +491,6 @@ def _get_pnmj_ordering_str(ordering):
         return f'{_pyharm}.leg.PMJN'
     elif ordering is None:
         return None
+    else:
+        raise ValueError(f'Unsupported ordering value \'{ordering}\'.')
 

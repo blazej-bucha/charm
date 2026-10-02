@@ -245,7 +245,7 @@ def _check_pn1m1pn2m2_inputs(cltmin, cltmax, n1, m1, n2, m2, pnmj):
         raise ValueError(f'\'m2 = {m2}\' cannot be larger than \'n2 = {n2}\'.')
 
     if max(n1, n2) > pnmj.nmax:
-        raise ValueError('The \'Pnmj\' instance is initialize up to degree '
+        raise ValueError('The \'Pnmj\' instance is initialized up to degree '
                          '%d, but must be initialized at least up to degree '
                          '\'max(n1, n2) = %d\'.' % (pnmj.nmax, max(n1, n2)))
 

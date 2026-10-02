@@ -60,7 +60,8 @@ _MU = _pyharm_flt(1.0)
 # All possible file types to read and write spherical harmonic coefficients.
 # An exception is that 'gfc' format is not supported to write spherical
 # harmonic coefficients.
-_FILE_TYPES = ['gfc', 'bin', 'mtx', 'tbl', 'dov', 'npz', 'npz_compressed']
+_FILE_TYPES = ['gfc', 'bin', 'mtx', 'tbl', 'dov', 'npy', 'npz',
+               'npz_compressed']
 
 
 class _Shc(_ct.Structure):
@@ -168,6 +169,8 @@ class Shc:
     @r.setter
     def r(self, r):
         _check_flt_scalar(r, '\'r\'')
+        if r <= 0.0:
+            raise ValueError('\'r\' must be positive.')
         self._Shc.contents.r = _charm_flt(r)
 
         return
@@ -276,10 +279,6 @@ class Shc:
 
         elif isinstance(method, tuple) and len(method) == 2:
 
-            if len(method) != 2:
-                raise ValueError('The length of the \'method\' tuple must be '
-                                 '2.')
-
             _check_flt_ndarray(method[0], 1, 'The \'c\' item form the '
                                              '\'method\' tuple')
             _check_flt_ndarray(method[1], 1, 'The \'s\' item from the '
@@ -328,6 +327,11 @@ class Shc:
             if method[2] > method[0].nmax:
                 msg  = f'\'method[2] = {method[2]}\' cannot be larger than '
                 msg += f'\'method[0].nmax = {method[0].nmax}\'.'
+                raise ValueError(msg)
+
+            if method[2] > nmax:
+                msg  = f'\'method[2] = {method[2]}\' cannot be larger than '
+                msg += f'\'nmax = {nmax}\'.'
                 raise ValueError(msg)
 
             f             = _CHARM + 'shc_copy'
@@ -383,13 +387,6 @@ class Shc:
 
 
     def __del__(self):
-
-        self._free()
-
-        return
-
-
-    def __exit__(self):
 
         self._free()
 
@@ -540,7 +537,7 @@ class Shc:
 
         * ``nmax`` cannot be smaller than ``nmin``,
 
-        * ``nmin_shcs_out`` cannot be smaller than ``nmax``,
+        * ``nmax_shcs_out`` cannot be smaller than ``nmax``,
 
         Parameters
         ----------
@@ -589,9 +586,10 @@ class Shc:
                  >>> import pyharm as ph
                  >>> ph.shc.Shc.get_file_types()
 
-                 For the structure of all file types except for ``npz`` and
-                 ``npz_compressed``, refer to `charm_shc <./api-c-shc.html>`_.
-                 For ``npz`` and ``npz_compressed``, see :meth:`to_file`.
+                 For the structure of all file types except for ``npy``,
+                 ``npz`` and ``npz_compressed``, refer to `charm_shc
+                 <./api-c-shc.html>`_.  For ``npy``, ``npz`` and
+                 ``npz_compressed``, see :meth:`to_file`.
 
         Parameters
         ----------
@@ -662,19 +660,44 @@ class Shc:
                  >>> import pyharm as ph
                  >>> ph.shc.Shc.get_file_types()
 
-                 For the structure of all file types except for ``npz`` and
-                 ``npz_compressed``, refer to `charm_shc <./api-c-shc.html>`_.
-                 The structure of ``npz`` and ``npz_compressed`` is explained
-                 below.
+                 For the structure of all file types except for ``npy``,
+                 ``npz`` and ``npz_compressed``, refer to `charm_shc
+                 <./api-c-shc.html>`_.  The structure of ``npy``, ``npz`` and
+                 ``npz_compressed`` is explained below.
 
-        In the ``npz`` and ``npz_compressed`` formats, the data are stored as
-        arrays named ``nmax``, ``mu`` , ``r``, ``c`` and ``s``.  ``shape`` of
-        ``nmax``, ``mu`` and ``r`` is ``()``.  The ``c`` and ``s`` arrays have
-        the same shape and ordering as :attr:`c` and :attr:`s`, respectively,
-        though with ``nmax`` being the input parameter to this method.  The
-        ``npz`` file type stores the data uncompressed (see the documentation
-        to ``numpy.savez``), while ``npz_compressed`` uses a compression (see
-        ``numpy.savez_compressed``).
+        * In the ``npy`` format, the data are stored as a single floating point
+          numpy array with the elements being ``nmax``, :attr:`mu`,
+          :attr:`r`, ``c`` and ``s`` (in this order).  The ``c`` and ``s``
+          arrays have the same shape and ordering as :attr:`c` and :attr:`s`,
+          respectively, though with ``nmax`` being the input parameter to this
+          method.
+
+          The ``npy`` format is recommended to read/write spherical harmonic
+          coefficients efficiently.
+
+          This format is not available from the CHarm interface.
+
+        * In the ``npz`` and ``npz_compressed`` formats, the data are stored as
+          arrays named ``nmax``, ``mu`` , ``r``, ``c`` and ``s``.  ``shape`` of
+          ``nmax``, ``mu`` and ``r`` is ``()``.  The ``c`` and ``s`` arrays
+          have the same shape and ordering as :attr:`c` and :attr:`s`,
+          respectively, though with ``nmax`` being the input parameter to this
+          method.  The ``npz`` file type stores the data uncompressed (see the
+          documentation to ``numpy.savez``), while ``npz_compressed`` uses
+          a compression (see ``numpy.savez_compressed``).
+
+          If you do not read all coefficients from the ``npz`` and
+          ``npz_compressed`` formats but only a part of them up to degree
+          ``nmax`` that is smaller than :attr:`nmax`, the reading can be slow.
+          Moreover, with ``npz`` and ``npz_compressed``, all coefficients must
+          be temporarily read from the file (because of how these formats are
+          defined by Numpy) and only after that PyHarm can pick your
+          coefficients.  All this may be inefficient in terms of speed and
+          memory usage for large coefficient sets which is why the ``npy``
+          format is  generally the preferred one.
+
+          The ``npz`` and ``npz_compressed`` formats are not available from the
+          CHarm interface.
 
         Parameters
         ----------
@@ -1593,8 +1616,70 @@ class Shc:
         if epoch is not None and not isinstance(epoch, str):
             raise TypeError('\'epoch\' must be a string or \'None\'.')
 
-        if file_type in ['npz', 'npz_compressed']:
-            npz_file = _np.load(pathname, mmap_mode="r")
+        if file_type == 'npy':
+            npy_file = _np.load(pathname, mmap_mode='r', allow_pickle=False)
+
+            # Check the type of the array in "npy_file"
+            _check_flt_ndarray(npy_file, 1, f'The array inside \"{pathname}\"')
+
+            # Read the scalar values
+            if npy_file.size < 1:
+                raise ValueError(f'The array in \"{pathname}\" '
+                                 f'cannot have size \"{npy_file.size}\".')
+            if (npy_file[0] % 1) != 0:
+                raise ValueError(f'The maximum harmonic degree in '
+                                 f'\"{pathname}\" must be an integer.')
+            nmax_file = int(npy_file[0])
+            # Check whether the array in "pathname" has number of elements
+            # corresponding to "nmax_file"
+            required_size = 3 + 2 * _get_ncs(nmax_file)
+            if npy_file.size != required_size:
+                raise ValueError(f'Wrong size of the array stored in '
+                                 f'\"{pathname}\".  The array inside the '
+                                 f'file has the size '
+                                 f'\"{npy_file.size}\", but '
+                                 f'\"{required_size}\" is required for '
+                                 f'\"nmax = {nmax_file}\".')
+
+            mu = npy_file[1]
+            r  = npy_file[2]
+
+            # Now read the coefficients
+            if nmax == _NMAX_MODEL:
+                ret = nmax_file
+            else:
+                if nmax > nmax_file:
+                    raise ValueError('Too low maximum degree inside the '
+                                     'input file to read coefficients '
+                                     'up to degree \"nmax\".')
+                shcs = cls.from_zeros(nmax, mu, r)
+
+                if nmax == nmax_file:
+                    start = 3
+                    end   = start + _get_ncs(nmax_file)
+                    shcs.set_coeffs(c=npy_file[start:end], s=npy_file[end:])
+                else:
+                    def read_slices_from_npy(array, start_npy):
+                        start_arr = 0
+
+                        for m in range(nmax + 1):
+                            end_arr = start_arr + nmax + 1 - m
+                            end_npy = start_npy + nmax + 1 - m
+
+                            array[start_arr:end_arr] = \
+                                                    npy_file[start_npy:end_npy]
+
+                            start_arr  = end_arr
+                            start_npy += nmax_file + 1 - m
+
+                        return
+
+                    read_slices_from_npy(shcs.c, 3)
+                    read_slices_from_npy(shcs.s, 3 + _get_ncs(nmax_file))
+
+            del npy_file
+        elif file_type in ['npz', 'npz_compressed']:
+            npz_file = _np.load(pathname, mmap_mode='r')
             npz_keys = list(npz_file.keys())
 
             def find_member(member):
@@ -1771,7 +1856,53 @@ class Shc:
 
         self._create_path(pathname)
 
-        if file_type in ['npz', 'npz_compressed']:
+        if file_type == 'npy':
+            # Get the size of the stacked array "[nmax, self.mu, self.r, C00,
+            # ..., Cnmax,nmax, S00, ..., Snmax,nmax]".
+            size = 3 + 2 * _get_ncs(nmax)
+
+            npy_file = _np.lib.format.open_memmap(pathname,
+                                                  mode='w+',
+                                                  dtype=_pyharm_flt,
+                                                  shape=(size,))
+
+            # First, write the scalar values "nmax", "mu" and "r".  "nmax" is
+            # cast to a floating point number so that it can be stored with the
+            # rest of the floating point data in the same array
+            npy_file[0] = _pyharm_flt(nmax)
+            npy_file[1] = self.mu
+            npy_file[2] = self.r
+
+            # Now write the coefficients
+            if self.nmax == nmax:
+                start = 3
+                end = start + self.c.size
+                npy_file[start:end] = self.c
+
+                start = end
+                end   = start + self.s.size
+                npy_file[start:end] = self.s
+            else:
+                def write_slices_to_npy(arr, start_npy):
+                    start_arr = 0
+
+                    for m in range(nmax + 1):
+                        end_npy = start_npy + nmax + 1 - m
+                        end_arr = start_arr + nmax + 1 - m
+
+                        npy_file[start_npy:end_npy] = arr[start_arr:end_arr]
+
+                        start_npy  = end_npy
+                        start_arr += self.nmax + 1 - m
+
+                    return
+
+                write_slices_to_npy(self.c, 3)
+                write_slices_to_npy(self.s, 3 + _get_ncs(nmax))
+
+            npy_file.flush()
+            del npy_file
+        elif file_type in ['npz', 'npz_compressed']:
             if self.nmax == nmax:
                 # This one is easy.  We can simply save the full "self.c" and
                 # "self.s" arrays and all the associated data using "np.savez"
@@ -1797,7 +1928,7 @@ class Shc:
                 # be very large and thus the temporary arrays could be huge,
                 # too, depending on "nmax".
 
-                def write_slices(npz, array, array_name):
+                def write_slices_to_npz(npz, array, array_name):
 
                     # Create the "npy" header
                     header = {'descr':
@@ -1845,8 +1976,8 @@ class Shc:
                         _np.save(npy, self.mu, allow_pickle=False)
                     with npz.open('r.npy', mode='w') as npy:
                         _np.save(npy, self.r, allow_pickle=False)
-                    write_slices(npz, self.c, 'c.npy')
-                    write_slices(npz, self.s, 's.npy')
+                    write_slices_to_npz(npz, self.c, 'c.npy')
+                    write_slices_to_npz(npz, self.s, 's.npy')
         else:
             func         = _libcharm[_CHARM + 'shc_write_' + file_type]
             func.restype = None
@@ -2174,7 +2305,7 @@ class Shc:
             raise TypeError('\'f\' must be a string.')
 
         if f not in ['shc_add', 'shc_sub', 'shc_mul', 'shc_div']:
-            raise ValueError(f'Unsupported routine {file_type} for '
+            raise ValueError(f'Unsupported routine {f} for '
                              f'arithmetics with spherical harmonic '
                              f'coefficients.')
 
@@ -2263,7 +2394,7 @@ class Shc:
                      'shc_mul_order_wise',
                      'shc_div_degree_wise',
                      'shc_div_order_wise']:
-            raise ValueError(f'Unsupported routine {file_type} for '
+            raise ValueError(f'Unsupported routine {f} for '
                              f'arithmetics with spherical harmonic '
                              f'coefficients.')
 

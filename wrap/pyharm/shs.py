@@ -148,6 +148,8 @@ def _point_gradn(pnt, shcs, nmax, gradn):
         nelem = 3
     elif gradn == 2:
         nelem = 6
+    else:
+        raise ValueError('\'gradn\' must be either \'1\' or \'2\'.')
 
     func          = _libcharm[_CHARM + 'shs_point_grad' + f'{gradn}']
     func.restype  = None

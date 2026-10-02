@@ -20,7 +20,7 @@ from . import _libcharm, _libcharmname, _CHARM, _pyharm
 from ._data_types import _ct_int, _ct_ulong, _ct_size_t, _ct_flt
 from ._get_module_constants import _get_module_constants
 from ._check_types import _check_deg_ord, _check_radius, _check_flt_ndarray, \
-                          _check_int_scalar, _check_pointer, _check_pointer
+                          _check_int_scalar, _check_pointer
 from ._get_empty_array import _get_empty_array
 from .shc import _R
 
@@ -182,11 +182,13 @@ class _PointBase:
                 msg  = f'The \'nlat = {nlat}\' input parameter does not match '
                 msg += f'the size of the '
                 msg += f'data[0].shape[0] = {data[0].shape[0]} value.'
+                raise ValueError(msg)
 
             if nlon != data[1].shape[0]:
                 msg  = f'The \'nlon = {nlon}\' input parameter does not match '
                 msg += f'the size of the '
                 msg += f'data[1].shape[0] = {data[1].shape[0]} value.'
+                raise ValueError(msg)
 
             f             = _CHARM + 'crd_point_init'
             func          = _libcharm[f]
@@ -234,13 +236,6 @@ class _PointBase:
 
 
     def __del__(self):
-
-        self._free()
-
-        return
-
-
-    def __exit__(self):
 
         self._free()
 
@@ -1114,6 +1109,7 @@ class _CellBase:
                         msg += f'latmax.shape[0] = {data[i].shape[0]} '
 
                     msg += f'value.'
+                    raise ValueError(msg)
 
             for i in range(2, 4):
                 if nlon != data[i].shape[0]:
@@ -1124,11 +1120,13 @@ class _CellBase:
                     elif i == 3:
                         msg += f'lonmax.shape[0] = {data[i].shape[0]} '
                     msg += f'value.'
+                    raise ValueError(msg)
 
             if nlat != data[4].shape[0]:
                 msg  = f'The \'nlat = {nlat}\' input parameter does not '
                 msg += f'match the size of the '
                 msg += f'r.shape[0] = {data[4].shape[0]} value.'
+                raise ValueError(msg)
 
             f             = _CHARM + 'crd_cell_init'
             func          = _libcharm[f]
@@ -1180,13 +1178,6 @@ class _CellBase:
 
 
     def __del__(self):
-
-        self._free()
-
-        return
-
-
-    def __exit__(self):
 
         self._free()
 
@@ -1584,6 +1575,29 @@ def _buff2arr(ptr, length, string):
     if not isinstance(length, int):
         raise TypeError(f'The type of \'length\' is {type(length)}, but must '
                         f'be {type(int)}.')
+
+    def get_error_msg(arr):
+        """
+        Private function to return an error message.
+
+        Parameters
+        ----------
+        arr : str
+            Name of an array
+
+        Returns
+        -------
+        out : str
+            Error message
+        """
+
+        if not isinstance(arr, str):
+            raise TypeError('\'arr\' must be a string.')
+
+        ret = f'The \'{arr}\' attribute is a \'NULL\' pointer.'
+
+        return ret
+
 
     if length == 0:
         ret = _get_empty_array()

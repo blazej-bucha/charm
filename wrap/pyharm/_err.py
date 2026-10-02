@@ -10,6 +10,7 @@ from ._get_module_constants import _get_module_constants
 from ._constants import _globals
 from ._data_types import _ct_int, _ct_size_t
 from ._check_types import _check_pointer
+from ._encoding import _bytes_decode
 
 
 # Get the module constants from "_constants.py" and add them to the module's
@@ -17,7 +18,7 @@ from ._check_types import _check_pointer
 _get_module_constants('CHARM_ERR_')
 
 
-# Character to represent the C's termination character
+# Character to represent the C's null character
 NULL_CHAR = '\0'
 
 
@@ -110,18 +111,15 @@ def reset(a):
     ----------
     a : _Err
         An instance of the `_Err` class to be reset.
-
-    Returns
-    -------
-    out : _Err
-        `a` reset to empty values
     """
 
     func          = _libcharm[_CHARM + 'err_reset']
     func.restype  = None
     func.argtypes = [_ct.POINTER(_Err)]
 
-    return func(a)
+    func(a)
+
+    return
 
 
 def handler(a, terminate):
@@ -153,11 +151,21 @@ def handler(a, terminate):
 
     for l in range(e.level - 1, -1, -1):
 
-        f    = e.file[l][:MAX_FILE].decode()
+        f    = _bytes_decode(e.file[l][:MAX_FILE])
         idx1 = f.find(NULL_CHAR)
+        if idx1 == -1:
+            raise ValueError(f'The \'file[{l}]\' string in the '
+                             f'\'{_CHARM}err\' structure that was passed by '
+                             f'CHarm to PyHarm does not contain the '
+                             f'null character.  Cannot read the CHarm error.')
 
-        func = e.func[l][:MAX_FUNC].decode()
+        func = _bytes_decode(e.func[l][:MAX_FUNC])
         idx2 = func.find(NULL_CHAR)
+        if idx2 == -1:
+            raise ValueError(f'The \'func[{l}]\' string in the '
+                             f'\'{_CHARM}err\' structure that was passed by '
+                             f'CHarm to PyHarm does not contain the '
+                             f'null character.  Cannot read the CHarm error.')
 
         err_msg += f'   File \'{f[:idx1]}\', line: {e.line[l]}, '
         err_msg += f'function: \'{func[:idx2]}\'\n\n'
@@ -168,8 +176,13 @@ def handler(a, terminate):
         err_msg += 'not be reported.\n'
         err_msg += f'\n'
 
-    msg = e.msg[:MAX_MSG].decode()
+    msg = _bytes_decode(e.msg[:MAX_MSG])
     idx = msg.find(NULL_CHAR)
+    if idx == -1:
+        raise ValueError(f'The \'msg\' string in the '
+                         f'\'{_CHARM}err\' structure that was passed by '
+                         f'CHarm to PyHarm does not contain the '
+                         f'null character.  Cannot read the CHarm error.')
     err_msg += f'Error message: {msg[:idx]}\n'
 
     if terminate:

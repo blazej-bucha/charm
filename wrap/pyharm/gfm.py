@@ -14,7 +14,6 @@ Module for spectral gravity forward modelling.  Offers:
 
 import ctypes as _ct
 import numpy as _np
-from warnings import warn
 from . import _libcharm, _CHARM
 from . import shc as _ph_shc
 from . import misc as _ph_misc
@@ -450,7 +449,7 @@ def _check_gfm1(shape_shcs,
 
     if potential_shcs_path is not None and \
         not isinstance(potential_shcs_path, str):
-        raise TypeError('\'shape_density_shcs_path\' must be a string '
+        raise TypeError('\'potential_shcs_path\' must be a string '
                         'or \'None\'.')
 
     if shcs_file_format is not None and \
@@ -871,11 +870,6 @@ if _ph_misc.buildopt_mpfr():
         else:
             shcs      = None
             shcs_pptr = None
-
-        if not isinstance(density_shcs, _ph_shc.Shc):
-            msg  = f'\'density_shcs\' must be an instance of the following '
-            msg += f'class: {_ph_shc.Shc}.'
-            raise TypeError(msg)
 
         err = _ph_err.init()
         func(shape_shcs._Shc,

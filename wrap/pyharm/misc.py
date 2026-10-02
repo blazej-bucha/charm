@@ -9,6 +9,7 @@ All functions that deal with numerics are written in double precision.
 
 from . import _libcharm, _CHARM
 from ._data_types import _ct_int
+from ._encoding import _bytes_decode
 import ctypes as _ct
 
 
@@ -22,7 +23,7 @@ def get_version():
     func.restype  = _ct.c_char_p
     func.argtypes = None
 
-    return func().decode()
+    return _bytes_decode(func())
 
 
 def print_info():
@@ -168,7 +169,7 @@ def buildopt_version_fftw():
     func.restype  = _ct.c_char_p
     func.argtypes = None
 
-    return func().decode()
+    return _bytes_decode(func())
 
 
 def buildopt_version_mpi():
@@ -237,7 +238,7 @@ def buildopt_version_mpfr():
 
     major, minor, patch = _ct_int(0), _ct_int(0), _ct_int(0)
     ret = func(_ct.pointer(major), _ct.pointer(minor), _ct.pointer(patch))
-    return ret.decode(), major.value, minor.value, patch.value
+    return _bytes_decode(ret), major.value, minor.value, patch.value
 
 
 def buildopt_version_gmp():
@@ -254,7 +255,7 @@ def buildopt_version_gmp():
 
     major, minor, patch = _ct_int(0), _ct_int(0), _ct_int(0)
     ret = func(_ct.pointer(major), _ct.pointer(minor), _ct.pointer(patch))
-    return ret.decode(), major.value, minor.value, patch.value
+    return _bytes_decode(ret), major.value, minor.value, patch.value
 
 
 def buildopt_isfinite():
