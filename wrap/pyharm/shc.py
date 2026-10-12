@@ -883,14 +883,14 @@ class Shc:
 
     def mul(self, op2, nmin=0, nmax=None, inplace=True):
         """
-        The same as :meth:`add` but the coefficients of ``op2`` are
-        multiplied by the coefficients of ``self``.
+        The same as :meth:`add` but the coefficients of ``self`` are
+        multiplied by the coefficients of ``op2``.
 
         For the full documentation, refer to `charm_shc <./api-c-shc.html>`_.
 
         .. note:: Multiplying coefficients of matching degrees and orders from
                   ``self`` and ``op2`` in the spectral domain is not equivalent
-                  to the multiplication the functions given by ``self`` and
+                  to the multiplication of the functions given by ``self`` and
                   ``op2`` in the spatial domain.
         """
 
@@ -956,8 +956,8 @@ class Shc:
 
     def div(self, op2, nmin=0, nmax=None, inplace=True):
         """
-        The same as :meth:`add` but the coefficients of ``op2`` are
-        divided by the coefficients of ``self``.
+        The same as :meth:`add` but the coefficients of ``self`` are
+        divided by the coefficients of ``op2``.
 
         For the full documentation, refer to `charm_shc <./api-c-shc.html>`_.
 

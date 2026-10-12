@@ -1390,7 +1390,7 @@ CHARM_EXTERN void CHARM_CDECL charm@P@_shc_sub(charm@P@_shc *rop,
  *
  * @note Multiplying coefficients of matching degrees and orders from ``op1``
  * and ``op2`` in the spectral domain is not equivalent to the multiplication
- * the functions given by ``op1`` and ``op2`` in the spatial domain.
+ * of the functions given by ``op1`` and ``op2`` in the spatial domain.
  *
  * */
 CHARM_EXTERN void CHARM_CDECL charm@P@_shc_mul(charm@P@_shc *rop,
